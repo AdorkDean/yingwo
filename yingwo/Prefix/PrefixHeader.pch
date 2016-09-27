@@ -1,0 +1,100 @@
+//
+//  PrefixHeader.pch
+//  yingwo
+//
+//  Created by apple on 16/7/11.
+//  Copyright © 2016年 wangxiaofa. All rights reserved.
+//
+
+/*
+ *  头文件类，放入此文件的头文件具有公共访问的特点，即全局头文件
+ */
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//Library
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "LSYConfig.h"
+#import "LSYAlbum.h"
+
+//pod第三方库
+#import "ReactiveCocoa.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
+#import "SVProgressHUD.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+#import "Masonry.h"
+#import "MJExtension.h"
+#import "MJRefresh.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+#import "MagicalRecord.h"
+#import "QiniuSDK.h"
+#import "UIImageView+WebCache.h"
+#import "POP.h"
+#import "TTTAttributedLabel.h"
+#import "HPGrowingTextView.h"
+#import <RSKImageCropper/RSKImageCropper.h>
+
+//第三方框架vender,这里的第三方框架后做改动
+#import "LSYNavigationController.h"
+#import "LSYAlbumCatalog.h"
+#import "CatZanButton.h"
+#import "GalleryView.h"
+#import "ISEmojiView.h"
+#import "UINavigationBar+Awesome.h"
+
+//自定义宏
+#import "Macro.h"
+
+//common 共享文件
+#import "RequestEntity.h"
+#import "StatusEntity.h"
+#import "ImageViewEntity.h"
+
+
+//自定义tools
+#import "InputTextField.h"
+#import "UIView+Frame.h"
+#import "UIColor+Hex.h"
+#import "UIImage+(Copping).h"
+#import "MBProgressHUD+Dispaly.h"
+#import "SVProgressHUD+Display.h"
+#import "Validate.h"
+#import "Customer.h"
+#import "User.h"
+#import "MD5.h"
+#import "User+CURD.h"
+#import "YWSandBoxTool.h"
+#import "UINavigationBar+HideBottomLine.h"
+#import "UIBarButtonItem+Left.h"
+#import "NSDate+Grade.h"
+#import "YWNetworkTools.h"
+#import "YWHTTPManager.h"
+#import "CustomPresentSegue.h"
+#import "CustomDismissSegue.h"
+#import "YWQiNiuUploadTool.h"
+#import "NSDate+String.h"
+#import "NSString+Url.h"
+#import "YWAvatarBrowser.h"
+#import "NSArray+(String).h"
+#import "NSMutableArray+Sort.h"
+#import "NSString+fileSizeExtension.h"
+#import "UIImage+Orientation.h"
+
+
+//自定义控件
+#import "InputTextField.h"
+#import "YWInputButton.h"
+#import "YWAvatarBrowser.h"
+
+//controller
+#import "BaseViewController.h"
+#import "MainNavController.h"
+#import "MainController.h"
+#import "VerificationController.h"
+#import "LoginNavController.h"
+#import "LoginController.h"
+
+#endif /* PrefixHeader_pch */
