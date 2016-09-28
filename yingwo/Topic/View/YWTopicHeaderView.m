@@ -22,6 +22,7 @@
     
     _blurImageView            = [[UIImageView alloc] init];
     _headerView               = [[UIImageView alloc] init];
+    _darkView                 = [[UIView alloc] init];
     _topic                    = [[UILabel alloc]init];
     _numberOfTopic            = [[UILabel alloc]init];
     _numberOfFavour           = [[UILabel alloc] init];
@@ -35,11 +36,15 @@
     _numberOfTopic.font       = [UIFont systemFontOfSize:12.0];
     _numberOfFavour.font      = [UIFont systemFontOfSize:12.0];
 
-    
+    _darkView.backgroundColor = [UIColor blackColor];
+    _darkView.alpha           = 0.3;
     
     [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
                             forState:UIControlStateNormal];
+    
     [self addSubview:_blurImageView];
+    [_blurImageView addSubview:_darkView];
+
     [self addSubview:_headerView];
     [self addSubview:_topic];
     [self addSubview:_numberOfTopic];
@@ -48,11 +53,18 @@
 
     [_blurImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.right.left.equalTo(self);
-        make.height.with.equalTo(self);
+        make.height.equalTo(self.mas_height);
+        make.width.equalTo(self.mas_width);
+    }];
+    
+    [_darkView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.right.left.equalTo(self);
+        make.height.equalTo(self.mas_height);
+        make.width.equalTo(self.mas_width);
     }];
     
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.with.equalTo(@90);
+        make.height.width.equalTo(@90);
         make.centerX.equalTo(self);
         make.centerY.equalTo(self.mas_centerY).offset(-20);
     }];

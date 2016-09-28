@@ -89,6 +89,7 @@
 #define TOPIC_SUBJECT_URL @"/Subject/get_list"
 #define TOPIC_LIST_URL @"/Topic/get_list"
 #define TOPIC_DETAIL_URL @"/Topic/detail"
+#define TOPIC_LIKE_URL @"/Topic/like"
 #define HOT_TOPIC_URL @"/Topic/hot_list"
 #define RECOMMENDED_TOPIC_URL @"/Topic/recommended_list_fixed"
 #define RECOMMEND_TOPIC_URL @"/Topic/recommended_list"

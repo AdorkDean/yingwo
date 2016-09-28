@@ -82,6 +82,7 @@
 #import "NSMutableArray+Sort.h"
 #import "NSString+fileSizeExtension.h"
 #import "UIImage+Orientation.h"
+#import "UIImage+blur.h"
 
 
 //自定义控件

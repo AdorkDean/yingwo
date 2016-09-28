@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YWTopicViewCell.h"
+
+#import "TopicEntity.h"
 
 @interface TopicListViewModel : NSObject
+
+- (void)setupModelOfCell:(YWTopicViewCell *)cell model:(TopicEntity *)model;
 
 @end

@@ -30,4 +30,6 @@
 
 @property (nonatomic, copy) NSString *top;
 
+@property (nonatomic, copy) NSString *user_post_like;
+
 @end
