@@ -125,7 +125,7 @@
 
     if (model.topic_id != 0) {
       //  NSLog(@"title:%@",model.topic_title);
-      //  cell.labelView.title.label.text = model.topic_title;
+        cell.labelView.title.label.text = model.topic_title;
 
     }
     cell.contentText.text                            = model.content;
