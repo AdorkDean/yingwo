@@ -9,6 +9,7 @@
 #import "DiscoveryController.h"
 #import "TopicListController.h"
 #import "TopicController.h"
+#import "MainNavController.h"
 
 #import "UIViewAdditions.h"
 #import "DiscoveryViewModel.h"

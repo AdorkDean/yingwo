@@ -150,7 +150,7 @@
             SubjectEntity *subject = [subjectArr objectAtIndex:currentIndex];
             
             NSDictionary *paramaters = @{@"subject_id":subject.subject_id,
-                                         @"school_id":schoolId};
+                                         @"recommended":@1};
             
             [self requestTopicListWithUrl:TOPIC_LIST_URL
                                paramaters:paramaters
@@ -166,7 +166,7 @@
         SubjectEntity *subject = [subjectArr objectAtIndex:0];
         
         NSDictionary *paramaters = @{@"subject_id":subject.subject_id,
-                                     @"school_id":schoolId};
+                                     @"recommended":@1};
         
         [self requestTopicListWithUrl:TOPIC_LIST_URL
                            paramaters:paramaters
@@ -194,6 +194,8 @@
     
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     
     [manager POST:fullUrl
        parameters:paramaters

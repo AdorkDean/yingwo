@@ -10,11 +10,11 @@
 
 #import "YWTopicViewCell.h"
 
-#import "TopicViewModel.h"
+#import "TopicListViewModel.h"
 
 #import "TopicEntity.h"
 
-@interface TopicListController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TopicListController ()<UITableViewDelegate,UITableViewDataSource,YWTopicViewCellDelegate>
 
 @property (nonatomic, strong) UITableView     *topicTableView;
 @property (nonatomic, strong) UIBarButtonItem *leftBarItem;
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIButton        *addTopicBtn;
 
 
-@property (nonatomic, strong) TopicViewModel  *viewModel;
+@property (nonatomic, strong) TopicListViewModel  *viewModel;
 
 @end
 
@@ -79,9 +79,9 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 }
 
 
-- (TopicViewModel *)viewModel {
+- (TopicListViewModel *)viewModel {
     if (_viewModel == nil) {
-        _viewModel = [[TopicViewModel alloc] init];
+        _viewModel = [[TopicListViewModel alloc] init];
     }
     return _viewModel;
 }
@@ -127,23 +127,16 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    YWTopicViewCell *cell    = [tableView dequeueReusableCellWithIdentifier:TOPIC_CELL_IDENTIFIER
+
+    YWTopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TOPIC_CELL_IDENTIFIER
                                                             forIndexPath:indexPath];
 
-    TopicEntity *topic       = [self.topicArr objectAtIndex:indexPath.row];
+    cell.selectionStyle   = UITableViewCellSelectionStyleNone;
+    cell.delegate         = self;
 
-    cell.topic.text          = topic.title;
-    cell.numberOfTopic.text  = [NSString stringWithFormat:@"%@贴子",topic.post_cnt];
-    cell.numberOfFavour.text = [NSString stringWithFormat:@"%@关注",topic.like_cnt];
-    
-    [cell.leftImageView sd_setImageWithURL:[NSURL URLWithString:topic.img]
-                          placeholderImage:nil];
-    
-   // cell.leftImageView.backgroundColor = [UIColor redColor];
- //   cell.accessoryView             = self.addTopicBtn;
-    
-    
+    TopicEntity *topic    = [self.topicArr objectAtIndex:indexPath.row];
+
+    [self.viewModel setupModelOfCell:cell model:topic];
     
     return cell;
     
@@ -151,6 +144,24 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 82;
+}
+
+#pragma mark YWTopicViewCellDelegate
+
+- (void)didSelectRightBtnWith:(int)value {
+    
+    if (value == 1) {
+        [SVProgressHUD showSuccessStatus:@"关注成功" afterDelay:HUD_DELAY];
+    }
+    else if(value == 0)
+    {
+        [SVProgressHUD showSuccessStatus:@"取消关注" afterDelay:HUD_DELAY];
+    }
+    else
+    {
+        [SVProgressHUD showErrorStatus:@"关注失败" afterDelay:HUD_DELAY];
+    }
+    
 }
 
 @end

@@ -41,9 +41,9 @@
             SubjectEntity *subject = [subjectArr objectAtIndex:currentIndex];
             
             NSDictionary *paramaters = @{@"subject_id":subject.subject_id,
-                                         @"school_id":schoolId};
+                                         @"recommended":@1};
             
-            [self requestTopicListWithUrl:RECOMMENDED_TOPIC_URL
+            [self requestTopicListWithUrl:TOPIC_LIST_URL
                                paramaters:paramaters
                                   success:weakself.singleSuccessBlock
                                   failure:weakself.singleFailureBlock];
@@ -57,9 +57,9 @@
         SubjectEntity *subject = [subjectArr objectAtIndex:0];
         
         NSDictionary *paramaters = @{@"subject_id":subject.subject_id,
-                                     @"school_id":schoolId};
+                                     @"recommended":@1};
         
-        [self requestTopicListWithUrl:RECOMMENDED_TOPIC_URL
+        [self requestTopicListWithUrl:TOPIC_LIST_URL
                            paramaters:paramaters
                               success:weakself.singleSuccessBlock
                               failure:weakself.singleFailureBlock];

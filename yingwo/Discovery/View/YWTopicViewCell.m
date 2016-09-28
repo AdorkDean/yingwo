@@ -43,6 +43,10 @@
     [_rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
                          forState:UIControlStateNormal];
     
+    [_rightBtn addTarget:self
+                  action:@selector(favorTopic)
+        forControlEvents:UIControlEventTouchUpInside];
+    
     [self addSubview:_leftImageView];
     [self addSubview:_topic];
     [self addSubview:_numberOfTopic];
@@ -74,6 +78,11 @@
         make.centerY.equalTo(self.mas_centerY);
         make.right.equalTo(self.mas_right).offset(-12.5);
     }];
+    
+}
+
+//关注话题
+- (void)favorTopic {
     
 }
 
