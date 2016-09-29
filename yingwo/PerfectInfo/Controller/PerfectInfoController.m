@@ -212,7 +212,7 @@
         _gradePickerView.pickerView.dataSource = self;
         _gradePickerView.backgroundColor       = [UIColor colorWithHexString:THEME_COLOR_5 alpha:0.7];
 
-        [_gradePickerView.finishedBtn addTarget:self
+        [_gradePickerView.finishedPickerBtn addTarget:self
                                          action:@selector(finishedGradePickerView)
                                forControlEvents:UIControlEventTouchUpInside];
         [_gradePickerView.cancelBtn addTarget:self
@@ -365,6 +365,7 @@
         [self.female setBackgroundImage:[UIImage imageNamed:@"female-hide"]
                                forState:UIControlStateNormal];
     _sex = NO;
+    self.isChangeInfo = YES;
 }
 
 - (void)sexToFemale {
@@ -373,6 +374,7 @@
     [self.female setBackgroundImage:[UIImage imageNamed:@"female-show"]
                            forState:UIControlStateNormal];
     _sex = YES;
+    self.isChangeInfo = YES;
 }
 
 - (void)selectSchool {
@@ -389,6 +391,7 @@
             YWSearchController *schoolSearchVc = [[YWSearchController alloc] init];
             schoolSearchVc.searchModel         = SchoolSearchModel;
             [self.navigationController pushViewController:schoolSearchVc animated:YES];
+            self.isChangeInfo = YES;
         }
         
     } failure:^(NSString *error) {
@@ -415,7 +418,6 @@
         if (colleges.status == YES) {
             
             [SVProgressHUD dismiss];
-
             
             [self.collegeModel saveCollegeDataInUserDefault:colleges.info];
             YWSearchController *academySearchVc = [[YWSearchController alloc] init];
@@ -425,6 +427,7 @@
                 
                 [self.navigationController pushViewController:academySearchVc animated:YES];
             }
+            self.isChangeInfo = YES;
         }
         
     } failure:^(NSString *error) {
@@ -475,7 +478,8 @@
                                                   self.view.height+self.gradePickerView.height/2);
         
     } completion:^(BOOL finished) {
-        self.gradeText.centerLabel.text = self.selectedGrade;
+        self.gradeText.centerLabel.text = self.grade;
+        self.isChangeInfo = YES;
         [self.gradePickerView removeFromSuperview];
     }];
     
@@ -492,7 +496,7 @@
     albumCatalog.maximumNumberOfSelectionMedia = 1;
     
     [self presentViewController:navigation animated:YES completion:^{
-        
+        self.isChangeInfo = YES;
     }];
     
 //    CroppingController *cropVC = [[CroppingController alloc] initWithCompleteBlock:^(UIImage *img) {
@@ -546,14 +550,23 @@
     if (self.isModfiyInfo == YES) {
         //修改个人信息
         requestUrl = UPDATE_INFO_URL;
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     }
     else
     {
         //注册完善信息
         requestUrl = BASE_INFO_URL;
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:REGISTER_COOKIE];
     }
 
     [self requestFinishedBaseInfoWithUrl:requestUrl];
+    
+    [SVProgressHUD showLoadingStatusWith:@""];
+    
 }
 
 - (void)requestFinishedBaseInfoWithUrl:(NSString *)urlString {
@@ -668,10 +681,12 @@
 
 - (void)dismiss {
     if (self.isModfiyInfo == YES) {
+       
         [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {
+        
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
@@ -755,7 +770,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.selectedGrade = [self.RecentYears objectAtIndex:row];
+    self.grade = [self.RecentYears objectAtIndex:row];
 }
 
 
@@ -772,7 +787,7 @@
     [self.backgroundSrcView addSubview:self.schoolText];
     [self.backgroundSrcView addSubview:self.academyText];
     [self.backgroundSrcView addSubview:self.gradeText];
-    [self.backgroundSrcView addSubview:self.finishedBtn];
+//    [self.backgroundSrcView addSubview:self.finishedBtn];
     [self.backgroundSrcView addSubview:self.male];
     [self.backgroundSrcView addSubview:self.female];
     [self.backgroundSrcView addSubview:self.finishedBtn];
@@ -804,18 +819,19 @@
 //是否保存
 - (void)saveAlert{
     
-    if (self.isModfiyInfo == YES) {
+    if (self.isChangeInfo == YES) {
         //显示警告视图
         UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示"
                                                                            message:@"个人信息已修改，是否保存？"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"确定"
+        
+        UIAlertAction *actionOk      = [UIAlertAction actionWithTitle:@"确定"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
             //保存个人信息并退出
             [self finishBaseInfo];
         }];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消"
+        UIAlertAction *actionCancel  = [UIAlertAction actionWithTitle:@"取消"
                                                                style:UIAlertActionStyleCancel
                                                              handler:^(UIAlertAction * _Nonnull action) {
             [self dismiss];
@@ -858,11 +874,19 @@
     }
     if (self.gender.length != 0) {
         if ([self.gender isEqualToString:@"1"]) {
-            [self sexToMale];
+            [self.male setBackgroundImage:[UIImage imageNamed:@"male-show"]
+                                 forState:UIControlStateNormal];
+            [self.female setBackgroundImage:[UIImage imageNamed:@"female-hide"]
+                                   forState:UIControlStateNormal];
+            _sex = NO;
         }
         else
         {
-            [self sexToFemale];
+            [self.male setBackgroundImage:[UIImage imageNamed:@"male-hide"]
+                                 forState:UIControlStateNormal];
+            [self.female setBackgroundImage:[UIImage imageNamed:@"female-show"]
+                                   forState:UIControlStateNormal];
+            _sex = YES;
         }
     }
     if (self.photoImage != nil) {

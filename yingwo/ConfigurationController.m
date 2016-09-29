@@ -259,7 +259,8 @@
     [self.exitAccountBtn addTarget:self action:@selector(exitAccount) forControlEvents:UIControlEventTouchUpInside];
     [self.cleanCacheCell addTarget:self action:@selector(cleanCacheAlret) forControlEvents:UIControlEventTouchUpInside];
     [self.userDelegateCell addTarget:self action:@selector(jumpToClausePage) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.adviceCell addTarget:self action:@selector(jumpToAdvicePage) forControlEvents:UIControlEventTouchUpInside];
+    [self.pointCell addTarget:self action:@selector(jumpToPointPage) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //清除缓存警告视图
@@ -298,6 +299,14 @@
     }];
 }
 
+- (void)jumpToPointPage {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=APPID&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+}
+
+- (void)jumpToAdvicePage {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=APPID&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+}
+
 - (void)jumpToClausePage {
     ClauseViewController *setting = [[ClauseViewController alloc] init];
     [self.navigationController pushViewController:setting animated:YES];
@@ -316,7 +325,7 @@
 - (void)exitAccount {
     
     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                       message:@"是否确定退出账号？"
+                                                                       message:@"是否确定退出帐号？"
                                                                 preferredStyle:UIAlertControllerStyleAlert];
 
     [alertView addAction:[UIAlertAction actionWithTitle:@"确定"

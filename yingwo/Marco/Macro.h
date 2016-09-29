@@ -132,6 +132,7 @@
 
 /********************************* cookie ******************************************************/
 #define LOGIN_COOKIE @"loginCookie"
+#define REGISTER_COOKIE @"registerCookie"
 #define TIEZI_LIKE_COOKIE @"tieZiLike"
 /********************************* cookie ******************************************************/
 

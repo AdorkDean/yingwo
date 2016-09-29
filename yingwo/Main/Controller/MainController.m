@@ -23,6 +23,8 @@
 
 @property (nonatomic, assign) NSInteger                selectedIndex;
 
+@property (nonatomic, assign) BOOL                     reloaded;
+
 @end
 
 @implementation MainController
@@ -33,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.reloaded = YES;
     
     self.homeVC                        = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
     self.discoveryVC                   = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
@@ -117,16 +119,26 @@
 - (void)didSelectedViewController:(UIViewController *)viewController AtIndex:(NSInteger)index {
     
     if (index == 0) {
+        
+        //如果点击了其他页面后点击home页面，则不刷新，再次点击home页面才刷新
         self.selectedIndex = index;
-        //点击后刷新
-        [self.homeVC.homeTableview.mj_header beginRefreshing];
-    }else if(index == 1) {
+        
+        if (self.reloaded == NO) {
+            self.reloaded = YES;
+        }else {
+            [self.homeVC.homeTableview.mj_header beginRefreshing];
+        }
+    }
+    else if(index == 1) {
+        self.reloaded = NO;
         self.selectedIndex = index;
     }
     else if (index == 2) {
-        
+        self.reloaded = NO;
         [self performSegueWithIdentifier:@"announce" sender:self];
-
+    }
+    else if (index == 3 || index == 4) {
+        self.reloaded = NO;
     }
 }
 

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "MainNavController.h"
 #import "MainController.h"
-
+#import "LoginController.h"
 @interface AppDelegate ()
 
 @end
@@ -30,7 +30,7 @@
                                                                                               bundle:nil];
     MainNavController *mainNav ;
     
-    //如果有账号，则直接登录
+    //如果有帐号，则直接登录
     if ([User haveExistedLoginInformation]) {
         
         MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
@@ -38,8 +38,8 @@
 
     }else {
         UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
-        mainNav     = [[MainNavController alloc] initWithRootViewController:mainVC];
+        LoginController *loginVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
+        mainNav     = [[MainNavController alloc] initWithRootViewController:loginVC];
         self.window.rootViewController = mainNav;
 
     }

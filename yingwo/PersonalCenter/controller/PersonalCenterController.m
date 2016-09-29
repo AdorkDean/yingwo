@@ -240,6 +240,7 @@
             perfectInfo.grade                  = user.grade;
             perfectInfo.headImagePath          = [YWSandBoxTool getHeadPortraitPathFromCache];
             perfectInfo.isModfiyInfo           = NO;
+            perfectInfo.isChangeInfo           = NO;
         }
     }
 }

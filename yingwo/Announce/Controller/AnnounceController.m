@@ -106,6 +106,8 @@
 
 - (void)releaseContent {
     
+    [SVProgressHUD showWithStatus:@"正在发布..."];
+    
     [self.photoDisplayView putPhotosToImagesArr];
     //发布之前，先小时键盘
     [self.announceTextView.contentTextView resignFirstResponder];
@@ -299,7 +301,7 @@ CGFloat delay = 2.0f;
 - (void)backToMainView {
     
     [self resignKeyboard];
-
+    
     if (self.isRelease == YES && self.isFollowTieZi == NO) {
         
         [self dismissViewControllerAnimated:YES completion:^{

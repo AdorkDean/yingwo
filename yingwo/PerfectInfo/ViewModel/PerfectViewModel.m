@@ -58,8 +58,6 @@
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     
     YWHTTPManager *manager = [YWHTTPManager manager];
-    //必须要加载cookie，否则无法请求
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     
     [manager POST:fullUrl
        parameters:paramaters

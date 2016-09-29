@@ -101,6 +101,7 @@
 
 - (void)passValueToBackController {
     PerfectInfoController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
+    vc.isChangeInfo = YES;
     vc.signature = self.inputSignatureText.rightTextField.text;
     [self.navigationController popToViewController:vc animated:YES];
 }

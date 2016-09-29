@@ -84,6 +84,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
+        _homeTableview.sectionFooterHeight = 50;
       //  _homeTableview.fd_debugLogEnabled = YES;
 
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
@@ -289,6 +290,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         
     }];
     
+    self.homeTableview.mj_footer.ignoredScrollViewContentInsetBottom = -65;
+    
 
     [self.homeTableview.mj_header beginRefreshing];
     
@@ -309,7 +312,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [self judgeNetworkStatus];
     
     [self stopSystemPopGestureRecognizer];
-
+    
 }
 
 #pragma mark 禁止pop手势
@@ -388,6 +391,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
     [self loadForType:1 RequestEntity:requestEntity];
+    
+    [self.homeTableview.mj_footer resetNoMoreData];
 }
 
 /**

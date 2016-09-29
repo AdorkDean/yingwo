@@ -186,7 +186,7 @@
         if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
             
             //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
-            //            UIImage * photoImage    = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+//                        UIImage * photoImage    = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
                 UIImage * photoImage = [UIImage imageWithCGImage:[asset defaultRepresentation].fullResolutionImage scale:1 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
 
             [self addPhotoInScrollViewWithImage:photoImage andImageCount:_photoImagesCount];
@@ -216,7 +216,7 @@
         if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
             
             //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
-            //            UIImage * photoImage    = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+//                        UIImage * photoImage    = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
                 UIImage * photoImage = [UIImage imageWithCGImage:[asset defaultRepresentation].fullResolutionImage scale:1 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
             [self addPhotoInScrollViewWithImage:photoImage andImageCount:self.photoImagesCount];
             

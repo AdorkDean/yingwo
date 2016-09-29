@@ -1767,7 +1767,7 @@
 				TargetAttributes = {
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = H9CECX49VX;
+						DevelopmentTeam = K3687J93E9;
 					};
 				};
 			};
@@ -2191,7 +2191,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = H9CECX49VX;
+				DEVELOPMENT_TEAM = K3687J93E9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2214,7 +2214,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = H9CECX49VX;
+				DEVELOPMENT_TEAM = K3687J93E9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

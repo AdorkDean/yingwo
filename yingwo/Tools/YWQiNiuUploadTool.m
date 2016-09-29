@@ -15,15 +15,20 @@
     NSString *fullUrl     = [BASE_URL stringByAppendingString:QINIU_TOKEN_URL];
     YWHTTPManager *manger = [YWHTTPManager manager];
     
-    [manger POST:fullUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [manger POST:fullUrl
+      parameters:nil
+        progress:nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:responseObject
+             NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                   options:NSJSONReadingMutableLeaves
                                                                     error:nil];
-        NSDictionary *tokenDic = resultDic[@"info"];
-      //  NSLog(@"tokenDic:%@",tokenDic);
+             NSDictionary *tokenDic = resultDic[@"info"];
+             //  NSLog(@"tokenDic:%@",tokenDic);
 
-        token(tokenDic[@"uploadu_token"]);
+             token(tokenDic[@"uploadu_token"]);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"token 获取失败");
     }];
