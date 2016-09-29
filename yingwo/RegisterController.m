@@ -161,7 +161,7 @@ static NSString *notAgreen = @"不同意";
 }
 
 /**
- *  返回登录界面，已有账号直接登录
+ *  返回登录界面，已有帐号直接登录
  */
 - (void)backToLoginPage {
     [self.navigationController popViewControllerAnimated:YES];

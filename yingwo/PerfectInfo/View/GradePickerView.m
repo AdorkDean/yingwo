@@ -18,7 +18,7 @@
         UILabel *title  = [[UILabel alloc] init];
 
         _topView        = [[UIView alloc] init];
-        _finishedBtn    = [[UIButton alloc] init];
+        _finishedPickerBtn    = [[UIButton alloc] init];
         _cancelBtn    = [[UIButton alloc] init];
         _pickerView     = [[UIPickerView alloc] init];
 
@@ -26,10 +26,10 @@
         title.textColor = [UIColor colorWithHexString:THEME_COLOR_3];
         title.font      = [UIFont systemFontOfSize:14];
 
-        [_finishedBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
+        [_finishedPickerBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
                            forState:UIControlStateNormal];
-        [_finishedBtn setTitle:@"完成" forState:UIControlStateNormal];
-        _finishedBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_finishedPickerBtn setTitle:@"完成" forState:UIControlStateNormal];
+        _finishedPickerBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [_cancelBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_3]
                            forState:UIControlStateNormal];
@@ -37,7 +37,7 @@
         _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
 
         [self addSubview:_topView];
-        [self addSubview:_finishedBtn];
+        [self addSubview:_finishedPickerBtn];
         [self addSubview:_cancelBtn];
         [self addSubview:_pickerView];
         [self addSubview:title];
@@ -45,7 +45,7 @@
         [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(10);
             make.width.equalTo(self.mas_width);
-            make.height.equalTo(_finishedBtn.mas_height);
+            make.height.equalTo(_finishedPickerBtn.mas_height);
             make.centerX.equalTo(self);
         }];
         
@@ -54,7 +54,7 @@
             make.centerY.equalTo(_topView);
         }];
         
-        [_finishedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_finishedPickerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(_topView.mas_right).offset(-10);
             make.centerY.equalTo(_topView.mas_centerY);
         }];

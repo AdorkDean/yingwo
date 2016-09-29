@@ -11,7 +11,7 @@
 @interface GradePickerView : UIView
 
 @property (nonatomic, strong) UIView       *topView;
-@property (nonatomic, strong) UIButton     *finishedBtn;
+@property (nonatomic, strong) UIButton     *finishedPickerBtn;
 @property (nonatomic, strong) UIButton     *cancelBtn;
 @property (nonatomic, strong) UIPickerView *pickerView;
 

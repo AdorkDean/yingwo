@@ -22,7 +22,8 @@
 @property (nonatomic, copy)NSString *academy_id;
 
 @property (nonatomic, copy)NSString *headImagePath;
-//用来判断是否是修改信息
+//用来判断是否是修改了信息(注册完善与修改完善)
 @property (nonatomic, assign)BOOL isModfiyInfo;
+@property (nonatomic, assign)BOOL isChangeInfo;
 
 @end

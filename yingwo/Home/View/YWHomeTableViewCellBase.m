@@ -15,7 +15,7 @@
     if (self) {
         
         [self createSubview];
-        self.backgroundColor                 = [UIColor clearColor];
+        self.backgroundColor                    = [UIColor clearColor];
         self.backgroundView.backgroundColor     = [UIColor whiteColor];
         self.backgroundView.layer.masksToBounds = YES;
         self.backgroundView.layer.cornerRadius  = 10;

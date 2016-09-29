@@ -64,7 +64,7 @@
 {
     _asset = asset;
     //获取fullResolutionImage的从相册中选取的图片会有旋转问题
-    //    _assetImageView.image = [UIImage imageWithCGImage:[asset defaultRepresentation].fullScreenImage];
+//        _assetImageView.image = [UIImage imageWithCGImage:[asset defaultRepresentation].fullScreenImage];
     _assetImageView.image = [UIImage imageWithCGImage:[asset defaultRepresentation].fullResolutionImage scale:1 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
     
     CGFloat imageViewHeight = (_assetImageView.image.size.height/_assetImageView.image.size.width*_previewScrollView.frame.size.width);

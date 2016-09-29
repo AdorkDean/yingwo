@@ -307,11 +307,15 @@
 - (void)requestForRegister {
     
     NSDictionary *paramaters = @{PASSWORD:self.passwordText.rightTextField.text,MOBILE:self.phone};
+    
     [self.regisetrModel requestForRegisterWithUrl:REGISTER_URL
                                        parameters:paramaters
                                           success:^(Register *reg) {
                                               
                                               if (reg.status == YES) {
+                                                  
+                                                  [YWNetworkTools cookiesValueWithKey:REGISTER_COOKIE];
+                                                  
                                                   [SVProgressHUD showSuccessStatus:@"注册成功,请完善信息"
                                                                         afterDelay:HUD_DELAY];
                                                   //注册成功后跳转到完善信息页面

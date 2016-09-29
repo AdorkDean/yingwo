@@ -223,7 +223,7 @@
             
         }else{
             [self.hud hide:YES];
-            [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"账号或密码错误" animated:YES afterDelay:1];
+            [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"帐号或密码错误" animated:YES afterDelay:1];
 
         }
 //        NSLog(@"%d",log.status);
@@ -232,7 +232,7 @@
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [self.hud hide:YES];
-        [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"账号或密码错误" animated:YES afterDelay:1];
+        [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"帐号或密码错误" animated:YES afterDelay:1];
     }];
 }
 
