@@ -38,8 +38,13 @@
 
     }else {
         UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+<<<<<<< HEAD
         LoginController *loginVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
         mainNav     = [[MainNavController alloc] initWithRootViewController:loginVC];
+=======
+        MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
+        mainNav                        = [[MainNavController alloc] initWithRootViewController:mainVC];
+>>>>>>> 945f89518ec0e269262bd8462a142f37c58d8d2a
         self.window.rootViewController = mainNav;
 
     }

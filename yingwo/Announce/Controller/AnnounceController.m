@@ -220,11 +220,19 @@ CGFloat delay = 2.0f;
             paramaters[@"post_id"] = @(self.post_id);
             requestUrl             = TIEZI_REPLY;
         }
+        else if (self.isTopic == YES) {
+            
+            paramaters[@"post_id"] = @(self.topic_id);
+            requestUrl             = TIEZI_REPLY;
+
+        }
         else
         {
             paramaters[@"topic_id"] = @0;
             requestUrl              = ANNOUNCE_FRESH_THING_URL;
         }
+        
+        
         paramaters[@"content"]          = [content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         paramaters[@"img"]              = allUrlString;
         

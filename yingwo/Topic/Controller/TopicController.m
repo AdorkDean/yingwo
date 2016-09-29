@@ -6,11 +6,13 @@
 //  Copyright © 2016年 wangxiaofa. All rights reserved.
 //
 
+
 #import "TopicController.h"
 
 #import "DetailController.h"
 #import "HotTopicController.h"
 #import "NewTopicController.h"
+#import "AnnounceController.h"
 
 #import "TopicViewModel.h"
 #import "YWTopicSegmentViewCell.h"
@@ -203,6 +205,25 @@ static CGFloat HeaderViewHeight = 250;
     }];
     
 }
+#pragma mark action
+
+- (void)setAllAction {
+    
+    [self.addBtn addTarget:self
+                    action:@selector(addTopic)
+          forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+//发布话题
+- (void)addTopic {
+    
+    AnnounceController *announceVc = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
+    MainNavController *mainNav     = [[MainNavController alloc] initWithRootViewController:announceVc];
+
+    [self presentViewController:mainNav animated:YES completion:nil];
+    
+}
 
 - (void)backFarword {
     [self.navigationController popViewControllerAnimated:YES];
@@ -226,7 +247,8 @@ static CGFloat HeaderViewHeight = 250;
     [self.view bringSubviewToFront:self.addBtn];
     
     [self setAllLayout];
-
+    [self setAllAction];
+    
     [self loadTopicInfoWith:self.topic_id];
     
 }
@@ -349,12 +371,27 @@ static CGFloat HeaderViewHeight = 250;
 
     [self.topicHeaderView.headerView sd_setImageWithURL:[NSURL URLWithString:headerImageUrl]
                                        placeholderImage:[UIImage imageNamed:@"ying"]];
+    
     [self.topicHeaderView.blurImageView sd_setImageWithURL:[NSURL URLWithString:blurImageUrl]
-                                       placeholderImage:[UIImage imageNamed:@"ying"]];
-    self.topicHeaderView.blurImageView.contentMode = UIViewContentModeScaleAspectFit;
-//    NSMutableArray *banner             = [[NSMutableArray alloc] init];
-  //  self.topicHeaderView
+                                          placeholderImage:[UIImage imageNamed:@"ying"]
+                                                   options:SDWebImageRetryFailed
+                                                 completed:^(UIImage *image,
+                                                             NSError *error,
+                                                             SDImageCacheType cacheType,
+                                                             NSURL *imageURL) {
+                                                    
+                                                     //模糊
+                                                     image = [UIImage boxblurImage:image withBlurNumber:0.2];
+
+                                                     self.topicHeaderView.blurImageView.image = image;
+        
+    }];
+
+    
+    self.topicHeaderView.blurImageView.contentMode     = UIViewContentModeScaleAspectFill;
+
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

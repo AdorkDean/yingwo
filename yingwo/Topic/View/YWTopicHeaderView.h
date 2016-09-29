@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) UIImageView *blurImageView;
 @property (nonatomic, strong) UIImageView *headerView;
+@property (nonatomic, strong) UIView      *darkView;
 @property (nonatomic, strong) UILabel     *topic;
 @property (nonatomic, strong) UILabel     *numberOfTopic;
 @property (nonatomic, strong) UILabel     *numberOfFavour;
