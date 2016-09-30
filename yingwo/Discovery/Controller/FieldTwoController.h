@@ -11,13 +11,11 @@
 
 @interface FieldTwoController : BaseViewController
 
-<<<<<<< HEAD
 @property (nonatomic, strong) UITableView       *discoveryTableView;
 
 @property (nonatomic, strong) UITableView       *tableView;
 
-=======
->>>>>>> origin/master
+
 @property (nonatomic, assign) id<DiscoveryDelegate> delegate;
 
 @end

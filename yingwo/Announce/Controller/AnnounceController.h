@@ -24,6 +24,8 @@
 //话题的id
 @property (nonatomic, assign) int                        topic_id;
 
+@property (nonatomic, copy)NSString                     *topic_title;
+
 @property (nonatomic,assign ) id<AnnounceControllerDelegate> delegate;
 
 @end

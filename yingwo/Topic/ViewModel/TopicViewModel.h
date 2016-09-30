@@ -41,19 +41,4 @@
                     success:(void (^)(NSArray *))success
                       error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
 
-<<<<<<< HEAD
-/**
- *  话题关注和取消
- *
- *  @param url        Topic/like
- *  @param paramaters 两个参数topic_id value(0取消关注，1关注)
- *  @param success
- *  @param failure
- */
-- (void)requestTopicLikeWithUrl:(NSString *)url
-                     paramaters:(NSDictionary *)paramaters
-                        success:(void (^)(StatusEntity *status))success
-                        failure:(void (^)(NSString *error))failure;
-=======
->>>>>>> origin/master
 @end

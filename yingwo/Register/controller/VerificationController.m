@@ -171,7 +171,7 @@
 
 #pragma mark 所有按钮的的action
 - (void) setAllAction {
-<<<<<<< HEAD
+    
     [self.retransmitBtn addTarget:self
                            action:@selector(sendSmsRequest)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -183,11 +183,7 @@
     [self.eyesView addTarget:self
                       action:@selector(shouldShowPassword)
             forControlEvents:UIControlEventTouchUpInside];
-=======
-    [self.retransmitBtn addTarget:self action:@selector(sendSmsRequest) forControlEvents:UIControlEventTouchUpInside];
-    [self.finishedBtn addTarget:self action:@selector(finishedRegister) forControlEvents:UIControlEventTouchUpInside];
-    [self.eyesView addTarget:self action:@selector(shouldShowPassword) forControlEvents:UIControlEventTouchUpInside];
->>>>>>> origin/master
+
 }
 
 /**

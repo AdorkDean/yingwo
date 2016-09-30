@@ -660,8 +660,7 @@
                                                                                    if (status.status == YES) {
                                                                                        NSLog(@"成功");
                                                                                        //本地存储
-#warning 头像问题
-        //本地存储的face_img:url url错误？
+                                                                                       [YWSandBoxTool saveHeadPortraitIntoCache:self.photoImage];
                                                                                        [User saveCustomerByUser:user];
                                                                                        
                                                                                        [self finishedUserInfo];

@@ -30,12 +30,9 @@
     _subject.textColor    = [UIColor colorWithHexString:THEME_COLOR_2];
 
     _rightImageView.image = [UIImage imageNamed:@"Row"];
-    
-<<<<<<< HEAD
+
     _rightImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-=======
->>>>>>> origin/master
+
     [self addSubview:_leftImageView];
     [self addSubview:_rightImageView];
     [self addSubview:_subject];

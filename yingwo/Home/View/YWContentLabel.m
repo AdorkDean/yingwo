@@ -13,7 +13,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-<<<<<<< HEAD
         
         self.font                     = [UIFont systemFontOfSize:14];
         self.numberOfLines            = 4;
@@ -22,13 +21,7 @@
         self.enabledTextCheckingTypes = NSTextCheckingTypeLink;
         self.textColor                = [UIColor colorWithHexString:THEME_COLOR_2];
         
-=======
-        self.font = [UIFont systemFontOfSize:14];
-        self.numberOfLines = 4;
-        self.lineSpacing = 5.f;
-        self.enabledTextCheckingTypes = NSTextCheckingTypeLink;
-        self.textColor = [UIColor colorWithHexString:THEME_COLOR_2];
->>>>>>> origin/master
+
   //      self.linkAttributes = @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:YES],
      //                                 (NSString*)kCTForegroundColorAttributeName : (id)[[UIColor blueColor] CGColor]};
     }

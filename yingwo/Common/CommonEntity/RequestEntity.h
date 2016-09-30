@@ -16,15 +16,12 @@
 //请求所需参数
 @property (nonatomic, strong) NSDictionary *paramaters;
 
-<<<<<<< HEAD
 //领域下的id
 @property (nonatomic, assign) int          field_id;
 
 //主题的id
 @property (nonatomic, assign) int          subject_id;
 
-=======
->>>>>>> origin/master
 //话题的id
 @property (nonatomic, assign) int          topic_id;
 

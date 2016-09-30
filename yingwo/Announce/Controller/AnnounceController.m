@@ -127,7 +127,6 @@
         [self postTieZiWithImages:self.photoDisplayView.photoImageArr andContent:self.announceTextView.contentTextView.text];
         
     }
-
     
 }
 
@@ -314,6 +313,9 @@ CGFloat delay = 2.0f;
         
         [self dismissViewControllerAnimated:YES completion:^{
             if ([self.delegate respondsToSelector:@selector(jumpToHomeController)]) {
+                //发布成功返回首页刷新
+                MainController *main = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
+                main.reloaded2       = YES;
                 [self.delegate jumpToHomeController];
             }
         }];
@@ -321,10 +323,17 @@ CGFloat delay = 2.0f;
     else
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> origin/master
         [self dismissViewControllerAnimated:YES completion:nil];
+=======
+        [self dismissViewControllerAnimated:YES completion:^{
+            MainController *main = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
+            main.reloaded = NO;
+        }];
+>>>>>>> 08008cf0bf14ee21966548da339dcdb17e2ee572
     }
     
 
@@ -401,6 +410,10 @@ CGFloat delay = 2.0f;
     else
     {
         self.title = @"新鲜事";
+    }
+    
+    if (self.topic_id != 0) {
+        self.title = self.topic_title;
     }
     
     self.navigationItem.rightBarButtonItem = self.rightBarItem;

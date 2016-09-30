@@ -129,7 +129,7 @@
     }
     
     //UINavgationController
-     MainNavController *targetViewController = (MainNavController *)[_viewControllers objectAtIndex:index];
+    MainNavController *targetViewController = (MainNavController *)[_viewControllers objectAtIndex:index];
     targetViewController.view.frame = _containerView.frame;
 
     if (index == 0) {
@@ -188,7 +188,9 @@
     announceVC.delegate                     = self;
     
     if ([_delegate respondsToSelector:@selector(didSelectedViewController:AtIndex:)]) {
+        
         [_delegate didSelectedViewController:targetViewController AtIndex:index];
+    
     }
     
     if ([_delegate respondsToSelector:@selector(tabBarController:didSelectViewController:)])

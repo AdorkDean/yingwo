@@ -13,7 +13,7 @@
 
 @interface YWCommentView : UIView
 
-<<<<<<< HEAD
+
 @property (nonatomic, strong) UILabel     *leftName;
 @property (nonatomic, strong) UIImageView *identfier;
 @property (nonatomic, strong) UILabel     *content;
@@ -23,17 +23,7 @@
 @property (nonatomic, assign) int         post_comment_id;
 @property (nonatomic, assign) int         post_comment_user_id;
 @property (nonatomic, copy  ) NSString    *user_name;
-=======
-@property (nonatomic, strong) UILabel        *leftName;
-@property (nonatomic, strong) UIImageView    *identfier;
-@property (nonatomic, strong) YWContentLabel *content;
 
-//这些值是点击评论的时候需要的
-@property (nonatomic, assign) int            post_reply_id;
-@property (nonatomic, assign) int            post_comment_id;
-@property (nonatomic, assign) int            post_comment_user_id;
-@property (nonatomic, copy  ) NSString       *user_name;
->>>>>>> origin/master
 
 @end
 

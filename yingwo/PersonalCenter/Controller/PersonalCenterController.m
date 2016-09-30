@@ -168,9 +168,10 @@
             }
         }
 
-        
-        if ([customer.sex isEqualToString:@"0"]) {
+        if ([customer.sex isEqualToString:@"2"]) {
             self.headView.genderImageView.image = [UIImage imageNamed:@"woman"];
+        }else {
+            self.headView.genderImageView.image = [UIImage imageNamed:@"man"];
         }
 
     }

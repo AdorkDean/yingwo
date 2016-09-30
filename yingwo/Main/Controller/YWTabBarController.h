@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "YWTabBar.h"
+#import "AnnounceController.h"
+
 @class UITabBarController;
 @protocol YWTabBarControllerDelegate;
-@protocol AnnounceControllerDelegate;
 
 /**
  *  应我主要的TabBar

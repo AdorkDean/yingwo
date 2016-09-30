@@ -42,11 +42,7 @@
     for (int i = 0; i < number; i++) {
         //ScrollView部分
         UIViewController* vc = [self.delegate pagerViewOfPagers:self indexOfPagers:i];
-<<<<<<< HEAD
-      //  [vc loadView];
-        
-=======
->>>>>>> origin/master
+
         [self.viewsArray addObject:vc];
         [self.bodyScrollView addSubview:vc.view];
         

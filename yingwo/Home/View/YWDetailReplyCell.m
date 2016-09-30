@@ -93,12 +93,12 @@
     for (int i = 0; i < entities.count; i ++) {
         
         ImageViewEntity *entity           = [entities objectAtIndex:i];
-        CGFloat imageHeight = SCREEN_WIDTH/entity.width *entity.height;
-        
-        UIImageView *imageView           = [[UIImageView alloc] init];
-        imageView.tag                    = i+1;
-        imageView.userInteractionEnabled = YES;
-        
+        CGFloat imageHeight               = (SCREEN_WIDTH - 60)/entity.width *entity.height;
+       
+        UIImageView *imageView            = [[UIImageView alloc] init];
+        imageView.tag                     = i+1;
+        imageView.userInteractionEnabled  = YES;
+        imageView.contentMode             = UIViewContentModeScaleAspectFit;
         //添加单击放大事件
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                     action:@selector(singelTap:)];
@@ -106,7 +106,7 @@
         singleTap.numberOfTapsRequired    = 1;
         [imageView addGestureRecognizer:singleTap];
         
-        imageView.mas_key                = [NSString stringWithFormat:@"DetailImageView%d:",i+1];
+        imageView.mas_key                 = [NSString stringWithFormat:@"DetailImageView%d:",i+1];
         
         [self.bgImageView addSubview:imageView];
         
@@ -163,7 +163,6 @@
         //在createSubview中不能写实现所想的布局，不信自己试试去～
         if ([entity.user_id integerValue] == master_id) {
             
-<<<<<<< HEAD
             commentView                        = [[YWCommentView alloc] init];
             commentView.leftName.text          = entity.user_name;
 
@@ -173,12 +172,6 @@
             //首行缩进
             commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
                                                                                             WithTextIndext:entity.user_name.length + 2];
-
-=======
-            commentView                      = [[YWCommentView alloc] init];
-            commentView.leftName.text        = entity.user_name;
-            commentView.content.text         = [NSString stringWithFormat:@":%@",entity.content];
->>>>>>> origin/master
             
             [commentView.leftName mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(commentView.mas_left);
@@ -190,31 +183,12 @@
             }];
             
             [commentView.content mas_updateConstraints:^(MASConstraintMaker *make) {
-<<<<<<< HEAD
                 make.top.equalTo(commentView.leftName.mas_top);
-            }];
 
-=======
                 make.left.equalTo(commentView.leftName.mas_left);
             }];
-
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            //首行缩进
-            paragraphStyle.firstLineHeadIndent = 100;
-            
-            NSDictionary *ats = @{ NSParagraphStyleAttributeName : paragraphStyle};
-
-            commentView.content.attributedText = [[NSAttributedString alloc] initWithString:entity.content attributes:ats];
-            
-            commentView.content.backgroundColor = [UIColor redColor];
-            commentView.content.firstLineIndent = 100;
-            [commentView.content sizeToFit];
-//            [commentView.content mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.left.equalTo(commentView.identfier.mas_right);
-//            }];
             
 
->>>>>>> origin/master
         }
         else
         {
@@ -222,7 +196,6 @@
             commentView                      = [[YWCommentReplyView alloc] init];
             commentView.leftName.text        = entity.user_name;
             
-<<<<<<< HEAD
             //回复评论
             if (entity.commented_user_name.length != 0) {
                 
@@ -243,30 +216,15 @@
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
                                                                                                 WithTextIndext:entity.user_name.length];
-=======
-            if (entity.commented_user_name.length != 0) {
-                
-                commentView.content.text         = [NSString stringWithFormat:@"回复%@:%@",
-                                                    entity.commented_user_name,entity.content];
-                commentView.content.firstLineIndent = entity.user_name.length + 20;
-                NSLog(@"width:%f",commentView.content.firstLineIndent);
             }
-            else
-            {
-                commentView.content.text         = [NSString stringWithFormat:@":%@",entity.content];
->>>>>>> origin/master
-            }
+
         }
         
         commentView.post_reply_id        = [entity.post_reply_id intValue];
         commentView.post_comment_id      = [entity.comment_id intValue];
         commentView.post_comment_user_id = [entity.post_comment_user_id intValue];
         commentView.user_name            = entity.user_name;
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-        
         UITapGestureRecognizer *tap      = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                               action:@selector(comment:)];
         tap.numberOfTapsRequired         = 1;
@@ -275,13 +233,7 @@
         [commentView addGestureRecognizer:tap];
         
         [self.bgCommentView addSubview:commentView];
-        
-<<<<<<< HEAD
-=======
-      //  NSLog(@"number of lines:%lu",commentView.content.numberOfLines) ;
-     //   commentView.backgroundColor = [UIColor grayColor];
->>>>>>> origin/master
-        
+            
         if (!lastView) {
             [commentView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.bgCommentView.mas_top).offset(10).priorityHigh();

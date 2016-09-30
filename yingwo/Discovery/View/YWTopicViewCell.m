@@ -40,11 +40,7 @@
     _numberOfTopic.textColor  = [UIColor colorWithHexString:THEME_COLOR_3];
     _numberOfFavour.textColor = [UIColor colorWithHexString:THEME_COLOR_3];
 
-<<<<<<< HEAD
     [_rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
-=======
-    [_rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
->>>>>>> origin/master
                          forState:UIControlStateNormal];
     
     [_rightBtn addTarget:self

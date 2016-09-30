@@ -341,11 +341,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey]floatValue];
 
     //修改底部视图高度
-<<<<<<< HEAD
     CGFloat bottom   = endFrame.origin.y != SCREEN_HEIGHT ? endFrame.origin.y:0;
-=======
-    CGFloat bottom   = endFrame.origin.y != SCREEN_HEIGHT ? endFrame.size.height:0;
->>>>>>> origin/master
 
     CGFloat originY;
     
@@ -354,11 +350,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     }
     else
     {
-<<<<<<< HEAD
         originY = bottom - self.navgationBarHeight - 44 ;
-=======
-        originY = bottom - 44 ;
->>>>>>> origin/master
+
     }
     // 约束动画
     [UIView animateWithDuration:duration
