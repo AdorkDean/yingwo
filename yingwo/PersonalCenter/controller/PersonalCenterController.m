@@ -180,7 +180,13 @@
 #pragma mark action
 
 - (void)setAllAction {
-    [self.headView addTarget:self action:@selector(jumpToBaseInfoPage) forControlEvents:UIControlEventTouchUpInside];
+    [self.headView addTarget:self
+                      action:@selector(jumpToBaseInfoPage)
+            forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.cellView1 addTarget:self
+                       action:@selector(jumpToMyTopicPage)
+             forControlEvents:UIControlEventTouchUpInside];
 }
 
 //跳转到完善信息的界面
@@ -190,6 +196,10 @@
 
 - (void)jumpToConfigurationPage {
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_CONFIGURATION sender:self];
+}
+
+- (void)jumpToMyTopicPage {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTOPIC sender:self];
 }
 
 - (void)viewDidLoad {
