@@ -14,4 +14,8 @@
  */
 @interface MainController : BaseViewController<YWTabBarControllerDelegate>
 
+@property (nonatomic, assign) BOOL                     reloaded;
+@property (nonatomic, assign) BOOL                     reloaded2;
+
+
 @end

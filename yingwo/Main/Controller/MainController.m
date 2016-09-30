@@ -23,7 +23,6 @@
 
 @property (nonatomic, assign) NSInteger                selectedIndex;
 
-@property (nonatomic, assign) BOOL                     reloaded;
 
 @end
 
@@ -94,9 +93,10 @@
     //如果刚出现的是贴子页面，要刷新。
     //发布完后回，若到回到贴子页面要刷新
     //第一次加载app可能会有两次刷新，这里一次多余了，贴子的controller也有个刷新
-    if (self.selectedIndex == 0) {
+    if (self.reloaded2 == YES) {
         [self refreshHomeVC];
     }
+   
 }
 
 - (void)refreshHomeVC {
@@ -124,7 +124,7 @@
         self.selectedIndex = index;
         
         if (self.reloaded == NO) {
-            self.reloaded = YES;
+            self.reloaded  = YES;
         }else {
             [self.homeVC.homeTableview.mj_header beginRefreshing];
         }
@@ -135,11 +135,32 @@
     }
     else if (index == 2) {
         self.reloaded = NO;
+        
         [self performSegueWithIdentifier:@"announce" sender:self];
     }
     else if (index == 3 || index == 4) {
         self.reloaded = NO;
     }
+
+}
+
+
+#pragma mark segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"announce"]) {
+        if ([segue.destinationViewController isKindOfClass:[MainNavController class]]) {
+            
+            MainNavController *mainNav = segue.destinationViewController;
+            
+            AnnounceController *announceVc = [mainNav.viewControllers objectAtIndex:0];
+            
+            announceVc.delegate = self.announceVC.delegate;
+            
+        }
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

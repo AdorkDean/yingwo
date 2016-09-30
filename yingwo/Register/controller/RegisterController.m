@@ -9,6 +9,7 @@
 #import "RegisterController.h"
 #import "VerificationController.h"
 #import "ClauseViewController.h"
+#import "LoginModel.h"
 
 @interface RegisterController ()
 
@@ -150,7 +151,6 @@ static NSString *notAgreen = @"不同意";
 - (void)jumpToClausePage{
     ClauseViewController *setting = [[ClauseViewController alloc] init];
     [self.navigationController pushViewController:setting animated:YES];
-
 }
 
 /**

@@ -93,12 +93,12 @@
     for (int i = 0; i < entities.count; i ++) {
         
         ImageViewEntity *entity           = [entities objectAtIndex:i];
-        CGFloat imageHeight = SCREEN_WIDTH/entity.width *entity.height;
-        
-        UIImageView *imageView           = [[UIImageView alloc] init];
-        imageView.tag                    = i+1;
-        imageView.userInteractionEnabled = YES;
-        
+        CGFloat imageHeight               = (SCREEN_WIDTH - 60)/entity.width *entity.height;
+       
+        UIImageView *imageView            = [[UIImageView alloc] init];
+        imageView.tag                     = i+1;
+        imageView.userInteractionEnabled  = YES;
+        imageView.contentMode             = UIViewContentModeScaleAspectFit;
         //添加单击放大事件
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                     action:@selector(singelTap:)];
@@ -106,7 +106,7 @@
         singleTap.numberOfTapsRequired    = 1;
         [imageView addGestureRecognizer:singleTap];
         
-        imageView.mas_key                = [NSString stringWithFormat:@"DetailImageView%d:",i+1];
+        imageView.mas_key                 = [NSString stringWithFormat:@"DetailImageView%d:",i+1];
         
         [self.bgImageView addSubview:imageView];
         

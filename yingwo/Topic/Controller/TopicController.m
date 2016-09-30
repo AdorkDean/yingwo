@@ -219,6 +219,9 @@ static CGFloat HeaderViewHeight = 250;
 - (void)addTopic {
     
     AnnounceController *announceVc = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
+    announceVc.isTopic             = YES;
+    announceVc.topic_id            = self.topic_id;
+    announceVc.topic_title         = self.topic_title;
     MainNavController *mainNav     = [[MainNavController alloc] initWithRootViewController:announceVc];
 
     [self presentViewController:mainNav animated:YES completion:nil];
