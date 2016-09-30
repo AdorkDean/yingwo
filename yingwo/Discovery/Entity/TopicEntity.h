@@ -30,6 +30,10 @@
 
 @property (nonatomic, copy) NSString *top;
 
+<<<<<<< HEAD
 @property (nonatomic, copy) NSString *user_topic_like;
+=======
+@property (nonatomic, copy) NSString *user_post_like;
+>>>>>>> origin/master
 
 @end

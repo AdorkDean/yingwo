@@ -39,7 +39,11 @@
     _darkView.backgroundColor = [UIColor blackColor];
     _darkView.alpha           = 0.3;
     
+<<<<<<< HEAD
     [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
+=======
+    [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
+>>>>>>> origin/master
                             forState:UIControlStateNormal];
     
     [self addSubview:_blurImageView];

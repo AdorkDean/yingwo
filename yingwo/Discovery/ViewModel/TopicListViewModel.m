@@ -10,6 +10,7 @@
 
 @implementation TopicListViewModel
 
+<<<<<<< HEAD
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -79,6 +80,8 @@
 }
 
 
+=======
+>>>>>>> origin/master
 - (void)setupModelOfCell:(YWTopicViewCell *)cell model:(TopicEntity *)model {
     
     if (model != nil) {
@@ -92,8 +95,16 @@
                               placeholderImage:nil];
         
         //这里注意未关注前user_post_like的初始值为为null，关注后才为1，取消后为0
+<<<<<<< HEAD
         if (model.user_topic_like != nil && [model.user_topic_like intValue] == 0) {
             
+=======
+        if (model.user_post_like == nil || [model.user_post_like intValue] == 0) {
+            
+            [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
+                                     forState:UIControlStateNormal];
+
+>>>>>>> origin/master
             [cell.rightBtn addTarget:self
                               action:@selector(addLike:)
                     forControlEvents:UIControlEventTouchUpInside];
@@ -105,15 +116,19 @@
             [cell.rightBtn addTarget:self
                               action:@selector(cancelLike:)
                     forControlEvents:UIControlEventTouchUpInside];
+<<<<<<< HEAD
             
             [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
                                      forState:UIControlStateNormal];
+=======
+>>>>>>> origin/master
 
         }
     }
     
 }
 
+<<<<<<< HEAD
 /**
  *  获取话题
  *
@@ -225,6 +240,8 @@
  *  @param success
  *  @param failure
  */
+=======
+>>>>>>> origin/master
 - (void)requestTopicLikeWithUrl:(NSString *)url
                      paramaters:(NSDictionary *)paramaters
                         success:(void (^)(StatusEntity *status))success
@@ -276,11 +293,14 @@
                                   
                                   [sender setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
                                                     forState:UIControlStateNormal];
+<<<<<<< HEAD
                                   
                                   //先移除之前已经添加的action，在添加新的action
                                   [sender removeTarget:self
                                                 action:@selector(addLike:)
                                       forControlEvents:UIControlEventTouchUpInside];
+=======
+>>>>>>> origin/master
                                   [sender addTarget:self
                                              action:@selector(cancelLike:)
                                    forControlEvents:UIControlEventTouchUpInside];
@@ -325,12 +345,15 @@
                                   
                                   [sender setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
                                                            forState:UIControlStateNormal];
+<<<<<<< HEAD
                                   
                                   //先移除之前已经添加的action，在添加新的action
                                   [sender removeTarget:self
                                                 action:@selector(cancelLike:)
                                       forControlEvents:UIControlEventTouchUpInside];
                                   
+=======
+>>>>>>> origin/master
                                   [sender addTarget:self
                                              action:@selector(addLike:)
                                    forControlEvents:UIControlEventTouchUpInside];

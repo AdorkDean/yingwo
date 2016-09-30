@@ -13,10 +13,17 @@
 
 @interface TopicController : BaseViewController
 
+<<<<<<< HEAD
 @property (nonatomic, strong) TieZi    *model;
 
 @property (nonatomic, assign) int      topic_id;
 @property (nonatomic, copy  ) NSString * topic_title;
+=======
+@property (nonatomic, strong)TieZi *model;
+
+@property (nonatomic, assign)int topic_id;
+@property (nonatomic, copy)NSString * topic_title;
+>>>>>>> origin/master
 
 @end
 

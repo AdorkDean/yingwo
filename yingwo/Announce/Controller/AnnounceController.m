@@ -320,7 +320,10 @@ CGFloat delay = 2.0f;
     }
     else
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     

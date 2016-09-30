@@ -16,6 +16,7 @@
 
 @interface TopicListController ()<UITableViewDelegate,UITableViewDataSource,YWTopicViewCellDelegate>
 
+<<<<<<< HEAD
 @property (nonatomic, strong) UITableView        *topicTableView;
 @property (nonatomic, strong) UIBarButtonItem    *leftBarItem;
 @property (nonatomic, strong) UIBarButtonItem    *rightBarItem;
@@ -27,6 +28,16 @@
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
 
+=======
+@property (nonatomic, strong) UITableView     *topicTableView;
+@property (nonatomic, strong) UIBarButtonItem *leftBarItem;
+@property (nonatomic, strong) UIBarButtonItem *rightBarItem;
+
+@property (nonatomic, strong) UIButton        *addTopicBtn;
+
+
+@property (nonatomic, strong) TopicListViewModel  *viewModel;
+>>>>>>> origin/master
 
 @end
 
@@ -81,6 +92,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     return _addTopicBtn;
 }
 
+<<<<<<< HEAD
 - (RequestEntity *)requestEntity {
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
@@ -94,6 +106,12 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     if (_viewModel == nil) {
         _viewModel           = [[TopicListViewModel alloc] init];
         _viewModel.isMyTopic = self.isMyTopic;
+=======
+
+- (TopicListViewModel *)viewModel {
+    if (_viewModel == nil) {
+        _viewModel = [[TopicListViewModel alloc] init];
+>>>>>>> origin/master
     }
     return _viewModel;
 }
@@ -104,6 +122,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+<<<<<<< HEAD
 
 
 -(void)loadViewIfNeeded {
@@ -128,11 +147,14 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 
 }
 
+=======
+>>>>>>> origin/master
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.view addSubview:self.topicTableView];
     [self hideExtraTableView:self.topicTableView];
+<<<<<<< HEAD
     
     __weak TopicListController *weakSelf = self;
     self.topicTableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -142,11 +164,17 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     
     [self.topicTableView.mj_header beginRefreshing];
     
+=======
+>>>>>>> origin/master
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+<<<<<<< HEAD
+=======
+    self.title = self.subject;
+>>>>>>> origin/master
     
     self.navigationItem.leftBarButtonItem = self.leftBarItem;
 }
@@ -157,6 +185,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     tableview.tableFooterView = view;
 }
 
+<<<<<<< HEAD
 - (void)loadDataWithSubjctId:(RequestEntity *)requestEntity{
     
     @weakify(self);
@@ -175,6 +204,8 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     
 }
 
+=======
+>>>>>>> origin/master
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

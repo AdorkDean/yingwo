@@ -15,6 +15,10 @@
 
 @interface FieldTwoController ()<UITableViewDelegate,UITableViewDataSource>
 
+<<<<<<< HEAD
+=======
+@property (nonatomic, strong) UITableView          *tableView;
+>>>>>>> origin/master
 @property (nonatomic, strong) FeildSecondViewModel *viewModel;
 
 @property (nonatomic, assign) NSInteger            selectIndex;
@@ -33,8 +37,11 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
+<<<<<<< HEAD
         _tableView.scrollEnabled   = NO;
 
+=======
+>>>>>>> origin/master
         [_tableView registerClass:[YWSubjectViewCell class]
            forCellReuseIdentifier:SUBJECT_CELL_IDENTIER];
     }
@@ -163,6 +170,7 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
     SubjectEntity *subject         = [self.viewModel.subjectArr objectAtIndex:self.selectIndex];
     NSArray *topicArr              = [self.viewModel.topicArr objectAtIndex:self.selectIndex];
     
+<<<<<<< HEAD
     //获取第一个贴子中的subject_id
     TopicEntity *topic             = [topicArr objectAtIndex:0];
     
@@ -170,6 +178,11 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
     {
         [self.delegate didSelectSubjectWith:subject.title
                                   subjectId:[topic.subject_id intValue]];
+=======
+    if ([self.delegate respondsToSelector:@selector(didSelectSubjectWith:TopicArr:)])
+    {
+        [self.delegate didSelectSubjectWith:subject.title TopicArr:topicArr];
+>>>>>>> origin/master
         
     }
     

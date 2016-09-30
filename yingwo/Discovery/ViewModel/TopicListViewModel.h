@@ -13,10 +13,13 @@
 
 @interface TopicListViewModel : NSObject
 
+<<<<<<< HEAD
 @property (nonatomic, strong) RACCommand *fecthTopicEntityCommand;
 
 @property (nonatomic, assign) BOOL       isMyTopic;
 
+=======
+>>>>>>> origin/master
 - (void)setupModelOfCell:(YWTopicViewCell *)cell model:(TopicEntity *)model;
 
 @end

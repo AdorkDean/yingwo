@@ -57,7 +57,10 @@
 #define SEGUE_IDENTIFY_FOLLOW_TIEZI   @"followTieZi"
 #define SEGUE_IDENTIFY_TOPICLIST      @"topicList"
 #define SEGUE_IDENTIFY_TOPIC          @"topic"
+<<<<<<< HEAD
 #define SEGUE_IDENTIFY_MYTOPIC        @"myTopic"
+=======
+>>>>>>> origin/master
 
 /********************************segue identify************************************************/
 
@@ -78,6 +81,7 @@
 
 #define ANNOUNCE_FRESH_THING_URL @"/Post/add_new"
 
+<<<<<<< HEAD
 #define HOME_URL                @"/Post/index"
 #define TIEZI_URL               @"/Post/get_list"
 #define TIEZI_REPLY             @"/Post/reply"
@@ -97,13 +101,38 @@
 #define RECOMMEND_TOPIC_URL     @"/Topic/recommended_list"
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"
+=======
+#define HOME_URL        @"/Post/index"
+#define TIEZI_URL       @"/Post/get_list"
+#define TIEZI_REPLY     @"/Post/reply"
+#define TIEZI_COMMENT_LIST_URL @"/Post/Comment_list"
+#define TIEZI_COMMENT_URL @"/Post/Comment"
+#define TIEZI_RELPY_URL @"/Post/reply_list"
+#define TIEZI_LIKE_URL @"/Post/like"
+
+#define TOPIC_FIELD_URL @"/Field/get_list"
+#define TOPIC_SUBJECT_URL @"/Subject/get_list"
+#define TOPIC_LIST_URL @"/Topic/get_list"
+#define TOPIC_DETAIL_URL @"/Topic/detail"
+#define TOPIC_LIKE_URL @"/Topic/like"
+#define HOT_TOPIC_URL @"/Topic/hot_list"
+#define RECOMMENDED_TOPIC_URL @"/Topic/recommended_list_fixed"
+#define RECOMMEND_TOPIC_URL @"/Topic/recommended_list"
+#define QINIU_BASE_URL  @"http://obabu2buy.bkt.clouddn.com"
+#define QINIU_TOKEN_URL @"/Qiniu/UploadToken"
+>>>>>>> origin/master
 /********************************* URL ******************************************************/
 
 /********************************* errorCode ******************************************************/
 //未登录
+<<<<<<< HEAD
 #define ERROR_UNLOGIN_CODE 05001
 //为完善信息
 #define ERROR_UNFINISHED_CODE 05002
+=======
+#define ERROR_UNLOGIN_CODE 05002
+//为完善信息
+>>>>>>> origin/master
 
 /********************************* errorCode ******************************************************/
 

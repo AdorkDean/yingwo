@@ -44,7 +44,11 @@
                             @"start_id":@(requestEntity.start_id)};
             
             
+<<<<<<< HEAD
             [self requestTopicWithUrl:TIEZI_URL
+=======
+            [self requestTieZiWithUrl:TIEZI_URL
+>>>>>>> origin/master
                            paramaters:paramaters
                               success:^(NSArray *tieZi) {
                                   
@@ -141,6 +145,7 @@
     
 }
 
+<<<<<<< HEAD
 - (void)requestTopicLikeWithUrl:(NSString *)url
                      paramaters:(NSDictionary *)paramaters
                         success:(void (^)(StatusEntity *status))success
@@ -174,6 +179,8 @@
 }
 
 
+=======
+>>>>>>> origin/master
 #pragma mark private method
 
 - (void)changeImageUrlModelFor:(NSArray *)tieZiArr {

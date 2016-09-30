@@ -21,6 +21,7 @@
        parameters:nil
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+<<<<<<< HEAD
               NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                       options:NSJSONReadingMutableContainers
                                                                         error:nil];
@@ -29,6 +30,13 @@
               
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"获取学院失败，网络错误");
+=======
+              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              College *college = [College mj_objectWithKeyValues:content];
+              success(college);
+              
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+>>>>>>> origin/master
         
     }];
 }
@@ -45,6 +53,7 @@
        parameters:paramaters
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+<<<<<<< HEAD
               NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                       options:NSJSONReadingMutableContainers
                                                                         error:nil];
@@ -53,6 +62,14 @@
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSLog(@"获取学院失败，网络错误");
+=======
+              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              College *college = [College mj_objectWithKeyValues:content];
+              success(college);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+>>>>>>> origin/master
           }];
 }
 

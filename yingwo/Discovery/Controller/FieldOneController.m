@@ -15,6 +15,10 @@
 
 @interface FieldOneController ()<UITableViewDelegate,UITableViewDataSource,YWSubjectViewCellDelegate>
 
+<<<<<<< HEAD
+=======
+@property (nonatomic, strong) UITableView       *tableView;
+>>>>>>> origin/master
 @property (nonatomic, strong) FeildViewModel    *viewModel;
 
 @property (nonatomic, assign) NSInteger         selectIndex;
@@ -34,7 +38,10 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
+<<<<<<< HEAD
         _tableView.scrollEnabled   = NO;
+=======
+>>>>>>> origin/master
         
         [_tableView registerClass:[YWSubjectViewCell class]
            forCellReuseIdentifier:SUBJECT_CELL_IDENTIER];
@@ -150,9 +157,14 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
     return 5;
 }
 
+<<<<<<< HEAD
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10;
+=======
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 200;
+>>>>>>> origin/master
 }
 
 
@@ -164,6 +176,7 @@ static CGFloat scrollY = 0;
 
 #pragma mark UIScrollView
 
+<<<<<<< HEAD
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 //    
 //    UITableView *discoverySrcView = (UITableView *)scrollView.superview.superview.superview.superview.superview.superview.superview;
@@ -200,6 +213,34 @@ static CGFloat scrollY = 0;
         self.discoveryTableView.scrollEnabled = YES;
         
     }
+=======
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    UITableView *discoverySrcView = (UITableView *)scrollView.superview.superview.superview.superview.superview.superview.superview;
+    
+    CGFloat directionY = scrollView.contentOffset.y - scrollY;
+    
+    if (directionY >= 0) {
+        
+        if ( scrollView.contentOffset.y <= headerViewHeight) {
+            
+            discoverySrcView.contentOffset = CGPointMake(discoverySrcView.contentOffset.x,
+                                                          scrollView.contentOffset.y);
+        }
+        
+    }
+    else
+    {
+        if ( scrollView.contentOffset.y <= headerViewHeight) {
+            discoverySrcView.contentOffset = CGPointMake(discoverySrcView.contentOffset.x,
+                                                          scrollView.contentOffset.y);
+        }
+    }
+    
+    
+    scrollY = scrollView.contentOffset.y;
+    
+>>>>>>> origin/master
 }
 
 
@@ -225,6 +266,7 @@ static CGFloat scrollY = 0;
     SubjectEntity *subject         = [self.viewModel.subjectArr objectAtIndex:self.selectIndex];
     NSArray *topicArr              = [self.viewModel.topicArr objectAtIndex:self.selectIndex];
 
+<<<<<<< HEAD
     //获取第一个贴子中的subject_id
     TopicEntity *topic             = [topicArr objectAtIndex:0];
     
@@ -232,6 +274,11 @@ static CGFloat scrollY = 0;
     {
         [self.delegate didSelectSubjectWith:subject.title
                                   subjectId:[topic.subject_id intValue]];
+=======
+    if ([self.delegate respondsToSelector:@selector(didSelectSubjectWith:TopicArr:)])
+    {
+        [self.delegate didSelectSubjectWith:subject.title TopicArr:topicArr];
+>>>>>>> origin/master
 
     }
     

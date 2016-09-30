@@ -24,6 +24,7 @@
 
 @interface TopicController ()<TopicControllerDelegate,SMPagerTabViewDelegate,UIScrollViewDelegate>
 
+<<<<<<< HEAD
 @property (nonatomic, strong) UIScrollView       *topicSrcllView;
 //@property (nonatomic, strong) YWTopicSegmentViewCell *segmentViewCell;
 @property (nonatomic, strong) SMPagerTabView     *segmentView;
@@ -44,6 +45,28 @@
 
 @property (nonatomic, assign) CGFloat            navgationBarHeight;
 @property (nonatomic, strong) TopicViewModel     *viewModel;
+=======
+@property (nonatomic, strong) UIScrollView            *topicSrcllView;
+//@property (nonatomic, strong) YWTopicSegmentViewCell *segmentViewCell;
+@property (nonatomic, strong) SMPagerTabView          *segmentView;
+@property (nonatomic, strong) YWTopicHeaderView      *topicHeaderView;
+@property (nonatomic, strong) UIView        *topicNavigatoionBar;
+@property (nonatomic, strong) UIView        *topicSectionView;
+
+@property (nonatomic, strong) HotTopicController        *hotVc;
+@property (nonatomic, strong) NewTopicController     *freshVc;
+
+
+@property (nonatomic, strong) UIBarButtonItem        *rightBarItem;
+@property (nonatomic, strong) UIBarButtonItem        *leftBarItem;
+
+@property (nonatomic, strong) UIButton               *addBtn;
+
+@property (nonatomic, strong) NSMutableArray     *catalogVcArr;
+
+@property (nonatomic, assign) CGFloat                navgationBarHeight;
+@property (nonatomic, strong) TopicViewModel         *viewModel;
+>>>>>>> origin/master
 
 @end
 
@@ -390,6 +413,7 @@ static CGFloat HeaderViewHeight = 250;
     
     self.topicHeaderView.blurImageView.contentMode     = UIViewContentModeScaleAspectFill;
 
+<<<<<<< HEAD
     
     //这里注意未关注前user_post_like的初始值为为null，关注后才为1，取消后为0
     if (topic.user_topic_like != nil && [topic.user_topic_like intValue] == 0) {
@@ -497,6 +521,10 @@ static CGFloat HeaderViewHeight = 250;
 }
 
 
+=======
+}
+
+>>>>>>> origin/master
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

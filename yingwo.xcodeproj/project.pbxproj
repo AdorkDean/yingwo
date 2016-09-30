@@ -131,7 +131,10 @@
 		1883DD5E1D892F3B00EB9629 /* YWFieldListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883DD5D1D892F3B00EB9629 /* YWFieldListView.m */; };
 		1883DD611D89319100EB9629 /* YWSubjectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883DD601D89319100EB9629 /* YWSubjectViewCell.m */; };
 		1883DD641D898BEF00EB9629 /* FeildViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883DD631D898BEF00EB9629 /* FeildViewModel.m */; };
+<<<<<<< HEAD
 		18860E591D9D01A5006D93F0 /* MyTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18860E581D9D01A5006D93F0 /* MyTopicController.m */; };
+=======
+>>>>>>> origin/master
 		188F12971D40BF6C0013B0A0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 188F12961D40BF6C0013B0A0 /* README.md */; };
 		188F93871D71721D00941A42 /* DiscoveryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F93861D71721D00941A42 /* DiscoveryViewModel.m */; };
 		188F938A1D7178E400941A42 /* YWDiscoveryBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F93891D7178E400941A42 /* YWDiscoveryBaseCell.m */; };
@@ -176,7 +179,10 @@
 		18D243A41D7D61C400DAC374 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243A21D7D61C400DAC374 /* Customer.m */; };
 		18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243B81D7D8CD800DAC374 /* Test+CoreDataProperties.m */; };
 		18D243BC1D7D8CD800DAC374 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243BA1D7D8CD800DAC374 /* Test.m */; };
+<<<<<<< HEAD
 		18DDD2FA1D9E11EC00C36622 /* NSMutableAttributedString+commentString.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DDD2F91D9E11EC00C36622 /* NSMutableAttributedString+commentString.m */; };
+=======
+>>>>>>> origin/master
 		18DEAE2F1D7FB293004169DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DEAE2E1D7FB293004169DF /* ViewController.m */; };
 		18E74CB11D3CA2A800176142 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CAE1D3CA2A800176142 /* LoginController.m */; };
 		18E74CB21D3CA2A800176142 /* LoginNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB01D3CA2A800176142 /* LoginNavController.m */; };
@@ -473,8 +479,11 @@
 		1883DD601D89319100EB9629 /* YWSubjectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWSubjectViewCell.m; path = Discovery/View/YWSubjectViewCell.m; sourceTree = "<group>"; };
 		1883DD621D898BEF00EB9629 /* FeildViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeildViewModel.h; path = Discovery/ViewModel/FeildViewModel.h; sourceTree = "<group>"; };
 		1883DD631D898BEF00EB9629 /* FeildViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeildViewModel.m; path = Discovery/ViewModel/FeildViewModel.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		18860E571D9D01A5006D93F0 /* MyTopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTopicController.h; path = PersonalCenter/controller/MyTopicController.h; sourceTree = "<group>"; };
 		18860E581D9D01A5006D93F0 /* MyTopicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTopicController.m; path = PersonalCenter/controller/MyTopicController.m; sourceTree = "<group>"; };
+=======
+>>>>>>> origin/master
 		188F12961D40BF6C0013B0A0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		188F93851D71721D00941A42 /* DiscoveryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiscoveryViewModel.h; path = Discovery/ViewModel/DiscoveryViewModel.h; sourceTree = "<group>"; };
 		188F93861D71721D00941A42 /* DiscoveryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiscoveryViewModel.m; path = Discovery/ViewModel/DiscoveryViewModel.m; sourceTree = "<group>"; };
@@ -563,8 +572,11 @@
 		18D243B81D7D8CD800DAC374 /* Test+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Test+CoreDataProperties.m"; path = "CoreData/Test+CoreDataProperties.m"; sourceTree = "<group>"; };
 		18D243B91D7D8CD800DAC374 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Test.h; path = CoreData/Test.h; sourceTree = "<group>"; };
 		18D243BA1D7D8CD800DAC374 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Test.m; path = CoreData/Test.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		18DDD2F81D9E11EC00C36622 /* NSMutableAttributedString+commentString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+commentString.h"; path = "Tools/NSMutableAttributedString+commentString.h"; sourceTree = "<group>"; };
 		18DDD2F91D9E11EC00C36622 /* NSMutableAttributedString+commentString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+commentString.m"; path = "Tools/NSMutableAttributedString+commentString.m"; sourceTree = "<group>"; };
+=======
+>>>>>>> origin/master
 		18DEAE2D1D7FB293004169DF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		18DEAE2E1D7FB293004169DF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		18E74CAD1D3CA2A800176142 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginController.h; path = Login/Controller/LoginController.h; sourceTree = "<group>"; };
@@ -1136,8 +1148,11 @@
 		186C44981D3BC4BE00BE3427 /* PersonalCenter */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				18860E5A1D9D026D006D93F0 /* Entitiy */,
 				18860E5B1D9D027C006D93F0 /* ViewModel */,
+=======
+>>>>>>> origin/master
 				186C44A01D3BC5AA00BE3427 /* View */,
 				186C449F1D3BC5A100BE3427 /* Controller */,
 			);
@@ -1151,8 +1166,11 @@
 				186C449D1D3BC51E00BE3427 /* PersonalCenterController.m */,
 				18D100991D3DFF0000D75968 /* BaseInfoController.h */,
 				18D1009A1D3DFF0000D75968 /* BaseInfoController.m */,
+<<<<<<< HEAD
 				18860E571D9D01A5006D93F0 /* MyTopicController.h */,
 				18860E581D9D01A5006D93F0 /* MyTopicController.m */,
+=======
+>>>>>>> origin/master
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1203,6 +1221,7 @@
 			name = DiscoveryView;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		18860E5A1D9D026D006D93F0 /* Entitiy */ = {
 			isa = PBXGroup;
 			children = (
@@ -1217,6 +1236,8 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> origin/master
 		188F12951D40BF3B0013B0A0 /* README */ = {
 			isa = PBXGroup;
 			children = (
@@ -1731,8 +1752,11 @@
 				181B0B0B1D8150DB003CD0B6 /* NSMutableArray+Sort.m */,
 				184C42D61D9BF9F20060D9C0 /* UIImage+blur.h */,
 				184C42D71D9BF9F20060D9C0 /* UIImage+blur.m */,
+<<<<<<< HEAD
 				18DDD2F81D9E11EC00C36622 /* NSMutableAttributedString+commentString.h */,
 				18DDD2F91D9E11EC00C36622 /* NSMutableAttributedString+commentString.m */,
+=======
+>>>>>>> origin/master
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -1906,7 +1930,10 @@
 				1807FEE71D6830C5009393E2 /* CMSDImageCache.m in Sources */,
 				1803C1101D541E470078EF0F /* LSYAlbumModel.m in Sources */,
 				CC89F0651D956BFC0053462A /* ClauseViewController.m in Sources */,
+<<<<<<< HEAD
 				18860E591D9D01A5006D93F0 /* MyTopicController.m in Sources */,
+=======
+>>>>>>> origin/master
 				181A01061D575D2800D96DC9 /* DetailViewModel.m in Sources */,
 				181A00F21D571E3300D96DC9 /* YWHomeTableViewCellBase.m in Sources */,
 				18D100DF1D3E16D700D75968 /* User+CURD.m in Sources */,
@@ -2025,7 +2052,10 @@
 				186C44921D3B732D00BE3427 /* CroppingController.m in Sources */,
 				18C350531D7FBA64008BFDD3 /* YWCommentReplyView.m in Sources */,
 				18E74CBC1D3CA6DA00176142 /* MD5.m in Sources */,
+<<<<<<< HEAD
 				18DDD2FA1D9E11EC00C36622 /* NSMutableAttributedString+commentString.m in Sources */,
+=======
+>>>>>>> origin/master
 				186C44AB1D3BD5EE00BE3427 /* YWPersonCenterMidCell.m in Sources */,
 				1807FEC21D6830A0009393E2 /* MXScrollConst.m in Sources */,
 				1807FEC41D6830A0009393E2 /* MXTransaction.m in Sources */,
@@ -2225,12 +2255,20 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 				DEVELOPMENT_TEAM = 5FXU36NJZS;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangshijiejay.yingwo;
+>>>>>>> origin/master
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
@@ -2253,7 +2291,11 @@
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangshijiejay.yingwo;
+>>>>>>> origin/master
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;

@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 
+<<<<<<< HEAD
 typedef NS_ENUM(NSInteger,TopicTypeModel) {
     
     AllTopicModel   = 0, //话题
@@ -35,6 +36,15 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 
 //主题下话题数组
 @property (nonatomic, strong) NSArray  *topicArr;
+=======
+@interface TopicListController : BaseViewController
+
+//主题
+@property (nonatomic, copy  ) NSString       *subject;
+
+//主题下话题数组
+@property (nonatomic, strong) NSArray *topicArr;
+>>>>>>> origin/master
 
 
 @end

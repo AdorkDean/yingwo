@@ -27,6 +27,10 @@
 //主题下话题数组
 @property (nonatomic, strong) NSMutableArray *topicArr;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 - (void)setupModelOfCell:(YWSubjectViewCell *)cell indexPath:(NSIndexPath *)indexPath;
 
 /**

@@ -41,6 +41,7 @@
                     success:(void (^)(NSArray *))success
                       error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
 
+<<<<<<< HEAD
 /**
  *  话题关注和取消
  *
@@ -53,4 +54,6 @@
                      paramaters:(NSDictionary *)paramaters
                         success:(void (^)(StatusEntity *status))success
                         failure:(void (^)(NSString *error))failure;
+=======
+>>>>>>> origin/master
 @end
