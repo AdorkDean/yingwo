@@ -37,6 +37,8 @@
     _numberOfTopic.textColor  = [UIColor colorWithHexString:THEME_COLOR_3];
     _numberOfFavour.textColor = [UIColor colorWithHexString:THEME_COLOR_3];
 
+    _topic.numberOfLines = 0;
+    
     [self addSubview:_leftImageView];
     [self addSubview:_topic];
     [self addSubview:_numberOfTopic];

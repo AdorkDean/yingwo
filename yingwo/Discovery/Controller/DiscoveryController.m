@@ -19,17 +19,12 @@
 #import "YWSegmentViewCell.h"
 
 //导航条图片高度
-<<<<<<< HEAD
 static CGFloat const bannerHeight           = 150;
-=======
-static CGFloat const bannerHeight           = 200;
->>>>>>> origin/master
 
 static NSString *YWBANNER_CELL_IDENTIFIER   = @"bannerCell";
 static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
 
 @interface DiscoveryController ()<UITableViewDataSource,UITableViewDelegate,MXScrollViewDelegate,DiscoveryDelegate>
-<<<<<<< HEAD
 @property (nonatomic, strong) UITableView          *discoveryTableView;
 @property (nonatomic, strong) YWDiscoveryBaseCell  *segmentViewCell;
 @property (nonatomic, strong) NSMutableArray       *bannerArr;
@@ -52,24 +47,6 @@ static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
 
 //选择的话题id
 @property (nonatomic, assign) int                  topic_id;
-=======
-@property (nonatomic, strong) UITableView         *discoveryTableView;
-@property (nonatomic, strong) YWDiscoveryBaseCell *segmentViewCell;
-@property (nonatomic, strong) NSMutableArray      *bannerArr;
-
-@property (nonatomic, assign) CGFloat             navgationBarHeight;
-@property (nonatomic, strong) DiscoveryViewModel  *viewModel;
-
-
-//主题
-@property (nonatomic, copy  ) NSString            *subject;
-
-//主题下话题数组
-@property (nonatomic, strong) NSArray             *topicArr;
-
-//选择的话题id
-@property (nonatomic, assign) int                 topic_id;
->>>>>>> origin/master
 
 @end
 
@@ -153,7 +130,6 @@ static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
     }else if (indexPath.section == 1) {
         
         //获得cell，为了给对应的section添加领域view
-<<<<<<< HEAD
         self.segmentViewCell               = cell;
         cell.oneFieldVc.delegate           = self;
         cell.twoFieldVc.delegate           = self;
@@ -164,13 +140,6 @@ static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
         self.twoFieldVc                    = cell.twoFieldVc;
         self.threeFieldVc                  = cell.threeFieldVc;
 
-=======
-        self.segmentViewCell       = cell;
-        cell.oneFieldVc.delegate   = self;
-        cell.twoFieldVc.delegate   = self;
-        cell.threeFieldVc.delegate = self;
-        
->>>>>>> origin/master
     }
     
     return cell;
@@ -194,10 +163,7 @@ static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
     if (section == 0) {
         return 0;
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> origin/master
+
     return 40;
 }
 
@@ -210,20 +176,19 @@ static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
     return nil;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 1) {
+        return 200;
+    }
+    return 0;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[TopicListController class]]) {
         if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPICLIST]) {
             
             TopicListController *topicListVc = segue.destinationViewController;
-<<<<<<< HEAD
-            
-            topicListVc.subject    = self.subject;
-            topicListVc.subject_id = self.subject_id;
-            topicListVc.topicArr   = self.topicArr;
-=======
-            topicListVc.subject              = self.subject;
-            topicListVc.topicArr             = self.topicArr;
->>>>>>> origin/master
+            topicListVc.subject_id           = self.subject_id;
             
         }
     }
@@ -246,7 +211,6 @@ static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
 
 }
 
-<<<<<<< HEAD
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     
     if (scrollView.contentOffset.y >= bannerHeight && self.oneFieldVc.tableView.contentOffset.y != 0) {
@@ -268,16 +232,6 @@ static NSString *YWPAGEVIEW_CELL_IDENTIFIER = @"discoveryCell";
     self.subject    = subject;
     self.subject_id = subjectId;
     
-=======
-
-#pragma mark DiscoveryDelegate
-
-- (void)didSelectSubjectWith:(NSString *)subject TopicArr:(NSArray *)topicArr {
-    
-    self.subject  = subject;
-    self.topicArr = topicArr;
-
->>>>>>> origin/master
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
 }
 

@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 //主题id
 @property (nonatomic, assign) int            subject_id;
 
-
+//主题下话题数组
+@property (nonatomic, strong) NSArray *topicArr;
 
 @end

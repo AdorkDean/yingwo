@@ -273,6 +273,7 @@
                     </view>
                     <connections>
                         <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="fJH-6J-WQ4"/>
+                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="pvc-Sr-Ihp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VX9-S6-3wF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -351,17 +352,13 @@
                     <connections>
                         <segue destination="LrX-Vt-5Ma" kind="show" identifier="cofiguration" id="FJU-Vc-UcC"/>
                         <segue destination="obn-eG-WU9" kind="show" identifier="perfectInfo" id="gXB-c9-GK2"/>
-<<<<<<< HEAD
                         <segue destination="M84-fc-J5Z" kind="show" identifier="myTopic" id="z8l-m0-DzE"/>
-=======
->>>>>>> origin/master
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grr-Sz-WP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3802" y="3049"/>
         </scene>
-<<<<<<< HEAD
         <!--My Topic Controller-->
         <scene sceneID="ihF-qI-CES">
             <objects>
@@ -380,8 +377,6 @@
             </objects>
             <point key="canvasLocation" x="4882" y="3048"/>
         </scene>
-=======
->>>>>>> origin/master
         <!--Topic Controller-->
         <scene sceneID="2Yv-uX-pzr">
             <objects>
@@ -478,9 +473,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FXl-pq-whf"/>
-        <segue reference="GGw-Qr-lxh"/>
         <segue reference="gXB-c9-GK2"/>
         <segue reference="MUA-MQ-PjB"/>
+        <segue reference="pvc-Sr-Ihp"/>
+        <segue reference="fJH-6J-WQ4"/>
     </inferredMetricsTieBreakers>
 </document>

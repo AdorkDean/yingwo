@@ -124,14 +124,7 @@
                                success:(void (^)(NSArray *topicArr))success
                                failure:(void (^)(NSString *error))failure{
     
-    //先获取对应学校的id
-<<<<<<< HEAD
-  //  Customer *user                  = [User findCustomer];
-  //  NSString *schoolId              = user.school_id;
-=======
-    Customer *user                  = [User findCustomer];
-    NSString *schoolId              = user.school_id;
->>>>>>> origin/master
+
     
     //存放的是数组，存放TopicEntity的数组
     NSMutableArray *topicArr        = [[NSMutableArray alloc] init];

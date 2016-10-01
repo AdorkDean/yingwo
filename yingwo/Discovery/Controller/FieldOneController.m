@@ -149,12 +149,11 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 5;
+    return 10;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10;
+    return 200;
 }
 
 

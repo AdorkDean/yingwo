@@ -41,4 +41,8 @@
                     success:(void (^)(NSArray *))success
                       error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
 
+- (void)requestTopicLikeWithUrl:(NSString *)url
+                     paramaters:(NSDictionary *)paramaters
+                        success:(void (^)(StatusEntity *status))success
+                        failure:(void (^)(NSString *error))failure;
 @end

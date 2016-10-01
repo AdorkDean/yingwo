@@ -221,14 +221,14 @@ CGFloat delay = 2.0f;
         }
         else if (self.isTopic == YES) {
             
-            paramaters[@"post_id"] = @(self.topic_id);
-            requestUrl             = TIEZI_REPLY;
+            paramaters[@"topic_id"] = @(self.topic_id);
+            requestUrl             = ANNOUNCE_URL;
 
         }
         else
         {
             paramaters[@"topic_id"] = @0;
-            requestUrl              = ANNOUNCE_FRESH_THING_URL;
+            requestUrl              = ANNOUNCE_URL;
         }
         
         
@@ -322,18 +322,10 @@ CGFloat delay = 2.0f;
     }
     else
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-        [self dismissViewControllerAnimated:YES completion:nil];
-=======
         [self dismissViewControllerAnimated:YES completion:^{
             MainController *main = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
             main.reloaded = NO;
         }];
->>>>>>> 08008cf0bf14ee21966548da339dcdb17e2ee572
     }
     
 

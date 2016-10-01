@@ -125,6 +125,7 @@
 
     if (model.topic_id != 0) {
       //  NSLog(@"title:%@",model.topic_title);
+        cell.labelView.title.topic_id   = model.topic_id;
         cell.labelView.title.label.text = model.topic_title;
 
     }
@@ -333,10 +334,10 @@
               
               NSArray *tieZiArr        = [TieZi mj_objectArrayWithKeyValuesArray:tieZiResult.info];
               
-              
           //    NSLog(@"tieZiArr:%@",tieZiResult.info);
               
-              //需要将返回的url字符串，转化为imageUrl数组
+              //需要将返回的url字符串，转化
+              //为imageUrl数组
               [self changeImageUrlModelFor:tieZiArr];
               
               success(tieZiArr);

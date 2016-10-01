@@ -167,8 +167,8 @@
             commentView.leftName.text          = entity.user_name;
 
             //connectString内容为用户名字＋评论内容，其中“占“字为占位符
-            NSString *connectString            = [NSString stringWithFormat:@"%@：占占%@",entity.user_name,entity.content];
-
+            NSString *connectString            = [NSString stringWithFormat:@"%@占占 :%@",entity.user_name,entity.content];
+            
             //首行缩进
             commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
                                                                                             WithTextIndext:entity.user_name.length + 2];
@@ -183,7 +183,7 @@
             }];
             
             [commentView.content mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(commentView.leftName.mas_top);
+                make.top.equalTo(commentView.leftName.mas_top).offset(1);
 
                 make.left.equalTo(commentView.leftName.mas_left);
             }];
@@ -200,7 +200,7 @@
             if (entity.commented_user_name.length != 0) {
                 
                 //connectString内容为用户名字＋评论内容
-                NSString *connectString            = [NSString stringWithFormat:@"%@：回复:%@",entity.user_name,entity.content];
+                NSString *connectString            = [NSString stringWithFormat:@"%@回复 :%@",entity.user_name,entity.content];
                 
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
@@ -211,7 +211,7 @@
             else
             {
                 //connectString内容为用户名字＋评论内容
-                NSString *connectString            = [NSString stringWithFormat:@"%@：%@",entity.user_name,entity.content];
+                NSString *connectString            = [NSString stringWithFormat:@"%@ :%@",entity.user_name,entity.content];
                 
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString

@@ -9,7 +9,7 @@
 #import "YWBannerTableViewCell.h"
 
 //导航条图片高度
-static CGFloat const scrollViewHeight = 220;
+static CGFloat const scrollViewHeight = 150;
 
 @implementation YWBannerTableViewCell
 

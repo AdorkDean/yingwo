@@ -77,7 +77,7 @@
 #define BASE_INFO_URL   @"/User/Base_info"
 #define UPDATE_INFO_URL @"/User/Update"
 
-#define ANNOUNCE_FRESH_THING_URL @"/Post/add_new"
+#define ANNOUNCE_URL @"/Post/add_new"
 
 
 #define HOME_URL                @"/Post/index"

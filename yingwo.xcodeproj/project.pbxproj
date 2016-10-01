@@ -112,10 +112,6 @@
 		186C44921D3B732D00BE3427 /* CroppingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C448F1D3B732D00BE3427 /* CroppingController.m */; };
 		186C44931D3B732D00BE3427 /* UIViewController+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C44911D3B732D00BE3427 /* UIViewController+Camera.m */; };
 		186C44961D3B877000BE3427 /* UIImage+(Copping).m in Sources */ = {isa = PBXBuildFile; fileRef = 186C44951D3B877000BE3427 /* UIImage+(Copping).m */; };
-		186C449E1D3BC51E00BE3427 /* PersonalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C449D1D3BC51E00BE3427 /* PersonalCenterController.m */; };
-		186C44A51D3BC62D00BE3427 /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C44A41D3BC62D00BE3427 /* YWPersonCenterCell.m */; };
-		186C44A81D3BC9C200BE3427 /* YWPersonCenterTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C44A71D3BC9C200BE3427 /* YWPersonCenterTopView.m */; };
-		186C44AB1D3BD5EE00BE3427 /* YWPersonCenterMidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C44AA1D3BD5EE00BE3427 /* YWPersonCenterMidCell.m */; };
 		1878FC411D59B55A0006230C /* YWAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1878FC401D59B55A0006230C /* YWAvatarBrowser.m */; };
 		1878FC441D59B7A00006230C /* YWAvatarBrowserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1878FC431D59B7A00006230C /* YWAvatarBrowserHelper.m */; };
 		187D2F8C1D55B4A3006C5C5F /* CatZanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 187D2F881D55B4A3006C5C5F /* CatZanButton.m */; };
@@ -162,7 +158,6 @@
 		18B926D41D3907ED0067FE24 /* SmsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B926D31D3907ED0067FE24 /* SmsMessage.m */; };
 		18B926DC1D39270C0067FE24 /* MBProgressHUD+Dispaly.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B926DB1D39270C0067FE24 /* MBProgressHUD+Dispaly.m */; };
 		18C350531D7FBA64008BFDD3 /* YWCommentReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C350521D7FBA64008BFDD3 /* YWCommentReplyView.m */; };
-		18D1009B1D3DFF0000D75968 /* BaseInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1009A1D3DFF0000D75968 /* BaseInfoController.m */; };
 		18D100DB1D3E153400D75968 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D100DA1D3E153400D75968 /* User.m */; };
 		18D100DF1D3E16D700D75968 /* User+CURD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D100DE1D3E16D700D75968 /* User+CURD.m */; };
 		18D102981D3E4B0600D75968 /* RegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D102971D3E4B0600D75968 /* RegisterModel.m */; };
@@ -175,12 +170,15 @@
 		18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243B81D7D8CD800DAC374 /* Test+CoreDataProperties.m */; };
 		18D243BC1D7D8CD800DAC374 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243BA1D7D8CD800DAC374 /* Test.m */; };
 		18D4E7211D9E67AD00A0978E /* NSMutableAttributedString+commentString.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7201D9E67AD00A0978E /* NSMutableAttributedString+commentString.m */; };
-		18D4E7291D9E6B8D00A0978E /* BaseInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7241D9E6B8D00A0978E /* BaseInfoController.m */; };
 		18D4E72A1D9E6B8D00A0978E /* MyTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7261D9E6B8D00A0978E /* MyTopicController.m */; };
-		18D4E72B1D9E6B8D00A0978E /* PersonalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7281D9E6B8D00A0978E /* PersonalCenterController.m */; };
-		18D4E7341D9E6BAA00A0978E /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */; };
 		18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7311D9E6BAA00A0978E /* YWPersonCenterMidCell.m */; };
 		18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */; };
+		18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7321D9E6BAA00A0978E /* YWPersonCenterTopView.h */; };
+		18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72E1D9E6BAA00A0978E /* YWPersonCenterCell.h */; };
+		18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */; };
+		18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7301D9E6BAA00A0978E /* YWPersonCenterMidCell.h */; };
+		18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */; };
+		18D4E73E1D9E770900A0978E /* PersonalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7281D9E6B8D00A0978E /* PersonalCenterController.m */; };
 		18E74CB11D3CA2A800176142 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CAE1D3CA2A800176142 /* LoginController.m */; };
 		18E74CB21D3CA2A800176142 /* LoginNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB01D3CA2A800176142 /* LoginNavController.m */; };
 		18E74CB51D3CA2C300176142 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB41D3CA2C300176142 /* LoginModel.m */; };
@@ -443,10 +441,6 @@
 		186C44911D3B732D00BE3427 /* UIViewController+Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Camera.m"; path = "Tools/UIViewController+Camera.m"; sourceTree = "<group>"; };
 		186C44941D3B877000BE3427 /* UIImage+(Copping).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+(Copping).h"; path = "Tools/UIImage+(Copping).h"; sourceTree = "<group>"; };
 		186C44951D3B877000BE3427 /* UIImage+(Copping).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+(Copping).m"; path = "Tools/UIImage+(Copping).m"; sourceTree = "<group>"; };
-		186C449D1D3BC51E00BE3427 /* PersonalCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCenterController.m; path = PersonalCenter/controller/PersonalCenterController.m; sourceTree = "<group>"; };
-		186C44A41D3BC62D00BE3427 /* YWPersonCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterCell.m; path = PersonalCenter/view/YWPersonCenterCell.m; sourceTree = "<group>"; };
-		186C44A71D3BC9C200BE3427 /* YWPersonCenterTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterTopView.m; path = PersonalCenter/view/YWPersonCenterTopView.m; sourceTree = "<group>"; };
-		186C44AA1D3BD5EE00BE3427 /* YWPersonCenterMidCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterMidCell.m; path = PersonalCenter/view/YWPersonCenterMidCell.m; sourceTree = "<group>"; };
 		1878FC3F1D59B55A0006230C /* YWAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWAvatarBrowser.h; path = Tools/YWAvatarBrowser.h; sourceTree = "<group>"; };
 		1878FC401D59B55A0006230C /* YWAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWAvatarBrowser.m; path = Tools/YWAvatarBrowser.m; sourceTree = "<group>"; };
 		1878FC421D59B7A00006230C /* YWAvatarBrowserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWAvatarBrowserHelper.h; path = Tools/YWAvatarBrowserHelper.h; sourceTree = "<group>"; };
@@ -538,7 +532,6 @@
 		18B926DB1D39270C0067FE24 /* MBProgressHUD+Dispaly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+Dispaly.m"; path = "Tools/MBProgressHUD+Dispaly.m"; sourceTree = "<group>"; };
 		18C350511D7FBA64008BFDD3 /* YWCommentReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWCommentReplyView.h; path = Home/View/YWCommentReplyView.h; sourceTree = "<group>"; };
 		18C350521D7FBA64008BFDD3 /* YWCommentReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWCommentReplyView.m; path = Home/View/YWCommentReplyView.m; sourceTree = "<group>"; };
-		18D1009A1D3DFF0000D75968 /* BaseInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseInfoController.m; path = PersonalCenter/controller/BaseInfoController.m; sourceTree = "<group>"; };
 		18D100D91D3E153400D75968 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = User/entity/User.h; sourceTree = "<group>"; };
 		18D100DA1D3E153400D75968 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = User/entity/User.m; sourceTree = "<group>"; };
 		18D100DD1D3E16D700D75968 /* User+CURD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "User+CURD.h"; path = "Tools/User+CURD.h"; sourceTree = "<group>"; };
@@ -562,12 +555,10 @@
 		18D243BA1D7D8CD800DAC374 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Test.m; path = CoreData/Test.m; sourceTree = "<group>"; };
 		18D4E71F1D9E67AD00A0978E /* NSMutableAttributedString+commentString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+commentString.h"; path = "Tools/NSMutableAttributedString+commentString.h"; sourceTree = "<group>"; };
 		18D4E7201D9E67AD00A0978E /* NSMutableAttributedString+commentString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+commentString.m"; path = "Tools/NSMutableAttributedString+commentString.m"; sourceTree = "<group>"; };
-		18D4E7231D9E6B8D00A0978E /* BaseInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseInfoController.h; path = PersonalCenter/Controller/BaseInfoController.h; sourceTree = "<group>"; };
-		18D4E7241D9E6B8D00A0978E /* BaseInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseInfoController.m; path = PersonalCenter/Controller/BaseInfoController.m; sourceTree = "<group>"; };
 		18D4E7251D9E6B8D00A0978E /* MyTopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTopicController.h; path = PersonalCenter/Controller/MyTopicController.h; sourceTree = "<group>"; };
 		18D4E7261D9E6B8D00A0978E /* MyTopicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTopicController.m; path = PersonalCenter/Controller/MyTopicController.m; sourceTree = "<group>"; };
 		18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalCenterController.h; path = PersonalCenter/Controller/PersonalCenterController.h; sourceTree = "<group>"; };
-		18D4E7281D9E6B8D00A0978E /* PersonalCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCenterController.m; path = PersonalCenter/Controller/PersonalCenterController.m; sourceTree = "<group>"; };
+		18D4E7281D9E6B8D00A0978E /* PersonalCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCenterController.m; path = "/Users/apple/Desktop/应我/应我iOS开发/yingwo-master/yingwo/PersonalCenter/Controller/PersonalCenterController.m"; sourceTree = "<absolute>"; };
 		18D4E72E1D9E6BAA00A0978E /* YWPersonCenterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWPersonCenterCell.h; path = PersonalCenter/View/YWPersonCenterCell.h; sourceTree = "<group>"; };
 		18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterCell.m; path = PersonalCenter/View/YWPersonCenterCell.m; sourceTree = "<group>"; };
 		18D4E7301D9E6BAA00A0978E /* YWPersonCenterMidCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWPersonCenterMidCell.h; path = PersonalCenter/View/YWPersonCenterMidCell.h; sourceTree = "<group>"; };
@@ -1515,8 +1506,6 @@
 		18D4E72C1D9E6B9000A0978E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				18D4E7231D9E6B8D00A0978E /* BaseInfoController.h */,
-				18D4E7241D9E6B8D00A0978E /* BaseInfoController.m */,
 				18D4E7251D9E6B8D00A0978E /* MyTopicController.h */,
 				18D4E7261D9E6B8D00A0978E /* MyTopicController.m */,
 				18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */,
@@ -1808,7 +1797,7 @@
 				TargetAttributes = {
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 5FXU36NJZS;
+						DevelopmentTeam = H9CECX49VX;
 					};
 				};
 			};
@@ -1906,6 +1895,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D4E73E1D9E770900A0978E /* PersonalCenterController.m in Sources */,
+				18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */,
+				18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */,
+				18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */,
+				18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */,
+				18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */,
+				18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */,
+				18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */,
 				1807FEF01D6830C5009393E2 /* UIButton+CMWebCache.m in Sources */,
 				184BC1221D5F221D00125448 /* GalleryView.m in Sources */,
 				181A00CE1D56E7C800D96DC9 /* YWHomeTableViewCellThreeImage.m in Sources */,
@@ -2021,7 +2018,6 @@
 				18A0F8951D34B78D005FE091 /* VerificationController.m in Sources */,
 				18D100DB1D3E153400D75968 /* User.m in Sources */,
 				18B0C6771D980FBA00F776DF /* HYViewController.m in Sources */,
-				18D1009B1D3DFF0000D75968 /* BaseInfoController.m in Sources */,
 				18EE35201D8A77A0003F8548 /* TopicListController.m in Sources */,
 				1803C11F1D541E830078EF0F /* YWHomeCellLabelView.m in Sources */,
 				18B926C51D38B9E60067FE24 /* CustomPresentSegue.m in Sources */,
@@ -2037,9 +2033,7 @@
 				186C44921D3B732D00BE3427 /* CroppingController.m in Sources */,
 				18C350531D7FBA64008BFDD3 /* YWCommentReplyView.m in Sources */,
 				18E74CBC1D3CA6DA00176142 /* MD5.m in Sources */,
-				186C44AB1D3BD5EE00BE3427 /* YWPersonCenterMidCell.m in Sources */,
 				1807FEC21D6830A0009393E2 /* MXScrollConst.m in Sources */,
-				18D4E7291D9E6B8D00A0978E /* BaseInfoController.m in Sources */,
 				CC5BC5031D9D038D00851C4D /* YWAlertButton.m in Sources */,
 				CC5BC4FB1D9D02A400851C4D /* ClauseViewController.m in Sources */,
 				1807FEC41D6830A0009393E2 /* MXTransaction.m in Sources */,
@@ -2048,16 +2042,13 @@
 				1803C1081D541E350078EF0F /* LSYPickerButtomView.m in Sources */,
 				185E1AEB1D8FC7C3008299EE /* HotTopicController.m in Sources */,
 				181A00EF1D571B4400D96DC9 /* YWHomeTableViewCellMoreNineImage.m in Sources */,
-				18D4E72B1D9E6B8D00A0978E /* PersonalCenterController.m in Sources */,
 				1807FEEB1D6830C5009393E2 /* CMSDWebImageDownloaderOperation.m in Sources */,
 				18E74CD11D3CEB8B00176142 /* YWTabBarController.m in Sources */,
 				18E74CB11D3CA2A800176142 /* LoginController.m in Sources */,
 				18F303BE1D5DFE7A005B7FAD /* UIScrollView+UITouch.m in Sources */,
-				18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */,
 				181A00D41D56E89700D96DC9 /* YWHomeTableViewCellSixImage.m in Sources */,
 				181A00F51D5737F100D96DC9 /* YWHomeTableViewCellNoImage.m in Sources */,
 				184932A21D3FC66C008CE18E /* ResetPasswordController.m in Sources */,
-				186C44A51D3BC62D00BE3427 /* YWPersonCenterCell.m in Sources */,
 				1803C10F1D541E470078EF0F /* LSYAlbum.m in Sources */,
 				1883DD531D89299A00EB9629 /* SubjectEntity.m in Sources */,
 				1807FEEA1D6830C5009393E2 /* CMSDWebImageDownloader.m in Sources */,
@@ -2065,7 +2056,6 @@
 				18D4E7211D9E67AD00A0978E /* NSMutableAttributedString+commentString.m in Sources */,
 				18F3B2561D7AC1E9001A7F18 /* YWDetailCommentView.m in Sources */,
 				180DB13B1D424348007786A0 /* UINavigationBar+HideBottomLine.m in Sources */,
-				18D4E7341D9E6BAA00A0978E /* YWPersonCenterCell.m in Sources */,
 				181A00E91D57107A00D96DC9 /* YWHomeCellMiddleViewBase.m in Sources */,
 				18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */,
 				18F9212D1D7E4F2100A44846 /* Perfect.m in Sources */,
@@ -2079,11 +2069,9 @@
 				1883DD641D898BEF00EB9629 /* FeildViewModel.m in Sources */,
 				1807FEEF1D6830C5009393E2 /* NSData+CMImageContentType.m in Sources */,
 				1803C1041D541E350078EF0F /* LSYAlbumCatalogCell.m in Sources */,
-				186C449E1D3BC51E00BE3427 /* PersonalCenterController.m in Sources */,
 				18F3B25F1D7AC5C9001A7F18 /* YWPhotoDisplayView.m in Sources */,
 				180F091D1D3777E700F3DD11 /* PerfectInfoController.m in Sources */,
 				18D243891D7BF41F00DAC374 /* RequestEntity.m in Sources */,
-				186C44A81D3BC9C200BE3427 /* YWPersonCenterTopView.m in Sources */,
 				18A0F8871D34B5EC005FE091 /* InputTextField.m in Sources */,
 				18D102981D3E4B0600D75968 /* RegisterModel.m in Sources */,
 				1803C11C1D541E530078EF0F /* LSYAssetPreview.m in Sources */,
@@ -2099,7 +2087,6 @@
 				18B0C6781D980FBA00F776DF /* UIViewController+NavBarHidden.m in Sources */,
 				18F907ED1D32157F00175886 /* UILabel+Wonderful.m in Sources */,
 				18B926D11D3907940067FE24 /* Register.m in Sources */,
-				18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */,
 				CC89F06A1D97E42E0053462A /* UIImage+Orientation.m in Sources */,
 				18E8E4E91D605247003C7289 /* YWDetailTopView.m in Sources */,
 				1883DD561D8929AA00EB9629 /* TopicEntity.m in Sources */,
@@ -2240,12 +2227,12 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5FXU36NJZS;
+				DEVELOPMENT_TEAM = H9CECX49VX;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangshijiejay.yingwo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
@@ -2263,11 +2250,12 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5FXU36NJZS;
+				DEVELOPMENT_TEAM = H9CECX49VX;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;

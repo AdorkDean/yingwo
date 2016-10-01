@@ -381,11 +381,8 @@
     
     [SVProgressHUD showLoadingStatusWith:@""];
     
-<<<<<<< HEAD
     [YWNetworkTools loadCookiesWithKey:REGISTER_COOKIE];
     
-=======
->>>>>>> origin/master
     [self.viewModel requestForCollegeWithUrl:SCHOOL_URL success:^(College *colleges) {
         
         if (colleges.status == YES) {
@@ -398,13 +395,10 @@
             [self.navigationController pushViewController:schoolSearchVc animated:YES];
             self.isChangeInfo = YES;
         }
-<<<<<<< HEAD
         else
         {
             [SVProgressHUD showErrorStatus:@"学校获取失败" afterDelay:HUD_DELAY];
         }
-=======
->>>>>>> origin/master
         
     } failure:^(NSString *error) {
         [SVProgressHUD showErrorStatus:@"请检查网络" afterDelay:HUD_DELAY];
@@ -422,12 +416,8 @@
     
     [SVProgressHUD showLoadingStatusWith:@""];
 
-<<<<<<< HEAD
     [YWNetworkTools loadCookiesWithKey:REGISTER_COOKIE];
 
-=======
-    
->>>>>>> origin/master
     [self.viewModel requestForAcademyWithUrl:ACADEMY_URL
                                   paramaters:paramaters
                                      success:^(College *colleges) {
@@ -446,13 +436,11 @@
             }
             self.isChangeInfo = YES;
         }
-<<<<<<< HEAD
         else
         {
             [SVProgressHUD showErrorStatus:@"学校获取失败" afterDelay:HUD_DELAY];
         }
-=======
->>>>>>> origin/master
+
         
     } failure:^(NSString *error) {
         [SVProgressHUD showErrorStatus:@"请检查网络" afterDelay:HUD_DELAY];

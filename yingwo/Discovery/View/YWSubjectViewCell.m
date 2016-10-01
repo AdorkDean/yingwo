@@ -24,7 +24,7 @@
     [self.backgroundView addSubview:_fieldListView];
     
     [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(1, 10, 0, 10));
+        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 0, 10));
 
     }];
 

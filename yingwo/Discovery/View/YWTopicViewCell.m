@@ -40,6 +40,8 @@
     _numberOfTopic.textColor  = [UIColor colorWithHexString:THEME_COLOR_3];
     _numberOfFavour.textColor = [UIColor colorWithHexString:THEME_COLOR_3];
 
+    _topic.numberOfLines      = 0;
+    
     [_rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
                          forState:UIControlStateNormal];
     
@@ -61,6 +63,7 @@
     
     [_topic mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_leftImageView.mas_right).offset(10);
+        make.width.equalTo(@150);
         make.top.equalTo(self.mas_top).offset(20);
     }];
     
