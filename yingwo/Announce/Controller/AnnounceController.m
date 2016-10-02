@@ -305,19 +305,26 @@ CGFloat delay = 2.0f;
     
 }
 
+-(void)returnValue:(returnValueBlock)block {
+    self.returnValueBlock = block;
+}
+
 - (void)backToMainView {
     
     [self resignKeyboard];
-    
+
     if (self.isRelease == YES && self.isFollowTieZi == NO) {
         
+
+        self.reloaded2       = YES;
+
         [self dismissViewControllerAnimated:YES completion:^{
+        
             if ([self.delegate respondsToSelector:@selector(jumpToHomeController)]) {
-                //发布成功返回首页刷新
-                MainController *main = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
-                main.reloaded2       = YES;
+            //发布成功返回首页刷新
                 [self.delegate jumpToHomeController];
-            }
+                
+        }
         }];
     }
     else
@@ -330,6 +337,8 @@ CGFloat delay = 2.0f;
     
 
 }
+
+
 
 #pragma mark setLayout
 
@@ -425,6 +434,16 @@ CGFloat delay = 2.0f;
                                                object:nil];
     //进入页面直接弹出键盘
     [self.announceTextView.contentTextView becomeFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    if (self.returnValueBlock != nil) {
+        
+        self.returnValueBlock(self.reloaded2);
+    }
+    
 }
 
 //收起键盘

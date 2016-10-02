@@ -261,19 +261,20 @@
     [self.userDelegateCell addTarget:self action:@selector(jumpToClausePage) forControlEvents:UIControlEventTouchUpInside];
     [self.adviceCell addTarget:self action:@selector(jumpToAdvicePage) forControlEvents:UIControlEventTouchUpInside];
     [self.pointCell addTarget:self action:@selector(jumpToPointPage) forControlEvents:UIControlEventTouchUpInside];
+    [self.messagePushCell addTarget:self action:@selector(developing) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //清除缓存警告视图
 - (void)cleanCacheAlret {
     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"警告" message:@"确定清除缓存？" preferredStyle:UIAlertControllerStyleAlert];
     
+    [alertView addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
     [alertView addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //清除缓存
         [self cleanCache];
-    }]];
-    
-    [alertView addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-
     }]];
     
     [self presentViewController:alertView animated:true completion:nil];
@@ -299,12 +300,17 @@
     }];
 }
 
+//正在开发中
+- (void)developing {
+    [SVProgressHUD showInfoStatus:@"功能开发中···" afterDelay:1.5];
+}
+
 - (void)jumpToPointPage {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=APPID&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/ying-wo-xiao-yuan/id1106325073?mt=8"]];
 }
 
 - (void)jumpToAdvicePage {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=APPID&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/ying-wo-xiao-yuan/id1106325073?mt=8"]];
 }
 
 - (void)jumpToClausePage {

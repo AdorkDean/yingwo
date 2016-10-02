@@ -178,7 +178,6 @@
 		18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */; };
 		18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7301D9E6BAA00A0978E /* YWPersonCenterMidCell.h */; };
 		18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */; };
-		18D4E73E1D9E770900A0978E /* PersonalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7281D9E6B8D00A0978E /* PersonalCenterController.m */; };
 		18E74CB11D3CA2A800176142 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CAE1D3CA2A800176142 /* LoginController.m */; };
 		18E74CB21D3CA2A800176142 /* LoginNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB01D3CA2A800176142 /* LoginNavController.m */; };
 		18E74CB51D3CA2C300176142 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB41D3CA2C300176142 /* LoginModel.m */; };
@@ -224,12 +223,14 @@
 		CC4CDE461D9D04A0002A80B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE421D9D04A0002A80B0 /* main.m */; };
 		CC4CDE471D9D04A0002A80B0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE441D9D04A0002A80B0 /* ViewController.m */; };
 		CC4CDE481D9D04A0002A80B0 /* YingwoUserClause.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */; };
+		CC4CDE4D1D9F5895002A80B0 /* PersonalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE4C1D9F5895002A80B0 /* PersonalCenterController.m */; };
 		CC5BC4FB1D9D02A400851C4D /* ClauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5BC4F91D9D02A400851C4D /* ClauseViewController.m */; };
 		CC5BC4FC1D9D02A400851C4D /* RegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5BC4FA1D9D02A400851C4D /* RegisterController.m */; };
 		CC5BC4FF1D9D02DC00851C4D /* NSString+fileSizeExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5BC4FE1D9D02DC00851C4D /* NSString+fileSizeExtension.m */; };
 		CC5BC5011D9D030900851C4D /* ConfigurationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5BC5001D9D030900851C4D /* ConfigurationController.m */; };
 		CC5BC5031D9D038D00851C4D /* YWAlertButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5BC5021D9D038D00851C4D /* YWAlertButton.m */; };
 		CC89F06A1D97E42E0053462A /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = CC89F0691D97E42E0053462A /* UIImage+Orientation.m */; };
+		CC9604BA1D9FF57D009B5A56 /* UpdatePwdEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9604B91D9FF57D009B5A56 /* UpdatePwdEntity.m */; };
 		EA90C883AA6EF63671AC57B7 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3709C5A61291B822052D7CFB /* Pods_yingwo.framework */; };
 /* End PBXBuildFile section */
 
@@ -558,7 +559,6 @@
 		18D4E7251D9E6B8D00A0978E /* MyTopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTopicController.h; path = PersonalCenter/Controller/MyTopicController.h; sourceTree = "<group>"; };
 		18D4E7261D9E6B8D00A0978E /* MyTopicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTopicController.m; path = PersonalCenter/Controller/MyTopicController.m; sourceTree = "<group>"; };
 		18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalCenterController.h; path = PersonalCenter/Controller/PersonalCenterController.h; sourceTree = "<group>"; };
-		18D4E7281D9E6B8D00A0978E /* PersonalCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCenterController.m; path = "/Users/apple/Desktop/应我/应我iOS开发/yingwo-master/yingwo/PersonalCenter/Controller/PersonalCenterController.m"; sourceTree = "<absolute>"; };
 		18D4E72E1D9E6BAA00A0978E /* YWPersonCenterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWPersonCenterCell.h; path = PersonalCenter/View/YWPersonCenterCell.h; sourceTree = "<group>"; };
 		18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterCell.m; path = PersonalCenter/View/YWPersonCenterCell.m; sourceTree = "<group>"; };
 		18D4E7301D9E6BAA00A0978E /* YWPersonCenterMidCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWPersonCenterMidCell.h; path = PersonalCenter/View/YWPersonCenterMidCell.h; sourceTree = "<group>"; };
@@ -659,6 +659,7 @@
 		CC4CDE431D9D04A0002A80B0 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Support/ViewController.h; sourceTree = "<group>"; };
 		CC4CDE441D9D04A0002A80B0 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Support/ViewController.m; sourceTree = "<group>"; };
 		CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = YingwoUserClause.txt; path = Support/YingwoUserClause.txt; sourceTree = "<group>"; };
+		CC4CDE4C1D9F5895002A80B0 /* PersonalCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCenterController.m; path = PersonalCenter/Controller/PersonalCenterController.m; sourceTree = "<group>"; };
 		CC5BC4F81D9D02A400851C4D /* ClauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClauseViewController.h; path = Register/controller/ClauseViewController.h; sourceTree = "<group>"; };
 		CC5BC4F91D9D02A400851C4D /* ClauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClauseViewController.m; path = Register/controller/ClauseViewController.m; sourceTree = "<group>"; };
 		CC5BC4FA1D9D02A400851C4D /* RegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterController.m; path = Register/controller/RegisterController.m; sourceTree = "<group>"; };
@@ -668,6 +669,8 @@
 		CC5BC5021D9D038D00851C4D /* YWAlertButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWAlertButton.m; path = Home/View/YWAlertButton.m; sourceTree = "<group>"; };
 		CC89F0681D97E42E0053462A /* UIImage+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Orientation.h"; path = "Tools/UIImage+Orientation.h"; sourceTree = "<group>"; };
 		CC89F0691D97E42E0053462A /* UIImage+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Orientation.m"; path = "Tools/UIImage+Orientation.m"; sourceTree = "<group>"; };
+		CC9604B81D9FF57D009B5A56 /* UpdatePwdEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpdatePwdEntity.h; path = yingwo/Configuration/Entity/UpdatePwdEntity.h; sourceTree = SOURCE_ROOT; };
+		CC9604B91D9FF57D009B5A56 /* UpdatePwdEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpdatePwdEntity.m; path = yingwo/Configuration/Entity/UpdatePwdEntity.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1487,6 +1490,7 @@
 		18D1028F1D3E4A5600D75968 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				CC9604B71D9FF2B1009B5A56 /* Entity */,
 				184932961D3FC626008CE18E /* View */,
 				184932951D3FC5E9008CE18E /* Controller */,
 			);
@@ -1509,7 +1513,7 @@
 				18D4E7251D9E6B8D00A0978E /* MyTopicController.h */,
 				18D4E7261D9E6B8D00A0978E /* MyTopicController.m */,
 				18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */,
-				18D4E7281D9E6B8D00A0978E /* PersonalCenterController.m */,
+				CC4CDE4C1D9F5895002A80B0 /* PersonalCenterController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1753,6 +1757,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CC9604B71D9FF2B1009B5A56 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				CC9604B81D9FF57D009B5A56 /* UpdatePwdEntity.h */,
+				CC9604B91D9FF57D009B5A56 /* UpdatePwdEntity.m */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1797,7 +1810,8 @@
 				TargetAttributes = {
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = H9CECX49VX;
+						DevelopmentTeam = 498Z66A529;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1895,7 +1909,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18D4E73E1D9E770900A0978E /* PersonalCenterController.m in Sources */,
 				18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */,
 				18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */,
 				18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */,
@@ -1965,6 +1978,7 @@
 				18AF9E6D1D4F37810063D81F /* HomeController.m in Sources */,
 				18A0F88D1D34B61B005FE091 /* Validate.m in Sources */,
 				185E1AEE1D8FC7E8008299EE /* NewTopicController.m in Sources */,
+				CC9604BA1D9FF57D009B5A56 /* UpdatePwdEntity.m in Sources */,
 				185EA5A61D52D43B00362A21 /* YWDropDownViewCell.m in Sources */,
 				1807FEC11D6830A0009393E2 /* MXPageControl.m in Sources */,
 				1803C1271D54356F0078EF0F /* PhotoUnitView.m in Sources */,
@@ -2062,6 +2076,7 @@
 				181A00E01D56E9E100D96DC9 /* YWHomeCellMiddleViewFourImage.m in Sources */,
 				181A00DA1D56E9A600D96DC9 /* YWHomeCellMiddleViewTwoImage.m in Sources */,
 				180DE9C71D76765700631740 /* YWSearchBar.m in Sources */,
+				CC4CDE4D1D9F5895002A80B0 /* PersonalCenterController.m in Sources */,
 				1803C11A1D541E530078EF0F /* LSYAlbumCatalog.m in Sources */,
 				18E8E4E61D604C26003C7289 /* YWSpringButton.m in Sources */,
 				185E1AE51D8FC5A8008299EE /* TopicViewModel.m in Sources */,
@@ -2227,12 +2242,12 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = H9CECX49VX;
+				DEVELOPMENT_TEAM = 498Z66A529;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaywang.yingwo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
@@ -2250,12 +2265,12 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = H9CECX49VX;
+				DEVELOPMENT_TEAM = 498Z66A529;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaywang.yingwo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;

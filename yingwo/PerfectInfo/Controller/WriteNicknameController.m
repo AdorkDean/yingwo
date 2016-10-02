@@ -104,6 +104,13 @@
     [self.navigationController popToViewController:vc animated:YES];
 }
 
+- (void)setNicknamePlaceHolder {
+    PerfectInfoController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
+    if (vc.name != nil) {
+        self.inputNameText.rightTextField.placeholder = vc.name;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -114,7 +121,7 @@
     [self setAllAction];
     [self checkNickName];
     [self checkToDipalayDeleteBtn];
-    
+    [self setNicknamePlaceHolder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

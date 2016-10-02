@@ -578,7 +578,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
 {
     [self.galleryView removeImageView];
-    
 }
 
 - (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {

@@ -9,10 +9,26 @@
 #import <Foundation/Foundation.h>
 #import "SmsMessage.h"
 #import "Register.h"
+#import "UpdatePwdEntity.h"
 
 @interface RegisterModel : NSObject
 
 @property (nonatomic, strong) RACCommand *fetchResultCommand;
+
+
+/**
+ *  注册请求
+ *
+ *  @param url        部分url
+ *  @param parameters 密码
+ *  @param success    返回Register对象
+ *  @param failure    失败
+ */
+- (void)requestForUpdatePwdWithUrl:(NSString *)url
+                       parameters:(id)parameters
+                          success:(void (^)(UpdatePwdEntity *update))success
+                          failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+
 
 /**
  *  注册请求

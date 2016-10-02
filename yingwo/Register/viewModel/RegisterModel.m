@@ -19,6 +19,30 @@
     return self;
 }
 
+- (void)requestForUpdatePwdWithUrl:(NSString *)url
+                       parameters:(id)parameters
+                          success:(void (^)(UpdatePwdEntity *update))success
+                          failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager = [YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:parameters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              UpdatePwdEntity *update         = [UpdatePwdEntity mj_objectWithKeyValues:content];
+              success(update);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              failure(task,error);
+          }];
+}
+
+
+
 - (void)requestForRegisterWithUrl:(NSString *)url
                        parameters:(id)parameters
                           success:(void (^)(Register *reg))success

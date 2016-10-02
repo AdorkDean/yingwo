@@ -28,6 +28,8 @@
 
 @implementation MainController
 
+
+
 #pragma mark action
 
 
@@ -93,10 +95,19 @@
     //如果刚出现的是贴子页面，要刷新。
     //发布完后回，若到回到贴子页面要刷新
     //第一次加载app可能会有两次刷新，这里一次多余了，贴子的controller也有个刷新
-    if (self.reloaded2 == YES) {
-        [self refreshHomeVC];
-    }
-   
+//        AnnounceController *announceVc = [[AnnounceController alloc] init];
+//        self.announceVC = announceVc;
+//    
+//    __weak AnnounceController *weakSelf = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
+//    
+    
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+
 }
 
 - (void)refreshHomeVC {
@@ -136,6 +147,8 @@
     else if (index == 2) {
         self.reloaded = NO;
         
+        
+        
         [self performSegueWithIdentifier:@"announce" sender:self];
     }
     else if (index == 3 || index == 4) {
@@ -157,6 +170,16 @@
             AnnounceController *announceVc = [mainNav.viewControllers objectAtIndex:0];
             
             announceVc.delegate = self.announceVC.delegate;
+            
+            announceVc.returnValueBlock = ^(BOOL isreloaded2) {
+                
+                NSLog(@"load:%d",isreloaded2);
+                
+                if (isreloaded2 == YES) {
+                    [self refreshHomeVC];
+                    
+                }
+            };
             
         }
     }
