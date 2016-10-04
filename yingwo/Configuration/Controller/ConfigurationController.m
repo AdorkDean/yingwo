@@ -11,6 +11,7 @@
 #import "ConfigurationController.h"
 #import "YWConfigurationCell.h"
 #import "ClauseViewController.h"
+#import "AboutUsController.h"
 
 @interface ConfigurationController ()
 
@@ -261,6 +262,7 @@
     [self.userDelegateCell addTarget:self action:@selector(jumpToClausePage) forControlEvents:UIControlEventTouchUpInside];
     [self.adviceCell addTarget:self action:@selector(jumpToAdvicePage) forControlEvents:UIControlEventTouchUpInside];
     [self.pointCell addTarget:self action:@selector(jumpToPointPage) forControlEvents:UIControlEventTouchUpInside];
+    [self.aboutUsCell addTarget:self action:@selector(jumpToAboutUsPage) forControlEvents:UIControlEventTouchUpInside];
     [self.messagePushCell addTarget:self action:@selector(developing) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -314,8 +316,13 @@
 }
 
 - (void)jumpToClausePage {
-    ClauseViewController *setting = [[ClauseViewController alloc] init];
-    [self.navigationController pushViewController:setting animated:YES];
+    ClauseViewController *clause = [[ClauseViewController alloc] init];
+    [self.navigationController pushViewController:clause animated:YES];
+}
+
+- (void)jumpToAboutUsPage {
+    AboutUsController *aboutUs = [[AboutUsController alloc] init];
+    [self.navigationController pushViewController:aboutUs animated:YES];
 }
 
 - (void)jumpToModifyPasswordPage {

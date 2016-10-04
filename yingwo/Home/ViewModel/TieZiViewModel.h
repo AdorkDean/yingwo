@@ -93,6 +93,20 @@
                                  failure:(void (^)(NSString *failure))failure;
 
 /**
+ *  删除帖子
+ *
+ *  @param url        /Post/del
+ *  @param paramaters post_id（帖子ID）
+ *  @param success    成功回调StatusEntity
+ *  @param failure    失败
+ */
+- (void)deleteTieZiWithUrl:(NSString *)url
+               paramaters:(NSDictionary *)paramaters
+                  success:(void (^)(StatusEntity *statusEntity))success
+                  failure:(void (^)(NSString *error))failure;
+
+
+/**
  *  点赞请求
  *
  *  @param url        /Post/like

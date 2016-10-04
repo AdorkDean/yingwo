@@ -31,7 +31,8 @@
     _favourLabel.textColor      = [UIColor colorWithHexString:THEME_COLOR_4];
     _messageLabel.textColor     = [UIColor colorWithHexString:THEME_COLOR_4];
 
-    _bottomLine.backgroundColor = [UIColor colorWithHexString:THEME_COLOR_4];
+    _bottomLine.backgroundColor = [UIColor colorWithHexString:@"F5F5F5"];
+    _bottomLine.clipsToBounds   = NO;
 
     [_message setBackgroundImage:[UIImage imageNamed:@"bub_gray"]
                         forState:UIControlStateNormal];
@@ -71,7 +72,8 @@
     
     [_bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom);
-        make.left.right.equalTo(self);
+        make.left.equalTo(self).offset(-20);
+        make.right.equalTo(self).offset(10);
         make.height.equalTo(@0.5f);
     }];
     

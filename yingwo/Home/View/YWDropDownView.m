@@ -41,9 +41,8 @@
     _tableView.layer.cornerRadius  = 8;
     [_tableView setSeparatorInset:UIEdgeInsetsZero];
     [_tableView setLayoutMargins:UIEdgeInsetsZero];
+    _tableView.separatorColor      = [UIColor colorWithHexString:@"#F5F5F5"];
     
-
-
 }
 
 static CGFloat ANIMATION_TIME = 0.3;

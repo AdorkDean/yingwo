@@ -14,6 +14,7 @@ NSInteger cancelCode = -1;
 {
     NSArray *_names;
 }
+
 - (instancetype)initWithNames:(NSArray *)names {
     self = [super init];
     if (self) {

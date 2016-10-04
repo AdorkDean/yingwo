@@ -17,7 +17,8 @@
     
     if (self) {
         [self createSubview];
-        _leftImageView.layer.cornerRadius = 5;
+        _leftImageView.layer.masksToBounds = YES;
+        _leftImageView.layer.cornerRadius = 15;
     }
     
     return self;

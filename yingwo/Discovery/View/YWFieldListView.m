@@ -40,7 +40,7 @@
     [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.centerY.equalTo(self);
-        make.height.width.equalTo(@15);
+        make.height.width.equalTo(@25);
     }];
     
     [_subject mas_makeConstraints:^(MASConstraintMaker *make) {

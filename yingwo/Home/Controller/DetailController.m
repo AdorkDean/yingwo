@@ -23,6 +23,7 @@
 
 #import "TieZiComment.h"
 
+#import "YWAlertButton.h"
 
 @interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol>
 
@@ -191,19 +192,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 }
 
 #pragma mark YWAlertButtonProtocol
-
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-        
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        //复制内容 获取帖子文字内容
-        YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
-        NSString *copyString = selectedCell.contentText.text;
-        //复制到剪切板
-        pasteboard.string = copyString;
+        [self copyTiZiText:more];
         
     }else if (index == 1) {
-        
         self.alertView = alertView;
         [self showCompliantAlertView];
         
@@ -218,6 +211,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                                       animated:YES
                                                     completion:nil];
 }
+/**
+ *  复制帖子文字内容
+ */
+- (void)copyTiZiText:(UIButton *)more {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    //复制内容 获取帖子文字内容
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
+    NSString *copyString = selectedCell.contentText.text;
+    //复制到剪切板
+    pasteboard.string = copyString;
+}
+
 
 #pragma mark add action
 

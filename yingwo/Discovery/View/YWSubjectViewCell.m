@@ -58,7 +58,7 @@
 
         [topicListView.leftImageView sd_setImageWithURL:[NSURL URLWithString:entity.img]
                                        placeholderImage:nil];
-        
+
         [topicListView addTarget:self
                           action:@selector(selectTopic:)
                 forControlEvents:UIControlEventTouchUpInside];

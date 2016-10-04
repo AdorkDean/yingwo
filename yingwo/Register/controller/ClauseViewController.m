@@ -23,21 +23,21 @@
 //设定用户协议界面及属性
 - (void)setClause
 {
-    self.navigationItem.title = @"应我校园用户协议";
-    self.view.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
+    self.navigationItem.title   = @"应我校园用户协议";
+    self.view.backgroundColor   = [UIColor colorWithHexString:BACKGROUND_COLOR];
     
-    CGRect clauseViewFrame    = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
-    UITextView *clauseView    = [[UITextView alloc] initWithFrame:clauseViewFrame];
+    CGRect clauseViewFrame      = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
+    UITextView *clauseView      = [[UITextView alloc] initWithFrame:clauseViewFrame];
     
     //设置用户协议文件
-    clauseView.text           = [NSString stringWithContentsOfFile:[[NSBundle mainBundle]                   pathForResource:@"YingwoUserClause" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
+    clauseView.text             = [NSString stringWithContentsOfFile:[[NSBundle mainBundle]                   pathForResource:@"YingwoUserClause" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     
     //协议文字属性
-    clauseView.editable = NO;
-    clauseView.font = [UIFont fontWithName:@"Arial" size:14.5f];
-    clauseView.textColor = [UIColor blackColor];
-    clauseView.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
-    clauseView.textAlignment = NSTextAlignmentLeft;
+    clauseView.editable         = NO;
+    clauseView.font             = [UIFont fontWithName:@"Arial" size:14.5f];
+    clauseView.textColor        = [UIColor blackColor];
+    clauseView.backgroundColor  = [UIColor colorWithHexString:BACKGROUND_COLOR];
+    clauseView.textAlignment    = NSTextAlignmentLeft;
     
     [self.view addSubview:clauseView];
 

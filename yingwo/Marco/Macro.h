@@ -87,6 +87,7 @@
 #define TIEZI_COMMENT_URL       @"/Post/Comment"
 #define TIEZI_RELPY_URL         @"/Post/reply_list"
 #define TIEZI_LIKE_URL          @"/Post/like"
+#define TIEZI_DEL_URL           @"/Post/del"
 
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"
