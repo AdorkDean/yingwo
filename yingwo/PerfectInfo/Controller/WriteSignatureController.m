@@ -106,6 +106,12 @@
     [self.navigationController popToViewController:vc animated:YES];
 }
 
+- (void)setSignaturePlaceHolder {
+    PerfectInfoController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
+    if (vc.signature != nil) {
+        self.inputSignatureText.rightTextField.placeholder = vc.signature;
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -117,6 +123,7 @@
     [self setAllAction];
     [self checkNickName];
     [self checkToDipalayDeleteBtn];
+    [self setSignaturePlaceHolder];
     
 }
 

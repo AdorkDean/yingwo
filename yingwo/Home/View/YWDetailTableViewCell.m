@@ -80,8 +80,9 @@
         imageView.userInteractionEnabled  = YES;
         imageView.contentMode             = UIViewContentModeScaleAspectFit;
 
+
         //添加单击放大事件
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singelTap:)];
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapEnlarge:)];
         singleTap.numberOfTouchesRequired = 1;
         singleTap.numberOfTapsRequired    = 1;
         [imageView addGestureRecognizer:singleTap];
@@ -122,7 +123,7 @@
     
 }
 
-- (void)singelTap:(UITapGestureRecognizer *)sender {
+- (void)singleTapEnlarge:(UITapGestureRecognizer *)sender {
     
     if ([self.delegate respondsToSelector:@selector(didSeletedImageView:)]) {
         [self.delegate didSeletedImageView:(UIImageView *)sender.view];

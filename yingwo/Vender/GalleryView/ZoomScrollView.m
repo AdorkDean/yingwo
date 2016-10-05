@@ -18,8 +18,6 @@
 
 @implementation ZoomScrollView
 
-
-
 - (id)initWithFrame:(CGRect)frame andImage:(UIImage *)image atIndex:(NSInteger)index
 {
     self = [self initWithFrame:frame];

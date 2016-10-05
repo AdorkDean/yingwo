@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+typedef void(^returnValueBlock) (BOOL reloaded2);
+
 @protocol AnnounceControllerDelegate;
 
 @interface AnnounceController : BaseViewController
@@ -27,6 +29,12 @@
 @property (nonatomic, copy)NSString                     *topic_title;
 
 @property (nonatomic,assign ) id<AnnounceControllerDelegate> delegate;
+
+@property (nonatomic, copy) returnValueBlock            returnValueBlock;
+
+@property (nonatomic, assign)BOOL reloaded2;
+
+- (void)returnValue:(returnValueBlock)block;
 
 @end
 

@@ -58,7 +58,7 @@
     
     //显示总张数
     YWLabel *numbersLabel = [[YWLabel alloc] init];
-    numbersLabel.label.text = [NSString stringWithFormat:@"共%lu张",(unsigned long)self.imagesArr.count];
+    numbersLabel.label.text = [NSString stringWithFormat:@"共%lu+张",(unsigned long)self.imagesArr.count];
     numbersLabel.label.textColor = [UIColor whiteColor];
     numbersLabel.backgroundColor = [UIColor blackColor];
     numbersLabel.alpha = 0.5;

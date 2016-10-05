@@ -17,7 +17,8 @@
     if (self) {
         [self setBackgroundColor:[UIColor colorWithHexString:THEME_COLOR_4 alpha:0.2]];
         [self createSubview];
-        _leftImageView.layer.cornerRadius = 5;
+        _leftImageView.layer.masksToBounds = YES;
+        _leftImageView.layer.cornerRadius = 10;
     }
     return self;
 }
@@ -45,7 +46,7 @@
     [self addSubview:_numberOfFavour];
 
     [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
+        make.left.equalTo(self).offset(3);
         make.height.width.equalTo(@39);
         make.centerY.equalTo(self);
     }];

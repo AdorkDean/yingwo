@@ -46,7 +46,7 @@
 
 - (YWPersonCenterMidCell *)midView {
     if (_midView == nil) {
-        _midView = [[YWPersonCenterMidCell alloc] initWithFriends:@"20" attentions:@"100" fans:@"20" visitors:@"10"];
+        _midView = [[YWPersonCenterMidCell alloc] initWithFriends:@"-" attentions:@"-" fans:@"-" visitors:@"-"];
         _midView.image = [UIImage imageNamed:@"input_text"];
     }
     return _midView;
@@ -189,9 +189,20 @@
                        action:@selector(jumpToMyTopicPage)
              forControlEvents:UIControlEventTouchUpInside];
     
+<<<<<<< HEAD
     [self.cellView2 addTarget:self
                        action:@selector(jumpToMyTieZiPage)
              forControlEvents:UIControlEventTouchUpInside];
+=======
+    [self.cellView3 addTarget:self
+                       action:@selector(developing)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.cellView4 addTarget:self
+                       action:@selector(developing)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+>>>>>>> c3225354566a01f5ffba6ce008d1b9eb3270c6b1
 }
 
 //跳转到完善信息的界面
@@ -205,6 +216,10 @@
 
 - (void)jumpToMyTopicPage {
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTOPIC sender:self];
+}
+//正在开发中
+- (void)developing {
+    [SVProgressHUD showInfoStatus:@"功能开发中···" afterDelay:1.5];
 }
 
 - (void)jumpToMyTieZiPage {

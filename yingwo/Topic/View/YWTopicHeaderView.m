@@ -13,7 +13,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self createSubview];
-        
     }
     return self;
 }
@@ -43,6 +42,9 @@
 
                             forState:UIControlStateNormal];
     
+    _headerView.layer.masksToBounds = YES;
+    _headerView.layer.cornerRadius  = 7;
+
     [self addSubview:_blurImageView];
     [_blurImageView addSubview:_darkView];
 
