@@ -12,6 +12,7 @@
 #import "HomeController.h"
 #import "AnnounceController.h"
 #import "DiscoveryController.h"
+#import "DetailController.h"
 
 @interface MainController ()
 
@@ -170,10 +171,6 @@
             AnnounceController *announceVc = [mainNav.viewControllers objectAtIndex:0];
             
             announceVc.delegate = self.announceVC.delegate;
-<<<<<<< HEAD
-                        
-=======
-            
             announceVc.returnValueBlock = ^(BOOL isreloaded2) {
                 
                 NSLog(@"load:%d",isreloaded2);
@@ -184,7 +181,7 @@
                 }
             };
             
->>>>>>> c3225354566a01f5ffba6ce008d1b9eb3270c6b1
+            
         }
     }
     

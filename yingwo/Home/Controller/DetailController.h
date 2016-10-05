@@ -28,7 +28,6 @@ typedef NS_ENUM(NSInteger,CommentType) {
 //是否跟贴完成
 @property (nonatomic, assign) BOOL        isReleased;
 
-//回调穿参，返回刚发布的贴子内容
-@property (nonatomic, copy) void (^replyTieZiBlock)(NSDictionary *paramters,BOOL isRelease);
+@property (nonatomic, strong) NSDictionary *tieZiParamters;
 
 @end

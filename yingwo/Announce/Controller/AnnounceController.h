@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 
 typedef void(^returnValueBlock) (BOOL reloaded2);
+typedef void(^ReplyTieZiBlock)(NSDictionary *paramters,BOOL isRelease);
 
 @protocol AnnounceControllerDelegate;
 
@@ -33,6 +34,9 @@ typedef void(^returnValueBlock) (BOOL reloaded2);
 @property (nonatomic, copy) returnValueBlock            returnValueBlock;
 
 @property (nonatomic, assign)BOOL reloaded2;
+
+//回调穿参，返回刚发布的贴子内容
+@property (nonatomic, copy)  ReplyTieZiBlock replyTieZiBlock;
 
 - (void)returnValue:(returnValueBlock)block;
 

@@ -166,7 +166,6 @@
             
             commentView                        = [[YWCommentView alloc] init];
             commentView.leftName.text          = entity.user_name;
-
             //connectString内容为用户名字＋评论内容，其中“占“字为占位符
             NSString *connectString            = [NSString stringWithFormat:@"%@占占  :%@",entity.user_name,entity.content];
             
@@ -197,7 +196,6 @@
             {
                 //connectString内容为用户名字＋评论内容
                 NSString *connectString            = [NSString stringWithFormat:@"%@  :%@",entity.user_name,entity.content];
-                
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
                                                                                                 WithTextIndext:entity.user_name.length];

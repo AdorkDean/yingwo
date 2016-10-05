@@ -236,7 +236,6 @@ static CGFloat HeaderViewHeight = 250;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor redColor];
  //   [self.view addSubview:self.topicTableView];
 
  //   [self.topicTableView addSubview:self.topicHeaderView];

@@ -45,7 +45,7 @@
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)responseObject;
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
               
               if (httpResponse.statusCode == SUCCESS_STATUS) {
                   

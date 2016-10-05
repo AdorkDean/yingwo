@@ -189,11 +189,10 @@
                        action:@selector(jumpToMyTopicPage)
              forControlEvents:UIControlEventTouchUpInside];
     
-<<<<<<< HEAD
     [self.cellView2 addTarget:self
                        action:@selector(jumpToMyTieZiPage)
              forControlEvents:UIControlEventTouchUpInside];
-=======
+    
     [self.cellView3 addTarget:self
                        action:@selector(developing)
              forControlEvents:UIControlEventTouchUpInside];
@@ -202,7 +201,6 @@
                        action:@selector(developing)
              forControlEvents:UIControlEventTouchUpInside];
     
->>>>>>> c3225354566a01f5ffba6ce008d1b9eb3270c6b1
 }
 
 //跳转到完善信息的界面

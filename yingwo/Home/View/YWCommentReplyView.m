@@ -40,7 +40,7 @@
     [self.leftName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.top.equalTo(self);
-        make.bottom.equalTo(self);
+        make.height.equalTo(@13);
     }];
 
     [self.content mas_makeConstraints:^(MASConstraintMaker *make) {

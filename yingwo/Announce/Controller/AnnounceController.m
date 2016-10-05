@@ -321,6 +321,10 @@ CGFloat delay = 2.0f;
     self.returnValueBlock = block;
 }
 
+- (void)setReplyTieZiBlock:(ReplyTieZiBlock)replyTieZiBlock {
+    _replyTieZiBlock = replyTieZiBlock;
+}
+
 - (void)backToMainView {
     
     [self resignKeyboard];
@@ -342,15 +346,7 @@ CGFloat delay = 2.0f;
     else if (self.isRelease == YES && self.isFollowTieZi == YES) {
         
         [self dismissViewControllerAnimated:YES
-                                 completion:^{
-            
-                                     DetailController *detailVc = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailController"];
-                                     
-                                     detailVc.replyTieZiBlock(self.tieZiParamaters,self.isRelease);
-                                     
-                                     detailVc.isReleased        = YES;
-
-        }];
+                                 completion:nil];
     }
     else
     {
@@ -468,6 +464,13 @@ CGFloat delay = 2.0f;
         
         self.returnValueBlock(self.reloaded2);
     }
+    
+    if (self.replyTieZiBlock != nil && self.isFollowTieZi == YES && self.isRelease == YES) {
+        
+        self.replyTieZiBlock(self.tieZiParamaters,self.isRelease);
+
+    }
+
     
 }
 
