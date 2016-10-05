@@ -40,12 +40,12 @@
             
             NSDictionary *paramaters = nil;
             
-            if (requestEntity.topic_id == AllThingModel) {
+            if (requestEntity.filter == AllThingModel) {
                 paramaters = @{@"start_id":@(requestEntity.start_id)};
             }
             else
             {
-                paramaters = @{@"filter":@(requestEntity.topic_id),
+                paramaters = @{@"filter":@(requestEntity.filter),
                              @"start_id":@(requestEntity.start_id)};
             }
             

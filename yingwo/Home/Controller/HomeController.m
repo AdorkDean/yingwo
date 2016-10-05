@@ -132,7 +132,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         //贴子请求url
         _requestEntity.requestUrl = HOME_URL;
         //请求的事新鲜事
-        _requestEntity.topic_id   = AllThingModel;
+        _requestEntity.filter   = AllThingModel;
         //偏移量开始为0
         _requestEntity.start_id  = start_id;
     }
@@ -610,7 +610,7 @@ CGFloat lastPosition = 0;
 
 #pragma mark ---- DropDownViewDelegate
 - (void)seletedDropDownViewAtIndex:(NSInteger)index {
-    self.requestEntity.topic_id = (int)index;
+    self.requestEntity.filter = (int)index;
     [self.homeTableview.mj_header beginRefreshing];
 }
 
