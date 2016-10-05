@@ -11,7 +11,7 @@
 @implementation FeildViewModel
 
 
-- (void)setupModelOfCell:(YWSubjectViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+- (void)setupModelOfCell:(YWDiscoveryBaseCell *)cell indexPath:(NSIndexPath *)indexPath {
     
     
     //解决cell复用带来的问题
@@ -114,7 +114,7 @@
               }
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
+              NSLog(@"获取主题失败");
           }];
     
     

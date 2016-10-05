@@ -52,4 +52,17 @@
                             paramaters:(id)paramaters
                                success:(void (^)(SmsMessage *sms))success
                                failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+
+/**
+ *  验证手机是否注册过
+ *
+ *  @param url        /User/Check_mobile
+ *  @param paramaters moblie
+ *  @param success  status
+ *  @param failure
+ */
+- (void)requestForCheckMobleWithUrl:(NSString *)url
+                         paramaters:(id)paramaters
+                            success:(void (^)(StatusEntity *status))success
+                            failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
 @end

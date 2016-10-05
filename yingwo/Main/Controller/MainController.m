@@ -157,7 +157,7 @@
             AnnounceController *announceVc = [mainNav.viewControllers objectAtIndex:0];
             
             announceVc.delegate = self.announceVC.delegate;
-            
+                        
         }
     }
     

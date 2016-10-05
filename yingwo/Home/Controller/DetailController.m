@@ -312,7 +312,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     [self judgeNetworkStatus];
 
+    //显示刚发布的跟贴内容，追加到tableview的最后一个
+    if (self.isReleased == YES) {
+        
+    }
 
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear: animated];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -329,6 +338,17 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                                   name:UIKeyboardDidHideNotification
                                                 object:nil];
 }
+
+#pragma mark 禁止pop手势
+- (void)stopSystemPopGestureRecognizer {
+    self.fd_interactivePopDisabled = YES;
+}
+
+#pragma mark 开启pop手势
+- (void)openSystemPopGestureRecognizer {
+    self.fd_interactivePopDisabled = NO;
+}
+
 
 //键盘弹出后调用
 - (void)keyboardWillChangeFrame:(NSNotification *)note {
@@ -561,6 +581,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)showImageView:(UIImageView *)imageView {
     
+    //禁止后面的DetailController的滑动手势
+    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
+    
+    [self stopSystemPopGestureRecognizer];
+
+    
     NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
     [imageViewArr addObject:imageView];
     
@@ -583,6 +609,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
     self.galleryView = nil;
+    
+    //开启滑动手势
+    [self openSystemPopGestureRecognizer];
 }
 
 #pragma YWSpringButtonDelegate
@@ -617,6 +646,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 
 #pragma mark YWDetailCellBottomViewDelegate
+
+//点击跟贴上的气泡，跳转到跟贴界面
+//原理是监听弹出的键盘事件，再弹出跟贴界面
 
 - (void)didSelectMessageWith:(NSInteger)post_id onSuperview:(UIView *)view{
     
@@ -768,6 +800,24 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     }];
 
     
+}
+
+/*
+ *  添加跟贴到tableview的最后一个
+ */
+- (void)addReplyViewAtLast {
+    
+    NSUInteger lastIndex = self.tieZiReplyArr.count;
+    
+    //获取刚才发布的跟贴
+    
+    //将跟帖添加到self.tieZiReplyArr数组中
+    
+    
+    //通过initWithIndex获取需要添加的所在位置 （count－1）
+    
+    
+    //通过insertSections将数据插入到tableview的制定数组中
 }
 
 #pragma mark 收起键盘

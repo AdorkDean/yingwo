@@ -97,32 +97,6 @@
 }
 
 
-//- (id)initWithFrame:(CGRect)frame withOriginFrame:(Rect)origin andImageView:(UIImageView *)imageView atIndex:(NSInteger)index {
-//    
-//    self = [self initWithFrame:frame];
-//    if (self)
-//    {
-//        self.index = index;
-//        
-//        [self setMinimumZoomScale:1];
-//        [self setMaximumZoomScale:3];
-//        [self setZoomScale:1];
-//        [self setShowsHorizontalScrollIndicator:NO];
-//        [self setShowsVerticalScrollIndicator:NO];
-//        [self setDelegate:self];
-//        
-//        CGFloat height = frame.size.width / imageView.image.size.width * imageView.image.size.height;
-//        self.imageView = [[UIImageView alloc] initWithImage:imageView.image];
-//        [self.imageView setFrame:CGRectMake(0, (self.frame.size.height - height) / 2, self.frame.size.width, height)];
-//        [self.imageView setUserInteractionEnabled:YES];
-//        [self addSubview:self.imageView];
-//        
-//        self.doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-//        [self.doubleTapGesture setNumberOfTapsRequired:2];
-//        [self.imageView addGestureRecognizer:self.doubleTapGesture];
-//    }
-//    return self;
-//}
 
 - (void)resizeImageViewWithImage:(UIImage *)newImage {
     

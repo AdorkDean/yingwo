@@ -31,7 +31,7 @@
 
     _rightImageView.image = [UIImage imageNamed:@"Row"];
 
-    _rightImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
 
     [self addSubview:_leftImageView];
     [self addSubview:_rightImageView];

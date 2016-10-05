@@ -32,4 +32,6 @@
 
 @property (nonatomic, copy) NSString *user_topic_like;
 
+@property (nonatomic, copy) NSString *like;
+
 @end

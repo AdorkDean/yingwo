@@ -24,9 +24,9 @@
     self.topicSegmentView          = [[SMPagerTabView alloc]initWithFrame:CGRectMake(0,
                                                                                 0,
                                                                                 SCREEN_WIDTH,
-                                                                                SCREEN_HEIGHT)];
+                                                                                SCREEN_HEIGHT+250)];
     self.topicSegmentView.delegate = self;
-    
+    self.topicSegmentView.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.topicSegmentView];
     
     self.catalogVcArr = [[NSMutableArray alloc] init];

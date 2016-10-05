@@ -30,10 +30,10 @@
     }];
 }
 
-- (void)postFreshThingWithUrl:(NSString *)url
-                   paramaters:(id)paramaters
-                      success:(void (^)(NSString * result))success
-                      failure:(void (^)(NSError *error))failure {
+- (void)postTieZiWithUrl:(NSString *)url
+            paramaters:(id)paramaters
+                success:(void (^)(NSString * result))success
+                failure:(void (^)(NSError *error))failure {
 
     NSString *fullUrl = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager = [YWHTTPManager manager];
@@ -45,13 +45,20 @@
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-              NSString *result = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-              NSLog(@"新鲜事发布成功");
-              NSLog(@"result%@",result);
-              success(result);
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)responseObject;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  
+                  NSString *result = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                  NSLog(@"贴子发布发布成功");
+                  NSLog(@"result%@",result);
+                  success(result);
+
+              }
+              
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        NSLog(@"新鲜事发布失败");
+        NSLog(@"贴子发布发布失败");
         failure(error);
     }];
 }

@@ -8,17 +8,11 @@
 
 #import "BaseViewController.h"
 
-@protocol DiscoveryDelegate;
 
 @interface DiscoveryController : BaseViewController
 
-@end
-
-@protocol DiscoveryDelegate <NSObject>
-
-- (void)didSelectSubjectWith:(NSString *)subject subjectId:(int)subjectId;
-
-- (void)didSelectTopicWith:(int)topicId;
+@property (nonatomic, strong) RACCommand *fecthTopicEntityCommand;
+@property (nonatomic, assign) BOOL       isStopTableView;
 
 @end
 

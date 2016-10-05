@@ -7,24 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YWFieldListView.h"
-#import "YWTopicListView.h"
+#import "YWDiscoveryBaseCell.h"
 
-#import "FieldEntity.h"
-#import "SubjectEntity.h"
 #import "TopicEntity.h"
 
-@protocol YWSubjectViewCellDelegate;
+@interface YWSubjectViewCell : YWDiscoveryBaseCell
 
-@interface YWSubjectViewCell : UITableViewCell
-
-@property (nonatomic, strong) YWFieldListView           *fieldListView;
-@property (nonatomic, strong) YWTopicListView           *topicListView;
-
-@property (nonatomic, assign) id<YWSubjectViewCellDelegate> delegate;
-
-- (void)createSubview;
-- (void)addTopicListViewBy:(NSArray *)topicArr;
 
 @end
 

@@ -78,7 +78,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
-        
+        _homeTableview.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
         //  _homeTableview.fd_debugLogEnabled = YES;
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
                forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
@@ -211,6 +211,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [super viewDidLoad];
     
     self.title = @"最热";
+
 
     [self loadDataWithRequestEntity:self.requestEntity];
 
@@ -500,16 +501,16 @@ static CGFloat headerOffsetY = 64;
 static CGFloat scrollY = 0;
 
 //滑动偏移差
-static CGFloat offsetY = -1;
-
-//滑动的方向判断，大于0向上滑动，小于0向下滑动
-static CGFloat directionY = 0.0;
-
-//开始滑动的offsetY
-static CGFloat beginDeclerateY = 0.0;
-
-//滑动停止时刻的offsetY
-static CGFloat endDeclerateY = 0.0;
+//static CGFloat offsetY = -1;
+//
+////滑动的方向判断，大于0向上滑动，小于0向下滑动
+//static CGFloat directionY = 0.0;
+//
+////开始滑动的offsetY
+//static CGFloat beginDeclerateY = 0.0;
+//
+////滑动停止时刻的offsetY
+//static CGFloat endDeclerateY = 0.0;
 
 #pragma mark UIScrollView
 

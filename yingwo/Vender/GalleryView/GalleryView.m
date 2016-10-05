@@ -223,45 +223,10 @@ withImageUrlArrEntity:(NSArray *)entities
 
 
 #pragma mark ScrollView Delegate
-//
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-//{
-//    CGFloat   pageWidth   = scrollView.frame.size.width;
-//    NSInteger currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-//    
-//    if (currentPage != self.currentPage)
-//    {
-//        for (UIView *view in scrollView.subviews)
-//        {
-//            if ([view isKindOfClass:[ZoomScrollView class]])
-//            {
-//                ZoomScrollView *zoomScrollView = (ZoomScrollView *)view;
-//                
-//                //有网络就请求网络下载
-//                if ([YWNetworkTools networkStauts]) {
-//               //     [self resizeImageViewByzoomScrollView:zoomScrollView atIndex:currentPage];
-//                }
-//                NSLog(@"tag:%lu",zoomScrollView.tag);
-//                
-//                if (zoomScrollView.zoomScale != 1)
-//                {
-//                    [zoomScrollView setZoomScale:1 animated:YES];
-//                }
-//            }
-//        }
-//    }
-//        self.currentPage = currentPage;
-//        
-//        if ([self.delegate respondsToSelector:@selector(galleryView:didShowPageAtIndex:)])
-//        {
-//            [self.delegate galleryView:self didShowPageAtIndex:currentPage];
-//        }
-//    
-//    
-//    self.pageLabel.text = [NSString stringWithFormat:@"%lu/%lu",currentPage+1,self.imageViews.count];
-//
-//}
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {

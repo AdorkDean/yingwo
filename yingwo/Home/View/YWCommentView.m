@@ -58,8 +58,7 @@
         make.top.equalTo(self.leftName.mas_top);
         make.bottom.equalTo(self);
     }];
-    
-    
+        
 }
 
 @end

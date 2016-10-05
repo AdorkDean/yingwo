@@ -8,23 +8,29 @@
 
 #import <UIKit/UIKit.h>
 #import "MXScrollView.h"
-#import "SMPagerTabView.h"
 
-#import "FieldOneController.h"
-#import "FieldTwoController.h"
-#import "FieldThreeController.h"
+#import "YWFieldListView.h"
+#import "YWTopicListView.h"
 
+#import "FieldEntity.h"
+#import "SubjectEntity.h"
+#import "TopicEntity.h"
+
+@protocol YWSubjectViewCellDelegate;
 
 @interface YWDiscoveryBaseCell : UITableViewCell
 
 @property (nonatomic,strong ) NSMutableArray       *images;
 @property (nonatomic, strong) MXImageScrollView    *mxScrollView;
 
-@property (nonatomic, strong) SMPagerTabView       *discoverySegmentView;
-@property (nonatomic, strong) NSMutableArray       *catalogVcArr;
+@property (nonatomic, strong) YWFieldListView           *fieldListView;
+@property (nonatomic, strong) YWTopicListView           *topicListView;
 
-@property (nonatomic, strong) FieldOneController   *oneFieldVc;
-@property (nonatomic, strong) FieldTwoController   *twoFieldVc;
-@property (nonatomic, strong) FieldThreeController *threeFieldVc;
+@property (nonatomic, assign) id<YWSubjectViewCellDelegate> delegate;
+
+- (void)createSubview;
+- (void)addTopicListViewBy:(NSArray *)topicArr;
+
+
 
 @end

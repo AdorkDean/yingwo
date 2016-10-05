@@ -122,7 +122,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     }
     else if (self.topicType == ThreeFieldModel)
     {
-        self.title = @"知识技能";
+        self.title = @"学科专业";
     }
 
 }

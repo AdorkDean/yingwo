@@ -16,7 +16,7 @@
 @property (nonatomic, strong) UITableView       *tableView;
 
 
-@property (nonatomic, assign) id<DiscoveryDelegate> delegate;
+//@property (nonatomic, assign) id<DiscoveryDelegate> delegate;
 
 @end
 

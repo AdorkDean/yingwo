@@ -1,18 +1,17 @@
 //
-//  HomeController.m
+//  MyTieZiController.m
 //  yingwo
 //
-//  Created by apple on 16/8/1.
+//  Created by apple on 16/10/1.
 //  Copyright © 2016年 wangxiaofa. All rights reserved.
 //
 
-#import "NewTopicController.h"
+#import "MyTieZiController.h"
 #import "DetailController.h"
-#import "UIScrollView+UITouch.h"
+#import "TopicController.h"
 
 #import "TieZi.h"
-#import "TopicViewModel.h"
-
+#import "TieZiViewModel.h"
 #import "YWDropDownView.h"
 #import "YWPhotoCotentView.h"
 
@@ -24,21 +23,23 @@
 #import "YWHomeTableViewCellSixImage.h"
 #import "YWHomeTableViewCellNineImage.h"
 #import "YWHomeTableViewCellMoreNineImage.h"
-
 @protocol  YWHomeCellMiddleViewBaseProtocol;
 
 //刷新的初始值
 static int start_id = 0;
 
-@interface NewTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate>
+@interface MyTieZiController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate>
 
+@property (nonatomic, strong) UITableView     *homeTableview;
 @property (nonatomic, strong) UIAlertController *alertView;
 @property (nonatomic, strong) TieZi             *model;
-@property (nonatomic, strong) TopicViewModel    *viewModel;
+@property (nonatomic, strong) TieZiViewModel    *viewModel;
+
+//点击查看话题内容
+@property (nonatomic, assign) int               tap_topic_id;
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
 
-@property (nonatomic, strong) YWDropDownView    *drorDownView;
 @property (nonatomic, strong) YWPhotoCotentView *contentView;
 
 @property (nonatomic, strong) NSMutableArray    *tieZiList;
@@ -56,7 +57,7 @@ static int start_id = 0;
 
 @end
 
-@implementation NewTopicController
+@implementation MyTieZiController
 
 /**
  *  cell identifier
@@ -81,7 +82,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
-        _homeTableview.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
+        _homeTableview.sectionFooterHeight = 50;
+        //  _homeTableview.fd_debugLogEnabled = YES;
+        
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
                forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
         [_homeTableview registerClass:[YWHomeTableViewCellOneImage class]
@@ -111,10 +114,10 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     return _model;
 }
 
-- (TopicViewModel *)viewModel {
+- (TieZiViewModel *)viewModel {
     if (_viewModel == nil) {
         
-        _viewModel = [[TopicViewModel alloc] init];
+        _viewModel = [[TieZiViewModel alloc] init];
         
     }
     return _viewModel;
@@ -124,9 +127,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.requestUrl = TOPIC_DETAIL_URL;
+        _requestEntity.requestUrl = MY_TIEZI_URL;
         //请求的事新鲜事
-        _requestEntity.topic_id   = self.topic_id;
+        _requestEntity.topic_id   = AllThingModel;
         //偏移量开始为0
         _requestEntity.start_id  = start_id;
     }
@@ -199,6 +202,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     return _galleryView;
 }
 
+#pragma mark button action
+
 /**
  *  举报弹出框
  */
@@ -212,27 +217,52 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     [super viewDidLoad];
     
-    self.title = @"最新";
+    NSLog(@"%@",NSHomeDirectory());
+    
+    __weak MyTieZiController *weakSelf = self;
+    self.homeTableview.mj_header    = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
+        //偏移量开始为0
+        self.requestEntity.start_id  = start_id;
+        
+        [weakSelf loadDataWithRequestEntity:self.requestEntity];
+    }];
+    
+    self.homeTableview.mj_footer    = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf loadMoreDataWithRequestEntity:self.requestEntity];
+        
+    }];
+    
+    self.homeTableview.mj_footer.ignoredScrollViewContentInsetBottom = -65;
+    
+    
+    [self.homeTableview.mj_header beginRefreshing];
+    
     [self.view addSubview:self.homeTableview];
     
-    [self loadDataWithRequestEntity:self.requestEntity];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    self.title = @"我的贴子";
     
     //导航栏＋状态栏高度
     [self judgeNetworkStatus];
     
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+#pragma mark 禁止pop手势
+- (void)stopSystemPopGestureRecognizer {
+    self.fd_interactivePopDisabled = YES;
 }
 
+
+#pragma mark 开启pop手势
+- (void)openSystemPopGestureRecognizer {
+    self.fd_interactivePopDisabled = NO;
+}
 
 #pragma mark YWAlertButtonProtocol
 
@@ -305,6 +335,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
     [self loadForType:1 RequestEntity:requestEntity];
+    
+    [self.homeTableview.mj_footer resetNoMoreData];
 }
 
 /**
@@ -332,10 +364,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.tieZiList = [tieZis mutableCopy];
+                [self.homeTableview.mj_header endRefreshing];
                 [self.homeTableview reloadData];
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
+                [self.homeTableview.mj_footer endRefreshing];
                 [self.homeTableview reloadData];
             }
             
@@ -347,6 +381,15 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         }
         else
         {
+            //没有任何数据
+            if (tieZis.count == 0 && requestEntity.start_id == 0) {
+                
+                self.tieZiList = nil;
+                [self.homeTableview.mj_header endRefreshing];
+                [self.homeTableview reloadData];
+                
+            }
+            
             [self.homeTableview.mj_footer endRefreshingWithNoMoreData];
         }
         
@@ -369,10 +412,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     YWHomeTableViewCellBase *cell   = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                                       forIndexPath:indexPath];
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
+    
+    cell.labelView.title.delegate   = self;
     cell.middleView.delegate        = self;
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
-    cell.selectionStyle             = UITableViewCellSelectionStyleNone;
     
     [self.viewModel setupModelOfCell:cell model:self.model];
     
@@ -389,28 +433,60 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                     cacheByIndexPath:indexPath
                                        configuration:^(id cell) {
                                            
-                                           [self.viewModel setupModelOfCell:cell model:self.model];
+                                           [self.viewModel setupModelOfCell:cell
+                                                                      model:self.model];
                                        }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    // [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
     self.model = [self.tieZiList objectAtIndex:indexPath.row];
     
+    [self performSegueWithIdentifier:@"detail" sender:self];
     
-    //点击跳转到详情里面
-    if ([self.delegate respondsToSelector:@selector(didSelectCellWith:)]) {
-        [self.delegate didSelectCellWith:self.model];
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10;
 }
 
+#pragma mark segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    //查看贴子详情
+    if ([segue.destinationViewController isKindOfClass:[DetailController class]])
+    {
+        
+        if ([segue.identifier isEqualToString:@"detail"]) {
+            DetailController *detailVc = segue.destinationViewController;
+            detailVc.model             = self.model;
+        }
+    }
+    
+    //查看所有话题
+    else if ([segue.destinationViewController isKindOfClass:[TopicController class]])
+    {
+        if ([segue.identifier isEqualToString:@"topic"]) {
+            TopicController *topicVc = segue.destinationViewController;
+            topicVc.topic_id         = self.tap_topic_id;
+            
+        }
+        
+    }
+}
+
 #pragma mark AvatarImageView
 
 - (void)showImage:(UIImageView *)avatarImageView WithImageViewArr:(NSArray *)imageViewArr{
+    
+    //禁止后面的MyTieZiController的滑动手势
+    //这里不禁止的话，会造成点击看图片，然后左滑动的时候MyTieZiController pop 回PersonalCenterController中
+    
+    [self stopSystemPopGestureRecognizer];
+    
     
     [self.galleryView setImages:self.cellNewImageArr showAtIndex:avatarImageView.tag-1];
     [self.navigationController.view addSubview:self.galleryView];
@@ -431,11 +507,24 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
     self.galleryView = nil;
+    
+    //开启滑动手势
+    [self openSystemPopGestureRecognizer];
 }
 
-- (void)requestForImageByImageUrls:(NSArray *)imageUrls
-                     showImageView:(UIImageView *)showImageView
-                       oldImageArr:(NSMutableArray *)oldImageArr{
+
+#pragma mark YWLabelDelegate
+
+- (void)didSelectLabel:(YWLabel *)label {
+    
+    if (label.topic_id != 0) {
+        
+        self.tap_topic_id = label.topic_id;
+        
+        [self performSegueWithIdentifier:@"topic" sender:self];
+        
+    }
+    
 }
 
 
@@ -478,51 +567,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         UIImageView *newImageView = [[UIImageView alloc] init];
         newImageView.image        = oldImageView.image;
         newImageView.tag          = oldImageView.tag;
-        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.topicSrcView];
+        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.view];
         newImageView.y            += self.navgationBarHeight;
         [self.cellNewImageArr addObject:newImageView];
         
     }
 }
-
-
-//headerView高度
-static CGFloat headerViewHeight = 200;
-
-////headerview的初始位移偏移量y
-static CGFloat headerOffsetY = 64;
-
-////上一个滑动点
-static CGFloat scrollY = 0;
-
-#pragma mark UIScrollView
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat directionY = scrollView.contentOffset.y - scrollY;
-    
-    if (directionY >= 0) {
-        
-        if ( scrollView.contentOffset.y <= headerViewHeight) {
-            
-            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
-                                                            scrollView.contentOffset.y-headerOffsetY);
-        }
-        
-    }
-    else
-    {
-        if ( scrollView.contentOffset.y <= headerViewHeight+headerOffsetY) {
-            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
-                                                            scrollView.contentOffset.y-headerOffsetY);
-        }
-    }
-    
-    
-    scrollY = scrollView.contentOffset.y;
-    
-}
-
 
 #pragma mark 网络监测
 /**
