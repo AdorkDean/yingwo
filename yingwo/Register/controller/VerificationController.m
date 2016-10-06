@@ -43,7 +43,7 @@
 
 - (InputTextField *)passwordText {
     if (_passwordText == nil) {
-        _passwordText = [[InputTextField alloc] initWithLeftLabel:@"密码" rightPlace:@"请设置登录密码"];
+        _passwordText = [[InputTextField alloc] initWithLeftLabel:@"密码" rightPlace:@"请设置登录密码，最少6位"];
         _passwordText.rightTextField.secureTextEntry = YES;
         _passwordText.image = [UIImage imageNamed:@"input_textfield_2"];
     }
@@ -159,7 +159,7 @@
 - (void)validateFinishedBtn {
     
     RAC(self.finishedBtn,enabled) = [RACSignal combineLatest:@[self.passwordText.rightTextField.rac_textSignal,self.verificationText.rightTextField.rac_textSignal] reduce:^id(NSString *password, NSString *verification){
-        return @([Validate validateVerification:verification] && password.length > 0);
+        return @([Validate validateVerification:verification] && [Validate validatePassword:password]);
     }];
     
 }

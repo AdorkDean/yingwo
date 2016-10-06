@@ -540,8 +540,8 @@
     
     if (self.school_id.length == 0) {
         [SVProgressHUD showErrorStatus:@"学校必填" afterDelay:HUD_DELAY];
+        return;
     }
-    
     
     if (self.signature.length == 0) {
         

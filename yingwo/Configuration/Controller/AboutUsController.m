@@ -60,7 +60,12 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.title               = @"关于我们";
+    self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self
+                                                                              action:@selector(backToConfigurationView)];
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -96,6 +101,10 @@
 
     }];
     
+}
+
+- (void)backToConfigurationView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

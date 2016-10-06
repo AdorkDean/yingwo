@@ -24,7 +24,7 @@ NSInteger cancelCode = -1;
     }
     return self;
 }
-
+   
 - (void)showAlertViewController {
     _alertView = [UIAlertController alertControllerWithTitle:@"操作"
                                                                        message:@""

@@ -13,14 +13,14 @@
 + (BOOL) validateMobile:(NSString *)mobile
 {
     //手机号数字字符
-    NSString *phoneRegex = @"^[0-9]{11}$";
+    NSString *phoneRegex = @"^1+[3578]+\\d{9}$";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     return [phoneTest evaluateWithObject:mobile];
 }
 
 + (BOOL) validateVerification:(NSString *)verification
 {
-    //手机号数字字符
+    //验证码数字字符
     NSString *Regex = @"^[0-9]{4}$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",Regex];
     return [predicate evaluateWithObject:verification];
@@ -28,7 +28,7 @@
 
 + (BOOL) validatePassword:(NSString *)passWord
 {
-    NSString *passWordRegex = @"^[a-zA-Z0-9.]{6,20}$";
+    NSString *passWordRegex = @"^.{6,20}$";
     NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",passWordRegex];
     return [passWordPredicate evaluateWithObject:passWord];
 }

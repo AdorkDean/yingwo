@@ -23,7 +23,6 @@
 //设定用户协议界面及属性
 - (void)setClause
 {
-    self.navigationItem.title   = @"应我校园用户协议";
     self.view.backgroundColor   = [UIColor colorWithHexString:BACKGROUND_COLOR];
     
     CGRect clauseViewFrame      = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
@@ -41,6 +40,18 @@
     
     [self.view addSubview:clauseView];
 
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    self.navigationItem.title   = @"应我校园用户协议";
+    self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self
+                                                                              action:@selector(backToLastView)];
+}
+
+- (void)backToLastView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

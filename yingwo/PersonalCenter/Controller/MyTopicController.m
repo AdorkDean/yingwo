@@ -116,6 +116,10 @@
     [super viewWillAppear:animated];
     
     self.title = @"我的话题";
+    self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self
+                                                                              action:@selector(backToPersonCenterView)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,6 +141,10 @@
 
 - (void)whenSelectOnPager:(NSUInteger)number {
     NSLog(@"页面 %lu",(unsigned long)number);
+}
+
+- (void)backToPersonCenterView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
