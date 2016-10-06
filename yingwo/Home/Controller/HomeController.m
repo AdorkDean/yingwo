@@ -132,7 +132,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         //贴子请求url
         _requestEntity.requestUrl = HOME_URL;
         //请求的事新鲜事
-        _requestEntity.topic_id   = AllThingModel;
+        _requestEntity.filter   = AllThingModel;
         //偏移量开始为0
         _requestEntity.start_id  = start_id;
     }
@@ -610,7 +610,7 @@ CGFloat lastPosition = 0;
 
 #pragma mark ---- DropDownViewDelegate
 - (void)seletedDropDownViewAtIndex:(NSInteger)index {
-    self.requestEntity.topic_id = (int)index;
+    self.requestEntity.filter = (int)index;
     [self.homeTableview.mj_header beginRefreshing];
 }
 
@@ -777,83 +777,6 @@ CGFloat lastPosition = 0;
     }
 }
 
-
-//- (void)didSelectedAvatarImageViewOfMiddleView:(UIImageView *)imageView imageArr:(NSMutableArray *)imageArr {
-//    
-//    if (imageView.image == nil) {
-//        return;
-//    }
-//    
-//    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)imageView.superview.superview.superview.superview;
-//    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
-//    TieZi *selectedModel                  = self.tieZiList[indexPath.row];
-//    
-//    [self.cellNewImageArr removeAllObjects];
-//    
-//    [self requestForImageByImageUrls:selectedModel.imageUrlArrEntity showImageView:imageView oldImageArr:imageArr];
-//
-//    
-//    
-//}
-
-#pragma mark avatarImageView 下面全是点击图片方法过程的方法函数
-/**
- *  坐标转换
- *
- *  @param imageArr    旧数组存放的是UImageView
- *  @param newImageArr 新数组存放的是UImage
- */
-//- (void)covertRectForOldImageArr:(NSArray *)imageArr FromNewImageArr:(NSMutableArray *)newImageArr{
-//    
-//    for (int i = 0; i < imageArr.count; i ++) {
-//        
-//        //保存imageView在cell上的位置
-//        UIImageView *oldImageView = [imageArr objectAtIndex:i];
-//        
-//        //oldImageView有可能是空的，只是个占位imageView
-//        if (oldImageView.image == nil) {
-//            return;
-//        }
-//        UIImageView *newImageView = [[UIImageView alloc] init];
-//        UIImage *newImage         = [newImageArr objectAtIndex:i];
-//        newImageView.image        = newImage;
-//        newImageView.tag          = oldImageView.tag;
-//        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.view];
-//        newImageView.y            += self.navgationBarHeight;
-//        [self.cellNewImageArr addObject:newImageView];
-//    
-//    }
-//}
-//
-
-//- (void)requestForImageByImageUrls:(NSArray *)imageUrls
-//                     showImageView:(UIImageView *)showImageView
-//                       oldImageArr:(NSMutableArray *)oldImageArr{
-//    
-//    MBProgressHUD *hud =  [MBProgressHUD showProgressViewToView:self.view animated:YES];
-//
-//    [self.viewModel downloadCompletedImageViewByUrls:imageUrls progress:^(CGFloat progress) {
-//        
-//        //进度显示
-//        hud.progress = progress;
-//        
-//        //下载完成
-//        if (hud.progress == 1.0) {
-//            [hud hide:YES];
-//        }
-//        
-//    } success:^(NSMutableArray *imageArr) {
-//        
-//        [self covertRectForOldImageArr:oldImageArr FromNewImageArr:imageArr];
-//        [self showImage:self.cellNewImageArr[showImageView.tag-1] WithImageViewArr:self.cellNewImageArr];
-//        
-//    } failure:^(NSString *failure) {
-//        //图片下载失败
-//        [hud hide:YES];
-//        [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"图片加载失败" animated:YES afterDelay:2];
-//    }];
-//}
-
 #pragma mark 网络监测
 /**
  *  网路监测
@@ -866,6 +789,83 @@ CGFloat lastPosition = 0;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//- (void)didSelectedAvatarImageViewOfMiddleView:(UIImageView *)imageView imageArr:(NSMutableArray *)imageArr {
+//
+//    if (imageView.image == nil) {
+//        return;
+//    }
+//
+//    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)imageView.superview.superview.superview.superview;
+//    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
+//    TieZi *selectedModel                  = self.tieZiList[indexPath.row];
+//
+//    [self.cellNewImageArr removeAllObjects];
+//
+//    [self requestForImageByImageUrls:selectedModel.imageUrlArrEntity showImageView:imageView oldImageArr:imageArr];
+//
+//
+//
+//}
+
+#pragma mark avatarImageView 下面全是点击图片方法过程的方法函数
+/**
+ *  坐标转换
+ *
+ *  @param imageArr    旧数组存放的是UImageView
+ *  @param newImageArr 新数组存放的是UImage
+ */
+//- (void)covertRectForOldImageArr:(NSArray *)imageArr FromNewImageArr:(NSMutableArray *)newImageArr{
+//
+//    for (int i = 0; i < imageArr.count; i ++) {
+//
+//        //保存imageView在cell上的位置
+//        UIImageView *oldImageView = [imageArr objectAtIndex:i];
+//
+//        //oldImageView有可能是空的，只是个占位imageView
+//        if (oldImageView.image == nil) {
+//            return;
+//        }
+//        UIImageView *newImageView = [[UIImageView alloc] init];
+//        UIImage *newImage         = [newImageArr objectAtIndex:i];
+//        newImageView.image        = newImage;
+//        newImageView.tag          = oldImageView.tag;
+//        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.view];
+//        newImageView.y            += self.navgationBarHeight;
+//        [self.cellNewImageArr addObject:newImageView];
+//
+//    }
+//}
+//
+
+//- (void)requestForImageByImageUrls:(NSArray *)imageUrls
+//                     showImageView:(UIImageView *)showImageView
+//                       oldImageArr:(NSMutableArray *)oldImageArr{
+//
+//    MBProgressHUD *hud =  [MBProgressHUD showProgressViewToView:self.view animated:YES];
+//
+//    [self.viewModel downloadCompletedImageViewByUrls:imageUrls progress:^(CGFloat progress) {
+//
+//        //进度显示
+//        hud.progress = progress;
+//
+//        //下载完成
+//        if (hud.progress == 1.0) {
+//            [hud hide:YES];
+//        }
+//
+//    } success:^(NSMutableArray *imageArr) {
+//
+//        [self covertRectForOldImageArr:oldImageArr FromNewImageArr:imageArr];
+//        [self showImage:self.cellNewImageArr[showImageView.tag-1] WithImageViewArr:self.cellNewImageArr];
+//
+//    } failure:^(NSString *failure) {
+//        //图片下载失败
+//        [hud hide:YES];
+//        [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"图片加载失败" animated:YES afterDelay:2];
+//    }];
+//}
+
 
 /*
  **

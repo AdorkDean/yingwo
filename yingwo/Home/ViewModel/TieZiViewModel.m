@@ -28,58 +28,6 @@
     return self;
 }
 
-//- (void)setupRACComand {
-//    
-//    @weakify(self);
-//    _fecthTieZiEntityCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-//        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-//            
-//            @strongify(self);
-//            RequestEntity *requestEntity = (RequestEntity *)input;
-//            
-//            if (requestEntity.topic_id == AllThingModel) {
-//                
-//                NSDictionary *paramaters = @{@"start_id":@(requestEntity.start_id)};
-//
-//                [self requesAllThingsWithUrl:TIEZI_URL
-//                                  paramaters:paramaters
-//                                     success:^(NSArray *tieZi) {
-//                    
-//                    [subscriber sendNext:tieZi];
-//                    [subscriber sendCompleted];
-//                    
-//                } error:^(NSURLSessionDataTask *task, NSError *error) {
-//                    [subscriber sendError:error];
-//                }];
-//                
-//            }else if (requestEntity.topic_id == FreshThingModel) {
-//                
-//                NSDictionary *paramaters = @{@"topic_id":@0,@"start_id":@(requestEntity.start_id)};
-//                
-//                [self requestFreshThingWithUrl:TIEZI_URL
-//                                    paramaters:paramaters
-//                                       success:^(NSArray *tieZi) {
-//                   
-//                    [subscriber sendNext:tieZi];
-//                    [subscriber sendCompleted];
-//                    
-//                } error:^(NSURLSessionDataTask *task, NSError *error) {
-//                    
-//                    [subscriber sendError:error];
-//
-//                }];
-//                
-//            }else if (requestEntity.topic_id == ConcernedTopicModel) {
-//                
-//            }else if (requestEntity.topic_id == FriendActivityModel) {
-//                
-//            }
-//            
-//            return nil;
-//        }];
-//    }];
-//    
-//}
 
 - (void)setupRACComand {
     
@@ -92,16 +40,16 @@
             
             NSDictionary *paramaters = nil;
             
-            if (requestEntity.topic_id == AllThingModel) {
+            if (requestEntity.filter == AllThingModel) {
                 paramaters = @{@"start_id":@(requestEntity.start_id)};
             }
             else
             {
-                paramaters = @{@"filter":@(requestEntity.topic_id),
+                paramaters = @{@"filter":@(requestEntity.filter),
                              @"start_id":@(requestEntity.start_id)};
             }
             
-            [self requestTieZiWithUrl:TIEZI_URL
+            [self requestTieZiWithUrl:requestEntity.requestUrl
                            paramaters:paramaters
                               success:^(NSArray *tieZi) {
                                      
@@ -120,15 +68,19 @@
 
 - (void)setupModelOfCell:(YWHomeTableViewCellBase *)cell model:(TieZi *)model {
     
-    //新鲜事无topic_title
-//    NSLog(@"title:%@",model.topic_title);
 
     if (model.topic_id != 0) {
-      //  NSLog(@"title:%@",model.topic_title);
+        
         cell.labelView.title.topic_id   = model.topic_id;
         cell.labelView.title.label.text = model.topic_title;
 
     }
+    else
+    {
+        cell.labelView.title.topic_id   = 0;
+        cell.labelView.title.label.text = @"新鲜事";
+    }
+    
     cell.contentText.text                            = model.content;
     cell.bottemView.nickname.text                    = model.user_name;
     cell.bottemView.favourLabel.text                 = model.like_cnt;

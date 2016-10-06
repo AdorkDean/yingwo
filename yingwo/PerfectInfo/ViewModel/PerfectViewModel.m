@@ -67,6 +67,8 @@
     
     YWHTTPManager *manager = [YWHTTPManager manager];
     
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
     [manager POST:fullUrl
        parameters:paramaters
          progress:nil

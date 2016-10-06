@@ -189,6 +189,10 @@
                        action:@selector(jumpToMyTopicPage)
              forControlEvents:UIControlEventTouchUpInside];
     
+    [self.cellView2 addTarget:self
+                       action:@selector(jumpToMyTieZiPage)
+             forControlEvents:UIControlEventTouchUpInside];
+    
     [self.cellView3 addTarget:self
                        action:@selector(developing)
              forControlEvents:UIControlEventTouchUpInside];
@@ -215,6 +219,11 @@
 - (void)developing {
     [SVProgressHUD showInfoStatus:@"功能开发中···" afterDelay:1.5];
 }
+
+- (void)jumpToMyTieZiPage {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTIEZI sender:self];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

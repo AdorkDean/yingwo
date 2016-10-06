@@ -89,9 +89,6 @@
         
         imageView.mas_key                 = [NSString stringWithFormat:@"DetailImageView%d:",i+1];
     
-//        NSLog(@"imageView.image.size.height:%f", imageView.image.size.height);
-//        NSLog(@"imageView.image.size.width:%f", imageView.image.size.width);
-
         [self.bgImageView addSubview:imageView];
         
         if (!lastView) {

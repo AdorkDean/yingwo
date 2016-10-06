@@ -15,31 +15,33 @@
 
 #import "PerfectViewModel.h"
 #import "CollegeModel.h"
+#import "LoginModel.h"
 
 @interface PerfectInfoController ()<UIPickerViewDelegate,UIPickerViewDataSource,LSYAlbumCatalogDelegate,RSKImageCropViewControllerDelegate>
 
-@property (nonatomic, strong) UIScrollView    *backgroundSrcView;
-@property (nonatomic, strong) UIButton        *photoImageBtn;
-@property (nonatomic, strong) UIImage         *photoImage;
+@property (nonatomic, strong) UIScrollView     *backgroundSrcView;
+@property (nonatomic, strong) UIButton         *photoImageBtn;
+@property (nonatomic, strong) UIImage          *photoImage;
 
-@property (nonatomic, strong) YWInputButton   *signatureText;
-@property (nonatomic, strong) YWInputButton   *nicknameText;
-@property (nonatomic, strong) YWInputButton   *sexText;
-@property (nonatomic, strong) YWInputButton   *schoolText;
-@property (nonatomic, strong) YWInputButton   *academyText;
-@property (nonatomic, strong) YWInputButton   *gradeText;
+@property (nonatomic, strong) YWInputButton    *signatureText;
+@property (nonatomic, strong) YWInputButton    *nicknameText;
+@property (nonatomic, strong) YWInputButton    *sexText;
+@property (nonatomic, strong) YWInputButton    *schoolText;
+@property (nonatomic, strong) YWInputButton    *academyText;
+@property (nonatomic, strong) YWInputButton    *gradeText;
 
-@property (nonatomic, strong) UIButton        *male;
-@property (nonatomic, strong) UIButton        *female;
-@property (nonatomic, strong) UIButton        *finishedBtn;
+@property (nonatomic, strong) UIButton         *male;
+@property (nonatomic, strong) UIButton         *female;
+@property (nonatomic, strong) UIButton         *finishedBtn;
 
-@property (nonatomic, strong) GradePickerView *gradePickerView;
+@property (nonatomic, strong) GradePickerView  *gradePickerView;
 
-@property (nonatomic, assign) Boolean        sex;
-@property (nonatomic, copy  ) NSString       *selectedGrade;
-@property (nonatomic, strong) NSMutableArray *RecentYears;
+@property (nonatomic, assign) Boolean          sex;
+@property (nonatomic, copy  ) NSString         *selectedGrade;
+@property (nonatomic, strong) NSMutableArray   *RecentYears;
 
 @property (nonatomic, strong) PerfectViewModel *viewModel;
+@property (nonatomic, strong) LoginModel       *loginViewModel;
 @property (nonatomic, strong) CollegeModel     *collegeModel;
 
 @end
@@ -250,6 +252,13 @@
         _viewModel = [[PerfectViewModel alloc] init];
     }
     return _viewModel;
+}
+
+- (LoginModel *)loginViewModel {
+    if (_loginViewModel == nil) {
+        _loginViewModel = [[LoginModel alloc] init];
+    }
+    return _loginViewModel;
 }
 
 - (CollegeModel *)collegeModel {
@@ -563,16 +572,12 @@
         //修改个人信息
         requestUrl = UPDATE_INFO_URL;
         
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     }
     else
     {
         //注册完善信息
         requestUrl = BASE_INFO_URL;
         
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:REGISTER_COOKIE];
     }
 
     [self requestFinishedBaseInfoWithUrl:requestUrl];
@@ -663,8 +668,6 @@
     }
 }
 
-
-
 //action跳转
 - (void)jumpToWriteSignaturePage {
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_WRITESIGNATURE sender:self];
@@ -677,29 +680,35 @@
 - (void)finishedUserInfo{
     
     if (self.isModfiyInfo == YES) {
+        
         [SVProgressHUD showSuccessStatus:@"修改成功" afterDelay:HUD_DELAY];
+        [self backToForward];
+
     }
     else
     {
         [SVProgressHUD showSuccessStatus:@"完善成功" afterDelay:HUD_DELAY];
+        
+        //隐藏导航栏，不然会与HomeController 里面的重叠
+        self.navigationController.navigationBarHidden = YES;
+        [self jumpToHomePage];
     }
-    [self backToForward];
 }
 
 - (void)backToForward {
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:1.5];
 }
 
+- (void)jumpToHomePage {
+    
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MAIN sender:self];
+    
+}
+
 - (void)dismiss {
-    if (self.isModfiyInfo == YES) {
-       
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
+    
+    [self.navigationController popViewControllerAnimated:YES];
         
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
 }
 
 #pragma mark -- LSYAlbumCatalogDelegate

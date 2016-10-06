@@ -10,36 +10,79 @@
 
 @implementation DiscoveryViewModel
 
+- (instancetype)init {
+    if (self = [super init]) {
+        
+        [self setupRACComand];
+        
+    }
+    
+    return self;
+}
+
+- (NSMutableArray *)bannerArr {
+    if (_bannerArr == nil) {
+        _bannerArr = [NSMutableArray arrayWithCapacity:3];
+    }
+    return _bannerArr;
+}
+
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0)
     {
         return @"bannerCell";
     }
-    return @"discoveryCell";
+    return @"subjectCell";
+}
+
+- (void)setupRACComand {
+    
+    @weakify(self);
+    _fecthTopicEntityCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            
+            @strongify(self);
+            RequestEntity *requestEntity = (RequestEntity *)input;
+            
+            //这里刷新只刷新banner大图
+            //先获取热点大图
+            [self requestHotTopicListWithUrl:requestEntity.requestUrl
+                                     success:^(NSArray *hotArr) {
+                                         
+                                         for (HotTopicEntity *topic in hotArr)
+                                         {
+                                             [self.bannerArr addObject:topic.big_img];
+                                         }
+                                         
+                                         [subscriber sendNext:self.bannerArr];
+                                         [subscriber sendCompleted];
+                                         
+                
+                                         
+                                         
+                                     } failure:^(NSString *error) {
+                                         
+                                     }];
+
+            
+            
+            
+            return nil;
+        }];
+    }];
+    
 }
 
 - (void)setupModelOfCell:(YWDiscoveryBaseCell *)cell model:(DiscoveryViewModel *)model {
     
     if (model == nil) {
         
-        //获取热点大图
-        [self requestHotTopicListWithUrl:HOT_TOPIC_URL
-                                           success:^(NSArray *hotArr) {
-                                               
-                                               _bannerArr = [NSMutableArray arrayWithCapacity:3];
-                                               
-                                               for (HotTopicEntity *topic in hotArr)
-                                               {
-                                                   [_bannerArr addObject:topic.big_img];
-                                               }
-                                               
-                                               cell.mxScrollView.images = _bannerArr;
+        if (self.bannerArr.count != 0) {
+            
+            cell.mxScrollView.images = self.bannerArr;
 
-                                           } failure:^(NSString *error) {
-                                               
-                                           }];
-
-      //  cell.backgroundColor = [UIColor blueColor];
+        }
+        
     }
 
     
@@ -85,85 +128,6 @@
     
 }
 
-- (void)requestSubjectListWithUrl:(NSString *)url
-                       paramaters:(NSDictionary *)paramaters
-                          success:(void (^)(NSArray *fieldArr))success
-                         failure:(void (^)(NSString *error))failure{
-    
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                            options:NSJSONReadingMutableContainers
-                                                                              error:nil];
-                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
-                  NSMutableArray *tempArr = [[NSMutableArray alloc] init];
-                  
-                  for (NSDictionary *dic in entity.info) {
-                      
-                      SubjectEntity *field = [SubjectEntity mj_objectWithKeyValues:dic];
-                      [tempArr addObject:field];
-                      
-                  }
-                  
-                  success(tempArr);
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
-          }];
-    
-    
-}
-
-- (void)requestTopicListWithUrl:(NSString *)url
-                    paramaters:(NSDictionary *)paramaters
-                        success:(void (^)(NSArray *fieldArr))success
-                        failure:(void (^)(NSString *error))failure{
-    
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                            options:NSJSONReadingMutableContainers
-                                                                              error:nil];
-                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
-                  NSMutableArray *tempArr = [[NSMutableArray alloc] init];
-                  
-                  for (NSDictionary *dic in entity.info) {
-                      
-                      TopicEntity *field = [TopicEntity mj_objectWithKeyValues:dic];
-                      [tempArr addObject:field];
-                      
-                  }
-                  
-                  success(tempArr);
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
-          }];
-    
-    
-}
 
 - (void)requestHotTopicListWithUrl:(NSString *)url
                            success:(void (^)(NSArray *hotArr))success
@@ -203,6 +167,7 @@
     
     
 }
+
 
 
 @end

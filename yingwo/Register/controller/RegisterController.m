@@ -10,6 +10,7 @@
 #import "VerificationController.h"
 #import "ClauseViewController.h"
 #import "LoginModel.h"
+#import "RegisterModel.h"
 
 @interface RegisterController ()
 
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) UIButton       *loginBtn;
 @property (nonatomic, assign) NSString       *isAgreen;
 
+@property (nonatomic, strong) RegisterModel  *viewModel;
 @end
 
 
@@ -95,6 +97,13 @@ static NSString *notAgreen = @"不同意";
     return  _loginBtn;
 }
 
+- (RegisterModel *)viewModel {
+    if (_viewModel == nil) {
+        _viewModel = [[RegisterModel alloc] init];
+    }
+    return _viewModel;
+}
+
 #pragma mark -----初始化UI布局
 - (void)setUILayout {
     //UI 布局
@@ -157,7 +166,29 @@ static NSString *notAgreen = @"不同意";
  *  跳转去获取短信页面
  */
 - (void)jumpToVerificationPage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_VERFIFCATION sender:self];
+    
+    NSDictionary *paramaters = @{@"mobile":self.phoneTextFeild.rightTextField.text};
+    
+    [self.viewModel requestForCheckMobleWithUrl:MOBILE_CHECK_URL
+                                     paramaters:paramaters
+                                        success:^(StatusEntity *status) {
+                                            
+                                            if (status.error == 0) {
+                                                
+                                                [self performSegueWithIdentifier:SEGUE_IDENTIFY_VERFIFCATION
+                                                                          sender:self];
+
+                                            }
+                                            else if (status.error_code == ERROR_REGISTERED_CODE) {
+                                                [SVProgressHUD showErrorStatus:@"手机号已注册"
+                                                                    afterDelay:HUD_DELAY];
+                                            }
+           
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
+    }];
+    
 }
 
 /**

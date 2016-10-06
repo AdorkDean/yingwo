@@ -29,7 +29,7 @@
 
 
 
-- (void)setupModelOfCell:(YWSubjectViewCell *)cell indexPath:(NSIndexPath *)indexPath;
+- (void)setupModelOfCell:(YWDiscoveryBaseCell *)cell indexPath:(NSIndexPath *)indexPath;
 
 /**
  *  获取领域话题列表

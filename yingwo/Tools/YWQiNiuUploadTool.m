@@ -26,7 +26,7 @@
                                                                   options:NSJSONReadingMutableLeaves
                                                                     error:nil];
              NSDictionary *tokenDic = resultDic[@"info"];
-             //  NSLog(@"tokenDic:%@",tokenDic);
+             NSLog(@"tokenDic:%@",tokenDic);
 
              token(tokenDic[@"uploadu_token"]);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

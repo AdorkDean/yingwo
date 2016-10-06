@@ -56,7 +56,9 @@
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
              
-        NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                options:NSJSONReadingMutableContainers
+                                                                  error:nil];
         Register *reg         = [Register mj_objectWithKeyValues:content];
         success(reg);
 
@@ -105,6 +107,29 @@
               SmsMessage *sms       = [SmsMessage mj_objectWithKeyValues:content];
               
               success(sms);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              failure(task,error);
+          }];
+}
+
+- (void)requestForCheckMobleWithUrl:(NSString *)url
+                            paramaters:(id)paramaters
+                               success:(void (^)(StatusEntity *status))success
+                               failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager = [YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              StatusEntity *statusEntity       = [StatusEntity mj_objectWithKeyValues:content[@"info"]];
+              
+              success(statusEntity);
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               failure(task,error);

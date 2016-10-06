@@ -107,7 +107,7 @@
     
     //解决cell复用带来的问题
     //移除所有的子试图，再添加
-    NSArray *subviews = [[NSArray alloc] initWithArray:cell.backgroundView.subviews];
+    NSArray *subviews = [[NSArray alloc] initWithArray:cell.contentView.subviews];
     for (UIView *subview in subviews) {
         [subview removeFromSuperview];
     }
@@ -117,7 +117,7 @@
     
     //所在楼层
   //  cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",model.reply_id];
-    cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%ld楼",indexPath.row +1];
+    cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",(int)(indexPath.row +1)];
 
     //回复内容
     cell.contentLabel.text                     = model.content;
@@ -213,12 +213,12 @@
                   weakself.singleSuccessBlock = ^(NSArray *commentArr){
                       
                       TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
-                      
+
                       replyEntity.imageUrlArrEntity = [NSString separateImageViewURLString:replyEntity.img];
 
                       currentIndex ++ ;
-                      
-                      replyEntity.commentArr = [commentArr mutableCopy];
+
+                      replyEntity.commentArr        = [commentArr mutableCopy];
                       
                       [replyArr addObject:replyEntity];
                       
@@ -227,6 +227,9 @@
                       }
                       else
                       {
+                          //currentIndex已经++
+                          TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
+
                           NSDictionary *paramaters      = @{@"post_reply_id":@(replyEntity.reply_id)};
 
                           [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL

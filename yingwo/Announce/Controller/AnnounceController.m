@@ -7,6 +7,8 @@
 //
 
 #import "AnnounceController.h"
+#import "DetailController.h"
+
 #import "YWAnnounceTextView.h"
 #import "AnnounceModel.h"
 #import "YWKeyboardToolView.h"
@@ -23,6 +25,10 @@
 @property (nonatomic, strong) YWPhotoDisplayView *photoDisplayView;
 
 @property (nonatomic, strong) AnnounceModel      *viewModel;
+
+//发帖时候的参数
+@property (nonatomic, strong) NSDictionary      *tieZiParamaters;
+
 @property (nonatomic, assign) UIImageView        *lastPhoto;
 @property (nonatomic, assign) NSInteger          photoImagesCount;
 
@@ -215,16 +221,19 @@ CGFloat delay = 2.0f;
         NSMutableDictionary *paramaters = [[NSMutableDictionary alloc] init];
         NSString *requestUrl            = @"";
 
+        //跟贴
         if (self.isFollowTieZi == YES) {
             paramaters[@"post_id"] = @(self.post_id);
             requestUrl             = TIEZI_REPLY;
         }
+        //发话题
         else if (self.isTopic == YES) {
             
             paramaters[@"topic_id"] = @(self.topic_id);
             requestUrl             = ANNOUNCE_URL;
 
         }
+        //发新鲜事
         else
         {
             paramaters[@"topic_id"] = @0;
@@ -235,11 +244,14 @@ CGFloat delay = 2.0f;
         paramaters[@"content"]          = [content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         paramaters[@"img"]              = allUrlString;
         
-        [self.viewModel postFreshThingWithUrl:requestUrl
-                                   paramaters:paramaters
-                                      success:^(NSString *result) {
-                                          
-                                  //        [hud hide:YES];
+        [self.viewModel postTieZiWithUrl:requestUrl
+                              paramaters:paramaters
+                                 success:^(NSString *result) {
+                                     
+                                     //这里保存参数，返回给贴子详情界面，用来刷新刚发布的回贴
+                                     if (self.isFollowTieZi == YES) {
+                                         self.tieZiParamaters = paramaters;
+                                     }
                                           
                                           //确认发布完成
                                           self.isRelease = YES;
@@ -309,6 +321,10 @@ CGFloat delay = 2.0f;
     self.returnValueBlock = block;
 }
 
+- (void)setReplyTieZiBlock:(ReplyTieZiBlock)replyTieZiBlock {
+    _replyTieZiBlock = replyTieZiBlock;
+}
+
 - (void)backToMainView {
     
     [self resignKeyboard];
@@ -326,6 +342,11 @@ CGFloat delay = 2.0f;
                 
         }
         }];
+    }
+    else if (self.isRelease == YES && self.isFollowTieZi == YES) {
+        
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
     }
     else
     {
@@ -443,6 +464,13 @@ CGFloat delay = 2.0f;
         
         self.returnValueBlock(self.reloaded2);
     }
+    
+    if (self.replyTieZiBlock != nil && self.isFollowTieZi == YES && self.isRelease == YES) {
+        
+        self.replyTieZiBlock(self.tieZiParamaters,self.isRelease);
+
+    }
+
     
 }
 

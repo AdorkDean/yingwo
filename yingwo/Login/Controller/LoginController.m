@@ -21,8 +21,7 @@
 @property (nonatomic, strong) UIButton       *loginBtn;
 @property (nonatomic, strong) UIButton       *registerBtn;
 @property (nonatomic, strong) UIButton       *forgetBtn;
-@property (nonatomic, strong) LoginModel     *model;
-@property (nonatomic, strong) MBProgressHUD  *hud;
+@property (nonatomic, strong) LoginModel     *viewModel;
 @end
 
 @implementation LoginController
@@ -88,18 +87,11 @@
     return _forgetBtn;
 }
 
-- (LoginModel *)model {
-    if (_model == nil) {
-        _model = [[LoginModel alloc] init];
+- (LoginModel *)viewModel {
+    if (_viewModel == nil) {
+        _viewModel = [[LoginModel alloc] init];
     }
-    return _model;
-}
-
-- (MBProgressHUD *)hud {
-    if (_hud == nil) {
-        _hud = [MBProgressHUD showActivityIndicatorToView:self.view animated:YES];
-    }
-    return _hud;
+    return _viewModel;
 }
 
 #pragma mark -----初始化UI布局
@@ -174,7 +166,7 @@
 }
 
 - (void)jumpToMainPage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_LOGIN sender:self];
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MAIN sender:self];
 }
 
 /**
@@ -188,7 +180,7 @@
      *  password
      */
     
-    [self.view addSubview:self.hud];
+    [SVProgressHUD showLoadingStatusWith:@""];
     
     NSString *mobile                = self.phoneText.rightTextField.text;
     NSString *password              = self.passwordText.rightTextField.text;
@@ -204,9 +196,9 @@
 //登录网路请求
 - (void)requestForLoginWithUrl:(NSString *)url paramaters:(id)paramaters {
     
-    [self.model requestForLoginWithUrl:url
-                            parameters:paramaters
-                               success:^(User *user) {
+    [self.viewModel requestForLoginWithUrl:url
+                                parameters:paramaters
+                                   success:^(User *user) {
                                    
         if (user != nil) {
             
@@ -222,8 +214,8 @@
             [self requestForHeadImageWithUrl:user.face_img];
             
         }else{
-            [self.hud hide:YES];
-            [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"帐号或密码错误" animated:YES afterDelay:1];
+            
+            [SVProgressHUD showErrorStatus:@"帐号或密码错误" afterDelay:HUD_DELAY];
 
         }
 //        NSLog(@"%d",log.status);
@@ -231,8 +223,9 @@
 //        NSLog(@"%@",log.customer.username);
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [self.hud hide:YES];
-        [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"帐号或密码错误" animated:YES afterDelay:1];
+        
+        [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
+
     }];
 }
 
@@ -245,7 +238,7 @@
     
     if (url.length > 0) {
         
-        [self.model requestForHeadImageWithUrl:url];
+        [self.viewModel requestForHeadImageWithUrl:url];
         
     }
     
@@ -264,7 +257,6 @@
                         
         if (successCode == SUCCESS_STATUS) {
             
-            [self.hud hide:YES];
             [SVProgressHUD showSuccessStatus:@"登录成功" afterDelay:HUD_DELAY];
             //跳转
             [self jumpToMainPage];
@@ -272,7 +264,6 @@
     } failure:^(int errorCode) {
         
         NSLog(@"login is failure");
-        [self.hud hide:YES];
     }];
     
 }

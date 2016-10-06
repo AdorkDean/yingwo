@@ -22,5 +22,7 @@
 //错误返回信息
 @property (nonatomic, assign) int      error_code;
 
+//几个错误
+@property (nonatomic, assign) int      error;
 
 @end

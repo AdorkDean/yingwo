@@ -29,8 +29,9 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
 - (UITableView *)tableView {
     
     if (!_tableView) {
-        _tableView                 = [[UITableView alloc] initWithFrame:self.view.bounds
-                                                  style:UITableViewStyleGrouped];
+        _tableView                 = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT+200)
+                                                  style:UITableViewStylePlain];
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 300, 0);
         _tableView.delegate        = self;
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
@@ -153,54 +154,7 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 200;
-}
-
-
-//headerView高度
-static CGFloat headerViewHeight = 200;
-
-////上一个滑动点
-static CGFloat scrollY = 0;
-
-#pragma mark UIScrollView
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    
-//    UITableView *discoverySrcView = (UITableView *)scrollView.superview.superview.superview.superview.superview.superview.superview;
-//    
-//    CGFloat directionY = scrollView.contentOffset.y - scrollY;
-//    
-//    if (directionY >= 0) {
-//        
-//        if ( scrollView.contentOffset.y <= headerViewHeight) {
-//            
-//            discoverySrcView.contentOffset = CGPointMake(discoverySrcView.contentOffset.x,
-//                                                          scrollView.contentOffset.y);
-//        }
-//        
-//    }
-//    else
-//    {
-//        if ( scrollView.contentOffset.y <= headerViewHeight) {
-//            discoverySrcView.contentOffset = CGPointMake(discoverySrcView.contentOffset.x,
-//                                                          scrollView.contentOffset.y);
-//        }
-//    }
-//    
-//    
-//    scrollY = scrollView.contentOffset.y;
-//    
-//}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    
-    if (scrollView.contentOffset.y <= 0) {
-        
-        scrollView.scrollEnabled              = NO;
-        self.discoveryTableView.scrollEnabled = YES;
-        
-    }
+    return 0;
 }
 
 
@@ -208,9 +162,9 @@ static CGFloat scrollY = 0;
 
 - (void)didSelectTopicWith:(int)topicId {
     
-    if ([self.delegate respondsToSelector:@selector(didSelectTopicWith:)]) {
-        [self.delegate didSelectTopicWith:topicId];
-    }
+//    if ([self.delegate respondsToSelector:@selector(didSelectTopicWith:)]) {
+//        [self.delegate didSelectTopicWith:topicId];
+//    }
     
 }
 
@@ -229,13 +183,13 @@ static CGFloat scrollY = 0;
     //获取第一个贴子中的subject_id
     TopicEntity *topic             = [topicArr objectAtIndex:0];
     
-    if ([self.delegate respondsToSelector:@selector(didSelectSubjectWith:subjectId:)])
-    {
-        [self.delegate didSelectSubjectWith:subject.title
-                                  subjectId:[topic.subject_id intValue]];
-
-
-    }
+//    if ([self.delegate respondsToSelector:@selector(didSelectSubjectWith:subjectId:)])
+//    {
+////        [self.delegate didSelectSubjectWith:subject.title
+////                                  subjectId:[topic.subject_id intValue]];
+////
+//
+//    }
     
 }
 

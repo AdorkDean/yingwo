@@ -43,7 +43,7 @@
 
 
 /********************************segue identify************************************************/
-#define SEGUE_IDENTIFY_LOGIN          @"login"
+#define SEGUE_IDENTIFY_MAIN          @"main"
 #define SEGUE_IDENTIFY_RESET          @"reset"
 #define SEGUE_IDENTIFY_REGISTER       @"register"
 #define SEGUE_IDENTIFY_VERFIFCATION   @"verification"
@@ -58,6 +58,7 @@
 #define SEGUE_IDENTIFY_TOPICLIST      @"topicList"
 #define SEGUE_IDENTIFY_TOPIC          @"topic"
 #define SEGUE_IDENTIFY_MYTOPIC        @"myTopic"
+#define SEGUE_IDENTIFY_MYTIEZI        @"myTieZi"
 
 
 /********************************segue identify************************************************/
@@ -69,6 +70,7 @@
 #define REGISTER_URL    @"/User/Register"
 #define SMS_URL         @"/Sms/Send"
 #define SMS_CHECK       @"/Sms/Check"
+#define MOBILE_CHECK_URL @"/User/Check_mobile"
 
 #define HEADIMAGE_URL   @"/Public/uploads/"
 #define SCHOOL_URL      @"/school/school_list"
@@ -87,6 +89,7 @@
 #define TIEZI_COMMENT_URL       @"/Post/Comment"
 #define TIEZI_RELPY_URL         @"/Post/reply_list"
 #define TIEZI_LIKE_URL          @"/Post/like"
+#define MY_TIEZI_URL            @"/Post/my_list"
 #define TIEZI_DEL_URL           @"/Post/del"
 
 #define TOPIC_FIELD_URL         @"/Field/get_list"
@@ -103,9 +106,11 @@
 
 /********************************* errorCode ******************************************************/
 //未登录
-#define ERROR_UNLOGIN_CODE 05001
+#define ERROR_UNLOGIN_CODE 5001
 //为完善信息
-#define ERROR_UNFINISHED_CODE 05002
+#define ERROR_UNFINISHED_CODE 5002
+//重复注册
+#define ERROR_REGISTERED_CODE 5003
 
 /********************************* errorCode ******************************************************/
 

@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
     AllTopicModel   = 0, //话题
     OneFieldModel   = 1, //校园生活
     TwoFieldModel   = 2, //兴趣爱好
-    ThreeFieldModel = 3, //知识技能
+    ThreeFieldModel = 3, //学科专业
 };
 
 @interface TopicListController : BaseViewController

@@ -323,19 +323,31 @@
                                           success:^(Register *reg) {
                                               
                                               if (reg.status == YES) {
+                                                  //保存cookie,注册后服务器自动登录一次
+                                                  [YWNetworkTools cookiesValueWithKey:LOGIN_COOKIE];
+                                                  //保存注册的手机号和密码
+                                                  [User saveLoginInformationWithUsernmae:self.phone
+                                                                                password:self.passwordText.rightTextField.text];
                                                   
-                                                  [YWNetworkTools cookiesValueWithKey:REGISTER_COOKIE];
                                                   
                                                   [SVProgressHUD showSuccessStatus:@"注册成功,请完善信息"
                                                                         afterDelay:HUD_DELAY];
+                                                  
                                                   //注册成功后跳转到完善信息页面
                                                   [self jumpToPerfectInfoPage];
+                                                  
                                               }else if (reg.status == NO) {
-                                                  [SVProgressHUD showErrorStatus:@"注册失败" afterDelay:HUD_DELAY];
+                                                  
+                                                  [SVProgressHUD showErrorStatus:@"注册失败"
+                                                                      afterDelay:HUD_DELAY];
+                                                  
                                               }
                                           } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               NSLog(@"error:%@",error);
-                                              [SVProgressHUD showErrorStatus:@"注册失败" afterDelay:HUD_DELAY];
+                                              
+                                              [SVProgressHUD showErrorStatus:@"注册失败,请检查网络"
+                                                                  afterDelay:HUD_DELAY];
+                                              
                                           }];
 }
 

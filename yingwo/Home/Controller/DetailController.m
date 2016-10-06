@@ -243,22 +243,22 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     AnnounceController *announceVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
     announceVC.isFollowTieZi       = YES;
     announceVC.post_id             = self.model.tieZi_id;
-    MainNavController *mainNav = [[MainNavController alloc] initWithRootViewController:announceVC];
+    
+    //block传参数
+    announceVC.replyTieZiBlock = ^(NSDictionary *paramaters,BOOL isRelease){
+        if (isRelease == YES) {
+            
+            [self addReplyViewAtLastWith:paramaters];
+    
+        }
+    };
 
+    
+    MainNavController *mainNav = [[MainNavController alloc] initWithRootViewController:announceVC];
+    
     [self presentViewController:mainNav
                        animated:YES
                      completion:nil];
-}
-
-//跳转传参，这里是跟帖，需要贴子的id
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[AnnounceController class]]) {
-        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_FOLLOW_TIEZI]) {
-            AnnounceController *announceVC = segue.destinationViewController;
-            announceVC.isFollowTieZi       = YES;
-            announceVC.post_id             = self.model.tieZi_id;
-        }
-    }
 }
 
 #pragma mark UITextfieldDelegate
@@ -317,7 +317,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     [self judgeNetworkStatus];
 
+    //显示刚发布的跟贴内容，追加到tableview的最后一个
+    if (self.isReleased == YES) {
+        
+    }
 
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear: animated];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -334,6 +343,17 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                                   name:UIKeyboardDidHideNotification
                                                 object:nil];
 }
+
+#pragma mark 禁止pop手势
+- (void)stopSystemPopGestureRecognizer {
+    self.fd_interactivePopDisabled = YES;
+}
+
+#pragma mark 开启pop手势
+- (void)openSystemPopGestureRecognizer {
+    self.fd_interactivePopDisabled = NO;
+}
+
 
 //键盘弹出后调用
 - (void)keyboardWillChangeFrame:(NSNotification *)note {
@@ -566,6 +586,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)showImageView:(UIImageView *)imageView {
     
+    //禁止后面的DetailController的滑动手势
+    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
+    
+    [self stopSystemPopGestureRecognizer];
+
+    
     NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
     [imageViewArr addObject:imageView];
     
@@ -587,6 +613,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
     self.galleryView = nil;
+    
+    //开启滑动手势
+    [self openSystemPopGestureRecognizer];
 }
 
 #pragma YWSpringButtonDelegate
@@ -621,6 +650,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 
 #pragma mark YWDetailCellBottomViewDelegate
+
+//点击跟贴上的气泡，跳转到跟贴界面
+//原理是监听弹出的键盘事件，再弹出跟贴界面
 
 - (void)didSelectMessageWith:(NSInteger)post_id onSuperview:(UIView *)view{
     
@@ -772,6 +804,29 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     }];
 
     
+}
+
+/*
+ *  添加跟贴到tableview的最后一个
+ */
+- (void)addReplyViewAtLastWith:(NSDictionary *)paramters {
+        
+    //获取刚才发布的跟贴
+    TieZiReply *reply = [TieZiReply mj_objectWithKeyValues:paramters];
+    
+    reply.imageUrlArrEntity =  [NSString separateImageViewURLString:reply.img];
+    //将跟帖添加到self.tieZiReplyArr数组中
+    
+    [self.tieZiReplyArr addObject:reply];
+    
+    //通过initWithIndex获取需要添加的所在位置 （count－1）
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.tieZiReplyArr.count-1
+                                                inSection:0];
+    [self.detailTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                withRowAnimation:UITableViewRowAnimationLeft];
+    
+    //通过insertSections将数据插入到tableview的制定数组中
 }
 
 #pragma mark 收起键盘

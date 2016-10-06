@@ -81,8 +81,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
-        //  _homeTableview.fd_debugLogEnabled = YES;
-        _homeTableview.bounces = NO;
+        _homeTableview.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
                forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
         [_homeTableview registerClass:[YWHomeTableViewCellOneImage class]
@@ -286,7 +285,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [super viewDidLoad];
     
     self.title = @"最新";
-    
+        
     [self.view addSubview:self.homeTableview];
     
     [self loadDataWithRequestEntity:self.requestEntity];

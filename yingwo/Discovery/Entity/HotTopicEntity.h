@@ -12,11 +12,13 @@
 
 @interface HotTopicEntity : TopicEntity
 
-
+//热点
 @property (nonatomic, copy) NSString *hot;
 
+//排序
 @property (nonatomic, copy) NSString *sort;
 
+//话题图片
 @property (nonatomic, copy) NSString *big_img;
 
 @end

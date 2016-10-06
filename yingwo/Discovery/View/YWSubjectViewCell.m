@@ -18,17 +18,17 @@
     self.backgroundView.layer.masksToBounds = YES;
     self.backgroundView.layer.cornerRadius  = 10;
 
-    _fieldListView                          = [[YWFieldListView alloc ] init];
+    self.fieldListView                          = [[YWFieldListView alloc ] init];
     
     [self.contentView addSubview:self.backgroundView];
-    [self.backgroundView addSubview:_fieldListView];
+    [self.backgroundView addSubview:self.fieldListView];
     
     [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 0, 10));
 
     }];
 
-    [_fieldListView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.fieldListView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backgroundView.mas_left).offset(10);
         make.right.equalTo(self.backgroundView.mas_right).offset(-10);
         make.top.equalTo(self.backgroundView.mas_top);
@@ -42,9 +42,9 @@
     
     YWTopicListView *lastView;
     
-    int count = (entities.count > 3 ) ? 3 : (int)entities.count ;
+ //   int count = (entities.count > 3 ) ? 3 : (int)entities.count ;
     
-    for (int i = 0; i < count; i ++) {
+    for (int i = 0; i < entities.count; i ++) {
         
         TopicEntity *entity               = [entities objectAtIndex:i];
 
@@ -70,9 +70,9 @@
         if (!lastView) {
             
             [topicListView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_fieldListView.mas_bottom);
-                make.left.equalTo(_fieldListView.mas_left);
-                make.right.equalTo(_fieldListView.mas_right);
+                make.top.equalTo(self.fieldListView.mas_bottom);
+                make.left.equalTo(self.fieldListView.mas_left);
+                make.right.equalTo(self.fieldListView.mas_right);
                 make.height.equalTo(@44);
             }];
             lastView = topicListView;
@@ -80,8 +80,8 @@
         }else {
             [topicListView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(lastView.mas_bottom).offset(10);
-                make.left.equalTo(_fieldListView.mas_left);
-                make.right.equalTo(_fieldListView.mas_right);
+                make.left.equalTo(self.fieldListView.mas_left);
+                make.right.equalTo(self.fieldListView.mas_right);
                 make.height.equalTo(@44);
 
             }];

@@ -25,4 +25,9 @@ typedef NS_ENUM(NSInteger,CommentType) {
 
 @property (nonatomic, assign) CommentType commentType;
 
+//是否跟贴完成
+@property (nonatomic, assign) BOOL        isReleased;
+
+@property (nonatomic, strong) NSDictionary *tieZiParamters;
+
 @end

@@ -60,8 +60,9 @@ static CGFloat HeaderViewHeight = 250;
                                                                          -self.navgationBarHeight,
                                                                          SCREEN_WIDTH,
                                                                          SCREEN_HEIGHT+self.navgationBarHeight)];
+        _topicSrcllView.backgroundColor = [UIColor clearColor];
         _topicSrcllView.delegate = self;
-        _topicSrcllView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+200);
+      //  _topicSrcllView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+200);
     }
     return _topicSrcllView;
 }
@@ -84,7 +85,7 @@ static CGFloat HeaderViewHeight = 250;
         _segmentView = [[SMPagerTabView alloc] initWithFrame:CGRectMake(0,
                                                                 HeaderViewHeight+40,
                                                                 SCREEN_WIDTH,
-                                                                SCREEN_HEIGHT-HeaderViewHeight-40)];
+                                                                SCREEN_HEIGHT+HeaderViewHeight)];
         
         _segmentView.delegate = self;
         
@@ -234,7 +235,6 @@ static CGFloat HeaderViewHeight = 250;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
  //   [self.view addSubview:self.topicTableView];
 
@@ -394,7 +394,7 @@ static CGFloat HeaderViewHeight = 250;
     self.topicHeaderView.blurImageView.contentMode     = UIViewContentModeScaleAspectFill;
     
     //这里注意未关注前user_post_like的初始值为为null，关注后才为1，取消后为0
-    if (topic.user_topic_like != nil && [topic.user_topic_like intValue] == 0) {
+    if (topic.like != nil && [topic.like intValue] == 0) {
         
         [self.topicHeaderView.addTopicBtn addTarget:self
                                              action:@selector(addLike:)

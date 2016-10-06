@@ -23,7 +23,7 @@
 @property (nonatomic, strong) TopicListController *oneFieldVc;
 //兴趣爱好
 @property (nonatomic, strong) TopicListController *twoFieldVc;
-//知识技能
+//学科专业
 @property (nonatomic, strong) TopicListController *threeFieldVc;
 
 @end
@@ -96,7 +96,7 @@
 - (TopicListController *)threeFieldVc {
     if (_threeFieldVc == nil) {
         _threeFieldVc           = [[TopicListController alloc] init];
-        _threeFieldVc.title       = @"知识技能";
+        _threeFieldVc.title       = @"学科专业";
         _threeFieldVc.field_id  = 3;
         _threeFieldVc.isMyTopic = YES;
 

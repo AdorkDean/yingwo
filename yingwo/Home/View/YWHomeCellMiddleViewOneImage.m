@@ -17,7 +17,7 @@
     UIImageView *imageView = [self.imagesArr objectAtIndex:0];
     
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.with.equalTo(@(self.YWOneImageHeight));
+        make.height.width.equalTo(@(self.YWOneImageHeight)).priorityHigh();
         make.edges.equalTo(self).insets(UIEdgeInsetsMake(10, 0, 10, 0));
     }];
 }

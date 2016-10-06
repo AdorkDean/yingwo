@@ -25,6 +25,9 @@
 //话题的id
 @property (nonatomic, assign) int          topic_id;
 
+//过滤参数 0 全部 1 新鲜事 2 关注的话题
+@property (nonatomic, assign) int          filter;
+
 //回贴偏移量
 @property (nonatomic, assign) int          page;
 
