@@ -22,7 +22,7 @@
 
 - (NSMutableArray *)bannerArr {
     if (_bannerArr == nil) {
-        _bannerArr = [NSMutableArray arrayWithCapacity:3];
+        _bannerArr = [NSMutableArray arrayWithCapacity:5];
     }
     return _bannerArr;
 }

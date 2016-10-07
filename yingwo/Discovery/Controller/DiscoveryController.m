@@ -397,7 +397,7 @@ static int start_id = 0;
         
         cell.mxScrollView.tapImageHandle = ^(NSInteger index) {
             
-            HotTopicEntity *hotEntity = [self.discoveryViewModel.bannerArr objectAtIndex:0];
+            HotTopicEntity *hotEntity = [self.discoveryViewModel.bannerArr objectAtIndex:index];
             self.topic_id             = [hotEntity.topic_id intValue];
             
             [self performSegueWithIdentifier:@"topic" sender:self];
