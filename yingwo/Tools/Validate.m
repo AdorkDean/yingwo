@@ -41,6 +41,13 @@
     return B;
 }
 
++ (BOOL) validateSignature:(NSString *)signature
+{
+    NSString *signatureRegex = @"^.{0,15}$";
+    NSPredicate *signaturePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",signatureRegex];
+    return [signaturePredicate evaluateWithObject:signature];
+}
+
 //判断内容是否全部为空格  yes 全部为空格  no 不是
 + (BOOL) validateIsEmpty:(NSString *) str {
     

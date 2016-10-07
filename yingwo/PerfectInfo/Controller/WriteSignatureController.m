@@ -69,25 +69,25 @@
 - (void)checkToDipalayDeleteBtn {
     
     RAC(self.deleteBtn ,hidden) = [RACSignal combineLatest:@[self.inputSignatureText.rightTextField.rac_textSignal]
-                                                    reduce:^id(NSString *nickname){
-                                                        return @([nickname  isEqual: @""]);
+                                                    reduce:^id(NSString *signature){
+                                                        return @([signature  isEqual: @""]);
                                                     }];
 }
 
-- (void)checkNickName {
+- (void)checkSignature {
     
-    RAC(self.rightButtonItem,enabled) = [RACSignal combineLatest:@[self.inputSignatureText.rightTextField.rac_textSignal] reduce:^id(NSString *nickname){
-        return @([Validate validateUserName:nickname]);
+    RAC(self.rightButtonItem,enabled) = [RACSignal combineLatest:@[self.inputSignatureText.rightTextField.rac_textSignal] reduce:^id(NSString *signature){
+        return @([Validate validateSignature:signature]);
     }];
 }
 
 #pragma mark ----------AllAction
 
 - (void)setAllAction {
-    [self.deleteBtn addTarget:self action:@selector(deleteNickName) forControlEvents:UIControlEventTouchUpInside];
+    [self.deleteBtn addTarget:self action:@selector(deleteSignature) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)deleteNickName {
+- (void)deleteSignature {
     self.inputSignatureText.rightTextField.text = @"";
 }
 
@@ -121,7 +121,7 @@
     
     [self setUILayout];
     [self setAllAction];
-    [self checkNickName];
+    [self checkSignature];
     [self checkToDipalayDeleteBtn];
     [self setSignaturePlaceHolder];
     
@@ -135,6 +135,11 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"nva_con"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.inputSignatureText.rightTextField becomeFirstResponder];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

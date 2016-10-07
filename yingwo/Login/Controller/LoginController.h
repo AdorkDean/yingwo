@@ -10,4 +10,6 @@
 
 @interface LoginController : BaseViewController
 
+- (void)requestForLoginWithUrl:(NSString *)url paramaters:(id)paramaters;
+
 @end

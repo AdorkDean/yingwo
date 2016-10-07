@@ -26,4 +26,8 @@
 //验证是否全为空格
 + (BOOL) validateIsEmpty:(NSString *) str;
 
+//个性签名验证：仅限定字数不多余15个
++ (BOOL) validateSignature:(NSString *)passWord;
+
+
 @end

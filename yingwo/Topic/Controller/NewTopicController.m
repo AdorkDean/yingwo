@@ -124,7 +124,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.requestUrl = TOPIC_DETAIL_URL;
+        _requestEntity.requestUrl = TIEZI_URL;
         //请求的事新鲜事
         _requestEntity.topic_id   = self.topic_id;
         //偏移量开始为0
@@ -297,12 +297,15 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     //导航栏＋状态栏高度
     [self judgeNetworkStatus];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    self.requestEntity.start_id = 0;
+    [self loadDataWithRequestEntity:self.requestEntity];
+//    [_segmentView selectTabWithIndex:0 animate:NO];
+
 }
 
 
@@ -527,7 +530,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
               withImageUrlArrEntity:selectedModel.imageUrlArrEntity
                         showAtIndex:imageView.tag-1];
     
-    [self.navigationController.view addSubview:self.galleryView];
+    [self.view.window.rootViewController.view addSubview:self.galleryView];
     
     
 }

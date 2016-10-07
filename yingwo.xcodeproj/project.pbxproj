@@ -1112,13 +1112,6 @@
 			name = Prefix;
 			sourceTree = "<group>";
 		};
-		186C44981D3BC4BE00BE3427 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
 		187D2F861D55B48A006C5C5F /* CatZanButton  */ = {
 			isa = PBXGroup;
 			children = (
@@ -1330,7 +1323,6 @@
 				18AFE6011D30BBC3007BEBDE /* Register */,
 				18D4E7221D9E6B6D00A0978E /* PersonalCenter */,
 				180F091A1D3777A000F3DD11 /* PerfectInfo */,
-				186C44981D3BC4BE00BE3427 /* Controller */,
 				18D1028F1D3E4A5600D75968 /* Configuration */,
 				18AFE5F01D30B7E2007BEBDE /* Main.storyboard */,
 				18AFE5F61D30B7E2007BEBDE /* Assets.xcassets */,
@@ -1785,7 +1777,7 @@
 				TargetAttributes = {
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 5FXU36NJZS;
+						DevelopmentTeam = K3687J93E9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2212,12 +2204,12 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5FXU36NJZS;
+				DEVELOPMENT_TEAM = K3687J93E9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangshijiejay.yingwo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
@@ -2235,12 +2227,12 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5FXU36NJZS;
+				DEVELOPMENT_TEAM = K3687J93E9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangshijiejay.yingwo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;

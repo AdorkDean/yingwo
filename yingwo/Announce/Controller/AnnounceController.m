@@ -111,15 +111,13 @@
 #pragma mark button action 
 
 - (void)releaseContent {
-    
-    [SVProgressHUD showWithStatus:@"正在发布..."];
-    
     [self.photoDisplayView putPhotosToImagesArr];
-    //发布之前，先小时键盘
+    //发布之前，先消失键盘
     [self.announceTextView.contentTextView resignFirstResponder];
     
     if (self.photoDisplayView.photoImagesCount != 0 || ![self.announceTextView.contentTextView.text isEqualToString:@""]) {
         
+        [SVProgressHUD showWithStatus:@"正在发布..."];
 //    }else if (self.photoDisplayView.photoImagesCount == 0) {
 //        
 //        [self postTieZiWithContentWithoutImages:self.announceTextView.contentTextView.text];
@@ -331,7 +329,6 @@ CGFloat delay = 2.0f;
 
     if (self.isRelease == YES && self.isFollowTieZi == NO) {
         
-
         self.reloaded2       = YES;
 
         [self dismissViewControllerAnimated:YES completion:^{
@@ -358,7 +355,6 @@ CGFloat delay = 2.0f;
     
 
 }
-
 
 
 #pragma mark setLayout

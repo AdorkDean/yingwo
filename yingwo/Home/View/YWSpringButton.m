@@ -63,7 +63,7 @@ static CGFloat scaleXY = 1.3;
         if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
             [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:YES];
         }
-            
+        
         [self revivificationFavour];
     };
 }

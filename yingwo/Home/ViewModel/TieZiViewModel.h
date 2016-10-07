@@ -62,9 +62,9 @@
  *  @param failure    失败
  */
 - (void)requestTieZiWithUrl:(NSString *)url
-                      paramaters:(id)paramaters
-                         success:(void (^)(NSArray *tieZi))success
-                           error:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+                 paramaters:(id)paramaters
+                    success:(void (^)(NSArray *tieZi))success
+                      error:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
 
 
 /**
@@ -76,9 +76,9 @@
  *  @param failure    失败
  */
 - (void)requestFreshThingWithUrl:(NSString *)url
-                 paramaters:(id)paramaters
-                    success:(void (^)(NSArray *tieZi))success
-                      error:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+                      paramaters:(id)paramaters
+                         success:(void (^)(NSArray *tieZi))success
+                           error:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
 
 /**
  *  图片下载

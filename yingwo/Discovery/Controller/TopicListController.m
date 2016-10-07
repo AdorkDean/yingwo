@@ -14,6 +14,8 @@
 
 #import "TopicEntity.h"
 
+#import "TopicController.h"
+
 @interface TopicListController ()<UITableViewDelegate,UITableViewDataSource,YWTopicViewCellDelegate>
 
 @property (nonatomic, strong) UITableView        *topicTableView;
@@ -22,10 +24,14 @@
 
 @property (nonatomic, strong) UIButton           *addTopicBtn;
 
-
+@property (nonatomic, strong) TopicEntity        *topicEntity;
 @property (nonatomic, strong) TopicListViewModel *viewModel;
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
+
+//点击查看话题内容
+@property (nonatomic, assign) int                topicId;
+
 
 
 @end
@@ -98,6 +104,14 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     return _viewModel;
 }
 
+-(TopicEntity *)topicEntity {
+    if (_topicEntity == nil) {
+        _topicEntity            = [[TopicEntity alloc] init];
+        
+    }
+    return _topicEntity;
+}
+
 #pragma mark all action
 
 - (void) jumpToDiscoveryPage {
@@ -149,6 +163,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     [super viewWillAppear:animated];
     
     self.navigationItem.leftBarButtonItem = self.leftBarItem;
+    self.title                            = self.subject;
 }
 
 - (void)hideExtraTableView:(UITableView *)tableview {
@@ -177,7 +192,6 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -203,8 +217,27 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     
 }
 
+#pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 82;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+    TopicEntity *topic = [self.topicArr objectAtIndex:indexPath.row];
+    
+    self.topicId       = [topic.topic_id intValue];
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectTopicListWith:)]) {
+        
+        [self.delegate didSelectTopicListWith:self.topicId];
+        
+    }
+    else
+    {
+        [self performSegueWithIdentifier:@"topic" sender:self];
+    }
+    
 }
 
 #pragma mark YWTopicViewCellDelegate
@@ -224,5 +257,21 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     }
     
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    //查看所有话题
+    if ([segue.destinationViewController isKindOfClass:[TopicController class]])
+    {
+        if ([segue.identifier isEqualToString:@"topic"]) {
+            TopicController *topicVc = segue.destinationViewController;
+            topicVc.topic_id         = self.topicId;
+            
+        }
+        
+    }
+}
+
 
 @end

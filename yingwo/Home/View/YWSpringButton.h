@@ -19,6 +19,7 @@
 @property (nonatomic, assign) id<YWSpringButtonDelegate> delegate;
 
 @property (nonatomic, assign) int                    post_id;
+@property (nonatomic, assign) int                    reply_id;
 
 - (instancetype)initWithSelectedImage:(UIImage *)seletedImage andCancelImage:(UIImage *)cancelImage ;
 
@@ -33,5 +34,13 @@
  *  @param model  YES or NO (1 或 0)
  */
 - (void)didSelectSpringButtonOnView:(UIView *)view postId:(int)postId model:(int)model;
+
+/**
+ *  点赞所在的评论
+ *
+ *  @param postReplyId 贴子Id
+ *  @param model  YES or NO (1 或 0)
+ */
+//- (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model;
 
 @end

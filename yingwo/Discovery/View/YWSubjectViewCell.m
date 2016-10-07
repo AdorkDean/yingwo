@@ -27,6 +27,8 @@
         make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 0, 10));
 
     }];
+    
+    self.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
 
     [self.fieldListView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backgroundView.mas_left).offset(10);

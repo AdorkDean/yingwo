@@ -480,7 +480,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
     cell.delegate                   = self;
-
+    
     [self.viewModel setupModelOfCell:cell
                                model:replyModel
                            indexPath:indexPath];
@@ -647,8 +647,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
 }
 
-
-
 #pragma mark YWDetailCellBottomViewDelegate
 
 //点击跟贴上的气泡，跳转到跟贴界面
@@ -810,11 +808,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  添加跟贴到tableview的最后一个
  */
 - (void)addReplyViewAtLastWith:(NSDictionary *)paramters {
-        
+    
+    Customer *user = [User findCustomer];
     //获取刚才发布的跟贴
     TieZiReply *reply = [TieZiReply mj_objectWithKeyValues:paramters];
     
-    reply.imageUrlArrEntity =  [NSString separateImageViewURLString:reply.img];
+    reply.imageUrlArrEntity         = [NSString separateImageViewURLString:reply.img];
+    reply.user_name                 = user.name;
+    reply.user_face_img             = user.face_img;
+    reply.create_time               = [[NSDate date] timeIntervalSince1970];
+    
     //将跟帖添加到self.tieZiReplyArr数组中
     
     [self.tieZiReplyArr addObject:reply];
@@ -824,9 +827,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.tieZiReplyArr.count-1
                                                 inSection:0];
     [self.detailTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                withRowAnimation:UITableViewRowAnimationLeft];
+                                withRowAnimation:UITableViewRowAnimationAutomatic];
     
     //通过insertSections将数据插入到tableview的制定数组中
+
 }
 
 #pragma mark 收起键盘

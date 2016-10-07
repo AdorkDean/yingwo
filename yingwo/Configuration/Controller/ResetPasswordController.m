@@ -339,7 +339,7 @@
                                                   
                                                   [SVProgressHUD showSuccessStatus:@"密码更新成功，请重新登录。"
                                                                         afterDelay:HUD_DELAY];
-                                                  //注册成功后跳转
+                                                  //更新成功后跳转
                                                   [self jumpToLoginPage];
                                               }else if (update.status == NO) {
                                                   [SVProgressHUD showErrorStatus:@"更新失败" afterDelay:HUD_DELAY];

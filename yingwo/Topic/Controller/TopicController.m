@@ -128,8 +128,7 @@ static CGFloat HeaderViewHeight = 250;
                                                                  target:self
                                                                  action:@selector(backFarword)];
         _leftBarItem.tintColor = [UIColor whiteColor];
-        
-        
+
     }
     return _leftBarItem;
 }
@@ -181,6 +180,7 @@ static CGFloat HeaderViewHeight = 250;
     if (_hotVc == nil) {
         _hotVc        = [[HotTopicController alloc] init];
         _hotVc.topicSrcView = self.topicSrcllView;
+        _hotVc.topic_id = self.topic_id;
         _hotVc.delegate = self;
     }
     return _hotVc;
@@ -190,7 +190,7 @@ static CGFloat HeaderViewHeight = 250;
     if (_freshVc == nil) {
         _freshVc      = [[NewTopicController alloc] init];
         _freshVc.topic_id       = self.topic_id;
-        _freshVc.topicSrcView = self.topicSrcllView;
+        _freshVc.topicSrcView   = self.topicSrcllView;
         _freshVc.delegate = self;
     }
     return _freshVc;

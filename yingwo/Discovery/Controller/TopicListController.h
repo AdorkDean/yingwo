@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+@protocol TopicListControllerDelegate;
+
 typedef NS_ENUM(NSInteger,TopicTypeModel) {
     
     AllTopicModel   = 0, //话题
@@ -34,6 +36,15 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 @property (nonatomic, assign) int            subject_id;
 
 //主题下话题数组
-@property (nonatomic, strong) NSArray *topicArr;
+@property (nonatomic, strong) NSArray       *topicArr;
+
+@property (nonatomic, assign) id<TopicListControllerDelegate>            delegate;
+
+
+@end
+
+@protocol TopicListControllerDelegate <NSObject>
+
+- (void)didSelectTopicListWith:(int)topicId;
 
 @end

@@ -25,7 +25,8 @@
         YWButton *homeBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"home"] selectImage:[UIImage imageNamed:@"home_G"]];
         YWButton *findBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"find"] selectImage:[UIImage imageNamed:@"find_G"]];
         YWButton *addBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"add"] selectImage:[UIImage imageNamed:@"add"]];
-        YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub_G"]];
+//        YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub_G"]];
+        YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub"]];
         YWButton *headBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"head"] selectImage:[UIImage imageNamed:@"head_G"]];
 
         homeBtn.tag = 0;
@@ -37,7 +38,8 @@
         [homeBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [findBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [addBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [bubBtn addTarget:self action:@selector(tabBarBubbuttonClick) forControlEvents:UIControlEventTouchUpInside];
         [headBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
         [self.buttons addObject:homeBtn];
@@ -84,6 +86,10 @@
 - (void)setBackgroundImage:(UIImage *)img
 {
     [_backgroundView setImage:img];
+}
+
+- (void)tabBarBubbuttonClick {
+    [SVProgressHUD showInfoStatus:@"功能开发中···" afterDelay:1.5];
 }
 
 - (void)tabBarButtonClicked:(id)sender

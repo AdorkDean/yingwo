@@ -38,6 +38,7 @@
 #define CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY @"PersonalCenter"
 #define CONTROLLER_OF_ANNOUNCE_IDENTIFIER       @"AnnounceController"
 #define CONTROLLER_OF_TOPIC_IDENTIFIER          @"TopicController"
+#define CONTROLLER_OF_TOPIC_LIST_IDENTIFIER     @"TopicListController"
 
 /********************************storyboard identifier************************************************/
 
@@ -91,6 +92,7 @@
 #define TIEZI_LIKE_URL          @"/Post/like"
 #define MY_TIEZI_URL            @"/Post/my_list"
 #define TIEZI_DEL_URL           @"/Post/del"
+#define TIEZI_REPLY_LIKE        @"/Post/reply_like"
 
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"
