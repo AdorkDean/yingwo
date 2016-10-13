@@ -14,6 +14,8 @@
 #import "YWDetailTableViewCell.h"
 #import "TieZiReply.h"
 
+#import "TieZiViewModel.h"
+
 #import "TieZi.h"
 #import "TieZiComment.h"
 
@@ -28,6 +30,8 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *  DetailViewController 的ViewModel
  */
 @interface DetailViewModel : NSObject
+
+@property (nonatomic, strong) TieZiViewModel *tieZiViewModel;
 
 @property (nonatomic, strong) RACCommand *fetchDetailEntityCommand;
 //楼主的user_id

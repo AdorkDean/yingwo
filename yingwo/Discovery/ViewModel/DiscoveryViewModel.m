@@ -22,7 +22,7 @@
 
 - (NSMutableArray *)bannerArr {
     if (_bannerArr == nil) {
-        _bannerArr = [NSMutableArray arrayWithCapacity:3];
+        _bannerArr = [NSMutableArray arrayWithCapacity:5];
     }
     return _bannerArr;
 }
@@ -49,12 +49,12 @@
             [self requestHotTopicListWithUrl:requestEntity.requestUrl
                                      success:^(NSArray *hotArr) {
                                          
-                                         for (HotTopicEntity *topic in hotArr)
-                                         {
-                                             [self.bannerArr addObject:topic.big_img];
-                                         }
+                                         [self.bannerArr removeAllObjects];
                                          
-                                         [subscriber sendNext:self.bannerArr];
+                                         [self.bannerArr addObjectsFromArray:hotArr];
+                     
+                                         
+                                         [subscriber sendNext:hotArr];
                                          [subscriber sendCompleted];
                                          
                 
@@ -79,8 +79,15 @@
         
         if (self.bannerArr.count != 0) {
             
-            cell.mxScrollView.images = self.bannerArr;
-
+            NSMutableArray *bannerUrlArr = [[NSMutableArray alloc] init];
+            
+            for (HotTopicEntity *hot in self.bannerArr) {
+                
+                [bannerUrlArr addObject:hot.big_img];
+                                
+            }
+            
+            cell.mxScrollView.images = bannerUrlArr;
         }
         
     }

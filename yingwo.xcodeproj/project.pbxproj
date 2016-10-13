@@ -1118,13 +1118,6 @@
 			name = Prefix;
 			sourceTree = "<group>";
 		};
-		186C44981D3BC4BE00BE3427 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
 		187D2F861D55B48A006C5C5F /* CatZanButton  */ = {
 			isa = PBXGroup;
 			children = (
@@ -1346,7 +1339,6 @@
 				18AFE6011D30BBC3007BEBDE /* Register */,
 				18D4E7221D9E6B6D00A0978E /* PersonalCenter */,
 				180F091A1D3777A000F3DD11 /* PerfectInfo */,
-				186C44981D3BC4BE00BE3427 /* Controller */,
 				18D1028F1D3E4A5600D75968 /* Configuration */,
 				18AFE5F01D30B7E2007BEBDE /* Main.storyboard */,
 				18AFE5F61D30B7E2007BEBDE /* Assets.xcassets */,
@@ -1714,9 +1706,9 @@
 				187D2F901D55BC9E006C5C5F /* YWQiNiuUploadTool.h */,
 				187D2F911D55BC9E006C5C5F /* YWQiNiuUploadTool.m */,
 				181A00C61D56D5DC00D96DC9 /* NSDate+String.h */,
+				181A00C71D56D5DC00D96DC9 /* NSDate+String.m */,
 				CC5BC4FD1D9D02DC00851C4D /* NSString+fileSizeExtension.h */,
 				CC5BC4FE1D9D02DC00851C4D /* NSString+fileSizeExtension.m */,
-				181A00C71D56D5DC00D96DC9 /* NSDate+String.m */,
 				18E8E4F41D61BBDD003C7289 /* NSString+Url.h */,
 				1800D68C1D5833DA00668D83 /* NSString+Url.m */,
 				18F303BC1D5DFE7A005B7FAD /* UIScrollView+UITouch.h */,
@@ -2235,6 +2227,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
+
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2244,6 +2237,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2264,6 +2258,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
+
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2273,6 +2268,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

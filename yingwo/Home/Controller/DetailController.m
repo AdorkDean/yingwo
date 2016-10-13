@@ -47,6 +47,7 @@
 
 @property (nonatomic, strong) YWCommentView       *selectCommentView;
 
+
 @property (nonatomic,assign ) CGFloat             navgationBarHeight;
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
@@ -114,6 +115,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _model = [[TieZi alloc] init];
     }
     return _model;
+}
+
+-(TieZiReply *)replyModel {
+    if (_replyModel == nil) {
+        _replyModel = [[TieZiReply alloc] init];
+    }
+    return _replyModel;
 }
 
 - (UIBarButtonItem *)leftBarItem {
@@ -298,6 +306,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     }];
     
     self.detailTableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+        [weakSelf loadMoreData];
     }];
     
     
@@ -413,9 +422,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)loadMoreData {
     
-    TieZi *tieZi                  = [self.tieZiReplyArr objectAtIndex:0];
+
     self.requestEntity.requestUrl = TIEZI_RELPY_URL;
-    self.requestEntity.paramaters = @{@"post_id":@(tieZi.tieZi_id)};
+    self.requestEntity.paramaters = @{@"post_id":@(self.model.tieZi_id),
+                                      @"start_id":@(self.requestEntity.start_id)};
+    
 
     [self loadForType:FooterReoladDataModel];
 }
@@ -456,11 +467,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
             [self.detailTableView reloadData];
             
         }
-        
-        //获得最后一个帖子的id,有了这个id才能向前继续获取model
-        TieZi *lastObject           = [tieZiList objectAtIndex:tieZiList.count-1];
-        self.requestEntity.start_id = lastObject.tieZi_id;
+        if (tieZiList.count != 0) {
+            
+            //获得最后一个帖子的id,有了这个id才能向前继续获取model
+            TieZiReply *lastObject           = [tieZiList objectAtIndex:tieZiList.count-1];
+            self.requestEntity.start_id      = lastObject.reply_id;
 
+        }
+        
+//        [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
+        
     }];
     
 }
@@ -480,13 +496,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
     cell.delegate                   = self;
-
+    
     [self.viewModel setupModelOfCell:cell
                                model:replyModel
                            indexPath:indexPath];
     
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
     cell.bottomView.delegate        = self;
+    cell.bottomView.favour.delegate = self;
+    
+    
 
     return cell;
 }
@@ -621,7 +640,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma YWSpringButtonDelegate
 
 - (void)didSelectSpringButtonOnView:(UIView *)view postId:(int)postId model:(int)model {
-    
+
     //网络请求
     NSDictionary *paramaters = @{@"post_id":@(postId),@"value":@(model)};
     
@@ -632,13 +651,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                      if (statusEntity.status == YES) {
                                          
                                          if (model == YES) {
-                                             
                                              [self.homeViewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
                                          else
                                          {
                                              [self.homeViewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
+                                
                                      }
                                      
                                  } failure:^(NSString *error) {
@@ -647,8 +666,40 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
 }
 
-
-
+- (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model {
+    
+    //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
+    UILabel *favour = [view viewWithTag:201];
+    __block int count       = [favour.text intValue];
+    
+    NSDictionary *paramaters = @{@"reply_id":@(replyId),@"value":@(model)};
+    
+    [self.homeViewModel postReplyTieZiLikeWithUrl:TIEZI_REPLY_LIKE
+                                       paramaters:paramaters
+                                          success:^(StatusEntity *statusEntity) {
+                                              if (statusEntity.status == YES) {
+                                                  
+                                                  if (model == YES) {
+                                                      count ++;
+                                                      [self.homeViewModel saveLikeCookieWithReplyId:[NSNumber numberWithInt:replyId]];
+                                                  }
+                                                  else
+                                                  {
+                                                      count --;
+                                                      [self.homeViewModel deleteLikeCookieWithReplyId:[NSNumber numberWithInt:replyId]];
+                                                  }
+                                                  if (count >= 0) {
+                                                      favour.text = [NSString stringWithFormat:@"%d",count];
+                                                  }else {
+                                                      favour.text = [NSString stringWithFormat:@"%d",0];
+                                                  }
+                                              }
+                                          }
+                                          failure:^(NSString *error) {
+                                              
+                                          }];
+    
+}
 #pragma mark YWDetailCellBottomViewDelegate
 
 //点击跟贴上的气泡，跳转到跟贴界面
@@ -810,11 +861,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  添加跟贴到tableview的最后一个
  */
 - (void)addReplyViewAtLastWith:(NSDictionary *)paramters {
-        
+    
+    Customer *user = [User findCustomer];
     //获取刚才发布的跟贴
     TieZiReply *reply = [TieZiReply mj_objectWithKeyValues:paramters];
     
-    reply.imageUrlArrEntity =  [NSString separateImageViewURLString:reply.img];
+    reply.imageUrlArrEntity         = [NSString separateImageViewURLString:reply.img];
+    reply.user_name                 = user.name;
+    reply.user_face_img             = user.face_img;
+    reply.create_time               = [[NSDate date] timeIntervalSince1970];
+    
     //将跟帖添加到self.tieZiReplyArr数组中
     
     [self.tieZiReplyArr addObject:reply];
@@ -824,9 +880,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.tieZiReplyArr.count-1
                                                 inSection:0];
     [self.detailTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                withRowAnimation:UITableViewRowAnimationLeft];
+                                withRowAnimation:UITableViewRowAnimationAutomatic];
     
     //通过insertSections将数据插入到tableview的制定数组中
+
 }
 
 #pragma mark 收起键盘

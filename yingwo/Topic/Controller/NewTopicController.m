@@ -124,7 +124,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.requestUrl = TOPIC_DETAIL_URL;
+        _requestEntity.requestUrl = TIEZI_URL;
         //请求的事新鲜事
         _requestEntity.topic_id   = self.topic_id;
         //偏移量开始为0
@@ -297,12 +297,15 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     //导航栏＋状态栏高度
     [self judgeNetworkStatus];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    self.requestEntity.start_id = 0;
+    [self loadDataWithRequestEntity:self.requestEntity];
+//    [_segmentView selectTabWithIndex:0 animate:NO];
+
 }
 
 
@@ -329,17 +332,17 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:101];
-    int count       = [favour.text intValue];
+    __block int count       = [favour.text intValue];
     
-    if (model == YES) {
-        count ++;
-    }
-    else
-    {
-        count --;
-    }
-    
-    favour.text = [NSString stringWithFormat:@"%d",count];
+//    if (model == YES) {
+//        count ++;
+//    }
+//    else
+//    {
+//        count --;
+//    }
+//    
+//    favour.text = [NSString stringWithFormat:@"%d",count];
     
     
     //网络请求
@@ -352,13 +355,20 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                      if (statusEntity.status == YES) {
                                          
                                          if (model == YES) {
-                                             
+                                             count ++;
                                              [self.viewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
                                          else
                                          {
+                                             count --;
                                              [self.viewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
+                                         if (count >= 0) {
+                                             favour.text = [NSString stringWithFormat:@"%d",count];
+                                         }else {
+                                             favour.text = [NSString stringWithFormat:@"%d",0];
+                                         }
+
                                      }
                                      
                                  } failure:^(NSString *error) {
@@ -527,7 +537,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
               withImageUrlArrEntity:selectedModel.imageUrlArrEntity
                         showAtIndex:imageView.tag-1];
     
-    [self.navigationController.view addSubview:self.galleryView];
+    [self.view.window.rootViewController.view addSubview:self.galleryView];
     
     
 }

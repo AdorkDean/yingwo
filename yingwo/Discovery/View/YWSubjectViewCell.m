@@ -13,7 +13,7 @@
 - (void)createSubview {
     
     self.backgroundView                     = [[UIView alloc] init];
-    self.backgroundColor                    = [UIColor clearColor];
+    self.backgroundColor                    = [UIColor colorWithHexString:BACKGROUND_COLOR];
     self.backgroundView.backgroundColor     = [UIColor whiteColor];
     self.backgroundView.layer.masksToBounds = YES;
     self.backgroundView.layer.cornerRadius  = 10;
@@ -27,6 +27,7 @@
         make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 0, 10));
 
     }];
+    
 
     [self.fieldListView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backgroundView.mas_left).offset(10);
@@ -57,7 +58,7 @@
         topicListView.numberOfFavour.text = [NSString stringWithFormat:@"%@关注",entity.like_cnt];
 
         [topicListView.leftImageView sd_setImageWithURL:[NSURL URLWithString:entity.img]
-                                       placeholderImage:nil];
+                                       placeholderImage:[UIImage imageNamed:@"morenhuati"]];
 
         [topicListView addTarget:self
                           action:@selector(selectTopic:)

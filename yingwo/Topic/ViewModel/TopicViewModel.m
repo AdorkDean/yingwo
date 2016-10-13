@@ -40,20 +40,34 @@
             
             NSDictionary *paramaters = nil;
         
-            paramaters = @{@"topic_id":@(requestEntity.topic_id),
-                            @"start_id":@(requestEntity.start_id)};
+            if (requestEntity.sort != nil) {
+                
+                paramaters = @{@"topic_id":@(requestEntity.topic_id),
+                               @"start_id":@(requestEntity.start_id),
+                               @"sort":requestEntity.sort};
+
+            }
+            else
+            {
+                paramaters = @{@"topic_id":@(requestEntity.topic_id),
+                               @"start_id":@(requestEntity.start_id)};
+            }
             
-            
-            [self requestTopicWithUrl:TIEZI_URL
-                           paramaters:paramaters
-                              success:^(NSArray *tieZi) {
-                                  
-                                  [subscriber sendNext:tieZi];
-                                  [subscriber sendCompleted];
-                                  
-                              } error:^(NSURLSessionDataTask *task, NSError *error) {
-                                  [subscriber sendError:error];
-                              }];
+            if (![requestEntity.requestUrl isEqualToString: TOPIC_DETAIL_URL]) {
+                
+                
+                [self requestTopicWithUrl:requestEntity.requestUrl
+                               paramaters:paramaters
+                                  success:^(NSArray *tieZi) {
+                                      
+                                      [subscriber sendNext:tieZi];
+                                      [subscriber sendCompleted];
+                                      
+                                  } error:^(NSURLSessionDataTask *task, NSError *error) {
+                                      [subscriber sendError:error];
+                                  }];
+
+            }
             
             return nil;
         }];

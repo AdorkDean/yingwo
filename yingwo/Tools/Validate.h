@@ -17,7 +17,7 @@
 
 //验证码
 + (BOOL) validateVerification:(NSString *)verification;
-//密码验证：只能是字母、数字,最长20
+//密码验证：6-20位的任意字符
 + (BOOL) validatePassword:(NSString *)passWord;
 
 //用户名验证：数字、字母、中文、长度1～24
@@ -25,5 +25,9 @@
 
 //验证是否全为空格
 + (BOOL) validateIsEmpty:(NSString *) str;
+
+//个性签名验证：仅限定字数不多余15个
++ (BOOL) validateSignature:(NSString *)passWord;
+
 
 @end

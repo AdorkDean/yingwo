@@ -43,7 +43,7 @@
 
 - (InputTextField *)passwordText {
     if (_passwordText == nil) {
-        _passwordText = [[InputTextField alloc] initWithLeftLabel:@"密码" rightPlace:@"请设置登录密码"];
+        _passwordText = [[InputTextField alloc] initWithLeftLabel:@"密码" rightPlace:@"请设置登录密码，最少6位"];
         _passwordText.rightTextField.secureTextEntry = YES;
         _passwordText.image = [UIImage imageNamed:@"input_textfield_2"];
     }

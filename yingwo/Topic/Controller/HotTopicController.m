@@ -10,7 +10,7 @@
 #import "DetailController.h"
 
 #import "TieZi.h"
-#import "TieZiViewModel.h"
+#import "TopicViewModel.h"
 #import "YWDropDownView.h"
 #import "YWPhotoCotentView.h"
 
@@ -31,7 +31,7 @@ static int start_id = 0;
 @interface HotTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate>
 @property (nonatomic, strong) UIAlertController *alertView;
 @property (nonatomic, strong) TieZi             *model;
-@property (nonatomic, strong) TieZiViewModel    *viewModel;
+@property (nonatomic, strong) TopicViewModel    *viewModel;
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
 
@@ -109,10 +109,10 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     return _model;
 }
 
-- (TieZiViewModel *)viewModel {
+- (TopicViewModel *)viewModel {
     if (_viewModel == nil) {
         
-        _viewModel = [[TieZiViewModel alloc] init];
+        _viewModel = [[TopicViewModel alloc] init];
         
     }
     return _viewModel;
@@ -125,6 +125,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _requestEntity.requestUrl = TIEZI_URL;
         //请求的事新鲜事
         _requestEntity.topic_id   = self.topic_id;
+        //最热话题排序
+        _requestEntity.sort       = @"hot";
         //偏移量开始为0
         _requestEntity.start_id  = start_id;
     }
@@ -285,9 +287,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     self.title = @"最热";
 
 
-    [self loadDataWithRequestEntity:self.requestEntity];
-
     [self.view addSubview:self.homeTableview];
+
+    [self loadDataWithRequestEntity:self.requestEntity];
     
 }
 
@@ -328,17 +330,17 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:101];
-    int count       = [favour.text intValue];
+    __block int count       = [favour.text intValue];
     
-    if (model == YES) {
-        count ++;
-    }
-    else
-    {
-        count --;
-    }
-    
-    favour.text = [NSString stringWithFormat:@"%d",count];
+//    if (model == YES) {
+//        count ++;
+//    }
+//    else
+//    {
+//        count --;
+//    }
+//    
+//    favour.text = [NSString stringWithFormat:@"%d",count];
     
     
     //网络请求
@@ -351,13 +353,20 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                      if (statusEntity.status == YES) {
                                          
                                          if (model == YES) {
-                                             
+                                             count ++;
                                              [self.viewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
                                          else
                                          {
+                                             count --;
                                              [self.viewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
+                                         if (count >= 0) {
+                                             favour.text = [NSString stringWithFormat:@"%d",count];
+                                         }else {
+                                             favour.text = [NSString stringWithFormat:@"%d",0];
+                                         }
+
                                      }
                                      
                                  } failure:^(NSString *error) {

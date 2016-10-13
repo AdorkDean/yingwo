@@ -336,12 +336,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  *  复制帖子文字内容
  */
 - (void)copyTiZiText:(UIButton *)more {
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    UIPasteboard *pasteboard              = [UIPasteboard generalPasteboard];
     //复制内容 获取帖子文字内容
     YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
-    NSString *copyString = selectedCell.contentText.text;
+    NSString *copyString                  = selectedCell.contentText.text;
     //复制到剪切板
-    pasteboard.string = copyString;
+    pasteboard.string                     = copyString;
 }
 
 - (void)viewDidLoad {
@@ -419,18 +419,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:101];
-    int count       = [favour.text intValue];
-
-    if (model == YES) {
-        count ++;
-    }
-    else
-    {
-        count --;
-    }
-    
-    favour.text = [NSString stringWithFormat:@"%d",count];
-    
+    __block int count       = [favour.text intValue];
     
     //网络请求
     NSDictionary *paramaters = @{@"post_id":@(postId),@"value":@(model)};
@@ -442,13 +431,20 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                      if (statusEntity.status == YES) {
                                          
                                          if (model == YES) {
-                                             
+                                             count ++;
                                              [self.viewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
                                          else
                                          {
+                                             count --;
                                              [self.viewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
+                                         if (count >= 0) {
+                                             favour.text = [NSString stringWithFormat:@"%d",count];
+                                         }else {
+                                             favour.text = [NSString stringWithFormat:@"%d",0];
+                                         }
+
                                      }
                                      
                                  } failure:^(NSString *error) {
@@ -584,8 +580,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 //tabar隐藏滑动距离设置
 //滑动100pt后隐藏TabBar
-CGFloat scrollHiddenSpace = 250;
-CGFloat lastPosition = 0;
+CGFloat scrollHiddenSpace = 30;
+CGFloat lastPosition = -30;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     

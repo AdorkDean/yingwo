@@ -549,8 +549,8 @@
     
     if (self.school_id.length == 0) {
         [SVProgressHUD showErrorStatus:@"学校必填" afterDelay:HUD_DELAY];
+        return;
     }
-    
     
     if (self.signature.length == 0) {
         
@@ -683,16 +683,30 @@
         
         [SVProgressHUD showSuccessStatus:@"修改成功" afterDelay:HUD_DELAY];
         [self backToForward];
-
     }
     else
     {
         [SVProgressHUD showSuccessStatus:@"完善成功" afterDelay:HUD_DELAY];
+
+        //重新登录一次
+        [self reLogin];
         
         //隐藏导航栏，不然会与HomeController 里面的重叠
         self.navigationController.navigationBarHidden = YES;
         [self jumpToHomePage];
     }
+}
+
+- (void)reLogin {
+//    LoginController *loginVc = [[LoginController alloc] init];
+    
+    NSMutableDictionary *paramaters = [NSMutableDictionary dictionary];
+    
+    paramaters[MOBILE]              = [User getUsername];
+    paramaters[PASSWORD]            = [User getPasswoord];
+    
+    [self requestForLoginWithUrl:LOGIN_URL paramaters:paramaters];
+    
 }
 
 - (void)backToForward {
@@ -710,6 +724,73 @@
     [self.navigationController popViewControllerAnimated:YES];
         
 }
+
+//登录网路请求
+- (void)requestForLoginWithUrl:(NSString *)url paramaters:(id)paramaters {
+    
+    [self.loginViewModel requestForLoginWithUrl:url
+                                     parameters:paramaters
+                                        success:^(User *user) {
+                                    
+                                       if (user != nil) {
+                                           
+                                           //登录成功后保存cookie
+                                           [YWNetworkTools cookiesValueWithKey:LOGIN_COOKIE];
+                                           
+                                           //登录后本地保存数据
+                                           //首先改变face_img的形式
+                                           user.face_img = [NSString selectCorrectUrlWithAppendUrl:user.face_img];
+                                           
+                                           [self saveDataAfterSuccessLogin:user];
+                                           
+                                       }else{
+                                           
+                                           [SVProgressHUD showErrorStatus:@"帐号或密码错误" afterDelay:HUD_DELAY];
+                                           
+                                       }
+                                   } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                       
+                                       [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
+                                       
+                                   }];
+}
+
+
+- (void)saveDataAfterSuccessLogin:(User *)user {
+    
+    //保存用户的个人信息
+    [User saveCustomerByUser:user];
+    
+    //登录信息保存
+    [self saveLoginInfoWith:[User getUsername]
+                   password:[User getPasswoord]
+                    success:^(int successCode) {
+                       
+                    } failure:^(int errorCode) {
+                }];
+    
+}
+
+/**
+ *  登录信息保存
+ *
+ *  @param phone    登录手机号
+ *  @param password 登录密码
+ *  @param success  成功后的回调
+ */
+- (void)saveLoginInfoWith:(NSString *)phone
+                 password:(NSString *)password
+                  success:(void (^)(int successCode))success
+                  failure:(void (^)(int errorCode))failure{
+    
+    BOOL isSave = [User saveLoginInformationWithUsernmae:phone password:password];
+    if (isSave) {
+        success(SUCCESS_STATUS);
+    }
+    failure(FAILURE_STATUS);
+}
+
+
 
 #pragma mark -- LSYAlbumCatalogDelegate
 
@@ -825,15 +906,33 @@
     
 }
 
+#pragma mark 禁止pop手势
+- (void)stopSystemPopGestureRecognizer {
+    self.fd_interactivePopDisabled = YES;
+}
+
+
 #pragma mark  private-method
 
 - (void)setNavigationBar {
     
     self.title = @"完善个人信息";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:self action:@selector(saveAlert)];
-    //去除导航栏下的一条横线
+
+    if (self.isModfiyInfo == YES) {
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self action:@selector(saveAlert)];
+        
+        
+    }
+    else
+    {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage new]
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self action:nil];
+        [self stopSystemPopGestureRecognizer];
+    }
 }
 
 //是否保存

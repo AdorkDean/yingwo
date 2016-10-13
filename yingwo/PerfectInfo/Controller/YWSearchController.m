@@ -141,6 +141,7 @@
     
     //this ViewController will be responsisble for implementing UISearchBarDelegate protocol methods(s)
     self.searchController.searchBar.delegate = self;
+    
 }
 
 - (void)styleTableView {

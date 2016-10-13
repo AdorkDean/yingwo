@@ -13,30 +13,30 @@
 + (NSString *)getDateString:(NSString *)spString
 {
     NSString *dateString;
-
+    
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[spString intValue]];
     NSDateFormatter *dateFormat=[[NSDateFormatter alloc]init];
-
+    
     [dateFormat setDateFormat:@"yyyy"];
     NSString *year        = [dateFormat stringFromDate:confromTimesp];
     NSString *nowYear     = [dateFormat stringFromDate:[NSDate new]];
-
+    
     [dateFormat setDateFormat:@"MM"];
     NSString *month       = [dateFormat stringFromDate:confromTimesp];
     NSString *nowMonth    = [dateFormat stringFromDate:[NSDate new]];
-
+    
     [dateFormat setDateFormat:@"dd"];
     NSString *day         = [dateFormat stringFromDate:confromTimesp];
     NSString *nowDay      = [dateFormat stringFromDate:[NSDate new]];
-
+    
     [dateFormat setDateFormat:@"HH"];
     NSString *hour        = [dateFormat stringFromDate:confromTimesp];
     NSString *nowHour     = [dateFormat stringFromDate:[NSDate new]];
-
+    
     [dateFormat setDateFormat:@"mm"];
     NSString *minute        = [dateFormat stringFromDate:confromTimesp];
     NSString *nowMinute     = [dateFormat stringFromDate:[NSDate new]];
-   
+    
     
     //如果是同一天，显示有几种情况
     //0～1分钟显示刚刚
@@ -47,19 +47,32 @@
         
         //发布小时差
         int hourReduce = (int)(nowHour.integerValue - hour.integerValue);
+        //分钟差
+        int minuteReduce = (int)(nowMinute.integerValue - minute.integerValue);
         //小于1小时
-        if (hourReduce < 1) {
-            //分钟差
-            int minuteReduce = (int)(nowMinute.integerValue - minute.integerValue);
-            
-            if (minuteReduce <= 1) {
+        if (hourReduce <= 1) {
+            if (hourReduce == 1 && minuteReduce < 0) {
+                dateString = [NSString stringWithFormat:@"%d分钟前",60 + minuteReduce];
+            }
+            if (hourReduce == 1 && minuteReduce >= 0) {
+                dateString = @"1小时前";
+            }
+            if (hourReduce < 1) {
                 
-                dateString = @"刚刚";
-
-            }else {
-                dateString = [NSString stringWithFormat:@"%d分钟前",minuteReduce];
+                if (minuteReduce <= 1) {
+                    
+                    dateString = @"刚刚";
+                    
+                }else {
+                    dateString = [NSString stringWithFormat:@"%d分钟前",minuteReduce];
+                }
             }
         }
+        
+        else if(minuteReduce < 0) {
+            dateString = [NSString stringWithFormat:@"%d小时前",(int)(nowHour.integerValue - hour.integerValue) - 1];
+        }
+        
         else {
             dateString = [NSString stringWithFormat:@"%d小时前",(int)(nowHour.integerValue - hour.integerValue)];
         }
@@ -72,6 +85,7 @@
     
     return dateString;
 }
+
 
 
 @end

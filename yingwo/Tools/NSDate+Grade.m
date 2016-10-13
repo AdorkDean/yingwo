@@ -17,7 +17,7 @@
     NSDateComponents *components = [calendar components:NSCalendarUnitYear fromDate:currentDate];
     NSInteger thisYear = [components year];
     
-    NSArray *recentYears = @[@(thisYear-3),@(thisYear-2),@(thisYear-1),@(thisYear),@(thisYear+1),@(thisYear+2),@(thisYear+3)];
+    NSArray *recentYears = @[@(thisYear-4),@(thisYear-3),@(thisYear-2),@(thisYear-1),@(thisYear),@(thisYear+1),@(thisYear+2),@(thisYear+3),@(thisYear+4)];
     
     return recentYears;
 }

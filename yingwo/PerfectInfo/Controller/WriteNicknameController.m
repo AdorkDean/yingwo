@@ -135,6 +135,12 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.inputNameText.rightTextField becomeFirstResponder];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

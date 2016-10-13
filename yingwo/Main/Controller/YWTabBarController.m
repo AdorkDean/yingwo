@@ -217,7 +217,7 @@
         
         [self showAnnounceViewAtIndex:index];
 
-    }else {
+    } else {
 
         [self displayViewAtIndex:index];
 

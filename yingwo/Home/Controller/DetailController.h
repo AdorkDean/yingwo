@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 #import "TieZi.h"
+#import "TieZiReply.h"
 
 typedef NS_ENUM(NSInteger,CommentType) {
     TieZiCommentModel, //帖子的评论
@@ -24,6 +25,8 @@ typedef NS_ENUM(NSInteger,CommentType) {
 @property (nonatomic, strong) TieZi       *model;
 
 @property (nonatomic, assign) CommentType commentType;
+
+@property (nonatomic, strong) TieZiReply  *replyModel;
 
 //是否跟贴完成
 @property (nonatomic, assign) BOOL        isReleased;

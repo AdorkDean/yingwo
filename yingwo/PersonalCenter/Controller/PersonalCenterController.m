@@ -272,8 +272,7 @@
             perfectInfo.gender                 = user.sex;
             perfectInfo.grade                  = user.grade;
             perfectInfo.headImagePath          = [YWSandBoxTool getHeadPortraitPathFromCache];
-            perfectInfo.isModfiyInfo           = NO;
-            perfectInfo.isChangeInfo           = NO;
+            perfectInfo.isModfiyInfo           = YES;
         }
     }
 }

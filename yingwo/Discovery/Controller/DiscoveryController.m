@@ -79,6 +79,7 @@ static int start_id = 0;
         _discoveryTableView.allowsSelection = NO;
         _discoveryTableView.tag             = 101;
         _discoveryTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _discoveryTableView.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
 
         _discoveryTableView.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
         [_discoveryTableView registerClass:[YWBannerTableViewCell class]
@@ -114,7 +115,7 @@ static int start_id = 0;
 - (UIButton *)firstFieldBtn {
     if (_firstFieldBtn == nil) {
         _firstFieldBtn                 = [[UIButton alloc] init];
-        _firstFieldBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _firstFieldBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         _firstFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
                              forState:UIControlStateNormal];
@@ -134,7 +135,7 @@ static int start_id = 0;
     
     if (_secondFieldBtn == nil) {
         _secondFieldBtn                 = [[UIButton alloc] init];
-        _secondFieldBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _secondFieldBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         _secondFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_secondFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
         [_secondFieldBtn setTitle:@"兴趣爱好" forState:UIControlStateNormal];
@@ -151,7 +152,7 @@ static int start_id = 0;
 - (UIButton *)thirdFieldBtn {
     if (_thirdFieldBtn == nil) {
         _thirdFieldBtn                 = [[UIButton alloc] init];
-        _thirdFieldBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _thirdFieldBtn.titleLabel.font = [UIFont systemFontOfSize:16 ];
         _thirdFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
         [_thirdFieldBtn setTitle:@"学科专业" forState:UIControlStateNormal];
@@ -389,10 +390,21 @@ static int start_id = 0;
 
     YWDiscoveryBaseCell *cell    = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                                    forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle          = UITableViewCellSelectionStyleNone;
+    
     if (indexPath.section == 0) {
         
         [self.discoveryViewModel setupModelOfCell:cell model:nil];
+        
+        cell.mxScrollView.tapImageHandle = ^(NSInteger index) {
+            
+            HotTopicEntity *hotEntity = [self.discoveryViewModel.bannerArr objectAtIndex:index];
+            self.topic_id             = [hotEntity.topic_id intValue];
+            
+            [self performSegueWithIdentifier:@"topic" sender:self];
+            
+        };
+        
         
     }else if (indexPath.section == 1) {
         
@@ -403,6 +415,9 @@ static int start_id = 0;
                      forControlEvents:UIControlEventTouchUpInside];
         
         cell.delegate           = self;
+        
+        
+        
     }
     
     return cell;
@@ -460,7 +475,8 @@ static int start_id = 0;
             
             TopicListController *topicListVc = segue.destinationViewController;
             topicListVc.subject_id           = self.subject_id;
-            
+            topicListVc.subject              = self.subject;
+
         }
     }
     //TopicController
@@ -486,7 +502,7 @@ static int start_id = 0;
 
 - (void)jumpToTopicListView:(UIButton *)sender {
     
-    YWSubjectViewCell *subjectCell = (YWSubjectViewCell *)sender.superview.superview;
+    YWSubjectViewCell *subjectCell = (YWSubjectViewCell *)sender.superview.superview.superview;
     NSIndexPath *indexPath         = [self.discoveryTableView indexPathForCell:subjectCell];
 
     self.selectIndex               = indexPath.row;
@@ -498,7 +514,8 @@ static int start_id = 0;
     TopicEntity *topic             = [topicArr objectAtIndex:0];
 
     self.subject                   = subject.title;
-    self.topic_id                  = [topic.subject_id intValue];
+    self.subject_id                = [subject.subject_id intValue];
+    self.topic_id                  = [topic.topic_id intValue];
     
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
 

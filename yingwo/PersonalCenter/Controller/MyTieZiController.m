@@ -202,6 +202,80 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     return _galleryView;
 }
 
+/**
+ *  删除警告
+ */
+- (void)showDeleteAlertView:(UIButton *)more {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
+                                                                             message:@"确认删除？"
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
+                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                            [self deleteTieZi:more];
+                                                        }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel handler:nil]];
+    [self.view.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+/**
+ *  删除帖子
+ */
+- (void)deleteTieZi:(UIButton *)more {
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
+    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
+    TieZi *selectedModel                  = self.tieZiList[indexPath.row];
+    
+    Customer *customer                    = [User findCustomer];
+    
+    //判断是否为本人
+    if (selectedModel.user_id == [customer.userId intValue]) {    //判断是否为用户自己
+        int postId = selectedModel.tieZi_id;
+        //网络请求
+        NSDictionary *paramaters = @{@"post_id":@(postId)};
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+        
+        [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                                paramaters:paramaters
+                                   success:^(StatusEntity *statusEntity) {
+                                       
+                                       if (statusEntity.status == YES) {
+                                           //删除该行数据源
+                                           [self.tieZiList removeObjectAtIndex:indexPath.row];
+                                           //将该行从视图中移除
+                                           [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
+                                                                     withRowAnimation:UITableViewRowAnimationFade];
+                                           [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
+                                       }else if (statusEntity.status == NO){
+                                           [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+                                       }
+                                       
+                                   } failure:^(NSString *error) {
+                                       NSLog(@"error:%@",error);
+                                   }];
+        
+    }
+    else {
+        [SVProgressHUD showErrorStatus:@"您无权限操作" afterDelay:1.0];
+    }
+}
+
+/**
+ *  复制帖子文字内容
+ */
+- (void)copyTiZiText:(UIButton *)more {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    //复制内容 获取帖子文字内容
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
+    NSString *copyString = selectedCell.contentText.text;
+    //复制到剪切板
+    pasteboard.string = copyString;
+}
+
+
+
 #pragma mark button action
 
 /**
@@ -267,17 +341,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 #pragma mark YWAlertButtonProtocol
 
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
-    if (index == 1) {
+    if (index == 0) {
+        [self showDeleteAlertView:more];
         
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        //复制内容 获取帖子文字内容
-        YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
-        NSString *copyString = selectedCell.contentText.text;
-        //复制到剪切板
-        pasteboard.string = copyString;
+    }else if (index == 1) {
+        [self copyTiZiText:more];
         
     }else if (index == 2) {
-        
         self.alertView = alertView;
         [self showCompliantAlertView];
         
@@ -291,17 +361,17 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:101];
-    int count       = [favour.text intValue];
+    __block int count       = [favour.text intValue];
     
-    if (model == YES) {
-        count ++;
-    }
-    else
-    {
-        count --;
-    }
-    
-    favour.text = [NSString stringWithFormat:@"%d",count];
+//    if (model == YES) {
+//        count ++;
+//    }
+//    else
+//    {
+//        count --;
+//    }
+//    
+//    favour.text = [NSString stringWithFormat:@"%d",count];
     
     
     //网络请求
@@ -314,13 +384,20 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                      if (statusEntity.status == YES) {
                                          
                                          if (model == YES) {
-                                             
+                                             count ++;
                                              [self.viewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
                                          else
                                          {
+                                             count --;
                                              [self.viewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
+                                         if (count >= 0) {
+                                             favour.text = [NSString stringWithFormat:@"%d",count];
+                                         }else {
+                                             favour.text = [NSString stringWithFormat:@"%d",0];
+                                         }
+
                                      }
                                      
                                  } failure:^(NSString *error) {
