@@ -120,6 +120,19 @@
                      failure:(void (^)(NSString *error))failure;
 
 /**
+ *  跟帖点赞请求
+ *
+ *  @param url        /Post/reply_like
+ *  @param paramaters reply_id（帖子ID）、value（	0为取消喜欢 1为喜欢）
+ *  @param success    成功回调StatusEntity
+ *  @param failure    失败
+ */
+- (void)postReplyTieZiLikeWithUrl:(NSString *)url
+                       paramaters:(NSDictionary *)paramaters
+                          success:(void (^)(StatusEntity *statusEntity))success
+                          failure:(void (^)(NSString *error))failure;
+
+/**
  *  本地保存点赞记录
  *
  *  @param postId 贴子id
@@ -140,5 +153,29 @@
  *
  *  @return YES or NO
  */
-- (BOOL)isLikedTieZiWithTieZiId:(NSNumber *)postId;
+- (BOOL)isLikedTieZiWithTieZiId:(NSNumber *) postId;
+
+/**
+ *  本地保存跟帖点赞记录
+ *
+ *  @param replyId 跟帖id
+ */
+- (void)saveLikeCookieWithReplyId:(NSNumber *) replyId;
+
+/**
+ *  取消跟帖点赞记录
+ *
+ *  @param replyId 跟帖id
+ */
+- (void)deleteLikeCookieWithReplyId:(NSNumber *) replyId;
+
+/**
+ *  判断跟帖是否有点赞过
+ *
+ *  @param replyId 跟帖id
+ *
+ *  @return YES or NO
+ */
+- (BOOL)isLikedTieZiWithReplyId:(NSNumber *) replyId;
+
 @end

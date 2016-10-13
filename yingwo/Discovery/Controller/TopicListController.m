@@ -45,7 +45,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
         _topicTableView                    = [[UITableView alloc ]initWithFrame:CGRectMake(10,
                                                                                    10,
                                                                                    SCREEN_WIDTH-20,
-                                                                                   SCREEN_HEIGHT-10)
+                                                                                   SCREEN_HEIGHT-125)
 
                                                                   style:UITableViewStylePlain];
         [_topicTableView registerClass:[YWTopicViewCell class]

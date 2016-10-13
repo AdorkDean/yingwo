@@ -31,15 +31,20 @@ static CGFloat scaleXY = 1.3;
 }
 
 - (void)select {
+    if (self.tag == 1) {
+        if (self.isSpring == NO) {
+            [self selectedScale];
+        }else {
+            [self cancelScale];;
+        }
+    }else if(self.tag == 2){
+        if (self.isSpringReply == NO) {
+            [self selectedScale];
+        }else {
+            [self cancelScale];
+        }
+    }
     
-    if (self.isSpring == NO) {
-        
-        [self selectedScale];
-    }
-    else
-    {
-        [self cancelScale];;
-    }
 
 }
 
@@ -58,10 +63,17 @@ static CGFloat scaleXY = 1.3;
     [self pop_addAnimation:anim forKey:@"Center"];
         
     anim.completionBlock = ^(POPAnimation *animation, BOOL finished){
-        self.isSpring = YES;
-            
-        if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
-            [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:YES];
+       
+        if (self.tag == 1) {
+            self.isSpring = YES;
+            if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
+                [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:YES];
+            }
+        }else if (self.tag == 2) {
+            self.isSpringReply = YES;
+            if ([self.delegate respondsToSelector:@selector(didSelectReplySpringButtonOnView:replyId:model:)]) {
+                [self.delegate didSelectReplySpringButtonOnView:self.superview replyId:self.reply_id model:YES];
+            }
         }
         
         [self revivificationFavour];
@@ -82,10 +94,17 @@ static CGFloat scaleXY = 1.3;
     anim.springSpeed         = 20;
     [self pop_addAnimation:anim forKey:@"Center"];
     anim.completionBlock = ^(POPAnimation *animation, BOOL finished){
-        self.isSpring = NO;
         
-        if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
-            [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:NO];
+        if (self.tag == 1) {
+            self.isSpring = NO;
+            if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
+                [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:NO];
+            }
+        }else if (self.tag == 2) {
+            self.isSpringReply = NO;
+            if ([self.delegate respondsToSelector:@selector(didSelectReplySpringButtonOnView:replyId:model:)]) {
+                [self.delegate didSelectReplySpringButtonOnView:self.superview replyId:self.reply_id model:NO];
+            }
         }
         
         [self revivificationFavour];

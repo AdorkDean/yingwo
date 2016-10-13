@@ -12,7 +12,8 @@
 
 @interface YWSpringButton : UIButton
 
-@property (nonatomic,assign ) BOOL                   isSpring;
+@property (nonatomic, assign) BOOL                   isSpring;
+@property (nonatomic, assign) BOOL                   isSpringReply;
 @property (nonatomic, strong) UIImage                *seletedImage;
 @property (nonatomic, strong) UIImage                *cancelImage;
 
@@ -41,6 +42,7 @@
  *  @param postReplyId 贴子Id
  *  @param model  YES or NO (1 或 0)
  */
-//- (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model;
+@optional
+- (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model;
 
 @end

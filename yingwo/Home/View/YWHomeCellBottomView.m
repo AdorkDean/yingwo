@@ -27,8 +27,8 @@
     _time                              = [[UILabel alloc] init];
 
     _favour                            = [[YWSpringButton alloc ] initWithSelectedImage:[UIImage imageNamed:@"heart_red"]
-                                          
                                                                          andCancelImage:[UIImage imageNamed:@"heart_gray"]];
+    _favour.tag                        = 1;
     _more                              = [[YWAlertButton alloc] initWithNames:[NSArray arrayWithObjects:@"删除",@"复制",@"举报",nil]];
 
     _message                           = [[UIButton alloc] init];

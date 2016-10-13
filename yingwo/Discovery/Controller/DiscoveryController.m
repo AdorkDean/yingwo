@@ -79,6 +79,7 @@ static int start_id = 0;
         _discoveryTableView.allowsSelection = NO;
         _discoveryTableView.tag             = 101;
         _discoveryTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _discoveryTableView.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
 
         _discoveryTableView.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
         [_discoveryTableView registerClass:[YWBannerTableViewCell class]

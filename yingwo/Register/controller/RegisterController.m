@@ -158,8 +158,8 @@ static NSString *notAgreen = @"不同意";
  *  跳转去用户协议界面
  */
 - (void)jumpToClausePage{
-    ClauseViewController *setting = [[ClauseViewController alloc] init];
-    [self.navigationController pushViewController:setting animated:YES];
+    ClauseViewController *clause = [[ClauseViewController alloc] init];
+    [self.navigationController pushViewController:clause animated:YES];
 }
 
 /**

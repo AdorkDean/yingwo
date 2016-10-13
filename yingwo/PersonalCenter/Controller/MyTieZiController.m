@@ -361,17 +361,17 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:101];
-    int count       = [favour.text intValue];
+    __block int count       = [favour.text intValue];
     
-    if (model == YES) {
-        count ++;
-    }
-    else
-    {
-        count --;
-    }
-    
-    favour.text = [NSString stringWithFormat:@"%d",count];
+//    if (model == YES) {
+//        count ++;
+//    }
+//    else
+//    {
+//        count --;
+//    }
+//    
+//    favour.text = [NSString stringWithFormat:@"%d",count];
     
     
     //网络请求
@@ -384,13 +384,20 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                      if (statusEntity.status == YES) {
                                          
                                          if (model == YES) {
-                                             
+                                             count ++;
                                              [self.viewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
                                          else
                                          {
+                                             count --;
                                              [self.viewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
                                          }
+                                         if (count >= 0) {
+                                             favour.text = [NSString stringWithFormat:@"%d",count];
+                                         }else {
+                                             favour.text = [NSString stringWithFormat:@"%d",0];
+                                         }
+
                                      }
                                      
                                  } failure:^(NSString *error) {

@@ -446,6 +446,37 @@
     }];
 }
 
+- (void)postReplyTieZiLikeWithUrl:(NSString *)url
+                       paramaters:(NSDictionary *)paramaters
+                          success:(void (^)(StatusEntity *))success
+                          failure:(void (^)(NSString *))failure {
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                          options:NSJSONReadingMutableContainers
+                                                                            error:nil];
+                  StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                  //本地存储点赞记录
+                  
+                  [self saveLikeCookieWithReplyId:paramaters[@"reply_id"]];
+                  success(entity);
+              }
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+          }];
+
+    
+}
 //保存点赞记录
 - (void)saveLikeCookieWithPostId:(NSNumber *) postId{
     
@@ -500,5 +531,61 @@
     
     return NO;
 }
+
+//保存跟帖点赞记录
+- (void)saveLikeCookieWithReplyId:(NSNumber *) replyId {
+
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+    if (likeArr == nil ) {
+        
+        likeArr = [[NSMutableArray alloc] init];
+    }
+    else
+    {
+        likeArr = [NSMutableArray arrayWithArray:likeArr];
+    }
+    
+    [likeArr addObject:replyId];
+    [userDefault setObject:likeArr forKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+}
+
+//取消跟帖点赞记录
+- (void)deleteLikeCookieWithReplyId:(NSNumber *) replyId {
+
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+    if (likeArr == nil ) {
+        
+        return;
+    }
+    else
+    {
+        likeArr = [NSMutableArray arrayWithArray:likeArr];
+    }
+    
+    [likeArr removeObject:replyId];
+    [userDefault setObject:likeArr forKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+}
+
+//判断跟帖是否有点赞记录
+- (BOOL)isLikedTieZiWithReplyId:(NSNumber *) replyId {
+
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+    for (NSNumber *postId in likeArr) {
+        if ([postId integerValue] == [replyId integerValue]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 
 @end

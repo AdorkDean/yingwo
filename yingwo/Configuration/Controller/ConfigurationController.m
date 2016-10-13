@@ -386,7 +386,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title  = @"设置";
+    self.title                              = @"设置";
     self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
                                                                                style:UIBarButtonItemStylePlain
                                                                               target:self

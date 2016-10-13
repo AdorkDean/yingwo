@@ -20,6 +20,13 @@
     return self;
 }
 
+- (TieZiViewModel *)tieZiViewModel {
+    if (_tieZiViewModel == nil) {
+        _tieZiViewModel = [[TieZiViewModel alloc] init];
+    }
+    return _tieZiViewModel;
+}
+
 - (void)setupRACComand {
     
     @weakify(self);
@@ -144,13 +151,27 @@
     //圆角头像
     cell.masterView.headImageView.layer.cornerRadius = 20;
     
+    cell.bottomView.favourLabel.text                 = model.like_cnt;
+
     //回复评论的数量
     cell.bottomView.messageLabel.text                = [NSString stringWithFormat:@"%d",model.comment_cnt];
     
     //当前回复的id，不是楼主的贴子id！！
     cell.bottomView.post_reply_id                          = model.reply_id;
+    cell.bottomView.favour.reply_id                        = model.reply_id;
     
-  //  cell.bottomView.post_comment_id = model.commentArr;
+    //判断是否有点赞过
+    if ( [self.tieZiViewModel isLikedTieZiWithReplyId:[NSNumber numberWithInt:model.reply_id]]) {
+        [cell.bottomView.favour   setBackgroundImage:[UIImage imageNamed:@"heart_red"]
+                                            forState:UIControlStateNormal];
+        cell.bottomView.favour.isSpringReply = YES;
+    }else {
+        [cell.bottomView.favour setBackgroundImage:[UIImage imageNamed:@"heart_gray"]
+                                          forState:UIControlStateNormal];
+        cell.bottomView.favour.isSpringReply = NO;
+    }
+    
+    
     //加载跟帖图片
     if (model.imageUrlArrEntity.count > 0) {
         
@@ -234,7 +255,7 @@
 
                           [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
                                               paramaters:paramaters
-                                                 success: weakself.singleSuccessBlock
+                                                 success:weakself.singleSuccessBlock
                                                  failure:weakself.singleFailureBlock];
                       }
                   };

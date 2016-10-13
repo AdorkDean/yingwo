@@ -26,8 +26,8 @@
     self.backgroundView = [[UIView alloc] init];
     self.messageField   = [[UITextField alloc] init];
     self.favorBtn       = [[YWSpringButton alloc ]initWithSelectedImage:[UIImage imageNamed:@"heart_red"]
-                           
                                                          andCancelImage:[UIImage imageNamed:@"heart_gray"]];
+    [self.favorBtn setTag:1];
     self.backgroundView.layer.cornerRadius  = 10;
     self.backgroundView.layer.masksToBounds = YES;
     self.backgroundView.backgroundColor     = [UIColor colorWithHexString:THEME_COLOR_5 alpha:0.5];

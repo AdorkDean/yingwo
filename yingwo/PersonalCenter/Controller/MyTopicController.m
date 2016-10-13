@@ -35,11 +35,12 @@
 - (SMPagerTabView *)topicPgaeView {
     if (_topicPgaeView == nil) {
         
-        _topicPgaeView          = [[SMPagerTabView alloc]initWithFrame:CGRectMake(0,
+        _topicPgaeView          = [[SMPagerTabView alloc] initWithFrame:CGRectMake(0,
                                                                          40,
                                                                          SCREEN_WIDTH,
                                                                          SCREEN_HEIGHT)];
         _topicPgaeView.delegate = self;
+
         
         [self.catalogVcArr addObject:self.oneFieldVc];
         [self.catalogVcArr addObject:self.twoFieldVc];

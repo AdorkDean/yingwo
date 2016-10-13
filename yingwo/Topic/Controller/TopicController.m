@@ -373,10 +373,10 @@ static CGFloat HeaderViewHeight = 250;
     NSString *blurImageUrl                   = headerImageUrl;
 
     [self.topicHeaderView.headerView sd_setImageWithURL:[NSURL URLWithString:headerImageUrl]
-                                       placeholderImage:[UIImage imageNamed:@"ying"]];
+                                       placeholderImage:[UIImage imageNamed:@"morenhuati"]];
     
     [self.topicHeaderView.blurImageView sd_setImageWithURL:[NSURL URLWithString:blurImageUrl]
-                                          placeholderImage:[UIImage imageNamed:@"ying"]
+                                          placeholderImage:[UIImage imageNamed:@"morenhuati"]
                                                    options:SDWebImageRetryFailed
                                                  completed:^(UIImage *image,
                                                              NSError *error,

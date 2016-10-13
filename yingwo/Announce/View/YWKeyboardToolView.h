@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIButton                   *keyborad;
 @property (nonatomic, strong) UIButton                   *photo;
 @property (nonatomic, strong) UIButton                   *returnKeyBoard;
+@property (nonatomic, strong) UIButton                   *takePhoto;
 @property (nonatomic, assign) id<YWKeyboardToolViewProtocol> delegate;
 
 @end

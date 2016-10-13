@@ -144,9 +144,10 @@
 /********************************* key ******************************************************/
 
 /********************************* cookie ******************************************************/
-#define LOGIN_COOKIE @"loginCookie"
-#define REGISTER_COOKIE @"registerCookie"
-#define TIEZI_LIKE_COOKIE @"tieZiLike"
+#define LOGIN_COOKIE            @"loginCookie"
+#define REGISTER_COOKIE         @"registerCookie"
+#define TIEZI_LIKE_COOKIE       @"tieZiLike"
+#define TIEZI_REPLY_LIKE_COOKIE @"tieZiReplyLike"
 /********************************* cookie ******************************************************/
 
 /********************************* 魔数 ******************************************************/
@@ -179,6 +180,6 @@
 
 /********************************* SVProgressHUD Delay ************************************************/
 
-#define HUD_DELAY 2.0
+#define HUD_DELAY 0.8
 
 #endif /* Macro_h */

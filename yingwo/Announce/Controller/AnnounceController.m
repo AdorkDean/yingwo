@@ -14,10 +14,10 @@
 #import "YWKeyboardToolView.h"
 #import "YWPhotoDisplayView.h"
 
-@interface AnnounceController ()<LSYAlbumCatalogDelegate,ISEmojiViewDelegate,YWKeyboardToolViewProtocol>
+@interface AnnounceController ()<LSYAlbumCatalogDelegate,ISEmojiViewDelegate,YWKeyboardToolViewProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) YWAnnounceTextView *announceTextView;
-@property (nonatomic, strong) YWKeyboardToolView *keyboardTooView;
+@property (nonatomic, strong) YWKeyboardToolView *keyboardToolView;
 
 @property (nonatomic, strong) UIBarButtonItem    *leftBarItem;
 @property (nonatomic, strong) UIBarButtonItem    *rightBarItem;
@@ -47,26 +47,32 @@
         _announceTextView.keyboardToolView.delegate   = self;
         _announceTextView.contentTextView.font        = [UIFont systemFontOfSize:14];
         _announceTextView.contentTextView.maxHeight   = SCREEN_HEIGHT * 0.32;
+        UITapGestureRecognizer *tap                   = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeKeybordBecomeFirstResponder)];
+        _announceTextView.userInteractionEnabled      = YES;
+        [_announceTextView addGestureRecognizer:tap];
 
     }
     return _announceTextView;
 }
 
-- (YWKeyboardToolView *)keyboardTooView {
-    if (_keyboardTooView == nil) {
-        _keyboardTooView          = [[YWKeyboardToolView alloc] init];
+- (YWKeyboardToolView *)keyboardToolView {
+    if (_keyboardToolView == nil) {
+        _keyboardToolView          = [[YWKeyboardToolView alloc] init];
         
-        [_keyboardTooView.returnKeyBoard addTarget:self
+        [_keyboardToolView.returnKeyBoard addTarget:self
                                             action:@selector(resignKeyboard)
                                   forControlEvents:UIControlEventTouchUpInside];
         
-        [_keyboardTooView.photo addTarget:self
+        [_keyboardToolView.photo addTarget:self
                                    action:@selector(enterIntoAlbumsSelectPhotos)
                          forControlEvents:UIControlEventTouchUpInside];
+        [_keyboardToolView.takePhoto addTarget:self
+                                        action:@selector(enterIntoCamera)
+                              forControlEvents:UIControlEventTouchUpInside];
 
-        _keyboardTooView.delegate = self;
+        _keyboardToolView.delegate = self;
     }
-    return _keyboardTooView;
+    return _keyboardToolView;
 }
 
 - (UIBarButtonItem *)rightBarItem {
@@ -238,8 +244,8 @@ CGFloat delay = 2.0f;
             requestUrl              = ANNOUNCE_URL;
         }
         
-        
-        paramaters[@"content"]          = [content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        paramaters[@"content"]          = content;
+
         paramaters[@"img"]              = allUrlString;
         
         [self.viewModel postTieZiWithUrl:requestUrl
@@ -277,6 +283,16 @@ CGFloat delay = 2.0f;
 - (void)handleNotification:(NSNotification *)notification {
     
     [self backToMainView];
+}
+
+
+- (void)enterIntoCamera {
+    UIImagePickerController *cameraVc = [[UIImagePickerController alloc] init];
+    cameraVc.sourceType = UIImagePickerControllerSourceTypeCamera;
+    cameraVc.delegate = self;
+    [self presentViewController:cameraVc animated:YES completion:^{
+        
+    }];
 }
 
 /**
@@ -367,7 +383,7 @@ CGFloat delay = 2.0f;
         make.height.equalTo(@(self.view.height * 0.33));
     }];
     
-    [self.keyboardTooView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.keyboardToolView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.equalTo(@45);
     }];
@@ -406,8 +422,8 @@ CGFloat delay = 2.0f;
     
     [self setLayoutDisplayPhotos];
     //特别注意！！
-    //这里布局的顺序不能乱了，keyboardTooView 要在photoDisplayView上面，否则键盘弹出时无法点击keyboardTooView
-    [self.view addSubview:self.keyboardTooView];
+    //这里布局的顺序不能乱了，keyboardToolView 要在photoDisplayView上面，否则键盘弹出时无法点击keyboardToolView
+    [self.view addSubview:self.keyboardToolView];
 
     [self setAllLayout];
 
@@ -470,6 +486,10 @@ CGFloat delay = 2.0f;
     
 }
 
+- (void)makeKeybordBecomeFirstResponder {
+    [self.announceTextView.contentTextView becomeFirstResponder];
+}
+
 //收起键盘
 - (void)resignKeyboard {
     [self.announceTextView.contentTextView resignFirstResponder];
@@ -487,7 +507,7 @@ CGFloat delay = 2.0f;
     //修改底部视图高度
     CGFloat bottom = endFrame.origin.y != SCREEN_HEIGHT ? endFrame.size.height:0;
     
-    [self.keyboardTooView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.keyboardToolView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(bottom);
     }];
     
@@ -496,7 +516,7 @@ CGFloat delay = 2.0f;
     // 调用此方法告诉self.view检测是否需要更新约束，若需要则更新，下面添加动画效果才起作用
     [self.view updateConstraintsIfNeeded];
     
-    [self.keyboardTooView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.keyboardToolView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).offset(-bottom);
     }];
     
@@ -562,6 +582,14 @@ CGFloat delay = 2.0f;
 
 }
 
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:YES completion:^{
+//        [self.photoDisplayView addImages:assets];
+    }];
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

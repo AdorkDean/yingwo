@@ -29,7 +29,6 @@
         
         PhotoUnitView *photo = [self.photoImageViewsArr objectAtIndex:i];
         UIImage *image       = photo.photoImageView.image;
-//        UIImage *image = [photo.photoImageView.image fixOrientation];
         
         [self.photoImageArr addObject:image];
     }

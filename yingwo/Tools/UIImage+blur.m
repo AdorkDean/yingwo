@@ -69,7 +69,7 @@
     CGColorSpaceRelease(colorSpace);
     free(pixelBuffer);
     CFRelease(inBitmapData);
-    CGColorSpaceRelease(colorSpace);
+    CGColorSpaceRelease(colorSpace); //多释放了 去掉解决崩溃
     CGImageRelease(imageRef);
     return returnImage;
 }
