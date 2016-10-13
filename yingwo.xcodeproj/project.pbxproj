@@ -133,6 +133,7 @@
 		18A0F88D1D34B61B005FE091 /* Validate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F88B1D34B61B005FE091 /* Validate.m */; };
 		18A0F8921D34B697005FE091 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8911D34B697005FE091 /* AppDelegate.m */; };
 		18A0F8951D34B78D005FE091 /* VerificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8941D34B78D005FE091 /* VerificationController.m */; };
+		18A4E8E91DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */; };
 		18A8DF6E1D9F97FA00AA863F /* MyTieZiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A8DF6D1D9F97FA00AA863F /* MyTieZiController.m */; };
 		18AF9E6A1D4F37060063D81F /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF9E691D4F37060063D81F /* BaseViewController.m */; };
 		18AF9E6D1D4F37810063D81F /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF9E6C1D4F37810063D81F /* HomeController.m */; };
@@ -477,6 +478,8 @@
 		18A0F8911D34B697005FE091 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = AppDelegate/AppDelegate.m; sourceTree = "<group>"; };
 		18A0F8931D34B78D005FE091 /* VerificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VerificationController.h; path = Register/controller/VerificationController.h; sourceTree = "<group>"; };
 		18A0F8941D34B78D005FE091 /* VerificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VerificationController.m; path = Register/controller/VerificationController.m; sourceTree = "<group>"; };
+		18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUMessage_Sdk_1.4.0.a; path = Vender/UMessage_Sdk_1.4.0/libUMessage_Sdk_1.4.0.a; sourceTree = "<group>"; };
+		18A4E8E81DAE6ED2008CDE89 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UMessage.h; path = Vender/UMessage_Sdk_1.4.0/UMessage.h; sourceTree = "<group>"; };
 		18A8DF6C1D9F97FA00AA863F /* MyTieZiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTieZiController.h; path = PersonalCenter/Controller/MyTieZiController.h; sourceTree = "<group>"; };
 		18A8DF6D1D9F97FA00AA863F /* MyTieZiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTieZiController.m; path = PersonalCenter/Controller/MyTieZiController.m; sourceTree = "<group>"; };
 		18AF9E681D4F37060063D81F /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = BaseController/BaseViewController.h; sourceTree = "<group>"; };
@@ -524,6 +527,7 @@
 		18B926DB1D39270C0067FE24 /* MBProgressHUD+Dispaly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+Dispaly.m"; path = "Tools/MBProgressHUD+Dispaly.m"; sourceTree = "<group>"; };
 		18C350511D7FBA64008BFDD3 /* YWCommentReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWCommentReplyView.h; path = Home/View/YWCommentReplyView.h; sourceTree = "<group>"; };
 		18C350521D7FBA64008BFDD3 /* YWCommentReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWCommentReplyView.m; path = Home/View/YWCommentReplyView.m; sourceTree = "<group>"; };
+		18CEE7131DAF5823004FEDFE /* yingwo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yingwo.entitlements; sourceTree = "<group>"; };
 		18D100D91D3E153400D75968 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = User/entity/User.h; sourceTree = "<group>"; };
 		18D100DA1D3E153400D75968 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = User/entity/User.m; sourceTree = "<group>"; };
 		18D100DD1D3E16D700D75968 /* User+CURD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "User+CURD.h"; path = "Tools/User+CURD.h"; sourceTree = "<group>"; };
@@ -663,6 +667,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18A4E8E91DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a in Frameworks */,
 				1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */,
 				EA90C883AA6EF63671AC57B7 /* Pods_yingwo.framework in Frameworks */,
 			);
@@ -681,6 +686,7 @@
 		1803C0F41D541D7C0078EF0F /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				18A4E8EA1DAE6EDF008CDE89 /* UMessage_Sdk_1.4.0 */,
 				18B0C6721D980FA700F776DF /* UIViewController+NavBarHidden */,
 				1802C1BA1D7971AF00CFB375 /* PhotoBroswer */,
 				1807FEF71D683FF2009393E2 /* SMPagerTabView */,
@@ -1167,6 +1173,15 @@
 			name = AppDelagate;
 			sourceTree = "<group>";
 		};
+		18A4E8EA1DAE6EDF008CDE89 /* UMessage_Sdk_1.4.0 */ = {
+			isa = PBXGroup;
+			children = (
+				18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */,
+				18A4E8E81DAE6ED2008CDE89 /* UMessage.h */,
+			);
+			name = UMessage_Sdk_1.4.0;
+			sourceTree = "<group>";
+		};
 		18AF9E5F1D4F361B0063D81F /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1310,6 +1325,7 @@
 		18AFE5E61D30B7E1007BEBDE /* yingwo */ = {
 			isa = PBXGroup;
 			children = (
+				18CEE7131DAF5823004FEDFE /* yingwo.entitlements */,
 				188F12951D40BF3B0013B0A0 /* README */,
 				1803C0F41D541D7C0078EF0F /* Vender */,
 				18AF9E641D4F367A0063D81F /* BaseController */,
@@ -1785,8 +1801,13 @@
 				TargetAttributes = {
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 5FXU36NJZS;
+						DevelopmentTeam = 8P2DS22MA9;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -2210,16 +2231,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5FXU36NJZS;
+				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};
@@ -2233,16 +2260,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5FXU36NJZS;
+				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangxiaofa.yingwo;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};

@@ -41,7 +41,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
-  - FDFullscreenPopGesture (= 1.1)
+  - FDFullscreenPopGesture (~> 1.1)
   - HPGrowingTextView (~> 1.1)
   - MagicalRecord (~> 2.3.2)
   - Masonry (= 1.0.1)
@@ -77,6 +77,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
 
-PODFILE CHECKSUM: 327321511b31cbf834d0bf5d64d540e6ac8cbd8e
+PODFILE CHECKSUM: ff7f64af17c8191217eaf8def8d7ebe6539b0cd8
 
 COCOAPODS: 1.0.1
