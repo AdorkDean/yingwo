@@ -7,10 +7,20 @@
 //
 
 #import "AppDelegate.h"
+
+#import "UMessage.h"
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+#import <UserNotifications/UserNotifications.h>
+#endif
+//以下几个库仅作为调试引用引用的
+#import <AdSupport/AdSupport.h>
+#import <CommonCrypto/CommonDigest.h>
+
 #import "MainNavController.h"
 #import "MainController.h"
 #import "LoginController.h"
-@interface AppDelegate ()
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
 
@@ -22,6 +32,33 @@
     //数据库使用的是MagicalRecord第三方框架，封装的是CoreData
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"yingwoDatabase.sqlite"];
+    
+    /**
+     *  友盟推送配置项
+     */
+    //设置 AppKey 及 LaunchOptions
+    [UMessage startWithAppkey:@"57f8af24e0f55a291700280b"
+                launchOptions:launchOptions];
+    //注册通知
+    [UMessage registerForRemoteNotifications];
+    //iOS10必须加下面这段代码。
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate                  = self;
+    UNAuthorizationOptions types10   = UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
+    
+    [center requestAuthorizationWithOptions:types10
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            //点击允许
+            
+        } else {
+            //点击不允许
+            
+        }
+    }];
+    
+    [UMessage setLogEnabled:YES];
+
     
     [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
     [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
@@ -56,6 +93,51 @@
     
 }
 
+//iOS10以下使用这个方法接收通知
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+ //   NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+    NSLog(@"device token: %@",userInfo);
+
+    [UMessage didReceiveRemoteNotification:userInfo];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [self stringDevicetoken:deviceToken];
+    // 1.2.7版本开始不需要用户再手动注册devicetoken，SDK会自动注册
+}
+
+//iOS10新增：处理前台收到通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于前台时的远程推送接受
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+        
+    }else{
+        //应用处于前台时的本地推送接受
+    }
+    
+}
+
+//iOS10新增：处理后台点击通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于后台时的远程推送接受
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+        
+    }else{
+        //应用处于后台时的本地推送接受
+    }
+    
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -79,6 +161,22 @@
     // Saves changes in the application's managed object context before the application terminates.
  //   [self saveContext];
 }
+
+#pragma mark 以下的方法仅作调试使用
+-(NSString *)stringDevicetoken:(NSData *)deviceToken
+{
+    NSString *token = [deviceToken description];
+    NSString *pushToken = [[[token stringByReplacingOccurrencesOfString:
+                                                         @"<"withString:@""]
+                            stringByReplacingOccurrencesOfString:@">"
+                                                       withString:@""]
+                             stringByReplacingOccurrencesOfString:@" "withString:@""];
+    
+    return pushToken;
+}
+
+
+
 
 #pragma mark - Core Data stack
 

@@ -317,7 +317,7 @@ CGFloat delay = 2.0f;
  *  这里是点击加号，继续添加图片
  */
 - (void)addMorePhotos {
-    
+
     self.photoDisplayView.selectModel          = AddMorePhoto;
 
     LSYAlbumCatalog *albumCatalog              = [[LSYAlbumCatalog alloc] init];
