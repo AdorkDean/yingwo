@@ -9,6 +9,7 @@
 #import "DetailController.h"
 #import "AnnounceController.h"
 #import "MainNavController.h"
+#import "TopicController.h"
 
 #import "YWDetailTableViewCell.h"
 #import "YWDetailBaseTableViewCell.h"
@@ -25,7 +26,7 @@
 
 #import "YWAlertButton.h"
 
-@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol>
+@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWLabelDelegate>
 
 @property (nonatomic, strong) UITableView         *detailTableView;
 @property (nonatomic, strong) UIBarButtonItem     *leftBarItem;
@@ -47,8 +48,10 @@
 
 @property (nonatomic, strong) YWCommentView       *selectCommentView;
 
+//点击查看话题内容
+@property (nonatomic, assign) int                 tap_topic_id;
 
-@property (nonatomic,assign ) CGFloat             navgationBarHeight;
+@property (nonatomic, assign) CGFloat             navgationBarHeight;
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
 @property (nonatomic, strong) NSMutableDictionary *commetParamaters;
@@ -85,6 +88,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (DetailViewModel *)viewModel {
     if (_viewModel == nil) {
         _viewModel                 = [[DetailViewModel alloc] init];
+        
     }
     return _viewModel;
 }
@@ -199,6 +203,42 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return  self.navigationController.navigationBar.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
 }
 
+- (UIAlertController *)compliantAlertView {
+    if (_compliantAlertView == nil) {
+        _compliantAlertView = [UIAlertController alertControllerWithTitle:@"举报"
+                                                                  message:nil
+                                                           preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"广告"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"色情"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"反动"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"其他"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        
+    }
+    return _compliantAlertView;
+}
+
 #pragma mark YWAlertButtonProtocol
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
@@ -208,6 +248,68 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         self.alertView = alertView;
         [self showCompliantAlertView];
         
+    }else if (index == 2) {
+        [self showDeleteAlertView:more];
+    }
+}
+
+/**
+ *  删除警告
+ */
+- (void)showDeleteAlertView:(UIButton *)more {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
+                                                                             message:@"确认删除？"
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
+                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                            [self deleteTieZi:more];
+                                                        }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel handler:nil]];
+    [self.view.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+/**
+ *  删除帖子
+ */
+- (void)deleteTieZi:(UIButton *)more {
+    Customer *customer                    = [User findCustomer];
+    
+    //判断是否为本人
+    if (self.model.user_id == [customer.userId intValue]) {    //判断是否为用户自己
+        int postId = self.model.tieZi_id;
+        //网络请求
+        NSDictionary *paramaters = @{@"post_id":@(postId)};
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+        
+        [self.homeViewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                                paramaters:paramaters
+                                   success:^(StatusEntity *statusEntity) {
+                                       
+                                       if (statusEntity.status == YES) {
+//                                           //删除该行数据源
+//                                           [self.tieZiList removeObjectAtIndex:indexPath.row];
+//                                           //将该行从视图中移除
+//                                           [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
+//                                                                     withRowAnimation:UITableViewRowAnimationFade];
+                                           //跳转回上一页面
+                                           [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
+                                           
+                                           [self.navigationController popViewControllerAnimated:YES];
+                                           
+                                       }else if (statusEntity.status == NO){
+                                           [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+                                       }
+                                       
+                                   } failure:^(NSString *error) {
+                                       NSLog(@"error:%@",error);
+                                   }];
+        
+    }
+    else {
+        [SVProgressHUD showErrorStatus:@"您无权限操作" afterDelay:1.0];
     }
 }
 
@@ -225,10 +327,20 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)copyTiZiText:(UIButton *)more {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     //复制内容 获取帖子文字内容
-    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
-    NSString *copyString = selectedCell.contentText.text;
-    //复制到剪切板
-    pasteboard.string = copyString;
+    
+    if ([more.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
+        YWDetailTableViewCell *selectedCell = (YWDetailTableViewCell *)more.superview.superview.superview.superview;
+        //复制到剪切板
+        NSString *copyString = selectedCell.contentLabel.text;
+        pasteboard.string = copyString;
+    }
+    
+    if ([more.superview.superview.superview isKindOfClass:[YWDetailReplyCell class]]) {
+        
+        YWDetailReplyCell *selectedCell = (YWDetailReplyCell *)more.superview.superview.superview;
+        NSString *copyString = selectedCell.contentLabel.text;
+        pasteboard.string = copyString;
+    }
 }
 
 
@@ -314,6 +426,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
     [self.detailTableView.mj_header beginRefreshing];
 
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -504,8 +617,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
     cell.bottomView.delegate        = self;
     cell.bottomView.favour.delegate = self;
-    
-    
+    cell.topView.label.delegate     = self;
+    cell.topView.moreBtn.delegate   = self;
+    cell.moreBtn.delegate           = self;
 
     return cell;
 }
@@ -589,11 +703,15 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)covertImageView:(UIImageView *)imageView {
     
+    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
     UIImageView *newImageView = [[UIImageView alloc] init];
     newImageView.frame        = [imageView.superview convertRect:imageView.frame toView:self.view];
+    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
     newImageView.image        = imageView.image;
     newImageView.y            += self.navgationBarHeight;
     newImageView.tag          = 1;
+//    newImageView.contentMode  =
+    newImageView.clipsToBounds = YES;
 
     [self showImageView:newImageView];
     
@@ -800,6 +918,29 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
     }
 
+    
+}
+
+#pragma mark segue
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
+        if ([segue.identifier isEqualToString:@"topic"]) {
+            TopicController *topicVc = segue.destinationViewController;
+            topicVc.topic_id = self.tap_topic_id;
+        }
+    }
+}
+
+#pragma mark YWLabelDelegate
+
+- (void)didSelectLabel:(YWLabel *)label {
+    
+    
+    self.tap_topic_id = label.topic_id;
+
+    [self performSegueWithIdentifier:@"topic" sender:self];
+    
     
 }
 

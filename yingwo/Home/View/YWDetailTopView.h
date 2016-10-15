@@ -10,6 +10,7 @@
 #import "YWLabel.h"
 #import "YWAlertButton.h"
 
+
 @interface YWDetailTopView : UIView
 
 @property (nonatomic, strong) UIImageView   *labelImage;

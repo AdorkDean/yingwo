@@ -297,6 +297,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="mNj-nk-xUF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wEq-dC-10s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -484,10 +487,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yWL-FP-kPF"/>
-        <segue reference="GGw-Qr-lxh"/>
-        <segue reference="dQL-fh-5s4"/>
         <segue reference="gXB-c9-GK2"/>
         <segue reference="MUA-MQ-PjB"/>
+        <segue reference="dQL-fh-5s4"/>
+        <segue reference="mNj-nk-xUF"/>
+        <segue reference="GGw-Qr-lxh"/>
     </inferredMetricsTieBreakers>
 </document>

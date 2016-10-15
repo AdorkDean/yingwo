@@ -346,7 +346,7 @@
                                               }
                                           } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               NSLog(@"error:%@",error);
-                                              [SVProgressHUD showErrorStatus:@"更新失败" afterDelay:HUD_DELAY];
+                                              [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
                                           }];
 }
 

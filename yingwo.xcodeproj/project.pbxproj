@@ -133,7 +133,6 @@
 		18A0F88D1D34B61B005FE091 /* Validate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F88B1D34B61B005FE091 /* Validate.m */; };
 		18A0F8921D34B697005FE091 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8911D34B697005FE091 /* AppDelegate.m */; };
 		18A0F8951D34B78D005FE091 /* VerificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8941D34B78D005FE091 /* VerificationController.m */; };
-		18A4E8E91DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */; };
 		18A8DF6E1D9F97FA00AA863F /* MyTieZiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A8DF6D1D9F97FA00AA863F /* MyTieZiController.m */; };
 		18AF9E6A1D4F37060063D81F /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF9E691D4F37060063D81F /* BaseViewController.m */; };
 		18AF9E6D1D4F37810063D81F /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF9E6C1D4F37810063D81F /* HomeController.m */; };
@@ -147,7 +146,6 @@
 		18AF9E8D1D502C6D0063D81F /* YWAnnounceTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF9E8C1D502C6D0063D81F /* YWAnnounceTextView.m */; };
 		18AF9E901D503D810063D81F /* YWKeyboardToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF9E8F1D503D810063D81F /* YWKeyboardToolView.m */; };
 		18AFE5F21D30B7E2007BEBDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AFE5F01D30B7E2007BEBDE /* Main.storyboard */; };
-		18AFE5F71D30B7E2007BEBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AFE5F61D30B7E2007BEBDE /* Assets.xcassets */; };
 		18AFE5FA1D30B7E2007BEBDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AFE5F81D30B7E2007BEBDE /* LaunchScreen.storyboard */; };
 		18B0C6771D980FBA00F776DF /* HYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C6741D980FBA00F776DF /* HYViewController.m */; };
 		18B0C6781D980FBA00F776DF /* UIViewController+NavBarHidden.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C6761D980FBA00F776DF /* UIViewController+NavBarHidden.m */; };
@@ -215,6 +213,8 @@
 		18F921331D7EB85100A44846 /* YWCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F921321D7EB85100A44846 /* YWCommentView.m */; };
 		18F921361D7EBC6700A44846 /* YWDetailCellBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F921351D7EBC6700A44846 /* YWDetailCellBottomView.m */; };
 		18FAE9AF1D49D0EC00DE92AB /* UIBarButtonItem+Left.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FAE9AE1D49D0EC00DE92AB /* UIBarButtonItem+Left.m */; };
+		CC056BFD1DAFABAE00613F27 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */; };
+		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC3CC6EB1DA11863000DEE0A /* AboutUsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3CC6EA1DA11863000DEE0A /* AboutUsController.m */; };
 		CC4CDE461D9D04A0002A80B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE421D9D04A0002A80B0 /* main.m */; };
 		CC4CDE471D9D04A0002A80B0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE441D9D04A0002A80B0 /* ViewController.m */; };
@@ -507,7 +507,6 @@
 		18AF9E911D50571D0063D81F /* YWHomeCellLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWHomeCellLabelView.h; path = Home/View/YWHomeCellLabelView.h; sourceTree = "<group>"; };
 		18AFE5E41D30B7E1007BEBDE /* yingwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yingwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFE5F11D30B7E2007BEBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		18AFE5F61D30B7E2007BEBDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18AFE5F91D30B7E2007BEBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18AFE5FB1D30B7E2007BEBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18B0C6701D97CC4A00F776DF /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "../../../../Library/Developer/Xcode/DerivedData/yingwo-dzqebdqcfqsytufreincemehrvnw/Build/Products/Debug-iphonesimulator/ReactiveCocoa/ReactiveCocoa.framework"; sourceTree = "<group>"; };
@@ -642,6 +641,7 @@
 		3709C5A61291B822052D7CFB /* Pods_yingwo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yingwo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release.xcconfig"; sourceTree = "<group>"; };
 		895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.debug.xcconfig"; sourceTree = "<group>"; };
+		CC056BFE1DB0ABA800613F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = yingwo/Assets.xcassets; sourceTree = "<group>"; };
 		CC3CC6E91DA11863000DEE0A /* AboutUsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutUsController.h; path = Configuration/Controller/AboutUsController.h; sourceTree = "<group>"; };
 		CC3CC6EA1DA11863000DEE0A /* AboutUsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutUsController.m; path = Configuration/Controller/AboutUsController.m; sourceTree = "<group>"; };
 		CC4CDE421D9D04A0002A80B0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Support/main.m; sourceTree = "<group>"; };
@@ -667,9 +667,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18A4E8E91DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a in Frameworks */,
 				1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */,
 				EA90C883AA6EF63671AC57B7 /* Pods_yingwo.framework in Frameworks */,
+				CC056BFD1DAFABAE00613F27 /* libUMessage_Sdk_1.4.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1301,6 +1301,7 @@
 				181E341F1D93E3F800A6283C /* Podfile */,
 				181E34201D93E3F800A6283C /* Podfile.lock */,
 				18AFE5E61D30B7E1007BEBDE /* yingwo */,
+				CC056BFE1DB0ABA800613F27 /* Assets.xcassets */,
 				18AFE5E51D30B7E1007BEBDE /* Products */,
 				DBBC918793434E4B01B8CAB1 /* Frameworks */,
 				8DC42DE2E99935E3190B4E74 /* Pods */,
@@ -1341,7 +1342,6 @@
 				180F091A1D3777A000F3DD11 /* PerfectInfo */,
 				18D1028F1D3E4A5600D75968 /* Configuration */,
 				18AFE5F01D30B7E2007BEBDE /* Main.storyboard */,
-				18AFE5F61D30B7E2007BEBDE /* Assets.xcassets */,
 				18AFE5F81D30B7E2007BEBDE /* LaunchScreen.storyboard */,
 				18AFE5FB1D30B7E2007BEBDE /* Info.plist */,
 				18AFE5E71D30B7E1007BEBDE /* Supporting Files */,
@@ -1832,10 +1832,10 @@
 				18AFE5FA1D30B7E2007BEBDE /* LaunchScreen.storyboard in Resources */,
 				187D2F8F1D55B4A3006C5C5F /* Zan.png in Resources */,
 				187D2F8D1D55B4A3006C5C5F /* EffectImage.png in Resources */,
+				CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */,
 				181E34221D93E3F800A6283C /* Podfile.lock in Resources */,
 				1803C1231D541F580078EF0F /* AlbumPicker.bundle in Resources */,
 				CC4CDE481D9D04A0002A80B0 /* YingwoUserClause.txt in Resources */,
-				18AFE5F71D30B7E2007BEBDE /* Assets.xcassets in Resources */,
 				18AFE5F21D30B7E2007BEBDE /* Main.storyboard in Resources */,
 				180CD0271D64B2B10047F624 /* ISEmojiList.plist in Resources */,
 				181E34211D93E3F800A6283C /* Podfile in Resources */,
@@ -2224,13 +2224,17 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2249,13 +2253,17 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

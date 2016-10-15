@@ -28,7 +28,7 @@
 //刷新的初始值
 static int start_id = 0;
 
-@interface HotTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate>
+@interface HotTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate, YWHomeCellBottomViewDelegate>
 @property (nonatomic, strong) UIAlertController *alertView;
 @property (nonatomic, strong) TieZi             *model;
 @property (nonatomic, strong) TopicViewModel    *viewModel;
@@ -286,7 +286,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     self.title = @"最热";
 
-
     [self.view addSubview:self.homeTableview];
 
     [self loadDataWithRequestEntity:self.requestEntity];
@@ -451,6 +450,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.middleView.delegate        = self;
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
+    cell.bottemView.delegate        = self;
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
 
     [self.viewModel setupModelOfCell:cell model:self.model];
@@ -544,6 +544,19 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [self.view.window.rootViewController.view addSubview:self.galleryView];
     
     
+}
+
+#pragma mark YWHomeCellBottomViewDelegate
+- (void)didSelecteMessageWithBtn:(UIButton *)message {
+    
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)message.superview.superview.superview.superview;
+    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
+    self.model                            = self.tieZiList[indexPath.row];
+    
+    //点击跳转到详情里面
+    if ([self.delegate respondsToSelector:@selector(didSelectCellWith:)]) {
+        [self.delegate didSelectCellWith:self.model];
+    }
 }
 
 - (void)covertRectFromOldImageViewArr:(NSArray *)imageViewArr{

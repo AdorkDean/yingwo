@@ -41,6 +41,7 @@
     [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
 
                             forState:UIControlStateNormal];
+    [_headerView setImage:[UIImage imageNamed:@"morenhuati"]];
     
     _headerView.layer.masksToBounds = YES;
     _headerView.layer.cornerRadius  = 7;

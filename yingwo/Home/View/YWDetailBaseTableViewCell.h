@@ -31,7 +31,12 @@
 @property (nonatomic, assign ) NSInteger                  imageCount;
 @property (nonatomic, assign ) id<YWDetailTabeleViewDelegate> delegate;
 
+
+
+//YWDetailReplyCell
 @property (nonatomic, assign ) id<YWCommentViewDelegate>  commentDelegate;
+
+@property (nonatomic, strong) YWAlertButton *moreBtn;
 
 
 //common

@@ -29,7 +29,7 @@
 //刷新的初始值
 static int start_id = 0;
 
-@interface HomeController ()<UITableViewDataSource,UITableViewDelegate,YWDropDownViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate>
+@interface HomeController ()<UITableViewDataSource,UITableViewDelegate,YWDropDownViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem   *rightBarItem;
 @property (nonatomic, strong) UIBarButtonItem   *leftBarItem;
@@ -132,9 +132,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         //贴子请求url
         _requestEntity.requestUrl = HOME_URL;
         //请求的事新鲜事
-        _requestEntity.filter   = AllThingModel;
+        _requestEntity.filter     = AllThingModel;
         //偏移量开始为0
-        _requestEntity.start_id  = start_id;
+        _requestEntity.start_id   = start_id;
     }
     return _requestEntity;
 }
@@ -400,7 +400,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 #pragma mark YWAlertButtonProtocol
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-        [self showDeleteAlertView:more];
+    [self showDeleteAlertView:more];
         
     }else if (index == 1) {
         [self copyTiZiText:more];
@@ -541,6 +541,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.middleView.delegate        = self;
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
+    cell.bottemView.delegate        = self;
     
     [self.viewModel setupModelOfCell:cell model:self.model];
 
@@ -564,8 +565,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-   // [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
     self.model = [self.tieZiList objectAtIndex:indexPath.row];
 
     [self performSegueWithIdentifier:@"detail" sender:self];
@@ -584,6 +583,10 @@ CGFloat scrollHiddenSpace = 30;
 CGFloat lastPosition = -30;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView.contentOffset.y < 3) {
+        [self showTabBar:YES animated:YES];
+    }
     
     if (scrollView == self.homeTableview) {
         
@@ -716,13 +719,11 @@ CGFloat lastPosition = -30;
 
 - (void)didSelectLabel:(YWLabel *)label {
  
-    if (label.topic_id != 0) {
-        
+    
         self.tap_topic_id = label.topic_id;
         
         [self performSegueWithIdentifier:@"topic" sender:self];
 
-    }
     
 }
 
@@ -771,6 +772,17 @@ CGFloat lastPosition = -30;
         [self.cellNewImageArr addObject:newImageView];
         
     }
+}
+
+#pragma mark YWHomeCellBottomViewDelegate
+- (void)didSelecteMessageWithBtn:(UIButton *)message {
+    
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)message.superview.superview.superview.superview;
+    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
+    self.model                            = self.tieZiList[indexPath.row];
+    
+    [self performSegueWithIdentifier:@"detail" sender:self];
+
 }
 
 #pragma mark 网络监测

@@ -27,7 +27,7 @@
     _keyborad       = [UIButton buttonWithType:UIButtonTypeCustom];
     _photo          = [UIButton buttonWithType:UIButtonTypeCustom];
     _returnKeyBoard = [UIButton buttonWithType:UIButtonTypeCustom];
-    _takePhoto      = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _takePhoto      = [UIButton buttonWithType:UIButtonTypeCustom];
 
     _face.frame           = CGRectMake(15, 10, 25, 25);
     _photo.frame          = CGRectMake(60, 10, 30, 24);

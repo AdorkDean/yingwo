@@ -93,6 +93,11 @@
     
 }
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"%@", error);
+}
+
 //iOS10以下使用这个方法接收通知
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -105,6 +110,8 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [self stringDevicetoken:deviceToken];
+    
+ //   [UMessage registerDeviceToken:deviceToken];
     // 1.2.7版本开始不需要用户再手动注册devicetoken，SDK会自动注册
 }
 

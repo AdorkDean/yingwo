@@ -27,7 +27,7 @@ NSInteger cancelCode = -1;
    
 - (void)showAlertViewController {
     _alertView = [UIAlertController alertControllerWithTitle:@"操作"
-                                                                       message:@""
+                                                                       message:nil
                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"操作"];
@@ -40,10 +40,13 @@ NSInteger cancelCode = -1;
         UIAlertAction *action = [UIAlertAction actionWithTitle:_names[i]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
-                                                           
-                                                           [self.delegate seletedAlertView: _alertView
-                                                                                 onMoreBtn:self
-                                                                                   atIndex:i];
+                                                           if ([self.delegate respondsToSelector:@selector(seletedAlertView:onMoreBtn:atIndex:)]) {
+                                                               
+                                                               [self.delegate seletedAlertView: _alertView
+                                                                                     onMoreBtn:self
+                                                                                       atIndex:i];
+                                                               
+                                                           }
         }];
         [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
         [_alertView addAction:action];

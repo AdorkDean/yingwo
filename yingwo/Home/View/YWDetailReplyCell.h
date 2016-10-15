@@ -10,6 +10,5 @@
 
 @interface YWDetailReplyCell : YWDetailBaseTableViewCell
 
-@property (nonatomic, strong) YWAlertButton *moreBtn;
 
 @end

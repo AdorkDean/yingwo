@@ -178,9 +178,10 @@
     NSURL *imageUrl        = [NSURL URLWithString:fullurl];
     
     UIImageView *imageView = [cell.middleView viewWithTag:tag];
-    
+
+    imageView.contentMode  = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
     [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
-    
 }
 
 /**

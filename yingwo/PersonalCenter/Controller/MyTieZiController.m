@@ -28,7 +28,7 @@
 //刷新的初始值
 static int start_id = 0;
 
-@interface MyTieZiController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate>
+@interface MyTieZiController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate>
 
 @property (nonatomic, strong) UITableView     *homeTableview;
 @property (nonatomic, strong) UIAlertController *alertView;
@@ -477,6 +477,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 }
 
 
+
 #pragma mark UITableViewDataSoure
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tieZiList.count;
@@ -494,6 +495,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.middleView.delegate        = self;
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
+    cell.bottemView.delegate        = self;
     
     [self.viewModel setupModelOfCell:cell model:self.model];
     
@@ -516,8 +518,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     self.model = [self.tieZiList objectAtIndex:indexPath.row];
     
@@ -553,6 +553,17 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         }
         
     }
+}
+
+#pragma mark YWHomeCellBottomViewDelegate
+- (void)didSelecteMessageWithBtn:(UIButton *)message {
+    
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)message.superview.superview.superview.superview;
+    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
+    self.model                            = self.tieZiList[indexPath.row];
+    
+    //点击跳转到详情里面
+    [self performSegueWithIdentifier:@"detail" sender:self];
 }
 
 #pragma mark AvatarImageView

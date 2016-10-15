@@ -9,10 +9,13 @@
 #import "ForgetPasswordController.h"
 #import "InputTextField.h"
 #import "ResetPasswordController.h"
+#import "RegisterModel.h"
+
 @interface ForgetPasswordController ()
 
 @property (nonatomic, strong) InputTextField *phoneTextFeild;
 @property (nonatomic, strong) UIButton       *nextBtn;
+@property (nonatomic, strong) RegisterModel  *registerModel;
 
 @end
 
@@ -39,6 +42,13 @@
     return _nextBtn;
 }
 
+-(RegisterModel *)registerModel
+{
+    if (_registerModel == nil) {
+        _registerModel = [[RegisterModel alloc] init];
+    }
+    return _registerModel;
+}
 #pragma mark -----初始化UI布局
 - (void)setUILayout {
     [self.phoneTextFeild mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,8 +67,29 @@
 }
 
 #pragma mark 所有按钮的的action
-- (void) setAllAction {
-    [self.nextBtn addTarget:self action:@selector(jumpToVerificationPage) forControlEvents:UIControlEventTouchUpInside];
+- (void)setAllAction {
+    [self.nextBtn addTarget:self action:@selector(checkPhone) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)checkPhone {
+    
+    NSDictionary *paramaters = @{MOBILE:self.phoneTextFeild.rightTextField.text};
+
+    [self.registerModel requestForCheckMobleWithUrl:MOBILE_CHECK_URL
+                                         paramaters:paramaters
+                                            success:^(StatusEntity *status) {
+                                                if (status.error == 0) {
+                                                    [SVProgressHUD showErrorStatus:@"手机号未注册"
+                                                                        afterDelay:HUD_DELAY];
+                                                }
+                                                else if (status.error_code == ERROR_REGISTERED_CODE) {
+                                                    [self jumpToVerificationPage]; //确认用户注册，跳转去短信验证界面
+                                                }
+                                            }
+                                            failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                                [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
+                                            }];
+    
 }
 
 - (void)jumpToVerificationPage {

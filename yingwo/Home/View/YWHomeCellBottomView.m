@@ -30,7 +30,6 @@
                                                                          andCancelImage:[UIImage imageNamed:@"heart_gray"]];
     _favour.tag                        = 1;
     _more                              = [[YWAlertButton alloc] initWithNames:[NSArray arrayWithObjects:@"删除",@"复制",@"举报",nil]];
-
     _message                           = [[UIButton alloc] init];
     _favourLabel                       = [[UILabel alloc] init];
     _messageLabel                      = [[UILabel alloc] init];
@@ -45,6 +44,10 @@
                         forState:UIControlStateNormal];
     [_more setBackgroundImage:[UIImage imageNamed:@"more_gray"]
                      forState:UIControlStateNormal];
+    
+    [_message addTarget:self
+                 action:@selector(selectMessage)
+       forControlEvents:UIControlEventTouchUpInside];
     
     _nickname.font = [UIFont systemFontOfSize:12];
     _time.font     = [UIFont systemFontOfSize:10];
@@ -108,6 +111,12 @@
     }];
 
     
+}
+
+- (void)selectMessage {
+    if ([self.delegate respondsToSelector:@selector(didSelecteMessageWithBtn:)]) {
+        [self.delegate didSelecteMessageWithBtn:_message];
+    }
 }
 
 /**

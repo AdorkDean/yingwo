@@ -47,6 +47,7 @@
     self.scrollView.userInteractionEnabled         = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator   = NO;
+    self.scrollView.clipsToBounds                  = YES;
     [self addSubview:self.scrollView];
     
     self.maximumZoomScale = 3;
@@ -324,6 +325,7 @@ withImageUrlArrEntity:(NSArray *)entities
         
         [self resizeImageViewByzoomScrollView:centerZoomScrollView atIndex:currentPage];
     }
+    
 }
 
 - (void)resizeImageViewByzoomScrollView:(ZoomScrollView *)zoomScrollView atIndex:(NSInteger)index{
@@ -347,10 +349,11 @@ withImageUrlArrEntity:(NSArray *)entities
                                            
                                           // imageEntity.isDownload = YES;
                                            [zoomScrollView resizeImageViewWithImage:image];
-                                           
+                        
                                            if (zoomScrollView.zoomScale != 1) {
                                                [zoomScrollView setZoomScale:1.0];
                                            }
+
     }];
     
     //  下载后一张

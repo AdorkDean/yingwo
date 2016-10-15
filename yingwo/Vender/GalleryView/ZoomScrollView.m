@@ -90,6 +90,7 @@
         [self.imageView addGestureRecognizer:longPress];
 
     //    [longPress requireGestureRecognizerToFail:self.doubleTapGesture];
+
     }
     return self;
 }
