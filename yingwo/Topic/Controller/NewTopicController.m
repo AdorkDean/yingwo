@@ -29,6 +29,7 @@
 
 //刷新的初始值
 static int start_id = 0;
+static CGFloat footerHeight = 300;
 
 @interface NewTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate, YWHomeCellBottomViewDelegate>
 
@@ -81,7 +82,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
-        _homeTableview.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
+        _homeTableview.scrollEnabled   = NO;
+
+        _homeTableview.contentInset    = UIEdgeInsetsMake(0, 0, footerHeight, 0);
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
                forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
         [_homeTableview registerClass:[YWHomeTableViewCellOneImage class]
@@ -287,7 +290,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     self.title = @"最新";
         
     [self.view addSubview:self.homeTableview];
-    
     [self loadDataWithRequestEntity:self.requestEntity];
 
 }
@@ -304,6 +306,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     self.requestEntity.start_id = 0;
     [self loadDataWithRequestEntity:self.requestEntity];
+    
+    
+    
 //    [_segmentView selectTabWithIndex:0 animate:NO];
 
 }
@@ -377,6 +382,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
 }
 
+- (void)refreshData {
+    self.requestEntity.start_id = start_id;
+    [self loadDataWithRequestEntity:self.requestEntity];
+}
+
 /**
  *  下拉刷新
  */
@@ -411,10 +421,15 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.tieZiList = [tieZis mutableCopy];
                 [self.homeTableview reloadData];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"TopicRelaod" object:nil];
+                
+                
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
                 [self.homeTableview reloadData];
+                
             }
             
             
@@ -428,6 +443,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
             [self.homeTableview.mj_footer endRefreshingWithNoMoreData];
         }
         
+        //将topicSrcView获取homeTableview的contentSize
+        self.freshTableViewSize       = CGSizeMake(self.topicSrcView.contentSize.width,
+                                                   self.topicSrcView.contentSize.height + self.homeTableview.contentSize.height + footerHeight);
+        
+        //初始化为最新的contentSize
+        self.topicSrcView.contentSize = self.freshTableViewSize;
+
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
     }];
@@ -570,8 +592,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         UIImageView *newImageView = [[UIImageView alloc] init];
         newImageView.image        = oldImageView.image;
         newImageView.tag          = oldImageView.tag;
-        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.topicSrcView];
-        newImageView.y            += self.navgationBarHeight;
+        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.topicSrcView.superview];
         [self.cellNewImageArr addObject:newImageView];
         
     }
@@ -579,41 +600,41 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 
 //headerView高度
-static CGFloat headerViewHeight = 200;
-
-////headerview的初始位移偏移量y
-static CGFloat headerOffsetY = 64;
-
-////上一个滑动点
-static CGFloat scrollY = 0;
+//static CGFloat headerViewHeight = 200;
+//
+//////headerview的初始位移偏移量y
+//static CGFloat headerOffsetY = 64;
+//
+//////上一个滑动点
+//static CGFloat scrollY = 0;
 
 #pragma mark UIScrollView
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat directionY = scrollView.contentOffset.y - scrollY;
-    
-    if (directionY >= 0) {
-        
-        if ( scrollView.contentOffset.y <= headerViewHeight) {
-            
-            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
-                                                            scrollView.contentOffset.y-headerOffsetY);
-        }
-        
-    }
-    else
-    {
-        if ( scrollView.contentOffset.y <= headerViewHeight+headerOffsetY) {
-            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
-                                                            scrollView.contentOffset.y-headerOffsetY);
-        }
-    }
-    
-    
-    scrollY = scrollView.contentOffset.y;
-    
-}
+//
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    
+//    CGFloat directionY = scrollView.contentOffset.y - scrollY;
+//    
+//    if (directionY >= 0) {
+//        
+//        if ( scrollView.contentOffset.y <= headerViewHeight) {
+//            
+//            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
+//                                                            scrollView.contentOffset.y-headerOffsetY);
+//        }
+//        
+//    }
+//    else
+//    {
+//        if ( scrollView.contentOffset.y <= headerViewHeight+headerOffsetY) {
+//            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
+//                                                            scrollView.contentOffset.y-headerOffsetY);
+//        }
+//    }
+//    
+//    
+//    scrollY = scrollView.contentOffset.y;
+//    
+//}
 
 
 #pragma mark 网络监测

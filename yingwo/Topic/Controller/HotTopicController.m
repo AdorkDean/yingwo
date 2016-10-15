@@ -27,6 +27,7 @@
 
 //刷新的初始值
 static int start_id = 0;
+static CGFloat footerHeight = 300;
 
 @interface HotTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate, YWHomeCellBottomViewDelegate>
 @property (nonatomic, strong) UIAlertController *alertView;
@@ -78,7 +79,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
-        _homeTableview.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
+        _homeTableview.contentInset    = UIEdgeInsetsMake(0, 0, footerHeight, 0);
+        _homeTableview.scrollEnabled   = NO;
         //  _homeTableview.fd_debugLogEnabled = YES;
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
                forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
@@ -374,6 +376,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
 }
 
+- (void)refreshData {
+    self.requestEntity.start_id = start_id;
+    [self loadDataWithRequestEntity:self.requestEntity];
+}
+
 /**
  *  下拉刷新
  */
@@ -409,7 +416,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                 self.tieZiList = [tieZis mutableCopy];
                 [self.homeTableview.mj_header endRefreshing];
                 [self.homeTableview reloadData];
-     //           self.view.height = self.homeTableview.contentSize.height;
+                
+                self.view.height = self.homeTableview.contentSize.height;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"TopicRelaod" object:nil];
+
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
@@ -427,6 +438,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         {
             [self.homeTableview.mj_footer endRefreshingWithNoMoreData];
         }
+        
+        //将topicSrcView获取homeTableview的contentSize
+        self.hotTableViewSize = CGSizeMake(self.topicSrcView.contentSize.width, self.topicSrcView.contentSize.height + self.homeTableview.contentSize.height + footerHeight);
+        
+
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
@@ -574,21 +590,21 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         newImageView.image        = oldImageView.image;
         newImageView.tag          = oldImageView.tag;
         //😂这里需要找到self.topicSrcView,不是self.view
-        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.topicSrcView];
-        newImageView.y            += self.navgationBarHeight;
+        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.topicSrcView.superview];
+
         [self.cellNewImageArr addObject:newImageView];
         
     }
 }
 
 //headerView高度
-static CGFloat headerViewHeight = 200;
-
-////headerview的初始位移偏移量y
-static CGFloat headerOffsetY = 64;
-
-////上一个滑动点
-static CGFloat scrollY = 0;
+//static CGFloat headerViewHeight = 200;
+//
+//////headerview的初始位移偏移量y
+//static CGFloat headerOffsetY = 64;
+//
+//////上一个滑动点
+//static CGFloat scrollY = 0;
 
 //滑动偏移差
 //static CGFloat offsetY = -1;
@@ -603,33 +619,33 @@ static CGFloat scrollY = 0;
 //static CGFloat endDeclerateY = 0.0;
 
 #pragma mark UIScrollView
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat directionY = scrollView.contentOffset.y - scrollY;
-    
-    if (directionY >= 0) {
-        
-        if ( scrollView.contentOffset.y <= headerViewHeight) {
-            
-            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
-                                                          scrollView.contentOffset.y-headerOffsetY);
-        }
-        
-    }
-    else
-    {
-        if ( scrollView.contentOffset.y <= headerViewHeight+headerOffsetY) {
-            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
-                                                          scrollView.contentOffset.y-headerOffsetY);
-        }
-    }
-    
-    
-    scrollY = scrollView.contentOffset.y;
-    
-}
-
+//
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    
+//    CGFloat directionY = scrollView.contentOffset.y - scrollY;
+//    
+//    if (directionY >= 0) {
+//        
+//        if ( scrollView.contentOffset.y <= headerViewHeight) {
+//            
+//            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
+//                                                          scrollView.contentOffset.y-headerOffsetY);
+//        }
+//        
+//    }
+//    else
+//    {
+//        if ( scrollView.contentOffset.y <= headerViewHeight+headerOffsetY) {
+//            self.topicSrcView.contentOffset = CGPointMake(self.topicSrcView.contentOffset.x,
+//                                                          scrollView.contentOffset.y-headerOffsetY);
+//        }
+//    }
+//    
+//    
+//    scrollY = scrollView.contentOffset.y;
+//    
+//}
+//
 //- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 //    
 //

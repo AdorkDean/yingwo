@@ -40,6 +40,7 @@ NSInteger cancelCode = -1;
         UIAlertAction *action = [UIAlertAction actionWithTitle:_names[i]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
+
                                                            if ([self.delegate respondsToSelector:@selector(seletedAlertView:onMoreBtn:atIndex:)]) {
                                                                
                                                                [self.delegate seletedAlertView: _alertView
