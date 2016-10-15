@@ -13,6 +13,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self createSubview];
+        self.backgroundColor = [UIColor greenColor];
     }
     return self;
 }
@@ -44,9 +45,10 @@
     
     _headerView.layer.masksToBounds = YES;
     _headerView.layer.cornerRadius  = 7;
+    _blurImageView.clipsToBounds    = YES;
 
     [self addSubview:_blurImageView];
-    [_blurImageView addSubview:_darkView];
+    [self addSubview:_darkView];
 
     [self addSubview:_headerView];
     [self addSubview:_topic];

@@ -12,8 +12,8 @@
 
 @interface YWAlertButton : UIButton
 
-@property (nonatomic, strong)UIAlertController *alertView;
-@property (nonatomic, assign)id<YWAlertButtonProtocol>delegate;
+@property (nonatomic, strong) UIAlertController     *alertView;
+@property (nonatomic, assign) id<YWAlertButtonProtocol> delegate;
 
 - (instancetype)initWithNames:(NSArray *)names ;
 @end

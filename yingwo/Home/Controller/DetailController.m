@@ -504,7 +504,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
     cell.bottomView.delegate        = self;
     cell.bottomView.favour.delegate = self;
-    
+    cell.topView.moreBtn.delegate   = self;
     
 
     return cell;

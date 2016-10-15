@@ -15,10 +15,14 @@
  */
 @interface HotTopicController : BaseViewController
 
-@property (nonatomic, strong) UITableView     *homeTableview;
-@property (nonatomic, strong) UIScrollView     *topicSrcView;
+@property (nonatomic, strong) UITableView             *homeTableview;
+@property (nonatomic, strong) UIScrollView            *topicSrcView;
+@property (nonatomic, assign) CGSize                  hotTableViewSize;
+@property (nonatomic, assign) CGFloat                  hotTableViewY;
 
-@property (nonatomic, assign) int topic_id;
-@property (nonatomic, assign) id<TopicControllerDelegate>delegate;
+@property (nonatomic, assign) int                     topic_id;
+@property (nonatomic, assign) id<TopicControllerDelegate> delegate;
+
+- (void)refreshData;
 
 @end
