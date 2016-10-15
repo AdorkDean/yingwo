@@ -45,11 +45,12 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
         _topicTableView                    = [[UITableView alloc ]initWithFrame:CGRectMake(10,
                                                                                    10,
                                                                                    SCREEN_WIDTH-20,
-                                                                                   SCREEN_HEIGHT-125)
+                                                                                   SCREEN_HEIGHT-85)
 
                                                                   style:UITableViewStylePlain];
         [_topicTableView registerClass:[YWTopicViewCell class]
                 forCellReuseIdentifier:TOPIC_CELL_IDENTIFIER];
+        _topicTableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
         _topicTableView.layer.cornerRadius = 10;
         _topicTableView.backgroundColor    = [UIColor clearColor];
         _topicTableView.delegate           = self;
