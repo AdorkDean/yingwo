@@ -198,7 +198,7 @@
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView4 addTarget:self
-                       action:@selector(developing)
+                       action:@selector(jumpToMyLikePage)
              forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -222,6 +222,10 @@
 
 - (void)jumpToMyTieZiPage {
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTIEZI sender:self];
+}
+
+- (void)jumpToMyLikePage {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYLIKE sender:self];
 }
 
 

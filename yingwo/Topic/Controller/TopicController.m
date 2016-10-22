@@ -303,7 +303,9 @@ static int start_id = 0;
                                              selector:@selector(finishReloadData)
                                                  name:@"TopicRelaod" object:nil];
     
-
+//    [self.segmentView selectTabWithIndex:0 animate:NO];
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -455,7 +457,6 @@ static int start_id = 0;
 
     }
     
-    NSLog(@"offsetY:%f",offsetY);
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
@@ -523,7 +524,9 @@ static int start_id = 0;
         self.topicHeaderView.numberOfTopic.text  = [NSString stringWithFormat:@"%@贴子 ",topic.post_cnt];
         self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %@关注",topic.like_cnt];
     }else {
+        self.topic_title                         = @"新鲜事";
         self.topicHeaderView.topic.text          = @"新鲜事";
+        self.topicHeaderView.addTopicBtn.hidden  = YES;
     }
 
     NSString *headerImageUrl                     = [NSString selectCorrectUrlWithAppendUrl:topic.img];

@@ -214,7 +214,7 @@ static int start_id = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
   //  [self.discoveryTableView addSubview:self.discoverySegmentView];
     [self.view addSubview:self.discoveryTableView];
     //不能放到viewWillAppear中，否则不起作用

@@ -29,7 +29,7 @@
 static int start_id = 0;
 static CGFloat footerHeight = 300;
 
-@interface HotTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate, YWHomeCellBottomViewDelegate>
+@interface HotTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate, YWHomeCellBottomViewDelegate,TTTAttributedLabelDelegate>
 @property (nonatomic, strong) UIAlertController *alertView;
 @property (nonatomic, strong) TieZi             *model;
 @property (nonatomic, strong) TopicViewModel    *viewModel;
@@ -234,40 +234,33 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
     TieZi *selectedModel                  = self.tieZiList[indexPath.row];
     
-    Customer *customer                    = [User findCustomer];
     
-    //判断是否为本人
-    if (selectedModel.user_id == [customer.userId intValue]) {    //判断是否为用户自己
-        int postId = selectedModel.tieZi_id;
-        //网络请求
-        NSDictionary *paramaters = @{@"post_id":@(postId)};
-        
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-        
-        [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
-                                paramaters:paramaters
-                                   success:^(StatusEntity *statusEntity) {
-                                       
-                                       if (statusEntity.status == YES) {
-                                           //删除该行数据源
-                                           [self.tieZiList removeObjectAtIndex:indexPath.row];
-                                           //将该行从视图中移除
-                                           [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
-                                                                     withRowAnimation:UITableViewRowAnimationFade];
-                                           [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
-                                       }else if (statusEntity.status == NO){
-                                           [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
-                                       }
-                                       
-                                   } failure:^(NSString *error) {
-                                       NSLog(@"error:%@",error);
-                                   }];
-        
-    }
-    else {
-        [SVProgressHUD showErrorStatus:@"您无权限操作" afterDelay:1.0];
-    }
+    int postId = selectedModel.tieZi_id;
+    //网络请求
+    NSDictionary *paramaters = @{@"post_id":@(postId)};
+    
+    //必须要加载cookie，否则无法请求
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                            paramaters:paramaters
+                               success:^(StatusEntity *statusEntity) {
+                                   
+                                   if (statusEntity.status == YES) {
+                                       //删除该行数据源
+                                       [self.tieZiList removeObjectAtIndex:indexPath.row];
+                                       //将该行从视图中移除
+                                       [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
+                                                                 withRowAnimation:UITableViewRowAnimationFade];
+                                       [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
+                                   }else if (statusEntity.status == NO){
+                                       [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+                                   }
+                                   
+                               } failure:^(NSString *error) {
+                                   NSLog(@"error:%@",error);
+                               }];
+
 }
 
 /**
@@ -280,6 +273,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSString *copyString = selectedCell.contentText.text;
     //复制到剪切板
     pasteboard.string = copyString;
+    
+    [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
+
 }
 
 - (void)viewDidLoad {
@@ -312,14 +308,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-        [self showDeleteAlertView:more];
-        
-    }else if (index == 1) {
         [self copyTiZiText:more];
         
-    }else if (index == 2) {
+    }else if (index == 1) {
         self.alertView = alertView;
         [self showCompliantAlertView];
+        
+    }else if (index == 2) {
+        [self showDeleteAlertView:more];
         
     }
 }
@@ -467,8 +463,17 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
     cell.bottemView.delegate        = self;
+    cell.contentText.delegate       = self;
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
 
+    //如果非用户本人，不显示删除选项
+    Customer *customer              = [User findCustomer];
+    if (self.model.user_id != [customer.userId intValue]) {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
+    }else {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
+    }
+    
     [self.viewModel setupModelOfCell:cell model:self.model];
     
     return cell;
@@ -536,6 +541,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                        oldImageArr:(NSMutableArray *)oldImageArr{
 }
 
+#pragma mark TTTAttributedLabelDelegate
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    
+    YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
+    
+    [self.navigationController pushViewController:webVc animated:YES];
+}
 
 #define mark - YWHomeCellMiddleViewBaseProtocol
 

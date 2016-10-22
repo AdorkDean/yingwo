@@ -17,7 +17,7 @@
 #import "CollegeModel.h"
 #import "LoginModel.h"
 
-@interface PerfectInfoController ()<UIPickerViewDelegate,UIPickerViewDataSource,LSYAlbumCatalogDelegate,RSKImageCropViewControllerDelegate>
+@interface PerfectInfoController ()<UIPickerViewDelegate,UIPickerViewDataSource,RSKImageCropViewControllerDelegate,TZImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView     *backgroundSrcView;
 @property (nonatomic, strong) UIButton         *photoImageBtn;
@@ -510,24 +510,13 @@
 
 - (void)selectHeadPortrait {
     
-    LSYAlbumCatalog *albumCatalog              = [[LSYAlbumCatalog alloc] init];
-    albumCatalog.delegate                      = self;
-    LSYNavigationController *navigation        = [[LSYNavigationController alloc] initWithRootViewController:albumCatalog];
-    //最多选择1张照片
-    albumCatalog.maximumNumberOfSelectionMedia = 1;
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+    imagePickerVc.navigationBar.barTintColor = [UIColor colorWithHexString:THEME_COLOR_1];
     
-    [self presentViewController:navigation animated:YES completion:^{
+    [self presentViewController:imagePickerVc animated:YES completion:^{
         self.isChangeInfo = YES;
     }];
     
-//    CroppingController *cropVC = [[CroppingController alloc] initWithCompleteBlock:^(UIImage *img) {
-//        NSLog(@"imageSize%@",[NSValue valueWithCGSize:img.size]);
-//        if (img != nil) {
-//            self.photoImage = img;
-//            [self.photoImageBtn setBackgroundImage:[UIImage circleImage:img] forState:UIControlStateNormal];
-//        }
-//    }];
-//    [self.navigationController pushViewController:cropVC animated:NO];
 }
 
 - (void)copperHeadImageWithImage:(UIImage *)headImage {
@@ -694,6 +683,8 @@
         //隐藏导航栏，不然会与HomeController 里面的重叠
         self.navigationController.navigationBarHidden = YES;
         [self jumpToHomePage];
+        
+        
     }
 }
 
@@ -791,28 +782,49 @@
 }
 
 
-
-#pragma mark -- LSYAlbumCatalogDelegate
-
--(void)AlbumDidFinishPick:(NSArray *)assets {
-    
-    for (ALAsset *asset in assets) {
+#pragma mark - TZImagePickerControllerDelegate
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
+    for (id asset in assets) {
         
-        if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
+        if ([asset isKindOfClass:[PHAsset class]]) {
+            PHAsset *phAsset = (PHAsset *)asset;
+            if (phAsset.mediaType == PHAssetMediaTypeImage) {
+                
+                PHImageManager *manager = [PHImageManager defaultManager];
+                
+                [manager requestImageForAsset:phAsset
+                                   targetSize:PHImageManagerMaximumSize
+                                  contentMode:PHImageContentModeDefault
+                                      options:self.requestOptions
+                                resultHandler:^void(UIImage *image, NSDictionary *info) {
+                                    
+                                    [self copperHeadImageWithImage:image];
+                                    
+                                }];
+            }
+        } else if ([asset isKindOfClass:[ALAsset class]]) {
             
-            //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
-            //            UIImage *photoImage    = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-                UIImage *photoImage = [UIImage imageWithCGImage:[asset defaultRepresentation].fullResolutionImage
-                                                          scale:1
-                                                    orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
+            ALAsset *alAsset = (ALAsset *)asset;
             
-            [self copperHeadImageWithImage:photoImage];
+            if ([[alAsset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
+                //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
+                UIImage * photoImage = [UIImage imageWithCGImage:[alAsset defaultRepresentation].fullResolutionImage
+                                                           scale:1
+                                                     orientation:(UIImageOrientation)alAsset.defaultRepresentation.orientation];
+                
+                [self copperHeadImageWithImage:photoImage];
+                
+            }
+            else if ([[alAsset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypeVideo"]){
+                //  NSURL *url = asset.defaultRepresentation.url;
+                //  视频不处理
+            }
+            
         }
-        else if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypeVideo"]){
-            //  NSURL *url = asset.defaultRepresentation.url;
-            //  视频不处理
-        }
+        
     }
+
+    
 }
 
 #pragma mark RSKImageCropViewControllerDelegate

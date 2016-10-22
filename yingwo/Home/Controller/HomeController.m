@@ -29,7 +29,7 @@
 //刷新的初始值
 static int start_id = 0;
 
-@interface HomeController ()<UITableViewDataSource,UITableViewDelegate,YWDropDownViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate>
+@interface HomeController ()<UITableViewDataSource,UITableViewDelegate,YWDropDownViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem   *rightBarItem;
 @property (nonatomic, strong) UIBarButtonItem   *leftBarItem;
@@ -104,7 +104,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                forCellReuseIdentifier:YWHomeCellNineImageIdentifier];
         [_homeTableview registerClass:[YWHomeTableViewCellMoreNineImage class]
                forCellReuseIdentifier:YWHomeCellMoreNineImageIdentifier];
-        
     }
     return _homeTableview;
 }
@@ -296,40 +295,32 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
     TieZi *selectedModel                  = self.tieZiList[indexPath.row];
     
-    Customer *customer                    = [User findCustomer];
+    int postId = selectedModel.tieZi_id;
+    //网络请求
+    NSDictionary *paramaters = @{@"post_id":@(postId)};
     
-    //判断是否为本人
-    if (selectedModel.user_id == [customer.userId intValue]) {    //判断是否为用户自己
-        int postId = selectedModel.tieZi_id;
-        //网络请求
-        NSDictionary *paramaters = @{@"post_id":@(postId)};
+    //必须要加载cookie，否则无法请求
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                            paramaters:paramaters
+                               success:^(StatusEntity *statusEntity) {
+                                   
+                                   if (statusEntity.status == YES) {
+                                       //删除该行数据源
+                                       [self.tieZiList removeObjectAtIndex:indexPath.row];
+                                       //将该行从视图中移除
+                                       [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
+                                                                 withRowAnimation:UITableViewRowAnimationFade];
+                                       [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
+                                   }else if (statusEntity.status == NO){
+                                       [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+                                   }
+                                   
+                               } failure:^(NSString *error) {
+                                   NSLog(@"error:%@",error);
+                               }];
 
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-
-        [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
-                                paramaters:paramaters
-                                   success:^(StatusEntity *statusEntity) {
-                                       
-                                         if (statusEntity.status == YES) {
-                                             //删除该行数据源
-                                             [self.tieZiList removeObjectAtIndex:indexPath.row];
-                                             //将该行从视图中移除
-                                             [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
-                                                                       withRowAnimation:UITableViewRowAnimationFade];
-                                             [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
-                                         }else if (statusEntity.status == NO){
-                                             [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
-                                         }
-                                    
-                                     } failure:^(NSString *error) {
-                                         NSLog(@"error:%@",error);
-                                     }];
-
-    }
-    else {
-        [SVProgressHUD showErrorStatus:@"您无权限操作" afterDelay:1.0];
-    }
 }
 
 /**
@@ -342,11 +333,21 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSString *copyString                  = selectedCell.contentText.text;
     //复制到剪切板
     pasteboard.string                     = copyString;
+    
+    [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
+
 }
 
+
+
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+    
+//    Customer *user = [User findCustomer];
+//    
+//    if ([user.register_status intValue] == 0) {
+//        [self jumpToPerfectInfoPage];
+//    }
     
     [self.tabBar selectTabAtIndex:self.index];
     
@@ -392,6 +393,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
 }
 
+//跳转到完善信息
+- (void)jumpToPerfectInfoPage {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_PERFECTINFO sender:self];
+}
+
 #pragma mark 禁止pop手势
 - (void)stopSystemPopGestureRecognizer {
     self.fd_interactivePopDisabled = YES;
@@ -400,14 +406,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 #pragma mark YWAlertButtonProtocol
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-    [self showDeleteAlertView:more];
-        
-    }else if (index == 1) {
         [self copyTiZiText:more];
         
-    }else if (index == 2) {
+    }else if (index == 1) {
         self.alertView = alertView;
         [self showCompliantAlertView];
+        
+    }else if (index == 2) {
+        [self showDeleteAlertView:more];
         
     }
 }
@@ -539,9 +545,19 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     cell.labelView.title.delegate   = self;
     cell.middleView.delegate        = self;
+    cell.contentText.delegate       = self;
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
     cell.bottemView.delegate        = self;
+    
+    //如果非用户本人，不显示删除选项
+    Customer *customer              = [User findCustomer];
+    if (self.model.user_id != [customer.userId intValue]) {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
+    }else {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
+    }
+    
     
     [self.viewModel setupModelOfCell:cell model:self.model];
 
@@ -579,19 +595,19 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 //tabar隐藏滑动距离设置
 //滑动100pt后隐藏TabBar
-CGFloat scrollHiddenSpace = 30;
-CGFloat lastPosition = -30;
+CGFloat scrollHiddenSpace = 5;
+CGFloat lastPosition = -4;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    if (scrollView.contentOffset.y < 3) {
-        [self showTabBar:YES animated:YES];
-    }
     
     if (scrollView == self.homeTableview) {
         
         CGFloat currentPosition = scrollView.contentOffset.y;
-        if ( currentPosition - lastPosition > scrollHiddenSpace ) {
+        if (currentPosition > -400 && currentPosition < 0) {
+            
+            [self showTabBar:YES animated:YES];
+            
+        }else if ( currentPosition - lastPosition > scrollHiddenSpace ) {
             
             lastPosition = currentPosition;
             [self hidesTabBar:YES animated:YES];
@@ -639,8 +655,7 @@ CGFloat lastPosition = -30;
     //动画隐藏
     if (animated == yesOrNo) {
         if (yesOrNo == YES) {
-            
-            
+
             [UIView animateWithDuration:0.3 animations:^{
                 
                 self.tabBar.center = CGPointMake(self.view.center.x, SCREEN_HEIGHT-self.tabBar.height*2+4);
@@ -726,6 +741,18 @@ CGFloat lastPosition = -30;
 
     
 }
+
+//富文本
+#pragma mark TTTAttributedLabelDelegate
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    
+    YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
+    
+    [self.navigationController pushViewController:webVc animated:YES];
+    
+}
+
 
 
 #define mark - YWHomeCellMiddleViewBaseProtocol

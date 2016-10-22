@@ -28,7 +28,7 @@
 //刷新的初始值
 static int start_id = 0;
 
-@interface MyTieZiController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate>
+@interface MyTieZiController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate,TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UITableView     *homeTableview;
 @property (nonatomic, strong) UIAlertController *alertView;
@@ -225,41 +225,33 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
     NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
     TieZi *selectedModel                  = self.tieZiList[indexPath.row];
+
+    int postId = selectedModel.tieZi_id;
+    //网络请求
+    NSDictionary *paramaters = @{@"post_id":@(postId)};
     
-    Customer *customer                    = [User findCustomer];
+    //必须要加载cookie，否则无法请求
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     
-    //判断是否为本人
-    if (selectedModel.user_id == [customer.userId intValue]) {    //判断是否为用户自己
-        int postId = selectedModel.tieZi_id;
-        //网络请求
-        NSDictionary *paramaters = @{@"post_id":@(postId)};
-        
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-        
-        [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
-                                paramaters:paramaters
-                                   success:^(StatusEntity *statusEntity) {
-                                       
-                                       if (statusEntity.status == YES) {
-                                           //删除该行数据源
-                                           [self.tieZiList removeObjectAtIndex:indexPath.row];
-                                           //将该行从视图中移除
-                                           [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
-                                                                     withRowAnimation:UITableViewRowAnimationFade];
-                                           [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
-                                       }else if (statusEntity.status == NO){
-                                           [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
-                                       }
-                                       
-                                   } failure:^(NSString *error) {
-                                       NSLog(@"error:%@",error);
-                                   }];
-        
-    }
-    else {
-        [SVProgressHUD showErrorStatus:@"您无权限操作" afterDelay:1.0];
-    }
+    [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                            paramaters:paramaters
+                               success:^(StatusEntity *statusEntity) {
+                                   
+                                   if (statusEntity.status == YES) {
+                                       //删除该行数据源
+                                       [self.tieZiList removeObjectAtIndex:indexPath.row];
+                                       //将该行从视图中移除
+                                       [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
+                                                                 withRowAnimation:UITableViewRowAnimationFade];
+                                       [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
+                                   }else if (statusEntity.status == NO){
+                                       [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+                                   }
+                                   
+                               } failure:^(NSString *error) {
+                                   NSLog(@"error:%@",error);
+                               }];
+    
 }
 
 /**
@@ -272,6 +264,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSString *copyString = selectedCell.contentText.text;
     //复制到剪切板
     pasteboard.string = copyString;
+    
+    [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
+
 }
 
 
@@ -321,6 +316,10 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [super viewWillAppear:animated];
     
     self.title = @"我的贴子";
+    self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self
+                                                                              action:@selector(backToPersonCenterView)];
     
     //导航栏＋状态栏高度
     [self judgeNetworkStatus];
@@ -342,14 +341,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-        [self showDeleteAlertView:more];
-        
-    }else if (index == 1) {
         [self copyTiZiText:more];
         
-    }else if (index == 2) {
+    }else if (index == 1) {
         self.alertView = alertView;
         [self showCompliantAlertView];
+        
+    }else if (index == 2) {
+        [self showDeleteAlertView:more];
         
     }
 }
@@ -496,6 +495,17 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
     cell.bottemView.delegate        = self;
+    cell.contentText.delegate       = self;
+    
+    //如果非用户本人，不显示删除选项
+    Customer *customer              = [User findCustomer];
+    if (self.model.user_id != [customer.userId intValue]) {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
+    }else {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
+    }
+    
+
     
     [self.viewModel setupModelOfCell:cell model:self.model];
     
@@ -600,6 +610,15 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [self openSystemPopGestureRecognizer];
 }
 
+#pragma mark TTTAttributedLabelDelegate
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    
+    YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
+    
+    [self.navigationController pushViewController:webVc animated:YES];
+}
+
 
 #pragma mark YWLabelDelegate
 
@@ -660,6 +679,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         [self.cellNewImageArr addObject:newImageView];
         
     }
+}
+
+#pragma mark private method
+- (void)backToPersonCenterView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark 网络监测

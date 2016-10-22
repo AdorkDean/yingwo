@@ -24,6 +24,9 @@ typedef NS_ENUM(NSInteger,PhotoSelectModel) {
 @property (nonatomic, assign) CGFloat          photoWidth;
 @property (nonatomic, assign) PhotoSelectModel selectModel;
 
+@property (nonatomic, strong) PHImageRequestOptions *requestOptions;
+
+
 
 
 - (void)addPhotoInScrollViewWithImage:(UIImage *)photoImage andImageCount:(NSInteger)count;

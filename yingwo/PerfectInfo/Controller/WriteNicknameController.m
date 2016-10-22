@@ -107,7 +107,7 @@
 - (void)setNicknamePlaceHolder {
     PerfectInfoController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
     if (vc.name != nil) {
-        self.inputNameText.rightTextField.placeholder = vc.name;
+        self.inputNameText.rightTextField.text = vc.name;
     }
 }
 

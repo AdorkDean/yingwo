@@ -43,7 +43,7 @@ typedef void(^ReplyTieZiBlock)(NSDictionary *paramters,BOOL isRelease);
 @end
 
 @protocol AnnounceControllerDelegate <NSObject>
-
+- (void)AlbumDidFinishPick:(NSArray *)assets;
 - (void)jumpToHomeController;
 
 @end

@@ -29,6 +29,9 @@ static CGFloat const scrollViewHeight = 150;
                                                                         0,
                                                                         SCREEN_WIDTH,
                                                                         scrollViewHeight)];
+    
+    [self setBackgroundColor:[UIColor colorWithHexString:BACKGROUND_COLOR]];
+    
     [self addSubview:self.mxScrollView] ;
 }
 

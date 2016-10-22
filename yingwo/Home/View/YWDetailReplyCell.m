@@ -26,7 +26,7 @@
     self.contentLabel                       = [[YWContentLabel alloc] initWithFrame:CGRectZero];
     self.bgImageView                        = [[UIView alloc] init];
     self.bgCommentView                      = [[UIView alloc] init];
-    self.moreBtn                            = [[YWAlertButton alloc] initWithNames:[NSArray arrayWithObjects:@"复制",@"举报" ,nil]];
+    self.moreBtn                            = [[YWAlertButton alloc] initWithNames:[NSMutableArray arrayWithObjects:@"复制",@"举报" ,nil]];
 
     self.contentLabel.font                  = [UIFont systemFontOfSize:15];
     self.contentLabel.numberOfLines         = 0;
@@ -172,14 +172,14 @@
             NSString *connectString = @"";
             
             if (entity.commented_user_name == nil) {
-                connectString            = [NSString stringWithFormat:@"%@占占 :%@",
+                connectString            = [NSString stringWithFormat:@"%@占占 : %@",
                                                       entity.user_name,
                                                       entity.content];
 
             }
             else
             {
-                connectString            = [NSString stringWithFormat:@"%@占占 回复%@ :%@",
+                connectString            = [NSString stringWithFormat:@"%@占占 回复%@ : %@",
                                                       entity.user_name,
                                                       entity.commented_user_name,
                                                       entity.content];

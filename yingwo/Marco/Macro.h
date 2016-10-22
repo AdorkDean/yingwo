@@ -60,6 +60,7 @@
 #define SEGUE_IDENTIFY_TOPIC          @"topic"
 #define SEGUE_IDENTIFY_MYTOPIC        @"myTopic"
 #define SEGUE_IDENTIFY_MYTIEZI        @"myTieZi"
+#define SEGUE_IDENTIFY_MYLIKE         @"myLike"
 
 
 /********************************segue identify************************************************/
@@ -79,6 +80,7 @@
 
 #define BASE_INFO_URL   @"/User/Base_info"
 #define UPDATE_INFO_URL @"/User/Update"
+
 
 #define ANNOUNCE_URL @"/Post/add_new"
 

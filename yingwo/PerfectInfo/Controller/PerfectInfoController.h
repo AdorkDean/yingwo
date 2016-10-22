@@ -26,4 +26,6 @@
 @property (nonatomic, assign)BOOL isModfiyInfo;
 @property (nonatomic, assign)BOOL isChangeInfo;
 
+@property (nonatomic, strong) PHImageRequestOptions *requestOptions;
+
 @end

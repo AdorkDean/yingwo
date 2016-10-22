@@ -59,6 +59,7 @@
     
     [UMessage setLogEnabled:YES];
 
+//    [NSThread sleepForTimeInterval:1.5];//设置启动页面时间
     
     [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
     [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
@@ -68,16 +69,17 @@
     MainNavController *mainNav ;
     
     //如果有帐号，则直接登录
-    if ([User haveExistedLoginInformation]) {
+    Customer *user = [User findCustomer];
+
+    if ([User haveExistedLoginInformation] && [user.register_status intValue] == 1) {
         
         MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
         self.window.rootViewController = mainVC;
 
     }else {
         UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginController *loginVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
+        LoginController *loginVC       = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
         mainNav     = [[MainNavController alloc] initWithRootViewController:loginVC];
-
         self.window.rootViewController = mainNav;
 
     }

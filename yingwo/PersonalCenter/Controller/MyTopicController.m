@@ -15,7 +15,7 @@
 @interface MyTopicController ()<SMPagerTabViewDelegate,TopicListControllerDelegate>
 
 @property (nonatomic, strong) SMPagerTabView      *topicPgaeView;
-@property (nonatomic, strong) UIView             *topicSectionView;
+@property (nonatomic, strong) UIView              *topicSectionView;
 
 @property (nonatomic, strong) NSMutableArray      *catalogVcArr;
 
@@ -127,6 +127,35 @@
                                                                               target:self
                                                                               action:@selector(backToPersonCenterView)];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    self.oneFieldVc.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH,
+                                                                   self.oneFieldVc.topicArr.count * 82 + 150 );
+    
+    self.oneFieldVc.topicTableView.frame              = CGRectMake(10,
+                                                                   10,
+                                                                   SCREEN_WIDTH - 20,
+                                                                   self.oneFieldVc.topicArr.count * 82 );
+    
+    self.twoFieldVc.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH,
+                                                                   self.twoFieldVc.topicArr.count * 82 + 150 );
+    
+    self.twoFieldVc.topicTableView.frame              = CGRectMake(10,
+                                                                   10,
+                                                                   SCREEN_WIDTH - 20,
+                                                                   self.twoFieldVc.topicArr.count * 82 );
+    
+    self.threeFieldVc.topicScrollView.contentSize     = CGSizeMake(SCREEN_WIDTH,
+                                                                   self.threeFieldVc.topicArr.count * 82 + 150 );
+    
+    self.threeFieldVc.topicTableView.frame            = CGRectMake(10,
+                                                                   10,
+                                                                   SCREEN_WIDTH - 20,
+                                                                   self.threeFieldVc.topicArr.count * 82 );
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

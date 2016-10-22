@@ -20,6 +20,9 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 
 @interface TopicListController : BaseViewController
 
+@property (nonatomic, strong) UITableView        *topicTableView;
+@property (nonatomic, strong) UIScrollView       *topicScrollView;
+
 //判断是否是从我的话题跳转过来的
 @property (nonatomic, assign) BOOL           isMyTopic;
 
@@ -39,6 +42,7 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 @property (nonatomic, strong) NSArray       *topicArr;
 
 @property (nonatomic, assign) id<TopicListControllerDelegate>            delegate;
+
 
 
 @end

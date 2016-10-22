@@ -169,35 +169,67 @@
  */
 - (void)addImages:(NSArray *)assets{
     
-    _photoImagesCount   = 0;
-    _photoImageViewsArr = nil;
-    _photoImageArr      = nil;
+//    _photoImagesCount   = 0;
+//    _photoImageViewsArr = nil;
+//    _photoImageArr      = nil;
     
-    for (UIView *subview in [self subviews]) {
-        [subview removeFromSuperview];
-    }
-
+//    for (UIView *subview in [self subviews]) {
+//        [subview removeFromSuperview];
+//    }
+    
     [self addSubview:self.addMorePhotosBtn];
 
-    
-    for (ALAsset *asset in assets) {
+    for (id asset in assets) {
         
-        if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
-            
-            //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
-//                        UIImage * photoImage    = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-                UIImage * photoImage = [UIImage imageWithCGImage:[asset defaultRepresentation].fullResolutionImage scale:1 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
+        if ([asset isKindOfClass:[PHAsset class]]) {
+            PHAsset *phAsset = (PHAsset *)asset;
+            if (phAsset.mediaType == PHAssetMediaTypeImage) {
 
-            [self addPhotoInScrollViewWithImage:photoImage andImageCount:_photoImagesCount];
+                PHImageManager *manager = [PHImageManager defaultManager];
+                
+                [manager requestImageForAsset:phAsset
+                                   targetSize:PHImageManagerMaximumSize
+                                  contentMode:PHImageContentModeDefault
+                                      options:self.requestOptions
+                                resultHandler:^void(UIImage *image, NSDictionary *info) {
+                    
+                    [self addPhotoInScrollViewWithImage:image andImageCount:self.photoImagesCount];
+                    
+                    self.photoImagesCount ++;
+                    
+                }];
+                
+            }
+        } else if ([asset isKindOfClass:[ALAsset class]]) {
             
-            _photoImagesCount ++;
+            ALAsset *alAsset = (ALAsset *)asset;
+            
+            if ([[alAsset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
+                
+                
+                //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
+                UIImage * photoImage = [UIImage imageWithCGImage:[alAsset defaultRepresentation].fullResolutionImage scale:1 orientation:(UIImageOrientation)alAsset.defaultRepresentation.orientation];
+                [self addPhotoInScrollViewWithImage:photoImage andImageCount:self.photoImagesCount];
+                
+                self.photoImagesCount ++;
+                
+            }
+            else if ([[alAsset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypeVideo"]){
+                //  NSURL *url = asset.defaultRepresentation.url;
+                //  视频不处理
+            }
             
         }
-        else if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypeVideo"]){
-            //  NSURL *url = asset.defaultRepresentation.url;
-            //  视频不处理
-        }
+        
     }
+    
+    if (_photoImagesCount > 3) {
+        
+        //photosBgSrcollView 滑动
+        self.contentSize = CGSizeMake(SCREEN_WIDTH + (_photoImagesCount-4) * 100, 100);
+        
+    }
+
     
 }
 
@@ -210,24 +242,49 @@
  */
 - (void)addMoreImages:(NSArray *)assets {
     
-    for (ALAsset *asset in assets) {
+    for (id asset in assets) {
         
-        if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
+        if ([asset isKindOfClass:[PHAsset class]]) {
+            PHAsset *phAsset = (PHAsset *)asset;
+            if (phAsset.mediaType == PHAssetMediaTypeImage) {
+                
+                PHImageManager *manager = [PHImageManager defaultManager];
+                
+                [manager requestImageForAsset:phAsset
+                                   targetSize:PHImageManagerMaximumSize
+                                  contentMode:PHImageContentModeDefault
+                                      options:self.requestOptions
+                                resultHandler:^void(UIImage *image, NSDictionary *info) {
+                                    
+                                    [self addPhotoInScrollViewWithImage:image andImageCount:_photoImagesCount];
+                                    
+                                    _photoImagesCount ++;
+                                    
+                                }];
+                
+            }
+        } else if ([asset isKindOfClass:[ALAsset class]]) {
             
-            //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
-//                        UIImage * photoImage    = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-                UIImage * photoImage = [UIImage imageWithCGImage:[asset defaultRepresentation].fullResolutionImage scale:1 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
-            [self addPhotoInScrollViewWithImage:photoImage andImageCount:self.photoImagesCount];
+            ALAsset *alAsset = (ALAsset *)asset;
             
-            _photoImagesCount++;
-
+            if ([[alAsset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypePhoto"]) {
+                
+                
+                //获取fullResolutionImage的从相册中选取的图片会有旋转问题，即默认orientation被重置为up 使用fullScreenImage则会压缩图片，所以使用默认方向和缩放比例
+                UIImage * photoImage = [UIImage imageWithCGImage:[alAsset defaultRepresentation].fullResolutionImage scale:1 orientation:(UIImageOrientation)alAsset.defaultRepresentation.orientation];
+                [self addPhotoInScrollViewWithImage:photoImage andImageCount:_photoImagesCount];
+                
+                _photoImagesCount ++;
+                
+            }
+            else if ([[alAsset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypeVideo"]){
+                //  NSURL *url = asset.defaultRepresentation.url;
+                //  视频不处理
+            }
+            
         }
-        else if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:@"ALAssetTypeVideo"]){
-            //  NSURL *url = asset.defaultRepresentation.url;
-            //  视频不处理
-        }
+        
     }
-    
     
     if (_photoImagesCount > 3) {
         
@@ -260,6 +317,18 @@
     }
     return _addMorePhotosBtn;
 }
+
+-(PHImageRequestOptions *)requestOptions {
+    if (_requestOptions == nil) {
+        _requestOptions = [[PHImageRequestOptions alloc] init];
+        _requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
+        _requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        _requestOptions.synchronous = true;
+    }
+    return _requestOptions;
+    
+}
+
 
 
 

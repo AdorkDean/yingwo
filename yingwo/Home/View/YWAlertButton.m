@@ -11,11 +11,17 @@
 NSInteger cancelCode = -1;
 
 @implementation YWAlertButton
-{
-    NSArray *_names;
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setBackgroundImage:[UIImage imageNamed:@"more_gray"] forState:UIControlStateNormal];
+        [self addTarget:self action:@selector(showAlertViewController) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return self;
 }
 
-- (instancetype)initWithNames:(NSArray *)names {
+- (instancetype)initWithNames:(NSMutableArray *)names {
     self = [super init];
     if (self) {
         _names = names;
@@ -50,6 +56,7 @@ NSInteger cancelCode = -1;
                                                            }
         }];
         [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+        
         [_alertView addAction:action];
     }
     

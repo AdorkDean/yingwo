@@ -147,12 +147,11 @@
     }
     else if (index == 2) {
         self.reloaded = NO;
-        
-        
-        
+
         [self performSegueWithIdentifier:@"announce" sender:self];
     }
     else if (index == 3 || index == 4) {
+        self.selectedIndex = index;
         self.reloaded = NO;
     }
 

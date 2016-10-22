@@ -16,8 +16,7 @@
 
 //Library
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "LSYConfig.h"
-#import "LSYAlbum.h"
+#import <Photos/Photos.h>
 
 //pod第三方库
 #import "ReactiveCocoa.h"
@@ -38,12 +37,12 @@
 #import <RSKImageCropper/RSKImageCropper.h>
 
 //第三方框架vender,这里的第三方框架后做改动
-#import "LSYNavigationController.h"
-#import "LSYAlbumCatalog.h"
 #import "CatZanButton.h"
 #import "GalleryView.h"
 #import "ISEmojiView.h"
 #import "UINavigationBar+Awesome.h"
+#import "TZImagePickerController.h"
+
 
 //自定义宏
 #import "Macro.h"
@@ -84,6 +83,8 @@
 #import "UIImage+Orientation.h"
 #import "UIImage+blur.h"
 #import "NSMutableAttributedString+commentString.h"
+#import "YWWebViewController.h"
+
 
 
 

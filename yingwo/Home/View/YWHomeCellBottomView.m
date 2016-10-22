@@ -29,7 +29,8 @@
     _favour                            = [[YWSpringButton alloc ] initWithSelectedImage:[UIImage imageNamed:@"heart_red"]
                                                                          andCancelImage:[UIImage imageNamed:@"heart_gray"]];
     _favour.tag                        = 1;
-    _more                              = [[YWAlertButton alloc] initWithNames:[NSArray arrayWithObjects:@"删除",@"复制",@"举报",nil]];
+
+    _more                              = [[YWAlertButton alloc] init];
     _message                           = [[UIButton alloc] init];
     _favourLabel                       = [[UILabel alloc] init];
     _messageLabel                      = [[UILabel alloc] init];

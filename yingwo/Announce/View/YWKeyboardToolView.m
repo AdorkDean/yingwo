@@ -27,7 +27,7 @@
     _keyborad       = [UIButton buttonWithType:UIButtonTypeCustom];
     _photo          = [UIButton buttonWithType:UIButtonTypeCustom];
     _returnKeyBoard = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _takePhoto      = [UIButton buttonWithType:UIButtonTypeCustom];
+    _takePhoto      = [UIButton buttonWithType:UIButtonTypeCustom];
 
     _face.frame           = CGRectMake(15, 10, 25, 25);
     _photo.frame          = CGRectMake(60, 10, 30, 24);
@@ -42,7 +42,7 @@
     [_keyborad setBackgroundImage:[UIImage imageNamed:@"keyboard_green"] forState:UIControlStateNormal];
     [_photo setBackgroundImage:[UIImage imageNamed:@"picture_green"] forState:UIControlStateNormal];
     [_returnKeyBoard setBackgroundImage:[UIImage imageNamed:@"keyboard_gray"] forState:UIControlStateNormal];
-    [_takePhoto setBackgroundImage:[UIImage imageNamed:@"picture_green"] forState:UIControlStateNormal];
+    [_takePhoto setBackgroundImage:[UIImage imageNamed:@"camera_green"] forState:UIControlStateNormal];
     
     [_face addTarget:self action:@selector(selectedEmoji) forControlEvents:UIControlEventTouchUpInside];
     [_keyborad addTarget:self action:@selector(selectedKeyboard) forControlEvents:UIControlEventTouchUpInside];
@@ -51,7 +51,7 @@
     [self addSubview:_keyborad];
     [self addSubview:_photo];
     [self addSubview:_returnKeyBoard];
-    [self addSubview:_takePhoto];
+//    [self addSubview:_takePhoto];
 
 }
 
