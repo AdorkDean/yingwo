@@ -471,6 +471,8 @@
 //年级选择
 - (void)selectGrade {
     
+    self.grade = @"2012";
+    
     [self.backgroundSrcView addSubview:self.gradePickerView];
 
     [UIView animateWithDuration:0.3 animations:^{

@@ -130,6 +130,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     
+    [super viewDidAppear:animated];
+    
     self.oneFieldVc.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH,
                                                                    self.oneFieldVc.topicArr.count * 82 + 150 );
     

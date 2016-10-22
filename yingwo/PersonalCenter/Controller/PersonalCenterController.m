@@ -198,7 +198,7 @@
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView4 addTarget:self
-                       action:@selector(jumpToMyLikePage)
+                       action:@selector(developing)
              forControlEvents:UIControlEventTouchUpInside];
     
 }

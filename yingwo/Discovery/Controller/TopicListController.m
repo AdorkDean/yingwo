@@ -59,6 +59,8 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
                                                                                             SCREEN_WIDTH - 20,
                                                                                             SCREEN_HEIGHT - 85)
                                                                            style:UITableViewStylePlain];
+        
+        
         [_topicTableView registerClass:[YWTopicViewCell class]
                 forCellReuseIdentifier:TOPIC_CELL_IDENTIFIER];
         _topicTableView.contentInset       = UIEdgeInsetsMake(0, 0, 100, 0);
@@ -178,6 +180,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     self.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH, self.topicArr.count * 82 + 100);
     
