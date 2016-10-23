@@ -181,13 +181,6 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    self.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH, self.topicArr.count * 82 + 100);
-    
-    self.topicTableView.frame              = CGRectMake(10,
-                                                        10,
-                                                        SCREEN_WIDTH - 20,
-                                                        self.topicArr.count * 82 );
 }
 
 - (void)hideExtraTableView:(UITableView *)tableview {
@@ -204,13 +197,23 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
         @strongify(self);
         
         self.topicArr = [tieZis mutableCopy];
-        [self.topicTableView reloadData];
         [self.topicScrollView.mj_header endRefreshing];
-        
+        [self.topicTableView reloadData];
+        [self resetFrameAndContentSize];
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
     }];
     
+}
+
+//每次刷新完数据后都更新tableview和scrollerView的frame和contentSize
+- (void)resetFrameAndContentSize {
+    self.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH, self.topicArr.count * 82 + 150);
+    
+    self.topicTableView.frame              = CGRectMake(10,
+                                                        10,
+                                                        SCREEN_WIDTH - 20,
+                                                        self.topicArr.count * 82 );
 }
 
 - (void)didReceiveMemoryWarning {

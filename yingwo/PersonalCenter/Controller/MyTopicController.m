@@ -126,38 +126,54 @@
                                                                                style:UIBarButtonItemStylePlain
                                                                               target:self
                                                                               action:@selector(backToPersonCenterView)];
+//    [self resetFrameAndContentSize];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
     
-    self.oneFieldVc.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH,
-                                                                   self.oneFieldVc.topicArr.count * 82 + 150 );
-    
-    self.oneFieldVc.topicTableView.frame              = CGRectMake(10,
-                                                                   10,
-                                                                   SCREEN_WIDTH - 20,
-                                                                   self.oneFieldVc.topicArr.count * 82 );
-    
-    self.twoFieldVc.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH,
-                                                                   self.twoFieldVc.topicArr.count * 82 + 150 );
-    
-    self.twoFieldVc.topicTableView.frame              = CGRectMake(10,
-                                                                   10,
-                                                                   SCREEN_WIDTH - 20,
-                                                                   self.twoFieldVc.topicArr.count * 82 );
-    
-    self.threeFieldVc.topicScrollView.contentSize     = CGSizeMake(SCREEN_WIDTH,
-                                                                   self.threeFieldVc.topicArr.count * 82 + 150 );
-    
-    self.threeFieldVc.topicTableView.frame            = CGRectMake(10,
-                                                                   10,
-                                                                   SCREEN_WIDTH - 20,
-                                                                   self.threeFieldVc.topicArr.count * 82 );
 
 }
 
+- (void)resetFrameAndContentSize {
+    
+    if (self.oneFieldVc.topicArr.count != 0) {
+        
+        self.oneFieldVc.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH,
+                                                                       self.oneFieldVc.topicArr.count * 82 + 150 );
+        
+        self.oneFieldVc.topicTableView.frame              = CGRectMake(10,
+                                                                       10,
+                                                                       SCREEN_WIDTH - 20,
+                                                                       self.oneFieldVc.topicArr.count * 82 );
+    }
+    
+    if (self.twoFieldVc.topicArr.count != 0) {
+        
+        self.twoFieldVc.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH,
+                                                                       self.twoFieldVc.topicArr.count * 82 + 150 );
+        
+        self.twoFieldVc.topicTableView.frame              = CGRectMake(10,
+                                                                       10,
+                                                                       SCREEN_WIDTH - 20,
+                                                                       self.twoFieldVc.topicArr.count * 82 );
+        
+    }
+    
+    if (self.threeFieldVc.topicArr.count != 0) {
+        
+        self.threeFieldVc.topicScrollView.contentSize     = CGSizeMake(SCREEN_WIDTH,
+                                                                       self.threeFieldVc.topicArr.count * 82 + 150 );
+        
+        self.threeFieldVc.topicTableView.frame            = CGRectMake(10,
+                                                                       10,
+                                                                       SCREEN_WIDTH - 20,
+                                                                       self.threeFieldVc.topicArr.count * 82 );
+        
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
