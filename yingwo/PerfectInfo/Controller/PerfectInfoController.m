@@ -215,8 +215,9 @@
         _gradePickerView.backgroundColor       = [UIColor colorWithHexString:THEME_COLOR_5 alpha:0.7];
 
         [_gradePickerView.finishedPickerBtn addTarget:self
-                                         action:@selector(finishedGradePickerView)
-                               forControlEvents:UIControlEventTouchUpInside];
+                                               action:@selector(finishedGradePickerView)
+                                     forControlEvents:UIControlEventTouchUpInside];
+        
         [_gradePickerView.cancelBtn addTarget:self
                                        action:@selector(closeGradePickerView)
                              forControlEvents:UIControlEventTouchUpInside];
@@ -501,6 +502,7 @@
                                                   self.view.height+self.gradePickerView.height/2);
         
     } completion:^(BOOL finished) {
+        
         self.gradeText.centerLabel.text = self.grade;
         self.isChangeInfo = YES;
         [self.gradePickerView removeFromSuperview];
@@ -886,6 +888,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.grade = [self.RecentYears objectAtIndex:row];
+    
 }
 
 

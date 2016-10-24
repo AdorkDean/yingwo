@@ -158,6 +158,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (UIAlertController *)compliantAlertView {
     if (_compliantAlertView == nil) {
+
         _compliantAlertView = [UIAlertController alertControllerWithTitle:@"举报"
                                                                   message:nil
                                                            preferredStyle:UIAlertControllerStyleActionSheet];
@@ -188,6 +189,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                                                   
                                                               }]];
         
+        _compliantAlertView.view.tintColor = [UIColor blackColor];
+
     }
     return _compliantAlertView;
 }
@@ -214,8 +217,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                                             [self deleteTieZi:more];
                                                         }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
-                                                        style:UIAlertActionStyleCancel handler:nil]];
-    [self.view.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    alertController.view.tintColor = [UIColor blackColor];
+    
+    [self.view.window.rootViewController presentViewController:alertController
+                                                      animated:YES
+                                                    completion:nil];
 }
 
 /**

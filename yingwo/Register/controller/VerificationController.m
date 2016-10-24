@@ -23,6 +23,8 @@
 @property (nonatomic, assign ) int            timeCount;
 @property (nonatomic, assign ) BOOL           isOpenEye;
 
+@property (nonatomic, strong ) MD5            *md5;
+
 @property (nonatomic, strong) RegisterModel *regisetrModel;
 @property (nonatomic, strong) SmsMessage    *sms;
 
@@ -236,12 +238,62 @@
 
 /**
  *  发送短信验证
+ *  除了手机号，还有生成的本地签名
  */
 - (void)sendSmsRequest {
+    
+    self.md5 = [[MD5 alloc] init];
+    
+    long int number = [self getRandomNumber:1000000000 to:9999999999];
+    NSString *rn = [NSString stringWithFormat:@"%ld", number];
 
-    NSDictionary *paramaters = @{MOBILE:self.phone};
+    NSLog(@"%@", rn);
+    
+    NSString *rnMd5 = [self getmd5WithString:rn];
+    
+    NSString *signString = [rnMd5 stringByAppendingString:self.phone];
+    
+    NSString *sign = [self sha1:signString];
+    
+    NSLog(@"%@", sign);
+    
+    NSDictionary *paramaters = @{MOBILE:self.phone,RN:rn,SIGN:sign};
     [self requestSmsWithUrl:SMS_URL paramaters:paramaters];
     
+}
+
+-(long int)getRandomNumber:(long int)from to:(long int)to
+{
+    return (long int)(from + (arc4random() % (to - from + 1)));
+}
+
+//sha1加密
+- (NSString *) sha1:(NSString *)input
+{
+    const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [NSData dataWithBytes:cstr length:input.length];
+    
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data.bytes, (unsigned int)data.length, digest);
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i=0; i<CC_SHA1_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+    return output;
+}
+
+//MD5
+- (NSString*)getmd5WithString:(NSString *)string
+{
+    const char* original_str=[string UTF8String];
+    unsigned char digist[CC_MD5_DIGEST_LENGTH]; //CC_MD5_DIGEST_LENGTH = 16
+    CC_MD5(original_str, (unsigned)strlen(original_str), digist);
+    NSMutableString* outPutStr = [NSMutableString stringWithCapacity:10];
+    for(int  i =0; i<CC_MD5_DIGEST_LENGTH;i++){
+        [outPutStr appendFormat:@"%02x", digist[i]];//小写x表示输出的是小写MD5，大写X表示输出的是大写MD5
+    }
+    return [outPutStr lowercaseString];
 }
 
 /**

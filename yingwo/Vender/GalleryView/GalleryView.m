@@ -5,14 +5,16 @@
 //
 
 #import "GalleryView.h"
+#import "YWIndicatorView.h"
 
 @interface GalleryView ()
 
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (assign, nonatomic) NSInteger    currentPage;
+@property (nonatomic, strong) UIScrollView        *scrollView;
+@property (assign, nonatomic) NSInteger           currentPage;
 
-@property (atomic, assign   ) CGFloat      imageLoadProgress;
-@property (nonatomic, assign) CGFloat      totalProgress;
+@property (atomic,    assign) CGFloat             imageLoadProgress;
+@property (nonatomic, assign) CGFloat             totalProgress;
+@property (nonatomic, strong) YWIndicatorView     *indicatorView;
 
 @end
 
@@ -329,27 +331,34 @@ withImageUrlArrEntity:(NSArray *)entities
 }
 
 - (void)resizeImageViewByzoomScrollView:(ZoomScrollView *)zoomScrollView atIndex:(NSInteger)index{
+  
+    [self.indicatorView removeFromSuperview];
     
     ImageViewEntity *imageEntity = [self.imageUrlArrEntity objectAtIndex:index];
     
+    //添加进度指示器
+    YWIndicatorView *indicatorView            = [[YWIndicatorView alloc] init];
+    indicatorView.viewMode                    = YWIndicatorViewModeLoopDiagram;
+    indicatorView.center                      = CGPointMake([UIScreen mainScreen].bounds.size.width * 0.5,
+                                                            [UIScreen mainScreen].bounds.size.height * 0.5);
+    self.indicatorView                        = indicatorView;
+    [self addSubview:self.indicatorView];
+    __weak __typeof(self)weakSelf = self;
     [zoomScrollView.imageView sd_setImageWithURL:[NSURL URLWithString:imageEntity.imageName] placeholderImage:nil
                                          options:SDWebImageRetryFailed
                                         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                            
-                                            [SVProgressHUD showLoadingStatusWith:@""];
-
-                                            CGFloat progress       = receivedSize *1.0 / expectedSize;
-                                            self.imageLoadProgress += progress;
-
-                                            if (self.imageLoadProgress >= self.totalProgress) {
-                                                [SVProgressHUD dismiss];
-                                            }
+                                            //显示进度
+                                            __strong __typeof(weakSelf)strongSelf       = weakSelf;
+                                            strongSelf.indicatorView.progress           = (CGFloat)receivedSize / expectedSize;
     }
                                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                                                     // imageEntity.isDownload = YES;
                                            
-                                          // imageEntity.isDownload = YES;
+                                           __strong __typeof(weakSelf)strongSelf = weakSelf;
+                                           [strongSelf.indicatorView removeFromSuperview];
+
                                            [zoomScrollView resizeImageViewWithImage:image];
-                        
+                                           
                                            if (zoomScrollView.zoomScale != 1) {
                                                [zoomScrollView setZoomScale:1.0];
                                            }

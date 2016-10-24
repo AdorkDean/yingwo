@@ -230,6 +230,7 @@
 		CCA903741DB8E81D0053D278 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903661DB8E81D0053D278 /* TZVideoPlayerController.m */; };
 		CCA903751DB8E81D0053D278 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903681DB8E81D0053D278 /* UIView+Layout.m */; };
 		CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903761DB8E83A0053D278 /* AnnounceController.m */; };
+		CCF64E311DBDDAC3009B4B21 /* YWIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E301DBDDAC3009B4B21 /* YWIndicatorView.m */; };
 		EA90C883AA6EF63671AC57B7 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3709C5A61291B822052D7CFB /* Pods_yingwo.framework */; };
 /* End PBXBuildFile section */
 
@@ -667,6 +668,8 @@
 		CCA903671DB8E81D0053D278 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		CCA903681DB8E81D0053D278 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
 		CCA903761DB8E83A0053D278 /* AnnounceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnnounceController.m; path = Announce/Controller/AnnounceController.m; sourceTree = "<group>"; };
+		CCF64E2F1DBDDAC3009B4B21 /* YWIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWIndicatorView.h; path = Vender/GalleryView/YWIndicatorView.h; sourceTree = "<group>"; };
+		CCF64E301DBDDAC3009B4B21 /* YWIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWIndicatorView.m; path = Vender/GalleryView/YWIndicatorView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1005,6 +1008,8 @@
 				184BC11F1D5F221D00125448 /* GalleryView.m */,
 				184BC1201D5F221D00125448 /* ZoomScrollView.h */,
 				184BC1211D5F221D00125448 /* ZoomScrollView.m */,
+				CCF64E2F1DBDDAC3009B4B21 /* YWIndicatorView.h */,
+				CCF64E301DBDDAC3009B4B21 /* YWIndicatorView.m */,
 			);
 			name = GalleryView;
 			sourceTree = "<group>";
@@ -1995,6 +2000,7 @@
 				18AF9E701D4F39C40063D81F /* YWHomeTableViewCellTwoImage.m in Sources */,
 				18AF9E8D1D502C6D0063D81F /* YWAnnounceTextView.m in Sources */,
 				1807FEF51D6830C5009393E2 /* UIImageView+CMWebCache.m in Sources */,
+				CCF64E311DBDDAC3009B4B21 /* YWIndicatorView.m in Sources */,
 				18D243BC1D7D8CD800DAC374 /* Test.m in Sources */,
 				CCA9036D1DB8E81D0053D278 /* TZAssetModel.m in Sources */,
 				CC5BC5011D9D030900851C4D /* ConfigurationController.m in Sources */,

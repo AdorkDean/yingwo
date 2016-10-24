@@ -235,6 +235,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                                                   
                                                               }]];
         
+        _compliantAlertView.view.tintColor = [UIColor blackColor];
+
     }
     return _compliantAlertView;
 }
@@ -266,7 +268,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                                         }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
                                                         style:UIAlertActionStyleCancel handler:nil]];
-    [self.view.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+    
+    alertController.view.tintColor = [UIColor blackColor];
+    
+    [self.view.window.rootViewController presentViewController:alertController
+                                                      animated:YES
+                                                    completion:nil];
 }
 
 /**

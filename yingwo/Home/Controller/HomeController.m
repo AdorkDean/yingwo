@@ -231,6 +231,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
             
         }]];
         
+        _compliantAlertView.view.tintColor = [UIColor blackColor];
     }
     return _compliantAlertView;
 }
@@ -283,8 +284,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                                             [self deleteTieZi:more];
                                                         }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
-                                                        style:UIAlertActionStyleCancel handler:nil]];
-    [self.view.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+
+    alertController.view.tintColor = [UIColor blackColor];
+
+    [self.view.window.rootViewController presentViewController:alertController
+                                                      animated:YES
+                                                    completion:nil];
 }
 
 /**
@@ -342,13 +349,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    Customer *user = [User findCustomer];
-//    
-//    if ([user.register_status intValue] == 0) {
-//        [self jumpToPerfectInfoPage];
-//    }
-    
+        
     [self.tabBar selectTabAtIndex:self.index];
     
     NSLog(@"%@",NSHomeDirectory());
@@ -776,8 +777,6 @@ CGFloat lastPosition = -4;
                         showAtIndex:imageView.tag-1];
     
     [self.navigationController.view addSubview:self.galleryView];
-
-
 }
 
 - (void)covertRectFromOldImageViewArr:(NSArray *)imageViewArr{

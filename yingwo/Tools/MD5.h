@@ -15,4 +15,5 @@
 @interface MD5 : NSObject
 
 + (NSString*)getmd5WithString:(NSString *)string;
+
 @end

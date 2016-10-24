@@ -139,8 +139,11 @@
 #define PASSWORD     @"password"
 #define VERFIFCATION @"verification"
 #define MOBILE       @"mobile"
+#define RN           @"rn"
+#define SIGN         @"sign"
 #define SMS_MODEL    @"model"
 #define SMS_CODE     @"code"
+
 //贴子
 #define CAT_ID @"cat_id"
 /********************************* key ******************************************************/

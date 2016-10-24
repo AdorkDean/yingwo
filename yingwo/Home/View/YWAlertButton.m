@@ -55,7 +55,8 @@ NSInteger cancelCode = -1;
                                                                
                                                            }
         }];
-        [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+         //此方法为iOS8.3后才出现的方法
+//        [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
         
         [_alertView addAction:action];
     }
@@ -66,8 +67,9 @@ NSInteger cancelCode = -1;
                                                   handler:^(UIAlertAction * _Nonnull action) {
                                                       
                                                   }];
-    [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+//    [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
     [_alertView addAction:action];
+    _alertView.view.tintColor = [UIColor blackColor];
     
     /**
      *  其他弹出框
