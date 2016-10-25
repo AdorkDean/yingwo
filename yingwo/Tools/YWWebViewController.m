@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIWebView                     *webView;
 @property (nonatomic, strong) NJKWebViewProgressView        *progressView;
 @property (nonatomic, strong) NJKWebViewProgress            *progressProxy;
+@property (nonatomic, assign) CGFloat                       navgationBarHeight;
 
 
 @end
@@ -30,7 +31,10 @@
 
 -(UIWebView *)webView {
     if (_webView == nil) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,
+                                                               0,
+                                                               SCREEN_WIDTH,
+                                                               SCREEN_HEIGHT - self.navgationBarHeight)];
         _webView.delegate = self;
     }
     return _webView;
@@ -78,6 +82,11 @@
     [self.webView loadRequest:req];
 }
 
+- (CGFloat)navgationBarHeight {
+    //导航栏＋状态栏高度
+    return  self.navigationController.navigationBar.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -105,7 +114,6 @@
     [self.progressView setProgress:progress animated:YES];
     self.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
-
 
 
 

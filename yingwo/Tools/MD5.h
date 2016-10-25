@@ -14,6 +14,10 @@
  */
 @interface MD5 : NSObject
 
-+ (NSString*)getmd5WithString:(NSString *)string;
+//MD5
++ (NSString*)getMd5WithString:(NSString *)string;
+
+//sha1
++ (NSString *)getSha1WithString:(NSString *)string;
 
 @end
