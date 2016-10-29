@@ -25,7 +25,6 @@
     
     [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 0, 10));
-
     }];
     
 
@@ -94,7 +93,6 @@
     [lastView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.backgroundView.mas_bottom).offset(-10).priorityLow();
     }];
-
     
 }
 

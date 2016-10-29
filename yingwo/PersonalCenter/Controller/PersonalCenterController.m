@@ -194,11 +194,11 @@
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView3 addTarget:self
-                       action:@selector(developing)
+                       action:@selector(jumpToMyCommentPage)
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView4 addTarget:self
-                       action:@selector(developing)
+                       action:@selector(jumpToMyLikePage)
              forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -228,6 +228,9 @@
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYLIKE sender:self];
 }
 
+- (void)jumpToMyCommentPage {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYCOMMENT sender:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

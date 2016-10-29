@@ -13,7 +13,6 @@
 		1802C1B91D796F2900CFB375 /* YWPhotoCotentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802C1B81D796F2900CFB375 /* YWPhotoCotentView.m */; };
 		1803C11F1D541E830078EF0F /* YWHomeCellLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1803C11E1D541E830078EF0F /* YWHomeCellLabelView.m */; };
 		1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1803C1201D541F350078EF0F /* AssetsLibrary.framework */; };
-		1803C1231D541F580078EF0F /* AlbumPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1803C1221D541F580078EF0F /* AlbumPicker.bundle */; };
 		1803C1271D54356F0078EF0F /* PhotoUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1803C1261D54356E0078EF0F /* PhotoUnitView.m */; };
 		1807FEA91D680641009393E2 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807FEA81D680641009393E2 /* UINavigationBar+Awesome.m */; };
 		1807FEB01D6806BC009393E2 /* DiscoveryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807FEAF1D6806BC009393E2 /* DiscoveryController.m */; };
@@ -231,6 +230,15 @@
 		CCA903751DB8E81D0053D278 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903681DB8E81D0053D278 /* UIView+Layout.m */; };
 		CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903761DB8E83A0053D278 /* AnnounceController.m */; };
 		CCF64E311DBDDAC3009B4B21 /* YWIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E301DBDDAC3009B4B21 /* YWIndicatorView.m */; };
+		CCF64E731DBF6726009B4B21 /* MyCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E721DBF6726009B4B21 /* MyCommentController.m */; };
+		CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7A1DC095FE009B4B21 /* TAController.m */; };
+		CCF64E7E1DC0A5FF009B4B21 /* YWTaHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7D1DC0A5FF009B4B21 /* YWTaHeaderView.m */; };
+		CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E801DC0D751009B4B21 /* YWTaTopicView.m */; };
+		CCF64E841DC0D781009B4B21 /* YWTaTieziView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */; };
+		CCF64E871DC0E994009B4B21 /* YWTaTopicListView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */; };
+		CCFB0EA01DC4882400E19DB6 /* TaViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */; };
+		CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0EA41DC4896500E19DB6 /* TaEntity.m */; };
+		CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0EA71DC491B900E19DB6 /* TaResult.m */; };
 		EA90C883AA6EF63671AC57B7 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3709C5A61291B822052D7CFB /* Pods_yingwo.framework */; };
 /* End PBXBuildFile section */
 
@@ -244,7 +252,6 @@
 		1802C1B81D796F2900CFB375 /* YWPhotoCotentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPhotoCotentView.m; path = Home/View/YWPhotoCotentView.m; sourceTree = "<group>"; };
 		1803C11E1D541E830078EF0F /* YWHomeCellLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWHomeCellLabelView.m; path = Home/View/YWHomeCellLabelView.m; sourceTree = "<group>"; };
 		1803C1201D541F350078EF0F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		1803C1221D541F580078EF0F /* AlbumPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlbumPicker.bundle; path = Support/AlbumPicker.bundle; sourceTree = "<group>"; };
 		1803C1251D54356E0078EF0F /* PhotoUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoUnitView.h; path = Announce/View/PhotoUnitView.h; sourceTree = "<group>"; };
 		1803C1261D54356E0078EF0F /* PhotoUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoUnitView.m; path = Announce/View/PhotoUnitView.m; sourceTree = "<group>"; };
 		1807FEA71D680641009393E2 /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+Awesome.h"; path = "Vender/UINavigationBar+Awesome/UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
@@ -614,6 +621,7 @@
 		18F921351D7EBC6700A44846 /* YWDetailCellBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWDetailCellBottomView.m; path = Home/View/YWDetailCellBottomView.m; sourceTree = "<group>"; };
 		18FAE9AD1D49D0EC00DE92AB /* UIBarButtonItem+Left.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Left.h"; path = "Tools/UIBarButtonItem+Left.h"; sourceTree = "<group>"; };
 		18FAE9AE1D49D0EC00DE92AB /* UIBarButtonItem+Left.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Left.m"; path = "Tools/UIBarButtonItem+Left.m"; sourceTree = "<group>"; };
+		36F7A65220E9B448DF920CAE /* Pods-yingwo.release copy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release copy.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release copy.xcconfig"; sourceTree = "<group>"; };
 		3709C5A61291B822052D7CFB /* Pods_yingwo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yingwo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release.xcconfig"; sourceTree = "<group>"; };
 		895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -670,6 +678,24 @@
 		CCA903761DB8E83A0053D278 /* AnnounceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnnounceController.m; path = Announce/Controller/AnnounceController.m; sourceTree = "<group>"; };
 		CCF64E2F1DBDDAC3009B4B21 /* YWIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWIndicatorView.h; path = Vender/GalleryView/YWIndicatorView.h; sourceTree = "<group>"; };
 		CCF64E301DBDDAC3009B4B21 /* YWIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWIndicatorView.m; path = Vender/GalleryView/YWIndicatorView.m; sourceTree = "<group>"; };
+		CCF64E711DBF6726009B4B21 /* MyCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyCommentController.h; path = PersonalCenter/Controller/MyCommentController.h; sourceTree = "<group>"; };
+		CCF64E721DBF6726009B4B21 /* MyCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyCommentController.m; path = PersonalCenter/Controller/MyCommentController.m; sourceTree = "<group>"; };
+		CCF64E791DC095FE009B4B21 /* TAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAController.h; sourceTree = "<group>"; };
+		CCF64E7A1DC095FE009B4B21 /* TAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAController.m; sourceTree = "<group>"; };
+		CCF64E7C1DC0A5FF009B4B21 /* YWTaHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaHeaderView.h; sourceTree = "<group>"; };
+		CCF64E7D1DC0A5FF009B4B21 /* YWTaHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaHeaderView.m; sourceTree = "<group>"; };
+		CCF64E7F1DC0D751009B4B21 /* YWTaTopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTopicView.h; sourceTree = "<group>"; };
+		CCF64E801DC0D751009B4B21 /* YWTaTopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTopicView.m; sourceTree = "<group>"; };
+		CCF64E821DC0D781009B4B21 /* YWTaTieziView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTieziView.h; sourceTree = "<group>"; };
+		CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTieziView.m; sourceTree = "<group>"; };
+		CCF64E851DC0E994009B4B21 /* YWTaTopicListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTopicListView.h; sourceTree = "<group>"; };
+		CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTopicListView.m; sourceTree = "<group>"; };
+		CCFB0E9E1DC4882400E19DB6 /* TaViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaViewModel.h; sourceTree = "<group>"; };
+		CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaViewModel.m; sourceTree = "<group>"; };
+		CCFB0EA31DC4896500E19DB6 /* TaEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaEntity.h; sourceTree = "<group>"; };
+		CCFB0EA41DC4896500E19DB6 /* TaEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaEntity.m; sourceTree = "<group>"; };
+		CCFB0EA61DC491B900E19DB6 /* TaResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaResult.h; sourceTree = "<group>"; };
+		CCFB0EA71DC491B900E19DB6 /* TaResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaResult.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1293,14 +1319,12 @@
 				1807FEA51D680582009393E2 /* Discovery */,
 				18AF9E831D502AD70063D81F /* Announce */,
 				18AF9E5F1D4F361B0063D81F /* Home */,
+				CCF64E751DC0954A009B4B21 /* TA */,
 				18F5D3961D364FF200784B48 /* Login */,
 				18AFE6011D30BBC3007BEBDE /* Register */,
 				18D4E7221D9E6B6D00A0978E /* PersonalCenter */,
 				180F091A1D3777A000F3DD11 /* PerfectInfo */,
 				18D1028F1D3E4A5600D75968 /* Configuration */,
-				18AFE5F01D30B7E2007BEBDE /* Main.storyboard */,
-				18AFE5F81D30B7E2007BEBDE /* LaunchScreen.storyboard */,
-				18AFE5FB1D30B7E2007BEBDE /* Info.plist */,
 				18AFE5E71D30B7E1007BEBDE /* Supporting Files */,
 			);
 			path = yingwo;
@@ -1309,11 +1333,13 @@
 		18AFE5E71D30B7E1007BEBDE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18AFE5F01D30B7E2007BEBDE /* Main.storyboard */,
+				18AFE5F81D30B7E2007BEBDE /* LaunchScreen.storyboard */,
+				18AFE5FB1D30B7E2007BEBDE /* Info.plist */,
 				CC4CDE421D9D04A0002A80B0 /* main.m */,
 				CC4CDE431D9D04A0002A80B0 /* ViewController.h */,
 				CC4CDE441D9D04A0002A80B0 /* ViewController.m */,
 				CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */,
-				1803C1221D541F580078EF0F /* AlbumPicker.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1456,6 +1482,8 @@
 				CC9B98D01DBA24180009E7DC /* MyLikeController.m */,
 				18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */,
 				CC4CDE4C1D9F5895002A80B0 /* PersonalCenterController.m */,
+				CCF64E711DBF6726009B4B21 /* MyCommentController.h */,
+				CCF64E721DBF6726009B4B21 /* MyCommentController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1697,6 +1725,7 @@
 			children = (
 				895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */,
 				69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */,
+				36F7A65220E9B448DF920CAE /* Pods-yingwo.release copy.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1749,6 +1778,61 @@
 			);
 			name = TZImagePickerController;
 			path = Vender/TZImagePickerController;
+			sourceTree = "<group>";
+		};
+		CCF64E751DC0954A009B4B21 /* TA */ = {
+			isa = PBXGroup;
+			children = (
+				CCFB0EA21DC4894F00E19DB6 /* Entity */,
+				CCF64E781DC0954A009B4B21 /* ViewModel */,
+				CCF64E771DC0954A009B4B21 /* View */,
+				CCF64E761DC0954A009B4B21 /* Controller */,
+			);
+			path = TA;
+			sourceTree = "<group>";
+		};
+		CCF64E761DC0954A009B4B21 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CCF64E791DC095FE009B4B21 /* TAController.h */,
+				CCF64E7A1DC095FE009B4B21 /* TAController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CCF64E771DC0954A009B4B21 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CCF64E7C1DC0A5FF009B4B21 /* YWTaHeaderView.h */,
+				CCF64E7D1DC0A5FF009B4B21 /* YWTaHeaderView.m */,
+				CCF64E7F1DC0D751009B4B21 /* YWTaTopicView.h */,
+				CCF64E801DC0D751009B4B21 /* YWTaTopicView.m */,
+				CCF64E851DC0E994009B4B21 /* YWTaTopicListView.h */,
+				CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */,
+				CCF64E821DC0D781009B4B21 /* YWTaTieziView.h */,
+				CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CCF64E781DC0954A009B4B21 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CCFB0E9E1DC4882400E19DB6 /* TaViewModel.h */,
+				CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CCFB0EA21DC4894F00E19DB6 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				CCFB0EA61DC491B900E19DB6 /* TaResult.h */,
+				CCFB0EA71DC491B900E19DB6 /* TaResult.m */,
+				CCFB0EA31DC4896500E19DB6 /* TaEntity.h */,
+				CCFB0EA41DC4896500E19DB6 /* TaEntity.m */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
@@ -1836,7 +1920,6 @@
 				187D2F8D1D55B4A3006C5C5F /* EffectImage.png in Resources */,
 				CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */,
 				181E34221D93E3F800A6283C /* Podfile.lock in Resources */,
-				1803C1231D541F580078EF0F /* AlbumPicker.bundle in Resources */,
 				CC4CDE481D9D04A0002A80B0 /* YingwoUserClause.txt in Resources */,
 				18AFE5F21D30B7E2007BEBDE /* Main.storyboard in Resources */,
 				CCA9036F1DB8E81D0053D278 /* TZImagePickerController.bundle in Resources */,
@@ -1913,6 +1996,7 @@
 				181A00CE1D56E7C800D96DC9 /* YWHomeTableViewCellThreeImage.m in Sources */,
 				181A00DD1D56E9CD00D96DC9 /* YWHomeCellMiddleViewThreeImage.m in Sources */,
 				184BC1231D5F221D00125448 /* ZoomScrollView.m in Sources */,
+				CCF64E7E1DC0A5FF009B4B21 /* YWTaHeaderView.m in Sources */,
 				CC4CDE461D9D04A0002A80B0 /* main.m in Sources */,
 				1838C9BB1D3A33F2000DF843 /* WriteSignatureController.m in Sources */,
 				18E74CD41D3CEB9500176142 /* YWTabBar.m in Sources */,
@@ -1953,6 +2037,7 @@
 				CCA903711DB8E81D0053D278 /* TZPhotoPickerController.m in Sources */,
 				18FAE9AF1D49D0EC00DE92AB /* UIBarButtonItem+Left.m in Sources */,
 				18F3B2621D7AFC41001A7F18 /* YWDetailReplyCell.m in Sources */,
+				CCF64E841DC0D781009B4B21 /* YWTaTieziView.m in Sources */,
 				18F921331D7EB85100A44846 /* YWCommentView.m in Sources */,
 				181E34251D95400C00A6283C /* TopicResult.m in Sources */,
 				181A00C81D56D5DC00D96DC9 /* NSDate+String.m in Sources */,
@@ -1991,10 +2076,13 @@
 				1878FC441D59B7A00006230C /* YWAvatarBrowserHelper.m in Sources */,
 				184932991D3FC661008CE18E /* YWConfigurationCell.m in Sources */,
 				1838C97B1D3A05C0000DF843 /* YWSandBoxTool.m in Sources */,
+				CCF64E731DBF6726009B4B21 /* MyCommentController.m in Sources */,
 				181A00FD1D573FF600D96DC9 /* YWDetailMasterView.m in Sources */,
+				CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */,
 				1883DD5E1D892F3B00EB9629 /* YWFieldListView.m in Sources */,
 				187D2F921D55BC9E006C5C5F /* YWQiNiuUploadTool.m in Sources */,
 				1807FEC01D6830A0009393E2 /* MXImageView.m in Sources */,
+				CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */,
 				181A00F81D573E7700D96DC9 /* DetailController.m in Sources */,
 				18AF9E7F1D4F54BF0063D81F /* TieZi.m in Sources */,
 				18AF9E701D4F39C40063D81F /* YWHomeTableViewCellTwoImage.m in Sources */,
@@ -2003,6 +2091,7 @@
 				CCF64E311DBDDAC3009B4B21 /* YWIndicatorView.m in Sources */,
 				18D243BC1D7D8CD800DAC374 /* Test.m in Sources */,
 				CCA9036D1DB8E81D0053D278 /* TZAssetModel.m in Sources */,
+				CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */,
 				CC5BC5011D9D030900851C4D /* ConfigurationController.m in Sources */,
 				188F938A1D7178E400941A42 /* YWDiscoveryBaseCell.m in Sources */,
 				184C42D81D9BF9F20060D9C0 /* UIImage+blur.m in Sources */,
@@ -2050,10 +2139,12 @@
 				1807FEEB1D6830C5009393E2 /* CMSDWebImageDownloaderOperation.m in Sources */,
 				18E74CD11D3CEB8B00176142 /* YWTabBarController.m in Sources */,
 				18E74CB11D3CA2A800176142 /* LoginController.m in Sources */,
+				CCFB0EA01DC4882400E19DB6 /* TaViewModel.m in Sources */,
 				18F303BE1D5DFE7A005B7FAD /* UIScrollView+UITouch.m in Sources */,
 				181A00D41D56E89700D96DC9 /* YWHomeTableViewCellSixImage.m in Sources */,
 				181A00F51D5737F100D96DC9 /* YWHomeTableViewCellNoImage.m in Sources */,
 				184932A21D3FC66C008CE18E /* ResetPasswordController.m in Sources */,
+				CCF64E871DC0E994009B4B21 /* YWTaTopicListView.m in Sources */,
 				1883DD531D89299A00EB9629 /* SubjectEntity.m in Sources */,
 				1807FEEA1D6830C5009393E2 /* CMSDWebImageDownloader.m in Sources */,
 				18AF9E821D4F7A390063D81F /* TieZiViewModel.m in Sources */,
@@ -2092,6 +2183,7 @@
 				18B926D11D3907940067FE24 /* Register.m in Sources */,
 				CC89F06A1D97E42E0053462A /* UIImage+Orientation.m in Sources */,
 				18E8E4E91D605247003C7289 /* YWDetailTopView.m in Sources */,
+				CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */,
 				1883DD561D8929AA00EB9629 /* TopicEntity.m in Sources */,
 				18E74CD01D3CEB8B00176142 /* MainController.m in Sources */,
 				181A01001D57545100D96DC9 /* YWDetailTableViewCell.m in Sources */,
@@ -2322,7 +2414,7 @@
 		};
 		CC056C011DB261CB00613F27 /* Release copy */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */;
+			baseConfigurationReference = 36F7A65220E9B448DF920CAE /* Pods-yingwo.release copy.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

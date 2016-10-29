@@ -86,7 +86,6 @@
                 [bannerUrlArr addObject:hot.big_img];
                                 
             }
-            
             cell.mxScrollView.images = bannerUrlArr;
         }
         

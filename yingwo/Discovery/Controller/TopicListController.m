@@ -177,6 +177,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     
     self.navigationItem.leftBarButtonItem = self.leftBarItem;
     self.title                            = self.subject;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {

@@ -65,7 +65,8 @@
                indexPath:(NSIndexPath *)indexPath{
 
     if ([cell isMemberOfClass:[YWDetailTableViewCell class]]) {
-        [self setupModelOfDetailCell:(YWDetailTableViewCell *)cell model:model];
+        [self setupModelOfDetailCell:(YWDetailTableViewCell *)cell
+                               model:model];
     }
     else if ([cell isMemberOfClass:[YWDetailReplyCell class]]) {
         
@@ -101,7 +102,8 @@
     [cell.masterView.headImageView sd_setImageWithURL:[NSURL URLWithString:model.user_face_img]
                                      placeholderImage:[UIImage imageNamed:@"touxiang"]];
     cell.masterView.headImageView.layer.cornerRadius = 20;
-
+    
+    cell.masterView.user_id                    = model.user_id;
     
     if (model.imageUrlArrEntity.count > 0) {
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlArrEntity];
@@ -151,6 +153,9 @@
     //圆角头像
     cell.masterView.headImageView.layer.cornerRadius = 20;
     
+    //user_id
+    cell.masterView.user_id                          = model.user_id;
+    
     cell.bottomView.favourLabel.text                 = model.like_cnt;
 
     //回复评论的数量
@@ -171,11 +176,12 @@
         cell.bottomView.favour.isSpringReply = NO;
     }
     
-    
     //加载跟帖图片
     if (model.imageUrlArrEntity.count > 0) {
         
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlArrEntity];
+        
+        self.imageUrlEntity      = entities;
         
         [cell addImageViewByImageArr:entities];
     }

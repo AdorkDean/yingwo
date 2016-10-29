@@ -300,6 +300,7 @@
                     </view>
                     <connections>
                         <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="mNj-nk-xUF"/>
+                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="ZMN-sb-BDP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wEq-dC-10s" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -363,11 +364,30 @@
                         <segue destination="M84-fc-J5Z" kind="show" identifier="myTopic" id="z8l-m0-DzE"/>
                         <segue destination="eoW-Yd-MFa" kind="show" identifier="myTieZi" id="wrw-I9-9Lh"/>
                         <segue destination="qJU-CD-Qbb" kind="show" identifier="myLike" id="61m-Tn-Hrz"/>
+                        <segue destination="vHj-UI-hPh" kind="show" identifier="myComment" id="T6M-ec-BUX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grr-Sz-WP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3802" y="3049"/>
+            <point key="canvasLocation" x="3801" y="3089"/>
+        </scene>
+        <!--Controller-->
+        <scene sceneID="iN7-Qp-gsO">
+            <objects>
+                <viewController id="UqI-gM-WIX" customClass="TAController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aTo-BW-zma"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xa7-2Z-Lzz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cez-AK-dDv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dZR-wJ-RPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4732" y="2275"/>
         </scene>
         <!--My Topic Controller-->
         <scene sceneID="ihF-qI-CES">
@@ -388,7 +408,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v9I-cU-qxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4732" y="3048"/>
+            <point key="canvasLocation" x="4732" y="3089"/>
         </scene>
         <!--My Tie Zi Controller-->
         <scene sceneID="tIK-Sg-uab">
@@ -433,6 +453,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3G-Ds-cyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4732" y="4128"/>
+        </scene>
+        <!--My Comment Controller-->
+        <scene sceneID="XSr-Tf-0BG">
+            <objects>
+                <viewController id="vHj-UI-hPh" customClass="MyCommentController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vDS-AW-jBv"/>
+                        <viewControllerLayoutGuide type="bottom" id="pK4-YD-gTs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cvo-dJ-zCl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ezw-8J-gT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5709" y="4126"/>
         </scene>
         <!--Topic Controller-->
         <scene sceneID="2Yv-uX-pzr">
@@ -512,10 +550,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fJH-6J-WQ4"/>
-        <segue reference="pvc-Sr-Ihp"/>
-        <segue reference="dQL-fh-5s4"/>
-        <segue reference="nE7-UJ-8KA"/>
         <segue reference="q7d-3y-7Bc"/>
+        <segue reference="dQL-fh-5s4"/>
+        <segue reference="gXB-c9-GK2"/>
+        <segue reference="LE3-c2-jZn"/>
+        <segue reference="mNj-nk-xUF"/>
     </inferredMetricsTieBreakers>
 </document>

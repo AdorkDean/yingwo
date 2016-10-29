@@ -773,7 +773,7 @@ CGFloat lastPosition = -4;
     [self covertRectFromOldImageViewArr:imageViewArr];
     
     [self.galleryView setImageViews:self.cellNewImageArr
-                      withImageUrlArrEntity:selectedModel.imageUrlArrEntity
+              withImageUrlArrEntity:selectedModel.imageUrlArrEntity
                         showAtIndex:imageView.tag-1];
     
     [self.navigationController.view addSubview:self.galleryView];

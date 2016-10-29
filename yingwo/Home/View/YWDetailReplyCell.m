@@ -199,7 +199,7 @@
             if (entity.commented_user_name.length != 0) {
                 
                 //connectString内容为用户名字＋评论内容
-                NSString *connectString            = [NSString stringWithFormat:@"%@ 回复%@ :%@",entity.user_name,entity.commented_user_name,entity.content];
+                NSString *connectString            = [NSString stringWithFormat:@"%@ 回复%@ : %@",entity.user_name,entity.commented_user_name,entity.content];
                 
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
@@ -210,7 +210,7 @@
             else
             {
                 //connectString内容为用户名字＋评论内容
-                NSString *connectString            = [NSString stringWithFormat:@"%@  :%@",entity.user_name,entity.content];
+                NSString *connectString            = [NSString stringWithFormat:@"%@  : %@",entity.user_name,entity.content];
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
                                                                                                 WithTextIndext:entity.user_name.length];

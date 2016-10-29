@@ -44,7 +44,7 @@
 
 
 /********************************segue identify************************************************/
-#define SEGUE_IDENTIFY_MAIN          @"main"
+#define SEGUE_IDENTIFY_MAIN           @"main"
 #define SEGUE_IDENTIFY_RESET          @"reset"
 #define SEGUE_IDENTIFY_REGISTER       @"register"
 #define SEGUE_IDENTIFY_VERFIFCATION   @"verification"
@@ -61,6 +61,7 @@
 #define SEGUE_IDENTIFY_MYTOPIC        @"myTopic"
 #define SEGUE_IDENTIFY_MYTIEZI        @"myTieZi"
 #define SEGUE_IDENTIFY_MYLIKE         @"myLike"
+#define SEGUE_IDENTIFY_MYCOMMENT      @"myComment"
 
 
 /********************************segue identify************************************************/
@@ -93,6 +94,7 @@
 #define TIEZI_RELPY_URL         @"/Post/reply_list"
 #define TIEZI_LIKE_URL          @"/Post/like"
 #define MY_TIEZI_URL            @"/Post/my_list"
+#define MY_LIKE_URL             @"/Post/my_like_list"
 #define TIEZI_DEL_URL           @"/Post/del"
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
 
@@ -105,6 +107,9 @@
 #define HOT_TOPIC_URL           @"/Topic/hot_list"
 #define RECOMMENDED_TOPIC_URL   @"/Topic/recommended_list_fixed"
 #define RECOMMEND_TOPIC_URL     @"/Topic/recommended_list"
+
+#define TA_INFO_URL             @"/User/info"
+
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"
 

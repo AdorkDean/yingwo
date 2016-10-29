@@ -534,6 +534,7 @@ static int start_id = 0;
 
     [self.topicHeaderView.headerView sd_setImageWithURL:[NSURL URLWithString:headerImageUrl]
                                        placeholderImage:topicDefaultImage];
+    
     if (topic.topic_id == 0) {
         self.topicHeaderView.headerView.image    = [UIImage imageNamed:@"app_logo"];
     }

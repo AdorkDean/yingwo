@@ -131,7 +131,7 @@
     
     //define the frame for the UISearchController's search bar and tint
     self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
-    self.searchController.searchBar.tintColor = [UIColor whiteColor];
+    self.searchController.searchBar.tintColor = [UIColor colorWithHexString:THEME_COLOR_3];
     
     //add the UISearchController's search bar to the navigationBar's title view
     self.navigationItem.titleView = self.searchController.searchBar;
@@ -372,6 +372,7 @@
         if([view isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
             UIButton * cancel =(UIButton *)view;
             [cancel setTitle:@"取消" forState:UIControlStateNormal];
+            [cancel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
     }
     return YES;

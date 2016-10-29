@@ -30,7 +30,7 @@ static int start_id = 0;
 
 @interface MyLikeController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate,TTTAttributedLabelDelegate>
 
-@property (nonatomic, strong) UITableView     *homeTableview;
+@property (nonatomic, strong) UITableView       *homeTableview;
 @property (nonatomic, strong) UIAlertController *alertView;
 @property (nonatomic, strong) TieZi             *model;
 @property (nonatomic, strong) TieZiViewModel    *viewModel;
@@ -127,7 +127,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.requestUrl = MY_TIEZI_URL;
+        _requestEntity.requestUrl = MY_LIKE_URL;
         //请求的事新鲜事
         _requestEntity.topic_id   = AllThingModel;
         //偏移量开始为0
@@ -371,17 +371,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     UILabel *favour = [view viewWithTag:101];
     __block int count       = [favour.text intValue];
     
-    //    if (model == YES) {
-    //        count ++;
-    //    }
-    //    else
-    //    {
-    //        count --;
-    //    }
-    //
-    //    favour.text = [NSString stringWithFormat:@"%d",count];
-    
-    
     //网络请求
     NSDictionary *paramaters = @{@"post_id":@(postId),@"value":@(model)};
     
@@ -517,6 +506,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     
     [self.viewModel setupModelOfCell:cell model:self.model];
+    
+
+    [cell.bottemView.favour setBackgroundImage:[UIImage imageNamed:@"heart_red"]
+                                      forState:UIControlStateNormal];
+    cell.bottemView.favour.isSpring = YES;
     
     return cell;
 }

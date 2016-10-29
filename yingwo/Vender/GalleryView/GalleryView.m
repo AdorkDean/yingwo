@@ -117,11 +117,12 @@
 - (void)setImages:(NSArray *)imageViews showAtIndex:(NSInteger)index{
     
     _imageViews = imageViews;
-    
+        
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width * imageViews.count,
                                                self.scrollView.bounds.size.height)];
     
     self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width*index, 0);
+    
     
     for (int i = 0; i < imageViews.count; i++)
     {

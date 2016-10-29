@@ -52,6 +52,7 @@
 
 //点击图片查看
 - (void)didSeletedImageView:(UIImageView *)seletedImageView;
+
 - (void)didSelectCommentView:(YWCommentView *)commentView;
 
 @end

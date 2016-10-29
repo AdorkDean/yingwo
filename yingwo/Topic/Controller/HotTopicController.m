@@ -81,7 +81,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.backgroundColor = [UIColor clearColor];
         _homeTableview.contentInset    = UIEdgeInsetsMake(0, 0, footerHeight, 0);
         _homeTableview.scrollEnabled   = NO;
-        //  _homeTableview.fd_debugLogEnabled = YES;
+
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
                forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
         [_homeTableview registerClass:[YWHomeTableViewCellOneImage class]

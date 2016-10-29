@@ -572,7 +572,10 @@ CGFloat delay = 2.0f;
 #pragma mark ISEmojiViewDelegate
 
 -(void)emojiView:(ISEmojiView *)emojiView didSelectEmoji:(NSString *)emoji{
-    self.announceTextView.contentTextView.text = [self.announceTextView.contentTextView.text stringByAppendingString:emoji];
+    NSRange insertRange = self.announceTextView.contentTextView.selectedRange;
+    self.announceTextView.contentTextView.text = [self.announceTextView.contentTextView.text stringByReplacingCharactersInRange:insertRange withString:emoji];
+     //插入后光标仍在插入后的位置
+     self.announceTextView.contentTextView.selectedRange = NSMakeRange(insertRange.location + emoji.length, 0);
 }
 
 -(void)emojiView:(ISEmojiView *)emojiView didPressDeleteButton:(UIButton *)deletebutton{

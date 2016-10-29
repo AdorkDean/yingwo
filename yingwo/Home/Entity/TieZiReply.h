@@ -21,6 +21,7 @@
 //评论数
 @property (nonatomic, assign) int comment_cnt;
 
+
 @property (nonatomic, strong)NSMutableArray *commentArr;
 
 @end

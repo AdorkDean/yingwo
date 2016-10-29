@@ -10,6 +10,7 @@
 #import "AnnounceController.h"
 #import "MainNavController.h"
 #import "TopicController.h"
+#import "TAController.h"
 
 #import "YWDetailTableViewCell.h"
 #import "YWDetailBaseTableViewCell.h"
@@ -26,7 +27,7 @@
 
 #import "YWAlertButton.h"
 
-@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWLabelDelegate, TTTAttributedLabelDelegate>
+@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWLabelDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
 
 @property (nonatomic, strong) UITableView         *detailTableView;
 @property (nonatomic, strong) UIBarButtonItem     *leftBarItem;
@@ -50,6 +51,8 @@
 
 //点击查看话题内容
 @property (nonatomic, assign) int                 tap_topic_id;
+//点击查看用户详情
+@property (nonatomic, assign) int                 tap_ta_id;
 
 @property (nonatomic, assign) CGFloat             navgationBarHeight;
 
@@ -617,15 +620,20 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
     NSString *cellIdentifier        = [self.viewModel idForRowByIndexPath:indexPath model:replyModel];
 
-    YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
+                                                                      forIndexPath:indexPath];
+    
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
     cell.delegate                   = self;
     
     [self.viewModel setupModelOfCell:cell
                                model:replyModel
                            indexPath:indexPath];
+    //图片显示问题，回帖中复用问题
+    self.replyModel.imageUrlArrEntity = self.viewModel.imageUrlEntity;
     
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
+    cell.masterView.delegate        = self;
     cell.bottomView.delegate        = self;
     cell.bottomView.favour.delegate = self;
     cell.topView.label.delegate     = self;
@@ -733,16 +741,22 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)covertImageView:(UIImageView *)imageView {
     
-    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
+//    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
     UIImageView *newImageView = [[UIImageView alloc] init];
     newImageView.frame        = [imageView.superview convertRect:imageView.frame toView:self.view];
-    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
+//    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
     newImageView.image        = imageView.image;
     newImageView.y            += self.navgationBarHeight;
-    newImageView.tag          = 1;
+    newImageView.tag          = imageView.tag;
     newImageView.clipsToBounds = YES;
 
-    [self showImageView:newImageView];
+    //
+    if ([imageView.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
+        [self showImageView:newImageView];
+    }else {
+        [self showReplyImageView:newImageView];
+    }
+    
     
 }
 /**
@@ -756,15 +770,58 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
     
     [self stopSystemPopGestureRecognizer];
-
     
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
-    [imageViewArr addObject:imageView];
+    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
     
-    [self.galleryView setImages:imageViewArr showAtIndex:0];
+    for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+        [imageViewArr addObject:imageView];
+    }
+    
+    //    [self.galleryView setImages:imageViewArr showAtIndex:0];
+    [self.galleryView setImageViews:imageViewArr
+              withImageUrlArrEntity:self.model.imageUrlArrEntity
+                        showAtIndex:imageView.tag - 1];
+    
     [self.navigationController.view addSubview:self.galleryView];
-
+    
 }
+
+/**
+  *  展示回复视图图片
+  *
+  *  @param imageView
+  */
+- (void)showReplyImageView:(UIImageView *)imageView {
+    
+    //禁止后面的DetailController的滑动手势
+    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
+    
+//    [self stopSystemPopGestureRecognizer];
+//    
+//    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
+//    
+//    [imageViewArr addObject:imageView];
+//    
+//    [self.galleryView setImages:imageViewArr showAtIndex:0];
+//    
+//    [self.navigationController.view addSubview:self.galleryView];
+    
+    [self stopSystemPopGestureRecognizer];
+    
+    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.replyModel.imageUrlArrEntity.count];
+    
+    for (int i = 0; i < self.replyModel.imageUrlArrEntity.count; i++) {
+        [imageViewArr addObject:imageView];
+    }
+    
+    [self.galleryView setImageViews:imageViewArr
+              withImageUrlArrEntity:self.replyModel.imageUrlArrEntity
+                        showAtIndex:imageView.tag - 1];
+    
+    [self.navigationController.view addSubview:self.galleryView];
+    
+}
+
 
 #pragma mark - GalleryView Delegate
 
@@ -895,7 +952,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark ISEmojiViewDelegate
 
 -(void)emojiView:(ISEmojiView *)emojiView didSelectEmoji:(NSString *)emoji{
-    self.commentView.messageTextView.text = [self.commentView.messageTextView.text stringByAppendingString:emoji];
+    NSRange insertRange = self.commentView.messageTextView.selectedRange;
+    self.commentView.messageTextView.text = [self.commentView.messageTextView.text stringByReplacingCharactersInRange:insertRange withString:emoji];
+    //插入后光标仍在插入后的位置
+    self.commentView.messageTextView.selectedRange = NSMakeRange(insertRange.location + emoji.length, 0);
+
 }
 
 -(void)emojiView:(ISEmojiView *)emojiView didPressDeleteButton:(UIButton *)deletebutton{
@@ -953,10 +1014,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    //进入话题详情页面
     if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
         if ([segue.identifier isEqualToString:@"topic"]) {
             TopicController *topicVc = segue.destinationViewController;
             topicVc.topic_id = self.tap_topic_id;
+        }
+    }
+    //进入TA的主页
+    else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id         = self.tap_ta_id;
         }
     }
 }
@@ -965,12 +1034,15 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)didSelectLabel:(YWLabel *)label {
     
-    
     self.tap_topic_id = label.topic_id;
-
     [self performSegueWithIdentifier:@"topic" sender:self];
-    
-    
+}
+
+#pragma mark YWMasterDelegate
+-(void)didSelectMaster:(YWDetailMasterView *)masterView {
+
+    self.tap_ta_id = masterView.user_id;
+    [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
 #pragma private method

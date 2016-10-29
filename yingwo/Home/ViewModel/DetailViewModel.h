@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
 @property (nonatomic, strong) RACCommand *fetchDetailEntityCommand;
 //楼主的user_id
 @property (nonatomic, assign) NSInteger master_id;
+
+@property (nonatomic, strong) NSMutableArray *imageUrlEntity;
 /**
  *  初始化cell
  *

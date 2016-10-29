@@ -14,6 +14,10 @@
     self = [super init];
     if (self) {
         [self createSubview];
+        //添加点击事件
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(selectMaster:)];
+        [self addGestureRecognizer:tap];
     }
     return self;
 }
@@ -42,6 +46,8 @@
     self.headImageView.image                = [UIImage imageNamed:@"touxiang"];
     self.headImageView.layer.masksToBounds  = YES;
     self.headImageView.layer.cornerRadius   = 20;
+    self.headImageView.userInteractionEnabled = YES;
+    
     
     [self addSubview:self.headImageView];
     [self addSubview:self.nicnameLabel];
@@ -79,4 +85,14 @@
     
 }
 
+
+- (void)selectMaster:(UITapGestureRecognizer *) tap{
+    
+    YWDetailMasterView *masterView = (YWDetailMasterView *)[tap view];
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectMaster:)]) {
+        [self.delegate didSelectMaster:masterView];
+    }
+    
+}
 @end
