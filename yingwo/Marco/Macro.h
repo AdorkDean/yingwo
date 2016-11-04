@@ -14,7 +14,7 @@
 #define Macro_h
 /********************************Color************************************************/
 #define THEME_COLOR_1    @"#1DD2A6"
-#define THEME_COLOR_2    @"#3A3A3A"
+#define THEME_COLOR_2    @"#3A3A3A" //灰度越来越浅
 #define THEME_COLOR_3    @"#8E8E8E"
 #define THEME_COLOR_4    @"#BBBBBB"
 #define THEME_COLOR_5    @"#DEDFED"
@@ -96,7 +96,9 @@
 #define MY_TIEZI_URL            @"/Post/my_list"
 #define MY_LIKE_URL             @"/Post/my_like_list"
 #define TIEZI_DEL_URL           @"/Post/del"
+#define TIEZI_REPLY_DEL_URL     @"/Post/reply_del"
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
+#define HOME_INDEX_CNT_URL      @"/Post/index_cnt"
 
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"
@@ -109,6 +111,7 @@
 #define RECOMMEND_TOPIC_URL     @"/Topic/recommended_list"
 
 #define TA_INFO_URL             @"/User/info"
+#define TA_USER_LIKE_URL        @"/User/like"
 
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"

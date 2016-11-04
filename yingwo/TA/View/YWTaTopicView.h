@@ -11,6 +11,7 @@
 
 @interface YWTaTopicView : UIView
 
+- (void)addTopicListViewBy:(NSArray *)entities;
 
 
 @end

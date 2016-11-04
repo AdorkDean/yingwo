@@ -15,7 +15,7 @@
     self = [super init];
     
     if (self) {
-        [self setBackgroundColor:[UIColor colorWithHexString:THEME_COLOR_4 alpha:0.2]];
+        [self setBackgroundColor:[UIColor whiteColor]];
         [self createSubview];
         _topicImageView.layer.masksToBounds = YES;
         _topicImageView.layer.cornerRadius = 5;
@@ -31,20 +31,23 @@
     
     _topic.font                     = [UIFont systemFontOfSize:14.0];
     _topic.textColor                = [UIColor colorWithHexString:THEME_COLOR_2];
+    _topic.textAlignment            = NSTextAlignmentCenter;
 
     [self addSubview:_topicImageView];
     [self addSubview:_topic];
     
     [_topicImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(2);
-        make.right.equalTo(self).offset(2);
+        make.right.equalTo(self).offset(-2);
         make.top.equalTo(self).offset(2);
-        make.height.equalTo(_topicImageView.mas_width);
+        make.bottom.equalTo(self).offset(-19);
     }];
     
     [_topic mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_topicImageView.mas_bottom).offset(5);
         make.left.equalTo(self).offset(10);
+        make.right.equalTo(self).offset(-10);
+        make.bottom.equalTo(self);
     }];
     
 }

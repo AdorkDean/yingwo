@@ -475,14 +475,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.bottemView.delegate        = self;
     cell.contentText.delegate       = self;
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
-
-    //如果非用户本人，不显示删除选项
-    Customer *customer              = [User findCustomer];
-    if (self.model.user_id != [customer.userId intValue]) {
-        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
-    }else {
-        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
-    }
     
     [self.viewModel setupModelOfCell:cell model:self.model];
     

@@ -52,21 +52,14 @@
                                          [self.bannerArr removeAllObjects];
                                          
                                          [self.bannerArr addObjectsFromArray:hotArr];
-                     
                                          
                                          [subscriber sendNext:hotArr];
                                          [subscriber sendCompleted];
-                                         
-                
-                                         
                                          
                                      } failure:^(NSString *error) {
                                          
                                      }];
 
-            
-            
-            
             return nil;
         }];
     }];
@@ -86,13 +79,12 @@
                 [bannerUrlArr addObject:hot.big_img];
                                 
             }
-            cell.mxScrollView.images = bannerUrlArr;
+
+                cell.mxScrollView.images = bannerUrlArr;
         }
         
     }
 
-    
-    
 }
 
 - (void)requestTopicFieldWithUrl:(NSString *)url
@@ -160,6 +152,7 @@
                   for (NSDictionary *dic in entity.info) {
                       
                       HotTopicEntity *field = [HotTopicEntity mj_objectWithKeyValues:dic];
+                      
                       [tempArr addObject:field];
                       
                   }

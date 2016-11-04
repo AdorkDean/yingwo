@@ -45,5 +45,81 @@
 
 }
 
+- (void)requestTopicLikeListWithUrl:(NSString *)url
+                         paramaters:(NSDictionary *)paramaters
+                            success:(void (^)(NSArray *topicArr))success
+                            failure:(void (^)(NSString *error))failure{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  
+                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                            options:NSJSONReadingMutableContainers
+                                                                              error:nil];
+                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
+                  NSMutableArray *tempArr = [[NSMutableArray alloc] init];
+                  
+                  for (NSDictionary *dic in entity.info) {
+                      
+                      TopicEntity *field = [TopicEntity mj_objectWithKeyValues:dic];
+                      [tempArr addObject:field];
+                      
+                  }
+                  
+                  success(tempArr);
+              }
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+              success(nil);
+              NSLog(@"获取我的话题失败");
+          }];
+    
+    
+}
+
+- (void)requestUserLikeWithUrl:(NSString *)url
+                    paramaters:(NSDictionary *)paramaters
+                       success:(void (^)(StatusEntity *status))success
+                       failure:(void (^)(NSString *error))failure{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  
+                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                            options:NSJSONReadingMutableContainers
+                                                                              error:nil];
+                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
+                  
+                  success(entity);
+              }
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              failure(@"网络错误");
+          }];
+}
+
 
 @end

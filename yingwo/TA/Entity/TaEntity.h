@@ -38,5 +38,7 @@
 
 @property (nonatomic, copy) NSString *academy_name;
 
+@property (nonatomic, copy) NSString *like;
+
 
 @end

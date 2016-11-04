@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "TopicListViewModel.h"
 
 @protocol TopicListControllerDelegate;
 
@@ -22,6 +23,8 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 
 @property (nonatomic, strong) UITableView        *topicTableView;
 @property (nonatomic, strong) UIScrollView       *topicScrollView;
+
+@property (nonatomic, strong) TopicListViewModel *viewModel;
 
 //判断是否是从我的话题跳转过来的
 @property (nonatomic, assign) BOOL           isMyTopic;

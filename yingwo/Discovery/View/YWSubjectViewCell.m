@@ -83,7 +83,6 @@
                 make.left.equalTo(self.fieldListView.mas_left);
                 make.right.equalTo(self.fieldListView.mas_right);
                 make.height.equalTo(@44);
-
             }];
             lastView = topicListView;
         }

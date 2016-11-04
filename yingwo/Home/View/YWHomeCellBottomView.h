@@ -22,6 +22,8 @@
 @property (nonatomic, strong) UIButton       *message;
 @property (nonatomic, strong) YWAlertButton  *more;
 
+@property (nonatomic, assign) int            user_id;
+
 @property (nonatomic, strong) UILabel        *favourLabel;
 @property (nonatomic, strong) UILabel        *messageLabel;
 
@@ -32,5 +34,9 @@
 @protocol YWHomeCellBottomViewDelegate <NSObject>
 
 - (void) didSelecteMessageWithBtn:(UIButton *)message;
+
+@optional
+- (void) didSelectHomeBottomView:(YWHomeCellBottomView *)bottomView;
+
 
 @end

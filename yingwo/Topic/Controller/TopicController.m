@@ -596,7 +596,8 @@ static int start_id = 0;
 //关注话题
 - (void)addLike:(UIButton *)sender {
     
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
     NSDictionary *paramater = @{@"topic_id":@(self.topic_id),@"value":@1};
     
@@ -635,8 +636,8 @@ static int start_id = 0;
 //取消关注
 - (void)cancelLike:(UIButton *)sender {
     
-    [SVProgressHUD showLoadingStatusWith:@""];
-    
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
     NSDictionary *paramater = @{@"topic_id":@(self.topic_id),@"value":@0};
     

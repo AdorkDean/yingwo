@@ -31,13 +31,15 @@
     _numberOfFollow.textColor               = [UIColor whiteColor];
     _numberOfFans.textColor                 = [UIColor whiteColor];
     
-    _userName.font                          = [UIFont systemFontOfSize:14];
-    _signature.font                         = [UIFont systemFontOfSize:12.0];
+    _userName.font                          = [UIFont boldSystemFontOfSize:16.0];
+    _signature.font                         = [UIFont systemFontOfSize:14.0];
     _numberOfFollow.font                    = [UIFont systemFontOfSize:12.0];
     _numberOfFans.font                      = [UIFont systemFontOfSize:12.0];
     
     _headerView.layer.masksToBounds = YES;
-    _headerView.layer.cornerRadius  = 45;
+    _headerView.layer.cornerRadius  = 40;
+    _headerView.layer.borderWidth   = 1.5f;
+    _headerView.layer.borderColor   = [UIColor whiteColor].CGColor;
 
     [self addSubview:_bgImageView];
     [self addSubview:_headerView];
@@ -53,24 +55,24 @@
     }];
     
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.width.equalTo(@90);
+        make.height.width.equalTo(@80);
         make.centerX.equalTo(self);
         make.centerY.equalTo(self.mas_centerY).offset(-20);
     }];
     
     [_userName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_headerView.mas_bottom).offset(5);
+        make.top.equalTo(_headerView.mas_bottom).offset(8);
         make.centerX.equalTo(self);
     }];
     
     [_signature mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_userName.mas_bottom).offset(5);
+        make.top.equalTo(_userName.mas_bottom).offset(8);
         make.centerX.equalTo(self);
     }];
     
     [_numberOfFollow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_centerX);
-        make.top.equalTo(_signature.mas_bottom).offset(5);
+        make.top.equalTo(_signature.mas_bottom).offset(8);
     }];
     
     [_numberOfFans mas_makeConstraints:^(MASConstraintMaker *make) {

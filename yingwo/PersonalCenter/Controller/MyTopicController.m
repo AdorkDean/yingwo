@@ -7,7 +7,6 @@
 //
 
 #import "MyTopicController.h"
-#import "TopicListController.h"
 #import "TopicController.h"
 
 #import "FeildViewModel.h"
@@ -20,13 +19,6 @@
 @property (nonatomic, strong) UIView              *topicSectionView;
 
 @property (nonatomic, strong) NSMutableArray      *catalogVcArr;
-
-//校园生活
-@property (nonatomic, strong) TopicListController *oneFieldVc;
-//兴趣爱好
-@property (nonatomic, strong) TopicListController *twoFieldVc;
-//学科专业
-@property (nonatomic, strong) TopicListController *threeFieldVc;
 
 @property (nonatomic, strong) FeildViewModel      *fieldViewModel;
 
@@ -83,8 +75,9 @@
     if (_oneFieldVc == nil) {
         _oneFieldVc           = [[TopicListController alloc] init];
         _oneFieldVc.delegate  = self;
-        FieldEntity *fieldOne = [self.fieldViewModel.fieldArr objectAtIndex:0];
-        _oneFieldVc.title     = fieldOne.title;
+//        FieldEntity *fieldOne = [self.fieldViewModel.fieldArr objectAtIndex:0];
+//        _oneFieldVc.title     = fieldOne.title;
+        _oneFieldVc.title     = @"校园生活";
         _oneFieldVc.field_id  = 1;
         _oneFieldVc.isMyTopic = YES;
     }
@@ -95,8 +88,9 @@
     if (_twoFieldVc == nil) {
         _twoFieldVc           = [[TopicListController alloc] init];
         _twoFieldVc.delegate  = self;
-        FieldEntity *fieldTwo = [self.fieldViewModel.fieldArr objectAtIndex:1];
-        _twoFieldVc.title     = fieldTwo.title;
+//        FieldEntity *fieldTwo = [self.fieldViewModel.fieldArr objectAtIndex:1];
+//        _twoFieldVc.title     = fieldTwo.title;
+        _twoFieldVc.title     = @"兴趣爱好";
         _twoFieldVc.field_id  = 2;
         _twoFieldVc.isMyTopic = YES;
 
@@ -108,8 +102,9 @@
     if (_threeFieldVc == nil) {
         _threeFieldVc           = [[TopicListController alloc] init];
         _threeFieldVc.delegate  = self;
-        FieldEntity *fieldThree = [self.fieldViewModel.fieldArr objectAtIndex:2];
-        _threeFieldVc.title     = fieldThree.title;
+//        FieldEntity *fieldThree = [self.fieldViewModel.fieldArr objectAtIndex:2];
+//        _threeFieldVc.title     = fieldThree.title;
+        _threeFieldVc.title     = @"学科专业";
         _threeFieldVc.field_id  = 3;
         _threeFieldVc.isMyTopic = YES;
 
@@ -134,7 +129,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.title = @"我的话题";
+    Customer *user = [User findCustomer];
+    if (self.oneFieldVc.viewModel.user_id != [user.userId intValue]) {
+        self.title = @"TA的话题";
+    }else {
+        self.title = @"我的话题";
+    }
+    
     self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
                                                                                style:UIBarButtonItemStylePlain
                                                                               target:self
@@ -249,6 +250,7 @@
     
     [self.fieldViewModel requestTopicFieldWithUrl:TOPIC_FIELD_URL
                                           success:^(NSArray *fieldArr) {
+                                              
                                               self.fieldViewModel.fieldArr = [fieldArr mutableCopy];
                                               
                                               [self.view addSubview:self.topicPgaeView];

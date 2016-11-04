@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZLBadgeImport.h"
+
 @protocol YWTabBarDelegate;
 
 @interface YWTabBar : UIImageView
+@property (nonatomic, strong) UIButton         *homeBtn;
+@property (nonatomic, strong) UIButton         *bubBtn;
 
 @property (nonatomic, strong) UIImageView      *backgroundView;
 @property (nonatomic, strong) NSMutableArray   *buttons;

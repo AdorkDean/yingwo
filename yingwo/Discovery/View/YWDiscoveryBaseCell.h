@@ -20,8 +20,8 @@
 
 @interface YWDiscoveryBaseCell : UITableViewCell
 
-@property (nonatomic,strong ) NSMutableArray       *images;
-@property (nonatomic, strong) MXImageScrollView    *mxScrollView;
+@property (nonatomic,strong ) NSMutableArray            *images;
+@property (nonatomic, strong) MXImageScrollView         *mxScrollView;
 
 @property (nonatomic, strong) YWFieldListView           *fieldListView;
 @property (nonatomic, strong) YWTopicListView           *topicListView;

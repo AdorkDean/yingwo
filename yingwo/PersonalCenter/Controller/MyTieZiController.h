@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "TieZiViewModel.h"
+
 
 @interface MyTieZiController : BaseViewController
+
+@property (nonatomic, strong) TieZiViewModel    *viewModel;
 
 @end

@@ -284,32 +284,73 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)deleteTieZi:(UIButton *)more {
     
-    int postId = self.model.tieZi_id;
-    //网络请求
-    NSDictionary *paramaters = @{@"post_id":@(postId)};
+    //判断删除楼主的帖子
+    if ([more.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
+        
+        int postId = self.model.tieZi_id;
+        //网络请求
+        NSDictionary *paramaters = @{@"post_id":@(postId)};
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+        
+        [self.homeViewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                                    paramaters:paramaters
+                                       success:^(StatusEntity *statusEntity) {
+                                           
+                                           if (statusEntity.status == YES) {
+                                               
+                                               [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+                                               //跳转回上一页面
+                                               
+                                               [self.navigationController popViewControllerAnimated:YES];
+                                               
+                                           }else if (statusEntity.status == NO){
+                                               [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+                                           }
+                                           
+                                       } failure:^(NSString *error) {
+                                           NSLog(@"error:%@",error);
+                                       }];
+    }
     
-    //必须要加载cookie，否则无法请求
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
-    [self.homeViewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+    //判断删除跟帖
+    if ([more.superview.superview.superview isKindOfClass:[YWDetailReplyCell class]]) {
+        
+        //获取当前选中的cell的reply_id
+        YWDetailReplyCell *selectedCell = (YWDetailReplyCell *)more.superview.superview.superview;
+        NSIndexPath *indexPath          = [self.detailTableView indexPathForCell:selectedCell];
+        TieZiReply *replyModel;
+        replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
+        int replyId = replyModel.reply_id;
+        
+        //网络请求
+        NSDictionary *paramaters = @{@"reply_id":@(replyId)};
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+        
+        [self.viewModel deleteReplyWithUrl:TIEZI_REPLY_DEL_URL
                                 paramaters:paramaters
                                    success:^(StatusEntity *statusEntity) {
-                                       
                                        if (statusEntity.status == YES) {
-                                           
+
+                                           //删除该行跟帖数据源
+                                           [self.tieZiReplyArr removeObjectAtIndex:indexPath.row];
+                                           //将该行从视图中移除
+                                           [self.detailTableView deleteRowsAtIndexPaths:@[indexPath]
+                                                                       withRowAnimation:UITableViewRowAnimationFade];
                                            [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-                                           //跳转回上一页面
+                                       }else if(statusEntity.status == NO){
                                            
-                                           [self.navigationController popViewControllerAnimated:YES];
-                                           
-                                       }else if (statusEntity.status == NO){
                                            [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
                                        }
-                                       
-                                   } failure:^(NSString *error) {
+                                   }
+                                   failure:^(NSString *error) {
                                        NSLog(@"error:%@",error);
                                    }];
-
+    }
+    
 }
 
 /**
@@ -641,14 +682,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     cell.moreBtn.delegate           = self;
     cell.contentLabel.delegate      = self;
     
-    //如果非用户本人，不显示删除选项
-    Customer *customer              = [User findCustomer];
-    if (self.model.user_id != [customer.userId intValue]) {
-        cell.topView.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
-    }else {
-        cell.topView.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
-    }
-
 
     return cell;
 }

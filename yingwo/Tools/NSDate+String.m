@@ -15,7 +15,7 @@
     NSString *dateString;
     
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[spString intValue]];
-    NSDateFormatter *dateFormat=[[NSDateFormatter alloc]init];
+    NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
     
     [dateFormat setDateFormat:@"yyyy"];
     NSString *year        = [dateFormat stringFromDate:confromTimesp];
@@ -86,6 +86,13 @@
     return dateString;
 }
 
-
++ (NSString *)getNowHour {
+    
+    NSDateFormatter *dateFormat    = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"HH"];
+    NSString *nowHour              = [dateFormat stringFromDate:[NSDate new]];
+    return nowHour;
+    
+}
 
 @end

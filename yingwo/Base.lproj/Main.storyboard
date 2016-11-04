@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1Ma-tK-KT6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1Ma-tK-KT6">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -279,6 +279,7 @@
                     <connections>
                         <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="fJH-6J-WQ4"/>
                         <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="pvc-Sr-Ihp"/>
+                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="Mmx-yH-4h2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VX9-S6-3wF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -384,6 +385,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="M84-fc-J5Z" kind="show" identifier="myTopic" id="DZx-xw-Vme"/>
+                        <segue destination="eoW-Yd-MFa" kind="show" identifier="myTieZi" id="cO5-zM-Dpn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZR-wJ-RPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -550,10 +555,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="q7d-3y-7Bc"/>
-        <segue reference="dQL-fh-5s4"/>
-        <segue reference="gXB-c9-GK2"/>
         <segue reference="LE3-c2-jZn"/>
-        <segue reference="mNj-nk-xUF"/>
+        <segue reference="cO5-zM-Dpn"/>
+        <segue reference="ZMN-sb-BDP"/>
+        <segue reference="q7d-3y-7Bc"/>
+        <segue reference="z8l-m0-DzE"/>
+        <segue reference="gXB-c9-GK2"/>
+        <segue reference="FPB-nA-kGY"/>
+        <segue reference="dQL-fh-5s4"/>
     </inferredMetricsTieBreakers>
 </document>

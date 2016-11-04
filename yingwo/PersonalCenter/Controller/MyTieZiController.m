@@ -11,7 +11,6 @@
 #import "TopicController.h"
 
 #import "TieZi.h"
-#import "TieZiViewModel.h"
 #import "YWDropDownView.h"
 #import "YWPhotoCotentView.h"
 
@@ -30,10 +29,9 @@ static int start_id = 0;
 
 @interface MyTieZiController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate,TTTAttributedLabelDelegate>
 
-@property (nonatomic, strong) UITableView     *homeTableview;
+@property (nonatomic, strong) UITableView       *homeTableview;
 @property (nonatomic, strong) UIAlertController *alertView;
 @property (nonatomic, strong) TieZi             *model;
-@property (nonatomic, strong) TieZiViewModel    *viewModel;
 
 //点击查看话题内容
 @property (nonatomic, assign) int               tap_topic_id;
@@ -325,7 +323,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.title = @"我的贴子";
+    Customer *user = [User findCustomer];
+    if (self.viewModel.user_id != [user.userId intValue]) {
+        self.title = @"TA的贴子";
+    }else {
+        self.title = @"我的贴子";
+    }
+
     self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
                                                                                style:UIBarButtonItemStylePlain
                                                                               target:self
@@ -506,16 +510,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.bottemView.favour.delegate = self;
     cell.bottemView.delegate        = self;
     cell.contentText.delegate       = self;
-    
-    //如果非用户本人，不显示删除选项
-    Customer *customer              = [User findCustomer];
-    if (self.model.user_id != [customer.userId intValue]) {
-        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
-    }else {
-        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
-    }
-    
-
     
     [self.viewModel setupModelOfCell:cell model:self.model];
     

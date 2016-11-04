@@ -11,14 +11,17 @@
 #import "TieZi.h"
 #import "TieZiResult.h"
 #import "HomeController.h"
+#import "BadgeCount.h"
 
 /**
  *  HomeViewController 的ViewModel
  */
 @interface TieZiViewModel : NSObject
 
-@property (nonatomic, strong)RACCommand *fecthTieZiEntityCommand;
-@property (nonatomic, assign)NSArray *imageUrlArr;
+@property (nonatomic, strong)RACCommand     *fecthTieZiEntityCommand;
+@property (nonatomic, assign)NSArray        *imageUrlArr;
+
+@property (nonatomic, assign)int            user_id;
 
 
 - (void)setupRACComand;
@@ -104,6 +107,19 @@
                paramaters:(NSDictionary *)paramaters
                   success:(void (^)(StatusEntity *statusEntity))success
                   failure:(void (^)(NSString *error))failure;
+
+/**
+ *  新帖子数量请求
+ *
+ *  @param url        /Post/index_cnt
+ *  @param paramaters 空
+ *  @param success    成功返回新帖子数量
+ *  @param failure    失败
+ */
+- (void)requestForBadgeWithUrl:(NSString *)url
+                    paramaters:(NSDictionary *)paramaters
+                       success:(void (^)(int badgeCount))success
+                       failure:(void (^)(NSString *error))failure;
 
 
 /**

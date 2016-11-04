@@ -26,8 +26,8 @@
     self.contentLabel                       = [[YWContentLabel alloc] initWithFrame:CGRectZero];
     self.bgImageView                        = [[UIView alloc] init];
     self.bgCommentView                      = [[UIView alloc] init];
-    self.moreBtn                            = [[YWAlertButton alloc] initWithNames:[NSMutableArray arrayWithObjects:@"复制",@"举报" ,nil]];
-
+    self.moreBtn                            = [[YWAlertButton alloc] init];
+    
     self.contentLabel.font                  = [UIFont systemFontOfSize:15];
     self.contentLabel.numberOfLines         = 0;
     self.bottomView                         = [[YWDetailCellBottomView alloc] init];

@@ -9,7 +9,8 @@
 #import "HomeController.h"
 #import "DetailController.h"
 #import "TopicController.h"
-#import "Customer.h"
+#import "TAController.h"
+#import "YWTabBarController.h"
 
 #import "TieZi.h"
 #import "TieZiViewModel.h"
@@ -34,11 +35,16 @@ static int start_id = 0;
 @property (nonatomic, strong) UIBarButtonItem   *rightBarItem;
 @property (nonatomic, strong) UIBarButtonItem   *leftBarItem;
 @property (nonatomic, strong) UIAlertController *alertView;
+@property (nonatomic, strong) UIAlertController *compliantAlertView;
 @property (nonatomic, strong) TieZi             *model;
 @property (nonatomic, strong) TieZiViewModel    *viewModel;
 
 //点击查看话题内容
 @property (nonatomic, assign) int               tap_topic_id;
+//点击查看用户详情
+@property (nonatomic, assign) int               tap_ta_id;
+
+@property (nonatomic, assign) int               badgeCount;
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
 
@@ -48,7 +54,6 @@ static int start_id = 0;
 @property (nonatomic, strong) NSMutableArray    *tieZiList;
 @property (nonatomic,strong ) NSArray           *images;
 
-@property (nonatomic, strong) UIAlertController *compliantAlertView;
 
 @property (nonatomic, strong) GalleryView       *galleryView;
 
@@ -371,8 +376,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     self.homeTableview.mj_footer.ignoredScrollViewContentInsetBottom = -65;
     
-
-    [self.homeTableview.mj_header beginRefreshing];
+    //进入app不刷新
+//    [self.homeTableview.mj_header beginRefreshing];
     
     [self.view addSubview:self.homeTableview];
     
@@ -392,6 +397,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     [self stopSystemPopGestureRecognizer];
     
+    [self showTabBar:YES animated:YES];
 }
 
 //跳转到完善信息
@@ -465,6 +471,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
+    [self requestNewTieziCount];
     [self loadForType:1 RequestEntity:requestEntity];
     
     [self.homeTableview.mj_footer resetNoMoreData];
@@ -497,6 +504,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                 self.tieZiList = [tieZis mutableCopy];
                 [self.homeTableview.mj_header endRefreshing];
                 [self.homeTableview reloadData];
+                
+                //刷新后清除小红点
+                [self.tabBar.homeBtn clearBadge];
+                //显示新帖子View
+                [self showNewTieziCount:self.badgeCount];
+
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
@@ -518,18 +531,82 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                 self.tieZiList = nil;
                 [self.homeTableview.mj_header endRefreshing];
                 [self.homeTableview reloadData];
+                //显示新帖子View
+                [self showNewTieziCount:self.badgeCount];
 
             }
             
             [self.homeTableview.mj_footer endRefreshingWithNoMoreData];
         }
-        
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
     }];
     
 }
 
+//获取新帖子数
+- (void)requestNewTieziCount {
+    NSDictionary *paramaters;
+    [self.viewModel requestForBadgeWithUrl:HOME_INDEX_CNT_URL
+                                paramaters:paramaters
+                                   success:^(int badgeCount) {
+                                       self.badgeCount = badgeCount;
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
+}
+
+//显示新帖子View
+- (void)showNewTieziCount:(int)count{
+    
+    UILabel *newTieziLabel = [[UILabel alloc] init];
+    newTieziLabel.font = [UIFont systemFontOfSize:12];
+    
+    if (count > 0) {
+        if(count > 35) {
+            newTieziLabel.text = @"超过35条新的帖子";
+        } else {
+            newTieziLabel.text = [NSString stringWithFormat:@"%d条新的帖子", count];
+        }
+    } else {
+        newTieziLabel.text = @"没有新的帖子";
+    }
+    
+    newTieziLabel.backgroundColor = [UIColor colorWithHexString:THEME_COLOR_1 alpha:0.6];
+    newTieziLabel.textAlignment   = NSTextAlignmentCenter;
+    newTieziLabel.textColor       = [UIColor whiteColor];
+    
+    newTieziLabel.width           = self.view.width;
+    newTieziLabel.height          = 35;
+    newTieziLabel.x               = 0;
+    newTieziLabel.y               = CGRectGetMaxY([self.navigationController navigationBar].frame) - newTieziLabel.height;
+    
+    //添加到导航栏控制器的view
+    [self.navigationController.view insertSubview:newTieziLabel belowSubview:self.navigationController.navigationBar];
+    
+    //动画
+    CGFloat duration = 2.0;
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         newTieziLabel.transform = CGAffineTransformMakeTranslation(0, newTieziLabel.height);
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         CGFloat delay = 1.0;
+                         [UIView animateWithDuration:delay
+                                          animations:^{
+                                              newTieziLabel.transform = CGAffineTransformIdentity;
+                                          }
+                                          completion:^(BOOL finished) {
+                                              //移除控件
+                                              [newTieziLabel removeFromSuperview];
+                                          }];
+                         
+                     }];
+    
+}
 
 #pragma mark UITableViewDataSoure
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -550,15 +627,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
     cell.bottemView.delegate        = self;
-    
-    //如果非用户本人，不显示删除选项
-    Customer *customer              = [User findCustomer];
-    if (self.model.user_id != [customer.userId intValue]) {
-        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
-    }else {
-        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
-    }
-    
     
     [self.viewModel setupModelOfCell:cell model:self.model];
 
@@ -697,6 +765,12 @@ CGFloat lastPosition = -4;
             
         }
 
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]])
+    {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id         = self.tap_ta_id;
+        }
     }
 }
 
@@ -809,6 +883,12 @@ CGFloat lastPosition = -4;
     
     [self performSegueWithIdentifier:@"detail" sender:self];
 
+}
+
+- (void)didSelectHomeBottomView:(YWHomeCellBottomView *)bottomView {
+    
+    self.tap_ta_id = bottomView.user_id;
+    [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
 #pragma mark 网络监测

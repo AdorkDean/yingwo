@@ -8,6 +8,8 @@
 
 #import "PersonalCenterController.h"
 #import "PerfectInfoController.h"
+#import "MyTopicController.h"
+#import "MyTieZiController.h"
 
 #import "YWPersonCenterCell.h"
 #import "YWPersonCenterTopView.h"
@@ -281,6 +283,19 @@
             perfectInfo.headImagePath          = [YWSandBoxTool getHeadPortraitPathFromCache];
             perfectInfo.isModfiyInfo           = YES;
         }
+    }
+    else if ([segue.destinationViewController isKindOfClass:[MyTopicController class]]) {
+        
+        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYTOPIC]) {
+            MyTopicController *myTopicVc = segue.destinationViewController;
+            Customer *user = [User findCustomer];
+            myTopicVc.oneFieldVc.viewModel.user_id = [user.userId intValue];
+        }
+    }
+    else if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYTIEZI]) {
+        MyTieZiController *myTieziVc = segue.destinationViewController;
+        Customer *user = [User findCustomer];
+        myTieziVc.viewModel.user_id = [user.userId intValue];
     }
 }
 

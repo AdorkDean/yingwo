@@ -10,8 +10,6 @@
 
 #import "YWTopicViewCell.h"
 
-#import "TopicListViewModel.h"
-
 #import "TopicEntity.h"
 
 #import "TopicController.h"
@@ -24,7 +22,6 @@
 @property (nonatomic, strong) UIButton           *addTopicBtn;
 
 @property (nonatomic, strong) TopicEntity        *topicEntity;
-@property (nonatomic, strong) TopicListViewModel *viewModel;
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
 
@@ -96,8 +93,8 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 - (UIButton *)addTopicBtn {
     if (_addTopicBtn == nil) {
         _addTopicBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
-                                forState:UIControlStateNormal];
+//        [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
+//                                forState:UIControlStateNormal];
     }
     return _addTopicBtn;
 }

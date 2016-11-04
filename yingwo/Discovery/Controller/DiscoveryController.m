@@ -303,8 +303,8 @@ static int start_id = 0;
 }
 
 - (void)firstFieldBtnSetFieldId {
-    
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
     self.field_id = 1;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
@@ -314,8 +314,8 @@ static int start_id = 0;
 }
 
 - (void)secondFieldBtnSetFieldtId {
-    
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
 
     self.field_id = 2;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
@@ -327,7 +327,9 @@ static int start_id = 0;
 
 - (void)thirdFieldBtnSetFieldtId {
     
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
+
 
     self.field_id = 3;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
@@ -373,16 +375,16 @@ static int start_id = 0;
     NSDictionary *paramaters = @{@"field_id":@(self.field_id)};
     
     [self.fieldViewModel requestTopicSubjectListWithUrl:TOPIC_SUBJECT_URL
-                                        paramaters:paramaters
-                                           success:^(NSArray *subjectArr) {
-                                               
-                                               self.fieldViewModel.subjectArr = [subjectArr mutableCopy];
-                                               
-                                               [self loadTopicDataWith:subjectArr];
-                                               
-                                           } failure:^(NSString *error) {
-                                               [SVProgressHUD dismiss];
-                                           }];
+                                             paramaters:paramaters
+                                                success:^(NSArray *subjectArr) {
+                                                    
+                                                    self.fieldViewModel.subjectArr = [subjectArr mutableCopy];
+                                                    
+                                                    [self loadTopicDataWith:subjectArr];
+                                                    
+                                                } failure:^(NSString *error) {
+                                                    [SVProgressHUD dismiss];
+                                                }];
 }
 
 /**
@@ -452,9 +454,7 @@ static int start_id = 0;
                      forControlEvents:UIControlEventTouchUpInside];
         
         cell.delegate           = self;
-        
-        
-        
+
     }
     
     return cell;
@@ -466,7 +466,6 @@ static int start_id = 0;
     
     return 2;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {

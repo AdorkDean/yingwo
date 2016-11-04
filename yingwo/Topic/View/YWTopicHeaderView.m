@@ -39,8 +39,8 @@
     _darkView.alpha           = 0.3;
     
     [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
-
                             forState:UIControlStateNormal];
+    
     [_headerView setImage:[UIImage imageNamed:@"morenhuati"]];
     
     _headerView.layer.masksToBounds = YES;
