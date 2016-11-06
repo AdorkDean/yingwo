@@ -24,7 +24,8 @@
     self.leftName                 = [[UILabel alloc] init];
     self.identfier                = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"louzhubiaoqian"]];
     self.content                  = [[UILabel alloc] initWithFrame:CGRectZero];
-
+    self.deleteBtn                = [[UIButton alloc] init];
+    
     _identfier.layer.cornerRadius = 10;
     _identfier.backgroundColor    = [UIColor colorWithHexString:THEME_COLOR_1 alpha:0.5];
 
@@ -37,19 +38,23 @@
     self.content.numberOfLines    = 0;
     self.content.lineBreakMode    = NSLineBreakByCharWrapping;
 
+    [self.deleteBtn setBackgroundImage:[UIImage imageNamed:@"X"] forState:UIControlStateNormal];
+    
     [self addSubview:self.leftName];
     [self addSubview:self.identfier];
     [self addSubview:self.content];
+    [self addSubview:self.deleteBtn];
 
     [self.leftName mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).priorityHigh();
-        make.top.equalTo(self);
-        make.height.equalTo(@13).priorityHigh();
+        make.top.equalTo(self).priorityHigh();
+//        make.height.equalTo(@14).priorityHigh();
+        make.bottom.equalTo(self.mas_top).offset(14);
     }];
     
     [self.identfier mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftName.mas_right).offset(2).priorityHigh();
-        make.top.equalTo(self);
+        make.centerY.equalTo(self.leftName);
         make.width.equalTo(@30);
     }];
 
@@ -59,6 +64,12 @@
         make.top.equalTo(self.leftName.mas_top).priorityHigh();
         make.bottom.equalTo(self);
     }];
+    
+    [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.content.mas_right).offset(5);
+        
+    }];
+    
         
 }
 

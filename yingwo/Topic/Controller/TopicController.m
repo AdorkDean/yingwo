@@ -42,7 +42,7 @@
 @property (nonatomic, strong) UIButton                *addBtn;
 
 @property (nonatomic, strong) RequestEntity           *requestEntity;
-
+@property (nonatomic, strong) TopicEntity             *topicEntity;
 @property (nonatomic, strong) NSMutableArray          *catalogVcArr;
 
 @property (nonatomic, assign) CGFloat                 navgationBarHeight;
@@ -164,6 +164,13 @@ static int start_id = 0;
                            forState:UIControlStateNormal];
     }
     return _addBtn;
+}
+
+- (TopicEntity *)topicEntity {
+    if (_topicEntity == nil) {
+        _topicEntity = [[TopicEntity alloc] init];
+    }
+    return _topicEntity;
 }
 
 - (CGFloat)navgationBarHeight {
@@ -323,7 +330,7 @@ static int start_id = 0;
     [self.viewModel requestTopicDetailInfoWithUrl:TOPIC_DETAIL_URL
                                        paramaters:paramters
                                           success:^(TopicEntity * topic){
-        
+                                              self.topicEntity = topic;
                                               [self fillTopicHeaderViewWith:topic];
                                               
     } error:^(NSURLSessionDataTask * task, NSError *error) {
@@ -433,7 +440,15 @@ static int start_id = 0;
             if (self.pageModel == NewPageModel) {
                 
                 self.freshVc.homeTableview.contentOffset = CGPointMake(0, offsetY-HeaderViewHeight+self.navgationBarHeight);
+//                
+//                if (self.freshVc.homeTableview.contentSize.height - (offsetY-HeaderViewHeight+self.navgationBarHeight)) {
+//                    
+//                    CGFloat moreOffsetY = offsetY-HeaderViewHeight+self.navgationBarHeight + 553;
+//                    
+//                    self.freshVc.homeTableview.contentSize = CGSizeMake(self.freshVc.homeTableview.contentSize.width,moreOffsetY);
+//                }
                 
+//                NSLog(@"freshTableView:%@",self.freshVc.homeTableview);
             }
             else
             {
@@ -488,6 +503,7 @@ static int start_id = 0;
         }];
         
     }
+    
     
 }
 
@@ -619,6 +635,10 @@ static int start_id = 0;
                                    forControlEvents:UIControlEventTouchUpInside];
                                   
                                   [SVProgressHUD showSuccessStatus:@"关注成功" afterDelay:HUD_DELAY];
+                                  //显示的话题数+1
+                                  self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[self.topicEntity.like_cnt intValue] + 1];
+                                  self.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[self.topicEntity.like_cnt intValue] + 1];
+                                  
                               }
                               else
                               {
@@ -660,6 +680,10 @@ static int start_id = 0;
                                    forControlEvents:UIControlEventTouchUpInside];
                                   
                                   [SVProgressHUD showSuccessStatus:@"取消关注" afterDelay:HUD_DELAY];
+                                  
+                                  //显示的话题数-1
+                                  self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[self.topicEntity.like_cnt intValue] - 1];
+                                  self.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[self.topicEntity.like_cnt intValue] - 1];
                                   
                                   
                               }

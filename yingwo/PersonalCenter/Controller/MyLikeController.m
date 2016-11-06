@@ -210,7 +210,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)showDeleteAlertView:(UIButton *)more {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
-                                                                             message:@"确认删除？"
+                                                                             message:@"操作不可恢复，确认删除吗？"
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

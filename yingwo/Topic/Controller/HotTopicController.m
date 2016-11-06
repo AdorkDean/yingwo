@@ -27,7 +27,7 @@
 
 //刷新的初始值
 static int start_id = 0;
-static CGFloat footerHeight = 300;
+static CGFloat footerHeight = 250;
 
 @interface HotTopicController ()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate, YWHomeCellBottomViewDelegate,TTTAttributedLabelDelegate>
 @property (nonatomic, strong) UIAlertController *alertView;
@@ -79,7 +79,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
-        _homeTableview.contentInset    = UIEdgeInsetsMake(0, 0, footerHeight, 0);
+  //      _homeTableview.contentInset    = UIEdgeInsetsMake(0, 0, footerHeight, 0);
         _homeTableview.scrollEnabled   = NO;
 
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
@@ -218,7 +218,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)showDeleteAlertView:(UIButton *)more {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
-                                                                             message:@"确认删除？"
+                                                                             message:@"操作不可恢复，确认删除吗？"
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -298,6 +298,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
     [self loadDataWithRequestEntity:self.requestEntity];
     
+    __weak HotTopicController *weakSelf = self;
+    
+    self.homeTableview.mj_footer    = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf loadMoreDataWithRequestEntity:self.requestEntity];
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -338,17 +345,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:101];
     __block int count       = [favour.text intValue];
-    
-//    if (model == YES) {
-//        count ++;
-//    }
-//    else
-//    {
-//        count --;
-//    }
-//    
-//    favour.text = [NSString stringWithFormat:@"%d",count];
-    
     
     //网络请求
     NSDictionary *paramaters = @{@"post_id":@(postId),@"value":@(model)};
@@ -423,7 +419,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                 [self.homeTableview.mj_header endRefreshing];
                 [self.homeTableview reloadData];
                 
-                self.view.height = self.homeTableview.contentSize.height;
+            //    self.view.height = self.homeTableview.contentSize.height;
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"TopicRelaod" object:nil];
 
@@ -446,9 +442,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         }
         
         //将topicSrcView获取homeTableview的contentSize
-        self.hotTableViewSize = CGSizeMake(self.topicSrcView.contentSize.width, self.topicSrcView.contentSize.height + self.homeTableview.contentSize.height + footerHeight);
-        
-
+        self.hotTableViewSize = CGSizeMake(self.topicSrcView.contentSize.width,
+                                      //     self.topicSrcView.contentSize.height +
+                                           self.homeTableview.contentSize.height +
+                                           footerHeight);
+        //初始化为最新的contentSize
+        self.topicSrcView.contentSize = self.hotTableViewSize;
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);

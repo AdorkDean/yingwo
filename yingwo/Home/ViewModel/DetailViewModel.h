@@ -103,11 +103,24 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *
  *  @param url        /Post/reply_del
  *  @param paramaters reply_id
- *  @param success    成功返回所有回帖
+ *  @param success
  *  @param failure    失败
  */
 - (void)deleteReplyWithUrl:(NSString *)url
                 paramaters:(NSDictionary *)paramaters
                    success:(void (^)(StatusEntity *statusEntity))success
                    failure:(void (^)(NSString *error))failure;
+
+/**
+ *  删除回帖评论
+ *
+ *  @param url        /Post/comment_del
+ *  @param paramaters comment_id
+ *  @param success    
+ *  @param failure    失败
+ */
+- (void)deleteCommentWithUrl:(NSString *)url
+                  paramaters:(NSDictionary *)paramaters
+                     success:(void (^)(StatusEntity *statusEntity))success
+                     failure:(void (^)(NSString *error))failure;
 @end

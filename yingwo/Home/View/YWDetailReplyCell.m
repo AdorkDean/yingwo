@@ -10,8 +10,23 @@
 #import "TieZiComment.h"
 #import "YWCommentView.h"
 #import "YWCommentReplyView.h"
+#import "DetailViewModel.h"
+
+@interface YWDetailReplyCell()
+
+@property (nonatomic, strong) YWCommentView     *selectedCommentView;
+@property (nonatomic, strong) DetailViewModel   *detailViewModel;
+
+@end
 
 @implementation YWDetailReplyCell
+
+-(DetailViewModel *)detailViewModel {
+    if (_detailViewModel == nil) {
+        _detailViewModel = [[DetailViewModel alloc] init];
+    }
+    return _detailViewModel;
+}
 
 - (void)createSubview {
     
@@ -179,7 +194,7 @@
             }
             else
             {
-                connectString            = [NSString stringWithFormat:@"%@占占 回复%@ : %@",
+                connectString            = [NSString stringWithFormat:@"%@占占 回复 %@ : %@",
                                                       entity.user_name,
                                                       entity.commented_user_name,
                                                       entity.content];
@@ -199,7 +214,7 @@
             if (entity.commented_user_name.length != 0) {
                 
                 //connectString内容为用户名字＋评论内容
-                NSString *connectString            = [NSString stringWithFormat:@"%@ 回复%@ : %@",entity.user_name,entity.commented_user_name,entity.content];
+                NSString *connectString            = [NSString stringWithFormat:@"%@ 回复 %@ : %@",entity.user_name,entity.commented_user_name,entity.content];
                 
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
@@ -218,17 +233,22 @@
 
         }
         
-        commentView.post_reply_id        = [entity.post_reply_id intValue];
-        commentView.post_comment_id      = [entity.comment_id intValue];
-        commentView.post_comment_user_id = [entity.post_comment_user_id intValue];
-        commentView.user_name            = entity.user_name;
-
-        UITapGestureRecognizer *tap      = [[UITapGestureRecognizer alloc] initWithTarget:self
+        commentView.post_reply_id               = [entity.post_reply_id intValue];
+        commentView.post_comment_id             = [entity.comment_id intValue];
+        commentView.post_comment_user_id        = [entity.post_comment_user_id intValue];
+        commentView.user_id                     = [entity.user_id intValue];
+        commentView.user_name                   = entity.user_name;
+        commentView.sourceContent               = entity.content;
+        
+        UITapGestureRecognizer *tap             = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                               action:@selector(comment:)];
-        tap.numberOfTapsRequired         = 1;
-        tap.numberOfTouchesRequired      = 1;
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(showMenuController:)];
+        tap.numberOfTapsRequired                = 1;
+        tap.numberOfTouchesRequired             = 1;
         
         [commentView addGestureRecognizer:tap];
+        [commentView addGestureRecognizer:longPress];
         
         [self.bgCommentView addSubview:commentView];
             
@@ -264,7 +284,125 @@
     }
 }
 
+- (void)showMenuController:(UILongPressGestureRecognizer *)sender {
+    
+    if (sender.state == UIGestureRecognizerStateBegan) {
 
+        [self showMenuWith:sender];
+        
+    }else if (sender.state == UIGestureRecognizerStateEnded){
 
+    }
+}
+
+- (void)showMenuWith:(UILongPressGestureRecognizer *)sender {
+    
+    [self becomeFirstResponder];
+    YWCommentView *comment = [[YWCommentView alloc] init];
+    YWCommentReplyView *commentReply = [[YWCommentReplyView alloc] init];
+    
+    YWCommentView *commentView;
+    if ([sender.view isKindOfClass:commentReply.class]) {
+        
+        commentView = (YWCommentReplyView *)[sender view];
+        self.selectedCommentView   = commentView;
+        
+    }else if ([sender.view isKindOfClass:comment.class]){
+        
+        commentView = (YWCommentView *)[sender view];
+        self.selectedCommentView   = commentView;
+    }
+
+    UIMenuItem *copyItem = [[UIMenuItem alloc]initWithTitle:@"复制" action:@selector(copyAction:)];
+    UIMenuItem *reportItem = [[UIMenuItem alloc]initWithTitle:@"举报" action:@selector(reportAction:)];
+    UIMenuItem *deleteItem = [[UIMenuItem alloc]initWithTitle:@"删除" action:@selector(deleteAction:)];
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    
+    Customer *user = [User findCustomer];
+    if (commentView.user_id == [user.userId intValue]) {
+        menuController.menuItems = @[copyItem,reportItem,deleteItem];
+    }else {
+        menuController.menuItems = @[copyItem,reportItem];
+    }
+    
+    [menuController setTargetRect:commentView.content.frame inView:commentView.content];
+    [menuController setMenuVisible:YES animated:YES];
+    
+}
+
+-(void)copyAction:(id)sender {
+    UIPasteboard *pastBoard = [UIPasteboard generalPasteboard];
+    pastBoard.string = self.selectedCommentView.sourceContent;
+    [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
+}
+
+-(void)reportAction:(id)sender {
+    NSLog(@"---%s---",__func__);
+}
+
+-(void)deleteAction:(id)sender {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
+                                                                             message:@"操作不可恢复，确认删除吗？"
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
+                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                            [self deleteComment];
+                                                        }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel handler:nil]];
+    
+    alertController.view.tintColor = [UIColor blackColor];
+    
+    [self.window.rootViewController presentViewController:alertController
+                                                      animated:YES
+                                                    completion:nil];
+  
+
+}
+
+-(void)deleteComment {
+    
+    int commentId = self.selectedCommentView.post_comment_id;
+    //网络请求
+    NSDictionary *paramaters = @{@"comment_id":@(commentId)};
+    
+    //必须要加载cookie，否则无法请求
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [self.detailViewModel deleteCommentWithUrl:TIEZI_COMMENT_DEL_URL
+                                    paramaters:paramaters
+                                       success:^(StatusEntity *statusEntity) {
+                                           if (statusEntity.status == YES) {
+                                               
+                                               
+                                               [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+                                           }else if(statusEntity.status == NO){
+                                               
+                                               [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+                                           }
+                                       }
+                                       failure:^(NSString *error) {
+                                           NSLog(@"error:%@",error);
+                                       }];
+}
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    return action==@selector(deleteAction:)||
+    action==@selector(reportAction:)||
+    action==@selector(copyAction:);
+}
 
 @end
+
+
+
+
+
+
+

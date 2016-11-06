@@ -210,7 +210,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                                                       style:UITableViewStyleGrouped];
         _homeTableview.delegate        = self;
         _homeTableview.dataSource      = self;
-        _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleSingleLineEtched;
+        _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleSingleLine;
+        _homeTableview.separatorColor  = [UIColor colorWithHexString:@"#F5F5F5"];
+        _homeTableview.separatorInset  = UIEdgeInsetsMake(0, 0, 0, 0);
         _homeTableview.backgroundColor = [UIColor clearColor];
         _homeTableview.scrollEnabled   = NO;
         
@@ -240,7 +242,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)showDeleteAlertView:(UIButton *)more {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
-                                                                             message:@"确认删除？"
+                                                                             message:@"操作不可恢复，确认删除吗？"
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -471,14 +473,20 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSString *cellIdentifier = [self.viewModel idForRowByModel:self.model];
     
     CGFloat rowHeight = [tableView fd_heightForCellWithIdentifier:cellIdentifier
-                                    cacheByIndexPath:indexPath
-                                       configuration:^(id cell) {
+                                                 cacheByIndexPath:indexPath
+                                                    configuration:^(id cell) {
                                            
                                            [self.viewModel setupModelOfCell:cell
                                                                       model:self.model];
                                        }];
-    if (self.rowHeightArr.count < 2) {
-        [self.rowHeightArr addObject:@(rowHeight)];
+    if (self.tieZiList.count != 1) {
+        if (self.rowHeightArr.count < 2) {
+            [self.rowHeightArr addObject:@(rowHeight)];
+        }
+    } else {
+        if (self.rowHeightArr.count < 1) {
+            [self.rowHeightArr addObject:@(rowHeight)];
+        }
     }
     
     return rowHeight;

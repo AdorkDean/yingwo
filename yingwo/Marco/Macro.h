@@ -97,6 +97,7 @@
 #define MY_LIKE_URL             @"/Post/my_like_list"
 #define TIEZI_DEL_URL           @"/Post/del"
 #define TIEZI_REPLY_DEL_URL     @"/Post/reply_del"
+#define TIEZI_COMMENT_DEL_URL   @"/Post/comment_del"
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
 #define HOME_INDEX_CNT_URL      @"/Post/index_cnt"
 
