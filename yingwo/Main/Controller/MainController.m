@@ -13,6 +13,7 @@
 #import "AnnounceController.h"
 #import "DiscoveryController.h"
 #import "DetailController.h"
+#import "MessageController.h"
 
 @interface MainController ()
 
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) DiscoveryController      *discoveryVC;
 @property (nonatomic, strong) PersonalCenterController *personCenterVC;
 @property (nonatomic, strong) AnnounceController       *announceVC;
+@property (nonatomic, strong) MessageController        *messageVC;
 
 @property (nonatomic, assign) NSInteger                selectedIndex;
 
@@ -41,16 +43,22 @@
     
     self.homeVC                        = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
     self.discoveryVC                   = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
+    self.messageVC                     = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
     self.personCenterVC                = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
 
     self.announceVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
 
     MainNavController *homeNav         = [[MainNavController alloc] initWithRootViewController:self.homeVC];
     MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryVC];
+    MainNavController *messageNav    = [[MainNavController alloc] initWithRootViewController:self.messageVC];
     MainNavController *personCenterNav = [[MainNavController alloc] initWithRootViewController:self.personCenterVC];
     MainNavController *announceNav     = [[MainNavController alloc] initWithRootViewController:self.announceVC];
 
-    NSArray *controllerArr = [NSArray arrayWithObjects:homeNav,discoveryNav,announceNav,discoveryNav,personCenterNav, nil];
+    NSArray *controllerArr = [NSArray arrayWithObjects:homeNav,
+                              discoveryNav,
+                              announceNav,
+                              messageNav,
+                              personCenterNav, nil];
     
     NSMutableDictionary *imgDic1 = [NSMutableDictionary dictionaryWithCapacity:2];
     [imgDic1 setObject:[UIImage imageNamed:@"home_G"] forKey:@"Default"];

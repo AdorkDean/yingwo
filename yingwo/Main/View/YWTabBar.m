@@ -39,7 +39,7 @@
         [findBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [addBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 //        [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [bubBtn addTarget:self action:@selector(tabBarBubbuttonClick) forControlEvents:UIControlEventTouchUpInside];
+        [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [headBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
         [self.buttons addObject:homeBtn];
@@ -86,10 +86,6 @@
 - (void)setBackgroundImage:(UIImage *)img
 {
     [_backgroundView setImage:img];
-}
-
-- (void)tabBarBubbuttonClick {
-    [SVProgressHUD showInfoStatus:@"功能开发中···" afterDelay:1.5];
 }
 
 - (void)tabBarButtonClicked:(id)sender

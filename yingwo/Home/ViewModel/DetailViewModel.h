@@ -95,4 +95,6 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
                       paramaters:(NSDictionary *)paramaters
                          success:(void (^)(NSArray *commentArr))success
                          failure:(void (^)(NSString *error))failure;
+
+
 @end

@@ -132,6 +132,10 @@
         //必须加这句代码
         [UMessage didReceiveRemoteNotification:userInfo];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:MESSAGE_NOTIFICATION
+                                                            object:userInfo];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:nil name:MESSAGE_NOTIFICATION object:nil];
+        
     }else{
         //应用处于后台时的本地推送接受
     }
