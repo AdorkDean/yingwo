@@ -233,9 +233,9 @@ static CGFloat HeadViewHeight = 250;
     
     if (self.ta_id != [[User findCustomer].userId intValue]) {
         [self.taFollowView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(75);
-            make.right.equalTo(self.view).offset(-75);
-            make.height.equalTo(@44);
+            make.left.mas_equalTo(self.view).offset(SCREEN_WIDTH / 375 * 75);
+            make.right.mas_equalTo(self.view).offset(-SCREEN_WIDTH / 375 * 75);
+            make.height.mas_equalTo(SCREEN_HEIGHT / (667 / 44));
             make.bottom.equalTo(self.view).offset(-10);
         }];
     }

@@ -24,22 +24,22 @@
     UIView *seperate                            = [[UIView alloc] init];
     
     followBtn.backgroundColor                   = [UIColor clearColor];
-    followBtn.titleLabel.font                   = [UIFont systemFontOfSize:16];
+    followBtn.titleLabel.font                   = [UIFont systemFontOfSize:SCREEN_WIDTH / 375 * 16];
     chatBtn.backgroundColor                     = [UIColor clearColor];
-    chatBtn.titleLabel.font                     = [UIFont systemFontOfSize:16];
+    chatBtn.titleLabel.font                     = [UIFont systemFontOfSize:SCREEN_WIDTH / 375 * 16];
     seperate.backgroundColor                    = [UIColor colorWithHexString:THEME_COLOR_4];
 
     //此处是否关注没有意义 之后获取到数据后会覆盖掉
     [followBtn setImage:[UIImage imageNamed:@"guanzhu"] forState:UIControlStateNormal];
-    followBtn.imageEdgeInsets                   = UIEdgeInsetsMake(0, 0, 0, 60);
+    followBtn.imageEdgeInsets                   = UIEdgeInsetsMake(0, 0, 0, SCREEN_WIDTH / 375 * 50);
     [followBtn setTitle:@"关注" forState:UIControlStateNormal];
-    followBtn.titleEdgeInsets                   = UIEdgeInsetsMake(0, 10, 0, 0);
+    followBtn.titleEdgeInsets                   = UIEdgeInsetsMake(0, SCREEN_WIDTH / 375 * 6, 0, 0);
     [followBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
     [chatBtn setImage:[UIImage imageNamed:@"pinglun"] forState:UIControlStateNormal];
-    chatBtn.imageEdgeInsets                     = UIEdgeInsetsMake(0, 0, 0, 60);
+    chatBtn.imageEdgeInsets                     = UIEdgeInsetsMake(0, 0, 0,  SCREEN_WIDTH / 375 * 50);
     [chatBtn setTitle:@"聊天" forState:UIControlStateNormal];
-    chatBtn.titleEdgeInsets                     = UIEdgeInsetsMake(0, 10, 0, 0);
+    chatBtn.titleEdgeInsets                     = UIEdgeInsetsMake(0, SCREEN_WIDTH / 375 * 6, 0, 0);
     [chatBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
     self.followBtn                              = followBtn;
@@ -53,11 +53,11 @@
         make.top.equalTo(self);
         make.left.equalTo(self).offset(20);
         make.bottom.equalTo(self);
-        make.right.equalTo(seperate.mas_left).offset(-10);
+        make.right.equalTo(seperate.mas_left);
     }];
     
     [seperate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@34);
+        make.height.mas_equalTo(SCREEN_HEIGHT / 375 * 34);
         make.width.equalTo(@1);
         make.centerX.centerY.equalTo(self);
     }];
