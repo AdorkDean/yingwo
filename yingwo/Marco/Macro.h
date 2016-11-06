@@ -22,6 +22,12 @@
 #define RED_COLOR        @"E92D52"
 /********************************Color************************************************/
 
+/********************************Notification************************************************/
+#define TOKEN_KEY            @"token"
+#define MESSAGE_NOTIFICATION @"message"
+
+/********************************Notification************************************************/
+
 
 /********************************短信验证的定时器Count****************************************/
 #define COUNT_DOWN_TIME 59
@@ -35,6 +41,7 @@
 #define CONTROLLER_OF_HOME_IDENTIFIER           @"HomeController"
 #define CONTROLLER_OF_DETAIL_IDENTIFIER         @"DetailController"
 #define CONTROLLER_OF_DISCOVERY_IDENTIFIER      @"DiscoveryController"
+#define CONTROLLER_OF_MESSAGE_IDENTIFY          @"MessageController"
 #define CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY @"PersonalCenter"
 #define CONTROLLER_OF_ANNOUNCE_IDENTIFIER       @"AnnounceController"
 #define CONTROLLER_OF_TOPIC_IDENTIFIER          @"TopicController"
@@ -67,6 +74,7 @@
 /********************************segue identify************************************************/
 
 
+
 /********************************* URL ******************************************************/
 #define BASE_URL        @"http://yw.zhibaizhi.com/yingwophp/api/v1"
 #define LOGIN_URL       @"/User/Login"
@@ -85,7 +93,7 @@
 
 #define ANNOUNCE_URL @"/Post/add_new"
 
-
+//贴子
 #define HOME_URL                @"/Post/index"
 #define TIEZI_URL               @"/Post/get_list"
 #define TIEZI_REPLY             @"/Post/reply"
@@ -101,6 +109,7 @@
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
 #define HOME_INDEX_CNT_URL      @"/Post/index_cnt"
 
+//话题
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"
 #define TOPIC_LIST_URL          @"/Topic/get_list"
@@ -116,6 +125,9 @@
 
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"
+
+//消息
+#define MESSAGE_REPLY_AND_COMMENT_URL @"/Post/my_reply_and_comment_list"
 
 /********************************* errorCode ******************************************************/
 //未登录

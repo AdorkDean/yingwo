@@ -113,6 +113,8 @@
 {
     [self stringDevicetoken:deviceToken];
     NSLog(@"deviceToken:---%@",deviceToken);
+
+    
  //   [UMessage registerDeviceToken:deviceToken];
     // 1.2.7版本开始不需要用户再手动注册devicetoken，SDK会自动注册
 }
@@ -140,6 +142,10 @@
         //应用处于后台时的远程推送接受
         //必须加这句代码
         [UMessage didReceiveRemoteNotification:userInfo];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:MESSAGE_NOTIFICATION
+                                                            object:userInfo];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:nil name:MESSAGE_NOTIFICATION object:nil];
         
     }else{
         //应用处于后台时的本地推送接受
@@ -174,13 +180,17 @@
 #pragma mark 以下的方法仅作调试使用
 -(NSString *)stringDevicetoken:(NSData *)deviceToken
 {
-    NSString *token = [deviceToken description];
+    NSString *token     = [deviceToken description];
     NSString *pushToken = [[[token stringByReplacingOccurrencesOfString:
                                                          @"<"withString:@""]
-                            stringByReplacingOccurrencesOfString:@">"
-                                                       withString:@""]
-                             stringByReplacingOccurrencesOfString:@" "withString:@""];
+                                    stringByReplacingOccurrencesOfString:@">"
+                                                              withString:@""]
+                                    stringByReplacingOccurrencesOfString:@" "
+                                                              withString:@""];
     
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    
+    [userDefault setObject:token forKey:TOKEN_KEY];
     return pushToken;
 }
 

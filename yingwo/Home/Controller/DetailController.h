@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(NSInteger,CommentType) {
     TieZiCommentModel, //帖子的评论
-    CommentedModel //评论的评论
+    CommentedModel, //评论的评论
 };
 
 /**

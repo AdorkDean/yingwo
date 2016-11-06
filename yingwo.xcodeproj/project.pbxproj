@@ -86,6 +86,7 @@
 		184BC1221D5F221D00125448 /* GalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BC11F1D5F221D00125448 /* GalleryView.m */; };
 		184BC1231D5F221D00125448 /* ZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BC1211D5F221D00125448 /* ZoomScrollView.m */; };
 		184C42D81D9BF9F20060D9C0 /* UIImage+blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C42D71D9BF9F20060D9C0 /* UIImage+blur.m */; };
+		1852DA041DCE36830055C184 /* MessageDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1852DA031DCE36830055C184 /* MessageDetailController.m */; };
 		185718F61D82ACF8002B9701 /* DetailViewModelHepler.m in Sources */ = {isa = PBXBuildFile; fileRef = 185718F51D82ACF8002B9701 /* DetailViewModelHepler.m */; };
 		185E1ADC1D8FBB64008299EE /* TopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E1ADB1D8FBB64008299EE /* TopicController.m */; };
 		185E1AE21D8FBFA7008299EE /* YWTopicHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E1AE11D8FBFA7008299EE /* YWTopicHeaderView.m */; };
@@ -141,6 +142,15 @@
 		18B926D41D3907ED0067FE24 /* SmsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B926D31D3907ED0067FE24 /* SmsMessage.m */; };
 		18B926DC1D39270C0067FE24 /* MBProgressHUD+Dispaly.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B926DB1D39270C0067FE24 /* MBProgressHUD+Dispaly.m */; };
 		18C350531D7FBA64008BFDD3 /* YWCommentReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C350521D7FBA64008BFDD3 /* YWCommentReplyView.m */; };
+		18CF49931DCA1F0E00B1367E /* MessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49921DCA1F0E00B1367E /* MessageController.m */; };
+		18CF49961DCA1F5400B1367E /* YWMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49951DCA1F5400B1367E /* YWMessageCell.m */; };
+		18CF49991DCA201A00B1367E /* YWImageMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49981DCA201A00B1367E /* YWImageMessageCell.m */; };
+		18CF499F1DCA230400B1367E /* YWMessageTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF499E1DCA230400B1367E /* YWMessageTopView.m */; };
+		18CF49A21DCA26BE00B1367E /* YWMessageBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49A11DCA26BE00B1367E /* YWMessageBottomView.m */; };
+		18CF49A51DCA2E7900B1367E /* YWMessageImageBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49A41DCA2E7900B1367E /* YWMessageImageBottomView.m */; };
+		18CF49A81DCA368A00B1367E /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49A71DCA368A00B1367E /* CommentController.m */; };
+		18CF49AB1DCA36AA00B1367E /* FavorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49AA1DCA36AA00B1367E /* FavorController.m */; };
+		18CF49AE1DCA38AB00B1367E /* MessageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CF49AD1DCA38AB00B1367E /* MessageViewModel.m */; };
 		18D100DB1D3E153400D75968 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D100DA1D3E153400D75968 /* User.m */; };
 		18D100DF1D3E16D700D75968 /* User+CURD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D100DE1D3E16D700D75968 /* User+CURD.m */; };
 		18D102981D3E4B0600D75968 /* RegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D102971D3E4B0600D75968 /* RegisterModel.m */; };
@@ -161,6 +171,7 @@
 		18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */; };
 		18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7301D9E6BAA00A0978E /* YWPersonCenterMidCell.h */; };
 		18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */; };
+		18D7C6161DCDD75300D5F9D6 /* MessageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7C6151DCDD75300D5F9D6 /* MessageEntity.m */; };
 		18E74CB11D3CA2A800176142 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CAE1D3CA2A800176142 /* LoginController.m */; };
 		18E74CB21D3CA2A800176142 /* LoginNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB01D3CA2A800176142 /* LoginNavController.m */; };
 		18E74CB51D3CA2C300176142 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB41D3CA2C300176142 /* LoginModel.m */; };
@@ -404,6 +415,8 @@
 		184BC1211D5F221D00125448 /* ZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZoomScrollView.m; path = Vender/GalleryView/ZoomScrollView.m; sourceTree = "<group>"; };
 		184C42D61D9BF9F20060D9C0 /* UIImage+blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+blur.h"; path = "Tools/UIImage+blur.h"; sourceTree = "<group>"; };
 		184C42D71D9BF9F20060D9C0 /* UIImage+blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+blur.m"; path = "Tools/UIImage+blur.m"; sourceTree = "<group>"; };
+		1852DA021DCE36830055C184 /* MessageDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDetailController.h; path = Message/Controller/MessageDetailController.h; sourceTree = "<group>"; };
+		1852DA031DCE36830055C184 /* MessageDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDetailController.m; path = Message/Controller/MessageDetailController.m; sourceTree = "<group>"; };
 		185718F41D82ACF8002B9701 /* DetailViewModelHepler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewModelHepler.h; path = Home/ViewModel/DetailViewModelHepler.h; sourceTree = "<group>"; };
 		185718F51D82ACF8002B9701 /* DetailViewModelHepler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewModelHepler.m; path = Home/ViewModel/DetailViewModelHepler.m; sourceTree = "<group>"; };
 		185E1ADA1D8FBB64008299EE /* TopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopicController.h; path = Topic/Controller/TopicController.h; sourceTree = "<group>"; };
@@ -518,6 +531,24 @@
 		18C350511D7FBA64008BFDD3 /* YWCommentReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWCommentReplyView.h; path = Home/View/YWCommentReplyView.h; sourceTree = "<group>"; };
 		18C350521D7FBA64008BFDD3 /* YWCommentReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWCommentReplyView.m; path = Home/View/YWCommentReplyView.m; sourceTree = "<group>"; };
 		18CEE7131DAF5823004FEDFE /* yingwo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yingwo.entitlements; sourceTree = "<group>"; };
+		18CF49911DCA1F0E00B1367E /* MessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageController.h; path = Message/Controller/MessageController.h; sourceTree = "<group>"; };
+		18CF49921DCA1F0E00B1367E /* MessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageController.m; path = Message/Controller/MessageController.m; sourceTree = "<group>"; };
+		18CF49941DCA1F5400B1367E /* YWMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWMessageCell.h; path = Message/View/YWMessageCell.h; sourceTree = "<group>"; };
+		18CF49951DCA1F5400B1367E /* YWMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWMessageCell.m; path = Message/View/YWMessageCell.m; sourceTree = "<group>"; };
+		18CF49971DCA201A00B1367E /* YWImageMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWImageMessageCell.h; path = Message/View/YWImageMessageCell.h; sourceTree = "<group>"; };
+		18CF49981DCA201A00B1367E /* YWImageMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWImageMessageCell.m; path = Message/View/YWImageMessageCell.m; sourceTree = "<group>"; };
+		18CF499D1DCA230400B1367E /* YWMessageTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWMessageTopView.h; path = Message/View/YWMessageTopView.h; sourceTree = "<group>"; };
+		18CF499E1DCA230400B1367E /* YWMessageTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWMessageTopView.m; path = Message/View/YWMessageTopView.m; sourceTree = "<group>"; };
+		18CF49A01DCA26BE00B1367E /* YWMessageBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWMessageBottomView.h; path = Message/View/YWMessageBottomView.h; sourceTree = "<group>"; };
+		18CF49A11DCA26BE00B1367E /* YWMessageBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWMessageBottomView.m; path = Message/View/YWMessageBottomView.m; sourceTree = "<group>"; };
+		18CF49A31DCA2E7900B1367E /* YWMessageImageBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWMessageImageBottomView.h; path = Message/View/YWMessageImageBottomView.h; sourceTree = "<group>"; };
+		18CF49A41DCA2E7900B1367E /* YWMessageImageBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWMessageImageBottomView.m; path = Message/View/YWMessageImageBottomView.m; sourceTree = "<group>"; };
+		18CF49A61DCA368A00B1367E /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentController.h; path = Message/Controller/CommentController.h; sourceTree = "<group>"; };
+		18CF49A71DCA368A00B1367E /* CommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentController.m; path = Message/Controller/CommentController.m; sourceTree = "<group>"; };
+		18CF49A91DCA36AA00B1367E /* FavorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavorController.h; path = Message/Controller/FavorController.h; sourceTree = "<group>"; };
+		18CF49AA1DCA36AA00B1367E /* FavorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FavorController.m; path = Message/Controller/FavorController.m; sourceTree = "<group>"; };
+		18CF49AC1DCA38AB00B1367E /* MessageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewModel.h; path = Message/ViewModel/MessageViewModel.h; sourceTree = "<group>"; };
+		18CF49AD1DCA38AB00B1367E /* MessageViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewModel.m; path = Message/ViewModel/MessageViewModel.m; sourceTree = "<group>"; };
 		18D100D91D3E153400D75968 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = User/entity/User.h; sourceTree = "<group>"; };
 		18D100DA1D3E153400D75968 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = User/entity/User.m; sourceTree = "<group>"; };
 		18D100DD1D3E16D700D75968 /* User+CURD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "User+CURD.h"; path = "Tools/User+CURD.h"; sourceTree = "<group>"; };
@@ -550,6 +581,8 @@
 		18D4E7311D9E6BAA00A0978E /* YWPersonCenterMidCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterMidCell.m; path = PersonalCenter/View/YWPersonCenterMidCell.m; sourceTree = "<group>"; };
 		18D4E7321D9E6BAA00A0978E /* YWPersonCenterTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWPersonCenterTopView.h; path = PersonalCenter/View/YWPersonCenterTopView.h; sourceTree = "<group>"; };
 		18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterTopView.m; path = PersonalCenter/View/YWPersonCenterTopView.m; sourceTree = "<group>"; };
+		18D7C6141DCDD75300D5F9D6 /* MessageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageEntity.h; path = Message/Entity/MessageEntity.h; sourceTree = "<group>"; };
+		18D7C6151DCDD75300D5F9D6 /* MessageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageEntity.m; path = Message/Entity/MessageEntity.m; sourceTree = "<group>"; };
 		18E74CAD1D3CA2A800176142 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginController.h; path = Login/Controller/LoginController.h; sourceTree = "<group>"; };
 		18E74CAE1D3CA2A800176142 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginController.m; path = Login/Controller/LoginController.m; sourceTree = "<group>"; };
 		18E74CAF1D3CA2A800176142 /* LoginNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginNavController.h; path = Login/Controller/LoginNavController.h; sourceTree = "<group>"; };
@@ -1340,6 +1373,7 @@
 				1807FEA51D680582009393E2 /* Discovery */,
 				18AF9E831D502AD70063D81F /* Announce */,
 				18AF9E5F1D4F361B0063D81F /* Home */,
+				18CF498B1DCA1EC200B1367E /* Message */,
 				CCF64E751DC0954A009B4B21 /* TA */,
 				18F5D3961D364FF200784B48 /* Login */,
 				18AFE6011D30BBC3007BEBDE /* Register */,
@@ -1454,6 +1488,67 @@
 				18D100DA1D3E153400D75968 /* User.m */,
 			);
 			name = Enitiy;
+			sourceTree = "<group>";
+		};
+		18CF498B1DCA1EC200B1367E /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				18CF498F1DCA1EE700B1367E /* Entity */,
+				18CF498E1DCA1EE100B1367E /* ViewModel */,
+				18CF498D1DCA1EDD00B1367E /* View */,
+				18CF498C1DCA1ED300B1367E /* Controller */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		18CF498C1DCA1ED300B1367E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18CF49911DCA1F0E00B1367E /* MessageController.h */,
+				18CF49921DCA1F0E00B1367E /* MessageController.m */,
+				18CF49A61DCA368A00B1367E /* CommentController.h */,
+				18CF49A71DCA368A00B1367E /* CommentController.m */,
+				18CF49A91DCA36AA00B1367E /* FavorController.h */,
+				18CF49AA1DCA36AA00B1367E /* FavorController.m */,
+				1852DA021DCE36830055C184 /* MessageDetailController.h */,
+				1852DA031DCE36830055C184 /* MessageDetailController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		18CF498D1DCA1EDD00B1367E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18CF499D1DCA230400B1367E /* YWMessageTopView.h */,
+				18CF499E1DCA230400B1367E /* YWMessageTopView.m */,
+				18CF49A01DCA26BE00B1367E /* YWMessageBottomView.h */,
+				18CF49A11DCA26BE00B1367E /* YWMessageBottomView.m */,
+				18CF49A31DCA2E7900B1367E /* YWMessageImageBottomView.h */,
+				18CF49A41DCA2E7900B1367E /* YWMessageImageBottomView.m */,
+				18CF49941DCA1F5400B1367E /* YWMessageCell.h */,
+				18CF49951DCA1F5400B1367E /* YWMessageCell.m */,
+				18CF49971DCA201A00B1367E /* YWImageMessageCell.h */,
+				18CF49981DCA201A00B1367E /* YWImageMessageCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		18CF498E1DCA1EE100B1367E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18CF49AC1DCA38AB00B1367E /* MessageViewModel.h */,
+				18CF49AD1DCA38AB00B1367E /* MessageViewModel.m */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		18CF498F1DCA1EE700B1367E /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				18D7C6141DCDD75300D5F9D6 /* MessageEntity.h */,
+				18D7C6151DCDD75300D5F9D6 /* MessageEntity.m */,
+			);
+			name = Entity;
 			sourceTree = "<group>";
 		};
 		18D100CF1D3E12A100D75968 /* CoreData */ = {
@@ -2085,12 +2180,14 @@
 				18E74CD41D3CEB9500176142 /* YWTabBar.m in Sources */,
 				1807FEE71D6830C5009393E2 /* CMSDImageCache.m in Sources */,
 				181A01061D575D2800D96DC9 /* DetailViewModel.m in Sources */,
+				18CF49AB1DCA36AA00B1367E /* FavorController.m in Sources */,
 				CC9B98D11DBA24180009E7DC /* MyLikeController.m in Sources */,
 				181A00F21D571E3300D96DC9 /* YWHomeTableViewCellBase.m in Sources */,
 				18D100DF1D3E16D700D75968 /* User+CURD.m in Sources */,
 				18F921361D7EBC6700A44846 /* YWDetailCellBottomView.m in Sources */,
 				1800D68D1D5833DA00668D83 /* NSString+Url.m in Sources */,
 				1802C1B91D796F2900CFB375 /* YWPhotoCotentView.m in Sources */,
+				18CF49931DCA1F0E00B1367E /* MessageController.m in Sources */,
 				CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */,
 				18F5E4E61D77C9FD00B11BD7 /* NSArray+(String).m in Sources */,
 				CCA9036B1DB8E81D0053D278 /* NSBundle+TZImagePicker.m in Sources */,
@@ -2099,16 +2196,19 @@
 				181B0B0C1D8150DB003CD0B6 /* NSMutableArray+Sort.m in Sources */,
 				18D4E72A1D9E6B8D00A0978E /* MyTopicController.m in Sources */,
 				18AF9E791D4F3A480063D81F /* YWHomeCellBottomView.m in Sources */,
+				18CF49AE1DCA38AB00B1367E /* MessageViewModel.m in Sources */,
 				18D2438C1D7BF7A700DAC374 /* TieZiReply.m in Sources */,
 				181A00E61D56EA0E00D96DC9 /* YWHomeCellMiddleViewNineImage.m in Sources */,
 				18E74CDA1D3CF9A900176142 /* YWButton.m in Sources */,
 				CC3AD4801DC9A8CC00874834 /* UIView+WZLBadge.m in Sources */,
 				1883DD501D89273B00EB9629 /* FieldEntity.m in Sources */,
 				181A00CB1D56E5B200D96DC9 /* YWHomeTableViewCellOneImage.m in Sources */,
+				18D7C6161DCDD75300D5F9D6 /* MessageEntity.m in Sources */,
 				187D2F951D55D159006C5C5F /* YWQiNiuUploadHelper.m in Sources */,
 				181ACB721D4C8613004BDCC7 /* NSDate+Grade.m in Sources */,
 				181A00E31D56E9F200D96DC9 /* YWHomeCellMiddleViewSixImage.m in Sources */,
 				18D243951D7D4F2200DAC374 /* ImageViewEntity.m in Sources */,
+				18CF49991DCA201A00B1367E /* YWImageMessageCell.m in Sources */,
 				1807FEE91D6830C5009393E2 /* CMSDWebImageDecoder.m in Sources */,
 				1807FEFC1D684026009393E2 /* SMPagerTabView.m in Sources */,
 				CCA903731DB8E81D0053D278 /* TZPhotoPreviewController.m in Sources */,
@@ -2142,6 +2242,7 @@
 				18A0F88D1D34B61B005FE091 /* Validate.m in Sources */,
 				185E1AEE1D8FC7E8008299EE /* NewTopicController.m in Sources */,
 				CC9604BA1D9FF57D009B5A56 /* UpdatePwdEntity.m in Sources */,
+				18CF499F1DCA230400B1367E /* YWMessageTopView.m in Sources */,
 				185EA5A61D52D43B00362A21 /* YWDropDownViewCell.m in Sources */,
 				1807FEC11D6830A0009393E2 /* MXPageControl.m in Sources */,
 				1803C1271D54356F0078EF0F /* PhotoUnitView.m in Sources */,
@@ -2184,6 +2285,7 @@
 				1883DD5B1D892BCC00EB9629 /* YWTopicListView.m in Sources */,
 				18F5D39E1D3673C500784B48 /* YWNetworkTools.m in Sources */,
 				188F93871D71721D00941A42 /* DiscoveryViewModel.m in Sources */,
+				18CF49A51DCA2E7900B1367E /* YWMessageImageBottomView.m in Sources */,
 				CCA9036E1DB8E81D0053D278 /* TZImageManager.m in Sources */,
 				CC4CDE471D9D04A0002A80B0 /* ViewController.m in Sources */,
 				1807FEF41D6830C5009393E2 /* UIImageView+CMHighlightedWebCache.m in Sources */,
@@ -2216,6 +2318,7 @@
 				1807FEC21D6830A0009393E2 /* MXScrollConst.m in Sources */,
 				CC5BC5031D9D038D00851C4D /* YWAlertButton.m in Sources */,
 				CC5BC4FB1D9D02A400851C4D /* ClauseViewController.m in Sources */,
+				18CF49A21DCA26BE00B1367E /* YWMessageBottomView.m in Sources */,
 				CCA903721DB8E81D0053D278 /* TZPhotoPreviewCell.m in Sources */,
 				CCA9034D1DB8E7E10053D278 /* YWPhotoDisplayView.m in Sources */,
 				1807FEC41D6830A0009393E2 /* MXTransaction.m in Sources */,
@@ -2252,6 +2355,7 @@
 				CCA903701DB8E81D0053D278 /* TZImagePickerController.m in Sources */,
 				180F091D1D3777E700F3DD11 /* PerfectInfoController.m in Sources */,
 				18D243891D7BF41F00DAC374 /* RequestEntity.m in Sources */,
+				18CF49961DCA1F5400B1367E /* YWMessageCell.m in Sources */,
 				CCA9036C1DB8E81D0053D278 /* TZAssetCell.m in Sources */,
 				18A0F8871D34B5EC005FE091 /* InputTextField.m in Sources */,
 				18D102981D3E4B0600D75968 /* RegisterModel.m in Sources */,
@@ -2274,6 +2378,7 @@
 				18E8E4E91D605247003C7289 /* YWDetailTopView.m in Sources */,
 				CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */,
 				1883DD561D8929AA00EB9629 /* TopicEntity.m in Sources */,
+				18CF49A81DCA368A00B1367E /* CommentController.m in Sources */,
 				18E74CD01D3CEB8B00176142 /* MainController.m in Sources */,
 				181A01001D57545100D96DC9 /* YWDetailTableViewCell.m in Sources */,
 				CCA903751DB8E81D0053D278 /* UIView+Layout.m in Sources */,
@@ -2282,6 +2387,7 @@
 				18E74CB51D3CA2C300176142 /* LoginModel.m in Sources */,
 				187D2F8C1D55B4A3006C5C5F /* CatZanButton.m in Sources */,
 				1878FC411D59B55A0006230C /* YWAvatarBrowser.m in Sources */,
+				1852DA041DCE36830055C184 /* MessageDetailController.m in Sources */,
 				184932A11D3FC66C008CE18E /* ForgetPasswordController.m in Sources */,
 				181A00D71D56E8FD00D96DC9 /* YWHomeTableViewCellNineImage.m in Sources */,
 				1807FEF11D6830C5009393E2 /* UIImage+CMGIF.m in Sources */,
