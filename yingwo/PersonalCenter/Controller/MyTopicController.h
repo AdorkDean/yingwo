@@ -7,7 +7,15 @@
 //
 
 #import "BaseViewController.h"
+#import "TopicListController.h"
 
 @interface MyTopicController : BaseViewController
+
+//校园生活
+@property (nonatomic, strong) TopicListController *oneFieldVc;
+//兴趣爱好
+@property (nonatomic, strong) TopicListController *twoFieldVc;
+//学科专业
+@property (nonatomic, strong) TopicListController *threeFieldVc;
 
 @end

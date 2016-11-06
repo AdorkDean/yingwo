@@ -28,33 +28,36 @@
 //        YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub_G"]];
         YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub"]];
         YWButton *headBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"head"] selectImage:[UIImage imageNamed:@"head_G"]];
-
-        homeBtn.tag = 0;
-        findBtn.tag = 1;
-        addBtn.tag  = 2;
-        bubBtn.tag  = 3;
-        headBtn.tag = 4;
         
-        [homeBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        self.homeBtn = homeBtn;
+        
+        self.homeBtn.tag = 0;
+        findBtn.tag      = 1;
+        addBtn.tag       = 2;
+        bubBtn.tag       = 3;
+        headBtn.tag      = 4;
+        
+        [self.homeBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [findBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [addBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 //        [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [headBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
-        [self.buttons addObject:homeBtn];
+        [self.buttons addObject:self.homeBtn];
         [self.buttons addObject:findBtn];
         [self.buttons addObject:addBtn];
         [self.buttons addObject:bubBtn];
         [self.buttons addObject:headBtn];
 
-        [self addSubview:homeBtn];
+
+        [self addSubview:self.homeBtn];
         [self addSubview:findBtn];
         [self addSubview:addBtn];
         [self addSubview:bubBtn];
         [self addSubview:headBtn];
 
-        [homeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.homeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_left).offset(TABVIEW_MARGIN);
             make.centerY.equalTo(self);
         }];
@@ -102,8 +105,7 @@
         btn = [self.buttons objectAtIndex:i];
         [btn setBackgroundImage:btn.backgroundImage forState:UIControlStateNormal];
     }
-
-
+    
     btn = [self.buttons objectAtIndex:index];
     [btn setBackgroundImage:btn.selectedImage forState:UIControlStateNormal];
     

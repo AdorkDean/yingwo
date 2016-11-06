@@ -5,14 +5,16 @@
 //
 
 #import "GalleryView.h"
+#import "YWIndicatorView.h"
 
 @interface GalleryView ()
 
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (assign, nonatomic) NSInteger    currentPage;
+@property (nonatomic, strong) UIScrollView        *scrollView;
+@property (assign, nonatomic) NSInteger           currentPage;
 
-@property (atomic, assign   ) CGFloat      imageLoadProgress;
-@property (nonatomic, assign) CGFloat      totalProgress;
+@property (atomic,    assign) CGFloat             imageLoadProgress;
+@property (nonatomic, assign) CGFloat             totalProgress;
+@property (nonatomic, strong) YWIndicatorView     *indicatorView;
 
 @end
 
@@ -47,6 +49,7 @@
     self.scrollView.userInteractionEnabled         = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator   = NO;
+    self.scrollView.clipsToBounds                  = YES;
     [self addSubview:self.scrollView];
     
     self.maximumZoomScale = 3;
@@ -114,11 +117,12 @@
 - (void)setImages:(NSArray *)imageViews showAtIndex:(NSInteger)index{
     
     _imageViews = imageViews;
-    
+        
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width * imageViews.count,
                                                self.scrollView.bounds.size.height)];
     
     self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width*index, 0);
+    
     
     for (int i = 0; i < imageViews.count; i++)
     {
@@ -324,33 +328,42 @@ withImageUrlArrEntity:(NSArray *)entities
         
         [self resizeImageViewByzoomScrollView:centerZoomScrollView atIndex:currentPage];
     }
+    
 }
 
 - (void)resizeImageViewByzoomScrollView:(ZoomScrollView *)zoomScrollView atIndex:(NSInteger)index{
+  
+    [self.indicatorView removeFromSuperview];
     
     ImageViewEntity *imageEntity = [self.imageUrlArrEntity objectAtIndex:index];
     
+    //添加进度指示器
+    YWIndicatorView *indicatorView            = [[YWIndicatorView alloc] init];
+    indicatorView.viewMode                    = YWIndicatorViewModeLoopDiagram;
+    indicatorView.center                      = CGPointMake([UIScreen mainScreen].bounds.size.width * 0.5,
+                                                            [UIScreen mainScreen].bounds.size.height * 0.5);
+    self.indicatorView                        = indicatorView;
+    [self addSubview:self.indicatorView];
+    __weak __typeof(self)weakSelf = self;
     [zoomScrollView.imageView sd_setImageWithURL:[NSURL URLWithString:imageEntity.imageName] placeholderImage:nil
                                          options:SDWebImageRetryFailed
                                         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                            
-                                            [SVProgressHUD showLoadingStatusWith:@""];
-
-                                            CGFloat progress       = receivedSize *1.0 / expectedSize;
-                                            self.imageLoadProgress += progress;
-
-                                            if (self.imageLoadProgress >= self.totalProgress) {
-                                                [SVProgressHUD dismiss];
-                                            }
+                                            //显示进度
+                                            __strong __typeof(weakSelf)strongSelf       = weakSelf;
+                                            strongSelf.indicatorView.progress           = (CGFloat)receivedSize / expectedSize;
     }
                                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                                                     // imageEntity.isDownload = YES;
                                            
-                                          // imageEntity.isDownload = YES;
+                                           __strong __typeof(weakSelf)strongSelf = weakSelf;
+                                           [strongSelf.indicatorView removeFromSuperview];
+
                                            [zoomScrollView resizeImageViewWithImage:image];
                                            
                                            if (zoomScrollView.zoomScale != 1) {
                                                [zoomScrollView setZoomScale:1.0];
                                            }
+
     }];
     
     //  下载后一张

@@ -23,6 +23,4 @@
 
 @property (nonatomic, strong) NSMutableArray *commentArr;
 
-
-
 @end

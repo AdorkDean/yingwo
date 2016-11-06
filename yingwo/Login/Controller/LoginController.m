@@ -10,6 +10,7 @@
 #import "InputTextField.h"
 #import "RegisterController.h"
 #import "LoginModel.h"
+#import "RegisterModel.h"
 
 #import "Test.h"
 
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) UIButton       *registerBtn;
 @property (nonatomic, strong) UIButton       *forgetBtn;
 @property (nonatomic, strong) LoginModel     *viewModel;
+@property (nonatomic, strong) RegisterModel  *registerModel;
 @end
 
 @implementation LoginController
@@ -94,6 +96,15 @@
     return _viewModel;
 }
 
+-(RegisterModel *)registerModel
+{
+    if (_registerModel == nil) {
+        _registerModel = [[RegisterModel alloc] init];
+    }
+    return _registerModel;
+}
+
+
 #pragma mark -----初始化UI布局
 - (void)setUILayout {
     
@@ -150,7 +161,7 @@
 - (void) setAllAction {
     [self.registerBtn addTarget:self action:@selector(jumpToRegisterPage) forControlEvents:UIControlEventTouchUpInside];
     [self.forgetBtn addTarget:self action:@selector(jumpToForgetPage) forControlEvents:UIControlEventTouchUpInside];
-    [self.loginBtn addTarget:self action:@selector(sendLoginRequest) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginBtn addTarget:self action:@selector(checkPhone) forControlEvents:UIControlEventTouchUpInside];
 
 }
 
@@ -169,6 +180,28 @@
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MAIN sender:self];
 }
 
+//检查手机号是否注册
+- (void)checkPhone {
+    
+    NSDictionary *paramaters = @{MOBILE:self.phoneText.rightTextField.text};
+    
+    [self.registerModel requestForCheckMobleWithUrl:MOBILE_CHECK_URL
+                                         paramaters:paramaters
+                                            success:^(StatusEntity *status) {
+                                                if (status.error == 0) {
+                                                    [SVProgressHUD showErrorStatus:@"手机号未注册"
+                                                                        afterDelay:HUD_DELAY];
+                                                }
+                                                else if (status.error_code == ERROR_REGISTERED_CODE) {
+                                                    [self sendLoginRequest]; //确认用户注册，登录
+                                                }
+                                            }
+                                            failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                                [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
+                                            }];
+    
+}
+
 /**
  *  登录
  */
@@ -176,7 +209,7 @@
     
     /**
      *  登录参数分为
-     *  username
+     *  mobile
      *  password
      */
     
@@ -259,7 +292,12 @@
             
             [SVProgressHUD showSuccessStatus:@"登录成功" afterDelay:HUD_DELAY];
             //跳转
-            [self jumpToMainPage];
+            if ([user.register_status intValue] == 1) {
+                [self jumpToMainPage];
+            }else {
+                //仅仅注册未完善个人信息的直接跳到个人信息界面
+                [self performSegueWithIdentifier:SEGUE_IDENTIFY_PERFECTINFO sender:self];
+            }
         }
     } failure:^(int errorCode) {
         
@@ -290,7 +328,9 @@
 //初始化登录信息
 - (void)initLoginInformation {
     
-    if ([User haveExistedLoginInformation]) {
+    Customer *user = [User findCustomer];
+    
+    if ([User haveExistedLoginInformation] && [user.register_status intValue] != 0) {
         
         self.phoneText.rightTextField.text    = [User getUsername];
         self.passwordText.rightTextField.text = [User getPasswoord];

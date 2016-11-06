@@ -14,7 +14,7 @@
 #import "YWKeyboardToolView.h"
 #import "YWPhotoDisplayView.h"
 
-@interface AnnounceController ()<LSYAlbumCatalogDelegate,ISEmojiViewDelegate,YWKeyboardToolViewProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface AnnounceController ()<ISEmojiViewDelegate,YWKeyboardToolViewProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 
 @property (nonatomic, strong) YWAnnounceTextView *announceTextView;
 @property (nonatomic, strong) YWKeyboardToolView *keyboardToolView;
@@ -45,7 +45,7 @@
         _announceTextView.layer.cornerRadius          = 10;
         _announceTextView.contentTextView.placeholder = @"分享身边有趣、有料、有用的校园新鲜事～";
         _announceTextView.keyboardToolView.delegate   = self;
-        _announceTextView.contentTextView.font        = [UIFont systemFontOfSize:14];
+        _announceTextView.contentTextView.font        = [UIFont systemFontOfSize:15];
         _announceTextView.contentTextView.maxHeight   = SCREEN_HEIGHT * 0.32;
         UITapGestureRecognizer *tap                   = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeKeybordBecomeFirstResponder)];
         _announceTextView.userInteractionEnabled      = YES;
@@ -66,9 +66,10 @@
         [_keyboardToolView.photo addTarget:self
                                    action:@selector(enterIntoAlbumsSelectPhotos)
                          forControlEvents:UIControlEventTouchUpInside];
-        [_keyboardToolView.takePhoto addTarget:self
-                                        action:@selector(enterIntoCamera)
-                              forControlEvents:UIControlEventTouchUpInside];
+        
+//        [_keyboardToolView.takePhoto addTarget:self
+//                                        action:@selector(enterIntoCamera)
+//                              forControlEvents:UIControlEventTouchUpInside];
 
         _keyboardToolView.delegate = self;
     }
@@ -108,7 +109,7 @@
         _photoDisplayView = [[YWPhotoDisplayView alloc] init];
         _photoDisplayView.photoWidth = 80;
         [_photoDisplayView.addMorePhotosBtn addTarget:self
-                                               action:@selector(addMorePhotos)
+                                               action:@selector(enterIntoAlbumsSelectPhotos)
                                      forControlEvents:UIControlEventTouchUpInside];
     }
     return _photoDisplayView;
@@ -252,7 +253,7 @@ CGFloat delay = 2.0f;
                               paramaters:paramaters
                                  success:^(NSString *result) {
                                      
-                                     //这里保存参数，返回给贴子详情界面，用来刷新刚发布的回贴
+                                     //这里保存参数，返回贴子详情界面，用来刷新刚发布的回贴
                                      if (self.isFollowTieZi == YES) {
                                          self.tieZiParamaters = paramaters;
                                      }
@@ -261,6 +262,7 @@ CGFloat delay = 2.0f;
                                           self.isRelease = YES;
                                           
                                           [SVProgressHUD showSuccessStatus:@"发布成功" afterDelay:HUD_DELAY];
+                                     
                                           [[NSNotificationCenter defaultCenter] addObserver:self
                                                                                    selector:@selector(handleNotification:)
                                                                                        name:SVProgressHUDDidDisappearNotification
@@ -286,50 +288,62 @@ CGFloat delay = 2.0f;
 }
 
 
-- (void)enterIntoCamera {
-    UIImagePickerController *cameraVc = [[UIImagePickerController alloc] init];
-    cameraVc.sourceType = UIImagePickerControllerSourceTypeCamera;
-    cameraVc.delegate = self;
-    [self presentViewController:cameraVc animated:YES completion:^{
-        
-    }];
-}
+//- (void)enterIntoCamera {
+//    UIImagePickerController *cameraVc = [[UIImagePickerController alloc] init];
+//    cameraVc.sourceType = UIImagePickerControllerSourceTypeCamera;
+//    cameraVc.delegate = self;
+//    [self presentViewController:cameraVc animated:YES completion:^{
+//        
+//    }];
+//}
 
 /**
  *  进入相册
  */
 - (void)enterIntoAlbumsSelectPhotos {
-
-    self.photoDisplayView.selectModel           = FirstSelectPhoto;
-
-    LSYAlbumCatalog *albumCatalog              = [[LSYAlbumCatalog alloc] init];
-    albumCatalog.delegate                      = self;
-    LSYNavigationController *navigation        = [[LSYNavigationController alloc] initWithRootViewController:albumCatalog];
-    //最多选择15张照片
-    albumCatalog.maximumNumberOfSelectionMedia = 15;
     
-    [self presentViewController:navigation animated:YES completion:^{
-        
-    }];
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:15 - self.photoDisplayView.photoImagesCount delegate:self];
+    imagePickerVc.navigationBar.barTintColor = [UIColor colorWithHexString:THEME_COLOR_1];
+
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
+
+///**
+// *  这里是点击加号，继续添加图片
+// */
+//- (void)addMorePhotos {
+//
+//    self.photoDisplayView.selectModel          = AddMorePhoto;
+//
+//    LSYAlbumCatalog *albumCatalog              = [[LSYAlbumCatalog alloc] init];
+//    albumCatalog.delegate                      = self;
+//    LSYNavigationController *navigation        = [[LSYNavigationController alloc] initWithRootViewController:albumCatalog];
+//    albumCatalog.maximumNumberOfSelectionMedia = 15-self.photoDisplayView.photoImagesCount;
+//    
+//    [self presentViewController:navigation animated:YES completion:^{
+//        
+//    }];
+//    
+//}
 
 /**
- *  这里是点击加号，继续添加图片
+ *  进入相片选择界面
  */
-- (void)addMorePhotos {
+//- (void)enterIntoAlbumPicker {
+//    
+//    self.photoDisplayView.selectModel           = FirstSelectPhoto;
+//    
+//    LSYAlbumPicker *albumPicker = [[LSYAlbumPicker alloc] init];
+//    albumPicker.delegate = self;
+//    albumPicker.maxminumNumber  = 15;
+//    
+//    LSYNavigationController *navigation        = [[LSYNavigationController alloc] initWithRootViewController:albumPicker];
+//
+//    [self presentViewController:navigation animated:YES completion:^{
+//        
+//    }];
+//}
 
-    self.photoDisplayView.selectModel          = AddMorePhoto;
-
-    LSYAlbumCatalog *albumCatalog              = [[LSYAlbumCatalog alloc] init];
-    albumCatalog.delegate                      = self;
-    LSYNavigationController *navigation        = [[LSYNavigationController alloc] initWithRootViewController:albumCatalog];
-    albumCatalog.maximumNumberOfSelectionMedia = 15-self.photoDisplayView.photoImagesCount;
-    
-    [self presentViewController:navigation animated:YES completion:^{
-        
-    }];
-    
-}
 
 -(void)returnValue:(returnValueBlock)block {
     self.returnValueBlock = block;
@@ -401,7 +415,7 @@ CGFloat delay = 2.0f;
     _photoDisplayView = [[YWPhotoDisplayView alloc] init];
     _photoDisplayView.photoWidth = 80;
     [_photoDisplayView.addMorePhotosBtn addTarget:self
-                                           action:@selector(addMorePhotos)
+                                           action:@selector(enterIntoAlbumsSelectPhotos)
                                  forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.photoDisplayView];
@@ -527,28 +541,41 @@ CGFloat delay = 2.0f;
     
 }
 
+//#pragma mark - LSYAlbumPickerDelegate
+//-(void)AlbumPickerDidFinishPick:(NSArray *)assets
+//{
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(AlbumDidFinishPick:)]) {
+//        [self.delegate AlbumDidFinishPick:assets];
+//        
+//        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+//            
+//        }];
+//    }
+//}
 
-
-#pragma mark -- LSYAlbumCatalogDelegate
-
--(void)AlbumDidFinishPick:(NSArray *)assets {
-    
-    if (self.photoDisplayView.selectModel == FirstSelectPhoto) {
-        
-        [self.photoDisplayView addImages:assets];
-        
-    }else if (self.photoDisplayView.selectModel == AddMorePhoto) {
-        
-        [self.photoDisplayView addMoreImages:assets];
-        
-    }
-}
+//#pragma mark -- LSYAlbumCatalogDelegate
+//
+//-(void)AlbumDidFinishPick:(NSArray *)assets {
+//    
+//    if (self.photoDisplayView.selectModel == FirstSelectPhoto) {
+//        
+//        [self.photoDisplayView addImages:assets];
+//        
+//    }else if (self.photoDisplayView.selectModel == AddMorePhoto) {
+//        
+//        [self.photoDisplayView addMoreImages:assets];
+//        
+//    }
+//}
 
 
 #pragma mark ISEmojiViewDelegate
 
 -(void)emojiView:(ISEmojiView *)emojiView didSelectEmoji:(NSString *)emoji{
-    self.announceTextView.contentTextView.text = [self.announceTextView.contentTextView.text stringByAppendingString:emoji];
+    NSRange insertRange = self.announceTextView.contentTextView.selectedRange;
+    self.announceTextView.contentTextView.text = [self.announceTextView.contentTextView.text stringByReplacingCharactersInRange:insertRange withString:emoji];
+     //插入后光标仍在插入后的位置
+     self.announceTextView.contentTextView.selectedRange = NSMakeRange(insertRange.location + emoji.length, 0);
 }
 
 -(void)emojiView:(ISEmojiView *)emojiView didPressDeleteButton:(UIButton *)deletebutton{
@@ -582,14 +609,28 @@ CGFloat delay = 2.0f;
 
 }
 
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    UIImage *image = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
-    [picker dismissViewControllerAnimated:YES completion:^{
-//        [self.photoDisplayView addImages:assets];
-    }];
+//#pragma mark - UIImagePickerControllerDelegate
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+//    UIImage *image = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
+//    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+//   
+//    [picker dismissViewControllerAnimated:YES completion:^{
+//        [self enterIntoAlbumsSelectPhotos];
+//    }];
+//
+//}
 
+//- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+//    
+//}
+
+#pragma mark - TZImagePickerControllerDelegate
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
+
+    [self.photoDisplayView addImages:assets];
+    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

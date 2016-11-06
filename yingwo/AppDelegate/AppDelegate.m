@@ -59,6 +59,7 @@
     
     [UMessage setLogEnabled:YES];
 
+//    [NSThread sleepForTimeInterval:1.5];//设置启动页面时间
     
     [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
     [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
@@ -68,16 +69,17 @@
     MainNavController *mainNav ;
     
     //如果有帐号，则直接登录
-    if ([User haveExistedLoginInformation]) {
+    Customer *user = [User findCustomer];
+
+    if ([User haveExistedLoginInformation] && [user.register_status intValue] == 1) {
         
         MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
         self.window.rootViewController = mainVC;
 
     }else {
         UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginController *loginVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
+        LoginController *loginVC       = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
         mainNav     = [[MainNavController alloc] initWithRootViewController:loginVC];
-
         self.window.rootViewController = mainNav;
 
     }
@@ -93,6 +95,11 @@
     
 }
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"%@", error);
+}
+
 //iOS10以下使用这个方法接收通知
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -105,6 +112,10 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [self stringDevicetoken:deviceToken];
+    NSLog(@"deviceToken:---%@",deviceToken);
+
+    
+ //   [UMessage registerDeviceToken:deviceToken];
     // 1.2.7版本开始不需要用户再手动注册devicetoken，SDK会自动注册
 }
 
@@ -169,13 +180,17 @@
 #pragma mark 以下的方法仅作调试使用
 -(NSString *)stringDevicetoken:(NSData *)deviceToken
 {
-    NSString *token = [deviceToken description];
+    NSString *token     = [deviceToken description];
     NSString *pushToken = [[[token stringByReplacingOccurrencesOfString:
                                                          @"<"withString:@""]
-                            stringByReplacingOccurrencesOfString:@">"
-                                                       withString:@""]
-                             stringByReplacingOccurrencesOfString:@" "withString:@""];
+                                    stringByReplacingOccurrencesOfString:@">"
+                                                              withString:@""]
+                                    stringByReplacingOccurrencesOfString:@" "
+                                                              withString:@""];
     
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    
+    [userDefault setObject:token forKey:TOKEN_KEY];
     return pushToken;
 }
 

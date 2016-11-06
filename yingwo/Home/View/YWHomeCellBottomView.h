@@ -10,6 +10,9 @@
 #import "YWSpringButton.h"
 #import "YWAlertButton.h"
 
+@protocol YWHomeCellBottomViewDelegate;
+
+
 @interface YWHomeCellBottomView : UIView
 
 @property (nonatomic, strong) UIImageView    *headImageView;
@@ -19,7 +22,21 @@
 @property (nonatomic, strong) UIButton       *message;
 @property (nonatomic, strong) YWAlertButton  *more;
 
+@property (nonatomic, assign) int            user_id;
+
 @property (nonatomic, strong) UILabel        *favourLabel;
 @property (nonatomic, strong) UILabel        *messageLabel;
+
+@property (nonatomic, assign) id<YWHomeCellBottomViewDelegate> delegate;
+
+@end
+
+@protocol YWHomeCellBottomViewDelegate <NSObject>
+
+- (void) didSelecteMessageWithBtn:(UIButton *)message;
+
+@optional
+- (void) didSelectHomeBottomView:(YWHomeCellBottomView *)bottomView;
+
 
 @end

@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
 @property (nonatomic, strong) RACCommand *fetchDetailEntityCommand;
 //楼主的user_id
 @property (nonatomic, assign) NSInteger master_id;
+
+@property (nonatomic, strong) NSMutableArray *imageUrlEntity;
 /**
  *  初始化cell
  *
@@ -97,4 +99,16 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
                          failure:(void (^)(NSString *error))failure;
 
 
+/**
+ *  删除回帖
+ *
+ *  @param url        /Post/reply_del
+ *  @param paramaters reply_id
+ *  @param success    成功返回所有回帖
+ *  @param failure    失败
+ */
+- (void)deleteReplyWithUrl:(NSString *)url
+                paramaters:(NSDictionary *)paramaters
+                   success:(void (^)(StatusEntity *statusEntity))success
+                   failure:(void (^)(NSString *error))failure;
 @end

@@ -11,11 +11,17 @@
 NSInteger cancelCode = -1;
 
 @implementation YWAlertButton
-{
-    NSArray *_names;
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setBackgroundImage:[UIImage imageNamed:@"more_gray"] forState:UIControlStateNormal];
+        [self addTarget:self action:@selector(showAlertViewController) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return self;
 }
 
-- (instancetype)initWithNames:(NSArray *)names {
+- (instancetype)initWithNames:(NSMutableArray *)names {
     self = [super init];
     if (self) {
         _names = names;
@@ -27,7 +33,7 @@ NSInteger cancelCode = -1;
    
 - (void)showAlertViewController {
     _alertView = [UIAlertController alertControllerWithTitle:@"操作"
-                                                                       message:@""
+                                                                       message:nil
                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"操作"];
@@ -40,17 +46,18 @@ NSInteger cancelCode = -1;
         UIAlertAction *action = [UIAlertAction actionWithTitle:_names[i]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
-                                                           
+
                                                            if ([self.delegate respondsToSelector:@selector(seletedAlertView:onMoreBtn:atIndex:)]) {
                                                                
                                                                [self.delegate seletedAlertView: _alertView
                                                                                      onMoreBtn:self
                                                                                        atIndex:i];
+                                                               
                                                            }
-                                                           
-                                                          
         }];
-        [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+         //此方法为iOS8.3后才出现的方法
+//        [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+        
         [_alertView addAction:action];
     }
     
@@ -60,8 +67,9 @@ NSInteger cancelCode = -1;
                                                   handler:^(UIAlertAction * _Nonnull action) {
                                                       
                                                   }];
-    [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+//    [action setValue:[UIColor blackColor] forKey:@"titleTextColor"];
     [_alertView addAction:action];
+    _alertView.view.tintColor = [UIColor blackColor];
     
     /**
      *  其他弹出框

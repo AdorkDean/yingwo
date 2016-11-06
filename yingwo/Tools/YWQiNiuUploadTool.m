@@ -123,8 +123,7 @@
         CGFloat imageHeight = image.size.height;
 
         //将图片压缩后以二进制形式上传
-        NSData *imageData          = UIImageJPEGRepresentation(image, 0.5);
-        
+        NSData *imageData          = UIImageJPEGRepresentation(image, 0.4);
         [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             
             //info.statusCode为200表示上传成功

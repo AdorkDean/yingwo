@@ -14,7 +14,7 @@
 #define Macro_h
 /********************************Color************************************************/
 #define THEME_COLOR_1    @"#1DD2A6"
-#define THEME_COLOR_2    @"#3A3A3A"
+#define THEME_COLOR_2    @"#3A3A3A" //灰度越来越浅
 #define THEME_COLOR_3    @"#8E8E8E"
 #define THEME_COLOR_4    @"#BBBBBB"
 #define THEME_COLOR_5    @"#DEDFED"
@@ -23,7 +23,7 @@
 /********************************Color************************************************/
 
 /********************************Notification************************************************/
-
+#define TOKEN_KEY            @"token"
 #define MESSAGE_NOTIFICATION @"message"
 
 /********************************Notification************************************************/
@@ -51,7 +51,7 @@
 
 
 /********************************segue identify************************************************/
-#define SEGUE_IDENTIFY_MAIN          @"main"
+#define SEGUE_IDENTIFY_MAIN           @"main"
 #define SEGUE_IDENTIFY_RESET          @"reset"
 #define SEGUE_IDENTIFY_REGISTER       @"register"
 #define SEGUE_IDENTIFY_VERFIFCATION   @"verification"
@@ -67,6 +67,8 @@
 #define SEGUE_IDENTIFY_TOPIC          @"topic"
 #define SEGUE_IDENTIFY_MYTOPIC        @"myTopic"
 #define SEGUE_IDENTIFY_MYTIEZI        @"myTieZi"
+#define SEGUE_IDENTIFY_MYLIKE         @"myLike"
+#define SEGUE_IDENTIFY_MYCOMMENT      @"myComment"
 
 
 /********************************segue identify************************************************/
@@ -88,6 +90,7 @@
 #define BASE_INFO_URL   @"/User/Base_info"
 #define UPDATE_INFO_URL @"/User/Update"
 
+
 #define ANNOUNCE_URL @"/Post/add_new"
 
 //贴子
@@ -99,8 +102,11 @@
 #define TIEZI_RELPY_URL         @"/Post/reply_list"
 #define TIEZI_LIKE_URL          @"/Post/like"
 #define MY_TIEZI_URL            @"/Post/my_list"
+#define MY_LIKE_URL             @"/Post/my_like_list"
 #define TIEZI_DEL_URL           @"/Post/del"
+#define TIEZI_REPLY_DEL_URL     @"/Post/reply_del"
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
+#define HOME_INDEX_CNT_URL      @"/Post/index_cnt"
 
 //话题
 #define TOPIC_FIELD_URL         @"/Field/get_list"
@@ -112,6 +118,10 @@
 #define HOT_TOPIC_URL           @"/Topic/hot_list"
 #define RECOMMENDED_TOPIC_URL   @"/Topic/recommended_list_fixed"
 #define RECOMMEND_TOPIC_URL     @"/Topic/recommended_list"
+
+#define TA_INFO_URL             @"/User/info"
+#define TA_USER_LIKE_URL        @"/User/like"
+
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"
 
@@ -149,8 +159,11 @@
 #define PASSWORD     @"password"
 #define VERFIFCATION @"verification"
 #define MOBILE       @"mobile"
+#define RN           @"rn"
+#define SIGN         @"sign"
 #define SMS_MODEL    @"model"
 #define SMS_CODE     @"code"
+
 //贴子
 #define CAT_ID @"cat_id"
 /********************************* key ******************************************************/

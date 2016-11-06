@@ -15,6 +15,11 @@
     if (self) {
         self.userInteractionEnabled = YES;
         [self createSubView];
+        //添加点击事件
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+//                                                                              action:@selector(selectBottomView:)];
+//        [self addGestureRecognizer:tap];
+        
         
     }
     return self;
@@ -29,8 +34,8 @@
     _favour                            = [[YWSpringButton alloc ] initWithSelectedImage:[UIImage imageNamed:@"heart_red"]
                                                                          andCancelImage:[UIImage imageNamed:@"heart_gray"]];
     _favour.tag                        = 1;
-    _more                              = [[YWAlertButton alloc] initWithNames:[NSArray arrayWithObjects:@"删除",@"复制",@"举报",nil]];
 
+    _more                              = [[YWAlertButton alloc] init];
     _message                           = [[UIButton alloc] init];
     _favourLabel                       = [[UILabel alloc] init];
     _messageLabel                      = [[UILabel alloc] init];
@@ -45,6 +50,13 @@
                         forState:UIControlStateNormal];
     [_more setBackgroundImage:[UIImage imageNamed:@"more_gray"]
                      forState:UIControlStateNormal];
+    
+    //添加点击事件
+    [_message addTarget:self
+                 action:@selector(selectMessage)
+       forControlEvents:UIControlEventTouchUpInside];
+    [_headImageView addTapAction:@selector(selectBottomView:) target:self];
+    [_nickname addTapAction:@selector(selectBottomView:) target:self];
     
     _nickname.font = [UIFont systemFontOfSize:12];
     _time.font     = [UIFont systemFontOfSize:10];
@@ -110,57 +122,20 @@
     
 }
 
-/**
- *  点赞
- */
-//- (void)favourTheTieZi {
-//    
-//    [_favour setBackgroundImage:[UIImage imageNamed:@"heart_red"] forState:UIControlStateNormal];
-//    
-//    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-//    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-//    anim.springBounciness    = 0;
-//    anim.springSpeed         = 20;
-//    [_favour pop_addAnimation:anim forKey:@"Center"];
-//    
-//    anim.completionBlock = ^(POPAnimation *animation, BOOL finished){
-//        self.isFavour = YES;
-//        [_favour addTarget:self action:@selector(cancelFavour) forControlEvents:UIControlEventTouchUpInside];
-//        [self revivificationFavour];
-//    };
-//}
-//
-///**
-// *  取消点赞
-// */
-//- (void)cancelFavour {
-//    
-//    [_favour setBackgroundImage:[UIImage imageNamed:@"heart_gray"] forState:UIControlStateNormal];
-//
-//    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-//    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-//    anim.springBounciness    = 0;
-//    anim.springSpeed         = 20;
-//    [_favour pop_addAnimation:anim forKey:@"Center"];
-//    anim.completionBlock = ^(POPAnimation *animation, BOOL finished){
-//        self.isFavour = NO;
-//        [_favour addTarget:self action:@selector(favourTheTieZi) forControlEvents:UIControlEventTouchUpInside];
-//        [self revivificationFavour];
-//    };
-//}
-//
-///**
-// *  还原图片大小
-// */
-//- (void)revivificationFavour {
-//    
-//    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-//    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
-//    anim.springBounciness    = 0;
-//    anim.springSpeed         = 20;
-//    [_favour pop_addAnimation:anim forKey:@"Center"];
-//    
-//}
+- (void)selectMessage {
+    if ([self.delegate respondsToSelector:@selector(didSelecteMessageWithBtn:)]) {
+        [self.delegate didSelecteMessageWithBtn:_message];
+    }
+}
+
+- (void)selectBottomView:(UITapGestureRecognizer *) tap{
+    
+    YWHomeCellBottomView *homeBottomView = (YWHomeCellBottomView *)[[tap view] superview];
+    if ([self.delegate respondsToSelector:@selector(didSelectHomeBottomView:)]) {
+        [self.delegate didSelectHomeBottomView:homeBottomView];
+    }
+    
+}
 
 @end
 

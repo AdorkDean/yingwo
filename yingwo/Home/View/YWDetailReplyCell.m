@@ -26,8 +26,8 @@
     self.contentLabel                       = [[YWContentLabel alloc] initWithFrame:CGRectZero];
     self.bgImageView                        = [[UIView alloc] init];
     self.bgCommentView                      = [[UIView alloc] init];
-    self.moreBtn                            = [[YWAlertButton alloc] initWithNames:[NSArray arrayWithObjects:@"复制",@"举报" ,nil]];
-
+    self.moreBtn                            = [[YWAlertButton alloc] init];
+    
     self.contentLabel.font                  = [UIFont systemFontOfSize:15];
     self.contentLabel.numberOfLines         = 0;
     self.bottomView                         = [[YWDetailCellBottomView alloc] init];
@@ -167,12 +167,27 @@
             commentView                        = [[YWCommentView alloc] init];
             commentView.leftName.text          = entity.user_name;
             //connectString内容为用户名字＋评论内容，其中“占“字为占位符
-            NSString *connectString            = [NSString stringWithFormat:@"%@占占  :%@",entity.user_name,entity.content];
             
             //首行缩进
-            commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
-                                                                                            WithTextIndext:entity.user_name.length + 2];
+            NSString *connectString = @"";
+            
+            if (entity.commented_user_name == nil) {
+                connectString            = [NSString stringWithFormat:@"%@占占 : %@",
+                                                      entity.user_name,
+                                                      entity.content];
 
+            }
+            else
+            {
+                connectString            = [NSString stringWithFormat:@"%@占占 回复%@ : %@",
+                                                      entity.user_name,
+                                                      entity.commented_user_name,
+                                                      entity.content];
+
+            }
+                //首行缩进
+                commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
+                                                                                                WithTextIndext:entity.user_name.length + 2];
         }
         else
         {
@@ -184,7 +199,7 @@
             if (entity.commented_user_name.length != 0) {
                 
                 //connectString内容为用户名字＋评论内容
-                NSString *connectString            = [NSString stringWithFormat:@"%@ 回复%@ :%@",entity.user_name,entity.commented_user_name,entity.content];
+                NSString *connectString            = [NSString stringWithFormat:@"%@ 回复%@ : %@",entity.user_name,entity.commented_user_name,entity.content];
                 
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
@@ -195,7 +210,7 @@
             else
             {
                 //connectString内容为用户名字＋评论内容
-                NSString *connectString            = [NSString stringWithFormat:@"%@  :%@",entity.user_name,entity.content];
+                NSString *connectString            = [NSString stringWithFormat:@"%@  : %@",entity.user_name,entity.content];
                 //首行缩进
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
                                                                                                 WithTextIndext:entity.user_name.length];

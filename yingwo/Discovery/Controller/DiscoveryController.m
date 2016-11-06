@@ -29,6 +29,7 @@ static NSString *SUBJECT_CELL_IDENTIER    = @"subjectCell";
 @property (nonatomic, strong) UITableView         *discoveryTableView;
 @property (nonatomic, strong) YWDiscoveryBaseCell *segmentViewCell;
 @property (nonatomic, strong) NSMutableArray      *bannerArr;
+@property (nonatomic, strong) UIView              *coverView;
 
 @property (nonatomic, strong) RequestEntity       *requestEntity;
 
@@ -81,12 +82,12 @@ static int start_id = 0;
         _discoveryTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _discoveryTableView.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
 
-        _discoveryTableView.contentInset = UIEdgeInsetsMake(0, 0, 300, 0);
+        _discoveryTableView.contentInset    = UIEdgeInsetsMake(0, 0, 300, 0);
         [_discoveryTableView registerClass:[YWBannerTableViewCell class]
                     forCellReuseIdentifier:YWBANNER_CELL_IDENTIFIER];
         [_discoveryTableView registerClass:[YWSubjectViewCell class]
                     forCellReuseIdentifier:SUBJECT_CELL_IDENTIER];
-
+        
     }
     return _discoveryTableView;
 }
@@ -119,7 +120,7 @@ static int start_id = 0;
         _firstFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
                              forState:UIControlStateNormal];
-        [_firstFieldBtn setTitle:@"校园生活" forState:UIControlStateNormal];
+//        [_firstFieldBtn setTitle:@"校园生活" forState:UIControlStateNormal];
         
         [_firstFieldBtn addTarget:self
                            action:@selector(firstFieldBtnSetFieldId)
@@ -138,7 +139,7 @@ static int start_id = 0;
         _secondFieldBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         _secondFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_secondFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
-        [_secondFieldBtn setTitle:@"兴趣爱好" forState:UIControlStateNormal];
+//        [_secondFieldBtn setTitle:@"兴趣爱好" forState:UIControlStateNormal];
         
         [_secondFieldBtn addTarget:self
                            action:@selector(secondFieldBtnSetFieldtId)
@@ -155,7 +156,7 @@ static int start_id = 0;
         _thirdFieldBtn.titleLabel.font = [UIFont systemFontOfSize:16 ];
         _thirdFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
-        [_thirdFieldBtn setTitle:@"学科专业" forState:UIControlStateNormal];
+//        [_thirdFieldBtn setTitle:@"学科专业" forState:UIControlStateNormal];
         [_thirdFieldBtn addTarget:self
                             action:@selector(thirdFieldBtnSetFieldtId)
                   forControlEvents:UIControlEventTouchUpInside];
@@ -214,9 +215,12 @@ static int start_id = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
   //  [self.discoveryTableView addSubview:self.discoverySegmentView];
     [self.view addSubview:self.discoveryTableView];
+    //添加遮挡视图，遮盖刷新前显示出的部分
+    [self addTheCoverView];
+    
     //不能放到viewWillAppear中，否则不起作用
  //   [self scrollViewDidScroll:self.discoveryTableView];
     
@@ -236,18 +240,19 @@ static int start_id = 0;
     
     [self.discoveryTableView.mj_header beginRefreshing];
     
-    
  //   [self loadSubjectData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = @"发现";
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    
+    
 }
 
 /**
@@ -283,7 +288,7 @@ static int start_id = 0;
         if (type == 1) {
 
             [self loadSubjectData];
-            
+            [self loadFieldList];
         }
         else
         {
@@ -298,8 +303,8 @@ static int start_id = 0;
 }
 
 - (void)firstFieldBtnSetFieldId {
-    
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
     self.field_id = 1;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
@@ -309,8 +314,8 @@ static int start_id = 0;
 }
 
 - (void)secondFieldBtnSetFieldtId {
-    
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
 
     self.field_id = 2;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
@@ -322,7 +327,9 @@ static int start_id = 0;
 
 - (void)thirdFieldBtnSetFieldtId {
     
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
+
 
     self.field_id = 3;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
@@ -330,6 +337,33 @@ static int start_id = 0;
     [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
     [self loadSubjectData];
 
+}
+
+- (void)addTheCoverView {
+    UIView *coverView                   = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                                   50,
+                                                                                   SCREEN_WIDTH,
+                                                                                   self.discoveryTableView.frame.size.height)];
+    
+    coverView.backgroundColor           = [UIColor colorWithHexString:BACKGROUND_COLOR];
+    self.coverView                      = coverView;
+    [self.view addSubview:self.coverView];
+}
+
+/**
+ *  获取领域
+ */
+- (void)loadFieldList {
+    
+    [self.fieldViewModel requestTopicFieldWithUrl:TOPIC_FIELD_URL
+                                          success:^(NSArray *fieldArr) {
+                                              self.fieldViewModel.fieldArr = [fieldArr mutableCopy];
+                                              
+                                              [self setFieldBtnTitle];
+                                          }
+                                          failure:^(NSString *error) {
+                                              
+                                          }];
 }
 
 
@@ -341,16 +375,16 @@ static int start_id = 0;
     NSDictionary *paramaters = @{@"field_id":@(self.field_id)};
     
     [self.fieldViewModel requestTopicSubjectListWithUrl:TOPIC_SUBJECT_URL
-                                        paramaters:paramaters
-                                           success:^(NSArray *subjectArr) {
-                                               
-                                               self.fieldViewModel.subjectArr = [subjectArr mutableCopy];
-                                               
-                                               [self loadTopicDataWith:subjectArr];
-                                               
-                                           } failure:^(NSString *error) {
-                                               [SVProgressHUD dismiss];
-                                           }];
+                                             paramaters:paramaters
+                                                success:^(NSArray *subjectArr) {
+                                                    
+                                                    self.fieldViewModel.subjectArr = [subjectArr mutableCopy];
+                                                    
+                                                    [self loadTopicDataWith:subjectArr];
+                                                    
+                                                } failure:^(NSString *error) {
+                                                    [SVProgressHUD dismiss];
+                                                }];
 }
 
 /**
@@ -367,6 +401,11 @@ static int start_id = 0;
                                                
                                                [self.discoveryTableView reloadData];
                                                [self.discoveryTableView.mj_header endRefreshing];
+                                               
+                                               //移除遮盖视图
+                                               if (self.coverView != nil) {
+                                                   [self.coverView removeFromSuperview];
+                                               }
                                                
                                                [SVProgressHUD dismiss];
                                            } failure:^(NSString *error) {
@@ -415,9 +454,7 @@ static int start_id = 0;
                      forControlEvents:UIControlEventTouchUpInside];
         
         cell.delegate           = self;
-        
-        
-        
+
     }
     
     return cell;
@@ -429,7 +466,6 @@ static int start_id = 0;
     
     return 2;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
@@ -519,6 +555,15 @@ static int start_id = 0;
     
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
 
+}
+
+- (void)setFieldBtnTitle {
+    FieldEntity *fieldOne   = [self.fieldViewModel.fieldArr objectAtIndex:0];
+    FieldEntity *fieldTwo   = [self.fieldViewModel.fieldArr objectAtIndex:1];
+    FieldEntity *fieldThree = [self.fieldViewModel.fieldArr objectAtIndex:2];
+    [self.firstFieldBtn setTitle:fieldOne.title forState:UIControlStateNormal];
+    [self.secondFieldBtn setTitle:fieldTwo.title forState:UIControlStateNormal];
+    [self.thirdFieldBtn setTitle:fieldThree.title forState:UIControlStateNormal];
 }
 
 

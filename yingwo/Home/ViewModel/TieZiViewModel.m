@@ -41,12 +41,14 @@
             NSDictionary *paramaters = nil;
             
             if (requestEntity.filter == AllThingModel) {
-                paramaters = @{@"start_id":@(requestEntity.start_id)};
+                paramaters = @{@"start_id":@(requestEntity.start_id),
+                                @"user_id":@(self.user_id)};
             }
             else
             {
                 paramaters = @{@"filter":@(requestEntity.filter),
-                             @"start_id":@(requestEntity.start_id)};
+                             @"start_id":@(requestEntity.start_id),
+                              @"user_id":@(self.user_id)};
             }
             
             
@@ -90,7 +92,17 @@
     cell.bottemView.time.text                        = [NSDate getDateString:dataString];
     cell.bottemView.headImageView.layer.cornerRadius = 20;
     cell.bottemView.favour.post_id                   = model.tieZi_id;
+    
+    cell.bottemView.user_id                          = model.user_id;
 
+    //如果非用户本人，不显示删除选项
+    Customer *customer              = [User findCustomer];
+    if (model.user_id != [customer.userId intValue]) {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
+    }else {
+        cell.bottemView.more.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
+    }
+    
     //获取正确的头像url
     model.user_face_img = [NSString selectCorrectUrlWithAppendUrl:model.user_face_img];
     
@@ -178,9 +190,10 @@
     NSURL *imageUrl        = [NSURL URLWithString:fullurl];
     
     UIImageView *imageView = [cell.middleView viewWithTag:tag];
-    
+
+    imageView.contentMode  = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
     [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
-    
 }
 
 /**
@@ -414,6 +427,33 @@
               
           }];
 }
+
+
+
+- (void)requestForBadgeWithUrl:(NSString *)url
+                    paramaters:(NSDictionary *)paramaters
+                       success:(void (^)(int badgeCount))success
+                       failure:(void (^)(NSString *error))failure{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              
+              BadgeCount *badgeCnt = [BadgeCount mj_objectWithKeyValues:content];
+              int badgeCount       =  [badgeCnt.info intValue];
+              success(badgeCount);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+          }];
+}
+
 
 - (void)postTieZiLIkeWithUrl:(NSString *)url
                   paramaters:(NSDictionary *)paramaters

@@ -66,7 +66,8 @@
                indexPath:(NSIndexPath *)indexPath{
 
     if ([cell isMemberOfClass:[YWDetailTableViewCell class]]) {
-        [self setupModelOfDetailCell:(YWDetailTableViewCell *)cell model:model];
+        [self setupModelOfDetailCell:(YWDetailTableViewCell *)cell
+                               model:model];
     }
     else if ([cell isMemberOfClass:[YWDetailReplyCell class]]) {
         
@@ -92,6 +93,7 @@
         cell.topView.label.label.text              = model.topic_title;
     }
     
+    cell.topView.label.topic_id                = model.topic_id;
     cell.masterView.floorLabel.text            = @"第1楼";
     cell.contentLabel.text                     = model.content;
     cell.masterView.nicnameLabel.text          = model.user_name;
@@ -101,7 +103,16 @@
     [cell.masterView.headImageView sd_setImageWithURL:[NSURL URLWithString:model.user_face_img]
                                      placeholderImage:[UIImage imageNamed:@"touxiang"]];
     cell.masterView.headImageView.layer.cornerRadius = 20;
-
+    
+    cell.masterView.user_id                    = model.user_id;
+    
+    //如果非用户本人，不显示删除选项
+    Customer *customer              = [User findCustomer];
+    if (model.user_id != [customer.userId intValue]) {
+        cell.topView.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
+    }else {
+        cell.topView.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
+    }
     
     if (model.imageUrlArrEntity.count > 0) {
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlArrEntity];
@@ -126,7 +137,6 @@
     //所在楼层
   //  cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",model.reply_id];
     cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",(int)(indexPath.row +1)];
-
     //回复内容
     cell.contentLabel.text                     = model.content;
     if (model.user_name.length == 0) {
@@ -152,6 +162,9 @@
     //圆角头像
     cell.masterView.headImageView.layer.cornerRadius = 20;
     
+    //user_id
+    cell.masterView.user_id                          = model.user_id;
+    
     cell.bottomView.favourLabel.text                 = model.like_cnt;
 
     //回复评论的数量
@@ -160,6 +173,18 @@
     //当前回复的id，不是楼主的贴子id！！
     cell.bottomView.post_reply_id                          = model.reply_id;
     cell.bottomView.favour.reply_id                        = model.reply_id;
+    
+    //其他人可以删除自己的跟帖
+    Customer *customer              = [User findCustomer];
+    if (model.user_id != [customer.userId intValue]) {
+        cell.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",nil];
+    }else {
+        cell.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
+    }
+    //楼主删除可以所有跟帖
+    if (self.master_id == [customer.userId intValue]) {
+        cell.moreBtn.names = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
+    }
     
     //判断是否有点赞过
     if ( [self.tieZiViewModel isLikedTieZiWithReplyId:[NSNumber numberWithInt:model.reply_id]]) {
@@ -172,11 +197,12 @@
         cell.bottomView.favour.isSpringReply = NO;
     }
     
-    
     //加载跟帖图片
     if (model.imageUrlArrEntity.count > 0) {
         
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlArrEntity];
+        
+        self.imageUrlEntity      = entities;
         
         [cell addImageViewByImageArr:entities];
     }
@@ -356,6 +382,36 @@
           }];
     
 }
+
+- (void)deleteReplyWithUrl:(NSString *)url
+                paramaters:(NSDictionary *)paramaters
+                   success:(void (^)(StatusEntity *statusEntity))success
+                   failure:(void (^)(NSString *error))failure{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                          options:NSJSONReadingMutableContainers
+                                                                            error:nil];
+                  StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                  success(entity);
+              }
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+          }];
+}
+
+
 //- (void)downloadCompletedImageViewByUrls:(NSArray *)imageEntities
 //                                progress:(void (^)(CGFloat))progress
 //                                 success:(void (^)(NSMutableArray *imageArr))imageArr

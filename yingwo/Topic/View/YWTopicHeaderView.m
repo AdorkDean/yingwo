@@ -13,7 +13,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self createSubview];
-        self.backgroundColor = [UIColor greenColor];
     }
     return self;
 }
@@ -40,8 +39,9 @@
     _darkView.alpha           = 0.3;
     
     [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
-
                             forState:UIControlStateNormal];
+    
+    [_headerView setImage:[UIImage imageNamed:@"morenhuati"]];
     
     _headerView.layer.masksToBounds = YES;
     _headerView.layer.cornerRadius  = 7;

@@ -22,7 +22,7 @@
     
     _labelImage               = [[UIImageView alloc] init];
     _label                    = [[YWLabel alloc] init];
-    _moreBtn                  = [[YWAlertButton alloc] initWithNames:[NSArray arrayWithObjects:@"复制",@"举报", nil]];
+    _moreBtn                  = [[YWAlertButton alloc] init];
 
     _labelImage.image         = [UIImage imageNamed:@"#_gray"];
     _label.label.text         = @"新鲜事";

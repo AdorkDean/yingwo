@@ -17,6 +17,8 @@
 
 @property (nonatomic, assign) BOOL       isMyTopic;
 
+@property (nonatomic, assign) int        user_id;
+
 
 - (void)setupModelOfCell:(YWTopicViewCell *)cell model:(TopicEntity *)model;
 

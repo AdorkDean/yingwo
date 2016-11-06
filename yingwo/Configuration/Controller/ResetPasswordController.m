@@ -245,12 +245,34 @@
 
 /**
  *  发送短信验证
+ *  除了手机号，还有生成的本地签名
  */
 - (void)sendSmsRequest {
     
-    NSDictionary *paramaters = @{MOBILE:self.phone};
-    [self requestSmsWithUrl:SMS_URL paramaters:paramaters];
+    long int number = [self getRandomNumber:1000000000 to:9999999999];
+    NSString *rn = [NSString stringWithFormat:@"%ld", number];
     
+    NSLog(@"%@", rn);
+    
+    NSString *rnMd5 = [MD5 getMd5WithString:rn];
+    
+    NSString *signString = [rnMd5 stringByAppendingString:self.phone];
+    
+    NSString *sign = [MD5 getSha1WithString:signString];
+    
+    NSLog(@"%@", sign);
+    
+    NSDictionary *paramaters = @{MOBILE:self.phone,
+                                 RN:rn,
+                                 SIGN:sign};
+    [self requestSmsWithUrl:SMS_URL paramaters:paramaters];
+
+    
+}
+
+-(long int)getRandomNumber:(long int)from to:(long int)to
+{
+    return (long int)(from + (arc4random() % (to - from + 1)));
 }
 
 /**
@@ -346,7 +368,7 @@
                                               }
                                           } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               NSLog(@"error:%@",error);
-                                              [SVProgressHUD showErrorStatus:@"更新失败" afterDelay:HUD_DELAY];
+                                              [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
                                           }];
 }
 

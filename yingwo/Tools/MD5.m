@@ -10,7 +10,8 @@
 
 @implementation MD5
 
-+ (NSString*)getmd5WithString:(NSString *)string
+//MD5
++ (NSString*)getMd5WithString:(NSString *)string
 {
     const char* original_str=[string UTF8String];
     unsigned char digist[CC_MD5_DIGEST_LENGTH]; //CC_MD5_DIGEST_LENGTH = 16
@@ -21,5 +22,22 @@
     }
     return [outPutStr lowercaseString];
 }
+
+//sha1加密
++ (NSString *)getSha1WithString:(NSString *)string
+{
+    const char *cstr = [string cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [NSData dataWithBytes:cstr length:string.length];
+    
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data.bytes, (unsigned int)data.length, digest);
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i=0; i<CC_SHA1_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+    return output;
+}
+
 
 @end

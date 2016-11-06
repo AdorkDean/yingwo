@@ -18,7 +18,7 @@
         [self setBackgroundColor:[UIColor colorWithHexString:THEME_COLOR_4 alpha:0.2]];
         [self createSubview];
         _leftImageView.layer.masksToBounds = YES;
-        _leftImageView.layer.cornerRadius = 10;
+        _leftImageView.layer.cornerRadius = 5;
     }
     return self;
 }

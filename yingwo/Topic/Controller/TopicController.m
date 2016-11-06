@@ -303,7 +303,9 @@ static int start_id = 0;
                                              selector:@selector(finishReloadData)
                                                  name:@"TopicRelaod" object:nil];
     
-
+//    [self.segmentView selectTabWithIndex:0 animate:NO];
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -455,7 +457,6 @@ static int start_id = 0;
 
     }
     
-    NSLog(@"offsetY:%f",offsetY);
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
@@ -515,28 +516,48 @@ static int start_id = 0;
 
 - (void)fillTopicHeaderViewWith:(TopicEntity *)topic {
 
-    
-    self.topic_title                         = topic.title;
-    self.topicHeaderView.topic.text          = topic.title;
-    self.topicHeaderView.numberOfTopic.text  =[NSString stringWithFormat:@"%@贴子 ",topic.post_cnt];
-    self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %@关注",topic.like_cnt];
+    UIImage *topicDefaultImage                       = [UIImage imageNamed:@"morenhuati"];
+    //话题为新鲜事的时候隐藏帖子数和关注数,图片为logo，其余话题为默认话题图片
+    if (topic.topic_id != 0) {
+        self.topic_title                             = topic.title;
+        self.topicHeaderView.topic.text              = topic.title;
+        self.topicHeaderView.numberOfTopic.text  = [NSString stringWithFormat:@"%@贴子 ",topic.post_cnt];
+        self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %@关注",topic.like_cnt];
+    }else {
+        self.topic_title                         = @"新鲜事";
+        self.topicHeaderView.topic.text          = @"新鲜事";
+        self.topicHeaderView.addTopicBtn.hidden  = YES;
+    }
 
-    NSString *headerImageUrl                 = [NSString selectCorrectUrlWithAppendUrl:topic.img];
-    NSString *blurImageUrl                   = headerImageUrl;
+    NSString *headerImageUrl                     = [NSString selectCorrectUrlWithAppendUrl:topic.img];
+    NSString *blurImageUrl                       = headerImageUrl;
 
     [self.topicHeaderView.headerView sd_setImageWithURL:[NSURL URLWithString:headerImageUrl]
-                                       placeholderImage:[UIImage imageNamed:@"morenhuati"]];
+                                       placeholderImage:topicDefaultImage];
+    
+    if (topic.topic_id == 0) {
+        self.topicHeaderView.headerView.image    = [UIImage imageNamed:@"app_logo"];
+    }
     
     [self.topicHeaderView.blurImageView sd_setImageWithURL:[NSURL URLWithString:blurImageUrl]
-                                          placeholderImage:[UIImage imageNamed:@"morenhuati"]
+                                          placeholderImage:topicDefaultImage
                                                    options:SDWebImageRetryFailed
                                                  completed:^(UIImage *image,
                                                              NSError *error,
                                                              SDImageCacheType cacheType,
                                                              NSURL *imageURL) {
-                                                    
+                                                     
+                                                     if (topic.topic_id == 0) {
+                                                         image = [UIImage imageNamed:@"app_logo"];
+                                                     }
+                                                     
                                                      //模糊
-                                                     image = [UIImage boxblurImage:image withBlurNumber:0.2];
+                                                     if (image != nil) {
+                                                         image = [UIImage boxblurImage:image withBlurNumber:0.2];
+                                                     }else {
+                                                         image = topicDefaultImage;
+                                                         image = [UIImage boxblurImage:image withBlurNumber:0.2];
+                                                     }
 
                                                      self.topicHeaderView.blurImageView.image = image;
         
@@ -564,13 +585,19 @@ static int start_id = 0;
                                                     forState:UIControlStateNormal];
         
     }
+    
+    if (topic.topic_id == 0) {
+        [self.topicHeaderView.addTopicBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
+                                                    forState:UIControlStateNormal];
+    }
 
 }
 
 //关注话题
 - (void)addLike:(UIButton *)sender {
     
-    [SVProgressHUD showLoadingStatusWith:@""];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
     NSDictionary *paramater = @{@"topic_id":@(self.topic_id),@"value":@1};
     
@@ -583,7 +610,7 @@ static int start_id = 0;
                                   [sender setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
                                                     forState:UIControlStateNormal];
                                   
-                                  //先移除之前已经添加的action，在添加新的action
+                                  //先移除之前已经添加的action，再添加新的action
                                   [sender removeTarget:self
                                                 action:@selector(addLike:)
                                       forControlEvents:UIControlEventTouchUpInside];
@@ -609,8 +636,8 @@ static int start_id = 0;
 //取消关注
 - (void)cancelLike:(UIButton *)sender {
     
-    [SVProgressHUD showLoadingStatusWith:@""];
-    
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
     NSDictionary *paramater = @{@"topic_id":@(self.topic_id),@"value":@0};
     

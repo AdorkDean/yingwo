@@ -25,7 +25,6 @@
     
     [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 0, 10));
-
     }];
     
 
@@ -84,7 +83,6 @@
                 make.left.equalTo(self.fieldListView.mas_left);
                 make.right.equalTo(self.fieldListView.mas_right);
                 make.height.equalTo(@44);
-
             }];
             lastView = topicListView;
         }
@@ -94,7 +92,6 @@
     [lastView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.backgroundView.mas_bottom).offset(-10).priorityLow();
     }];
-
     
 }
 

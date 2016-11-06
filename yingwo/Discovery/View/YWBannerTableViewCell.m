@@ -29,6 +29,13 @@ static CGFloat const scrollViewHeight = 150;
                                                                         0,
                                                                         SCREEN_WIDTH,
                                                                         scrollViewHeight)];
+    //滚动图，默认背景图片
+//    UIImageView *bannerPicDefaultImageView = [[UIImageView alloc] init];
+//    bannerPicDefaultImageView.image = [UIImage imageNamed:@"banner_pic_default"];
+    
+//    [self setBackgroundView:bannerPicDefaultImageView];
+//    [self setBackgroundColor:[UIColor colorWithHexString:BACKGROUND_COLOR]];
+    
     [self addSubview:self.mxScrollView] ;
 }
 

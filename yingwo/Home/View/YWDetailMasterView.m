@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         [self createSubview];
+        
     }
     return self;
 }
@@ -24,7 +25,7 @@
     self.nicnameLabel                       = [[UILabel alloc] init];
     self.floorLabel                         = [[UILabel alloc] init];
     self.timeLabel                          = [[UILabel alloc] init];
-    self.identifier                    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"louzhubiaoqian"]];
+    self.identifier                         = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"louzhubiaoqian"]];
 
     self.nicnameLabel.font                  = [UIFont systemFontOfSize:15];
     self.floorLabel.font                    = [UIFont systemFontOfSize:12];
@@ -42,6 +43,10 @@
     self.headImageView.image                = [UIImage imageNamed:@"touxiang"];
     self.headImageView.layer.masksToBounds  = YES;
     self.headImageView.layer.cornerRadius   = 20;
+    self.headImageView.userInteractionEnabled = YES;
+    
+    [self.headImageView addTapAction:@selector(selectMaster:) target:self];
+    [self.nicnameLabel addTapAction:@selector(selectMaster:) target:self];
     
     [self addSubview:self.headImageView];
     [self addSubview:self.nicnameLabel];
@@ -79,4 +84,14 @@
     
 }
 
+
+- (void)selectMaster:(UITapGestureRecognizer *) tap{
+    
+    YWDetailMasterView *masterView = (YWDetailMasterView *)[[tap view] superview];
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectMaster:)]) {
+        [self.delegate didSelectMaster:masterView];
+    }
+    
+}
 @end

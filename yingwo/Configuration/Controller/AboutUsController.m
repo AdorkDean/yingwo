@@ -36,7 +36,7 @@
         _versionLabel.font                  = [UIFont systemFontOfSize:15];
         _versionLabel.textColor             = [UIColor colorWithHexString:@"#505050"];
         _versionLabel.textAlignment         = NSTextAlignmentCenter;
-        _versionLabel.text                  = @"应我校园 V0.8.0";
+        _versionLabel.text                  = @"应我校园 V0.8.1";
 
     }
     return _versionLabel;
@@ -84,8 +84,8 @@
     [self.logoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(80);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.left.equalTo(self.view.mas_left).offset(150);
-        make.height.equalTo(self.logoView.mas_width);
+//        make.left.equalTo(self.view.mas_left).offset(150);
+//        make.height.equalTo(self.logoView.mas_width);
 
     }];
     

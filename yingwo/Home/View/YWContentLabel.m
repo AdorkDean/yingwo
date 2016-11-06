@@ -14,15 +14,15 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.font                     = [UIFont systemFontOfSize:14];
+        self.font                     = [UIFont systemFontOfSize:15];
         self.numberOfLines            = 4;
         self.lineSpacing              = 5.f;
-        self.lineBreakMode            = NSLineBreakByCharWrapping;
+        self.lineBreakMode            = NSLineBreakByCharWrapping | NSLineBreakByTruncatingTail;
         self.enabledTextCheckingTypes = NSTextCheckingTypeLink;
         self.textColor                = [UIColor colorWithHexString:THEME_COLOR_2];
         
 
-  //      self.linkAttributes = @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:YES],
+//        self.linkAttributes = @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:YES],
      //                                 (NSString*)kCTForegroundColorAttributeName : (id)[[UIColor blueColor] CGColor]};
     }
     return self;

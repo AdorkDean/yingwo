@@ -49,7 +49,7 @@
     
     [self.identfier mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftName.mas_right).offset(2).priorityHigh();
-        make.top.equalTo(self).offset(1);
+        make.top.equalTo(self);
         make.width.equalTo(@30);
     }];
 

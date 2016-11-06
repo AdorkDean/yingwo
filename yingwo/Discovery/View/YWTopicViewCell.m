@@ -43,8 +43,8 @@
 
     _topic.numberOfLines      = 0;
     
-    [_rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
-                         forState:UIControlStateNormal];
+//    [_rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
+//                         forState:UIControlStateNormal];
     
     [_rightBtn addTarget:self
                   action:@selector(favorTopic)

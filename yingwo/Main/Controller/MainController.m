@@ -15,6 +15,9 @@
 #import "DetailController.h"
 #import "MessageController.h"
 
+#import "WZLBadgeImport.h"
+#import "BadgeCount.h"
+
 @interface MainController ()
 
 @property (nonatomic, strong) YWTabBarController       *mainTabBarController;
@@ -86,9 +89,12 @@
                                                                      imageArray:imgArr];
     _mainTabBarController.delegate = self;
     
+    
     [self.view addSubview:_mainTabBarController.view];
     
     [self stopSystemPopGestureRecognizer];
+    
+    [self refreshBadgeState];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -116,13 +122,80 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-
 }
 
 - (void)refreshHomeVC {
     [self.homeVC.homeTableview.mj_header beginRefreshing];
 }
 
+- (void)refreshBadgeState {
+
+    //一进入app就请求一次
+    [self requestForBadgeCount];
+
+    //利用本地通知来间隔时间请求有无新帖子，有的话即显示小红点
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    //异步请求
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        while (TRUE) {
+            [NSThread sleepForTimeInterval:15]; //请求时间间隔
+            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+            
+            [self requestForBadgeCount];
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        }
+    });
+}
+
+- (void)requestForBadgeCount {
+   //请求未刷新的新帖子数
+    NSDictionary *paramaters;
+    [self requestForBadgeWithUrl:HOME_INDEX_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.homeBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.homeBtn showBadge];
+                                 });
+                                 
+                             }
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
+
+}
+
+
+//请求
+- (void)requestForBadgeWithUrl:(NSString *)url
+                    paramaters:(NSDictionary *)paramaters
+                       success:(void (^)(int badgeCount))success
+                       failure:(void (^)(NSString *error))failure{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+
+              BadgeCount *badgeCnt = [BadgeCount mj_objectWithKeyValues:content];
+              int badgeCount       =  [badgeCnt.info intValue];
+              success(badgeCount);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+          }];
+}
 
 #pragma mark 禁止pop手势
 - (void)stopSystemPopGestureRecognizer {
@@ -146,6 +219,10 @@
         if (self.reloaded == NO) {
             self.reloaded  = YES;
         }else {
+            //刷新后清除小红点
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.mainTabBarController.tabBar.homeBtn clearBadge];
+            });
             [self.homeVC.homeTableview.mj_header beginRefreshing];
         }
     }
@@ -155,12 +232,11 @@
     }
     else if (index == 2) {
         self.reloaded = NO;
-        
-        
-        
+
         [self performSegueWithIdentifier:@"announce" sender:self];
     }
     else if (index == 3 || index == 4) {
+        self.selectedIndex = index;
         self.reloaded = NO;
     }
 
@@ -180,9 +256,7 @@
             
             announceVc.delegate = self.announceVC.delegate;
             announceVc.returnValueBlock = ^(BOOL isreloaded2) {
-                
-                NSLog(@"load:%d",isreloaded2);
-                
+                                
                 if (isreloaded2 == YES) {
                     [self refreshHomeVC];
                     

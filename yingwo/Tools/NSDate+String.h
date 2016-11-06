@@ -14,4 +14,7 @@
 @interface NSDate (String)
 
 + (NSString *)getDateString:(NSString *)spString;
+
++ (NSString *)getNowHour;
+
 @end

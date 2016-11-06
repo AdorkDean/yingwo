@@ -10,22 +10,18 @@
 
 #import "YWTopicViewCell.h"
 
-#import "TopicListViewModel.h"
-
 #import "TopicEntity.h"
 
 #import "TopicController.h"
 
 @interface TopicListController ()<UITableViewDelegate,UITableViewDataSource,YWTopicViewCellDelegate>
 
-@property (nonatomic, strong) UITableView        *topicTableView;
 @property (nonatomic, strong) UIBarButtonItem    *leftBarItem;
 @property (nonatomic, strong) UIBarButtonItem    *rightBarItem;
 
 @property (nonatomic, strong) UIButton           *addTopicBtn;
 
 @property (nonatomic, strong) TopicEntity        *topicEntity;
-@property (nonatomic, strong) TopicListViewModel *viewModel;
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
 
@@ -40,20 +36,36 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 
 @implementation TopicListController
 
+-(UIScrollView *)topicScrollView {
+    if (_topicScrollView == nil) {
+        _topicScrollView                   = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
+                                                                                            0,
+                                                                                            SCREEN_WIDTH,
+                                                                                            SCREEN_HEIGHT)];
+        _topicScrollView.backgroundColor   = [UIColor clearColor];
+        _topicScrollView.scrollEnabled     = YES;
+        [_topicScrollView addSubview:self.topicTableView];
+    }
+    return _topicScrollView;
+}
+
 - (UITableView *)topicTableView {
     if (_topicTableView == nil) {
-        _topicTableView                    = [[UITableView alloc ]initWithFrame:CGRectMake(10,
-                                                                                   10,
-                                                                                   SCREEN_WIDTH-20,
-                                                                                   SCREEN_HEIGHT-125)
-
-                                                                  style:UITableViewStylePlain];
+        _topicTableView                    = [[UITableView alloc ] initWithFrame:CGRectMake(10,
+                                                                                            10,
+                                                                                            SCREEN_WIDTH - 20,
+                                                                                            SCREEN_HEIGHT - 85)
+                                                                           style:UITableViewStylePlain];
+        
+        
         [_topicTableView registerClass:[YWTopicViewCell class]
                 forCellReuseIdentifier:TOPIC_CELL_IDENTIFIER];
+        _topicTableView.contentInset       = UIEdgeInsetsMake(0, 0, 100, 0);
         _topicTableView.layer.cornerRadius = 10;
         _topicTableView.backgroundColor    = [UIColor clearColor];
         _topicTableView.delegate           = self;
         _topicTableView.dataSource         = self;
+        _topicTableView.scrollEnabled      = NO;
     }
     return _topicTableView;
 }
@@ -81,8 +93,8 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 - (UIButton *)addTopicBtn {
     if (_addTopicBtn == nil) {
         _addTopicBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
-                                forState:UIControlStateNormal];
+//        [_addTopicBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
+//                                forState:UIControlStateNormal];
     }
     return _addTopicBtn;
 }
@@ -145,17 +157,15 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.topicTableView];
+    [self.view addSubview:self.topicScrollView];
     [self hideExtraTableView:self.topicTableView];
     
     __weak TopicListController *weakSelf = self;
-    self.topicTableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-
+    self.topicScrollView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf loadDataWithSubjctId:self.requestEntity];
     }];
     
-    [self.topicTableView.mj_header beginRefreshing];
-    
+    [self.topicScrollView.mj_header beginRefreshing];
 
 }
 
@@ -164,6 +174,11 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     
     self.navigationItem.leftBarButtonItem = self.leftBarItem;
     self.title                            = self.subject;
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)hideExtraTableView:(UITableView *)tableview {
@@ -180,14 +195,23 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
         @strongify(self);
         
         self.topicArr = [tieZis mutableCopy];
+        [self.topicScrollView.mj_header endRefreshing];
         [self.topicTableView reloadData];
-        [self.topicTableView.mj_header endRefreshing];
-        
+        [self resetFrameAndContentSize];
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
     }];
-
     
+}
+
+//每次刷新完数据后都更新tableview和scrollerView的frame和contentSize
+- (void)resetFrameAndContentSize {
+    self.topicScrollView.contentSize       = CGSizeMake(SCREEN_WIDTH, self.topicArr.count * 82 + 150);
+    
+    self.topicTableView.frame              = CGRectMake(10,
+                                                        10,
+                                                        SCREEN_WIDTH - 20,
+                                                        self.topicArr.count * 82 );
 }
 
 - (void)didReceiveMemoryWarning {

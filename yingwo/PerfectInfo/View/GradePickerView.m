@@ -37,10 +37,10 @@
         _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
 
         [self addSubview:_topView];
-        [self addSubview:_finishedPickerBtn];
-        [self addSubview:_cancelBtn];
         [self addSubview:_pickerView];
         [self addSubview:title];
+        [self addSubview:_finishedPickerBtn];
+        [self addSubview:_cancelBtn];
         
         [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(10);

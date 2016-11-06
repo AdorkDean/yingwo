@@ -21,6 +21,9 @@
 
 @property (nonatomic, strong)RACCommand *fetchEntityCommand;
 
+//领域数组
+@property (nonatomic, strong) NSMutableArray *fieldArr;
+
 //主题数组
 @property (nonatomic, strong) NSMutableArray *subjectArr;
 

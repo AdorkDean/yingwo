@@ -105,7 +105,7 @@
             UIImageView *newImageView = [imageArr objectAtIndex:i];
             UIImageView *oldImageView = [self viewWithTag:i+1];
             oldImageView.image        = newImageView.image;
-            
+
         }
     }
     

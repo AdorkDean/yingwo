@@ -9,6 +9,8 @@
 #import "DetailController.h"
 #import "AnnounceController.h"
 #import "MainNavController.h"
+#import "TopicController.h"
+#import "TAController.h"
 
 #import "YWDetailTableViewCell.h"
 #import "YWDetailBaseTableViewCell.h"
@@ -25,7 +27,7 @@
 
 #import "YWAlertButton.h"
 
-@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol>
+@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWLabelDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
 
 @property (nonatomic, strong) UITableView         *detailTableView;
 @property (nonatomic, strong) UIBarButtonItem     *leftBarItem;
@@ -47,8 +49,12 @@
 
 @property (nonatomic, strong) YWCommentView       *selectCommentView;
 
+//点击查看话题内容
+@property (nonatomic, assign) int                 tap_topic_id;
+//点击查看用户详情
+@property (nonatomic, assign) int                 tap_ta_id;
 
-@property (nonatomic,assign ) CGFloat             navgationBarHeight;
+@property (nonatomic, assign) CGFloat             navgationBarHeight;
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
 @property (nonatomic, strong) NSMutableDictionary *commetParamaters;
@@ -73,7 +79,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _detailTableView.backgroundColor = [UIColor clearColor];
         _detailTableView.delegate        = self;
         _detailTableView.dataSource      = self;
-        _detailTableView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
+        _detailTableView.contentInset    = UIEdgeInsetsMake(0, 0, 40, 0);
       //  _detailTableView.fd_debugLogEnabled = YES;
         [_detailTableView registerClass:[YWDetailTableViewCell class] forCellReuseIdentifier:detailCellIdentifier];
         [_detailTableView registerClass:[YWDetailReplyCell class] forCellReuseIdentifier:detailReplyCellIdentifier];
@@ -85,6 +91,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (DetailViewModel *)viewModel {
     if (_viewModel == nil) {
         _viewModel                 = [[DetailViewModel alloc] init];
+        
     }
     return _viewModel;
 }
@@ -199,6 +206,44 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return  self.navigationController.navigationBar.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
 }
 
+- (UIAlertController *)compliantAlertView {
+    if (_compliantAlertView == nil) {
+        _compliantAlertView = [UIAlertController alertControllerWithTitle:@"举报"
+                                                                  message:nil
+                                                           preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"广告"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"色情"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"反动"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"其他"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        [_compliantAlertView addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+        
+        _compliantAlertView.view.tintColor = [UIColor blackColor];
+
+    }
+    return _compliantAlertView;
+}
+
 #pragma mark YWAlertButtonProtocol
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
@@ -208,7 +253,104 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         self.alertView = alertView;
         [self showCompliantAlertView];
         
+    }else if (index == 2) {
+        [self showDeleteAlertView:more];
     }
+}
+
+/**
+ *  删除警告
+ */
+- (void)showDeleteAlertView:(UIButton *)more {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
+                                                                             message:@"确认删除？"
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
+                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                            [self deleteTieZi:more];
+                                                        }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel handler:nil]];
+    
+    alertController.view.tintColor = [UIColor blackColor];
+    
+    [self.view.window.rootViewController presentViewController:alertController
+                                                      animated:YES
+                                                    completion:nil];
+}
+
+/**
+ *  删除帖子
+ */
+- (void)deleteTieZi:(UIButton *)more {
+    
+    //判断删除楼主的帖子
+    if ([more.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
+        
+        int postId = self.model.tieZi_id;
+        //网络请求
+        NSDictionary *paramaters = @{@"post_id":@(postId)};
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+        
+        [self.homeViewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                                    paramaters:paramaters
+                                       success:^(StatusEntity *statusEntity) {
+                                           
+                                           if (statusEntity.status == YES) {
+                                               
+                                               [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+                                               //跳转回上一页面
+                                               
+                                               [self.navigationController popViewControllerAnimated:YES];
+                                               
+                                           }else if (statusEntity.status == NO){
+                                               [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+                                           }
+                                           
+                                       } failure:^(NSString *error) {
+                                           NSLog(@"error:%@",error);
+                                       }];
+    }
+    
+    //判断删除跟帖
+    if ([more.superview.superview.superview isKindOfClass:[YWDetailReplyCell class]]) {
+        
+        //获取当前选中的cell的reply_id
+        YWDetailReplyCell *selectedCell = (YWDetailReplyCell *)more.superview.superview.superview;
+        NSIndexPath *indexPath          = [self.detailTableView indexPathForCell:selectedCell];
+        TieZiReply *replyModel;
+        replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
+        int replyId = replyModel.reply_id;
+        
+        //网络请求
+        NSDictionary *paramaters = @{@"reply_id":@(replyId)};
+        
+        //必须要加载cookie，否则无法请求
+        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+        
+        [self.viewModel deleteReplyWithUrl:TIEZI_REPLY_DEL_URL
+                                paramaters:paramaters
+                                   success:^(StatusEntity *statusEntity) {
+                                       if (statusEntity.status == YES) {
+
+                                           //删除该行跟帖数据源
+                                           [self.tieZiReplyArr removeObjectAtIndex:indexPath.row];
+                                           //将该行从视图中移除
+                                           [self.detailTableView deleteRowsAtIndexPaths:@[indexPath]
+                                                                       withRowAnimation:UITableViewRowAnimationFade];
+                                           [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+                                       }else if(statusEntity.status == NO){
+                                           
+                                           [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+                                       }
+                                   }
+                                   failure:^(NSString *error) {
+                                       NSLog(@"error:%@",error);
+                                   }];
+    }
+    
 }
 
 /**
@@ -225,10 +367,22 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)copyTiZiText:(UIButton *)more {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     //复制内容 获取帖子文字内容
-    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
-    NSString *copyString = selectedCell.contentText.text;
-    //复制到剪切板
-    pasteboard.string = copyString;
+    
+    if ([more.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
+        YWDetailTableViewCell *selectedCell = (YWDetailTableViewCell *)more.superview.superview.superview.superview;
+        //复制到剪切板
+        NSString *copyString = selectedCell.contentLabel.text;
+        pasteboard.string = copyString;
+        [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
+        
+    }
+    
+    if ([more.superview.superview.superview isKindOfClass:[YWDetailReplyCell class]]) {
+        
+        YWDetailReplyCell *selectedCell = (YWDetailReplyCell *)more.superview.superview.superview;
+        NSString *copyString = selectedCell.contentLabel.text;
+        pasteboard.string = copyString;
+    }
 }
 
 
@@ -256,8 +410,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     announceVC.replyTieZiBlock = ^(NSDictionary *paramaters,BOOL isRelease){
         if (isRelease == YES) {
             
-            [self addReplyViewAtLastWith:paramaters];
-    
+//            [self addReplyViewAtLastWith:paramaters];
+            [self.detailTableView.mj_footer beginRefreshing];
+
         }
     };
 
@@ -314,6 +469,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
     [self.detailTableView.mj_header beginRefreshing];
 
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -351,6 +507,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                               selector:@selector(didHiddenKeyboard:)
                                                   name:UIKeyboardDidHideNotification
                                                 object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willHiddKeyboard:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
 }
 
 #pragma mark 禁止pop手势
@@ -402,6 +564,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)didHiddenKeyboard:(NSNotification *) notes{
     
     self.commentView = nil;
+
+}
+
+- (void)willHiddKeyboard:(NSNotification *) notes{
+    
+    self.detailTableView.frame = self.view.bounds;
 }
 
 /**
@@ -493,18 +661,26 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
     NSString *cellIdentifier        = [self.viewModel idForRowByIndexPath:indexPath model:replyModel];
 
-    YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
+                                                                      forIndexPath:indexPath];
+    
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
     cell.delegate                   = self;
     
     [self.viewModel setupModelOfCell:cell
                                model:replyModel
                            indexPath:indexPath];
+    //图片显示问题，回帖中复用问题
+    self.replyModel.imageUrlArrEntity = self.viewModel.imageUrlEntity;
     
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
+    cell.masterView.delegate        = self;
     cell.bottomView.delegate        = self;
     cell.bottomView.favour.delegate = self;
+    cell.topView.label.delegate     = self;
     cell.topView.moreBtn.delegate   = self;
+    cell.moreBtn.delegate           = self;
+    cell.contentLabel.delegate      = self;
     
 
     return cell;
@@ -533,6 +709,15 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self hiddenKeyboard];
+}
+
+#pragma mark TTTAttributedLabelDelegate
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+
+    
+    YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
+    
+    [self.navigationController pushViewController:webVc animated:YES];
 }
 
 #pragma mark YWDetailTabeleViewDelegate
@@ -589,13 +774,22 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)covertImageView:(UIImageView *)imageView {
     
+//    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
     UIImageView *newImageView = [[UIImageView alloc] init];
     newImageView.frame        = [imageView.superview convertRect:imageView.frame toView:self.view];
+//    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
     newImageView.image        = imageView.image;
     newImageView.y            += self.navgationBarHeight;
-    newImageView.tag          = 1;
+    newImageView.tag          = imageView.tag;
+    newImageView.clipsToBounds = YES;
 
-    [self showImageView:newImageView];
+    //
+    if ([imageView.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
+        [self showImageView:newImageView];
+    }else {
+        [self showReplyImageView:newImageView];
+    }
+    
     
 }
 /**
@@ -609,15 +803,58 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
     
     [self stopSystemPopGestureRecognizer];
-
     
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
-    [imageViewArr addObject:imageView];
+    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
     
-    [self.galleryView setImages:imageViewArr showAtIndex:0];
+    for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+        [imageViewArr addObject:imageView];
+    }
+    
+    //    [self.galleryView setImages:imageViewArr showAtIndex:0];
+    [self.galleryView setImageViews:imageViewArr
+              withImageUrlArrEntity:self.model.imageUrlArrEntity
+                        showAtIndex:imageView.tag - 1];
+    
     [self.navigationController.view addSubview:self.galleryView];
-
+    
 }
+
+/**
+  *  展示回复视图图片
+  *
+  *  @param imageView
+  */
+- (void)showReplyImageView:(UIImageView *)imageView {
+    
+    //禁止后面的DetailController的滑动手势
+    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
+    
+//    [self stopSystemPopGestureRecognizer];
+//    
+//    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
+//    
+//    [imageViewArr addObject:imageView];
+//    
+//    [self.galleryView setImages:imageViewArr showAtIndex:0];
+//    
+//    [self.navigationController.view addSubview:self.galleryView];
+    
+    [self stopSystemPopGestureRecognizer];
+    
+    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.replyModel.imageUrlArrEntity.count];
+    
+    for (int i = 0; i < self.replyModel.imageUrlArrEntity.count; i++) {
+        [imageViewArr addObject:imageView];
+    }
+    
+    [self.galleryView setImageViews:imageViewArr
+              withImageUrlArrEntity:self.replyModel.imageUrlArrEntity
+                        showAtIndex:imageView.tag - 1];
+    
+    [self.navigationController.view addSubview:self.galleryView];
+    
+}
+
 
 #pragma mark - GalleryView Delegate
 
@@ -748,7 +985,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark ISEmojiViewDelegate
 
 -(void)emojiView:(ISEmojiView *)emojiView didSelectEmoji:(NSString *)emoji{
-    self.commentView.messageTextView.text = [self.commentView.messageTextView.text stringByAppendingString:emoji];
+    NSRange insertRange = self.commentView.messageTextView.selectedRange;
+    self.commentView.messageTextView.text = [self.commentView.messageTextView.text stringByReplacingCharactersInRange:insertRange withString:emoji];
+    //插入后光标仍在插入后的位置
+    self.commentView.messageTextView.selectedRange = NSMakeRange(insertRange.location + emoji.length, 0);
+
 }
 
 -(void)emojiView:(ISEmojiView *)emojiView didPressDeleteButton:(UIButton *)deletebutton{
@@ -801,6 +1042,40 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     }
 
     
+}
+
+#pragma mark segue
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    //进入话题详情页面
+    if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
+        if ([segue.identifier isEqualToString:@"topic"]) {
+            TopicController *topicVc = segue.destinationViewController;
+            topicVc.topic_id = self.tap_topic_id;
+        }
+    }
+    //进入TA的主页
+    else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id         = self.tap_ta_id;
+        }
+    }
+}
+
+#pragma mark YWLabelDelegate
+
+- (void)didSelectLabel:(YWLabel *)label {
+    
+    self.tap_topic_id = label.topic_id;
+    [self performSegueWithIdentifier:@"topic" sender:self];
+}
+
+#pragma mark YWMasterDelegate
+-(void)didSelectMaster:(YWDetailMasterView *)masterView {
+
+    self.tap_ta_id = masterView.user_id;
+    [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
 #pragma private method
@@ -882,7 +1157,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self.detailTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                 withRowAnimation:UITableViewRowAnimationAutomatic];
     
-    //通过insertSections将数据插入到tableview的制定数组中
+    //通过insertSections将数据插入到tableview的指定数组中
 
 }
 

@@ -9,7 +9,8 @@
 #import "HomeController.h"
 #import "DetailController.h"
 #import "TopicController.h"
-#import "Customer.h"
+#import "TAController.h"
+#import "YWTabBarController.h"
 
 #import "TieZi.h"
 #import "TieZiViewModel.h"
@@ -29,16 +30,21 @@
 //刷新的初始值
 static int start_id = 0;
 
-@interface HomeController ()<UITableViewDataSource,UITableViewDelegate,YWDropDownViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate>
+@interface HomeController ()<UITableViewDataSource,UITableViewDelegate,YWDropDownViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem   *rightBarItem;
 @property (nonatomic, strong) UIBarButtonItem   *leftBarItem;
 @property (nonatomic, strong) UIAlertController *alertView;
+@property (nonatomic, strong) UIAlertController *compliantAlertView;
 @property (nonatomic, strong) TieZi             *model;
 @property (nonatomic, strong) TieZiViewModel    *viewModel;
 
 //点击查看话题内容
 @property (nonatomic, assign) int               tap_topic_id;
+//点击查看用户详情
+@property (nonatomic, assign) int               tap_ta_id;
+
+@property (nonatomic, assign) int               badgeCount;
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
 
@@ -48,7 +54,6 @@ static int start_id = 0;
 @property (nonatomic, strong) NSMutableArray    *tieZiList;
 @property (nonatomic,strong ) NSArray           *images;
 
-@property (nonatomic, strong) UIAlertController *compliantAlertView;
 
 @property (nonatomic, strong) GalleryView       *galleryView;
 
@@ -104,7 +109,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                forCellReuseIdentifier:YWHomeCellNineImageIdentifier];
         [_homeTableview registerClass:[YWHomeTableViewCellMoreNineImage class]
                forCellReuseIdentifier:YWHomeCellMoreNineImageIdentifier];
-        
     }
     return _homeTableview;
 }
@@ -132,9 +136,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         //贴子请求url
         _requestEntity.requestUrl = HOME_URL;
         //请求的事新鲜事
-        _requestEntity.filter   = AllThingModel;
+        _requestEntity.filter     = AllThingModel;
         //偏移量开始为0
-        _requestEntity.start_id  = start_id;
+        _requestEntity.start_id   = start_id;
     }
     return _requestEntity;
 }
@@ -232,6 +236,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
             
         }]];
         
+        _compliantAlertView.view.tintColor = [UIColor blackColor];
     }
     return _compliantAlertView;
 }
@@ -284,8 +289,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                                             [self deleteTieZi:more];
                                                         }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
-                                                        style:UIAlertActionStyleCancel handler:nil]];
-    [self.view.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+
+    alertController.view.tintColor = [UIColor blackColor];
+
+    [self.view.window.rootViewController presentViewController:alertController
+                                                      animated:YES
+                                                    completion:nil];
 }
 
 /**
@@ -296,40 +307,32 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
     TieZi *selectedModel                  = self.tieZiList[indexPath.row];
     
-    Customer *customer                    = [User findCustomer];
+    int postId = selectedModel.tieZi_id;
+    //网络请求
+    NSDictionary *paramaters = @{@"post_id":@(postId)};
     
-    //判断是否为本人
-    if (selectedModel.user_id == [customer.userId intValue]) {    //判断是否为用户自己
-        int postId = selectedModel.tieZi_id;
-        //网络请求
-        NSDictionary *paramaters = @{@"post_id":@(postId)};
+    //必须要加载cookie，否则无法请求
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
+                            paramaters:paramaters
+                               success:^(StatusEntity *statusEntity) {
+                                   
+                                   if (statusEntity.status == YES) {
+                                       //删除该行数据源
+                                       [self.tieZiList removeObjectAtIndex:indexPath.row];
+                                       //将该行从视图中移除
+                                       [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
+                                                                 withRowAnimation:UITableViewRowAnimationFade];
+                                       [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
+                                   }else if (statusEntity.status == NO){
+                                       [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+                                   }
+                                   
+                               } failure:^(NSString *error) {
+                                   NSLog(@"error:%@",error);
+                               }];
 
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-
-        [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
-                                paramaters:paramaters
-                                   success:^(StatusEntity *statusEntity) {
-                                       
-                                         if (statusEntity.status == YES) {
-                                             //删除该行数据源
-                                             [self.tieZiList removeObjectAtIndex:indexPath.row];
-                                             //将该行从视图中移除
-                                             [self.homeTableview deleteRowsAtIndexPaths:@[indexPath]
-                                                                       withRowAnimation:UITableViewRowAnimationFade];
-                                             [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
-                                         }else if (statusEntity.status == NO){
-                                             [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
-                                         }
-                                    
-                                     } failure:^(NSString *error) {
-                                         NSLog(@"error:%@",error);
-                                     }];
-
-    }
-    else {
-        [SVProgressHUD showErrorStatus:@"您无权限操作" afterDelay:1.0];
-    }
 }
 
 /**
@@ -342,12 +345,16 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     NSString *copyString                  = selectedCell.contentText.text;
     //复制到剪切板
     pasteboard.string                     = copyString;
+    
+    [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
+
 }
 
+
+
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    
+        
     [self.tabBar selectTabAtIndex:self.index];
     
     NSLog(@"%@",NSHomeDirectory());
@@ -369,8 +376,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     self.homeTableview.mj_footer.ignoredScrollViewContentInsetBottom = -65;
     
-
-    [self.homeTableview.mj_header beginRefreshing];
+    //进入app不刷新
+//    [self.homeTableview.mj_header beginRefreshing];
     
     [self.view addSubview:self.homeTableview];
     
@@ -390,6 +397,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     [self stopSystemPopGestureRecognizer];
     
+    [self showTabBar:YES animated:YES];
+}
+
+//跳转到完善信息
+- (void)jumpToPerfectInfoPage {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_PERFECTINFO sender:self];
 }
 
 #pragma mark 禁止pop手势
@@ -400,14 +413,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 #pragma mark YWAlertButtonProtocol
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-        [self showDeleteAlertView:more];
-        
-    }else if (index == 1) {
         [self copyTiZiText:more];
         
-    }else if (index == 2) {
+    }else if (index == 1) {
         self.alertView = alertView;
         [self showCompliantAlertView];
+        
+    }else if (index == 2) {
+        [self showDeleteAlertView:more];
         
     }
 }
@@ -458,6 +471,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
+    [self requestNewTieziCount];
     [self loadForType:1 RequestEntity:requestEntity];
     
     [self.homeTableview.mj_footer resetNoMoreData];
@@ -490,6 +504,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                 self.tieZiList = [tieZis mutableCopy];
                 [self.homeTableview.mj_header endRefreshing];
                 [self.homeTableview reloadData];
+                
+                //刷新后清除小红点
+                [self.tabBar.homeBtn clearBadge];
+                //显示新帖子View
+                [self showNewTieziCount:self.badgeCount];
+
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
@@ -511,18 +531,82 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                 self.tieZiList = nil;
                 [self.homeTableview.mj_header endRefreshing];
                 [self.homeTableview reloadData];
+                //显示新帖子View
+                [self showNewTieziCount:self.badgeCount];
 
             }
             
             [self.homeTableview.mj_footer endRefreshingWithNoMoreData];
         }
-        
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
     }];
     
 }
 
+//获取新帖子数
+- (void)requestNewTieziCount {
+    NSDictionary *paramaters;
+    [self.viewModel requestForBadgeWithUrl:HOME_INDEX_CNT_URL
+                                paramaters:paramaters
+                                   success:^(int badgeCount) {
+                                       self.badgeCount = badgeCount;
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
+}
+
+//显示新帖子View
+- (void)showNewTieziCount:(int)count{
+    
+    UILabel *newTieziLabel = [[UILabel alloc] init];
+    newTieziLabel.font = [UIFont systemFontOfSize:12];
+    
+    if (count > 0) {
+        if(count > 35) {
+            newTieziLabel.text = @"超过35条新的帖子";
+        } else {
+            newTieziLabel.text = [NSString stringWithFormat:@"%d条新的帖子", count];
+        }
+    } else {
+        newTieziLabel.text = @"没有新的帖子";
+    }
+    
+    newTieziLabel.backgroundColor = [UIColor colorWithHexString:THEME_COLOR_1 alpha:0.6];
+    newTieziLabel.textAlignment   = NSTextAlignmentCenter;
+    newTieziLabel.textColor       = [UIColor whiteColor];
+    
+    newTieziLabel.width           = self.view.width;
+    newTieziLabel.height          = 35;
+    newTieziLabel.x               = 0;
+    newTieziLabel.y               = CGRectGetMaxY([self.navigationController navigationBar].frame) - newTieziLabel.height;
+    
+    //添加到导航栏控制器的view
+    [self.navigationController.view insertSubview:newTieziLabel belowSubview:self.navigationController.navigationBar];
+    
+    //动画
+    CGFloat duration = 2.0;
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         newTieziLabel.transform = CGAffineTransformMakeTranslation(0, newTieziLabel.height);
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         CGFloat delay = 1.0;
+                         [UIView animateWithDuration:delay
+                                          animations:^{
+                                              newTieziLabel.transform = CGAffineTransformIdentity;
+                                          }
+                                          completion:^(BOOL finished) {
+                                              //移除控件
+                                              [newTieziLabel removeFromSuperview];
+                                          }];
+                         
+                     }];
+    
+}
 
 #pragma mark UITableViewDataSoure
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -539,8 +623,10 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     cell.labelView.title.delegate   = self;
     cell.middleView.delegate        = self;
+    cell.contentText.delegate       = self;
     cell.bottemView.more.delegate   = self;
     cell.bottemView.favour.delegate = self;
+    cell.bottemView.delegate        = self;
     
     [self.viewModel setupModelOfCell:cell model:self.model];
 
@@ -564,8 +650,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-   // [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
     self.model = [self.tieZiList objectAtIndex:indexPath.row];
 
     [self performSegueWithIdentifier:@"detail" sender:self];
@@ -580,15 +664,19 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 //tabar隐藏滑动距离设置
 //滑动100pt后隐藏TabBar
-CGFloat scrollHiddenSpace = 30;
-CGFloat lastPosition = -30;
+CGFloat scrollHiddenSpace = 5;
+CGFloat lastPosition = -4;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     if (scrollView == self.homeTableview) {
         
         CGFloat currentPosition = scrollView.contentOffset.y;
-        if ( currentPosition - lastPosition > scrollHiddenSpace ) {
+        if (currentPosition > -400 && currentPosition < 0) {
+            
+            [self showTabBar:YES animated:YES];
+            
+        }else if ( currentPosition - lastPosition > scrollHiddenSpace ) {
             
             lastPosition = currentPosition;
             [self hidesTabBar:YES animated:YES];
@@ -636,8 +724,7 @@ CGFloat lastPosition = -30;
     //动画隐藏
     if (animated == yesOrNo) {
         if (yesOrNo == YES) {
-            
-            
+
             [UIView animateWithDuration:0.3 animations:^{
                 
                 self.tabBar.center = CGPointMake(self.view.center.x, SCREEN_HEIGHT-self.tabBar.height*2+4);
@@ -678,6 +765,12 @@ CGFloat lastPosition = -30;
             
         }
 
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]])
+    {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id         = self.tap_ta_id;
+        }
     }
 }
 
@@ -716,15 +809,25 @@ CGFloat lastPosition = -30;
 
 - (void)didSelectLabel:(YWLabel *)label {
  
-    if (label.topic_id != 0) {
-        
+    
         self.tap_topic_id = label.topic_id;
         
         [self performSegueWithIdentifier:@"topic" sender:self];
 
-    }
     
 }
+
+//富文本
+#pragma mark TTTAttributedLabelDelegate
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    
+    YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
+    
+    [self.navigationController pushViewController:webVc animated:YES];
+    
+}
+
 
 
 #define mark - YWHomeCellMiddleViewBaseProtocol
@@ -744,12 +847,10 @@ CGFloat lastPosition = -30;
     [self covertRectFromOldImageViewArr:imageViewArr];
     
     [self.galleryView setImageViews:self.cellNewImageArr
-                      withImageUrlArrEntity:selectedModel.imageUrlArrEntity
+              withImageUrlArrEntity:selectedModel.imageUrlArrEntity
                         showAtIndex:imageView.tag-1];
     
     [self.navigationController.view addSubview:self.galleryView];
-
-
 }
 
 - (void)covertRectFromOldImageViewArr:(NSArray *)imageViewArr{
@@ -771,6 +872,23 @@ CGFloat lastPosition = -30;
         [self.cellNewImageArr addObject:newImageView];
         
     }
+}
+
+#pragma mark YWHomeCellBottomViewDelegate
+- (void)didSelecteMessageWithBtn:(UIButton *)message {
+    
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)message.superview.superview.superview.superview;
+    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
+    self.model                            = self.tieZiList[indexPath.row];
+    
+    [self performSegueWithIdentifier:@"detail" sender:self];
+
+}
+
+- (void)didSelectHomeBottomView:(YWHomeCellBottomView *)bottomView {
+    
+    self.tap_ta_id = bottomView.user_id;
+    [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
 #pragma mark 网络监测

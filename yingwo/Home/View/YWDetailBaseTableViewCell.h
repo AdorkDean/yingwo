@@ -31,7 +31,12 @@
 @property (nonatomic, assign ) NSInteger                  imageCount;
 @property (nonatomic, assign ) id<YWDetailTabeleViewDelegate> delegate;
 
+
+
+//YWDetailReplyCell
 @property (nonatomic, assign ) id<YWCommentViewDelegate>  commentDelegate;
+
+@property (nonatomic, strong) YWAlertButton *moreBtn;
 
 
 //common
@@ -47,6 +52,7 @@
 
 //点击图片查看
 - (void)didSeletedImageView:(UIImageView *)seletedImageView;
+
 - (void)didSelectCommentView:(YWCommentView *)commentView;
 
 @end
