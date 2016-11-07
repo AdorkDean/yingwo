@@ -28,6 +28,9 @@
     return self;
 }
 
+- (void)setImageCntBlock:(ImageCntBlock)imageCntBlock {
+    _imageCntBlock= imageCntBlock;
+}
 
 - (void)setupRACComand {
     
@@ -72,6 +75,14 @@
 - (void)setupModelOfCell:(YWHomeTableViewCellBase *)cell model:(TieZi *)model {
     
 
+    //图片超过9张时，传给cell显示
+//    if (model.imageUrlArrEntity.count > 9) {
+//
+//        self.imageCnt = model.imageUrlArrEntity.count;
+////        __block NSUInteger imageCnt = model.imageUrlArrEntity.count;
+////        self.imageCntBlock(imageCnt);
+//    }
+    
     if (model.topic_id != 0) {
         
         cell.labelView.title.topic_id   = model.topic_id;

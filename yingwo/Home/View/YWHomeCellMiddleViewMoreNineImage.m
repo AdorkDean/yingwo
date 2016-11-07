@@ -7,6 +7,7 @@
 //
 
 #import "YWHomeCellMiddleViewMoreNineImage.h"
+#import "TieZiViewModel.h"
 
 @implementation YWHomeCellMiddleViewMoreNineImage
 
@@ -56,9 +57,15 @@
         
     }];
     
-    //显示总张数
     YWLabel *numbersLabel = [[YWLabel alloc] init];
-    numbersLabel.label.text = [NSString stringWithFormat:@"共%lu+张",(unsigned long)self.imagesArr.count];
+//    TieZiViewModel *tieziViewModel = [[TieZiViewModel alloc] init];
+//    //block传值
+//    tieziViewModel.imageCntBlock = ^(NSUInteger imageCnt){
+//        self.imageCnt = imageCnt;
+//    };
+//    self.imageCnt = *(tieziViewModel.imageCnt);
+    //显示总张数
+    numbersLabel.label.text = [NSString stringWithFormat:@"共%lu张",self.imageCnt];
     numbersLabel.label.textColor = [UIColor whiteColor];
     numbersLabel.backgroundColor = [UIColor blackColor];
     numbersLabel.alpha = 0.5;

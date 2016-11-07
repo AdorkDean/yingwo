@@ -155,7 +155,7 @@ static int start_id = 0;
         UILabel *taTopicLabel               = [[UILabel alloc] init];
         taTopicLabel.text                   = @"TA的贴子";
         taTopicLabel.textColor              = [UIColor colorWithHexString:THEME_COLOR_4];
-        taTopicLabel.font                   = [UIFont systemFontOfSize:16];
+        taTopicLabel.font                   = [UIFont systemFontOfSize:SCREEN_HEIGHT / 667 * 16];
         
         UIView *separator                   = [[UIView alloc] init];
         separator.backgroundColor           = [UIColor colorWithHexString:@"#F5F5F5"];

@@ -94,7 +94,7 @@ static CGFloat HeadViewHeight = 250;
         _taFollowView                       = [[YWTaFollowView alloc] init];
         _taFollowView.backgroundColor       = [UIColor colorWithHexString:@"D6D6D9" alpha:0.9];
         _taFollowView.layer.masksToBounds   = YES;
-        _taFollowView.layer.cornerRadius    = 22;
+        _taFollowView.layer.cornerRadius    = SCREEN_WIDTH / 375 * 22;
     }
     return _taFollowView;
 }
@@ -214,7 +214,7 @@ static CGFloat HeadViewHeight = 250;
         make.height.mas_equalTo(taTieziViewHeight);
     }];
     
-    self.taScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,HeadViewHeight + 170 + self.navgationBarHeight + taTieziViewHeight);
+    self.taScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,HeadViewHeight + SCREEN_HEIGHT / 667 * 170 + self.navgationBarHeight + taTieziViewHeight);
 }
 - (void)setUILayout {
     
@@ -222,7 +222,7 @@ static CGFloat HeadViewHeight = 250;
         make.top.equalTo(self.taHeaderView.mas_bottom).offset(10);
         make.left.equalTo(self.view).offset(10);
         make.right.equalTo(self.view).offset(-10);
-        make.height.equalTo(@170);
+        make.height.mas_equalTo(SCREEN_HEIGHT / 667 * 170);
     }];
     
     [self.taTieziView mas_makeConstraints:^(MASConstraintMaker *make) {

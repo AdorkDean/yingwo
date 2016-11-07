@@ -435,6 +435,8 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
             TieZi *lastObject           = [tieZis objectAtIndex:tieZis.count-1];
             self.requestEntity.start_id = lastObject.tieZi_id;
             
+            self.requestEntity.page     += 1;
+            
         }
         else
         {
