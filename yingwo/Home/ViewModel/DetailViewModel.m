@@ -53,8 +53,7 @@
 
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath model:(TieZiReply *)model{
     
-    //这里贴子详情界面和消息界面共享一个数据结构和界面
-    if (indexPath.row == 0 && model.type != MessageTieZi) {
+    if (indexPath.row == 0 ) {
         
         return @"detailCell";
     }

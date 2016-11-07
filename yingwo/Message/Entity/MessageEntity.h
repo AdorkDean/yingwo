@@ -8,7 +8,19 @@
 
 #import "TieZiReply.h"
 
+typedef NS_ENUM(NSInteger, TieZiType) {
+    
+    PostTieZi    = 1,
+    ReplyTieZi   = 2,
+    CommentTieZi = 3,
+    MessageTieZi = 4,
+    
+};
+
 @interface MessageEntity : TieZiReply
+
+//贴子类型
+@property (nonatomic, assign) TieZiType type;
 
 
 @property (nonatomic, copy) NSString *url;
