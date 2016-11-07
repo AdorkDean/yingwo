@@ -8,13 +8,13 @@
 
 #import "BaseViewController.h"
 #import "DetailController.h"
-#import "TieZi.h"
 #import "TieZiReply.h"
+#import "MessageEntity.h"
 
 @interface MessageDetailController : BaseViewController
 
 //点击的贴子
-@property (nonatomic, strong) TieZi       *model;
+@property (nonatomic, strong) MessageEntity       *model;
 
 @property (nonatomic, assign) CommentType commentType;
 

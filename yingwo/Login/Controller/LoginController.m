@@ -218,10 +218,13 @@
     NSString *mobile                = self.phoneText.rightTextField.text;
     NSString *password              = self.passwordText.rightTextField.text;
 
-    NSMutableDictionary *paramaters = [NSMutableDictionary dictionary];
-
-    paramaters[MOBILE]              = mobile;
-    paramaters[PASSWORD]            = password;
+    //设备号
+    NSUserDefaults *userDefault     = [NSUserDefaults standardUserDefaults];
+    NSString *token                 = [userDefault objectForKey:TOKEN_KEY];
+    
+    NSDictionary *paramaters = @{MOBILE:mobile,
+                               PASSWORD:password,
+                           DEVICE_TOEKN:@"123"};
     
     [self requestForLoginWithUrl:LOGIN_URL paramaters:paramaters];
     

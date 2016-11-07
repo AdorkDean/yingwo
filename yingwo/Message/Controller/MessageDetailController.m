@@ -111,9 +111,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _commentEntity;
 }
 
-- (TieZi *)model {
+- (MessageEntity *)model {
     if (_model == nil) {
-        _model = [[TieZi alloc] init];
+        _model = [[MessageEntity alloc] init];
     }
     return _model;
 }
@@ -408,9 +408,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)loadData {
     
     
-    self.requestEntity.paramaters = @{@"post_reply_id":@(self.model.tieZi_id)};
-    self.requestEntity.requestUrl = TIEZI_RELPY_URL;
+
+    if ([self.model.follow_type isEqualToString:@"COMMENT" ]) {
+        self.requestEntity.requestUrl = TIEZI_COMMENT_LIST_URL;
+        self.requestEntity.paramaters = @{@"post_comment_id":@(self.model.tieZi_id)};
+
+    }
+    else
+    {
+        self.requestEntity.paramaters = @{@"post_reply_id":@(self.model.tieZi_id)};
+        self.requestEntity.requestUrl = TIEZI_RELPY_URL;
     
+    }
     [self loadForType:HeaderReloadDataModel];
     
 }

@@ -10,6 +10,9 @@
 
 @interface MessageEntity : TieZiReply
 
+
+@property (nonatomic, copy) NSString *url;
+
 /**
  *  跟贴用户的id
  */

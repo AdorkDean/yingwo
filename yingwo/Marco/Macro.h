@@ -157,6 +157,7 @@
 //登录、注册
 #define USERNAME     @"name"
 #define PASSWORD     @"password"
+#define DEVICE_TOEKN @"device"
 #define VERFIFCATION @"verification"
 #define MOBILE       @"mobile"
 #define RN           @"rn"
