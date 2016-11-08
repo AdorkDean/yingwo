@@ -235,7 +235,7 @@ static int start_id = 0;
         //将source_id改成follow_id
         messageEntity.tieZi_id       = messageEntity.reply_id;
         messageEntity.type           = MessageTieZi;
-        
+        NSLog(@"source_type:%@",messageEntity.source_type);
         [self.delegate didSelectMessageWith:messageEntity];
     }
     

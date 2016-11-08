@@ -15,7 +15,7 @@
                        success:(void (^)(User *user))success
                        failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
     
-    NSString *fullUrl = [BASE_URL stringByAppendingString:url];
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager = [YWHTTPManager manager];
     
     [manager POST:fullUrl
@@ -27,7 +27,8 @@
               
               if (httpResponse.statusCode == SUCCESS_STATUS) {
                   
-                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                          options:NSJSONReadingMutableContainers error:nil];
                   User *customer = [User mj_objectWithKeyValues:content[@"info"]];
                   success(customer);
               }

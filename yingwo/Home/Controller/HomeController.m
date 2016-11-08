@@ -566,12 +566,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     if (count > 0) {
         if(count > 35) {
-            newTieziLabel.text = @"超过35条新的帖子";
+            newTieziLabel.text = @"超过35条新的贴子";
         } else {
-            newTieziLabel.text = [NSString stringWithFormat:@"%d条新的帖子", count];
+            newTieziLabel.text = [NSString stringWithFormat:@"%d条新的贴子", count];
         }
     } else {
-        newTieziLabel.text = @"没有新的帖子";
+        newTieziLabel.text = @"没有新的贴子";
     }
     
     newTieziLabel.backgroundColor = [UIColor colorWithHexString:THEME_COLOR_1 alpha:0.6];

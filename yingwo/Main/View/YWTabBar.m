@@ -25,8 +25,7 @@
         YWButton *homeBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"home"] selectImage:[UIImage imageNamed:@"home_G"]];
         YWButton *findBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"find"] selectImage:[UIImage imageNamed:@"find_G"]];
         YWButton *addBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"add"] selectImage:[UIImage imageNamed:@"add"]];
-//        YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub_G"]];
-        YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub"]];
+        YWButton *bubBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"bub"] selectImage:[UIImage imageNamed:@"bub_G"]];
         YWButton *headBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"head"] selectImage:[UIImage imageNamed:@"head_G"]];
         
         self.homeBtn = homeBtn;

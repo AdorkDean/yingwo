@@ -231,11 +231,11 @@ static int start_id = 0;
     if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
         
         MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
-        messageEntity.type           = MessageTieZi;
         //将source_id改成follow_id
         messageEntity.tieZi_id       = messageEntity.reply_id;
         messageEntity.type           = MessageTieZi;
-
+        
+        NSLog(@"source_type:%@",messageEntity.source_type);
         [self.delegate didSelectMessageWith:messageEntity];
     }
     

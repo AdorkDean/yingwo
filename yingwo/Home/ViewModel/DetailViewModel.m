@@ -53,8 +53,7 @@
 
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath model:(TieZiReply *)model{
     
-    //这里贴子详情界面和消息界面共享一个数据结构和界面
-    if (indexPath.row == 0 && model.type != MessageTieZi) {
+    if (indexPath.row == 0 ) {
         
         return @"detailCell";
     }
@@ -304,7 +303,7 @@
               }
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"回帖获取失败");
+              NSLog(@"回贴获取失败");
           }];
 }
 

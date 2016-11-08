@@ -8,21 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, TieZiType) {
-    
-    PostTieZi    = 1,
-    ReplyTieZi   = 2,
-    CommentTieZi = 3,
-    MessageTieZi = 4,
-
-};
 /**
  *  贴子的模型类
  */
 @interface TieZi : NSObject
-
-//贴子类型
-@property (nonatomic, assign) TieZiType type;
 
 //贴子的id
 @property (nonatomic, assign) int       tieZi_id;

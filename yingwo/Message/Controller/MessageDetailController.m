@@ -15,7 +15,7 @@
 #import "YWDetailBaseTableViewCell.h"
 #import "YWDetailReplyCell.h"
 
-#import "DetailViewModel.h"
+#import "MessageDetailViewModel.h"
 #import "TieZiViewModel.h"
 
 #import "YWDetailBottomView.h"
@@ -28,35 +28,35 @@
 
 @interface MessageDetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol>
 
-@property (nonatomic, strong) UITableView         *detailTableView;
-@property (nonatomic, strong) UIBarButtonItem     *leftBarItem;
-@property (nonatomic, strong) UIBarButtonItem     *rightBarItem;
-@property (nonatomic, strong) UIAlertController   *alertView;
-@property (nonatomic, strong) UIAlertController   *compliantAlertView;
+@property (nonatomic, strong) UITableView            *detailTableView;
+@property (nonatomic, strong) UIBarButtonItem        *leftBarItem;
+@property (nonatomic, strong) UIBarButtonItem        *rightBarItem;
+@property (nonatomic, strong) UIAlertController      *alertView;
+@property (nonatomic, strong) UIAlertController      *compliantAlertView;
 
-@property (nonatomic, strong) YWDetailReplyCell   *commentCell;
+@property (nonatomic, strong) YWDetailReplyCell      *commentCell;
 
-@property (nonatomic, strong) YWDetailBottomView  *replyView;
-@property (nonatomic, strong) YWDetailCommentView *commentView;
-@property (nonatomic, strong) GalleryView         *galleryView;
+@property (nonatomic, strong) YWDetailBottomView     *replyView;
+@property (nonatomic, strong) YWDetailCommentView    *commentView;
+@property (nonatomic, strong) GalleryView            *galleryView;
 
-@property (nonatomic, strong) DetailViewModel     *viewModel;
-@property (nonatomic, strong) TieZiViewModel      *homeViewModel;
+@property (nonatomic, strong) MessageDetailViewModel *viewModel;
+@property (nonatomic, strong) TieZiViewModel         *homeViewModel;
 
-@property (nonatomic, strong) RequestEntity       *requestEntity;
-@property (nonatomic, strong) TieZiComment        *commentEntity;
+@property (nonatomic, strong) RequestEntity          *requestEntity;
+@property (nonatomic, strong) TieZiComment           *commentEntity;
 
-@property (nonatomic, strong) YWCommentView       *selectCommentView;
+@property (nonatomic, strong) YWCommentView          *selectCommentView;
 
 
-@property (nonatomic,assign ) CGFloat             navgationBarHeight;
+@property (nonatomic,assign ) CGFloat                navgationBarHeight;
 
-@property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
-@property (nonatomic, strong) NSMutableDictionary *commetParamaters;
+@property (nonatomic, strong) NSMutableArray         *tieZiReplyArr;
+@property (nonatomic, strong) NSMutableDictionary    *commetParamaters;
 
-@property (nonatomic,assign ) int                 comment_reply_id;
+@property (nonatomic,assign ) int                    comment_reply_id;
 
-@property (nonatomic, assign) CGFloat             keyboardHeight;
+@property (nonatomic, assign) CGFloat                keyboardHeight;
 
 @end
 
@@ -83,9 +83,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _detailTableView;
 }
 
-- (DetailViewModel *)viewModel {
+- (MessageDetailViewModel *)viewModel {
     if (_viewModel == nil) {
-        _viewModel                 = [[DetailViewModel alloc] init];
+        _viewModel                 = [[MessageDetailViewModel alloc] init];
     }
     return _viewModel;
 }
@@ -111,9 +111,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _commentEntity;
 }
 
-- (TieZi *)model {
+- (MessageEntity *)model {
     if (_model == nil) {
-        _model = [[TieZi alloc] init];
+        _model = [[MessageEntity alloc] init];
     }
     return _model;
 }
@@ -408,9 +408,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)loadData {
     
     
-    self.requestEntity.paramaters = @{@"post_reply_id":@(self.model.tieZi_id)};
-    self.requestEntity.requestUrl = TIEZI_RELPY_URL;
+
+    if ([self.model.follow_type isEqualToString:@"COMMENT" ]) {
+        self.requestEntity.requestUrl = TIEZI_COMMENT_LIST_URL;
+        self.requestEntity.paramaters = @{@"post_comment_id":@(self.model.tieZi_id)};
+
+    }
+    else
+    {
+        self.requestEntity.paramaters = @{@"post_reply_id":@(self.model.tieZi_id)};
+        self.requestEntity.requestUrl = TIEZI_RELPY_URL;
     
+    }
     [self loadForType:HeaderReloadDataModel];
     
 }
@@ -443,7 +452,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     TieZiReply *replyModel;
     replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
-    replyModel.type                 = MessageTieZi;
     NSString *cellIdentifier        = [self.viewModel idForRowByIndexPath:indexPath model:replyModel];
 
     YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];

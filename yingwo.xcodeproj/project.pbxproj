@@ -80,6 +80,7 @@
 		1838C97B1D3A05C0000DF843 /* YWSandBoxTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1838C97A1D3A05C0000DF843 /* YWSandBoxTool.m */; };
 		1838C98D1D3A0E0F000DF843 /* CustomDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1838C98C1D3A0E0F000DF843 /* CustomDismissSegue.m */; };
 		1838C9BB1D3A33F2000DF843 /* WriteSignatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1838C9BA1D3A33F2000DF843 /* WriteSignatureController.m */; };
+		1842BE0D1DD0C6B10063CB32 /* MessageDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1842BE0C1DD0C6B10063CB32 /* MessageDetailViewModel.m */; };
 		184932991D3FC661008CE18E /* YWConfigurationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184932981D3FC661008CE18E /* YWConfigurationCell.m */; };
 		184932A11D3FC66C008CE18E /* ForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1849329D1D3FC66C008CE18E /* ForgetPasswordController.m */; };
 		184932A21D3FC66C008CE18E /* ResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1849329F1D3FC66C008CE18E /* ResetPasswordController.m */; };
@@ -402,6 +403,8 @@
 		1838C98C1D3A0E0F000DF843 /* CustomDismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomDismissSegue.m; path = CustomSegue/CustomDismissSegue.m; sourceTree = "<group>"; };
 		1838C9B91D3A33F2000DF843 /* WriteSignatureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WriteSignatureController.h; path = PerfectInfo/Controller/WriteSignatureController.h; sourceTree = "<group>"; };
 		1838C9BA1D3A33F2000DF843 /* WriteSignatureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WriteSignatureController.m; path = PerfectInfo/Controller/WriteSignatureController.m; sourceTree = "<group>"; };
+		1842BE0B1DD0C6B10063CB32 /* MessageDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDetailViewModel.h; path = Message/ViewModel/MessageDetailViewModel.h; sourceTree = "<group>"; };
+		1842BE0C1DD0C6B10063CB32 /* MessageDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDetailViewModel.m; path = Message/ViewModel/MessageDetailViewModel.m; sourceTree = "<group>"; };
 		184932971D3FC661008CE18E /* YWConfigurationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWConfigurationCell.h; path = Configuration/View/YWConfigurationCell.h; sourceTree = "<group>"; };
 		184932981D3FC661008CE18E /* YWConfigurationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWConfigurationCell.m; path = Configuration/View/YWConfigurationCell.m; sourceTree = "<group>"; };
 		1849329A1D3FC66C008CE18E /* ConfigurationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationController.h; path = Configuration/Controller/ConfigurationController.h; sourceTree = "<group>"; };
@@ -1538,6 +1541,8 @@
 			children = (
 				18CF49AC1DCA38AB00B1367E /* MessageViewModel.h */,
 				18CF49AD1DCA38AB00B1367E /* MessageViewModel.m */,
+				1842BE0B1DD0C6B10063CB32 /* MessageDetailViewModel.h */,
+				1842BE0C1DD0C6B10063CB32 /* MessageDetailViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -2352,6 +2357,7 @@
 				185E1AE51D8FC5A8008299EE /* TopicViewModel.m in Sources */,
 				1883DD641D898BEF00EB9629 /* FeildViewModel.m in Sources */,
 				1807FEEF1D6830C5009393E2 /* NSData+CMImageContentType.m in Sources */,
+				1842BE0D1DD0C6B10063CB32 /* MessageDetailViewModel.m in Sources */,
 				CCA903701DB8E81D0053D278 /* TZImagePickerController.m in Sources */,
 				180F091D1D3777E700F3DD11 /* PerfectInfoController.m in Sources */,
 				18D243891D7BF41F00DAC374 /* RequestEntity.m in Sources */,
