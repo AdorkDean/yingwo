@@ -252,6 +252,8 @@ static int start_id = 0;
     
     if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
         
+        messageEntity.type           = 0;
+
         [self.delegate didSelectMessageWith:messageEntity];
     }
     
