@@ -116,7 +116,8 @@
 //    __weak AnnounceController *weakSelf = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
 //    
     
-    
+    [self requestForBadgeCount];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {

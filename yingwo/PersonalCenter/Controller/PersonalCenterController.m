@@ -15,6 +15,8 @@
 #import "YWPersonCenterTopView.h"
 #import "YWPersonCenterMidCell.h"
 
+#import "PersonViewModel.h"
+
 @interface PersonalCenterController ()<UINavigationControllerDelegate>
 
 @property (nonatomic, strong) YWPersonCenterTopView *headView;
@@ -97,6 +99,13 @@
         _rightBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(jumpToConfigurationPage)];
     }
     return _rightBarItem;
+}
+
+-(PersonViewModel *)viewModel {
+    if (_viewModel == nil) {
+        _viewModel = [[PersonViewModel alloc] init];
+    }
+    return _viewModel;
 }
 
 #pragma mark UI布局
@@ -196,12 +205,15 @@
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView3 addTarget:self
-                       action:@selector(jumpToMyCommentPage)
+                       action:@selector(developing)
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView4 addTarget:self
                        action:@selector(jumpToMyLikePage)
-             forControlEvents:UIControlEventTouchUpInside];
+              forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.midView.attentions addTapAction:@selector(jumpToMyFollowPage)
+                                   target:self];
     
 }
 
@@ -234,6 +246,9 @@
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYCOMMENT sender:self];
 }
 
+- (void)jumpToMyFollowPage {
+    NSLog(@"---------------------#######");
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -244,8 +259,11 @@
     [self.view addSubview:self.cellView3];
     [self.view addSubview:self.cellView4];
 
+    [self loadPersonInfo];
+    
     [self setUILayout];
     [self setAllAction];
+    
 
 }
 
@@ -259,6 +277,24 @@
     [self judgeNetworkStatus];
 }
 
+
+- (void)loadPersonInfo {
+    
+    int taId = [[User findCustomer].userId intValue];
+    NSDictionary *paramters = @{@"user_id":@(taId)};
+    
+    [self.viewModel requestTaDetailInfoWithUrl:TA_INFO_URL
+                                    paramaters:paramters
+                                       success:^(TaEntity *ta) {
+                                           
+                                           self.midView.attentions.text = ta.like_cnt;
+                                           self.midView.fans.text = ta.liked_cnt;
+                                       }
+                                         error:^(NSURLSessionDataTask * task, NSError *error) {
+                                             
+                                         }];
+
+}
 /**
  *  网路监测
  */

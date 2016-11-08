@@ -32,15 +32,19 @@
     //此处是否关注没有意义 之后获取到数据后会覆盖掉
     [followBtn setImage:[UIImage imageNamed:@"guanzhu"] forState:UIControlStateNormal];
     followBtn.imageEdgeInsets                   = UIEdgeInsetsMake(0, 0, 0, SCREEN_WIDTH / 375 * 50);
-    [followBtn setTitle:@"关注" forState:UIControlStateNormal];
+    [followBtn setTitle:@"关注"
+               forState:UIControlStateNormal];
     followBtn.titleEdgeInsets                   = UIEdgeInsetsMake(0, SCREEN_WIDTH / 375 * 6, 0, 0);
-    [followBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [followBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
+                    forState:UIControlStateNormal];
 
-    [chatBtn setImage:[UIImage imageNamed:@"pinglun"] forState:UIControlStateNormal];
+    [chatBtn setImage:[UIImage imageNamed:@"pinglun"]
+             forState:UIControlStateNormal];
     chatBtn.imageEdgeInsets                     = UIEdgeInsetsMake(0, 0, 0,  SCREEN_WIDTH / 375 * 50);
     [chatBtn setTitle:@"聊天" forState:UIControlStateNormal];
     chatBtn.titleEdgeInsets                     = UIEdgeInsetsMake(0, SCREEN_WIDTH / 375 * 6, 0, 0);
-    [chatBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [chatBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
+                  forState:UIControlStateNormal];
 
     self.followBtn                              = followBtn;
     self.chatBtn                                = chatBtn;
@@ -57,7 +61,7 @@
     }];
     
     [seperate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(SCREEN_HEIGHT / 375 * 34);
+        make.height.mas_equalTo(SCREEN_HEIGHT / 667 * 34);
         make.width.equalTo(@1);
         make.centerX.centerY.equalTo(self);
     }];

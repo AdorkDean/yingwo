@@ -13,6 +13,7 @@
 #import "HotTopicController.h"
 #import "NewTopicController.h"
 #import "AnnounceController.h"
+#import "TAController.h"
 
 #import "TopicViewModel.h"
 #import "YWTopicSegmentViewCell.h"
@@ -33,6 +34,9 @@
 
 @property (nonatomic, strong) HotTopicController      *hotVc;
 @property (nonatomic, strong) NewTopicController      *freshVc;
+
+//点击查看用户详情
+@property (nonatomic, assign) int                     tap_ta_id;
 
 @property (nonatomic, strong) UIActivityIndicatorView *refreshIndictor;
 
@@ -516,7 +520,14 @@ static int start_id = 0;
             DetailController *detailVc = segue.destinationViewController;
             detailVc.model             = self.model;
         }
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]])
+    {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id         = self.tap_ta_id;
+        }
     }
+    
 }
 
 #pragma mark TopicControllerDelegate
@@ -527,6 +538,11 @@ static int start_id = 0;
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
 
+- (void)didSelectBottomWith:(YWHomeCellBottomView *)bottomView {
+
+    self.tap_ta_id = bottomView.user_id;
+    [self performSegueWithIdentifier:@"ta" sender:self];
+}
 
 #pragma mark private method
 

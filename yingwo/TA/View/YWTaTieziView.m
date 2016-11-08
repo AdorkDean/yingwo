@@ -58,9 +58,7 @@ static int start_id = 0;
 
 - (TieZiViewModel *)viewModel {
     if (_viewModel == nil) {
-        
         _viewModel = [[TieZiViewModel alloc] init];
-        
     }
     return _viewModel;
 }
@@ -516,6 +514,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 - (void)showImage:(UIImageView *)avatarImageView WithImageViewArr:(NSArray *)imageViewArr{
     
 //    [self.galleryView setImages:self.cellNewImageArr showAtIndex:avatarImageView.tag-1];
+//    
 //    [self.navigationController.view addSubview:self.galleryView];
 }
 

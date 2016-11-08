@@ -232,6 +232,7 @@
 		CC89F06A1D97E42E0053462A /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = CC89F0691D97E42E0053462A /* UIImage+Orientation.m */; };
 		CC9604BA1D9FF57D009B5A56 /* UpdatePwdEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9604B91D9FF57D009B5A56 /* UpdatePwdEntity.m */; };
 		CC9B98D11DBA24180009E7DC /* MyLikeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9B98D01DBA24180009E7DC /* MyLikeController.m */; };
+		CCA76AEB1DD1FB4900CA9684 /* PersonViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA76AEA1DD1FB4900CA9684 /* PersonViewModel.m */; };
 		CCA9034D1DB8E7E10053D278 /* YWPhotoDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA9034C1DB8E7E10053D278 /* YWPhotoDisplayView.m */; };
 		CCA903691DB8E81D0053D278 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903501DB8E81D0053D278 /* NJKWebViewProgress.m */; };
 		CCA9036A1DB8E81D0053D278 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903521DB8E81D0053D278 /* NJKWebViewProgressView.m */; };
@@ -704,6 +705,8 @@
 		CC9604B91D9FF57D009B5A56 /* UpdatePwdEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpdatePwdEntity.m; path = yingwo/Configuration/Entity/UpdatePwdEntity.m; sourceTree = SOURCE_ROOT; };
 		CC9B98CF1DBA24180009E7DC /* MyLikeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyLikeController.h; path = PersonalCenter/Controller/MyLikeController.h; sourceTree = "<group>"; };
 		CC9B98D01DBA24180009E7DC /* MyLikeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyLikeController.m; path = PersonalCenter/Controller/MyLikeController.m; sourceTree = "<group>"; };
+		CCA76AE91DD1FB4900CA9684 /* PersonViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewModel.h; sourceTree = "<group>"; };
+		CCA76AEA1DD1FB4900CA9684 /* PersonViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewModel.m; sourceTree = "<group>"; };
 		CCA9034B1DB8E7E10053D278 /* YWPhotoDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWPhotoDisplayView.h; path = Announce/View/YWPhotoDisplayView.h; sourceTree = "<group>"; };
 		CCA9034C1DB8E7E10053D278 /* YWPhotoDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPhotoDisplayView.m; path = Announce/View/YWPhotoDisplayView.m; sourceTree = "<group>"; };
 		CCA9034F1DB8E81D0053D278 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
@@ -1585,7 +1588,7 @@
 		18D4E7221D9E6B6D00A0978E /* PersonalCenter */ = {
 			isa = PBXGroup;
 			children = (
-				18D4E7371D9E6BB300A0978E /* ViewModel */,
+				CCA76AE81DD1FB4900CA9684 /* ViewModel */,
 				18D4E72D1D9E6B9C00A0978E /* View */,
 				18D4E72C1D9E6B9000A0978E /* Controller */,
 			);
@@ -1620,13 +1623,6 @@
 				18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		18D4E7371D9E6BB300A0978E /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ViewModel;
 			sourceTree = "<group>";
 		};
 		18E74CAC1D3CA24400176142 /* ViewModel */ = {
@@ -1920,6 +1916,16 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		CCA76AE81DD1FB4900CA9684 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CCA76AE91DD1FB4900CA9684 /* PersonViewModel.h */,
+				CCA76AEA1DD1FB4900CA9684 /* PersonViewModel.m */,
+			);
+			name = ViewModel;
+			path = PersonalCenter/ViewModel;
+			sourceTree = "<group>";
+		};
 		CCA9034E1DB8E81D0053D278 /* NJKWebViewProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -2170,6 +2176,7 @@
 				18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */,
 				18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */,
 				18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */,
+				CCA76AEB1DD1FB4900CA9684 /* PersonViewModel.m in Sources */,
 				18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */,
 				18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */,
 				CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */,

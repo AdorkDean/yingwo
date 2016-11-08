@@ -470,6 +470,15 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     if ([self.delegate respondsToSelector:@selector(didSelectCellWith:)]) {
         [self.delegate didSelectCellWith:self.model];
     }
+    
+}
+
+-(void)didSelectHomeBottomView:(YWHomeCellBottomView *)bottomView {
+    
+    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)bottomView.superview.superview.superview;
+    if ([self.delegate respondsToSelector:@selector(didSelectBottomWith:)]) {
+        [self.delegate didSelectBottomWith:selectedCell.bottemView];
+    }
 }
 
 

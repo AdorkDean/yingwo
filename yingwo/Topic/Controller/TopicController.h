@@ -28,10 +28,13 @@ typedef NS_ENUM(NSInteger,PageSelectedModel) {
 
 @property (nonatomic, assign) PageSelectedModel       pageModel;
 
+
 @end
 
 @protocol TopicControllerDelegate <NSObject>
 
 - (void)didSelectCellWith:(TieZi *)model;
+
+- (void)didSelectBottomWith:(id)bottomView;
 
 @end

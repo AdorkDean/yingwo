@@ -72,12 +72,19 @@
     
     //回复的内容
     if (model.follow_img.length != 0) {
-        cell.replyContent.text = [model.follow_content stringByAppendingString:@"[图片内容]"];
+        cell.replyContent.text = [model.follow_content stringByAppendingString:@"跟帖：[图片内容]"];
     }
     else
     {
         cell.replyContent.text     = model.follow_content;
+        
+        if ([model.source_type isEqualToString:@"POST"]) {
+            cell.replyContent.text = [NSString stringWithFormat:@"跟贴：%@", cell.replyContent.text];
+        }else{
+            cell.replyContent.text = [NSString stringWithFormat:@"回复：%@", cell.replyContent.text];
+        }
     }
+    
 
     if ([cell isMemberOfClass:[YWImageMessageCell class]]) {
         
