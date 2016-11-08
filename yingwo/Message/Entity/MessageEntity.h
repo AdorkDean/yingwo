@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, TieZiType) {
 //贴子类型
 @property (nonatomic, assign) TieZiType type;
 
+@property (nonatomic, assign) int message_id;
 
 @property (nonatomic, copy) NSString *url;
 

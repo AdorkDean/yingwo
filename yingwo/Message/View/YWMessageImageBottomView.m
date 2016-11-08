@@ -48,7 +48,8 @@
     
     [_content mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_leftImageView.mas_right);
-        make.top.height.equalTo(_leftImageView);
+        make.top.equalTo(_username.mas_bottom);
+        make.bottom.equalTo(self);
         make.right.equalTo(self);
     }];
     

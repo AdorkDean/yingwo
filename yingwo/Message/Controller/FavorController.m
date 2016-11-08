@@ -11,7 +11,7 @@
 #import "YWMessageCell.h"
 #import "YWImageMessageCell.h"
 
-#import "MessageViewModel.h"
+#import "FavorViewModel.h"
 
 #import "MessageEntity.h"
 
@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) UITableView      *tableView;
 
-@property (nonatomic, strong) MessageViewModel *viewModel;
+@property (nonatomic, strong) FavorViewModel *viewModel;
 
 @property (nonatomic, strong) RequestEntity    *requestEntity;
 
@@ -43,7 +43,7 @@ static int start_id = 0;
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 60, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 100, 0);
         
         [_tableView registerClass:[YWMessageCell class] forCellReuseIdentifier:noImageCellidentifier];
         [_tableView registerClass:[YWImageMessageCell class] forCellReuseIdentifier:imageCellidentifier];
@@ -54,10 +54,10 @@ static int start_id = 0;
     
 }
 
-- (MessageViewModel *)viewModel {
+- (FavorViewModel *)viewModel {
     
     if (_viewModel == nil) {
-        _viewModel = [[MessageViewModel alloc] init];
+        _viewModel = [[FavorViewModel alloc] init];
     }
     
     return _viewModel;
@@ -67,7 +67,7 @@ static int start_id = 0;
 - (RequestEntity *)requestEntity {
     if (_requestEntity == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
-        _requestEntity.requestUrl = MESSAGE_REPLY_AND_COMMENT_URL;
+        _requestEntity.requestUrl = MY_LIKED_URL;
         _requestEntity.start_id   = 0;
     }
     return _requestEntity;
@@ -164,7 +164,7 @@ static int start_id = 0;
             
             //获得最后一个帖子的id,有了这个id才能向前继续获取model
             MessageEntity *lastObject           = [messages objectAtIndex:messages.count-1];
-            self.requestEntity.start_id = lastObject.tieZi_id;
+            self.requestEntity.start_id = lastObject.message_id;
             
         }
         else
@@ -231,10 +231,10 @@ static int start_id = 0;
     if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
         
         MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
-        messageEntity.type           = MessageTieZi;
         //将source_id改成follow_id
         messageEntity.tieZi_id       = messageEntity.reply_id;
         messageEntity.type           = MessageTieZi;
+        
         NSLog(@"source_type:%@",messageEntity.source_type);
         [self.delegate didSelectMessageWith:messageEntity];
     }
@@ -251,6 +251,8 @@ static int start_id = 0;
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
     if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
+        
+        messageEntity.type           = 0;
         
         [self.delegate didSelectMessageWith:messageEntity];
     }

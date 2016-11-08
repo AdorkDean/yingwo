@@ -15,13 +15,20 @@
 
 @interface YWMessageCell : UITableViewCell
 
-@property (nonatomic, strong) MessageEntity         *messageEntity;
-@property (nonatomic, strong) YWMessageTopView      *topView;
-@property (nonatomic, strong) YWContentLabel        *replyContent;
-@property (nonatomic, strong) YWMessageBottomView   *bottomView;
+@property (nonatomic, strong) MessageEntity       *messageEntity;
+@property (nonatomic, strong) YWMessageTopView    *topView;
+@property (nonatomic, strong) YWContentLabel      *replyContent;
+@property (nonatomic, strong) YWMessageBottomView *bottomView;
+//点赞的♥️
+@property (nonatomic, strong) UIImageView         *favor;
+
 @property (nonatomic, assign) id<YWMessageCellDelegate> delegate;
 
 - (void)createSubview;
+
+- (void)addFavorImageView;
+
+//添加点击事件
 - (void)addSingleTapForBottomView ;
 
 @end

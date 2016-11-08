@@ -137,4 +137,32 @@ static BOOL networkStatus = YES;
     }
 }
 
++ (void)saveDeviceToken:(NSString *)token {
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    
+    if (token.length == 0) {
+        
+        [userDefault setObject:@"模拟测试" forKey:TOKEN_KEY];
+        
+    }
+    else{
+        [userDefault setObject:token forKey:TOKEN_KEY];
+        
+    }
+    
+}
+
++ (NSString *)getDeviceToken {
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken       = [userDefault objectForKey:DEVICE_TOEKN];
+    
+    if (deviceToken.length == 0) {
+        deviceToken = @"1111111111111111111111111111111111111111111111111111111111111111";
+    }
+
+    return deviceToken;
+}
+
 @end

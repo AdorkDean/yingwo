@@ -20,6 +20,23 @@
 - (NSString *)idForRowByModel:(MessageEntity *)model;
 
 /**
+ *  带图片的cell
+ *
+ *  @param cell  YWImageMessageCell
+ *  @param model MessageEntity
+ */
+- (void)setupModelOfImageCell:(YWImageMessageCell *)cell model:(MessageEntity *)model;
+
+/**
+ *  不带图片的cell
+ *
+ *  @param cell  YWImageMessageCell
+ *  @param model MessageEntity
+ */
+
+- (void)setupModelOfNoImageCell:(YWMessageCell *)cell model:(MessageEntity *)model;
+
+/**
  *  获取评论和跟贴或者点赞
  *
  *  @param url        /Post/my_reply_and_comment_list

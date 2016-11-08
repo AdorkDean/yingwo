@@ -13,6 +13,7 @@
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"tieZi_id":@"source_id",
              @"reply_id":@"follow_id",
+             @"message_id":@"id",
              @"user_id":@"source_user_id",
              @"user_name":@"source_user_name",
              @"content":@"source_content",

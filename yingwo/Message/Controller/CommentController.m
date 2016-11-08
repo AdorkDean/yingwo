@@ -43,7 +43,7 @@ static int start_id = 0;
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 60, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 100, 0);
         
         [_tableView registerClass:[YWMessageCell class] forCellReuseIdentifier:noImageCellidentifier];
         [_tableView registerClass:[YWImageMessageCell class] forCellReuseIdentifier:imageCellidentifier];
@@ -163,9 +163,9 @@ static int start_id = 0;
             
             
             //获得最后一个帖子的id,有了这个id才能向前继续获取model
-            MessageEntity *lastObject           = [messages objectAtIndex:messages.count-1];
-            self.requestEntity.start_id = lastObject.tieZi_id;
-            
+            MessageEntity *lastObject   = [messages objectAtIndex:messages.count-1];
+            self.requestEntity.start_id = lastObject.message_id;
+
         }
         else
         {

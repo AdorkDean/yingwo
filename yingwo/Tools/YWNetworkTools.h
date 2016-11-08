@@ -49,4 +49,18 @@
  */
 + (void)deleteCookiesWithKey:(NSString *)key;
 
+/**
+ *  保存友盟的device token
+ *
+ *  @param token 48位token
+ *
+ */
++ (void)saveDeviceToken:(NSString *)token;
+
+/**
+ *  获取device token
+ *
+ *  @return 字符串
+ */
++ (NSString *)getDeviceToken;
 @end

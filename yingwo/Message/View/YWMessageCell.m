@@ -68,11 +68,25 @@
         make.height.equalTo(@30);
     }];
     
-    [_replyContent mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_replyContent mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.backgroundView).offset(-5);
         make.left.equalTo(self.backgroundView).offset(5);
         make.top.equalTo(_topView.mas_bottom).offset(10);
         make.bottom.equalTo(_bottomView.mas_top).offset(-5);
+    }];
+    
+}
+
+- (void)addFavorImageView {
+    
+    _favor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"heart_red"]];
+    
+    [self.contentView addSubview:self.favor];
+    
+    [_favor mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.replyContent.mas_left).offset(50);
+        make.centerY.equalTo(_replyContent);
+        make.width.height.equalTo(@25);
     }];
     
 }

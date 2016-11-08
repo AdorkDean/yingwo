@@ -103,11 +103,12 @@
 #define TIEZI_LIKE_URL          @"/Post/like"
 #define MY_TIEZI_URL            @"/Post/my_list"
 #define MY_LIKE_URL             @"/Post/my_like_list"
+#define MY_LIKED_URL            @"/Post/my_liked_list"
 #define TIEZI_DEL_URL           @"/Post/del"
 #define TIEZI_REPLY_DEL_URL     @"/Post/reply_del"
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
 #define HOME_INDEX_CNT_URL      @"/Post/index_cnt"
-
+#define TIEZI_DETAIL            @"Post/detail"
 //话题
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"
@@ -128,6 +129,7 @@
 //消息
 #define MESSAGE_REPLY_AND_COMMENT_URL @"/Post/my_reply_and_comment_list"
 
+#define DEVICE_TOKEN_URL        @"/User/update_device_token"
 /********************************* errorCode ******************************************************/
 //未登录
 #define ERROR_UNLOGIN_CODE 5001

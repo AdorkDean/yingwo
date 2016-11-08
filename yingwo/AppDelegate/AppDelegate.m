@@ -188,18 +188,9 @@
                                     stringByReplacingOccurrencesOfString:@" "
                                                               withString:@""];
     
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
 
-    if (pushToken.length == 0) {
-        
-        [userDefault setObject:@"模拟测试" forKey:TOKEN_KEY];
-
-    }
-    else{
-        [userDefault setObject:pushToken forKey:TOKEN_KEY];
- 
-    }
     
+    [YWNetworkTools saveDeviceToken:pushToken];
     
     return pushToken;
 }

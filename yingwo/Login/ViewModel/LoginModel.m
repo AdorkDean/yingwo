@@ -30,6 +30,11 @@
                   NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                           options:NSJSONReadingMutableContainers error:nil];
                   User *customer = [User mj_objectWithKeyValues:content[@"info"]];
+                  
+                  NSDictionary *parameters = @{@"device_token":[YWNetworkTools getDeviceToken]};
+                  //提交device token
+                  [self postDeviceTokenWithUrl:DEVICE_TOKEN_URL parameters:parameters];
+                  
                   success(customer);
               }
               else
@@ -61,6 +66,39 @@
     [task resume];
 
 
+}
+
+- (void)postDeviceTokenWithUrl:(NSString *)url
+                    parameters:(NSDictionary *)parameters{
+    
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager = [YWHTTPManager manager];
+    
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [manager POST:fullUrl
+       parameters:parameters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  
+                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                          options:NSJSONReadingMutableContainers error:nil];
+              //    NSString *string = [[NSString alloc ] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                  NSLog(@"device token提交成功～%@",content);
+              //    NSLog(@"",task.response);
+              }
+
+              
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"%@",error);
+          }];
+    
 }
 
 @end

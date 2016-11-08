@@ -134,13 +134,15 @@
     
     self.messageEntity = model;
     
-    if (model.type == MessageTieZi) {
+    if ([model.source_type isEqualToString:@"POST"] ) {
         
-        [self performSegueWithIdentifier:@"messageDetail" sender:self];
+        [self performSegueWithIdentifier:@"detail" sender:self];
+
     }
     else
     {
-        [self performSegueWithIdentifier:@"detail" sender:self];
+        [self performSegueWithIdentifier:@"messageDetail" sender:self];
+
     }
     
     

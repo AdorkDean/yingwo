@@ -407,18 +407,53 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)loadData {
     
-    
-
-    if ([self.model.follow_type isEqualToString:@"COMMENT" ]) {
-        self.requestEntity.requestUrl = TIEZI_COMMENT_LIST_URL;
-        self.requestEntity.paramaters = @{@"post_comment_id":@(self.model.tieZi_id)};
+    // type = 0表示请求的是原帖，即source 贴子
+    if (self.model.type == 0) {
+        
+        
+        if ([self.model.source_type isEqualToString:@"COMMENT" ]) {
+            self.requestEntity.requestUrl = TIEZI_COMMENT_LIST_URL;
+            self.requestEntity.paramaters = @{@"post_comment_id":@(self.model.tieZi_id)};
+            
+        }
+        else if([self.model.source_type isEqualToString:@"REPLY"] ) {
+            
+            self.requestEntity.requestUrl = TIEZI_RELPY_URL;
+            self.requestEntity.paramaters = @{@"post_reply_id":@(self.model.tieZi_id)};
+            
+            
+        }
+        else
+        {
+            self.requestEntity.paramaters = @{@"post_id":@(self.model.tieZi_id)};
+            self.requestEntity.requestUrl = TIEZI_DETAIL;
+            
+        }
 
     }
+    //soruce_type != 0请求的是回贴，即follow贴子
     else
     {
-        self.requestEntity.paramaters = @{@"post_reply_id":@(self.model.tieZi_id)};
-        self.requestEntity.requestUrl = TIEZI_RELPY_URL;
-    
+        if ([self.model.follow_type isEqualToString:@"COMMENT" ]) {
+            self.requestEntity.requestUrl = TIEZI_COMMENT_LIST_URL;
+            self.requestEntity.paramaters = @{@"post_comment_id":@(self.model.tieZi_id)};
+            
+        }
+        else if([self.model.follow_type isEqualToString:@"REPLY"] ||
+                [self.model.follow_type isEqualToString:@"LIKE_REPLY"] ) {
+            
+            self.requestEntity.requestUrl = TIEZI_RELPY_URL;
+            self.requestEntity.paramaters = @{@"post_reply_id":@(self.model.tieZi_id)};
+            
+            
+        }
+        else
+        {
+            self.requestEntity.paramaters = @{@"post_id":@(self.model.tieZi_id)};
+            self.requestEntity.requestUrl = TIEZI_DETAIL;
+            
+        }
+
     }
     [self loadForType:HeaderReloadDataModel];
     

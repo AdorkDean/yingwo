@@ -39,11 +39,12 @@
         make.centerY.equalTo(self);
     }];
     
-    [_content mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_username.mas_right);
-        make.top.bottom.equalTo(self);
+    [_content mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_username.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.top.height.bottom.equalTo(_username);
     }];
-    
+        
 }
 
 @end

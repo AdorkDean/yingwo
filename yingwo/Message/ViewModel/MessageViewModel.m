@@ -95,7 +95,7 @@
     cell.imageBottomView.username.text = [model.user_name stringByAppendingString:@":"];
     //原帖内容
     if (model.content.length == 0) {
-        cell.imageBottomView.content.text = @"无文字内容";
+        cell.imageBottomView.content.text = @"发布了一条帖子";
     }
     else
     {
@@ -114,12 +114,19 @@
     cell.bottomView.username.text = [model.user_name stringByAppendingString:@":"];
     //原帖内容
     if (model.content.length == 0) {
-        cell.bottomView.content.text = @"无文字内容";
+        cell.bottomView.content.text = @"发布了一条帖子";
     }
     else
     {
         cell.bottomView.content.text = model.content;
     }
+    
+    NSString *content                      = [NSString stringWithFormat:@"%@占%@",model.user_name,model.content];
+    
+    cell.bottomView.content.attributedText = [NSMutableAttributedString
+                                              changeCommentContentWithString:content
+                                              WithTextIndext:model.user_name.length+1];
+    
 }
 
 
