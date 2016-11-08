@@ -13,6 +13,7 @@
 #import "HotTopicController.h"
 #import "NewTopicController.h"
 #import "AnnounceController.h"
+#import "TAController.h"
 
 #import "TopicViewModel.h"
 #import "YWTopicSegmentViewCell.h"
@@ -34,6 +35,9 @@
 @property (nonatomic, strong) HotTopicController      *hotVc;
 @property (nonatomic, strong) NewTopicController      *freshVc;
 
+//点击查看用户详情
+@property (nonatomic, assign) int                     tap_ta_id;
+
 @property (nonatomic, strong) UIActivityIndicatorView *refreshIndictor;
 
 @property (nonatomic, strong) UIBarButtonItem         *rightBarItem;
@@ -42,7 +46,7 @@
 @property (nonatomic, strong) UIButton                *addBtn;
 
 @property (nonatomic, strong) RequestEntity           *requestEntity;
-
+@property (nonatomic, strong) TopicEntity             *topicEntity;
 @property (nonatomic, strong) NSMutableArray          *catalogVcArr;
 
 @property (nonatomic, assign) CGFloat                 navgationBarHeight;
@@ -164,6 +168,13 @@ static int start_id = 0;
                            forState:UIControlStateNormal];
     }
     return _addBtn;
+}
+
+- (TopicEntity *)topicEntity {
+    if (_topicEntity == nil) {
+        _topicEntity = [[TopicEntity alloc] init];
+    }
+    return _topicEntity;
 }
 
 - (CGFloat)navgationBarHeight {
@@ -323,7 +334,7 @@ static int start_id = 0;
     [self.viewModel requestTopicDetailInfoWithUrl:TOPIC_DETAIL_URL
                                        paramaters:paramters
                                           success:^(TopicEntity * topic){
-        
+                                              self.topicEntity = topic;
                                               [self fillTopicHeaderViewWith:topic];
                                               
     } error:^(NSURLSessionDataTask * task, NSError *error) {
@@ -433,7 +444,15 @@ static int start_id = 0;
             if (self.pageModel == NewPageModel) {
                 
                 self.freshVc.homeTableview.contentOffset = CGPointMake(0, offsetY-HeaderViewHeight+self.navgationBarHeight);
+//                
+//                if (self.freshVc.homeTableview.contentSize.height - (offsetY-HeaderViewHeight+self.navgationBarHeight)) {
+//                    
+//                    CGFloat moreOffsetY = offsetY-HeaderViewHeight+self.navgationBarHeight + 553;
+//                    
+//                    self.freshVc.homeTableview.contentSize = CGSizeMake(self.freshVc.homeTableview.contentSize.width,moreOffsetY);
+//                }
                 
+//                NSLog(@"freshTableView:%@",self.freshVc.homeTableview);
             }
             else
             {
@@ -489,6 +508,7 @@ static int start_id = 0;
         
     }
     
+    
 }
 
 #pragma mark segue prepare
@@ -500,7 +520,14 @@ static int start_id = 0;
             DetailController *detailVc = segue.destinationViewController;
             detailVc.model             = self.model;
         }
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]])
+    {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id         = self.tap_ta_id;
+        }
     }
+    
 }
 
 #pragma mark TopicControllerDelegate
@@ -511,6 +538,11 @@ static int start_id = 0;
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
 
+- (void)didSelectBottomWith:(YWHomeCellBottomView *)bottomView {
+
+    self.tap_ta_id = bottomView.user_id;
+    [self performSegueWithIdentifier:@"ta" sender:self];
+}
 
 #pragma mark private method
 
@@ -619,6 +651,10 @@ static int start_id = 0;
                                    forControlEvents:UIControlEventTouchUpInside];
                                   
                                   [SVProgressHUD showSuccessStatus:@"关注成功" afterDelay:HUD_DELAY];
+                                  //显示的话题数+1
+                                  self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[self.topicEntity.like_cnt intValue] + 1];
+                                  self.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[self.topicEntity.like_cnt intValue] + 1];
+                                  
                               }
                               else
                               {
@@ -660,6 +696,10 @@ static int start_id = 0;
                                    forControlEvents:UIControlEventTouchUpInside];
                                   
                                   [SVProgressHUD showSuccessStatus:@"取消关注" afterDelay:HUD_DELAY];
+                                  
+                                  //显示的话题数-1
+                                  self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[self.topicEntity.like_cnt intValue] - 1];
+                                  self.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[self.topicEntity.like_cnt intValue] - 1];
                                   
                                   
                               }

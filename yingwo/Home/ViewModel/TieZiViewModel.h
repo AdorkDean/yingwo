@@ -13,6 +13,8 @@
 #import "HomeController.h"
 #import "BadgeCount.h"
 
+typedef void(^ImageCntBlock)(NSUInteger imageCnt);
+
 /**
  *  HomeViewController 的ViewModel
  */
@@ -23,6 +25,8 @@
 
 @property (nonatomic, assign)int            user_id;
 
+@property (nonatomic, copy  )ImageCntBlock  imageCntBlock;
+@property (nonatomic, assign)NSUInteger     *imageCnt;
 
 - (void)setupRACComand;
 

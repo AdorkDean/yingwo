@@ -40,7 +40,8 @@
         make.left.equalTo(self).offset(2);
         make.right.equalTo(self).offset(-2);
         make.top.equalTo(self).offset(2);
-        make.bottom.equalTo(self).offset(-19);
+        make.height.equalTo(self.mas_width);
+//        make.bottom.equalTo(self).offset(-19);
     }];
     
     [_topic mas_makeConstraints:^(MASConstraintMaker *make) {

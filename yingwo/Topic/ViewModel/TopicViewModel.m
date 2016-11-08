@@ -44,8 +44,8 @@
                 
                 paramaters = @{@"topic_id":@(requestEntity.topic_id),
                                @"start_id":@(requestEntity.start_id),
+                               @"page":@(requestEntity.page),
                                @"sort":requestEntity.sort};
-
             }
             else
             {

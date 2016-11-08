@@ -12,4 +12,6 @@
 
 @interface YWHomeCellMiddleViewMoreNineImage : YWHomeCellMiddleViewBase
 
+@property (nonatomic, assign) NSUInteger imageCnt;
+
 @end

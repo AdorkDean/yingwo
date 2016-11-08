@@ -57,6 +57,9 @@
                                   forState:UIControlStateNormal];
         _photoImageBtn.layer.masksToBounds = YES;
         _photoImageBtn.layer.cornerRadius  = 65;
+        _photoImageBtn.layer.borderWidth   = 1.5f;
+        _photoImageBtn.layer.borderColor   = [UIColor whiteColor].CGColor;
+
 
         [_photoImageBtn addTarget:self
                            action:@selector(selectHeadPortrait)

@@ -39,14 +39,14 @@
     
     [self.leftName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
-        make.top.equalTo(self);
-        make.height.equalTo(@13);
+        make.top.equalTo(self).priorityHigh();
+        make.bottom.equalTo(self.mas_top).offset(14);
     }];
 
     [self.content mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftName.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.equalTo(self.leftName.mas_top).offset(-3);
+        make.top.equalTo(self.leftName.mas_top);
         make.bottom.equalTo(self);
     }];
 }

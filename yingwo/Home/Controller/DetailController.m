@@ -263,7 +263,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)showDeleteAlertView:(UIButton *)more {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
-                                                                             message:@"确认删除？"
+                                                                             message:@"操作不可恢复，确认删除吗？"
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -382,6 +382,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         YWDetailReplyCell *selectedCell = (YWDetailReplyCell *)more.superview.superview.superview;
         NSString *copyString = selectedCell.contentLabel.text;
         pasteboard.string = copyString;
+        [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
     }
 }
 
@@ -741,7 +742,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.commetParamaters[@"post_reply_id"]        = @(commentView.post_reply_id);
     self.commetParamaters[@"post_comment_id"]      = @(commentView.post_comment_id);
     self.commetParamaters[@"post_comment_user_id"] = @(commentView.post_comment_user_id);
-    self.commentView.messageTextView.placeholder   = [NSString stringWithFormat:@"回复%@:",commentView.user_name];
+    self.commentView.messageTextView.placeholder   = [NSString stringWithFormat:@"回复 %@:",commentView.user_name];
 
     [self.commentView.messageTextView becomeFirstResponder];
     
@@ -802,7 +803,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //禁止后面的DetailController的滑动手势
     //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
     
-    [self stopSystemPopGestureRecognizer];
+//    [self stopSystemPopGestureRecognizer];
     
     NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
     
@@ -810,7 +811,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         [imageViewArr addObject:imageView];
     }
     
-    //    [self.galleryView setImages:imageViewArr showAtIndex:0];
     [self.galleryView setImageViews:imageViewArr
               withImageUrlArrEntity:self.model.imageUrlArrEntity
                         showAtIndex:imageView.tag - 1];

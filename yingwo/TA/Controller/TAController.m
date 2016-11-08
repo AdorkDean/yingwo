@@ -92,9 +92,9 @@ static CGFloat HeadViewHeight = 250;
 -(YWTaFollowView *)taFollowView {
     if (_taFollowView == nil) {
         _taFollowView                       = [[YWTaFollowView alloc] init];
-        _taFollowView.backgroundColor       = [UIColor colorWithHexString:@"D6D6D9" alpha:0.9];
+        _taFollowView.backgroundColor       = [UIColor colorWithHexString:@"D6D6D9" alpha:1.0];
         _taFollowView.layer.masksToBounds   = YES;
-        _taFollowView.layer.cornerRadius    = 22;
+        _taFollowView.layer.cornerRadius    = SCREEN_WIDTH / 375 * 22;
     }
     return _taFollowView;
 }
@@ -214,7 +214,7 @@ static CGFloat HeadViewHeight = 250;
         make.height.mas_equalTo(taTieziViewHeight);
     }];
     
-    self.taScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,HeadViewHeight + 170 + self.navgationBarHeight + taTieziViewHeight);
+    self.taScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,HeadViewHeight + SCREEN_HEIGHT / 667 * 170 + self.navgationBarHeight + taTieziViewHeight);
 }
 - (void)setUILayout {
     
@@ -222,7 +222,7 @@ static CGFloat HeadViewHeight = 250;
         make.top.equalTo(self.taHeaderView.mas_bottom).offset(10);
         make.left.equalTo(self.view).offset(10);
         make.right.equalTo(self.view).offset(-10);
-        make.height.equalTo(@170);
+        make.height.mas_equalTo(SCREEN_HEIGHT / 667 * 170);
     }];
     
     [self.taTieziView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -233,9 +233,9 @@ static CGFloat HeadViewHeight = 250;
     
     if (self.ta_id != [[User findCustomer].userId intValue]) {
         [self.taFollowView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(75);
-            make.right.equalTo(self.view).offset(-75);
-            make.height.equalTo(@44);
+            make.left.mas_equalTo(self.view).offset(SCREEN_WIDTH / 375 * 75);
+            make.right.mas_equalTo(self.view).offset(-SCREEN_WIDTH / 375 * 75);
+            make.height.mas_equalTo(SCREEN_HEIGHT / (667 / 44));
             make.bottom.equalTo(self.view).offset(-10);
         }];
     }
@@ -416,17 +416,19 @@ static CGFloat HeadViewHeight = 250;
                                         action:@selector(cancelLike:)
                               forControlEvents:UIControlEventTouchUpInside];
         
-        [self.taFollowView.followBtn setImage:[UIImage imageNamed:@"tongzhi"]
+        [self.taFollowView.followBtn setImage:[UIImage imageNamed:@"guanzhuzhong"]
                                      forState:UIControlStateNormal];
         [self.taFollowView.followBtn setTitle:@"关注中"
                                      forState:UIControlStateNormal];
-        
+        [self.taFollowView.followBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_4]
+                                          forState:UIControlStateNormal];
+
     }
     
     //用户背景图
     int nowHour = [[NSDate getNowHour] intValue];
     if (nowHour <= 4 && nowHour >=0) { //凌晨
-        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage1"];
+        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage6"];
     }else if (nowHour <= 8 && nowHour >=5) { //早上
         self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage5"];
     }else if (nowHour <= 11 && nowHour >= 9) { //上午
@@ -457,9 +459,12 @@ static CGFloat HeadViewHeight = 250;
                                         
                                         if (status.status == YES) {
                                             
-                                            [sender setImage:[UIImage imageNamed:@"tongzhi"]
+                                            [sender setImage:[UIImage imageNamed:@"guanzhuzhong"]
                                                               forState:UIControlStateNormal];
                                             [sender setTitle:@"关注中" forState:UIControlStateNormal];
+                                            [sender setTitleColor:[UIColor colorWithHexString:THEME_COLOR_4]
+                                                         forState:UIControlStateNormal];
+
                                             //先移除之前已经添加的action，再添加新的action
                                             [sender removeTarget:self
                                                           action:@selector(addLike:)

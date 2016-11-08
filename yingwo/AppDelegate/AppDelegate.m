@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "UMessage.h"
+#import "BadgeCount.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 #import <UserNotifications/UserNotifications.h>
@@ -20,7 +21,11 @@
 #import "MainNavController.h"
 #import "MainController.h"
 #import "LoginController.h"
+#import "YWTabBarController.h"
+
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
+
+@property (nonatomic, strong) YWTabBarController       *mainTabBarController;
 
 @end
 
@@ -165,7 +170,27 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSLog(@"%s",__func__);
+    NSDictionary *paramaters;
+    [self requestForBadgeWithUrl:HOME_INDEX_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.homeBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.homeBtn showBadge];
+                                 });
+                                 
+                             }
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
 }
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -175,6 +200,31 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
  //   [self saveContext];
+}
+
+//请求
+- (void)requestForBadgeWithUrl:(NSString *)url
+                    paramaters:(NSDictionary *)paramaters
+                       success:(void (^)(int badgeCount))success
+                       failure:(void (^)(NSString *error))failure{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              
+              BadgeCount *badgeCnt = [BadgeCount mj_objectWithKeyValues:content];
+              int badgeCount       =  [badgeCnt.info intValue];
+              success(badgeCount);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+          }];
 }
 
 #pragma mark 以下的方法仅作调试使用

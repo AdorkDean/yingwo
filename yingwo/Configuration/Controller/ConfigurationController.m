@@ -292,8 +292,8 @@
         [[NSFileManager defaultManager] removeItemAtPath:YWCacheFile error:nil];
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [SVProgressHUD showSuccessWithStatus:@"清除成功"];
             
+            [SVProgressHUD showSuccessStatus:@"清除成功" afterDelay:1.0];
             self.cleanCacheCell.rightLabel.text = @"";
             
             // 禁止点击事件

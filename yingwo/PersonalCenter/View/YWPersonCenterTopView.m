@@ -25,8 +25,7 @@
         _headPortraitImageView.image               = headPortrait;
         _headPortraitImageView.layer.cornerRadius  = 32.5f;
         _headPortraitImageView.layer.masksToBounds = YES;
-        _headPortraitImageView.layer.borderWidth   = 1.5f;
-        _headPortraitImageView.layer.borderColor   = [UIColor whiteColor].CGColor;
+
         _usernameLabel.text                        = username;
         _signatureLabel.text                       = signature;
 

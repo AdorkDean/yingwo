@@ -106,6 +106,7 @@
 #define MY_LIKED_URL            @"/Post/my_liked_list"
 #define TIEZI_DEL_URL           @"/Post/del"
 #define TIEZI_REPLY_DEL_URL     @"/Post/reply_del"
+#define TIEZI_COMMENT_DEL_URL   @"/Post/comment_del"
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
 #define HOME_INDEX_CNT_URL      @"/Post/index_cnt"
 #define TIEZI_DETAIL            @"Post/detail"
@@ -120,8 +121,10 @@
 #define RECOMMENDED_TOPIC_URL   @"/Topic/recommended_list_fixed"
 #define RECOMMEND_TOPIC_URL     @"/Topic/recommended_list"
 
+//用户
 #define TA_INFO_URL             @"/User/info"
 #define TA_USER_LIKE_URL        @"/User/like"
+#define TA_USER_LIKE_LIST_URL   @"/User/like_list"
 
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="90W-dO-pB3">
-
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="90W-dO-pB3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -535,6 +537,7 @@
                     <navigationItem key="navigationItem" id="Ihx-F0-ocN"/>
                     <connections>
                         <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="GGw-Qr-lxh"/>
+                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="70L-g4-KHF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WbM-4d-K2U" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -615,16 +618,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dQL-fh-5s4"/>
-        <segue reference="gXB-c9-GK2"/>
-        <segue reference="MUA-MQ-PjB"/>
-        <segue reference="pvc-Sr-Ihp"/>
-        <segue reference="xfh-Am-3PH"/>
-        <segue reference="LE3-c2-jZn"/>
-        <segue reference="cO5-zM-Dpn"/>
-        <segue reference="ZMN-sb-BDP"/>
-        <segue reference="q7d-3y-7Bc"/>
-        <segue reference="z8l-m0-DzE"/>
+        <segue reference="70L-g4-KHF"/>
         <segue reference="FPB-nA-kGY"/>
+        <segue reference="DZx-xw-Vme"/>
+        <segue reference="GGw-Qr-lxh"/>
+        <segue reference="cO5-zM-Dpn"/>
+        <segue reference="gXB-c9-GK2"/>
+        <segue reference="dQL-fh-5s4"/>
+        <segue reference="q7d-3y-7Bc"/>
     </inferredMetricsTieBreakers>
 </document>

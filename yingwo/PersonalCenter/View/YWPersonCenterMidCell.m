@@ -55,7 +55,7 @@
         attentionLabel.textColor = [UIColor colorWithHexString:THEME_COLOR_2];
         fansLabel.textColor      = [UIColor colorWithHexString:THEME_COLOR_2];
         visitorLabel.textColor   = [UIColor colorWithHexString:THEME_COLOR_2];
-
+        
         [self addSubview:_friends];
         [self addSubview:_attentions];
         [self addSubview:_fans];

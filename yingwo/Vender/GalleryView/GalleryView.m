@@ -193,7 +193,6 @@ withImageUrlArrEntity:(NSArray *)entities
         [self loadImageWithCurrentPage:index];
     }
 
-    
     self.pageLabel.text = [NSString stringWithFormat:@"%lu/%lu",index+1,self.imageViews.count];
     //currentPage 从0开始计算
     self.currentPage = index;

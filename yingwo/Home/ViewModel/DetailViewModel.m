@@ -303,7 +303,7 @@
               }
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"回帖获取失败");
+              NSLog(@"回贴获取失败");
           }];
 }
 
@@ -386,6 +386,34 @@
                 paramaters:(NSDictionary *)paramaters
                    success:(void (^)(StatusEntity *statusEntity))success
                    failure:(void (^)(NSString *error))failure{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                          options:NSJSONReadingMutableContainers
+                                                                            error:nil];
+                  StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                  success(entity);
+              }
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              
+          }];
+}
+
+- (void)deleteCommentWithUrl:(NSString *)url
+                  paramaters:(NSDictionary *)paramaters
+                     success:(void (^)(StatusEntity *statusEntity))success
+                     failure:(void (^)(NSString *error))failure{
     
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager =[YWHTTPManager manager];

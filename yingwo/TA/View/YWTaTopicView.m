@@ -9,7 +9,9 @@
 #import "YWTaTopicView.h"
 #import "YWTaTopicListView.h"
 
-#define TOPICLISTVIEWWIDTH (SCREEN_WIDTH - 80) / 3
+#define DEVICESCALE SCREEN_WIDTH / 375  //定义屏幕比例（与667 * 375相比）
+
+#define TOPICLISTVIEWWIDTH (SCREEN_WIDTH - DEVICESCALE * 80) / 3
 
 
 @interface YWTaTopicView()
@@ -29,7 +31,7 @@
         UILabel *taTopicLabel           = [[UILabel alloc] init];
         taTopicLabel.text               = @"TA的话题";
         taTopicLabel.textColor          = [UIColor colorWithHexString:THEME_COLOR_4];
-        taTopicLabel.font               = [UIFont systemFontOfSize:16];
+        taTopicLabel.font               = [UIFont systemFontOfSize:SCREEN_HEIGHT / 667 * 16];
         self.taTopicLabel               = taTopicLabel;
         
         UIImageView *rightImageView     = [[UIImageView alloc] init];
@@ -90,7 +92,7 @@
             
             if (!lastView) {
                 [topicListView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.mas_top).offset(46);
+                    make.top.equalTo(self.separator.mas_bottom).offset(5);
                     make.left.equalTo(self).offset(10);
                     make.bottom.equalTo(self).offset(-10);
                     make.width.mas_equalTo(TOPICLISTVIEWWIDTH);
@@ -99,8 +101,8 @@
                 
             }else {
                 [topicListView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.mas_top).offset(46);
-                    make.left.equalTo(lastView.mas_right).offset(20);
+                    make.top.equalTo(self.separator.mas_bottom).offset(5);
+                    make.left.equalTo(lastView.mas_right).offset(DEVICESCALE * 20);
                     make.bottom.equalTo(self).offset(-10);
                     make.width.mas_equalTo(TOPICLISTVIEWWIDTH);
                 }];
