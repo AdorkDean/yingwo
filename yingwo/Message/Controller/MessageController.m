@@ -134,7 +134,8 @@
     
     self.messageEntity = model;
     
-    if ([model.source_type isEqualToString:@"POST"] ) {
+    if (([model.source_type isEqualToString:@"POST"] && model.type == 0) ||
+        [model.follow_type isEqualToString:@"LIKE_POST"]) {
         
         [self performSegueWithIdentifier:@"detail" sender:self];
 
