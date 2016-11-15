@@ -48,5 +48,8 @@ typedef NS_ENUM(NSInteger, MessageType){
 //留言类型
 @property (nonatomic, assign) MessageType  messageType;
 
+//用户ID
+@property (nonatomic, assign) int          user_id;
+
 
 @end

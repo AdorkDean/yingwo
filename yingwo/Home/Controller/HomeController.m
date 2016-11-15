@@ -52,8 +52,9 @@ static int start_id = 0;
 @property (nonatomic, strong) YWPhotoCotentView *contentView;
 
 @property (nonatomic, strong) NSMutableArray    *tieZiList;
-@property (nonatomic,strong ) NSArray           *images;
+@property (nonatomic, strong) NSArray           *images;
 
+@property (nonatomic, strong) UILabel           *tieziLabel;
 
 @property (nonatomic, strong) GalleryView       *galleryView;
 
@@ -171,10 +172,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         [titles addObject:@"新鲜事"];
         [titles addObject:@"关注的话题"];
 //        [titles addObject:@"好友动态"];
-        
-//        _drorDownView          = [[YWDropDownView alloc] initWithTitlesArr:titles
-//                                                                    height:120
-//                                                                     width:100];
         
         _drorDownView          = [[YWDropDownView alloc] initWithTitlesArr:titles
                                                                     height:90
@@ -400,6 +397,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [self showTabBar:YES animated:YES];
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.tieziLabel removeFromSuperview];
+    
+}
+
 //跳转到完善信息
 - (void)jumpToPerfectInfoPage {
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_PERFECTINFO sender:self];
@@ -583,25 +587,27 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     newTieziLabel.x               = 0;
     newTieziLabel.y               = CGRectGetMaxY([self.navigationController navigationBar].frame) - newTieziLabel.height;
     
+    self.tieziLabel               = newTieziLabel;
     //添加到导航栏控制器的view
-    [self.navigationController.view insertSubview:newTieziLabel belowSubview:self.navigationController.navigationBar];
+    [self.navigationController.view insertSubview:self.tieziLabel belowSubview:self.navigationController.navigationBar];
     
     //动画
-    CGFloat duration = 2.0;
-    [UIView animateWithDuration:duration
+    CGFloat inDuration = 1.0;
+    [UIView animateWithDuration:inDuration
                      animations:^{
-                         newTieziLabel.transform = CGAffineTransformMakeTranslation(0, newTieziLabel.height);
+                         self.tieziLabel.transform = CGAffineTransformMakeTranslation(0, self.tieziLabel.height);
                      }
                      completion:^(BOOL finished) {
                          
-                         CGFloat delay = 1.0;
-                         [UIView animateWithDuration:delay
+                         [UIView animateWithDuration:1.0
+                                               delay:2.0
+                                             options:UIViewAnimationOptionAllowUserInteraction
                                           animations:^{
-                                              newTieziLabel.transform = CGAffineTransformIdentity;
+                                              self.tieziLabel.transform = CGAffineTransformIdentity;
                                           }
                                           completion:^(BOOL finished) {
                                               //移除控件
-                                              [newTieziLabel removeFromSuperview];
+                                              [self.tieziLabel removeFromSuperview];
                                           }];
                          
                      }];
@@ -904,245 +910,6 @@ CGFloat lastPosition = -4;
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)didSelectedAvatarImageViewOfMiddleView:(UIImageView *)imageView imageArr:(NSMutableArray *)imageArr {
-//
-//    if (imageView.image == nil) {
-//        return;
-//    }
-//
-//    YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)imageView.superview.superview.superview.superview;
-//    NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
-//    TieZi *selectedModel                  = self.tieZiList[indexPath.row];
-//
-//    [self.cellNewImageArr removeAllObjects];
-//
-//    [self requestForImageByImageUrls:selectedModel.imageUrlArrEntity showImageView:imageView oldImageArr:imageArr];
-//
-//
-//
-//}
 
-#pragma mark avatarImageView 下面全是点击图片方法过程的方法函数
-/**
- *  坐标转换
- *
- *  @param imageArr    旧数组存放的是UImageView
- *  @param newImageArr 新数组存放的是UImage
- */
-//- (void)covertRectForOldImageArr:(NSArray *)imageArr FromNewImageArr:(NSMutableArray *)newImageArr{
-//
-//    for (int i = 0; i < imageArr.count; i ++) {
-//
-//        //保存imageView在cell上的位置
-//        UIImageView *oldImageView = [imageArr objectAtIndex:i];
-//
-//        //oldImageView有可能是空的，只是个占位imageView
-//        if (oldImageView.image == nil) {
-//            return;
-//        }
-//        UIImageView *newImageView = [[UIImageView alloc] init];
-//        UIImage *newImage         = [newImageArr objectAtIndex:i];
-//        newImageView.image        = newImage;
-//        newImageView.tag          = oldImageView.tag;
-//        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame toView:self.view];
-//        newImageView.y            += self.navgationBarHeight;
-//        [self.cellNewImageArr addObject:newImageView];
-//
-//    }
-//}
-//
-
-//- (void)requestForImageByImageUrls:(NSArray *)imageUrls
-//                     showImageView:(UIImageView *)showImageView
-//                       oldImageArr:(NSMutableArray *)oldImageArr{
-//
-//    MBProgressHUD *hud =  [MBProgressHUD showProgressViewToView:self.view animated:YES];
-//
-//    [self.viewModel downloadCompletedImageViewByUrls:imageUrls progress:^(CGFloat progress) {
-//
-//        //进度显示
-//        hud.progress = progress;
-//
-//        //下载完成
-//        if (hud.progress == 1.0) {
-//            [hud hide:YES];
-//        }
-//
-//    } success:^(NSMutableArray *imageArr) {
-//
-//        [self covertRectForOldImageArr:oldImageArr FromNewImageArr:imageArr];
-//        [self showImage:self.cellNewImageArr[showImageView.tag-1] WithImageViewArr:self.cellNewImageArr];
-//
-//    } failure:^(NSString *failure) {
-//        //图片下载失败
-//        [hud hide:YES];
-//        [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"图片加载失败" animated:YES afterDelay:2];
-//    }];
-//}
-
-
-/*
- **
- *  坐标转换
- *
- *  @param imageArr 图片数组
- *
-- (void)covertRectForImageArr:(NSMutableArray *)imageArr {
-    
-    for (int i = 0; i < imageArr.count; i ++) {
-        
-        //保存imageView在cell上的位置
-        UIImageView *oldImageView = [imageArr objectAtIndex:i];
-        
-        if (oldImageView.image == nil) {
-            return;
-        }
-        
-        UIImageView *newImageView           = [[UIImageView alloc] init];
-        newImageView.image                  = oldImageView.image;
-        newImageView.tag                    = oldImageView.tag;
-        newImageView.frame                  = [oldImageView.superview convertRect:oldImageView.frame toView:self.view];
-        
-        [self.cellNewImageArr addObject:newImageView];
-        
-        //        NSLog(@"%d:newframe.x%f",i,newImageView.frame.origin.x);
-        //        NSLog(@"%d:newframe.y%f",i,newImageView.frame.origin.y);
-        //        NSLog(@"%d:oldframe.x%f",i,oldImageView.frame.origin.x);
-        //        NSLog(@"%d:oldframe.y%f",i,oldImageView.frame.origin.y);
-        
-    }
-}
- 
- static NSInteger avatarImageViewOldTag;
- *
- *  图片展示
- *
- *  @param avatarImageView 选中的图图片
- *  @param imageArr        同一个帖子中所有的图片
- */
-/*
- - (void)showImage:(UIImageView *)avatarImageView WithImageViewArr:(NSArray *)imageArr{
- 
- //avatarImageViewTag tag从1开始的，所以这里要减1，从0开始计算
- avatarImageViewOldTag        = avatarImageView.tag;
- self.avatarPage              = (int)avatarImageView.tag;
- NSInteger avatarImageViewTag = avatarImageView.tag - 1;
- 
- [self.avatarImageArr removeAllObjects];
- 
- //页数
- _avatarPageLabel                 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
- _avatarPageLabel.center          = CGPointMake(self.view.center.x, 30);
- _avatarPageLabel.textColor       = [UIColor whiteColor];
- _avatarPageLabel.textAlignment   = NSTextAlignmentCenter;
- _avatarPageLabel.text            = [NSString stringWithFormat:@"%d/%d",(int)avatarImageViewOldTag,(int)imageArr.count];
- 
- //背景滑动
- _avatarSrcllView                 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
- _avatarSrcllView.pagingEnabled   = YES;
- //_avatarSrcllView 的初始位置
- _avatarSrcllView.contentSize     = CGSizeMake(imageArr.count*SCREEN_WIDTH, SCREEN_HEIGHT);
- _avatarSrcllView.contentOffset   = CGPointMake(SCREEN_WIDTH*avatarImageViewTag, _avatarSrcllView.contentOffset.y);
- _avatarSrcllView.backgroundColor = [UIColor blackColor] ;
- _avatarSrcllView.alpha           = 1;
- _avatarSrcllView.delegate        = self;
- 
- //   UIView *pageView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*avatarImageViewTag, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
- 
- UIImageView *oldImageView = [self.cellOldImageArr objectAtIndex:avatarImageViewTag];
- //创建新的ImageView代替点击的avatarImageView,这里一定要设置好初始位置！！！
- //由于控制器含有UINavigationController，需要加上导航栏和状态栏的高度navgationBarHeight
- UIImageView *avatarNewImageView           = [[UIImageView alloc] initWithFrame:CGRectMake(avatarImageView.x+SCREEN_WIDTH*avatarImageViewTag, avatarImageView.y+self.navgationBarHeight, oldImageView.width, oldImageView.height)];
- avatarNewImageView.image                  = avatarImageView.image;
- avatarNewImageView.tag                    = avatarImageViewOldTag;
- avatarNewImageView.userInteractionEnabled = YES;
- avatarNewImageView.clipsToBounds          = YES;
- //添加缩放手势
- [self addGestureToImageView:avatarNewImageView];
- 
- [_avatarSrcllView addSubview:avatarNewImageView];
- [self.navigationController.view addSubview:_avatarSrcllView];
- [self.navigationController.view addSubview:_avatarPageLabel];
- 
- //点击后的缩放动画
- POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
- anim.toValue             = [NSValue valueWithCGRect:CGRectMake((SCREEN_WIDTH - avatarImageView.width)/2+SCREEN_WIDTH*avatarImageViewTag,(SCREEN_HEIGHT-avatarImageView.height)/2, avatarImageView.width, avatarImageView.height)];
- 
- anim.springBounciness    = 8;
- anim.springSpeed         = 12;
- [avatarNewImageView pop_addAnimation:anim forKey:@"Center"];
- anim.completionBlock = ^(POPAnimation *anim, BOOL finished)  {
- 
- if (finished) {
- 
- for (int i = 0; i < imageArr.count; i++) {
- 
- //这个位置已经被avatarImageView占有
- if (i == avatarImageViewTag) {
- 
- //这个saveImageView，只用来记录avatarScrllView上的图片的大小，不显示
- UIImageView *saveImageView = [[UIImageView alloc] initWithFrame:avatarNewImageView.frame];
- [self.avatarImageArr addObject:saveImageView];
- 
- continue;
- }
- 
- UIImageView *newimageView        = [imageArr objectAtIndex:i];
- UIImageView *imageView           = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, newimageView.width, newimageView.height)];
- 
- imageView.image                  = newimageView.image;
- imageView.tag                    = i + 1;
- imageView.center                 = CGPointMake((SCREEN_WIDTH/2 + SCREEN_WIDTH*i), SCREEN_HEIGHT/2);
- imageView.userInteractionEnabled = YES;
- imageView.clipsToBounds          = YES;
- //添加缩放手势
- [self addGestureToImageView:imageView];
- [_avatarSrcllView addSubview:imageView];
- 
- //这个saveImageView，只用来记录avatarScrllView上的图片的大小，不显示
- UIImageView *saveImageView = [[UIImageView alloc] initWithFrame:imageView.frame];
- [self.avatarImageArr addObject:saveImageView];
- 
- }
- }
- 
- };
- 
- UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
- [_avatarSrcllView addGestureRecognizer: tap];
- }
- 
-
- *  隐藏图片
- *
- *  @param tap 手势
-
-- (void)hideImage:(UITapGestureRecognizer*)tap{
-    
-    //_avatarPageLabel 不能使用clearColor，否则消失不同步，只能选择移除
-    [_avatarPageLabel removeFromSuperview];
-    _avatarSrcllView.backgroundColor = [UIColor clearColor];
-    
-    UIImageView *imageView           = [self.avatarSrcllView viewWithTag:self.avatarPage];
-    UIImageView *newImageView        = self.cellNewImageArr[self.avatarPage-1];
-    UIImageView *oldImageView        = self.cellOldImageArr[self.avatarPage-1];
-    
-    POPSpringAnimation *anim         = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
-    anim.toValue                     = [NSValue valueWithCGRect:CGRectMake(SCREEN_WIDTH * (self.avatarPage -1)+newImageView.x, newImageView.y+self.navgationBarHeight, oldImageView.width, oldImageView.height)];
-    anim.springBounciness            = 8;
-    anim.springSpeed                 = 12;
-    
-    [imageView pop_addAnimation:anim forKey:@"AnimationHide"];
-    
-    anim.completionBlock = ^(POPAnimation *anim, BOOL finished){
-        if (finished) {
-            
-            [_avatarSrcllView removeFromSuperview];
-            
-        }
-    };
-}
-
- */
 
 @end

@@ -126,7 +126,7 @@
 //                    }
 //        }
         
-        if (model.user_topic_like != nil && [model.user_topic_like intValue] == 0) {
+        if ([model.status intValue] == 0) {
 
             [cell.rightBtn addTarget:self
                               action:@selector(addLike:)

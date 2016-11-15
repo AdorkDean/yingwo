@@ -9,13 +9,15 @@
 #import "TAController.h"
 #import "MyTopicController.h"
 #import "MyTieZiController.h"
+#import "TopicController.h"
+#import "MyRelationshipBaseController.h"
 
 #import "YWTaHeaderView.h"
 #import "YWTaTopicView.h"
 #import "YWTaTieziView.h"
 #import "YWTaFollowView.h"
 
-@interface TAController ()<UIScrollViewDelegate,GalleryViewDelegate>
+@interface TAController ()<UIScrollViewDelegate,GalleryViewDelegate,YWTaTopicViewDelegate>
 
 @property (nonatomic, strong) UIScrollView              *taScrollView;
 @property (nonatomic, strong) YWTaHeaderView            *taHeaderView;
@@ -23,14 +25,18 @@
 @property (nonatomic, strong) YWTaTieziView             *taTieziView;
 @property (nonatomic, strong) YWTaFollowView            *taFollowView;
 @property (nonatomic, strong) GalleryView               *galleryView;
-@property (nonatomic, strong) UIView                    *taNavigationBar;
 
 @property (nonatomic, strong) TaViewModel               *viewModel;
 @property (nonatomic, strong) TaEntity                  *taEntity;
 
+@property (nonatomic, strong) UIView                    *taNavigationBar;
 @property (nonatomic, strong) UIBarButtonItem           *leftBarItem;
 
 @property (nonatomic, assign) CGFloat                   navgationBarHeight;
+
+@property (nonatomic, assign) int                       topic_id;
+//关系类型 1我的好友 2我的关注 3我的粉丝 4我的访客 5Ta的关注 6Ta的粉丝
+@property (nonatomic, assign) int                       relationType;
 
 
 @end
@@ -74,6 +80,7 @@ static CGFloat HeadViewHeight = 250;
         _taTopicView.backgroundColor        = [UIColor whiteColor];
         _taTopicView.layer.masksToBounds    = YES;
         _taTopicView.layer.cornerRadius     = 5;
+        _taTopicView.delegate               = self;
     }
     return _taTopicView;
 }
@@ -92,7 +99,7 @@ static CGFloat HeadViewHeight = 250;
 -(YWTaFollowView *)taFollowView {
     if (_taFollowView == nil) {
         _taFollowView                       = [[YWTaFollowView alloc] init];
-        _taFollowView.backgroundColor       = [UIColor colorWithHexString:@"D6D6D9" alpha:1.0];
+//        _taFollowView.backgroundColor       = [UIColor colorWithHexString:@"DCDCDC" alpha:1.0];
         _taFollowView.layer.masksToBounds   = YES;
         _taFollowView.layer.cornerRadius    = SCREEN_WIDTH / 375 * 22;
     }
@@ -260,6 +267,24 @@ static CGFloat HeadViewHeight = 250;
             MyTieZiController *taTieziVc = segue.destinationViewController;
             taTieziVc.viewModel.user_id  = self.ta_id;
         }
+    } else if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
+        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPIC]) {
+            TopicController *topicVc = segue.destinationViewController;
+            topicVc.topic_id         = self.topic_id;
+        }
+    } else if ([segue.destinationViewController isKindOfClass:[MyRelationshipBaseController class]]) {
+        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYRELATION]) {
+            MyRelationshipBaseController *relationVc = segue.destinationViewController;
+            //关系类型TA的关注和TA的粉丝
+            if (self.relationType == 5) {
+                relationVc.relationType = 5;
+            }else if (self.relationType == 6) {
+                relationVc.relationType = 6;
+            }
+            relationVc.requestEntity.user_id         = self.ta_id;
+            relationVc.followCnt                     = [self.taEntity.like_cnt intValue];
+            relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
+        }
     }
     
 }
@@ -317,10 +342,20 @@ static CGFloat HeadViewHeight = 250;
 }
 
 
+#pragma mark - YWTaTopicViewDelegate
+- (void)didSelectTopicWith:(int)topicId {
+   
+    self.topic_id = topicId;
+    
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
+}
+
 #pragma mark - action
 
 - (void)setAllAction {
     [self.taHeaderView.headerView addTapAction:@selector(ShowHeadImage) target:self];
+    [self.taHeaderView.numberOfFollow addTapAction:@selector(jumpToTaFollowPage) target:self];
+    [self.taHeaderView.numberOfFans addTapAction:@selector(jumpToTaFansPage) target:self];
     [self.taTopicView addTapAction:@selector(jumpToTaTopicListPage) target:self];
     [self.taTieziView addTapAction:@selector(jumpToTaTieziListPage) target:self];
 }
@@ -407,6 +442,9 @@ static CGFloat HeadViewHeight = 250;
                                      forState:UIControlStateNormal];
         [self.taFollowView.followBtn setTitle:@"关注"
                                      forState:UIControlStateNormal];
+        [self.taFollowView.followBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
+                                          forState:UIControlStateNormal];
+
         
     }
     else
@@ -495,41 +533,74 @@ static CGFloat HeadViewHeight = 250;
 
 //取关TA
 - (void)cancelLike:(UIButton *)sender {
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-    [SVProgressHUD showWithStatus:@""];
 
-    NSDictionary *paramater = @{@"user_id":@(self.ta_id),
-                                @"value":@(0)};
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"取消关注Ta吗？"
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [self.viewModel requestUserLikeWithUrl:TA_USER_LIKE_URL
-                                paramaters:paramater
-                                   success:^(StatusEntity *status) {
-                                       if (status.status == YES) {
-                                           [sender setImage:[UIImage imageNamed:@"guanzhu"] forState:UIControlStateNormal];
-                                           [sender setTitle:@"关注" forState:UIControlStateNormal];
-                                           //先移除之前已经添加的action，再添加新的action
-                                           [sender removeTarget:self
-                                                         action:@selector(cancelLike:)
-                                               forControlEvents:UIControlEventTouchUpInside];
-                                           [sender addTarget:self
-                                                      action:@selector(addLike:)
-                                            forControlEvents:UIControlEventTouchUpInside];
-                                           
-                                           [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-                                           [SVProgressHUD showSuccessStatus:@"已取消关注" afterDelay:HUD_DELAY];
-                                           //个人信息显示的粉丝人数-1
-                                           self.taHeaderView.numberOfFans.text = [NSString stringWithFormat:@"| %d粉丝",[self.taEntity.liked_cnt intValue] - 1];
-                                           self.taEntity.liked_cnt = [NSString stringWithFormat:@"%d",[self.taEntity.liked_cnt intValue] - 1];
+    UIAlertAction *imageAction = [UIAlertAction actionWithTitle:@""
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:nil];
+    UIImage *accessoryImage = self.taHeaderView.headerView.image;
 
-                                       }else {
-                                           [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-                                           [SVProgressHUD showErrorStatus:@"取消关注失败" afterDelay:HUD_DELAY];
-                                       }
-                                   }
-                                   failure:^(NSString *error) {
-                                       [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-                                       [SVProgressHUD showErrorStatus:@"取消关注失败" afterDelay:HUD_DELAY];
-                                   }];
+    accessoryImage = [UIImage scaleImageToSize:CGSizeMake(40, 40) withImage:accessoryImage];
+    accessoryImage = [UIImage circlewithImage:accessoryImage];
+    accessoryImage = [accessoryImage imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, - SCREEN_WIDTH / 2 + 40, 0, 0)];
+    accessoryImage = [accessoryImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [imageAction setValue:accessoryImage forKey:@"image"];
+    
+    [alertController addAction:imageAction];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          
+                                                          NSDictionary *paramater = @{@"user_id":@(self.ta_id),
+                                                                                      @"value":@(0)};
+                                                          
+                                                          [self.viewModel requestUserLikeWithUrl:TA_USER_LIKE_URL
+                                                                                      paramaters:paramater
+                                                                                         success:^(StatusEntity *status) {
+                                                                                             if (status.status == YES) {
+                                                                                                 [sender setImage:[UIImage imageNamed:@"guanzhu"] forState:UIControlStateNormal];
+                                                                                                 [sender setTitle:@"关注" forState:UIControlStateNormal];
+                                                                                                 [sender setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
+                                                                                                                                   forState:UIControlStateNormal];
+
+                                                                                                 //先移除之前已经添加的action，再添加新的action
+                                                                                                 [sender removeTarget:self
+                                                                                                               action:@selector(cancelLike:)
+                                                                                                     forControlEvents:UIControlEventTouchUpInside];
+                                                                                                 [sender addTarget:self
+                                                                                                            action:@selector(addLike:)
+                                                                                                  forControlEvents:UIControlEventTouchUpInside];
+                                                                                                 
+                                                                                                 [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+                                                                                                 [SVProgressHUD showSuccessStatus:@"已取消关注" afterDelay:HUD_DELAY];
+                                                                                                 //个人信息显示的粉丝人数-1
+                                                                                                 self.taHeaderView.numberOfFans.text = [NSString stringWithFormat:@"| %d粉丝",[self.taEntity.liked_cnt intValue] - 1];
+                                                                                                 self.taEntity.liked_cnt = [NSString stringWithFormat:@"%d",[self.taEntity.liked_cnt intValue] - 1];
+                                                                                                 
+                                                                                             }else {
+                                                                                                 [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+                                                                                                 [SVProgressHUD showErrorStatus:@"取消关注失败" afterDelay:HUD_DELAY];
+                                                                                             }
+                                                                                         }
+                                                                                         failure:^(NSString *error) {
+                                                                                             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+                                                                                             [SVProgressHUD showErrorStatus:@"取消关注失败" afterDelay:HUD_DELAY];
+                                                                                         }];
+                                                          
+                                                      }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    alertController.view.tintColor = [UIColor blackColor];
+    
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    [rootViewController presentViewController:alertController
+                                     animated:YES
+                                   completion:nil];
 }
 
 - (void)jumpToTaTopicListPage {
@@ -539,4 +610,16 @@ static CGFloat HeadViewHeight = 250;
 - (void)jumpToTaTieziListPage {
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTIEZI sender:self];
 }
+
+- (void)jumpToTaFollowPage {
+    self.relationType = 5;
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+}
+
+- (void)jumpToTaFansPage {
+    self.relationType = 6;
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+}
+
+
 @end

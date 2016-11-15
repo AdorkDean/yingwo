@@ -10,7 +10,9 @@
 
 @interface YWTaFollowView : UIView
 
-@property (nonatomic, strong) UIButton *followBtn;
-@property (nonatomic, strong) UIButton *chatBtn;
+@property (nonatomic, strong) UIButton    *followBtn;
+@property (nonatomic, strong) UIButton    *chatBtn;
+
+@property (nonatomic, strong) UIImageView *bgImageView;
 
 @end

@@ -19,6 +19,9 @@
 }
 
 - (void)createSubView {
+    
+    UIImageView *bgImageView                    = [[UIImageView alloc] init];
+    bgImageView.image                           = [UIImage imageNamed:@"ta_under_card"];
     UIButton *followBtn                         = [[UIButton alloc] init];
     UIButton *chatBtn                           = [[UIButton alloc] init];
     UIView *seperate                            = [[UIView alloc] init];
@@ -26,8 +29,9 @@
     followBtn.backgroundColor                   = [UIColor clearColor];
     followBtn.titleLabel.font                   = [UIFont systemFontOfSize:SCREEN_WIDTH / 375 * 16];
     chatBtn.backgroundColor                     = [UIColor clearColor];
-    chatBtn.titleLabel.font                     = [UIFont systemFontOfSize:SCREEN_WIDTH / 375 * 16];
-    seperate.backgroundColor                    = [UIColor colorWithHexString:THEME_COLOR_4];
+    chatBtn.titleLabel.font                     = [
+                                                   UIFont systemFontOfSize:SCREEN_WIDTH / 375 * 16];
+    seperate.backgroundColor                    = [UIColor colorWithHexString:@"D8D8D8" alpha:0.8];
 
     //此处是否关注没有意义 之后获取到数据后会覆盖掉
     [followBtn setImage:[UIImage imageNamed:@"guanzhu"] forState:UIControlStateNormal];
@@ -46,12 +50,19 @@
     [chatBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
                   forState:UIControlStateNormal];
 
+    self.bgImageView                            = bgImageView;
     self.followBtn                              = followBtn;
     self.chatBtn                                = chatBtn;
     
+    [self addSubview:self.bgImageView];
     [self addSubview:self.followBtn];
     [self addSubview:self.chatBtn];
     [self addSubview:seperate];
+    
+    
+    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.right.equalTo(self);
+    }];
     
     [self.followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);

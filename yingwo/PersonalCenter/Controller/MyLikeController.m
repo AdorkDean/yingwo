@@ -9,6 +9,7 @@
 #import "MyLikeController.h"
 #import "DetailController.h"
 #import "TopicController.h"
+#import "TAController.h"
 
 #import "TieZi.h"
 #import "TieZiViewModel.h"
@@ -37,6 +38,8 @@ static int start_id = 0;
 
 //点击查看话题内容
 @property (nonatomic, assign) int               tap_topic_id;
+//点击查看用户详情
+@property (nonatomic, assign) int               tap_ta_id;
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
 
@@ -556,6 +559,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
             
         }
         
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]])
+    {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id         = self.tap_ta_id;
+        }
     }
 }
 
@@ -569,6 +578,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     //点击跳转到详情里面
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
+
+- (void)didSelectHomeBottomView:(YWHomeCellBottomView *)bottomView {
+    
+    self.tap_ta_id = bottomView.user_id;
+    [self performSegueWithIdentifier:@"ta" sender:self];
+}
+
 
 #pragma mark AvatarImageView
 

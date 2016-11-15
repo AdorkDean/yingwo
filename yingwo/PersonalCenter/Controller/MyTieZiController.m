@@ -376,17 +376,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     UILabel *favour = [view viewWithTag:101];
     __block int count       = [favour.text intValue];
     
-//    if (model == YES) {
-//        count ++;
-//    }
-//    else
-//    {
-//        count --;
-//    }
-//    
-//    favour.text = [NSString stringWithFormat:@"%d",count];
-    
-    
     //网络请求
     NSDictionary *paramaters = @{@"post_id":@(postId),@"value":@(model)};
     
@@ -488,8 +477,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     }];
     
 }
-
-
 
 #pragma mark UITableViewDataSoure
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

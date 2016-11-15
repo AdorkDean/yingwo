@@ -256,6 +256,10 @@
 		CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E801DC0D751009B4B21 /* YWTaTopicView.m */; };
 		CCF64E841DC0D781009B4B21 /* YWTaTieziView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */; };
 		CCF64E871DC0E994009B4B21 /* YWTaTopicListView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */; };
+		CCF82B441DD5A96A00C3B5A1 /* MyRelationshipBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82B431DD5A96A00C3B5A1 /* MyRelationshipBaseController.m */; };
+		CCF82B471DD5B22F00C3B5A1 /* YWMyRelationShipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82B461DD5B22F00C3B5A1 /* YWMyRelationShipCell.m */; };
+		CCF82B4A1DD5C1AF00C3B5A1 /* RelationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82B491DD5C1AF00C3B5A1 /* RelationViewModel.m */; };
+		CCF82B4E1DD5C28900C3B5A1 /* RelationEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82B4D1DD5C28900C3B5A1 /* RelationEntity.m */; };
 		CCFB0EA01DC4882400E19DB6 /* TaViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */; };
 		CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0EA41DC4896500E19DB6 /* TaEntity.m */; };
 		CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0EA71DC491B900E19DB6 /* TaResult.m */; };
@@ -752,6 +756,14 @@
 		CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTieziView.m; sourceTree = "<group>"; };
 		CCF64E851DC0E994009B4B21 /* YWTaTopicListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTopicListView.h; sourceTree = "<group>"; };
 		CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTopicListView.m; sourceTree = "<group>"; };
+		CCF82B421DD5A96A00C3B5A1 /* MyRelationshipBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyRelationshipBaseController.h; path = PersonalCenter/Controller/MyRelationshipBaseController.h; sourceTree = "<group>"; };
+		CCF82B431DD5A96A00C3B5A1 /* MyRelationshipBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyRelationshipBaseController.m; path = PersonalCenter/Controller/MyRelationshipBaseController.m; sourceTree = "<group>"; };
+		CCF82B451DD5B22F00C3B5A1 /* YWMyRelationShipCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWMyRelationShipCell.h; path = PersonalCenter/View/YWMyRelationShipCell.h; sourceTree = "<group>"; };
+		CCF82B461DD5B22F00C3B5A1 /* YWMyRelationShipCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWMyRelationShipCell.m; path = PersonalCenter/View/YWMyRelationShipCell.m; sourceTree = "<group>"; };
+		CCF82B481DD5C1AF00C3B5A1 /* RelationViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationViewModel.h; sourceTree = "<group>"; };
+		CCF82B491DD5C1AF00C3B5A1 /* RelationViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationViewModel.m; sourceTree = "<group>"; };
+		CCF82B4C1DD5C28900C3B5A1 /* RelationEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationEntity.h; sourceTree = "<group>"; };
+		CCF82B4D1DD5C28900C3B5A1 /* RelationEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationEntity.m; sourceTree = "<group>"; };
 		CCFB0E9E1DC4882400E19DB6 /* TaViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaViewModel.h; sourceTree = "<group>"; };
 		CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaViewModel.m; sourceTree = "<group>"; };
 		CCFB0EA31DC4896500E19DB6 /* TaEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaEntity.h; sourceTree = "<group>"; };
@@ -1593,6 +1605,7 @@
 		18D4E7221D9E6B6D00A0978E /* PersonalCenter */ = {
 			isa = PBXGroup;
 			children = (
+				CCF82B4B1DD5C27900C3B5A1 /* Entity */,
 				CCA76AE81DD1FB4900CA9684 /* ViewModel */,
 				18D4E72D1D9E6B9C00A0978E /* View */,
 				18D4E72C1D9E6B9000A0978E /* Controller */,
@@ -1613,6 +1626,8 @@
 				CC9B98D01DBA24180009E7DC /* MyLikeController.m */,
 				CCF64E711DBF6726009B4B21 /* MyCommentController.h */,
 				CCF64E721DBF6726009B4B21 /* MyCommentController.m */,
+				CCF82B421DD5A96A00C3B5A1 /* MyRelationshipBaseController.h */,
+				CCF82B431DD5A96A00C3B5A1 /* MyRelationshipBaseController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1626,6 +1641,8 @@
 				18D4E7311D9E6BAA00A0978E /* YWPersonCenterMidCell.m */,
 				18D4E7321D9E6BAA00A0978E /* YWPersonCenterTopView.h */,
 				18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */,
+				CCF82B451DD5B22F00C3B5A1 /* YWMyRelationShipCell.h */,
+				CCF82B461DD5B22F00C3B5A1 /* YWMyRelationShipCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1926,6 +1943,8 @@
 			children = (
 				CCA76AE91DD1FB4900CA9684 /* PersonViewModel.h */,
 				CCA76AEA1DD1FB4900CA9684 /* PersonViewModel.m */,
+				CCF82B481DD5C1AF00C3B5A1 /* RelationViewModel.h */,
+				CCF82B491DD5C1AF00C3B5A1 /* RelationViewModel.m */,
 			);
 			name = ViewModel;
 			path = PersonalCenter/ViewModel;
@@ -2016,6 +2035,16 @@
 				CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CCF82B4B1DD5C27900C3B5A1 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				CCF82B4C1DD5C28900C3B5A1 /* RelationEntity.h */,
+				CCF82B4D1DD5C28900C3B5A1 /* RelationEntity.m */,
+			);
+			name = Entity;
+			path = PersonalCenter/Entity;
 			sourceTree = "<group>";
 		};
 		CCFB0EA21DC4894F00E19DB6 /* Entity */ = {
@@ -2185,6 +2214,7 @@
 				18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */,
 				18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */,
 				CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */,
+				CCF82B471DD5B22F00C3B5A1 /* YWMyRelationShipCell.m in Sources */,
 				18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */,
 				1807FEF01D6830C5009393E2 /* UIButton+CMWebCache.m in Sources */,
 				184BC1221D5F221D00125448 /* GalleryView.m in Sources */,
@@ -2200,6 +2230,7 @@
 				18CF49AB1DCA36AA00B1367E /* FavorController.m in Sources */,
 				CC9B98D11DBA24180009E7DC /* MyLikeController.m in Sources */,
 				181A00F21D571E3300D96DC9 /* YWHomeTableViewCellBase.m in Sources */,
+				CCF82B4A1DD5C1AF00C3B5A1 /* RelationViewModel.m in Sources */,
 				18D100DF1D3E16D700D75968 /* User+CURD.m in Sources */,
 				18F921361D7EBC6700A44846 /* YWDetailCellBottomView.m in Sources */,
 				1800D68D1D5833DA00668D83 /* NSString+Url.m in Sources */,
@@ -2301,6 +2332,7 @@
 				184C42D81D9BF9F20060D9C0 /* UIImage+blur.m in Sources */,
 				1883DD5B1D892BCC00EB9629 /* YWTopicListView.m in Sources */,
 				18F5D39E1D3673C500784B48 /* YWNetworkTools.m in Sources */,
+				CCF82B441DD5A96A00C3B5A1 /* MyRelationshipBaseController.m in Sources */,
 				188F93871D71721D00941A42 /* DiscoveryViewModel.m in Sources */,
 				18CF49A51DCA2E7900B1367E /* YWMessageImageBottomView.m in Sources */,
 				CCA9036E1DB8E81D0053D278 /* TZImageManager.m in Sources */,
@@ -2382,6 +2414,7 @@
 				CC3AD4881DC9FD8200874834 /* BadgeCount.m in Sources */,
 				185E1ADC1D8FBB64008299EE /* TopicController.m in Sources */,
 				18F426E51D51C8B30017BE31 /* AnnounceModel.m in Sources */,
+				CCF82B4E1DD5C28900C3B5A1 /* RelationEntity.m in Sources */,
 				CC5BC4FF1D9D02DC00851C4D /* NSString+fileSizeExtension.m in Sources */,
 				1800D6901D5869A100668D83 /* YWDetailBottomView.m in Sources */,
 				1807FEE81D6830C5009393E2 /* CMSDWebImageCompat.m in Sources */,
@@ -2539,6 +2572,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2568,6 +2602,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2638,6 +2673,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
