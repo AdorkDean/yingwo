@@ -64,7 +64,7 @@
 
 - (void)setupModelOfCell:(YWMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.topView.nickname.text = model.follow_user_name;
+    cell.topView.nickname.text = model.user_name;
     NSString *dataString       = [NSString stringWithFormat:@"%d",model.create_time];
     cell.topView.time.text     = [NSDate getDateString:dataString];
     [cell.topView.headImageView sd_setImageWithURL:[NSURL URLWithString:model.follow_user_face_img]
@@ -72,17 +72,12 @@
     
     //回复的内容
     if (model.follow_img.length != 0) {
-        cell.replyContent.text = [model.follow_content stringByAppendingString:@"跟帖：[图片内容]"];
+        cell.replyContent.text = [model.follow_content stringByAppendingString:@"[图片内容]"];
     }
     else
     {
         cell.replyContent.text     = model.follow_content;
         
-        if ([model.source_type isEqualToString:@"POST"]) {
-            cell.replyContent.text = [NSString stringWithFormat:@"跟贴：%@", cell.replyContent.text];
-        }else{
-            cell.replyContent.text = [NSString stringWithFormat:@"回复：%@", cell.replyContent.text];
-        }
     }
     
 
@@ -99,10 +94,10 @@
 
 - (void)setupModelOfImageCell:(YWImageMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.imageBottomView.username.text = [model.user_name stringByAppendingString:@":"];
+    cell.imageBottomView.username.text = @"原贴";
     //原帖内容
     if (model.content.length == 0) {
-        cell.imageBottomView.content.text = @"发布了一条帖子";
+        cell.imageBottomView.content.text = @"发布了一条贴子";
     }
     else
     {
@@ -118,22 +113,24 @@
 
 - (void)setupModelOfNoImageCell:(YWMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.bottomView.username.text = [model.user_name stringByAppendingString:@":"];
+    cell.bottomView.username.text = @"原贴:";
     //原帖内容
     if (model.content.length == 0) {
-        cell.bottomView.content.text = @"发布了一条帖子";
+        cell.bottomView.content.text = @"发布了一条贴子";
     }
     else
     {
         cell.bottomView.content.text = model.content;
     }
     
-    NSString *content                      = [NSString stringWithFormat:@"%@占%@",model.user_name,model.content];
+    NSString *content                      = [NSString stringWithFormat:@"%@ %@",model.user_name,model.content];
     
     cell.bottomView.content.attributedText = [NSMutableAttributedString
                                               changeCommentContentWithString:content
                                               WithTextIndext:model.user_name.length+1];
-    
+    cell.bottomView.content.attributedText = [NSMutableAttributedString changeContentWithText:content
+                                                                               withTextIndext:model.user_name.length
+                                                                                 withFontSize:14];
 }
 
 

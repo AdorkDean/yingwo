@@ -43,7 +43,7 @@ static int start_id = 0;
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 100, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 150, 0);
         
         [_tableView registerClass:[YWMessageCell class] forCellReuseIdentifier:noImageCellidentifier];
         [_tableView registerClass:[YWImageMessageCell class] forCellReuseIdentifier:imageCellidentifier];
@@ -108,9 +108,7 @@ static int start_id = 0;
         [weakSelf loadMoreDataWithRequestEntity:self.requestEntity];
         
     }];
-    
-    self.tableView.mj_footer.ignoredScrollViewContentInsetBottom = -65;
-    
+        
     
     [self.tableView.mj_header beginRefreshing];
     
@@ -231,8 +229,6 @@ static int start_id = 0;
     if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
         
         MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
-        //将source_id改成follow_id
-        messageEntity.tieZi_id       = messageEntity.reply_id;
         messageEntity.type           = MessageTieZi;
         
         NSLog(@"source_type:%@",messageEntity.source_type);

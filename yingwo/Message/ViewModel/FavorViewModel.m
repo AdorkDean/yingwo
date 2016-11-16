@@ -35,10 +35,10 @@
 
 - (void)setupModelOfImageCell:(YWImageMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.imageBottomView.username.text = [model.user_name stringByAppendingString:@":"];
+    cell.imageBottomView.username.text = @"原贴:";
     //原帖内容
     if (model.content.length == 0) {
-        cell.imageBottomView.content.text = @"发布了一条帖子";
+        cell.imageBottomView.content.text = @"发布了一条贴子";
     }
     else
     {
@@ -54,21 +54,25 @@
 
 - (void)setupModelOfNoImageCell:(YWMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.bottomView.username.text = [model.user_name stringByAppendingString:@":"];
+    cell.bottomView.username.text = @"原贴:";
     //原帖内容
     if (model.content.length == 0) {
-        cell.bottomView.content.text = @"发布了一条帖子";
+        cell.bottomView.content.text = @"发布了一条贴子";
     }
     else
     {
         cell.bottomView.content.text = model.content;
     }
     
-    NSString *content                      = [NSString stringWithFormat:@"%@占%@",model.user_name,model.content];
+    NSString *content                      = [NSString stringWithFormat:@"%@ %@",model.user_name,model.content];
     
     cell.bottomView.content.attributedText = [NSMutableAttributedString
                                               changeCommentContentWithString:content
                                               WithTextIndext:model.user_name.length+1];
+    cell.bottomView.content.attributedText = [NSMutableAttributedString changeContentWithText:content
+                                                                               withTextIndext:model.user_name.length
+                                                                                 withFontSize:14];
+
     
 }
 @end

@@ -42,7 +42,8 @@
     [_content mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_username.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.height.bottom.equalTo(_username);
+        make.top.equalTo(_username);
+        make.top.equalTo(_username.mas_top).offset(1);
     }];
         
 }

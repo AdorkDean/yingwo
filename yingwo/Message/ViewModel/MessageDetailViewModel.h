@@ -10,4 +10,17 @@
 
 @interface MessageDetailViewModel : DetailViewModel
 
+/**
+ *  请求原贴
+ *
+ *  @param url        Post/detail
+ *  @param paramaters post_id
+ *  @param success    success description
+ *  @param failure    failure description
+ */
+- (void)requestDetailWithUrl:(NSString *)url
+                  paramaters:(NSDictionary *)paramaters
+                     success:(void (^)(TieZi *tieZi))success
+                     failure:(void (^)(NSString *error))failure;
+
 @end
