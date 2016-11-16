@@ -28,7 +28,6 @@
 
     _username.textColor      = [UIColor colorWithHexString:THEME_COLOR_1];
     _username.font           = [UIFont systemFontOfSize:14];
-
     _content.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
     _content.numberOfLines   = 4;
 

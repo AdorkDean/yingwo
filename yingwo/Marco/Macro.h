@@ -112,7 +112,7 @@
 #define TIEZI_COMMENT_DEL_URL   @"/Post/comment_del"
 #define TIEZI_REPLY_LIKE        @"/Post/reply_like"
 #define HOME_INDEX_CNT_URL      @"/Post/index_cnt"
-#define TIEZI_DETAIL            @"Post/detail"
+#define TIEZI_DETAIL            @"/Post/detail"
 //话题
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"

@@ -10,6 +10,23 @@
 
 @implementation NSMutableAttributedString (commentString)
 
++ (NSMutableAttributedString *)changeContentWithText:(NSString *)content
+                                      withTextIndext:(NSUInteger)indent
+                                        withFontSize:(CGFloat)size {
+    
+    //创建富文本字体
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:content];
+    [attrStr addAttribute:NSForegroundColorAttributeName
+                    value:[UIColor clearColor]
+                    range:NSMakeRange(0, indent)];
+    
+    [attrStr addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:size]}
+                     range:NSMakeRange(indent, content.length-indent)];
+    return attrStr;
+
+    
+}
+
 + (NSMutableAttributedString *)changeCommentContentWithString:(NSString *)content
                                                WithTextIndext:(NSUInteger)indent {
     

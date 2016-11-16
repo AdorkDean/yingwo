@@ -50,6 +50,7 @@
 
 @property (nonatomic, strong) YWCommentView          *selectCommentView;
 
+@property (nonatomic, strong) TieZi                  *originModel;
 
 @property (nonatomic,assign ) CGFloat                navgationBarHeight;
 
@@ -76,7 +77,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _detailTableView.backgroundColor = [UIColor clearColor];
         _detailTableView.delegate        = self;
         _detailTableView.dataSource      = self;
-        _detailTableView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
+        _detailTableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
         //  _detailTableView.fd_debugLogEnabled = YES;
         [_detailTableView registerClass:[YWDetailTableViewCell class] forCellReuseIdentifier:detailCellIdentifier];
         [_detailTableView registerClass:[YWDetailReplyCell class] forCellReuseIdentifier:detailReplyCellIdentifier];
@@ -127,6 +128,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _replyModel;
 }
 
+- (NSMutableArray *)tieZiReplyArr {
+    if (_tieZiReplyArr == nil) {
+        _tieZiReplyArr = [[NSMutableArray alloc] init];
+    }
+    return _tieZiReplyArr;
+}
+
 - (UIBarButtonItem *)leftBarItem {
     if (_leftBarItem == nil) {
         _leftBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"] style:UIBarButtonItemStylePlain target:self action:@selector(jumpToHomePage)];
@@ -144,21 +152,27 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (YWDetailBottomView *)replyView {
     if (_replyView == nil) {
         _replyView                       = [[YWDetailBottomView alloc] init];
-        _replyView.messageField.delegate = self;
-        _replyView.favorBtn.delegate     = self;
-        _replyView.favorBtn.post_id      = self.model.tieZi_id;
-        //判断是否有点赞过
-        if ( [self.homeViewModel isLikedTieZiWithTieZiId:[NSNumber numberWithInt:self.model.tieZi_id]]) {
-            [_replyView.favorBtn setBackgroundImage:[UIImage imageNamed:@"heart_red"]
-                                           forState:UIControlStateNormal];
-            _replyView.favorBtn.isSpring = YES;
-        }
         
-        _replyView.messageField.placeholder = [NSString stringWithFormat:@"%@个评论 %@个赞",
-                                               self.model.reply_cnt,
-                                               self.model.like_cnt];
     }
     return _replyView;
+}
+
+- (void)setReplyViewData {
+    
+    _replyView.messageField.delegate = self;
+    _replyView.favorBtn.delegate     = self;
+    _replyView.favorBtn.post_id      = self.originModel.tieZi_id;
+    //判断是否有点赞过
+    if ( [self.homeViewModel isLikedTieZiWithTieZiId:[NSNumber numberWithInt:self.originModel.tieZi_id]]) {
+        [_replyView.favorBtn setBackgroundImage:[UIImage imageNamed:@"heart_red"]
+                                       forState:UIControlStateNormal];
+        _replyView.favorBtn.isSpring = YES;
+    }
+    
+    _replyView.messageField.placeholder = [NSString stringWithFormat:@"%@个评论 %@个赞",
+                                           self.originModel.reply_cnt,
+                                           self.originModel.like_cnt];
+    
 }
 
 - (GalleryView *)galleryView {
@@ -181,13 +195,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         
     }
     return _commentView;
-}
-
-- (NSMutableArray *)tieZiReplyArr {
-    if (_tieZiReplyArr == nil) {
-        _tieZiReplyArr = [[NSMutableArray alloc] init];
-    }
-    return _tieZiReplyArr;
 }
 
 - (NSMutableDictionary *)commetParamaters {
@@ -411,6 +418,48 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)loadData {
     
+    NSDictionary *parameter = @{@"post_id":@(self.model.post_id)};
+    
+    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
+                              paramaters:parameter
+                                 success:^(TieZi *tieZi) {
+                                     
+                                     //tiezi = nil 表示原贴已经删除
+                                     if (tieZi == nil) {
+                                         
+                                         [SVProgressHUD showErrorStatus:@"贴子已删除" afterDelay:HUD_DELAY];
+                                         [self.detailTableView.mj_header endRefreshing];
+                                         [self.navigationController popViewControllerAnimated:YES];
+                                     }else
+                                     {
+                                         
+                                         self.originModel  = tieZi;
+                                         [self.tieZiReplyArr addObject:self.originModel];
+                                         
+                                         self.requestEntity.requestUrl = TIEZI_RELPY_URL;
+                                         self.requestEntity.paramaters = @{@"post_id":@(self.originModel.tieZi_id)};
+                                         
+                                         //初始化底部栏
+                                         [self setReplyViewData];
+                                         
+                                         [self loadForType:HeaderReloadDataModel];
+                                         
+                                     }
+                                     
+
+        
+    } failure:^(NSString *error) {
+        
+    }];
+    
+}
+
+/**
+ *  下拉刷新
+ */
+/*
+- (void)loadData {
+    
     // type = 0表示请求的是原帖，即source 贴子
     if (self.model.type == 0) {
         
@@ -462,21 +511,62 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self loadForType:HeaderReloadDataModel];
     
 }
-
+*/
 
 - (void)loadForType:(ReloadModel)type{
     
     @weakify(self);
     [[self.viewModel.fetchDetailEntityCommand execute:self.requestEntity] subscribeNext:^(NSArray *tieZiList) {
         @strongify(self);
+        
         if (type == HeaderReloadDataModel) {
             
-            self.tieZiReplyArr = [tieZiList mutableCopy];
+            //tieZiList 这里应该返回的是model成员数组，不是字典数组
+            if (tieZiList.count != 0) {
+                
+                //最开始里面会存放一个楼主的贴子信息
+                if (self.tieZiReplyArr.count == 1) {
+                    
+                    [self.tieZiReplyArr addObjectsFromArray:tieZiList];
+                }
+                else {
+                    [self.tieZiReplyArr removeAllObjects];
+                    [self.tieZiReplyArr addObject:self.originModel];
+                    [self.tieZiReplyArr addObjectsFromArray:tieZiList];
+                    
+                }
+            }
             
             [self.detailTableView.mj_header endRefreshing];
             [self.detailTableView reloadData];
             
         }
+        else if (type == FooterReoladDataModel) {
+            
+            [self.tieZiReplyArr addObjectsFromArray:tieZiList];
+            [self.detailTableView.mj_footer endRefreshing];
+            [self.detailTableView reloadData];
+            
+        }
+        if (tieZiList.count != 0) {
+            
+            //获得最后一个帖子的id,有了这个id才能向前继续获取model
+            TieZiReply *lastObject           = [tieZiList objectAtIndex:tieZiList.count-1];
+            self.requestEntity.start_id      = lastObject.reply_id;
+            
+        }
+
+//        
+//        if (type == HeaderReloadDataModel) {
+//            
+//            [self.tieZiReplyArr removeAllObjects];
+//            [self.tieZiReplyArr addObject:self.originModel];
+//            [self.tieZiReplyArr addObjectsFromArray:tieZiList];
+//            
+//            [self.detailTableView.mj_header endRefreshing];
+//            [self.detailTableView reloadData];
+//            
+//        }
     }];
     
 }
