@@ -603,6 +603,7 @@ static CGFloat HeadViewHeight = 250;
                                    completion:nil];
 }
 
+
 - (void)jumpToTaTopicListPage {
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTOPIC sender:self];
 }

@@ -26,6 +26,8 @@
 
 #import "YWAlertButton.h"
 
+
+
 @interface MessageDetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol>
 
 @property (nonatomic, strong) UITableView            *detailTableView;
@@ -270,6 +272,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                      completion:nil];
 }
 
+
 #pragma mark UITextfieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.replyView.messageField) {
@@ -401,6 +404,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     self.commentView = nil;
 }
+
 
 /**
  *  下拉刷新
