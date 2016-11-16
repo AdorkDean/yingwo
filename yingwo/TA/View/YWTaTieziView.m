@@ -155,6 +155,11 @@ static int start_id = 0;
         taTopicLabel.textColor              = [UIColor colorWithHexString:THEME_COLOR_4];
         taTopicLabel.font                   = [UIFont systemFontOfSize:SCREEN_HEIGHT / 667 * 16];
         
+        UILabel *moreLabel                  = [[UILabel alloc] init];
+        moreLabel.text                      = @"更多";
+        moreLabel.textColor                 = [UIColor colorWithHexString:THEME_COLOR_4];
+        moreLabel.font                      = [UIFont systemFontOfSize:SCREEN_HEIGHT / 667 * 16];
+        
         UIView *separator                   = [[UIView alloc] init];
         separator.backgroundColor           = [UIColor colorWithHexString:@"#F5F5F5"];
 
@@ -166,6 +171,7 @@ static int start_id = 0;
         [self addSubview:taTopicLabel];
         [self addSubview:rightImageView];
         [self addSubview:separator];
+        [self addSubview:moreLabel];
         
         [taTopicLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(10);
@@ -181,6 +187,11 @@ static int start_id = 0;
             make.top.equalTo(taTopicLabel.mas_bottom).offset(5);
             make.right.width.equalTo(self);
             make.height.equalTo(@1);
+        }];
+        
+        [moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(rightImageView.mas_left).offset(-10);
+            make.top.equalTo(taTopicLabel);
         }];
         
         [self loadData];

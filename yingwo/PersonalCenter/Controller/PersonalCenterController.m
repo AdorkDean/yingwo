@@ -10,6 +10,7 @@
 #import "PerfectInfoController.h"
 #import "MyTopicController.h"
 #import "MyTieZiController.h"
+#import "MyRelationshipBaseController.h"
 
 #import "YWPersonCenterCell.h"
 #import "YWPersonCenterTopView.h"
@@ -26,6 +27,10 @@
 @property (nonatomic, strong) YWPersonCenterCell    *cellView3;
 @property (nonatomic, strong) YWPersonCenterCell    *cellView4;
 @property (nonatomic, strong) UIBarButtonItem       *rightBarItem;
+
+@property (nonatomic, strong) TaEntity              *taEntity;
+
+@property (nonatomic, assign) int                   relationType;
 
 @end
 
@@ -92,6 +97,13 @@
         [_cellView4 setBackgroundImage:[UIImage imageNamed:@"input_col_selected"] forState:UIControlStateHighlighted];
     }
     return _cellView4;
+}
+
+- (TaEntity *)taEntity {
+    if (_taEntity == nil) {
+        _taEntity = [[TaEntity alloc] init];
+    }
+    return _taEntity;
 }
 
 - (UIBarButtonItem *)rightBarItem {
@@ -212,8 +224,17 @@
                        action:@selector(jumpToMyLikePage)
               forControlEvents:UIControlEventTouchUpInside];
     
-    [self.midView.attentions addTapAction:@selector(jumpToMyFollowPage)
-                                   target:self];
+    [self.midView.friends addTapAction:@selector(jumpToMyFriendsPage) target:self];
+    
+    [self.midView.attentions addTapAction:@selector(jumpToMyFollowPage) target:self];
+    
+    [self.midView.fans addTapAction:@selector(jumpToMyFansPage) target:self];
+    
+    [self.midView.friendLabel addTapAction:@selector(jumpToMyFriendsPage) target:self];
+    
+    [self.midView.attentionLabel addTapAction:@selector(jumpToMyFollowPage) target:self];
+    
+    [self.midView.fansLabel addTapAction:@selector(jumpToMyFansPage) target:self];
     
 }
 
@@ -246,9 +267,22 @@
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYCOMMENT sender:self];
 }
 
-- (void)jumpToMyFollowPage {
-    NSLog(@"---------------------#######");
+- (void)jumpToMyFriendsPage {
+    self.relationType = 1;
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
 }
+
+- (void)jumpToMyFollowPage {
+    self.relationType = 2;
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+}
+
+- (void)jumpToMyFansPage {
+    self.relationType = 3;
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -258,12 +292,9 @@
     [self.view addSubview:self.cellView2];
     [self.view addSubview:self.cellView3];
     [self.view addSubview:self.cellView4];
-
-    [self loadPersonInfo];
     
     [self setUILayout];
     [self setAllAction];
-    
 
 }
 
@@ -271,6 +302,8 @@
     [super viewWillAppear:animated];
     self.title = @"我的";
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
+    //获取显示在关系cell中的数据
+    [self loadPersonInfo];
     
     [self loadDataFromLocalForCustomer];
 
@@ -279,16 +312,16 @@
 
 
 - (void)loadPersonInfo {
-    
+    //加载用户信息
     int taId = [[User findCustomer].userId intValue];
     NSDictionary *paramters = @{@"user_id":@(taId)};
     
     [self.viewModel requestTaDetailInfoWithUrl:TA_INFO_URL
                                     paramaters:paramters
                                        success:^(TaEntity *ta) {
-                                           
+                                           self.taEntity                = ta;
                                            self.midView.attentions.text = ta.like_cnt;
-                                           self.midView.fans.text = ta.liked_cnt;
+                                           self.midView.fans.text       = ta.liked_cnt;
                                        }
                                          error:^(NSURLSessionDataTask * task, NSError *error) {
                                              
@@ -333,6 +366,26 @@
         Customer *user = [User findCustomer];
         myTieziVc.viewModel.user_id = [user.userId intValue];
     }
+    else if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYRELATION]) {
+        //将好友 关注 粉丝 访客 分别赋给即将进入的页面，以加载相应的数据
+        MyRelationshipBaseController *myRelationVc = segue.destinationViewController;
+        if (self.relationType == 1) {
+            myRelationVc.relationType = 1;
+        }
+        if (self.relationType == 2) {
+            myRelationVc.relationType = 2;
+        }
+        if (self.relationType == 3) {
+            myRelationVc.relationType = 3;
+        }
+        if (self.relationType == 4) {
+            myRelationVc.relationType = 4;
+        }
+        myRelationVc.requestEntity.user_id  = [[User findCustomer].userId intValue];
+        myRelationVc.followCnt              = [self.taEntity.like_cnt intValue];
+        myRelationVc.fansCnt                = [self.taEntity.liked_cnt intValue];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

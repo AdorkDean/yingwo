@@ -20,7 +20,6 @@
         self.backgroundView.layer.masksToBounds = YES;
         self.backgroundView.layer.cornerRadius  = 10;
         self.backgroundView.frame = CGRectMake(0, 0, self.width - self.width * 0.05, 0);
-
     }
     return self;
 }

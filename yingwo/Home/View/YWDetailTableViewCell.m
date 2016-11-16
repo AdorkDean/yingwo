@@ -35,7 +35,7 @@
     [self.backgroundView addSubview:self.bgImageView];
         
     [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(2.5, 10, 2.5, 10));
+        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 2.5, 10));
     }];
     
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {

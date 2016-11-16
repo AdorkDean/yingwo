@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "TopicEntity.h"
 
+@protocol YWTaTopicViewDelegate;
+
 @interface YWTaTopicView : UIView
 
 - (void)addTopicListViewBy:(NSArray *)entities;
+@property (nonatomic, assign) id<YWTaTopicViewDelegate> delegate;
 
+@end
+
+@protocol YWTaTopicViewDelegate <NSObject>
+
+- (void)didSelectTopicWith:(int)topicId;
 
 @end

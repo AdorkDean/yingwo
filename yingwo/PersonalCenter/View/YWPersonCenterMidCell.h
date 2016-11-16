@@ -15,6 +15,11 @@
 @property (nonatomic, strong) UILabel *fans;
 @property (nonatomic, strong) UILabel *visitors;
 
+@property (nonatomic, strong) UILabel *friendLabel;
+@property (nonatomic, strong) UILabel *attentionLabel;
+@property (nonatomic, strong) UILabel *fansLabel;
+@property (nonatomic, strong) UILabel *visitorLabel;
+
 - (instancetype)initWithFriends:(NSString *)friendNum
                      attentions:(NSString *)attentionNum
                            fans:(NSString *)fansNum

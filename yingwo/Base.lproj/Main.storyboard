@@ -369,6 +369,7 @@
                         <segue destination="eoW-Yd-MFa" kind="show" identifier="myTieZi" id="wrw-I9-9Lh"/>
                         <segue destination="qJU-CD-Qbb" kind="show" identifier="myLike" id="61m-Tn-Hrz"/>
                         <segue destination="vHj-UI-hPh" kind="show" identifier="myComment" id="T6M-ec-BUX"/>
+                        <segue destination="511-WS-2xb" kind="show" identifier="myRs" id="EUt-Q0-JhM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grr-Sz-WP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -391,6 +392,8 @@
                     <connections>
                         <segue destination="M84-fc-J5Z" kind="show" identifier="myTopic" id="DZx-xw-Vme"/>
                         <segue destination="eoW-Yd-MFa" kind="show" identifier="myTieZi" id="cO5-zM-Dpn"/>
+                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="jOE-G1-vCx"/>
+                        <segue destination="511-WS-2xb" kind="show" identifier="myRs" id="6ez-F0-LOf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZR-wJ-RPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -497,6 +500,7 @@
                     <connections>
                         <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="OxQ-Nm-cAH"/>
                         <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="jSL-7x-npB"/>
+                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="SbM-EK-3PG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3G-Ds-cyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -519,7 +523,28 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ezw-8J-gT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5709" y="4126"/>
+            <point key="canvasLocation" x="5585" y="4130"/>
+        </scene>
+        <!--My Relationship Base Controller-->
+        <scene sceneID="KzI-A6-TbO">
+            <objects>
+                <viewController id="511-WS-2xb" customClass="MyRelationshipBaseController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="puh-ny-c4I"/>
+                        <viewControllerLayoutGuide type="bottom" id="2z9-UG-hOW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kyz-mp-rjZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="qMc-p4-rOO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OWW-CU-fo3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6487" y="4131"/>
         </scene>
         <!--Topic Controller-->
         <scene sceneID="2Yv-uX-pzr">
@@ -614,16 +639,17 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrE-t2-i5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5676" y="3047.226386806597"/>
+            <point key="canvasLocation" x="5586" y="3047"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="70L-g4-KHF"/>
-        <segue reference="FPB-nA-kGY"/>
-        <segue reference="DZx-xw-Vme"/>
-        <segue reference="GGw-Qr-lxh"/>
-        <segue reference="cO5-zM-Dpn"/>
         <segue reference="gXB-c9-GK2"/>
+        <segue reference="jSL-7x-npB"/>
+        <segue reference="SbM-EK-3PG"/>
+        <segue reference="OxQ-Nm-cAH"/>
+        <segue reference="cO5-zM-Dpn"/>
+        <segue reference="6ez-F0-LOf"/>
+        <segue reference="DZx-xw-Vme"/>
         <segue reference="dQL-fh-5s4"/>
         <segue reference="q7d-3y-7Bc"/>
     </inferredMetricsTieBreakers>

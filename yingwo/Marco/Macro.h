@@ -18,6 +18,8 @@
 #define THEME_COLOR_3    @"#8E8E8E"
 #define THEME_COLOR_4    @"#BBBBBB"
 #define THEME_COLOR_5    @"#DEDFED"
+#define THEME_COLOR_6    @"#DCDCDC"
+
 #define BACKGROUND_COLOR @"F3F3F3"
 #define RED_COLOR        @"E92D52"
 /********************************Color************************************************/
@@ -69,6 +71,7 @@
 #define SEGUE_IDENTIFY_MYTIEZI        @"myTieZi"
 #define SEGUE_IDENTIFY_MYLIKE         @"myLike"
 #define SEGUE_IDENTIFY_MYCOMMENT      @"myComment"
+#define SEGUE_IDENTIFY_MYRELATION     @"myRs"
 
 
 /********************************segue identify************************************************/
@@ -125,6 +128,7 @@
 #define TA_INFO_URL             @"/User/info"
 #define TA_USER_LIKE_URL        @"/User/like"
 #define TA_USER_LIKE_LIST_URL   @"/User/like_list"
+#define TA_USER_LIKED_LIST_URL  @"/User/liked_list"
 
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"
