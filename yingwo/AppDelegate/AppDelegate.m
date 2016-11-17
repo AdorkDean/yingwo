@@ -220,6 +220,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     NSLog(@"%s",__func__);
     NSDictionary *paramaters;
+    //首页新信息小红点
     [self requestForBadgeWithUrl:HOME_INDEX_CNT_URL
                       paramaters:paramaters
                          success:^(int badgeCount) {
@@ -236,6 +237,42 @@
                          failure:^(NSString *error) {
                              NSLog(@"error:%@",error);
                          }];
+    //消息页面小红点
+    [self requestForBadgeWithUrl:MESSAGE_COMMENT_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.bubBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.bubBtn showBadge];
+                                 });
+                                 
+                             }
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
+    [self requestForBadgeWithUrl:MESSAGE_LIKE_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.bubBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.bubBtn showBadge];
+                                 });
+                                 
+                             }
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
+    
     
 }
 

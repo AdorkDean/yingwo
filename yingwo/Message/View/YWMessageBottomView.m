@@ -43,7 +43,7 @@
         make.left.equalTo(_username.mas_left);
         make.right.equalTo(self.mas_right);
         make.top.equalTo(_username);
-        make.top.equalTo(_username.mas_top).offset(1);
+        make.top.equalTo(_username.mas_top);
     }];
         
 }

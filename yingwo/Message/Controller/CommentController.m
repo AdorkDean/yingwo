@@ -17,14 +17,15 @@
 
 @interface CommentController ()<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
 
-@property (nonatomic, strong) UITableView      *tableView;
+@property (nonatomic, strong) MessageViewModel  *viewModel;
 
-@property (nonatomic, strong) MessageViewModel *viewModel;
+@property (nonatomic, strong) RequestEntity     *requestEntity;
 
-@property (nonatomic, strong) RequestEntity    *requestEntity;
+@property (nonatomic, strong) NSMutableArray    *messageArr;
 
-@property (nonatomic, strong) NSMutableArray   *messageArr;
+@property (nonatomic, strong) MessageController *messageController;
 
+@property (nonatomic, strong) MainController    *mainController;
 @end
 
 static NSString *noImageCellidentifier = @"noImage";
@@ -80,6 +81,14 @@ static int start_id = 0;
     return _messageArr;
 }
 
+- (MainController *)mainController {
+    if (_mainController == nil) {
+        _mainController = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
+
+    }
+    return _mainController;
+}
+
 - (void)layoutSubview {
     
     [self.view addSubview:self.tableView];
@@ -109,9 +118,7 @@ static int start_id = 0;
         
     }];
         
-    
     [self.tableView.mj_header beginRefreshing];
-    
 
 }
 
@@ -152,6 +159,12 @@ static int start_id = 0;
                 self.messageArr = [messages mutableCopy];
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
+                //清除小红点
+//                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//                MainController *mainVC =  [story instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
+//                [mainVC clearRedDotWithIndex:0];
+                [self.messageController.messagePgaeView hideRedDotWithIndex:0];
+                
             }else {
                 
                 [self.messageArr addObjectsFromArray:messages];

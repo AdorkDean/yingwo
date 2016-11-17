@@ -20,7 +20,6 @@
 
 @interface MainController ()
 
-@property (nonatomic, strong) YWTabBarController       *mainTabBarController;
 @property (nonatomic, strong) HomeController           *homeVC;
 @property (nonatomic, strong) DiscoveryController      *discoveryVC;
 @property (nonatomic, strong) PersonalCenterController *personCenterVC;
@@ -29,16 +28,11 @@
 
 @property (nonatomic, assign) NSInteger                selectedIndex;
 
-
 @end
 
 @implementation MainController
 
-
-
 #pragma mark action
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -89,7 +83,6 @@
                                                                      imageArray:imgArr];
     _mainTabBarController.delegate = self;
     
-    
     [self.view addSubview:_mainTabBarController.view];
     
     [self stopSystemPopGestureRecognizer];
@@ -132,7 +125,7 @@
 - (void)refreshBadgeState {
 
     //一进入app就请求一次
-    [self requestForBadgeCount];
+//    [self requestForBadgeCount];
 
     //利用本地通知来间隔时间请求有无新帖子，有的话即显示小红点
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
@@ -166,9 +159,56 @@
                              }
                          }
                          failure:^(NSString *error) {
-                             NSLog(@"error:%@",error);
+                             NSLog(@"主页小红点error:%@",error);
                          }];
     
+    //消息页面小红点
+    [self requestForBadgeWithUrl:MESSAGE_COMMENT_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.bubBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.bubBtn showBadge];
+                                     [self.messageVC.messagePgaeView showRedDotWithIndex:0];
+                                 });
+                             }else if (badgeCount == 0) {
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     [self.mainTabBarController.tabBar.bubBtn clearBadge];
+                                     [self.messageVC.messagePgaeView hideRedDotWithIndex:0];
+                                 });
+                             }
+                             
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"消息小红点error:%@",error);
+                         }];
+    
+    [self requestForBadgeWithUrl:MESSAGE_LIKE_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.bubBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.bubBtn showBadge];
+                                     [self.messageVC.messagePgaeView showRedDotWithIndex:1];
+                                 });
+                             }else if (badgeCount == 0) {
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     [self.mainTabBarController.tabBar.bubBtn clearBadge];
+                                     [self.messageVC.messagePgaeView hideRedDotWithIndex:1];
+                                 });
+                             }
+
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"消息小红点error:%@",error);
+                         }];
+    
+    
+
 
 }
 
@@ -233,10 +273,17 @@
     }
     else if (index == 2) {
         self.reloaded = NO;
-
         [self performSegueWithIdentifier:@"announce" sender:self];
     }
-    else if (index == 3 || index == 4) {
+    else if (index == 3){
+        self.selectedIndex = index;
+        self.reloaded = NO;
+        
+        if (self.mainTabBarController.tabBar.bubBtn.badge.hidden == NO) {
+            [self.mainTabBarController.tabBar.bubBtn clearBadge];
+        }
+    }
+    else if(index == 4) {
         self.selectedIndex = index;
         self.reloaded = NO;
     }
@@ -275,5 +322,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)clearRedDotWithIndex:(NSUInteger)index {
+    
+    [self.mainTabBarController.tabBar.bubBtn clearBadge];
+    [self.messageVC.messagePgaeView hideRedDotWithIndex:index];
+    
+}
 
 @end

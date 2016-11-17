@@ -23,7 +23,6 @@
 
 
 @property (nonatomic, strong) NSMutableArray* tabButtons;
-@property (nonatomic, strong) NSMutableArray* tabRedDots; //按钮上的红点
 @property (nonatomic, strong) UIView* selectedLine;
 @property (nonatomic, assign) CGFloat selectedLineOffsetXBeforeMoving;
 
