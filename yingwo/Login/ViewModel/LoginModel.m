@@ -75,7 +75,7 @@
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager = [YWHTTPManager manager];
     
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+//    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     
     [manager POST:fullUrl
        parameters:parameters
