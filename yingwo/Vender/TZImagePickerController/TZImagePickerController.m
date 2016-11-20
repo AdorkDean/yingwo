@@ -443,7 +443,7 @@
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
     if ([imagePickerVc.pickerDelegate respondsToSelector:@selector(imagePickerControllerDidCancel:)]) {
-        [imagePickerVc.pickerDelegate imagePickerControllerDidCancel:imagePickerVc];
+        [imagePickerVc.pickerDelegate tz_imagePickerControllerDidCancel:imagePickerVc];
     }
     if ([imagePickerVc.pickerDelegate respondsToSelector:@selector(tz_imagePickerControllerDidCancel:)]) {
         [imagePickerVc.pickerDelegate tz_imagePickerControllerDidCancel:imagePickerVc];

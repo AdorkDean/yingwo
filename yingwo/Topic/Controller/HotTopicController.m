@@ -389,6 +389,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.homeTableview.mj_header endRefreshing];
+    }
+
     [self loadForType:1 RequestEntity:requestEntity];
 }
 
@@ -396,6 +401,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.homeTableview.mj_footer endRefreshing];
+    }
+
     [self loadForType:2 RequestEntity:requestEntity];
 }
 

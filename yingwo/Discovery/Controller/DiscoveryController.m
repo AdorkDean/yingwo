@@ -311,7 +311,11 @@ static int start_id = 0;
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
-    
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.discoveryTableView.mj_header endRefreshing];
+    }
+
     [self loadForType:1 RequestEntity:requestEntity];
     
     [self.discoveryTableView.mj_footer resetNoMoreData];
@@ -322,6 +326,11 @@ static int start_id = 0;
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.discoveryTableView.mj_footer endRefreshing];
+    }
+
     [self loadForType:2 RequestEntity:requestEntity];
 }
 

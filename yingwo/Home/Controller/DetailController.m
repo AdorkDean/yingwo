@@ -589,6 +589,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  下拉刷新
  */
 - (void)loadData {
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.detailTableView.mj_header endRefreshing];
+    }
     
     TieZi *tieZi                  = [self.tieZiReplyArr objectAtIndex:0];
     self.requestEntity.requestUrl = TIEZI_RELPY_URL;
@@ -602,7 +606,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  上拉加载
  */
 - (void)loadMoreData {
-    
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.detailTableView.mj_footer endRefreshing];
+    }
 
     self.requestEntity.requestUrl = TIEZI_RELPY_URL;
     self.requestEntity.paramaters = @{@"post_id":@(self.model.tieZi_id),
@@ -872,17 +879,22 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)showImageView:(UIImageView *)imageView {
     
-    //禁止后面的DetailController的滑动手势
-    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
-    
-//    [self stopSystemPopGestureRecognizer];
-    
     NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
     
-    for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
-        [imageViewArr addObject:imageView];
-    }
+    ImageViewEntity *lastEntity = [self.model.imageUrlArrEntity lastObject];
     
+    if (lastEntity.isDownload == YES) {
+        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+            ImageViewEntity *entity = [self.model.imageUrlArrEntity objectAtIndex:i];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName]];
+            [imageViewArr addObject:imageView];
+        }
+    }else {
+        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+            [imageViewArr addObject:imageView];
+        }
+    }
+   
     [self.galleryView setImageViews:imageViewArr
               withImageUrlArrEntity:self.model.imageUrlArrEntity
                         showAtIndex:imageView.tag - 1];
@@ -897,19 +909,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
   *  @param imageView
   */
 - (void)showReplyImageView:(UIImageView *)imageView {
-    
-    //禁止后面的DetailController的滑动手势
-    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
-    
-//    [self stopSystemPopGestureRecognizer];
-//    
-//    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
-//    
-//    [imageViewArr addObject:imageView];
-//    
-//    [self.galleryView setImages:imageViewArr showAtIndex:0];
-//    
-//    [self.navigationController.view addSubview:self.galleryView];
     
     [self stopSystemPopGestureRecognizer];
     

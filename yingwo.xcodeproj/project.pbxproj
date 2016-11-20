@@ -167,10 +167,6 @@
 		18D4E72A1D9E6B8D00A0978E /* MyTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7261D9E6B8D00A0978E /* MyTopicController.m */; };
 		18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7311D9E6BAA00A0978E /* YWPersonCenterMidCell.m */; };
 		18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */; };
-		18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7321D9E6BAA00A0978E /* YWPersonCenterTopView.h */; };
-		18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72E1D9E6BAA00A0978E /* YWPersonCenterCell.h */; };
-		18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */; };
-		18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7301D9E6BAA00A0978E /* YWPersonCenterMidCell.h */; };
 		18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */; };
 		18D7C6161DCDD75300D5F9D6 /* MessageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7C6151DCDD75300D5F9D6 /* MessageEntity.m */; };
 		18E74CB11D3CA2A800176142 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CAE1D3CA2A800176142 /* LoginController.m */; };
@@ -2232,12 +2228,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */,
-				18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */,
 				18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */,
-				18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */,
 				CCA76AEB1DD1FB4900CA9684 /* PersonViewModel.m in Sources */,
-				18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */,
-				18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */,
 				CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */,
 				CCF82B471DD5B22F00C3B5A1 /* YWMyRelationShipCell.m in Sources */,
 				CCF82BB91DDC882100C3B5A1 /* UIView+WZLBadge.m in Sources */,

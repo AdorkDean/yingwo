@@ -212,11 +212,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark YWAlertButtonProtocol
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-        [self copyTiZiText:more];
+//        [self copyTiZiText:more];
         
     }else if (index == 1) {
-        self.alertView = alertView;
-        [self showCompliantAlertView];
+//        self.alertView = alertView;
+//        [self showCompliantAlertView];
         
     }
 }
@@ -417,6 +417,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  下拉刷新
  */
 - (void)loadData {
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.detailTableView.mj_header endRefreshing];
+    }
     
     NSDictionary *parameter = @{@"post_id":@(self.model.post_id)};
     

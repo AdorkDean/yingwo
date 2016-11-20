@@ -15,7 +15,7 @@ static char TAG_ACTIVITY_INDICATOR;
 static char TAG_ACTIVITY_STYLE;
 static char TAG_ACTIVITY_SHOW;
 
-@implementation UIImageView (WebCache)
+@implementation UIImageView (CMWebCache)
 
 - (void)CMSD_setImageWithURL:(NSURL *)url {
     [self CMSD_setImageWithURL:url placeholderImage:nil options:0 progress:nil completed:nil];
@@ -212,66 +212,15 @@ static char TAG_ACTIVITY_SHOW;
 @end
 
 
-@implementation UIImageView (WebCacheDeprecated)
 
-- (NSURL *)imageURL {
-    return [self CMSD_imageURL];
-}
 
-- (void)setImageWithURL:(NSURL *)url {
-    [self CMSD_setImageWithURL:url placeholderImage:nil options:0 progress:nil completed:nil];
-}
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder {
-    [self CMSD_setImageWithURL:url placeholderImage:placeholder options:0 progress:nil completed:nil];
-}
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(CMSDWebImageOptions)options {
-    [self CMSD_setImageWithURL:url placeholderImage:placeholder options:options progress:nil completed:nil];
-}
 
-- (void)setImageWithURL:(NSURL *)url completed:(CMSDWebImageCompletedBlock)completedBlock {
-    [self CMSD_setImageWithURL:url placeholderImage:nil options:0 progress:nil completed:^(UIImage *image, NSError *error, CMSDImageCacheType cacheType, NSURL *imageURL) {
-        if (completedBlock) {
-            completedBlock(image, error, cacheType);
-        }
-    }];
-}
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(CMSDWebImageCompletedBlock)completedBlock {
-    [self CMSD_setImageWithURL:url placeholderImage:placeholder options:0 progress:nil completed:^(UIImage *image, NSError *error, CMSDImageCacheType cacheType, NSURL *imageURL) {
-        if (completedBlock) {
-            completedBlock(image, error, cacheType);
-        }
-    }];
-}
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(CMSDWebImageOptions)options completed:(CMSDWebImageCompletedBlock)completedBlock {
-    [self CMSD_setImageWithURL:url placeholderImage:placeholder options:options progress:nil completed:^(UIImage *image, NSError *error, CMSDImageCacheType cacheType, NSURL *imageURL) {
-        if (completedBlock) {
-            completedBlock(image, error, cacheType);
-        }
-    }];
-}
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(CMSDWebImageOptions)options progress:(CMSDWebImageDownloaderProgressBlock)progressBlock completed:(CMSDWebImageCompletedBlock)completedBlock {
-    [self CMSD_setImageWithURL:url placeholderImage:placeholder options:options progress:progressBlock completed:^(UIImage *image, NSError *error, CMSDImageCacheType cacheType, NSURL *imageURL) {
-        if (completedBlock) {
-            completedBlock(image, error, cacheType);
-        }
-    }];
-}
 
-- (void)cancelCurrentArrayLoad {
-    [self CMSD_cancelCurrentAnimationImagesLoad];
-}
 
-- (void)cancelCurrentImageLoad {
-    [self CMSD_cancelCurrentImageLoad];
-}
 
-- (void)setAnimationImagesWithURLs:(NSArray *)arrayOfURLs {
-    [self CMSD_setAnimationImagesWithURLs:arrayOfURLs];
-}
 
-@end

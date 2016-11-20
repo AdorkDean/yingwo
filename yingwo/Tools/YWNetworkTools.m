@@ -29,8 +29,7 @@
 static BOOL networkStatus = YES;
 
 + (BOOL)networkStauts {
-    
-    
+
     //1.创建网络监测者
     AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
     
@@ -148,7 +147,6 @@ static BOOL networkStatus = YES;
     }
     else{
         [userDefault setObject:token forKey:TOKEN_KEY];
-        
     }
     
 }
