@@ -15,15 +15,18 @@
 
 #import "MessageEntity.h"
 
-@interface FavorController ()<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
 
-@property (nonatomic, strong) UITableView      *tableView;
+@interface FavorController ()<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
 
 @property (nonatomic, strong) FavorViewModel *viewModel;
 
 @property (nonatomic, strong) RequestEntity    *requestEntity;
 
 @property (nonatomic, strong) NSMutableArray   *messageArr;
+
+@property (nonatomic, strong) MessageController *messageController;
+
+@property (nonatomic, strong) MainController *mainController;
 
 @end
 
@@ -80,6 +83,13 @@ static int start_id = 0;
     return _messageArr;
 }
 
+-(MainController *)mainController {
+    if (_mainController == nil) {
+        _mainController = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
+    }
+    return _mainController;
+}
+
 - (void)layoutSubview {
     
     [self.view addSubview:self.tableView];
@@ -109,9 +119,7 @@ static int start_id = 0;
         
     }];
     
-    
     [self.tableView.mj_header beginRefreshing];
-    
     
 }
 
@@ -120,6 +128,11 @@ static int start_id = 0;
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.tableView.mj_header endRefreshing];
+    }
+
     [self loadForType:1 RequestEntity:requestEntity];
     
     [self.tableView.mj_footer resetNoMoreData];
@@ -129,6 +142,11 @@ static int start_id = 0;
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.tableView.mj_footer endRefreshing];
+    }
+
     [self loadForType:2 RequestEntity:requestEntity];
 }
 
@@ -152,6 +170,11 @@ static int start_id = 0;
                 self.messageArr = [messages mutableCopy];
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
+                //清除小红点
+                //                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                //                MainController *mainVC =  [story instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
+                //                [mainVC clearRedDotWithIndex:0];
+                [self.messageController.messagePgaeView hideRedDotWithIndex:1];
             }else {
                 
                 [self.messageArr addObjectsFromArray:messages];

@@ -29,31 +29,31 @@
         YWButton *headBtn = [[YWButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"head"] selectImage:[UIImage imageNamed:@"head_G"]];
         
         self.homeBtn = homeBtn;
+        self.bubBtn  = bubBtn;
         
         self.homeBtn.tag = 0;
         findBtn.tag      = 1;
         addBtn.tag       = 2;
-        bubBtn.tag       = 3;
+        self.bubBtn.tag  = 3;
         headBtn.tag      = 4;
         
         [self.homeBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [findBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [addBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//        [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.bubBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [headBtn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
         [self.buttons addObject:self.homeBtn];
         [self.buttons addObject:findBtn];
         [self.buttons addObject:addBtn];
-        [self.buttons addObject:bubBtn];
+        [self.buttons addObject:self.bubBtn];
         [self.buttons addObject:headBtn];
 
 
         [self addSubview:self.homeBtn];
         [self addSubview:findBtn];
         [self addSubview:addBtn];
-        [self addSubview:bubBtn];
+        [self addSubview:self.bubBtn];
         [self addSubview:headBtn];
 
         [self.homeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,7 +68,7 @@
         [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self);
         }];
-        [bubBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.bubBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(headBtn.mas_left).offset(-TABVIEW_MARGIN);
             make.centerY.equalTo(self);
         }];

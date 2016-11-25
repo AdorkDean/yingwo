@@ -37,6 +37,7 @@
     _topView            = [[YWMessageTopView alloc] init];
     _replyContent       = [[YWContentLabel alloc] initWithFrame:CGRectZero];
     
+    
     [self.contentView addSubview:self.backgroundView];
     [self.backgroundView addSubview:_topView];
     [self.backgroundView addSubview:_replyContent];

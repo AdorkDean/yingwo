@@ -8,15 +8,12 @@
 
 #import "MessageController.h"
 #import "CommentController.h"
+#import "FavorController.h"
 #import "MessageDetailController.h"
 
-#import "FavorController.h"
-
-#import "SMPagerTabView.h"
 
 @interface MessageController ()<SMPagerTabViewDelegate,MessageControllerDelegate>
 
-@property (nonatomic, strong) SMPagerTabView    *messagePgaeView;
 @property (nonatomic, strong) UIView            *messageSectionView;
 
 @property (nonatomic, strong) NSMutableArray    *catalogVcArr;
@@ -47,7 +44,6 @@
         [_messagePgaeView buildUI];
         //起始选择一个tab
         [_messagePgaeView selectTabWithIndex:0 animate:NO];
-        
     }
     return _messagePgaeView;
 }
@@ -124,7 +120,25 @@
 }
 
 - (void)whenSelectOnPager:(NSUInteger)number {
+    
     NSLog(@"页面 %lu",(unsigned long)number);
+    
+    if (number == 0) {
+        UIView *redDot = [self.messagePgaeView.tabRedDots objectAtIndex:0];
+        if (redDot.hidden == NO) {
+            [self.commentVc.tableView.mj_header beginRefreshing];
+            [self.messagePgaeView hideRedDotWithIndex:0];
+        }
+    }
+
+    if (number == 1) {
+        
+        UIView *redDot = [self.messagePgaeView.tabRedDots objectAtIndex:1];
+        if (redDot.hidden == NO) {
+            [self.favorVc.tableView.mj_header beginRefreshing];
+            [self.messagePgaeView hideRedDotWithIndex:1];
+        }
+    }
 }
 
 

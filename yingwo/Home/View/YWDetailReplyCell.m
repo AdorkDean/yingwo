@@ -146,7 +146,10 @@
         }
         
         [imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName]
-                     placeholderImage:[UIImage imageNamed:@"ying"]];
+                     placeholderImage:[UIImage imageNamed:@"ying"]
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                entity.isDownload = YES;
+                            }];
     }
     
     [lastView mas_updateConstraints:^(MASConstraintMaker *make) {

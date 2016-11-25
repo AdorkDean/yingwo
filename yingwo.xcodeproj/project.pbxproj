@@ -167,10 +167,6 @@
 		18D4E72A1D9E6B8D00A0978E /* MyTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7261D9E6B8D00A0978E /* MyTopicController.m */; };
 		18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7311D9E6BAA00A0978E /* YWPersonCenterMidCell.m */; };
 		18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */; };
-		18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7321D9E6BAA00A0978E /* YWPersonCenterTopView.h */; };
-		18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72E1D9E6BAA00A0978E /* YWPersonCenterCell.h */; };
-		18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7271D9E6B8D00A0978E /* PersonalCenterController.h */; };
-		18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7301D9E6BAA00A0978E /* YWPersonCenterMidCell.h */; };
 		18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */; };
 		18D7C6161DCDD75300D5F9D6 /* MessageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7C6151DCDD75300D5F9D6 /* MessageEntity.m */; };
 		18E74CB11D3CA2A800176142 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CAE1D3CA2A800176142 /* LoginController.m */; };
@@ -214,10 +210,6 @@
 		CC056BFD1DAFABAE00613F27 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC056C0B1DB34C2300613F27 /* YWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC056C0A1DB34C2300613F27 /* YWWebViewController.m */; };
-		CC3AD47D1DC9A8CC00874834 /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4711DC9A8CC00874834 /* UIBarButtonItem+WZLBadge.m */; };
-		CC3AD47E1DC9A8CC00874834 /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4731DC9A8CC00874834 /* UITabBarItem+WZLBadge.m */; };
-		CC3AD47F1DC9A8CC00874834 /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4761DC9A8CC00874834 /* CAAnimation+WAnimation.m */; };
-		CC3AD4801DC9A8CC00874834 /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD47B1DC9A8CC00874834 /* UIView+WZLBadge.m */; };
 		CC3AD4881DC9FD8200874834 /* BadgeCount.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4871DC9FD8200874834 /* BadgeCount.m */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
 		CC3CC6EB1DA11863000DEE0A /* AboutUsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3CC6EA1DA11863000DEE0A /* AboutUsController.m */; };
@@ -260,6 +252,16 @@
 		CCF82B471DD5B22F00C3B5A1 /* YWMyRelationShipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82B461DD5B22F00C3B5A1 /* YWMyRelationShipCell.m */; };
 		CCF82B4A1DD5C1AF00C3B5A1 /* RelationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82B491DD5C1AF00C3B5A1 /* RelationViewModel.m */; };
 		CCF82B4E1DD5C28900C3B5A1 /* RelationEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82B4D1DD5C28900C3B5A1 /* RelationEntity.m */; };
+		CCF82B921DDB242E00C3B5A1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF82B911DDB242E00C3B5A1 /* libsqlite3.tbd */; };
+		CCF82B941DDB246000C3B5A1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF82B931DDB246000C3B5A1 /* SystemConfiguration.framework */; };
+		CCF82B961DDB246F00C3B5A1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF82B951DDB246F00C3B5A1 /* CoreTelephony.framework */; };
+		CCF82B981DDB247900C3B5A1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF82B971DDB247900C3B5A1 /* ImageIO.framework */; };
+		CCF82B9A1DDB248500C3B5A1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF82B991DDB248500C3B5A1 /* libz.tbd */; };
+		CCF82B9C1DDB249700C3B5A1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF82B9B1DDB249700C3B5A1 /* libc++.tbd */; };
+		CCF82BB61DDC882100C3B5A1 /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82BAA1DDC882100C3B5A1 /* UIBarButtonItem+WZLBadge.m */; };
+		CCF82BB71DDC882100C3B5A1 /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82BAC1DDC882100C3B5A1 /* UITabBarItem+WZLBadge.m */; };
+		CCF82BB81DDC882100C3B5A1 /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82BAF1DDC882100C3B5A1 /* CAAnimation+WAnimation.m */; };
+		CCF82BB91DDC882100C3B5A1 /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF82BB41DDC882100C3B5A1 /* UIView+WZLBadge.m */; };
 		CCFB0EA01DC4882400E19DB6 /* TaViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */; };
 		CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0EA41DC4896500E19DB6 /* TaEntity.m */; };
 		CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0EA71DC491B900E19DB6 /* TaResult.m */; };
@@ -678,16 +680,6 @@
 		CC056BFE1DB0ABA800613F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = yingwo/Assets.xcassets; sourceTree = "<group>"; };
 		CC056C091DB34C2300613F27 /* YWWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWWebViewController.h; path = Tools/YWWebViewController.h; sourceTree = "<group>"; };
 		CC056C0A1DB34C2300613F27 /* YWWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWWebViewController.m; path = Tools/YWWebViewController.m; sourceTree = "<group>"; };
-		CC3AD4701DC9A8CC00874834 /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
-		CC3AD4711DC9A8CC00874834 /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
-		CC3AD4721DC9A8CC00874834 /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
-		CC3AD4731DC9A8CC00874834 /* UITabBarItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+WZLBadge.m"; sourceTree = "<group>"; };
-		CC3AD4751DC9A8CC00874834 /* CAAnimation+WAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+WAnimation.h"; sourceTree = "<group>"; };
-		CC3AD4761DC9A8CC00874834 /* CAAnimation+WAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+WAnimation.m"; sourceTree = "<group>"; };
-		CC3AD4781DC9A8CC00874834 /* WZLBadgeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeProtocol.h; sourceTree = "<group>"; };
-		CC3AD47A1DC9A8CC00874834 /* UIView+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WZLBadge.h"; sourceTree = "<group>"; };
-		CC3AD47B1DC9A8CC00874834 /* UIView+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZLBadge.m"; sourceTree = "<group>"; };
-		CC3AD47C1DC9A8CC00874834 /* WZLBadgeImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeImport.h; sourceTree = "<group>"; };
 		CC3AD4861DC9FD8200874834 /* BadgeCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeCount.h; sourceTree = "<group>"; };
 		CC3AD4871DC9FD8200874834 /* BadgeCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeCount.m; sourceTree = "<group>"; };
 		CC3AD4891DCC522500874834 /* YWTaFollowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaFollowView.h; sourceTree = "<group>"; };
@@ -764,6 +756,22 @@
 		CCF82B491DD5C1AF00C3B5A1 /* RelationViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationViewModel.m; sourceTree = "<group>"; };
 		CCF82B4C1DD5C28900C3B5A1 /* RelationEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationEntity.h; sourceTree = "<group>"; };
 		CCF82B4D1DD5C28900C3B5A1 /* RelationEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationEntity.m; sourceTree = "<group>"; };
+		CCF82B911DDB242E00C3B5A1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		CCF82B931DDB246000C3B5A1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CCF82B951DDB246F00C3B5A1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		CCF82B971DDB247900C3B5A1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		CCF82B991DDB248500C3B5A1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		CCF82B9B1DDB249700C3B5A1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		CCF82BA91DDC882100C3B5A1 /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
+		CCF82BAA1DDC882100C3B5A1 /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
+		CCF82BAB1DDC882100C3B5A1 /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
+		CCF82BAC1DDC882100C3B5A1 /* UITabBarItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+WZLBadge.m"; sourceTree = "<group>"; };
+		CCF82BAE1DDC882100C3B5A1 /* CAAnimation+WAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+WAnimation.h"; sourceTree = "<group>"; };
+		CCF82BAF1DDC882100C3B5A1 /* CAAnimation+WAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+WAnimation.m"; sourceTree = "<group>"; };
+		CCF82BB11DDC882100C3B5A1 /* WZLBadgeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeProtocol.h; sourceTree = "<group>"; };
+		CCF82BB31DDC882100C3B5A1 /* UIView+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WZLBadge.h"; sourceTree = "<group>"; };
+		CCF82BB41DDC882100C3B5A1 /* UIView+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZLBadge.m"; sourceTree = "<group>"; };
+		CCF82BB51DDC882100C3B5A1 /* WZLBadgeImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeImport.h; sourceTree = "<group>"; };
 		CCFB0E9E1DC4882400E19DB6 /* TaViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaViewModel.h; sourceTree = "<group>"; };
 		CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaViewModel.m; sourceTree = "<group>"; };
 		CCFB0EA31DC4896500E19DB6 /* TaEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaEntity.h; sourceTree = "<group>"; };
@@ -777,6 +785,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF82B9C1DDB249700C3B5A1 /* libc++.tbd in Frameworks */,
+				CCF82B9A1DDB248500C3B5A1 /* libz.tbd in Frameworks */,
+				CCF82B981DDB247900C3B5A1 /* ImageIO.framework in Frameworks */,
+				CCF82B961DDB246F00C3B5A1 /* CoreTelephony.framework in Frameworks */,
+				CCF82B941DDB246000C3B5A1 /* SystemConfiguration.framework in Frameworks */,
+				CCF82B921DDB242E00C3B5A1 /* libsqlite3.tbd in Frameworks */,
 				1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */,
 				EA90C883AA6EF63671AC57B7 /* Pods_yingwo.framework in Frameworks */,
 				CC056BFD1DAFABAE00613F27 /* libUMessage_Sdk_1.4.0.a in Frameworks */,
@@ -796,7 +810,7 @@
 		1803C0F41D541D7C0078EF0F /* Vender */ = {
 			isa = PBXGroup;
 			children = (
-				CC3AD46E1DC9A8CC00874834 /* WZLBadge */,
+				CCF82BA71DDC882100C3B5A1 /* WZLBadge */,
 				CCA9034E1DB8E81D0053D278 /* NJKWebViewProgress */,
 				CCA903531DB8E81D0053D278 /* TZImagePickerController */,
 				18A4E8EA1DAE6EDF008CDE89 /* UMessage_Sdk_1.4.0 */,
@@ -1870,55 +1884,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		CC3AD46E1DC9A8CC00874834 /* WZLBadge */ = {
-			isa = PBXGroup;
-			children = (
-				CC3AD46F1DC9A8CC00874834 /* BarItem */,
-				CC3AD4741DC9A8CC00874834 /* CategorySupport */,
-				CC3AD4771DC9A8CC00874834 /* Protocol */,
-				CC3AD4791DC9A8CC00874834 /* View */,
-				CC3AD47C1DC9A8CC00874834 /* WZLBadgeImport.h */,
-			);
-			path = WZLBadge;
-			sourceTree = "<group>";
-		};
-		CC3AD46F1DC9A8CC00874834 /* BarItem */ = {
-			isa = PBXGroup;
-			children = (
-				CC3AD4701DC9A8CC00874834 /* UIBarButtonItem+WZLBadge.h */,
-				CC3AD4711DC9A8CC00874834 /* UIBarButtonItem+WZLBadge.m */,
-				CC3AD4721DC9A8CC00874834 /* UITabBarItem+WZLBadge.h */,
-				CC3AD4731DC9A8CC00874834 /* UITabBarItem+WZLBadge.m */,
-			);
-			path = BarItem;
-			sourceTree = "<group>";
-		};
-		CC3AD4741DC9A8CC00874834 /* CategorySupport */ = {
-			isa = PBXGroup;
-			children = (
-				CC3AD4751DC9A8CC00874834 /* CAAnimation+WAnimation.h */,
-				CC3AD4761DC9A8CC00874834 /* CAAnimation+WAnimation.m */,
-			);
-			path = CategorySupport;
-			sourceTree = "<group>";
-		};
-		CC3AD4771DC9A8CC00874834 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				CC3AD4781DC9A8CC00874834 /* WZLBadgeProtocol.h */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		CC3AD4791DC9A8CC00874834 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CC3AD47A1DC9A8CC00874834 /* UIView+WZLBadge.h */,
-				CC3AD47B1DC9A8CC00874834 /* UIView+WZLBadge.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		CC3AD4851DC9FD8200874834 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -2047,6 +2012,56 @@
 			path = PersonalCenter/Entity;
 			sourceTree = "<group>";
 		};
+		CCF82BA71DDC882100C3B5A1 /* WZLBadge */ = {
+			isa = PBXGroup;
+			children = (
+				CCF82BA81DDC882100C3B5A1 /* BarItem */,
+				CCF82BAD1DDC882100C3B5A1 /* CategorySupport */,
+				CCF82BB01DDC882100C3B5A1 /* Protocol */,
+				CCF82BB21DDC882100C3B5A1 /* View */,
+				CCF82BB51DDC882100C3B5A1 /* WZLBadgeImport.h */,
+			);
+			name = WZLBadge;
+			path = Vender/WZLBadge;
+			sourceTree = "<group>";
+		};
+		CCF82BA81DDC882100C3B5A1 /* BarItem */ = {
+			isa = PBXGroup;
+			children = (
+				CCF82BA91DDC882100C3B5A1 /* UIBarButtonItem+WZLBadge.h */,
+				CCF82BAA1DDC882100C3B5A1 /* UIBarButtonItem+WZLBadge.m */,
+				CCF82BAB1DDC882100C3B5A1 /* UITabBarItem+WZLBadge.h */,
+				CCF82BAC1DDC882100C3B5A1 /* UITabBarItem+WZLBadge.m */,
+			);
+			path = BarItem;
+			sourceTree = "<group>";
+		};
+		CCF82BAD1DDC882100C3B5A1 /* CategorySupport */ = {
+			isa = PBXGroup;
+			children = (
+				CCF82BAE1DDC882100C3B5A1 /* CAAnimation+WAnimation.h */,
+				CCF82BAF1DDC882100C3B5A1 /* CAAnimation+WAnimation.m */,
+			);
+			path = CategorySupport;
+			sourceTree = "<group>";
+		};
+		CCF82BB01DDC882100C3B5A1 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CCF82BB11DDC882100C3B5A1 /* WZLBadgeProtocol.h */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		CCF82BB21DDC882100C3B5A1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CCF82BB31DDC882100C3B5A1 /* UIView+WZLBadge.h */,
+				CCF82BB41DDC882100C3B5A1 /* UIView+WZLBadge.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		CCFB0EA21DC4894F00E19DB6 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -2061,6 +2076,12 @@
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCF82B9B1DDB249700C3B5A1 /* libc++.tbd */,
+				CCF82B991DDB248500C3B5A1 /* libz.tbd */,
+				CCF82B971DDB247900C3B5A1 /* ImageIO.framework */,
+				CCF82B951DDB246F00C3B5A1 /* CoreTelephony.framework */,
+				CCF82B931DDB246000C3B5A1 /* SystemConfiguration.framework */,
+				CCF82B911DDB242E00C3B5A1 /* libsqlite3.tbd */,
 				18B0C6701D97CC4A00F776DF /* ReactiveCocoa.framework */,
 				1803C1201D541F350078EF0F /* AssetsLibrary.framework */,
 				3709C5A61291B822052D7CFB /* Pods_yingwo.framework */,
@@ -2207,14 +2228,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */,
-				18D4E73C1D9E75A600A0978E /* YWPersonCenterMidCell.h in Sources */,
 				18D4E7351D9E6BAA00A0978E /* YWPersonCenterMidCell.m in Sources */,
-				18D4E73B1D9E750000A0978E /* PersonalCenterController.h in Sources */,
 				CCA76AEB1DD1FB4900CA9684 /* PersonViewModel.m in Sources */,
-				18D4E7391D9E74FA00A0978E /* YWPersonCenterCell.h in Sources */,
-				18D4E7381D9E74F000A0978E /* YWPersonCenterTopView.h in Sources */,
 				CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */,
 				CCF82B471DD5B22F00C3B5A1 /* YWMyRelationShipCell.m in Sources */,
+				CCF82BB91DDC882100C3B5A1 /* UIView+WZLBadge.m in Sources */,
 				18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */,
 				1807FEF01D6830C5009393E2 /* UIButton+CMWebCache.m in Sources */,
 				184BC1221D5F221D00125448 /* GalleryView.m in Sources */,
@@ -2240,6 +2258,7 @@
 				18F5E4E61D77C9FD00B11BD7 /* NSArray+(String).m in Sources */,
 				CCA9036B1DB8E81D0053D278 /* NSBundle+TZImagePicker.m in Sources */,
 				CCA903691DB8E81D0053D278 /* NJKWebViewProgress.m in Sources */,
+				CCF82BB61DDC882100C3B5A1 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				18AF9E6A1D4F37060063D81F /* BaseViewController.m in Sources */,
 				181B0B0C1D8150DB003CD0B6 /* NSMutableArray+Sort.m in Sources */,
 				18D4E72A1D9E6B8D00A0978E /* MyTopicController.m in Sources */,
@@ -2248,7 +2267,6 @@
 				18D2438C1D7BF7A700DAC374 /* TieZiReply.m in Sources */,
 				181A00E61D56EA0E00D96DC9 /* YWHomeCellMiddleViewNineImage.m in Sources */,
 				18E74CDA1D3CF9A900176142 /* YWButton.m in Sources */,
-				CC3AD4801DC9A8CC00874834 /* UIView+WZLBadge.m in Sources */,
 				1883DD501D89273B00EB9629 /* FieldEntity.m in Sources */,
 				181A00CB1D56E5B200D96DC9 /* YWHomeTableViewCellOneImage.m in Sources */,
 				18D7C6161DCDD75300D5F9D6 /* MessageEntity.m in Sources */,
@@ -2280,7 +2298,6 @@
 				18AF9E7C1D4F3A9F0063D81F /* YWLabel.m in Sources */,
 				1883DD611D89319100EB9629 /* YWSubjectViewCell.m in Sources */,
 				CC3CC6EB1DA11863000DEE0A /* AboutUsController.m in Sources */,
-				CC3AD47D1DC9A8CC00874834 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				18B926C91D38BC920067FE24 /* WriteNicknameController.m in Sources */,
 				18A0F8921D34B697005FE091 /* AppDelegate.m in Sources */,
 				186C44961D3B877000BE3427 /* UIImage+(Copping).m in Sources */,
@@ -2361,7 +2378,6 @@
 				185E1AE81D8FC6A1008299EE /* YWTopicSegmentViewCell.m in Sources */,
 				18F426E81D51D89E0017BE31 /* TieZiResult.m in Sources */,
 				180DB1351D421B38007786A0 /* MainNavController.m in Sources */,
-				CC3AD47F1DC9A8CC00874834 /* CAAnimation+WAnimation.m in Sources */,
 				186C44921D3B732D00BE3427 /* CroppingController.m in Sources */,
 				18C350531D7FBA64008BFDD3 /* YWCommentReplyView.m in Sources */,
 				18E74CBC1D3CA6DA00176142 /* MD5.m in Sources */,
@@ -2389,6 +2405,7 @@
 				1807FEEA1D6830C5009393E2 /* CMSDWebImageDownloader.m in Sources */,
 				18AF9E821D4F7A390063D81F /* TieZiViewModel.m in Sources */,
 				18D4E7211D9E67AD00A0978E /* NSMutableAttributedString+commentString.m in Sources */,
+				CCF82BB71DDC882100C3B5A1 /* UITabBarItem+WZLBadge.m in Sources */,
 				18F3B2561D7AC1E9001A7F18 /* YWDetailCommentView.m in Sources */,
 				180DB13B1D424348007786A0 /* UINavigationBar+HideBottomLine.m in Sources */,
 				181A00E91D57107A00D96DC9 /* YWHomeCellMiddleViewBase.m in Sources */,
@@ -2421,10 +2438,10 @@
 				18A8DF6E1D9F97FA00AA863F /* MyTieZiController.m in Sources */,
 				181A00D11D56E83300D96DC9 /* YWHomeTableViewCellFourImage.m in Sources */,
 				181A01031D575C4900D96DC9 /* YWDetailBaseTableViewCell.m in Sources */,
-				CC3AD47E1DC9A8CC00874834 /* UITabBarItem+WZLBadge.m in Sources */,
 				18B0C6781D980FBA00F776DF /* UIViewController+NavBarHidden.m in Sources */,
 				18F907ED1D32157F00175886 /* UILabel+Wonderful.m in Sources */,
 				CC056C0B1DB34C2300613F27 /* YWWebViewController.m in Sources */,
+				CCF82BB81DDC882100C3B5A1 /* CAAnimation+WAnimation.m in Sources */,
 				18B926D11D3907940067FE24 /* Register.m in Sources */,
 				CC89F06A1D97E42E0053462A /* UIImage+Orientation.m in Sources */,
 				18E8E4E91D605247003C7289 /* YWDetailTopView.m in Sources */,
@@ -2573,6 +2590,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/yingwo/UMSocial/UMSocialSDK",
+				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2580,6 +2602,49 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/WeChat",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"HPGrowingTextView\"",
+					"-framework",
+					"\"HappyDNS\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MagicalRecord\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"Qiniu\"",
+					"-framework",
+					"\"RSKImageCropper\"",
+					"-framework",
+					"\"ReactiveCocoa\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"TTTAttributedLabel\"",
+					"-framework",
+					"\"UITableView_FDTemplateLayoutCell\"",
+					"-framework",
+					"\"pop\"",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2603,6 +2668,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/yingwo/UMSocial/UMSocialSDK",
+				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2610,6 +2680,49 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/WeChat",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"HPGrowingTextView\"",
+					"-framework",
+					"\"HappyDNS\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MagicalRecord\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"Qiniu\"",
+					"-framework",
+					"\"RSKImageCropper\"",
+					"-framework",
+					"\"ReactiveCocoa\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"TTTAttributedLabel\"",
+					"-framework",
+					"\"UITableView_FDTemplateLayoutCell\"",
+					"-framework",
+					"\"pop\"",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2674,6 +2787,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/yingwo/UMSocial/UMSocialSDK",
+				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2681,6 +2799,49 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/yingwo/Vender/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/WeChat",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"HPGrowingTextView\"",
+					"-framework",
+					"\"HappyDNS\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MagicalRecord\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"Qiniu\"",
+					"-framework",
+					"\"RSKImageCropper\"",
+					"-framework",
+					"\"ReactiveCocoa\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"TTTAttributedLabel\"",
+					"-framework",
+					"\"UITableView_FDTemplateLayoutCell\"",
+					"-framework",
+					"\"pop\"",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";

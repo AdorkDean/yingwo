@@ -14,8 +14,11 @@
  */
 @interface MainController : BaseViewController<YWTabBarControllerDelegate>
 
+@property (nonatomic, strong) YWTabBarController       *mainTabBarController;
+
 @property (nonatomic, assign) BOOL                     reloaded;
 @property (nonatomic, assign) BOOL                     reloaded2;
 
+- (void)clearRedDotWithIndex:(NSUInteger)index;
 
 @end

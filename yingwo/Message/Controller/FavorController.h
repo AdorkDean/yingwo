@@ -11,6 +11,8 @@
 
 @interface FavorController : BaseViewController
 
+@property (nonatomic, strong) UITableView      *tableView;
+
 @property (nonatomic, assign) id<MessageControllerDelegate> delegate;
 
 @end

@@ -221,7 +221,7 @@
     //设备号
     NSUserDefaults *userDefault     = [NSUserDefaults standardUserDefaults];
     NSString *token                 = [userDefault objectForKey:TOKEN_KEY];
-    
+    NSLog(@"%@", token);
     NSDictionary *paramaters = @{MOBILE:mobile,
                                PASSWORD:password,
                            DEVICE_TOEKN:token};

@@ -38,7 +38,7 @@
     cell.imageBottomView.username.text = @"原贴:";
     //原帖内容
     if (model.content.length == 0) {
-        cell.imageBottomView.content.text = @"发布了一条贴子";
+        cell.imageBottomView.content.text = @"分享图片";
     }
     else
     {
@@ -57,7 +57,7 @@
     cell.bottomView.username.text = @"原贴:";
     //原帖内容
     if (model.content.length == 0) {
-        cell.bottomView.content.text = @"发布了一条贴子";
+        cell.bottomView.content.text = @"分享图片";
     }
     else
     {

@@ -64,7 +64,7 @@
 
 - (void)setupModelOfCell:(YWMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.topView.nickname.text = model.user_name;
+    cell.topView.nickname.text = model.follow_user_name;
     NSString *dataString       = [NSString stringWithFormat:@"%d",model.create_time];
     cell.topView.time.text     = [NSDate getDateString:dataString];
     [cell.topView.headImageView sd_setImageWithURL:[NSURL URLWithString:model.follow_user_face_img]
@@ -94,10 +94,10 @@
 
 - (void)setupModelOfImageCell:(YWImageMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.imageBottomView.username.text = @"原贴";
+    cell.imageBottomView.username.text = @"原贴:";
     //原帖内容
     if (model.content.length == 0) {
-        cell.imageBottomView.content.text = @"发布了一条贴子";
+        cell.imageBottomView.content.text = @"分享图片";
     }
     else
     {
@@ -116,20 +116,20 @@
     cell.bottomView.username.text = @"原贴:";
     //原帖内容
     if (model.content.length == 0) {
-        cell.bottomView.content.text = @"发布了一条贴子";
+        cell.bottomView.content.text = @"分享图片";
     }
     else
     {
         cell.bottomView.content.text = model.content;
     }
     
-    NSString *content                      = [NSString stringWithFormat:@"%@ %@",model.user_name,model.content];
+    NSString *content                      = [NSString stringWithFormat:@"%@  %@",cell.bottomView.username.text ,model.content];
     
     cell.bottomView.content.attributedText = [NSMutableAttributedString
                                               changeCommentContentWithString:content
                                               WithTextIndext:model.user_name.length+1];
     cell.bottomView.content.attributedText = [NSMutableAttributedString changeContentWithText:content
-                                                                               withTextIndext:model.user_name.length
+                                                                               withTextIndext:cell.bottomView.username.text.length
                                                                                  withFontSize:14];
 }
 

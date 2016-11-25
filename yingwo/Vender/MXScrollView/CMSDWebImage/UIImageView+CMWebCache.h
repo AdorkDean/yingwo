@@ -190,24 +190,3 @@
 
 @end
 
-
-@interface UIImageView (WebCacheDeprecated)
-
-- (NSURL *)imageURL __deprecated_msg("Use `CMSD_imageURL`");
-
-- (void)setImageWithURL:(NSURL *)url __deprecated_msg("Method deprecated. Use `CMSD_setImageWithURL:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder __deprecated_msg("Method deprecated. Use `CMSD_setImageWithURL:placeholderImage:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(CMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `CMSD_setImageWithURL:placeholderImage:options`");
-
-- (void)setImageWithURL:(NSURL *)url completed:(CMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `CMSD_setImageWithURL:completed:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(CMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `CMSD_setImageWithURL:placeholderImage:completed:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(CMSDWebImageOptions)options completed:(CMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `CMSD_setImageWithURL:placeholderImage:options:completed:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(CMSDWebImageOptions)options progress:(CMSDWebImageDownloaderProgressBlock)progressBlock completed:(CMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `CMSD_setImageWithURL:placeholderImage:options:progress:completed:`");
-
-- (void)setAnimationImagesWithURLs:(NSArray *)arrayOfURLs __deprecated_msg("Use `CMSD_setAnimationImagesWithURLs:`");
-
-- (void)cancelCurrentArrayLoad __deprecated_msg("Use `CMSD_cancelCurrentAnimationImagesLoad`");
-
-- (void)cancelCurrentImageLoad __deprecated_msg("Use `CMSD_cancelCurrentImageLoad`");
-
-@end

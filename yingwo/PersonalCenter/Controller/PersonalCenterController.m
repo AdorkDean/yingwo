@@ -268,8 +268,8 @@
 }
 
 - (void)jumpToMyFriendsPage {
-    self.relationType = 1;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+//    self.relationType = 1;
+//    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
 }
 
 - (void)jumpToMyFollowPage {

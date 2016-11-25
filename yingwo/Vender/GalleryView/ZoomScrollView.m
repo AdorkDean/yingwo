@@ -95,6 +95,9 @@
     return self;
 }
 
+-(id)initWithFrame:(CGRect)frame withOriginFrame:(Rect)origin andImageView:(UIImageView *)imageView atIndex:(NSInteger)index {
+    return nil;
+}
 
 
 - (void)resizeImageViewWithImage:(UIImage *)newImage {

@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 
 #import "UMessage.h"
+//#import <UMSocialCore/UMSocialCore.h>
+//#import "YWCustomSharePlatform.h"
 #import "BadgeCount.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
@@ -63,8 +65,36 @@
     }];
     
     [UMessage setLogEnabled:YES];
-
-//    [NSThread sleepForTimeInterval:1.5];//设置启动页面时间
+    
+//    /**
+//     *  友盟分享配置项
+//     */
+//    //打开调试日志
+//    [[UMSocialManager defaultManager] openLog:YES];
+//    
+//    //设置友盟appkey
+//    [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f8af24e0f55a291700280b"];
+//    
+//    // 获取友盟social版本号
+//    //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
+//    
+//    //设置微信的appKey和appSecret
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxa5620512b44a6653" appSecret:@"2075207f2ec67ebea6dff904c35d3bdb" redirectURL:@"http://mobile.umeng.com/social"];
+//    
+//    //设置分享到QQ互联的appKey和appSecret
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105350566"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+//    
+//    //设置新浪的appKey和appSecret
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+//
+//    //移除微信收藏选项
+//    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
+//    
+//    //添加自定义选项
+//    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
+//    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_CopyLink];
+//    
+    //[NSThread sleepForTimeInterval:1.5];//设置启动页面时间
     
     [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
     [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
@@ -84,7 +114,7 @@
     }else {
         UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LoginController *loginVC       = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
-        mainNav     = [[MainNavController alloc] initWithRootViewController:loginVC];
+        mainNav                        = [[MainNavController alloc] initWithRootViewController:loginVC];
         self.window.rootViewController = mainNav;
 
     }
@@ -94,6 +124,24 @@
 //
     return YES;
 }
+
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+//{
+//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+//    if (!result) {
+//        
+//    }
+//    return result;
+//}
+//
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+//{
+//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+//    if (!result) {
+//        
+//    }
+//    return result;
+//}
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
     
@@ -174,6 +222,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     NSLog(@"%s",__func__);
     NSDictionary *paramaters;
+    //首页新信息小红点
     [self requestForBadgeWithUrl:HOME_INDEX_CNT_URL
                       paramaters:paramaters
                          success:^(int badgeCount) {
@@ -190,6 +239,42 @@
                          failure:^(NSString *error) {
                              NSLog(@"error:%@",error);
                          }];
+    //消息页面小红点
+    [self requestForBadgeWithUrl:MESSAGE_COMMENT_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.bubBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.bubBtn showBadge];
+                                 });
+                                 
+                             }
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
+    [self requestForBadgeWithUrl:MESSAGE_LIKE_CNT_URL
+                      paramaters:paramaters
+                         success:^(int badgeCount) {
+                             
+                             if (badgeCount >= 1) {
+                                 //UI操作在多线程异步请求下需放在主线程中执行
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.mainTabBarController.tabBar.bubBtn.badgeCenterOffset = CGPointMake(-3, 3);
+                                     [self.mainTabBarController.tabBar.bubBtn showBadge];
+                                 });
+                                 
+                             }
+                         }
+                         failure:^(NSString *error) {
+                             NSLog(@"error:%@",error);
+                         }];
+    
+    
     
 }
 

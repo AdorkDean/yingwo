@@ -12,7 +12,7 @@
         <!--Register Controller-->
         <scene sceneID="bsa-B1-RBG">
             <objects>
-                <viewController id="Vrf-6b-hvg" customClass="RegisterController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterController" id="Vrf-6b-hvg" customClass="RegisterController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lsq-x1-Hsy"/>
                         <viewControllerLayoutGuide type="bottom" id="il4-oJ-VPO"/>
@@ -56,7 +56,7 @@
         <!--Perfect Info Controller-->
         <scene sceneID="Saz-c9-PGu">
             <objects>
-                <viewController id="obn-eG-WU9" customClass="PerfectInfoController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PerfectInfoController" id="obn-eG-WU9" customClass="PerfectInfoController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dgv-Hw-DBE"/>
                         <viewControllerLayoutGuide type="bottom" id="sSH-C0-lNs"/>
@@ -80,7 +80,7 @@
         <!--Write Signature Controller-->
         <scene sceneID="BgE-LT-6LE">
             <objects>
-                <viewController id="p5F-E6-pEl" customClass="WriteSignatureController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WriteSignatureController" id="p5F-E6-pEl" customClass="WriteSignatureController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vhc-Oi-elc"/>
                         <viewControllerLayoutGuide type="bottom" id="0Tf-zd-oy3"/>
@@ -98,7 +98,7 @@
         <!--Write Nickname Controller-->
         <scene sceneID="1fm-1U-dGZ">
             <objects>
-                <viewController id="ktx-lh-EAW" customClass="WriteNicknameController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WriteNicknameController" id="ktx-lh-EAW" customClass="WriteNicknameController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mjB-Mm-oay"/>
                         <viewControllerLayoutGuide type="bottom" id="BwO-Ku-mHC"/>
@@ -204,7 +204,7 @@
         <!--Configuration Controller-->
         <scene sceneID="dmZ-V7-NOj">
             <objects>
-                <viewController id="LrX-Vt-5Ma" customClass="ConfigurationController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfigurationController" id="LrX-Vt-5Ma" customClass="ConfigurationController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Og7-cp-cZW"/>
                         <viewControllerLayoutGuide type="bottom" id="aWN-vd-m9b"/>
@@ -333,7 +333,7 @@
         <!--View Controller-->
         <scene sceneID="JBh-hL-zbH">
             <objects>
-                <viewController id="Wie-Sp-0Za" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="Wie-Sp-0Za" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YsX-UA-zj8"/>
                         <viewControllerLayoutGuide type="bottom" id="Lo1-5W-suQ"/>
@@ -379,7 +379,7 @@
         <!--Controller-->
         <scene sceneID="iN7-Qp-gsO">
             <objects>
-                <viewController id="UqI-gM-WIX" customClass="TAController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TAController" id="UqI-gM-WIX" customClass="TAController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aTo-BW-zma"/>
                         <viewControllerLayoutGuide type="bottom" id="Xa7-2Z-Lzz"/>
@@ -403,7 +403,7 @@
         <!--My Topic Controller-->
         <scene sceneID="ihF-qI-CES">
             <objects>
-                <viewController id="M84-fc-J5Z" customClass="MyTopicController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyTopicController" id="M84-fc-J5Z" customClass="MyTopicController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="W9u-Rk-mRx"/>
                         <viewControllerLayoutGuide type="bottom" id="PTH-pe-ZoY"/>
@@ -447,7 +447,7 @@
         <!--Message Detail Controller-->
         <scene sceneID="xmI-Ia-jg0">
             <objects>
-                <viewController id="25N-FV-RWd" customClass="MessageDetailController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessageDetailController" id="25N-FV-RWd" customClass="MessageDetailController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mkt-WH-YhN"/>
                         <viewControllerLayoutGuide type="bottom" id="d6E-Lx-TAb"/>
@@ -465,7 +465,7 @@
         <!--My Tie Zi Controller-->
         <scene sceneID="tIK-Sg-uab">
             <objects>
-                <viewController id="eoW-Yd-MFa" customClass="MyTieZiController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyTieZiController" id="eoW-Yd-MFa" customClass="MyTieZiController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zeN-0U-t2N"/>
                         <viewControllerLayoutGuide type="bottom" id="wES-GJ-WwU"/>
@@ -487,7 +487,7 @@
         <!--My Like Controller-->
         <scene sceneID="d3g-FQ-Y1h">
             <objects>
-                <viewController id="qJU-CD-Qbb" customClass="MyLikeController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyLikeController" id="qJU-CD-Qbb" customClass="MyLikeController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="G0G-vR-W3f"/>
                         <viewControllerLayoutGuide type="bottom" id="aQ8-YY-Fcf"/>
@@ -510,7 +510,7 @@
         <!--My Comment Controller-->
         <scene sceneID="XSr-Tf-0BG">
             <objects>
-                <viewController id="vHj-UI-hPh" customClass="MyCommentController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyCommentController" id="vHj-UI-hPh" customClass="MyCommentController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vDS-AW-jBv"/>
                         <viewControllerLayoutGuide type="bottom" id="pK4-YD-gTs"/>
@@ -528,7 +528,7 @@
         <!--My Relationship Base Controller-->
         <scene sceneID="KzI-A6-TbO">
             <objects>
-                <viewController id="511-WS-2xb" customClass="MyRelationshipBaseController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyRelationshipBaseController" id="511-WS-2xb" customClass="MyRelationshipBaseController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="puh-ny-c4I"/>
                         <viewControllerLayoutGuide type="bottom" id="2z9-UG-hOW"/>
@@ -572,7 +572,7 @@
         <!--Main Nav Controller-->
         <scene sceneID="NWH-Ml-H5w">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aoa-kk-pYN" customClass="MainNavController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainNavController" automaticallyAdjustsScrollViewInsets="NO" id="Aoa-kk-pYN" customClass="MainNavController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cxi-2h-iVU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -590,7 +590,8 @@
         <!--Navigation Controller-->
         <scene sceneID="jiL-Tc-eUY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bXk-wR-ySL" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XvH-Zg-fez" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="DiscoveryNavController" automaticallyAdjustsScrollViewInsets="NO" id="bXk-wR-ySL" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gj6-FK-1yw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -601,14 +602,13 @@
                         <segue destination="7W1-mn-AvJ" kind="relationship" relationship="rootViewController" id="3TP-ri-dtv"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XvH-Zg-fez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1418.5" y="3089.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7V3-hl-btV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Ma-tK-KT6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TopicNavController" automaticallyAdjustsScrollViewInsets="NO" id="1Ma-tK-KT6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="79h-zC-MnQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -626,7 +626,7 @@
         <!--Navigation Controller-->
         <scene sceneID="a3h-RM-31n">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="90W-dO-pB3" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MseeageNavController" automaticallyAdjustsScrollViewInsets="NO" id="90W-dO-pB3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dtQ-sv-cwK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -639,18 +639,18 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrE-t2-i5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5586" y="3047"/>
+            <point key="canvasLocation" x="5778" y="3046"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gXB-c9-GK2"/>
-        <segue reference="jSL-7x-npB"/>
-        <segue reference="SbM-EK-3PG"/>
-        <segue reference="OxQ-Nm-cAH"/>
-        <segue reference="cO5-zM-Dpn"/>
-        <segue reference="6ez-F0-LOf"/>
-        <segue reference="DZx-xw-Vme"/>
-        <segue reference="dQL-fh-5s4"/>
+        <segue reference="z8l-m0-DzE"/>
+        <segue reference="EUt-Q0-JhM"/>
+        <segue reference="wrw-I9-9Lh"/>
+        <segue reference="gC9-wQ-CaA"/>
+        <segue reference="fJH-6J-WQ4"/>
+        <segue reference="Mmx-yH-4h2"/>
         <segue reference="q7d-3y-7Bc"/>
+        <segue reference="XB9-Kd-qqL"/>
+        <segue reference="dQL-fh-5s4"/>
     </inferredMetricsTieBreakers>
 </document>

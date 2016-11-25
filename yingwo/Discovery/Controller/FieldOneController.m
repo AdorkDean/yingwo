@@ -177,11 +177,11 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
 
     self.selectIndex               = indexPath.row;
 
-    SubjectEntity *subject         = [self.viewModel.subjectArr objectAtIndex:self.selectIndex];
-    NSArray *topicArr              = [self.viewModel.topicArr objectAtIndex:self.selectIndex];
+//    SubjectEntity *subject         = [self.viewModel.subjectArr objectAtIndex:self.selectIndex];
+//    NSArray *topicArr              = [self.viewModel.topicArr objectAtIndex:self.selectIndex];
 
     //获取第一个贴子中的subject_id
-    TopicEntity *topic             = [topicArr objectAtIndex:0];
+//    TopicEntity *topic             = [topicArr objectAtIndex:0];
     
 //    if ([self.delegate respondsToSelector:@selector(didSelectSubjectWith:subjectId:)])
 //    {

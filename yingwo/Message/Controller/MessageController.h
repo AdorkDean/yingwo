@@ -8,10 +8,14 @@
 
 #import "BaseViewController.h"
 #import "MessageEntity.h"
+#import "SMPagerTabView.h"
+
 
 @protocol MessageControllerDelegate ;
 
 @interface MessageController : BaseViewController
+
+@property (nonatomic, strong) SMPagerTabView    *messagePgaeView;
 
 @end
 

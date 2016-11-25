@@ -25,6 +25,8 @@
 @property (nonatomic, assign) UIColor* tabButtonTitleColorForNormal;
 @property (nonatomic, assign) UIColor* tabButtonTitleColorForSelected;
 @property (nonatomic, assign) CGFloat selectedLineWidth; //下划线的宽
+@property (nonatomic, strong) NSMutableArray* tabRedDots; //按钮上的红点
+
 
 /*!
  * @brief 自定义完毕后开始build UI

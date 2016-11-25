@@ -18,6 +18,7 @@
 
 #import "DetailViewModel.h"
 #import "TieZiViewModel.h"
+//#import "UMSocialUIManager.h"
 
 #import "YWDetailBottomView.h"
 #import "YWDetailCommentView.h"
@@ -140,7 +141,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (UIBarButtonItem *)rightBarItem {
     if (_rightBarItem == nil) {
-        _rightBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:nil];
+        _rightBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(showShareView)];
     }
     return _rightBarItem;
 }
@@ -425,6 +426,17 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                      completion:nil];
 }
 
+- (void)showShareView {
+    //显示分享面板
+//    __weak typeof(self) weakSelf = self;
+//       [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
+//        //分享网页
+//        [weakSelf shareWebPageToPlatformType:platformType];
+//    }];
+    
+}
+
+
 #pragma mark UITextfieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.replyView.messageField) {
@@ -577,6 +589,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  下拉刷新
  */
 - (void)loadData {
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.detailTableView.mj_header endRefreshing];
+    }
     
     TieZi *tieZi                  = [self.tieZiReplyArr objectAtIndex:0];
     self.requestEntity.requestUrl = TIEZI_RELPY_URL;
@@ -590,7 +606,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  上拉加载
  */
 - (void)loadMoreData {
-    
+    //网络连接错误的情况下停止刷新
+    if ([YWNetworkTools networkStauts] == NO) {
+        [self.detailTableView.mj_footer endRefreshing];
+    }
 
     self.requestEntity.requestUrl = TIEZI_RELPY_URL;
     self.requestEntity.paramaters = @{@"post_id":@(self.model.tieZi_id),
@@ -649,6 +668,66 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     }];
     
 }
+
+////网页分享
+//- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
+//{
+//    //创建分享消息对象
+//    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+//    
+//    //创建网页内容对象
+//    //    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:[UIImage imageNamed:@"icon"]];
+//    NSString* thumbURL =  @"http://weixintest.ihk.cn/ihkwx_upload/heji/material/img/20160414/1460616012469.jpg";
+//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:thumbURL];
+//    //设置网页地址
+//    shareObject.webpageUrl =@"http://mobile.umeng.com/social";
+//    
+//    //分享消息对象设置分享内容对象
+//    messageObject.shareObject = shareObject;
+//    
+//    //调用分享接口
+//    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+//        if (error) {
+//            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+//        }else{
+//            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+//                UMSocialShareResponse *resp = data;
+//                //分享结果消息
+//                UMSocialLogInfo(@"response message is %@",resp.message);
+//                //第三方原始返回的数据
+//                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+//                
+//            }else{
+//                UMSocialLogInfo(@"response data is %@",data);
+//            }
+//        }
+//        [self alertWithError:error];
+//    }];
+//}
+
+//分享错误提示
+- (void)alertWithError:(NSError *)error
+{
+    NSString *result = nil;
+    if (!error) {
+        result = [NSString stringWithFormat:@"Share succeed"];
+    }
+    else{
+        if (error) {
+            result = [NSString stringWithFormat:@"Share fail with error code: %d\n",(int)error.code];
+        }
+        else{
+            result = [NSString stringWithFormat:@"Share fail"];
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"share"
+                                                    message:result
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"sure", @"确定")
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 
 #define mark UITableViewDataSource
 
@@ -800,17 +879,22 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)showImageView:(UIImageView *)imageView {
     
-    //禁止后面的DetailController的滑动手势
-    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
-    
-//    [self stopSystemPopGestureRecognizer];
-    
     NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
     
-    for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
-        [imageViewArr addObject:imageView];
-    }
+    ImageViewEntity *lastEntity = [self.model.imageUrlArrEntity lastObject];
     
+    if (lastEntity.isDownload == YES) {
+        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+            ImageViewEntity *entity = [self.model.imageUrlArrEntity objectAtIndex:i];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName]];
+            [imageViewArr addObject:imageView];
+        }
+    }else {
+        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+            [imageViewArr addObject:imageView];
+        }
+    }
+   
     [self.galleryView setImageViews:imageViewArr
               withImageUrlArrEntity:self.model.imageUrlArrEntity
                         showAtIndex:imageView.tag - 1];
@@ -825,19 +909,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
   *  @param imageView
   */
 - (void)showReplyImageView:(UIImageView *)imageView {
-    
-    //禁止后面的DetailController的滑动手势
-    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
-    
-//    [self stopSystemPopGestureRecognizer];
-//    
-//    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
-//    
-//    [imageViewArr addObject:imageView];
-//    
-//    [self.galleryView setImages:imageViewArr showAtIndex:0];
-//    
-//    [self.navigationController.view addSubview:self.galleryView];
     
     [self stopSystemPopGestureRecognizer];
     

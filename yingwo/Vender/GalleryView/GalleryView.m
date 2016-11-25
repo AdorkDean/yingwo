@@ -271,7 +271,7 @@ withImageUrlArrEntity:(NSArray *)entities
 
 //预先加载前后两张图片
 - (void)loadImageWithCurrentPage:(NSInteger)currentPage {
-    
+
     //左边和右边都有图片，并且两张都加载
     if (currentPage+1 < self.imageViews.count && currentPage >0) {
         
@@ -352,7 +352,7 @@ withImageUrlArrEntity:(NSArray *)entities
                                             strongSelf.indicatorView.progress           = (CGFloat)receivedSize / expectedSize;
     }
                                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                                                                     // imageEntity.isDownload = YES;
+                                                                                      imageEntity.isDownload = YES;
                                            
                                            __strong __typeof(weakSelf)strongSelf = weakSelf;
                                            [strongSelf.indicatorView removeFromSuperview];
