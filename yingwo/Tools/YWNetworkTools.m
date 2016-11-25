@@ -156,7 +156,7 @@ static BOOL networkStatus = YES;
 + (NSString *)getDeviceToken {
     
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *deviceToken       = [userDefault objectForKey:DEVICE_TOEKN];
+    NSString *deviceToken       = [userDefault objectForKey:TOKEN_KEY];
     
     if (deviceToken.length == 0) {
         deviceToken = @"1111111111111111111111111111111111111111111111111111111111111111";

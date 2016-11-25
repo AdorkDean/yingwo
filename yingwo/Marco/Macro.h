@@ -76,10 +76,10 @@
 
 /********************************segue identify************************************************/
 
-
-
+// new api 139.198.190.240
+// old api yw.zhibaizhi.com/yingwophp
 /********************************* URL ******************************************************/
-#define BASE_URL        @"http://yw.zhibaizhi.com/yingwophp/api/v1"
+#define BASE_URL        @"http://api.yingwoo.com/api/v1"
 #define LOGIN_URL       @"/User/Login"
 #define REGISTER_URL    @"/User/Register"
 #define SMS_URL         @"/Sms/Send"

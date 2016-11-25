@@ -224,7 +224,7 @@
     
     NSDictionary *paramaters = @{MOBILE:mobile,
                                PASSWORD:password,
-                           DEVICE_TOEKN:@"123"};
+                           DEVICE_TOEKN:token};
     
     [self requestForLoginWithUrl:LOGIN_URL paramaters:paramaters];
     

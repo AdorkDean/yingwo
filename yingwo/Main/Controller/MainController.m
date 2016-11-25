@@ -117,12 +117,25 @@
 //    
     
     [self requestForBadgeCount];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showMessagePage:)
+                                                 name:MESSAGE_NOTIFICATION object:nil];
 
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+}
+
+- (void)showMessagePage:(NSNotification *)notification {
+    
+    NSLog(@"remote notification is comming");
+
+    [_mainTabBarController displayViewAtIndex:3];
+    [_mainTabBarController.tabBar showSelectedTabBarAtIndex:3];
+
 }
 
 - (void)refreshHomeVC {

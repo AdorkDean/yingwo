@@ -90,6 +90,7 @@
     }
     
     [self.window makeKeyAndVisible];
+    
 //
     return YES;
 }
@@ -125,7 +126,9 @@
 }
 
 //iOS10新增：处理前台收到通知的代理方法
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center
+      willPresentNotification:(UNNotification *)notification
+        withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
     
     NSDictionary * userInfo = notification.request.content.userInfo;
     
@@ -150,7 +153,6 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:MESSAGE_NOTIFICATION
                                                             object:userInfo];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:nil name:MESSAGE_NOTIFICATION object:nil];
         
     }else{
         //应用处于后台时的本地推送接受
