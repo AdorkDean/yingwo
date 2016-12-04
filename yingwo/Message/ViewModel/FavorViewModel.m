@@ -71,7 +71,7 @@
                                               WithTextIndext:model.user_name.length+1];
     cell.bottomView.content.attributedText = [NSMutableAttributedString changeContentWithText:content
                                                                                withTextIndext:model.user_name.length
-                                                                                 withFontSize:14];
+                                                                                 withFontSize:13];
 
     
 }

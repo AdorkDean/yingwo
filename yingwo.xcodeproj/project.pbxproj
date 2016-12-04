@@ -210,6 +210,7 @@
 		CC056BFD1DAFABAE00613F27 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC056C0B1DB34C2300613F27 /* YWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC056C0A1DB34C2300613F27 /* YWWebViewController.m */; };
+		CC1228CD1DE43F4A00ABE8AB /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */; };
 		CC3AD4881DC9FD8200874834 /* BadgeCount.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4871DC9FD8200874834 /* BadgeCount.m */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
 		CC3CC6EB1DA11863000DEE0A /* AboutUsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3CC6EA1DA11863000DEE0A /* AboutUsController.m */; };
@@ -680,6 +681,7 @@
 		CC056BFE1DB0ABA800613F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = yingwo/Assets.xcassets; sourceTree = "<group>"; };
 		CC056C091DB34C2300613F27 /* YWWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWWebViewController.h; path = Tools/YWWebViewController.h; sourceTree = "<group>"; };
 		CC056C0A1DB34C2300613F27 /* YWWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWWebViewController.m; path = Tools/YWWebViewController.m; sourceTree = "<group>"; };
+		CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMMobClick.framework; path = yingwo/UMMobClick.framework; sourceTree = "<group>"; };
 		CC3AD4861DC9FD8200874834 /* BadgeCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeCount.h; sourceTree = "<group>"; };
 		CC3AD4871DC9FD8200874834 /* BadgeCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeCount.m; sourceTree = "<group>"; };
 		CC3AD4891DCC522500874834 /* YWTaFollowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaFollowView.h; sourceTree = "<group>"; };
@@ -785,10 +787,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1228CD1DE43F4A00ABE8AB /* UMMobClick.framework in Frameworks */,
+				CCF82B961DDB246F00C3B5A1 /* CoreTelephony.framework in Frameworks */,
 				CCF82B9C1DDB249700C3B5A1 /* libc++.tbd in Frameworks */,
 				CCF82B9A1DDB248500C3B5A1 /* libz.tbd in Frameworks */,
 				CCF82B981DDB247900C3B5A1 /* ImageIO.framework in Frameworks */,
-				CCF82B961DDB246F00C3B5A1 /* CoreTelephony.framework in Frameworks */,
 				CCF82B941DDB246000C3B5A1 /* SystemConfiguration.framework in Frameworks */,
 				CCF82B921DDB242E00C3B5A1 /* libsqlite3.tbd in Frameworks */,
 				1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */,
@@ -2076,6 +2079,7 @@
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */,
 				CCF82B9B1DDB249700C3B5A1 /* libc++.tbd */,
 				CCF82B991DDB248500C3B5A1 /* libz.tbd */,
 				CCF82B971DDB247900C3B5A1 /* ImageIO.framework */,
@@ -2594,6 +2598,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/yingwo",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
@@ -2672,6 +2678,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/yingwo",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
@@ -2791,6 +2799,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/yingwo/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/yingwo",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;

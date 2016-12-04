@@ -42,6 +42,8 @@
 #import "ISEmojiView.h"
 #import "UINavigationBar+Awesome.h"
 #import "TZImagePickerController.h"
+#import "UMMobClick/MobClick.h"
+
 
 
 //自定义宏

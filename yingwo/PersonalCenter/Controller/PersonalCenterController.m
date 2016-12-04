@@ -217,7 +217,7 @@
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView3 addTarget:self
-                       action:@selector(developing)
+                       action:@selector(jumpToMyCommentPage)
              forControlEvents:UIControlEventTouchUpInside];
     
     [self.cellView4 addTarget:self
@@ -268,8 +268,8 @@
 }
 
 - (void)jumpToMyFriendsPage {
-//    self.relationType = 1;
-//    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+    self.relationType = 1;
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
 }
 
 - (void)jumpToMyFollowPage {
@@ -309,7 +309,6 @@
 
     [self judgeNetworkStatus];
 }
-
 
 - (void)loadPersonInfo {
     //加载用户信息

@@ -37,4 +37,7 @@
 
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity;
 
+@optional
+- (void)didSelectedDeleteBtn:(UIButton *)deleteBtn withEntity:(MessageEntity *)messageEntity;
+
 @end

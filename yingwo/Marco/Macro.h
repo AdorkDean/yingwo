@@ -27,6 +27,7 @@
 /********************************Notification************************************************/
 #define TOKEN_KEY            @"token"
 #define MESSAGE_NOTIFICATION @"message"
+#define TIEZI_NOTIFICATION   @"tiezi"
 
 /********************************Notification************************************************/
 
@@ -76,25 +77,25 @@
 
 /********************************segue identify************************************************/
 
-
-
+// new api 139.198.190.240 http://api.yingwoo.com/api/v1
+// old api yw.zhibaizhi.com/yingwophp
 /********************************* URL ******************************************************/
-#define BASE_URL        @"http://yw.zhibaizhi.com/yingwophp/api/v1"
-#define LOGIN_URL       @"/User/Login"
-#define REGISTER_URL    @"/User/Register"
-#define SMS_URL         @"/Sms/Send"
-#define SMS_CHECK       @"/Sms/Check"
-#define MOBILE_CHECK_URL @"/User/Check_mobile"
+#define BASE_URL                @"http://yw.zhibaizhi.com/yingwophp/api/v1"
+#define LOGIN_URL               @"/User/Login"
+#define REGISTER_URL            @"/User/Register"
+#define SMS_URL                 @"/Sms/Send"
+#define SMS_CHECK               @"/Sms/Check"
+#define MOBILE_CHECK_URL        @"/User/Check_mobile"
+#define RESET_PASSWORD_URL      @"/User/reset_password"
 
-#define HEADIMAGE_URL   @"/Public/uploads/"
-#define SCHOOL_URL      @"/school/school_list"
-#define ACADEMY_URL     @"/school/academy_list"
+#define HEADIMAGE_URL           @"/Public/uploads/"
+#define SCHOOL_URL              @"/school/school_list"
+#define ACADEMY_URL             @"/school/academy_list"
 
-#define BASE_INFO_URL   @"/User/Base_info"
-#define UPDATE_INFO_URL @"/User/Update"
+#define BASE_INFO_URL           @"/User/Base_info"
+#define UPDATE_INFO_URL         @"/User/Update"
 
-
-#define ANNOUNCE_URL @"/Post/add_new"
+#define ANNOUNCE_URL            @"/Post/add_new"
 
 //贴子
 #define HOME_URL                @"/Post/index"
@@ -137,6 +138,7 @@
 
 //消息
 #define MESSAGE_REPLY_AND_COMMENT_URL @"/Post/my_reply_and_comment_list"
+#define MY_REPLY_AND_COMMENT_URL      @"/Post/reply_and_comment_list"
 
 #define DEVICE_TOKEN_URL        @"/User/update_device_token"
 /********************************* errorCode ******************************************************/
@@ -173,7 +175,7 @@
 #define MOBILE       @"mobile"
 #define RN           @"rn"
 #define SIGN         @"sign"
-#define SMS_MODEL    @"model"
+#define SMS_MODEL    @"mode"
 #define SMS_CODE     @"code"
 
 //贴子

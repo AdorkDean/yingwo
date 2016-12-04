@@ -262,9 +262,13 @@
     
     NSLog(@"%@", sign);
     
+    NSString *smsModel = @"reset_password";
+    
     NSDictionary *paramaters = @{MOBILE:self.phone,
                                  RN:rn,
-                                 SIGN:sign};
+                                 SIGN:sign,
+                                 SMS_MODEL:smsModel};
+    
     [self requestSmsWithUrl:SMS_URL paramaters:paramaters];
 
     
@@ -322,7 +326,8 @@
  */
 - (void)checkSMS:(NSString *)sms moblie:(NSString *)mobile{
     
-    NSDictionary *paramaters = @{SMS_CODE:sms,MOBILE:self.phone};
+    NSString *smsModel = @"reset_password";
+    NSDictionary *paramaters = @{SMS_CODE:sms,MOBILE:self.phone,SMS_MODEL:smsModel};
     
     [self.regisetrModel requestSMSForCheckMobleWithUrl:SMS_CHECK
                                             paramaters:paramaters
@@ -350,14 +355,14 @@
     
     NSDictionary *paramaters = @{PASSWORD:self.passwordText.rightTextField.text};
     
-    [self.regisetrModel requestForUpdatePwdWithUrl:UPDATE_INFO_URL
+    [self.regisetrModel requestForUpdatePwdWithUrl:RESET_PASSWORD_URL
                                        parameters:paramaters
                                           success:^(UpdatePwdEntity *update) {
                                               
                                               if (update.status == YES) {
                                                   
-                                                  //必须要加载cookie，否则无法请求
-                                                  [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+//                                                  //必须要加载cookie，否则无法请求
+//                                                  [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
                                                   
                                                   [SVProgressHUD showSuccessStatus:@"密码更新成功，请重新登录。"
                                                                         afterDelay:HUD_DELAY];

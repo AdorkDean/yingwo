@@ -297,6 +297,7 @@ static int start_id = 0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"DiscoveryPage"];
     self.title = @"发现";
     
 }
@@ -304,6 +305,12 @@ static int start_id = 0;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"DiscoveryPage"];
 }
 
 /**
@@ -666,12 +673,14 @@ static int start_id = 0;
 }
 
 - (void)setFieldBtnTitle {
-    FieldEntity *fieldOne   = [self.fieldViewModel.fieldArr objectAtIndex:0];
-    FieldEntity *fieldTwo   = [self.fieldViewModel.fieldArr objectAtIndex:1];
-    FieldEntity *fieldThree = [self.fieldViewModel.fieldArr objectAtIndex:2];
-    [self.firstFieldBtn setTitle:fieldOne.title forState:UIControlStateNormal];
-    [self.secondFieldBtn setTitle:fieldTwo.title forState:UIControlStateNormal];
-    [self.thirdFieldBtn setTitle:fieldThree.title forState:UIControlStateNormal];
+    if (self.fieldViewModel.fieldArr.firstObject != nil) {
+        FieldEntity *fieldOne   = [self.fieldViewModel.fieldArr objectAtIndex:0];
+        FieldEntity *fieldTwo   = [self.fieldViewModel.fieldArr objectAtIndex:1];
+        FieldEntity *fieldThree = [self.fieldViewModel.fieldArr objectAtIndex:2];
+        [self.firstFieldBtn setTitle:fieldOne.title forState:UIControlStateNormal];
+        [self.secondFieldBtn setTitle:fieldTwo.title forState:UIControlStateNormal];
+        [self.thirdFieldBtn setTitle:fieldThree.title forState:UIControlStateNormal];        
+    }
 }
 
 

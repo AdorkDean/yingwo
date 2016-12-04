@@ -575,6 +575,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 //显示新帖子View
 - (void)showNewTieziCount:(int)count{
     
+    if (self.tieziLabel != nil) {
+        [self.tieziLabel removeFromSuperview];
+        self.tieziLabel = nil;
+    }
+    
     UILabel *newTieziLabel = [[UILabel alloc] init];
     newTieziLabel.font = [UIFont systemFontOfSize:12];
     
@@ -618,6 +623,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                           completion:^(BOOL finished) {
                                               //移除控件
                                               [self.tieziLabel removeFromSuperview];
+                                              self.tieziLabel = nil;
                                           }];
                          
                      }];

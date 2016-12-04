@@ -225,6 +225,10 @@ static int start_id = 0;
                                                                forIndexPath:indexPath];
     [self.viewModel setupModelOfCell:cell model:self.messageArr[indexPath.row]];
     
+    if (cell.topView.deleteBtn) {
+        [cell.topView.deleteBtn removeFromSuperview];
+    }
+    
     cell.delegate            = self;
     cell.messageEntity       = self.messageArr[indexPath.row];
     

@@ -26,24 +26,25 @@
     _content                 = [[YWContentLabel alloc] initWithFrame:CGRectZero];
 
     _username.textColor      = [UIColor colorWithHexString:THEME_COLOR_1];
-    _username.font           = [UIFont systemFontOfSize:14];
+    _username.font           = [UIFont systemFontOfSize:13];
 
     _content.numberOfLines   = 1;
     _content.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
+//    _content.textColor       = [UIColor colorWithHexString:THEME_COLOR_4];
 
     [self addSubview:_content];
     [self addSubview:_username];
 
     [_username mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(2.5);
+        make.left.equalTo(self.mas_left).offset(5);
         make.centerY.equalTo(self);
     }];
     
     [_content mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_username.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.equalTo(_username);
-        make.top.equalTo(_username.mas_top);
+        make.top.equalTo(self.mas_top).offset(5);
+        make.bottom.equalTo(self.mas_bottom).offset(-5);
     }];
         
 }

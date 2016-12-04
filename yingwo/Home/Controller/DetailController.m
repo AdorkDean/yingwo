@@ -473,10 +473,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         [weakSelf loadData];
     }];
     
-    self.detailTableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+    self.detailTableView.mj_footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
         [weakSelf loadMoreData];
     }];
-    
     
     [self setAllUILayout];
 

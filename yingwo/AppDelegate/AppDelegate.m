@@ -11,6 +11,8 @@
 #import "UMessage.h"
 //#import <UMSocialCore/UMSocialCore.h>
 //#import "YWCustomSharePlatform.h"
+#import "UMMobClick/MobClick.h"
+
 #import "BadgeCount.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
@@ -40,6 +42,15 @@
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"yingwoDatabase.sqlite"];
     
+    //[NSThread sleepForTimeInterval:1.5];//设置启动页面时间
+    
+    [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
+    [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
+
+    UIStoryboard *storyboard                                      = [UIStoryboard storyboardWithName:@"Main"
+                                                                                              bundle:nil];
+    MainNavController *mainNav ;
+    
     /**
      *  友盟推送配置项
      */
@@ -55,57 +66,62 @@
     
     [center requestAuthorizationWithOptions:types10
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (granted) {
-            //点击允许
-            
-        } else {
-            //点击不允许
-            
-        }
-    }];
+                              if (granted) {
+                                  //点击允许
+                                  
+                              } else {
+                                  //点击不允许
+                                  
+                              }
+                          }];
     
     [UMessage setLogEnabled:YES];
     
-//    /**
-//     *  友盟分享配置项
-//     */
-//    //打开调试日志
-//    [[UMSocialManager defaultManager] openLog:YES];
-//    
-//    //设置友盟appkey
-//    [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f8af24e0f55a291700280b"];
-//    
-//    // 获取友盟social版本号
-//    //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
-//    
-//    //设置微信的appKey和appSecret
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxa5620512b44a6653" appSecret:@"2075207f2ec67ebea6dff904c35d3bdb" redirectURL:@"http://mobile.umeng.com/social"];
-//    
-//    //设置分享到QQ互联的appKey和appSecret
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105350566"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
-//    
-//    //设置新浪的appKey和appSecret
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-//
-//    //移除微信收藏选项
-//    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
-//    
-//    //添加自定义选项
-//    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
-//    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_CopyLink];
-//    
-    //[NSThread sleepForTimeInterval:1.5];//设置启动页面时间
+    //    /**
+    //     *  友盟分享配置项
+    //     */
+    //    //打开调试日志
+    //    [[UMSocialManager defaultManager] openLog:YES];
+    //
+    //    //设置友盟appkey
+    //    [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f8af24e0f55a291700280b"];
+    //
+    //    // 获取友盟social版本号
+    //    //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
+    //
+    //    //设置微信的appKey和appSecret
+    //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxa5620512b44a6653" appSecret:@"2075207f2ec67ebea6dff904c35d3bdb" redirectURL:@"http://mobile.umeng.com/social"];
+    //
+    //    //设置分享到QQ互联的appKey和appSecret
+    //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105350566"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+    //
+    //    //设置新浪的appKey和appSecret
+    //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    //
+    //    //移除微信收藏选项
+    //    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
+    //
+    //    //添加自定义选项
+    //    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
+    //    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_CopyLink];
     
-    [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
-    [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
-
-    UIStoryboard *storyboard                                      = [UIStoryboard storyboardWithName:@"Main"
-                                                                                              bundle:nil];
-    MainNavController *mainNav ;
+    /**
+     *  友盟统计与崩溃
+     */
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    UMConfigInstance.appKey = @"57f8af24e0f55a291700280b";
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];
+    
+    Customer *user = [User findCustomer];
+    //发送用户统计信息
+    if (user.name != nil) {
+        [MobClick profileSignInWithPUID:user.name];
+    }
     
     //如果有帐号，则直接登录
-    Customer *user = [User findCustomer];
-
     if ([User haveExistedLoginInformation] && [user.register_status intValue] == 1) {
         
         MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
@@ -128,7 +144,7 @@
 //{
 //    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
 //    if (!result) {
-//        
+//
 //    }
 //    return result;
 //}
@@ -137,7 +153,7 @@
 //{
 //    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
 //    if (!result) {
-//        
+//
 //    }
 //    return result;
 //}
@@ -173,7 +189,9 @@
 }
 
 //iOS10新增：处理前台收到通知的代理方法
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center
+      willPresentNotification:(UNNotification *)notification
+        withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
     
     NSDictionary * userInfo = notification.request.content.userInfo;
     
@@ -198,7 +216,6 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:MESSAGE_NOTIFICATION
                                                             object:userInfo];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:nil name:MESSAGE_NOTIFICATION object:nil];
         
     }else{
         //应用处于后台时的本地推送接受

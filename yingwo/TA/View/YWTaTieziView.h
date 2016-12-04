@@ -11,6 +11,8 @@
 
 @interface YWTaTieziView : UIView
 
+@property (nonatomic, strong) UITableView             *homeTableview;
+
 @property (nonatomic, strong) TieZiViewModel          *viewModel;
 @property (nonatomic, strong) NSMutableArray          *rowHeightArr;
 

@@ -520,6 +520,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="L3e-ko-g57"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ezw-8J-gT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -590,7 +593,6 @@
         <!--Navigation Controller-->
         <scene sceneID="jiL-Tc-eUY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XvH-Zg-fez" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="DiscoveryNavController" automaticallyAdjustsScrollViewInsets="NO" id="bXk-wR-ySL" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gj6-FK-1yw">
@@ -602,6 +604,7 @@
                         <segue destination="7W1-mn-AvJ" kind="relationship" relationship="rootViewController" id="3TP-ri-dtv"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XvH-Zg-fez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1418.5" y="3089.5"/>
         </scene>
@@ -643,12 +646,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="z8l-m0-DzE"/>
         <segue reference="EUt-Q0-JhM"/>
         <segue reference="wrw-I9-9Lh"/>
-        <segue reference="gC9-wQ-CaA"/>
-        <segue reference="fJH-6J-WQ4"/>
-        <segue reference="Mmx-yH-4h2"/>
+        <segue reference="z8l-m0-DzE"/>
+        <segue reference="L3e-ko-g57"/>
+        <segue reference="ZMN-sb-BDP"/>
+        <segue reference="mNj-nk-xUF"/>
         <segue reference="q7d-3y-7Bc"/>
         <segue reference="XB9-Kd-qqL"/>
         <segue reference="dQL-fh-5s4"/>

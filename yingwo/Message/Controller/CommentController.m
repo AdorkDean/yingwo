@@ -25,7 +25,6 @@
 
 @property (nonatomic, strong) MessageController *messageController;
 
-@property (nonatomic, strong) MainController    *mainController;
 @end
 
 static NSString *noImageCellidentifier = @"noImage";
@@ -79,14 +78,6 @@ static int start_id = 0;
         _messageArr = [[NSMutableArray alloc] init];
     }
     return _messageArr;
-}
-
-- (MainController *)mainController {
-    if (_mainController == nil) {
-        _mainController = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
-
-    }
-    return _mainController;
 }
 
 - (void)layoutSubview {
@@ -225,6 +216,10 @@ static int start_id = 0;
                                                                forIndexPath:indexPath];
     [self.viewModel setupModelOfCell:cell model:self.messageArr[indexPath.row]];
 
+    if (cell.topView.deleteBtn) {
+        [cell.topView.deleteBtn removeFromSuperview];
+    }
+    
     cell.delegate            = self;
     cell.messageEntity       = self.messageArr[indexPath.row];
 

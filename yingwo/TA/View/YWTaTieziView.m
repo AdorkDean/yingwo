@@ -27,7 +27,6 @@ static int start_id = 0;
 @protocol  YWHomeCellMiddleViewBaseProtocol;
 @interface YWTaTieziView()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate,TTTAttributedLabelDelegate>
 
-@property (nonatomic, strong) UITableView       *homeTableview;
 
 @property (nonatomic, strong) TieZi             *model;
 @property (nonatomic, strong) RequestEntity     *requestEntity;
@@ -428,6 +427,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     if (self.tieZiList.count < 2) {
         if (self.tieZiList.count == 0) {
             UILabel *noTieziLabel               = [[UILabel alloc] init];

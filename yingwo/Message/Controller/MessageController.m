@@ -96,8 +96,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+    [super viewWillAppear:animated];    
     self.title = @"我的消息";
 
 }
@@ -171,7 +170,6 @@
             MessageDetailController *messageDetailVc = segue.destinationViewController;
             messageDetailVc.model                    = self.messageEntity;
 
-            
         }
     }
     else

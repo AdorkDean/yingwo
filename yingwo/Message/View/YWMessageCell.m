@@ -37,6 +37,7 @@
     _topView            = [[YWMessageTopView alloc] init];
     _replyContent       = [[YWContentLabel alloc] initWithFrame:CGRectZero];
     
+    [_topView.deleteBtn addTarget:self action:@selector(deleteTap) forControlEvents:UIControlEventTouchUpInside];
     
     [self.contentView addSubview:self.backgroundView];
     [self.backgroundView addSubview:_topView];
@@ -110,6 +111,11 @@
     
 }
 
+- (void)deleteTap {
+    if ([self.delegate respondsToSelector:@selector(didSelectedDeleteBtn:withEntity:)]) {
+        [self.delegate didSelectedDeleteBtn:self.topView.deleteBtn withEntity:self.messageEntity];
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

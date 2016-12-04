@@ -24,7 +24,8 @@
     _headImageView                     = [[UIImageView alloc] init];
     _nickname                          = [[UILabel alloc] init];
     _time                              = [[UILabel alloc] init];
-
+    _deleteBtn                         = [[UIButton alloc] init];
+    
     _headImageView.image               = [UIImage imageNamed:@"touxiang"];
     _headImageView.layer.masksToBounds = YES;
     _headImageView.layer.cornerRadius  = 20;
@@ -34,10 +35,13 @@
 
     _nickname.textColor                = [UIColor colorWithHexString:THEME_COLOR_2];
     _time.textColor                    = [UIColor colorWithHexString:THEME_COLOR_3];
+    
+    [_deleteBtn setBackgroundImage:[UIImage imageNamed:@"deleteBtn"] forState:UIControlStateNormal];
 
     [self addSubview:_headImageView];
     [self addSubview:_nickname];
     [self addSubview:_time];
+    [self addSubview:_deleteBtn];
     
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(5);
@@ -54,6 +58,12 @@
     [_time mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_nickname.mas_left);
         make.top.equalTo(_nickname.mas_bottom).offset(7.5);
+    }];
+    
+    [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mas_top).offset(10);
+        make.right.equalTo(self.mas_right).offset(-10);
+        make.width.height.equalTo(@20);
     }];
 
 }

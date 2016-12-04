@@ -94,7 +94,13 @@
 
 - (void)setupModelOfImageCell:(YWImageMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.imageBottomView.username.text = @"原贴:";
+    if ([model.source_type isEqualToString:@"POST"]) {
+        cell.imageBottomView.username.text = @"原贴:";
+    }
+    if ([model.source_type isEqualToString:@"REPLY"]) {
+        cell.imageBottomView.username.text = @"跟贴:";
+    }
+    
     //原帖内容
     if (model.content.length == 0) {
         cell.imageBottomView.content.text = @"分享图片";
@@ -113,7 +119,15 @@
 
 - (void)setupModelOfNoImageCell:(YWMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.bottomView.username.text = @"原贴:";
+    if ([model.source_type isEqualToString:@"POST"]) {
+        cell.bottomView.username.text = @"原贴:";
+    }
+    if ([model.source_type isEqualToString:@"REPLY"]) {
+        cell.bottomView.username.text = @"跟贴:";
+    }
+    if ([model.source_type isEqualToString:@"COMMENT"]) {
+        cell.bottomView.username.text = @"评论:";
+    }
     //原帖内容
     if (model.content.length == 0) {
         cell.bottomView.content.text = @"分享图片";
@@ -125,12 +139,12 @@
     
     NSString *content                      = [NSString stringWithFormat:@"%@  %@",cell.bottomView.username.text ,model.content];
     
-    cell.bottomView.content.attributedText = [NSMutableAttributedString
-                                              changeCommentContentWithString:content
-                                              WithTextIndext:model.user_name.length+1];
+//    cell.bottomView.content.attributedText = [NSMutableAttributedString
+//                                              changeCommentContentWithString:content
+//                                              WithTextIndext:model.user_name.length+1];
     cell.bottomView.content.attributedText = [NSMutableAttributedString changeContentWithText:content
                                                                                withTextIndext:cell.bottomView.username.text.length
-                                                                                 withFontSize:14];
+                                                                                 withFontSize:13];
 }
 
 
