@@ -748,33 +748,40 @@ static int start_id = 0;
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    //    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:[UIImage imageNamed:@"icon"]];
-    NSString* thumbURL =  @"http://weixintest.ihk.cn/ihkwx_upload/heji/material/img/20160414/1460616012469.jpg";
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:thumbURL];
+    NSString *share_title             = [NSString stringWithFormat:@"%@",self.topicEntity.title];
+    NSString *share_descr             = [NSString stringWithFormat:@"%@",self.topicEntity.field_description];
+    NSString *share_thumbURL          = [NSString selectCorrectUrlWithAppendUrl:self.topicEntity.img];
+    
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:share_title
+                                                                             descr:share_descr
+                                                                         thumImage:share_thumbURL];
     //设置网页地址
-    shareObject.webpageUrl =@"http://mobile.umeng.com/social";
+    shareObject.webpageUrl            = [NSString stringWithFormat:@"https://api.yingwoo.com/share/topic/%d",self.topic_id];
     
     //分享消息对象设置分享内容对象
-    messageObject.shareObject = shareObject;
+    messageObject.shareObject         = shareObject;
     
     //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-        if (error) {
-            UMSocialLogInfo(@"************Share fail with error %@*********",error);
-        }else{
-            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-                UMSocialShareResponse *resp = data;
-                //分享结果消息
-                UMSocialLogInfo(@"response message is %@",resp.message);
-                //第三方原始返回的数据
-                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-                
-            }else{
-                UMSocialLogInfo(@"response data is %@",data);
-            }
-        }
-        [self alertWithError:error];
-    }];
+    [[UMSocialManager defaultManager] shareToPlatform:platformType
+                                        messageObject:messageObject
+                                currentViewController:self
+                                           completion:^(id data, NSError *error) {
+                                               if (error) {
+                                                   UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                                               }else{
+                                                   if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                                                       UMSocialShareResponse *resp = data;
+                                                       //分享结果消息
+                                                       UMSocialLogInfo(@"response message is %@",resp.message);
+                                                       //第三方原始返回的数据
+                                                       UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                                                       
+                                                   }else{
+                                                       UMSocialLogInfo(@"response data is %@",data);
+                                                   }
+                                               }
+                                               [self alertWithError:error];
+                                           }];
 }
 
 //分享错误提示
@@ -782,17 +789,17 @@ static int start_id = 0;
 {
     NSString *result = nil;
     if (!error) {
-        result = [NSString stringWithFormat:@"Share succeed"];
+        result = [NSString stringWithFormat:@"话题分享成功"];
     }
     else{
         if (error) {
-            result = [NSString stringWithFormat:@"Share fail with error code: %d\n",(int)error.code];
+            result = [NSString stringWithFormat:@"分享失败错误码: %d\n",(int)error.code];
         }
         else{
-            result = [NSString stringWithFormat:@"Share fail"];
+            result = [NSString stringWithFormat:@"分享失败"];
         }
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"share"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享"
                                                     message:result
                                                    delegate:nil
                                           cancelButtonTitle:NSLocalizedString(@"sure", @"确定")

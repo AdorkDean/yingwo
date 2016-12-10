@@ -34,6 +34,7 @@ static NSString *kUMSSharePlatformItemView = @"UMSSharePlatformItemView";
         self.columnCount = 3;
         self.itemSize = CGSizeMake(70, 70);
         self.backgroundColor = [UIColor whiteColor];
+        self.alpha = 0.9;
         //获取可分享平台
         NSMutableArray *platformArray = [[NSMutableArray alloc] init];
         for (NSNumber *platformType in [UMSocialManager defaultManager].platformTypeArray) {
@@ -121,6 +122,7 @@ static NSString *kUMSSharePlatformItemView = @"UMSSharePlatformItemView";
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _cancelButton.backgroundColor = [UIColor whiteColor];
+        _cancelButton.titleLabel.font = [UIFont systemFontOfSize:13];
     }
     return _cancelButton;
 }

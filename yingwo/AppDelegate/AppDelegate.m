@@ -197,7 +197,7 @@
     
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于前台时的远程推送接受
-        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION
+        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION_ACTIVE
                                                             object:self
                                                           userInfo:userInfo];
         //关闭友盟自带的弹出框

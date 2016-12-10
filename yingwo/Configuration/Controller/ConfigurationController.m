@@ -12,6 +12,7 @@
 #import "YWConfigurationCell.h"
 #import "ClauseViewController.h"
 #import "AboutUsController.h"
+#import "MessagePushController.h"
 
 @interface ConfigurationController ()
 
@@ -263,7 +264,7 @@
     [self.adviceCell addTarget:self action:@selector(jumpToAdvicePage) forControlEvents:UIControlEventTouchUpInside];
     [self.pointCell addTarget:self action:@selector(jumpToPointPage) forControlEvents:UIControlEventTouchUpInside];
     [self.aboutUsCell addTarget:self action:@selector(jumpToAboutUsPage) forControlEvents:UIControlEventTouchUpInside];
-    [self.messagePushCell addTarget:self action:@selector(developing) forControlEvents:UIControlEventTouchUpInside];
+    [self.messagePushCell addTarget:self action:@selector(jumpToMessagePushPage) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //清除缓存警告视图
@@ -305,6 +306,12 @@
 //正在开发中
 - (void)developing {
     [SVProgressHUD showInfoStatus:@"功能开发中···" afterDelay:1.5];
+}
+
+- (void)jumpToMessagePushPage {
+    MessagePushController *messagePush = [[MessagePushController alloc] init];
+    [self.navigationController pushViewController:messagePush animated:YES];
+
 }
 
 - (void)jumpToPointPage {

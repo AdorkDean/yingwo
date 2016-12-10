@@ -14,7 +14,7 @@ typedef void(^UMSocialSharePlatformSelectionBlock)(YWShareView *NewsShareView,UM
 
 @interface YWShareView : UIView
 @property (nonatomic, assign) UMSocialPlatformType selectionPlatform;
-@property (nonatomic, copy) UMSocialSharePlatformSelectionBlock shareSelectionBlock;
+@property (nonatomic, copy  ) UMSocialSharePlatformSelectionBlock shareSelectionBlock;
 ///可分享的数组
 @property (nonatomic, strong) NSMutableArray *sharePlatformInfoArray;
 

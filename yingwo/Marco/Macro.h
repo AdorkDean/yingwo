@@ -25,8 +25,9 @@
 /********************************Color************************************************/
 
 /********************************Notification************************************************/
-#define TOKEN_KEY             @"token"
-#define USERINFO_NOTIFICATION @"userInfoNotification" 
+#define TOKEN_KEY                    @"token"
+#define USERINFO_NOTIFICATION        @"userInfoNotification"
+#define USERINFO_NOTIFICATION_ACTIVE @"userInfoNotificationActive"
 
 /********************************Notification************************************************/
 
@@ -80,7 +81,7 @@
 // new api 139.198.190.240 http://api.yingwoo.com/api/v1
 // old api http://yw.zhibaizhi.com/yingwophp/api/v1
 /********************************* URL ******************************************************/
-#define BASE_URL                @"http://api.yingwoo.com/api/v1"
+#define BASE_URL                @"https://api.yingwoo.com/api/v1"
 #define LOGIN_URL               @"/User/Login"
 #define REGISTER_URL            @"/User/Register"
 #define SMS_URL                 @"/Sms/Send"

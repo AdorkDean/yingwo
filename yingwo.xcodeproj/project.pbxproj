@@ -248,6 +248,7 @@
 		CC9857711DFA83AA009FA4FF /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9857661DFA83AA009FA4FF /* UITabBarItem+WZLBadge.m */; };
 		CC9857721DFA83AA009FA4FF /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9857691DFA83AA009FA4FF /* CAAnimation+WAnimation.m */; };
 		CC9857731DFA83AA009FA4FF /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = CC98576E1DFA83AA009FA4FF /* UIView+WZLBadge.m */; };
+		CC9857761DFBC804009FA4FF /* MessagePushController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9857751DFBC804009FA4FF /* MessagePushController.m */; };
 		CC9B98D11DBA24180009E7DC /* MyLikeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9B98D01DBA24180009E7DC /* MyLikeController.m */; };
 		CCA76AEB1DD1FB4900CA9684 /* PersonViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA76AEA1DD1FB4900CA9684 /* PersonViewModel.m */; };
 		CCA9034D1DB8E7E10053D278 /* YWPhotoDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA9034C1DB8E7E10053D278 /* YWPhotoDisplayView.m */; };
@@ -775,6 +776,8 @@
 		CC98576D1DFA83AA009FA4FF /* UIView+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WZLBadge.h"; sourceTree = "<group>"; };
 		CC98576E1DFA83AA009FA4FF /* UIView+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZLBadge.m"; sourceTree = "<group>"; };
 		CC98576F1DFA83AA009FA4FF /* WZLBadgeImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeImport.h; sourceTree = "<group>"; };
+		CC9857741DFBC804009FA4FF /* MessagePushController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagePushController.h; path = Configuration/Controller/MessagePushController.h; sourceTree = "<group>"; };
+		CC9857751DFBC804009FA4FF /* MessagePushController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagePushController.m; path = Configuration/Controller/MessagePushController.m; sourceTree = "<group>"; };
 		CC9B98CF1DBA24180009E7DC /* MyLikeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyLikeController.h; path = PersonalCenter/Controller/MyLikeController.h; sourceTree = "<group>"; };
 		CC9B98D01DBA24180009E7DC /* MyLikeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyLikeController.m; path = PersonalCenter/Controller/MyLikeController.m; sourceTree = "<group>"; };
 		CCA76AE91DD1FB4900CA9684 /* PersonViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewModel.h; sourceTree = "<group>"; };
@@ -1177,6 +1180,8 @@
 				1849329F1D3FC66C008CE18E /* ResetPasswordController.m */,
 				CC3CC6E91DA11863000DEE0A /* AboutUsController.h */,
 				CC3CC6EA1DA11863000DEE0A /* AboutUsController.m */,
+				CC9857741DFBC804009FA4FF /* MessagePushController.h */,
+				CC9857751DFBC804009FA4FF /* MessagePushController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2516,6 +2521,7 @@
 				18EE35231D8A7915003F8548 /* TopicListViewModel.m in Sources */,
 				1807FEEE1D6830C5009393E2 /* MKAnnotationView+CMWebCache.m in Sources */,
 				18D2439E1D7D60F400DAC374 /* yingwo.xcdatamodeld in Sources */,
+				CC9857761DFBC804009FA4FF /* MessagePushController.m in Sources */,
 				1807FEFD1D684026009393E2 /* UIViewAdditions.m in Sources */,
 				18A0F88C1D34B61B005FE091 /* UIColor+Hex.m in Sources */,
 				18EF55491D75BFF7002C87FB /* YWSearchController.m in Sources */,
