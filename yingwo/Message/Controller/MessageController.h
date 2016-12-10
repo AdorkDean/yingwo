@@ -22,5 +22,6 @@
 @protocol MessageControllerDelegate <NSObject>
 
 - (void)didSelectMessageWith:(MessageEntity *)model;
+- (void)didSelectHeadImageWith:(MessageEntity *)model;
 
 @end

@@ -165,6 +165,8 @@ withImageUrlArrEntity:(NSArray *)entities
     
     for (int i = 0; i < imageViews.count; i++)
     {
+        ImageViewEntity *imageViewEntity = [self.imageUrlArrEntity objectAtIndex:i];
+        
         CGRect rect = CGRectMake(self.scrollView.frame.size.width * i,
                                  0,
                                  self.scrollView.frame.size.width,
@@ -172,6 +174,7 @@ withImageUrlArrEntity:(NSArray *)entities
         
         ZoomScrollView *zoomScrollView = [[ZoomScrollView alloc] initWithFrame:rect
                                                                   andImageView:[imageViews objectAtIndex:i]
+                                                                     andEntity:imageViewEntity
                                                                        atIndex:i];
         //给一个tag，因为图片总是要下载前后三张，方便找到位置
         zoomScrollView.tag = 200+i;

@@ -340,6 +340,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
+
 #pragma mark 禁止pop手势
 - (void)stopSystemPopGestureRecognizer {
     self.fd_interactivePopDisabled = YES;

@@ -28,6 +28,8 @@ typedef NS_ENUM(NSInteger,CommentType) {
 
 @property (nonatomic, strong) TieZiReply  *replyModel;
 
+@property (nonatomic, assign) int         push_post_id;
+
 //是否跟贴完成
 @property (nonatomic, assign) BOOL        isReleased;
 

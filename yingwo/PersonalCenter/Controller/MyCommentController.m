@@ -273,6 +273,12 @@ static int start_id = 0;
     
 }
 
+-(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
+    self.messageEntity = messageEntity;
+    
+    [self performSegueWithIdentifier:@"ta" sender:self];
+}
+
 -(void)didSelectedDeleteBtn:(UIButton *)deleteBtn withEntity:(MessageEntity *)messageEntity {
     
     if ([deleteBtn.superview.superview.superview.superview isKindOfClass:[YWMessageCell class]]) {
@@ -289,6 +295,11 @@ static int start_id = 0;
         if ([segue.identifier isEqualToString:@"detail"]) {
             DetailController *detailVc = segue.destinationViewController;
             detailVc.model             = self.messageEntity;
+        }
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id = [self.messageEntity.follow_user_id intValue];
         }
     }
 }

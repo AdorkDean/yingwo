@@ -102,5 +102,6 @@
 #import "VerificationController.h"
 #import "LoginNavController.h"
 #import "LoginController.h"
+#import "TAController.h"
 
 #endif /* PrefixHeader_pch */

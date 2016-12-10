@@ -38,6 +38,8 @@
     _replyContent       = [[YWContentLabel alloc] initWithFrame:CGRectZero];
     
     [_topView.deleteBtn addTarget:self action:@selector(deleteTap) forControlEvents:UIControlEventTouchUpInside];
+    [_topView.headImageView addTapAction:@selector(headTap) target:self];
+    [_topView.nickname      addTapAction:@selector(headTap) target:self];
     
     [self.contentView addSubview:self.backgroundView];
     [self.backgroundView addSubview:_topView];
@@ -117,6 +119,11 @@
     }
 }
 
+- (void)headTap {
+    if ([self.delegate respondsToSelector:@selector(didSelectHeadImageWithEntity:)]) {
+        [self.delegate didSelectHeadImageWithEntity:self.messageEntity];
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

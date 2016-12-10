@@ -9,7 +9,6 @@
 #import "MessageDetailController.h"
 
 #import "AnnounceController.h"
-#import "MainNavController.h"
 
 #import "YWDetailTableViewCell.h"
 #import "YWDetailBaseTableViewCell.h"
@@ -359,6 +358,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                              selector:@selector(didHiddenKeyboard:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willHiddKeyboard:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+
 }
 
 #pragma mark 禁止pop手势
@@ -412,6 +417,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.commentView = nil;
 }
 
+- (void)willHiddKeyboard:(NSNotification *) notes{
+    
+    self.detailTableView.frame = self.view.bounds;
+}
 
 /**
  *  下拉刷新

@@ -170,6 +170,45 @@
     
 }
 
+- (void)requestDetailWithUrl:(NSString *)url
+                  paramaters:(NSDictionary *)paramaters
+                     success:(void (^)(TieZi *tieZi))success
+                     failure:(void (^)(NSString *error))failure {
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager = [YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:paramaters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  
+                  NSDictionary *content      = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                               options:NSJSONReadingMutableContainers
+                                                                                 error:nil];
+                  NSLog(@"detail:%@",content);
+                  TieZi *TieZiDetail         = [TieZi mj_objectWithKeyValues:content[@"info"]];
+                  
+                  //图片实体
+                  TieZiDetail.imageUrlArrEntity = [NSString separateImageViewURLString:TieZiDetail.img];
+                  
+                  success(TieZiDetail);
+              }
+              else
+              {
+                  NSLog(@"原帖获取失败");
+              }
+              
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"获取失败");
+          }];
+}
+
 /**
  *  cell上图片请求
  *

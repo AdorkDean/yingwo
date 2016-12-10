@@ -39,5 +39,6 @@
 
 @optional
 - (void)didSelectedDeleteBtn:(UIButton *)deleteBtn withEntity:(MessageEntity *)messageEntity;
+- (void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity;
 
 @end

@@ -63,17 +63,73 @@
         [self setShowsVerticalScrollIndicator:NO];
         [self setDelegate:self];
         
-        CGFloat height       = frame.size.width / imageView.image.size.width * imageView.image.size.height;
+        CGFloat height       = frame.size.width / imageView.frame.size.width * imageView.frame.size.height;
+        self.imageView       = [[UIImageView alloc] initWithFrame:imageView.frame];
+        self.imageView.image = imageView.image;
+        self.imageView.tag   = imageView.tag;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            [self.imageView setFrame:CGRectMake(0, (self.frame.size.height - height) / 2,
+                                                self.frame.size.width, height)];
+            
+        }];
+        
+        self.contentOffset = CGPointMake(0, 0);
+        self.contentSize = CGSizeMake(self.imageView.width, self.imageView.height);
+        
+        [self.imageView setUserInteractionEnabled:YES];
+        [self addSubview:self.imageView];
+        
+        self.doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(handleDoubleTap:)];
+        [self.doubleTapGesture setNumberOfTapsRequired:2];
+        [self.imageView addGestureRecognizer:self.doubleTapGesture];
+        
+        //长按事件
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(longPress:)];
+        longPress.minimumPressDuration          = 0.5f;
+        [self.imageView addGestureRecognizer:longPress];
+        
+        //    [longPress requireGestureRecognizerToFail:self.doubleTapGesture];
+        
+    }
+    return self;
+}
+
+
+- (id)initWithFrame:(CGRect)frame andImageView:(UIImageView *)imageView andEntity:(ImageViewEntity *)entity atIndex:(NSInteger)index
+{
+    self = [self initWithFrame:frame];
+    if (self)
+    {
+        self.index = index;
+        
+        [self setMinimumZoomScale:1];
+        [self setMaximumZoomScale:3];
+        [self setZoomScale:1];
+        [self setShowsHorizontalScrollIndicator:NO];
+        [self setShowsVerticalScrollIndicator:NO];
+        [self setDelegate:self];
+        
+        CGFloat height       = frame.size.width / entity.width * entity.height;
         self.imageView       = [[UIImageView alloc] initWithFrame:imageView.frame];
         self.imageView.image = imageView.image;
         self.imageView.tag   = imageView.tag;
 
         [UIView animateWithDuration:0.3 animations:^{
-            
-            [self.imageView setFrame:CGRectMake(0, (self.frame.size.height - height) / 2,
-                                                self.frame.size.width, height)];
-
+            if (height < SCREEN_HEIGHT) {
+                [self.imageView setFrame:CGRectMake(0, (self.frame.size.height - height) / 2,
+                                                    self.frame.size.width, height)];
+            }else {
+                [self.imageView setFrame:CGRectMake(0, 0, self.frame.size.width, height)];
+            }
         }];
+        
+        //设置contentSize 增加对长图的支持
+        self.contentOffset = CGPointMake(0, 0);
+        self.contentSize   = CGSizeMake(self.imageView.width, self.imageView.height);
         
         [self.imageView setUserInteractionEnabled:YES];
         [self addSubview:self.imageView];
@@ -107,10 +163,12 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        [self.imageView setFrame:CGRectMake(0,
-                                            (self.frame.size.height - height) / 2,
-                                            self.frame.size.width,
-                                            height)];
+        if (height < SCREEN_HEIGHT) {
+            [self.imageView setFrame:CGRectMake(0, (self.frame.size.height - height) / 2,
+                                                self.frame.size.width, height)];
+        }else {
+            [self.imageView setFrame:CGRectMake(0, 0, self.frame.size.width, height)];
+        }
         
     }];
     

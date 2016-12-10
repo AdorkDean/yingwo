@@ -46,7 +46,7 @@ static int start_id = 0;
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 150, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(5, 0, 165, 0);
         
         [_tableView registerClass:[YWMessageCell class] forCellReuseIdentifier:noImageCellidentifier];
         [_tableView registerClass:[YWImageMessageCell class] forCellReuseIdentifier:imageCellidentifier];
@@ -264,13 +264,13 @@ static int start_id = 0;
     
 }
 
+#pragma mark YWMessageCellDelegate
+
 /**
  *  查看原贴
  *
  *  @return
  */
-#pragma mark YWMessageCellDelegate
-
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
     if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
@@ -280,6 +280,17 @@ static int start_id = 0;
         [self.delegate didSelectMessageWith:messageEntity];
     }
     
+}
+
+/**
+ * 进入用户主页
+ *
+ *  @return
+ */
+-(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
+    if ([self.delegate respondsToSelector:@selector(didSelectHeadImageWith:)]) {
+        [self.delegate didSelectHeadImageWith:messageEntity];
+    }
 }
 
 

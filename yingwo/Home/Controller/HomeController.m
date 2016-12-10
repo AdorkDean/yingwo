@@ -9,7 +9,6 @@
 #import "HomeController.h"
 #import "DetailController.h"
 #import "TopicController.h"
-#import "TAController.h"
 #import "YWTabBarController.h"
 
 #import "TieZi.h"
@@ -43,6 +42,8 @@ static int start_id = 0;
 @property (nonatomic, assign) int               tap_topic_id;
 //点击查看用户详情
 @property (nonatomic, assign) int               tap_ta_id;
+//推送到帖子详情
+@property (nonatomic, assign) int               push_detail_id;
 
 @property (nonatomic, assign) int               badgeCount;
 
@@ -351,7 +352,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    
     [self.tabBar selectTabAtIndex:self.index];
     
     NSLog(@"%@",NSHomeDirectory());
@@ -395,12 +396,76 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     [self stopSystemPopGestureRecognizer];
     
     [self showTabBar:YES animated:YES];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(userInfoNotification:)
+//                                                 name:USERINFO_NOTIFICATION
+//                                               object:nil];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     [self.tieziLabel removeFromSuperview];
+    
+}
+
+//-(void)userInfoNotification:(NSNotification*)notification{
+//    
+//    NSDictionary *dict = [notification userInfo];
+//    //推送类型及类型id
+//    NSString *type = [dict valueForKey:@"push_type"];
+//    NSString *item_id = [dict valueForKey:@"push_item_id"];
+//    
+//    if ([type isEqualToString:@"TOPIC"]) {
+//
+//        self.tap_topic_id = [item_id intValue];
+//        [self performSegueWithIdentifier:@"topic" sender:self];
+//        
+////        TopicController *topicVc = [[TopicController alloc] init];
+////        topicVc.topic_id = self.tap_topic_id;
+////        [self.navigationController pushViewController:topicVc animated:YES];
+//    }else if ([type isEqualToString:@"POST"]) {
+//        
+//        self.push_detail_id = [item_id intValue];
+//        [self pushToTieZiDetail];
+//    }
+//}
+
+//判断是否是推送
+- (void)weatherPush {
+    if (self.type_topic == YES) {
+        [self.tieziLabel removeFromSuperview];
+        self.tap_topic_id = self.item_id;
+        [self performSegueWithIdentifier:@"topic" sender:self];
+        self.type_topic = NO;
+    }
+    
+    if (self.type_post == YES) {
+        [self.tieziLabel removeFromSuperview];
+        self.push_detail_id = self.item_id;
+        [self pushToTieZiDetail];
+        self.type_post = NO;
+    }
+}
+
+- (void)pushToTieZiDetail {
+    NSDictionary *parameter = @{@"post_id":@(self.push_detail_id)};
+    
+    //必须要加载cookie，否则无法请求
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    //请求主贴详细内容
+    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
+                              paramaters:parameter
+                                 success:^(TieZi *tieZi) {
+                                     
+                                     self.model = tieZi;
+                                     [self performSegueWithIdentifier:@"detail" sender:self];
+                                     
+                                 }failure:^(NSString *error) {
+                                     
+                                 }];
     
 }
 
@@ -475,11 +540,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.homeTableview.mj_header endRefreshing];
-    }
-    
     [self requestNewTieziCount];
     [self loadForType:1 RequestEntity:requestEntity];
     
@@ -490,10 +550,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.homeTableview.mj_footer endRefreshing];
-    }
 
     [self loadForType:2 RequestEntity:requestEntity];
 }
@@ -509,6 +565,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     @weakify(self);
     [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
+        
+        //网络连接错误的情况下停止刷新
+        if ([YWNetworkTools networkStauts] == NO) {
+            [self.homeTableview.mj_header endRefreshing];
+        }
         
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
@@ -673,7 +734,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     self.model = [self.tieZiList objectAtIndex:indexPath.row];
-
+//    self.push_detail_id = self.model.tieZi_id;
     [self performSegueWithIdentifier:@"detail" sender:self];
     
 }

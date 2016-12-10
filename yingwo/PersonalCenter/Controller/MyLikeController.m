@@ -9,7 +9,6 @@
 #import "MyLikeController.h"
 #import "DetailController.h"
 #import "TopicController.h"
-#import "TAController.h"
 
 #import "TieZi.h"
 #import "TieZiViewModel.h"

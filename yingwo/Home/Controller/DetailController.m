@@ -8,9 +8,7 @@
 
 #import "DetailController.h"
 #import "AnnounceController.h"
-#import "MainNavController.h"
 #import "TopicController.h"
-#import "TAController.h"
 
 #import "YWDetailTableViewCell.h"
 #import "YWDetailBaseTableViewCell.h"
@@ -18,7 +16,7 @@
 
 #import "DetailViewModel.h"
 #import "TieZiViewModel.h"
-//#import "UMSocialUIManager.h"
+#import "UMSocialUIManager.h"
 
 #import "YWDetailBottomView.h"
 #import "YWDetailCommentView.h"
@@ -428,11 +426,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)showShareView {
     //显示分享面板
-//    __weak typeof(self) weakSelf = self;
-//       [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
-//        //分享网页
-//        [weakSelf shareWebPageToPlatformType:platformType];
-//    }];
+    __weak typeof(self) weakSelf = self;
+       [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
+        //分享网页
+        [weakSelf shareWebPageToPlatformType:platformType];
+    }];
     
 }
 
@@ -480,8 +478,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self setAllUILayout];
 
     [self.detailTableView.mj_header beginRefreshing];
-
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -584,14 +580,26 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.detailTableView.frame = self.view.bounds;
 }
 
+- (void)loadTieziDetail {
+    NSDictionary *parameter = @{@"post_id":@(self.push_post_id)};
+
+    //必须要加载cookie，否则无法请求
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
+                             paramaters:parameter
+                                success:^(TieZi *tieZi) {
+                                    
+                                    self.model = tieZi;
+                                    
+    }                           failure:^(NSString *error) {
+        
+    }];
+}
 /**
  *  下拉刷新
  */
 - (void)loadData {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.detailTableView.mj_header endRefreshing];
-    }
     
     TieZi *tieZi                  = [self.tieZiReplyArr objectAtIndex:0];
     self.requestEntity.requestUrl = TIEZI_RELPY_URL;
@@ -605,10 +613,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  上拉加载
  */
 - (void)loadMoreData {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.detailTableView.mj_footer endRefreshing];
-    }
 
     self.requestEntity.requestUrl = TIEZI_RELPY_URL;
     self.requestEntity.paramaters = @{@"post_id":@(self.model.tieZi_id),
@@ -623,6 +627,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     @weakify(self);
     [[self.viewModel.fetchDetailEntityCommand execute:self.requestEntity] subscribeNext:^(NSArray *tieZiList) {
         @strongify(self);
+        //网络连接错误的情况下停止刷新
+        if ([YWNetworkTools networkStauts] == NO) {
+            [self.detailTableView.mj_header endRefreshing];
+        }
+        
         if (type == HeaderReloadDataModel) {
             
             //tieZiList 这里应该返回的是model成员数组，不是字典数组
@@ -649,9 +658,15 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         }
         else if (type == FooterReoladDataModel) {
             
-            [self.tieZiReplyArr addObjectsFromArray:tieZiList];
-            [self.detailTableView.mj_footer endRefreshing];
-            [self.detailTableView reloadData];
+            if (tieZiList != nil) {
+                
+                [self.detailTableView.mj_footer resetNoMoreData];
+                [self.tieZiReplyArr addObjectsFromArray:tieZiList];
+                [self.detailTableView.mj_footer endRefreshing];
+                [self.detailTableView reloadData];
+            }else {
+                [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
+            }
             
         }
         if (tieZiList.count != 0) {
@@ -668,41 +683,41 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
 }
 
-////网页分享
-//- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
-//{
-//    //创建分享消息对象
-//    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-//    
-//    //创建网页内容对象
-//    //    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:[UIImage imageNamed:@"icon"]];
-//    NSString* thumbURL =  @"http://weixintest.ihk.cn/ihkwx_upload/heji/material/img/20160414/1460616012469.jpg";
-//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:thumbURL];
-//    //设置网页地址
-//    shareObject.webpageUrl =@"http://mobile.umeng.com/social";
-//    
-//    //分享消息对象设置分享内容对象
-//    messageObject.shareObject = shareObject;
-//    
-//    //调用分享接口
-//    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-//        if (error) {
-//            UMSocialLogInfo(@"************Share fail with error %@*********",error);
-//        }else{
-//            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-//                UMSocialShareResponse *resp = data;
-//                //分享结果消息
-//                UMSocialLogInfo(@"response message is %@",resp.message);
-//                //第三方原始返回的数据
-//                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-//                
-//            }else{
-//                UMSocialLogInfo(@"response data is %@",data);
-//            }
-//        }
-//        [self alertWithError:error];
-//    }];
-//}
+//网页分享
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    //    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:[UIImage imageNamed:@"icon"]];
+    NSString* thumbURL =  @"http://weixintest.ihk.cn/ihkwx_upload/heji/material/img/20160414/1460616012469.jpg";
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:thumbURL];
+    //设置网页地址
+    shareObject.webpageUrl =@"http://mobile.umeng.com/social";
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                
+            }else{
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
 
 //分享错误提示
 - (void)alertWithError:(NSError *)error

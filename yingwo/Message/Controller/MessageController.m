@@ -11,7 +11,6 @@
 #import "FavorController.h"
 #import "MessageDetailController.h"
 
-
 @interface MessageController ()<SMPagerTabViewDelegate,MessageControllerDelegate>
 
 @property (nonatomic, strong) UIView            *messageSectionView;
@@ -162,6 +161,12 @@
     
 }
 
+- (void)didSelectHeadImageWith:(MessageEntity *)model {
+
+    self.messageEntity = model;
+    [self performSegueWithIdentifier:@"ta" sender:self];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.destinationViewController isKindOfClass:[MessageDetailController class]]) {
@@ -171,12 +176,19 @@
             messageDetailVc.model                    = self.messageEntity;
 
         }
-    }
-    else
-    {
+    }else if ([segue.destinationViewController isKindOfClass:[DetailController class]]) {
+        
+        if([segue.identifier isEqualToString:@"detail"]) {
         DetailController *detailVc = segue.destinationViewController;
         detailVc.model             = self.messageEntity;
-
+            
+        }
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
+        
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id = [self.messageEntity.follow_user_id intValue];
+        }
     }
     
 }

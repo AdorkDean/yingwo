@@ -25,9 +25,8 @@
 /********************************Color************************************************/
 
 /********************************Notification************************************************/
-#define TOKEN_KEY            @"token"
-#define MESSAGE_NOTIFICATION @"message"
-#define TIEZI_NOTIFICATION   @"tiezi"
+#define TOKEN_KEY             @"token"
+#define USERINFO_NOTIFICATION @"userInfoNotification" 
 
 /********************************Notification************************************************/
 
@@ -49,6 +48,7 @@
 #define CONTROLLER_OF_ANNOUNCE_IDENTIFIER       @"AnnounceController"
 #define CONTROLLER_OF_TOPIC_IDENTIFIER          @"TopicController"
 #define CONTROLLER_OF_TOPIC_LIST_IDENTIFIER     @"TopicListController"
+
 
 /********************************storyboard identifier************************************************/
 
@@ -78,9 +78,9 @@
 /********************************segue identify************************************************/
 
 // new api 139.198.190.240 http://api.yingwoo.com/api/v1
-// old api yw.zhibaizhi.com/yingwophp
+// old api http://yw.zhibaizhi.com/yingwophp/api/v1
 /********************************* URL ******************************************************/
-#define BASE_URL                @"http://yw.zhibaizhi.com/yingwophp/api/v1"
+#define BASE_URL                @"http://api.yingwoo.com/api/v1"
 #define LOGIN_URL               @"/User/Login"
 #define REGISTER_URL            @"/User/Register"
 #define SMS_URL                 @"/Sms/Send"
@@ -132,6 +132,7 @@
 #define TA_USER_LIKE_URL        @"/User/like"
 #define TA_USER_LIKE_LIST_URL   @"/User/like_list"
 #define TA_USER_LIKED_LIST_URL  @"/User/liked_list"
+#define TA_USER_FRIEND_LIST_URL @"/User/friend_list"
 
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"

@@ -9,8 +9,8 @@
 #import "AppDelegate.h"
 
 #import "UMessage.h"
-//#import <UMSocialCore/UMSocialCore.h>
-//#import "YWCustomSharePlatform.h"
+#import <UMSocialCore/UMSocialCore.h>
+#import "YWCustomSharePlatform.h"
 #import "UMMobClick/MobClick.h"
 
 #import "BadgeCount.h"
@@ -22,7 +22,6 @@
 #import <AdSupport/AdSupport.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#import "MainNavController.h"
 #import "MainController.h"
 #import "LoginController.h"
 #import "YWTabBarController.h"
@@ -76,34 +75,35 @@
                           }];
     
     [UMessage setLogEnabled:YES];
+    [UMessage setBadgeClear:YES];
     
-    //    /**
-    //     *  友盟分享配置项
-    //     */
-    //    //打开调试日志
-    //    [[UMSocialManager defaultManager] openLog:YES];
-    //
-    //    //设置友盟appkey
-    //    [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f8af24e0f55a291700280b"];
-    //
-    //    // 获取友盟social版本号
-    //    //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
-    //
-    //    //设置微信的appKey和appSecret
-    //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxa5620512b44a6653" appSecret:@"2075207f2ec67ebea6dff904c35d3bdb" redirectURL:@"http://mobile.umeng.com/social"];
-    //
-    //    //设置分享到QQ互联的appKey和appSecret
-    //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105350566"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
-    //
-    //    //设置新浪的appKey和appSecret
-    //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-    //
-    //    //移除微信收藏选项
-    //    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
-    //
-    //    //添加自定义选项
-    //    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
-    //    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_CopyLink];
+    /**
+     *  友盟分享配置项
+     */
+    //打开调试日志
+    [[UMSocialManager defaultManager] openLog:YES];
+    
+    //设置友盟appkey
+    [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f8af24e0f55a291700280b"];
+    
+    // 获取友盟social版本号
+    //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
+    
+    //设置微信的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxa5620512b44a6653" appSecret:@"2075207f2ec67ebea6dff904c35d3bdb" redirectURL:@"http://mobile.umeng.com/social"];
+    
+    //设置分享到QQ互联的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105350566"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+    
+    //设置新浪的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
+    //移除微信收藏选项
+    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
+    
+    //添加自定义选项
+    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
+    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_CopyLink];
     
     /**
      *  友盟统计与崩溃
@@ -140,23 +140,23 @@
     return YES;
 }
 
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-//{
-//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-//    if (!result) {
-//
-//    }
-//    return result;
-//}
-//
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-//{
-//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-//    if (!result) {
-//
-//    }
-//    return result;
-//}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+
+    }
+    return result;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+
+    }
+    return result;
+}
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
     
@@ -172,6 +172,7 @@
 //iOS10以下使用这个方法接收通知
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION object:self userInfo:userInfo];
  //   NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
     NSLog(@"device token: %@",userInfo);
 
@@ -182,7 +183,6 @@
 {
     [self stringDevicetoken:deviceToken];
     NSLog(@"deviceToken:---%@",deviceToken);
-
     
  //   [UMessage registerDeviceToken:deviceToken];
     // 1.2.7版本开始不需要用户再手动注册devicetoken，SDK会自动注册
@@ -197,6 +197,11 @@
     
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于前台时的远程推送接受
+        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION
+                                                            object:self
+                                                          userInfo:userInfo];
+        //关闭友盟自带的弹出框
+        [UMessage setAutoAlert:NO];
         //必须加这句代码
         [UMessage didReceiveRemoteNotification:userInfo];
         
@@ -207,15 +212,19 @@
 }
 
 //iOS10新增：处理后台点击通知的代理方法
--(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+-(void) userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void (^)())completionHandler{
+    
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时的远程推送接受
+        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION
+                                                            object:self
+                                                          userInfo:userInfo];
+        
         //必须加这句代码
         [UMessage didReceiveRemoteNotification:userInfo];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:MESSAGE_NOTIFICATION
-                                                            object:userInfo];
         
     }else{
         //应用处于后台时的本地推送接受
