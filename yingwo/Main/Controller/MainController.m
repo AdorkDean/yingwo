@@ -18,6 +18,7 @@
 
 #import "WZLBadgeImport.h"
 #import "BadgeCount.h"
+#import "EBForeNotification.h"
 
 @interface MainController ()
 
@@ -116,6 +117,11 @@
                                              selector:@selector(userInfoNotification:)
                                                  name:USERINFO_NOTIFICATION
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eBBannerViewDidClick:)
+                                                 name:EBBannerViewDidClick
+                                               object:nil];
 
 }
 
@@ -150,7 +156,33 @@
     
 }
 
-- (void) showHomePage {
+-(void)eBBannerViewDidClick:(NSNotification*)notification{
+    //判断推送类型及推送id
+    NSDictionary *dict = [notification object];
+    NSString *type = [dict valueForKey:@"push_type"];
+    NSString *item_id = [dict valueForKey:@"push_item_id"];
+    
+    if ([type isEqualToString:@"MESSAGE"]) {
+        [self showMessagePage];
+    }else if ([type isEqualToString:@"LIKE"])
+    {
+        [self showMessagePage];
+    }else if ([type isEqualToString:@"ALERT"])
+    {
+        [self showHomePage];
+    }else if ([type isEqualToString:@"TOPIC"]) {
+        self.homeVC.type_topic = YES;
+        self.homeVC.item_id = [item_id intValue];
+        [self showHomePage];
+    }else if ([type isEqualToString:@"POST"]) {
+        self.homeVC.type_post = YES;
+        self.homeVC.item_id = [item_id intValue];
+        [self showHomePage];
+    }
+}
+
+
+- (void)showHomePage {
     [_mainTabBarController displayViewAtIndex:0];
     [_mainTabBarController.tabBar showSelectedTabBarAtIndex:0];
 

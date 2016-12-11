@@ -266,6 +266,13 @@
 		CCA903741DB8E81D0053D278 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903661DB8E81D0053D278 /* TZVideoPlayerController.m */; };
 		CCA903751DB8E81D0053D278 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903681DB8E81D0053D278 /* UIView+Layout.m */; };
 		CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903761DB8E83A0053D278 /* AnnounceController.m */; };
+		CCD5DBE91DFC2A9700DF5761 /* EBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD5DBDE1DFC2A9700DF5761 /* EBBannerView.m */; };
+		CCD5DBEA1DFC2A9700DF5761 /* EBBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCD5DBDF1DFC2A9700DF5761 /* EBBannerView.xib */; };
+		CCD5DBEB1DFC2A9700DF5761 /* EBForeNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD5DBE01DFC2A9700DF5761 /* EBForeNotification.m */; };
+		CCD5DBEC1DFC2A9700DF5761 /* EBMute.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CCD5DBE11DFC2A9700DF5761 /* EBMute.mp3 */; };
+		CCD5DBED1DFC2A9700DF5761 /* EBMuteDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD5DBE31DFC2A9700DF5761 /* EBMuteDetector.m */; };
+		CCD5DBEE1DFC2A9700DF5761 /* UIImage+ColorAtPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD5DBE51DFC2A9700DF5761 /* UIImage+ColorAtPoint.m */; };
+		CCD5DBEF1DFC2A9700DF5761 /* UILabel+ContentSize.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD5DBE71DFC2A9700DF5761 /* UILabel+ContentSize.m */; };
 		CCF64E311DBDDAC3009B4B21 /* YWIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E301DBDDAC3009B4B21 /* YWIndicatorView.m */; };
 		CCF64E731DBF6726009B4B21 /* MyCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E721DBF6726009B4B21 /* MyCommentController.m */; };
 		CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7A1DC095FE009B4B21 /* TAController.m */; };
@@ -810,6 +817,18 @@
 		CCA903671DB8E81D0053D278 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		CCA903681DB8E81D0053D278 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
 		CCA903761DB8E83A0053D278 /* AnnounceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnnounceController.m; path = Announce/Controller/AnnounceController.m; sourceTree = "<group>"; };
+		CCD5DBDD1DFC2A9700DF5761 /* EBBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBBannerView.h; sourceTree = "<group>"; };
+		CCD5DBDE1DFC2A9700DF5761 /* EBBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBBannerView.m; sourceTree = "<group>"; };
+		CCD5DBDF1DFC2A9700DF5761 /* EBBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBBannerView.xib; sourceTree = "<group>"; };
+		CCD5DBE01DFC2A9700DF5761 /* EBForeNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBForeNotification.m; sourceTree = "<group>"; };
+		CCD5DBE11DFC2A9700DF5761 /* EBMute.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EBMute.mp3; sourceTree = "<group>"; };
+		CCD5DBE21DFC2A9700DF5761 /* EBMuteDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBMuteDetector.h; sourceTree = "<group>"; };
+		CCD5DBE31DFC2A9700DF5761 /* EBMuteDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBMuteDetector.m; sourceTree = "<group>"; };
+		CCD5DBE41DFC2A9700DF5761 /* UIImage+ColorAtPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorAtPoint.h"; sourceTree = "<group>"; };
+		CCD5DBE51DFC2A9700DF5761 /* UIImage+ColorAtPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorAtPoint.m"; sourceTree = "<group>"; };
+		CCD5DBE61DFC2A9700DF5761 /* UILabel+ContentSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ContentSize.h"; sourceTree = "<group>"; };
+		CCD5DBE71DFC2A9700DF5761 /* UILabel+ContentSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ContentSize.m"; sourceTree = "<group>"; };
+		CCD5DBE81DFC2A9700DF5761 /* EBForeNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBForeNotification.h; sourceTree = "<group>"; };
 		CCF64E2F1DBDDAC3009B4B21 /* YWIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWIndicatorView.h; path = Vender/GalleryView/YWIndicatorView.h; sourceTree = "<group>"; };
 		CCF64E301DBDDAC3009B4B21 /* YWIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWIndicatorView.m; path = Vender/GalleryView/YWIndicatorView.m; sourceTree = "<group>"; };
 		CCF64E711DBF6726009B4B21 /* MyCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyCommentController.h; path = PersonalCenter/Controller/MyCommentController.h; sourceTree = "<group>"; };
@@ -885,6 +904,7 @@
 		1803C0F41D541D7C0078EF0F /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				CCD5DBDB1DFC2A9700DF5761 /* EBForeNotification */,
 				CC9857611DFA83AA009FA4FF /* WZLBadge */,
 				CC9857201DFA7EA9009FA4FF /* UMSocial */,
 				CC9857191DFA7DD1009FA4FF /* YWShare */,
@@ -2199,6 +2219,34 @@
 			path = Vender/TZImagePickerController;
 			sourceTree = "<group>";
 		};
+		CCD5DBDB1DFC2A9700DF5761 /* EBForeNotification */ = {
+			isa = PBXGroup;
+			children = (
+				CCD5DBDC1DFC2A9700DF5761 /* Classes */,
+				CCD5DBE81DFC2A9700DF5761 /* EBForeNotification.h */,
+			);
+			name = EBForeNotification;
+			path = Vender/EBForeNotification;
+			sourceTree = "<group>";
+		};
+		CCD5DBDC1DFC2A9700DF5761 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CCD5DBDD1DFC2A9700DF5761 /* EBBannerView.h */,
+				CCD5DBDE1DFC2A9700DF5761 /* EBBannerView.m */,
+				CCD5DBDF1DFC2A9700DF5761 /* EBBannerView.xib */,
+				CCD5DBE01DFC2A9700DF5761 /* EBForeNotification.m */,
+				CCD5DBE11DFC2A9700DF5761 /* EBMute.mp3 */,
+				CCD5DBE21DFC2A9700DF5761 /* EBMuteDetector.h */,
+				CCD5DBE31DFC2A9700DF5761 /* EBMuteDetector.m */,
+				CCD5DBE41DFC2A9700DF5761 /* UIImage+ColorAtPoint.h */,
+				CCD5DBE51DFC2A9700DF5761 /* UIImage+ColorAtPoint.m */,
+				CCD5DBE61DFC2A9700DF5761 /* UILabel+ContentSize.h */,
+				CCD5DBE71DFC2A9700DF5761 /* UILabel+ContentSize.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		CCF64E751DC0954A009B4B21 /* TA */ = {
 			isa = PBXGroup;
 			children = (
@@ -2356,11 +2404,13 @@
 				CC9857531DFA7EAA009FA4FF /* WeiboSDK.bundle in Resources */,
 				187D2F8E1D55B4A3006C5C5F /* UnZan.png in Resources */,
 				18AFE5FA1D30B7E2007BEBDE /* LaunchScreen.storyboard in Resources */,
+				CCD5DBEC1DFC2A9700DF5761 /* EBMute.mp3 in Resources */,
 				CC9857501DFA7EAA009FA4FF /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				CC9857561DFA7EAA009FA4FF /* read_me.txt in Resources */,
 				187D2F8F1D55B4A3006C5C5F /* Zan.png in Resources */,
 				187D2F8D1D55B4A3006C5C5F /* EffectImage.png in Resources */,
 				CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */,
+				CCD5DBEA1DFC2A9700DF5761 /* EBBannerView.xib in Resources */,
 				181E34221D93E3F800A6283C /* Podfile.lock in Resources */,
 				CC4CDE481D9D04A0002A80B0 /* YingwoUserClause.txt in Resources */,
 				18AFE5F21D30B7E2007BEBDE /* Main.storyboard in Resources */,
@@ -2479,6 +2529,7 @@
 				1807FEFC1D684026009393E2 /* SMPagerTabView.m in Sources */,
 				CCA903731DB8E81D0053D278 /* TZPhotoPreviewController.m in Sources */,
 				1807FF2F1D68B5AD009393E2 /* YWBannerTableViewCell.m in Sources */,
+				CCD5DBEB1DFC2A9700DF5761 /* EBForeNotification.m in Sources */,
 				18AF9E901D503D810063D81F /* YWKeyboardToolView.m in Sources */,
 				18E74CB21D3CA2A800176142 /* LoginNavController.m in Sources */,
 				180CD0281D64B2B10047F624 /* ISEmojiView.m in Sources */,
@@ -2508,6 +2559,7 @@
 				18A0F88D1D34B61B005FE091 /* Validate.m in Sources */,
 				185E1AEE1D8FC7E8008299EE /* NewTopicController.m in Sources */,
 				CC9604BA1D9FF57D009B5A56 /* UpdatePwdEntity.m in Sources */,
+				CCD5DBED1DFC2A9700DF5761 /* EBMuteDetector.m in Sources */,
 				18CF499F1DCA230400B1367E /* YWMessageTopView.m in Sources */,
 				185EA5A61D52D43B00362A21 /* YWDropDownViewCell.m in Sources */,
 				1807FEC11D6830A0009393E2 /* MXPageControl.m in Sources */,
@@ -2546,6 +2598,7 @@
 				18D243BC1D7D8CD800DAC374 /* Test.m in Sources */,
 				CCA9036D1DB8E81D0053D278 /* TZAssetModel.m in Sources */,
 				CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */,
+				CCD5DBE91DFC2A9700DF5761 /* EBBannerView.m in Sources */,
 				CC5BC5011D9D030900851C4D /* ConfigurationController.m in Sources */,
 				188F938A1D7178E400941A42 /* YWDiscoveryBaseCell.m in Sources */,
 				184C42D81D9BF9F20060D9C0 /* UIImage+blur.m in Sources */,
@@ -2580,6 +2633,7 @@
 				1807FEB01D6806BC009393E2 /* DiscoveryController.m in Sources */,
 				185E1AE81D8FC6A1008299EE /* YWTopicSegmentViewCell.m in Sources */,
 				18F426E81D51D89E0017BE31 /* TieZiResult.m in Sources */,
+				CCD5DBEF1DFC2A9700DF5761 /* UILabel+ContentSize.m in Sources */,
 				180DB1351D421B38007786A0 /* MainNavController.m in Sources */,
 				186C44921D3B732D00BE3427 /* CroppingController.m in Sources */,
 				18C350531D7FBA64008BFDD3 /* YWCommentReplyView.m in Sources */,
@@ -2594,6 +2648,7 @@
 				1807FEF31D6830C5009393E2 /* UIImage+CMWebP.m in Sources */,
 				18F907EE1D32157F00175886 /* UIView+Frame.m in Sources */,
 				185E1AEB1D8FC7C3008299EE /* HotTopicController.m in Sources */,
+				CCD5DBEE1DFC2A9700DF5761 /* UIImage+ColorAtPoint.m in Sources */,
 				CC98575B1DFA7EAA009FA4FF /* UMShareMenuItem.m in Sources */,
 				181A00EF1D571B4400D96DC9 /* YWHomeTableViewCellMoreNineImage.m in Sources */,
 				1807FEEB1D6830C5009393E2 /* CMSDWebImageDownloaderOperation.m in Sources */,

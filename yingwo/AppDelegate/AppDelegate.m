@@ -12,8 +12,8 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import "YWCustomSharePlatform.h"
 #import "UMMobClick/MobClick.h"
-
 #import "BadgeCount.h"
+#import "EBForeNotification.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 #import <UserNotifications/UserNotifications.h>
@@ -170,13 +170,34 @@
 }
 
 //iOS10以下使用这个方法接收通知
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION object:self userInfo:userInfo];
- //   NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
-    NSLog(@"device token: %@",userInfo);
 
-    [UMessage didReceiveRemoteNotification:userInfo];
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+
+    completionHandler(UIBackgroundFetchResultNewData);
+    
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground ||
+        [UIApplication sharedApplication].applicationState == UIApplicationStateInactive) {
+        //应用在后台时
+        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION
+                                                            object:self
+                                                          userInfo:userInfo];
+        NSLog(@"device token: %@",userInfo);
+        
+//        [UMessage setAutoAlert:NO];
+        [UMessage didReceiveRemoteNotification:userInfo];
+        
+    }else if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        //应用从前台时
+//        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION_ACTIVE
+//                                                            object:self
+//                                                          userInfo:userInfo];
+        NSLog(@"device token: %@",userInfo);
+        
+        [UMessage setAutoAlert:NO];
+//        [UMessage didReceiveRemoteNotification:userInfo];
+        //系统声音弹窗
+        [EBForeNotification handleRemoteNotification:userInfo soundID:1312 isIos10:NO];
+    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -193,18 +214,17 @@
       willPresentNotification:(UNNotification *)notification
         withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
     
-    NSDictionary * userInfo = notification.request.content.userInfo;
+    NSDictionary *userInfo = notification.request.content.userInfo;
     
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于前台时的远程推送接受
-        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION_ACTIVE
-                                                            object:self
-                                                          userInfo:userInfo];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION_ACTIVE
+//                                                            object:self
+//                                                          userInfo:userInfo];
         //关闭友盟自带的弹出框
         [UMessage setAutoAlert:NO];
-        //必须加这句代码
-        [UMessage didReceiveRemoteNotification:userInfo];
-        
+
+        [EBForeNotification handleRemoteNotification:userInfo soundID:1312 isIos10:NO];
     }else{
         //应用处于前台时的本地推送接受
     }
@@ -216,7 +236,7 @@
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void (^)())completionHandler{
     
-    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    NSDictionary *userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时的远程推送接受
         [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION
