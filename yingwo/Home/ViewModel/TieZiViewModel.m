@@ -121,13 +121,11 @@
                                      placeholderImage:[UIImage imageNamed:@"touxiang"]];
     
     //判断是否有点赞记录
-    if ([self isLikedTieZiWithTieZiId:[NSNumber numberWithInt:model.tieZi_id]]) {
+    if (model.user_post_like == 1) {
         [cell.bottemView.favour setBackgroundImage:[UIImage imageNamed:@"heart_red"]
                                           forState:UIControlStateNormal];
-         cell.bottemView.favour.isSpring = YES;
-    }
-    else
-    {
+        cell.bottemView.favour.isSpring = YES;
+    }else {
         [cell.bottemView.favour setBackgroundImage:[UIImage imageNamed:@"heart_gray"]
                                           forState:UIControlStateNormal];
         cell.bottemView.favour.isSpring = NO;

@@ -82,6 +82,9 @@
 // old api http://yw.zhibaizhi.com/yingwophp/api/v1
 /********************************* URL ******************************************************/
 #define BASE_URL                @"https://api.yingwoo.com/api/v1"
+//#define BASE_URL                @"http://yw.zhibaizhi.com/yingwophp/api/v1"
+//#define BASE_URL                @"http://yw.zhibaizhi.com:8081"
+
 #define LOGIN_URL               @"/User/Login"
 #define REGISTER_URL            @"/User/Register"
 #define SMS_URL                 @"/Sms/Send"
@@ -108,7 +111,6 @@
 #define TIEZI_LIKE_URL          @"/Post/like"
 #define MY_TIEZI_URL            @"/Post/my_list"
 #define MY_LIKE_URL             @"/Post/my_like_list"
-#define MY_LIKED_URL            @"/Post/my_liked_list"
 #define TIEZI_DEL_URL           @"/Post/del"
 #define TIEZI_REPLY_DEL_URL     @"/Post/reply_del"
 #define TIEZI_COMMENT_DEL_URL   @"/Post/comment_del"
@@ -141,6 +143,7 @@
 //消息
 #define MESSAGE_REPLY_AND_COMMENT_URL @"/Post/my_reply_and_comment_list"
 #define MY_REPLY_AND_COMMENT_URL      @"/Post/reply_and_comment_list"
+#define MY_LIKED_URL                  @"/Post/my_liked_list"
 
 #define DEVICE_TOKEN_URL        @"/User/update_device_token"
 /********************************* errorCode ******************************************************/

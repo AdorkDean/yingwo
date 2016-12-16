@@ -15,6 +15,7 @@
 #import "TopicResult.h"
 #import "TopicEntity.h"
 
+#import "UMSocialUIManager.h"
 @interface TopicViewModel : TieZiViewModel
 
 @property (nonatomic, strong) TieZi *model;
@@ -45,4 +46,9 @@
                      paramaters:(NSDictionary *)paramaters
                         success:(void (^)(StatusEntity *status))success
                         failure:(void (^)(NSString *error))failure;
+//分享文本
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType withModel:(TopicEntity *)topicEntity;
+//分享网页
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType withModel:(TopicEntity *)topicEntity;
+
 @end

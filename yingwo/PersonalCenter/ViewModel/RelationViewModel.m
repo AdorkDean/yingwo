@@ -62,7 +62,7 @@
         cell.signatureLabel.text    = model.user_signature;
         
         //设置按钮关注状态
-        if ([model.status intValue] == 1) {
+        if ([model.status intValue] == 1) { //关注中
             [cell.rightBtn setImage:[UIImage imageNamed:@"guanzhuzhong"] forState:UIControlStateNormal];
             [cell.rightBtn setTitle:@"关注中" forState:UIControlStateNormal];
             [cell.rightBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_4] forState:UIControlStateNormal];
@@ -70,7 +70,7 @@
                               action:@selector(unFollowTa:)
                     forControlEvents:UIControlEventTouchUpInside];
             
-        }else if([model.status intValue] == 0) {
+        }else if([model.status intValue] == 0) { //未关注
             [cell.rightBtn setImage:[UIImage imageNamed:@"guanzhu"] forState:UIControlStateNormal];
             [cell.rightBtn setTitle:@"关注" forState:UIControlStateNormal];
             [cell.rightBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];

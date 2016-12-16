@@ -88,7 +88,7 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
         _viewModel                  = [[RelationViewModel alloc] init];
     }
     return _viewModel;
-}
+} 
 
 
 - (void)viewDidLoad {

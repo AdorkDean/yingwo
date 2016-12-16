@@ -56,7 +56,7 @@
 - (void)requestTopicSubjectListWithUrl:(NSString *)url
                             paramaters:(NSDictionary *)paramaters
                                success:(void (^)(NSArray *fieldArr))success
-                               failure:(void (^)(NSString *error))failure;
+                               failure:(void (^)(NSURLSessionDataTask *, NSError *))failure;
 
 /**
  *  获取对应主题下的话题数组，对这里是数组

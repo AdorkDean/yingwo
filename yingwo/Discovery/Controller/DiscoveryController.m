@@ -316,11 +316,6 @@ static int start_id = 0;
  *  下拉刷新
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
-    
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.discoveryTableView.mj_header endRefreshing];
-    }
 
     [self loadForType:1 RequestEntity:requestEntity];
     
@@ -332,10 +327,6 @@ static int start_id = 0;
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.discoveryTableView.mj_footer endRefreshing];
-    }
 
     [self loadForType:2 RequestEntity:requestEntity];
 }
@@ -346,6 +337,9 @@ static int start_id = 0;
  *  @param type  上拉or下拉
  */
 - (void)loadForType:(int)type RequestEntity:(RequestEntity *)requestEntity {
+    if (![YWNetworkTools networkStauts]) {
+        [self.discoveryTableView.mj_header endRefreshing];
+    }
     
     @weakify(self);
     [[self.discoveryViewModel.fecthTopicEntityCommand execute:requestEntity] subscribeNext:^(NSArray *banners) {
@@ -371,6 +365,10 @@ static int start_id = 0;
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
+        //错误的情况下停止刷新（网络错误）
+        [self.discoveryTableView.mj_header endRefreshing];
+        [self.discoveryTableView.mj_footer endRefreshing];
+
     }];
     
 }
@@ -456,7 +454,9 @@ static int start_id = 0;
                                               [self setFieldBtnTitle];
                                           }
                                           failure:^(NSString *error) {
-                                              
+                                              //错误的情况下停止刷新（网络错误）
+                                              [self.discoveryTableView.mj_header endRefreshing];
+                                              [self.discoveryTableView.mj_footer endRefreshing];
                                           }];
 }
 
@@ -485,8 +485,10 @@ static int start_id = 0;
                                                     
                                                     [self loadTopicDataWith:subjectArr];
                                                     
-                                                } failure:^(NSString *error) {
-                                                    [SVProgressHUD dismiss];
+                                                } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                                    //错误的情况下停止刷新（网络错误）
+                                                    [self.discoveryTableView.mj_header endRefreshing];
+                                                    [self.discoveryTableView.mj_footer endRefreshing];
                                                 }];
 }
 
@@ -524,6 +526,9 @@ static int start_id = 0;
                                                     [SVProgressHUD dismiss];
                                                 } failure:^(NSString *error) {
                                                     [SVProgressHUD dismiss];
+                                                    //错误的情况下停止刷新（网络错误）
+                                                    [self.discoveryTableView.mj_header endRefreshing];
+                                                    [self.discoveryTableView.mj_footer endRefreshing];
                                                 }];
 }
 

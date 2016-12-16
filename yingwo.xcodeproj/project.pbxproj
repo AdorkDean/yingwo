@@ -266,6 +266,7 @@
 		CCA903741DB8E81D0053D278 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903661DB8E81D0053D278 /* TZVideoPlayerController.m */; };
 		CCA903751DB8E81D0053D278 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903681DB8E81D0053D278 /* UIView+Layout.m */; };
 		CCA903771DB8E83A0053D278 /* AnnounceController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA903761DB8E83A0053D278 /* AnnounceController.m */; };
+		CCB2ABF11DFFEC2900DFB2DF /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = CCB2ABF01DFFEC2900DFB2DF /* NSObject+Properties.m */; };
 		CCD5DBE91DFC2A9700DF5761 /* EBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD5DBDE1DFC2A9700DF5761 /* EBBannerView.m */; };
 		CCD5DBEA1DFC2A9700DF5761 /* EBBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCD5DBDF1DFC2A9700DF5761 /* EBBannerView.xib */; };
 		CCD5DBEB1DFC2A9700DF5761 /* EBForeNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD5DBE01DFC2A9700DF5761 /* EBForeNotification.m */; };
@@ -817,6 +818,8 @@
 		CCA903671DB8E81D0053D278 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		CCA903681DB8E81D0053D278 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
 		CCA903761DB8E83A0053D278 /* AnnounceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnnounceController.m; path = Announce/Controller/AnnounceController.m; sourceTree = "<group>"; };
+		CCB2ABEF1DFFEC2900DFB2DF /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Properties.h"; path = "Tools/NSObject+Properties.h"; sourceTree = "<group>"; };
+		CCB2ABF01DFFEC2900DFB2DF /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Properties.m"; path = "Tools/NSObject+Properties.m"; sourceTree = "<group>"; };
 		CCD5DBDD1DFC2A9700DF5761 /* EBBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBBannerView.h; sourceTree = "<group>"; };
 		CCD5DBDE1DFC2A9700DF5761 /* EBBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBBannerView.m; sourceTree = "<group>"; };
 		CCD5DBDF1DFC2A9700DF5761 /* EBBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBBannerView.xib; sourceTree = "<group>"; };
@@ -1961,6 +1964,8 @@
 				184C42D71D9BF9F20060D9C0 /* UIImage+blur.m */,
 				CC056C091DB34C2300613F27 /* YWWebViewController.h */,
 				CC056C0A1DB34C2300613F27 /* YWWebViewController.m */,
+				CCB2ABEF1DFFEC2900DFB2DF /* NSObject+Properties.h */,
+				CCB2ABF01DFFEC2900DFB2DF /* NSObject+Properties.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -2588,6 +2593,7 @@
 				1883DD5E1D892F3B00EB9629 /* YWFieldListView.m in Sources */,
 				187D2F921D55BC9E006C5C5F /* YWQiNiuUploadTool.m in Sources */,
 				1807FEC01D6830A0009393E2 /* MXImageView.m in Sources */,
+				CCB2ABF11DFFEC2900DFB2DF /* NSObject+Properties.m in Sources */,
 				CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */,
 				181A00F81D573E7700D96DC9 /* DetailController.m in Sources */,
 				18AF9E7F1D4F54BF0063D81F /* TieZi.m in Sources */,

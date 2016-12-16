@@ -56,8 +56,16 @@ static NSString *kUMSSharePlatformItemView = @"UMSSharePlatformItemView";
                 return NSOrderedAscending;
             }
         }];
-        self.sharePlatformInfoArray = platformArray;
         
+        if (platformArray.count == 6) {
+            [platformArray exchangeObjectAtIndex:0 withObjectAtIndex:4];
+            [platformArray exchangeObjectAtIndex:2 withObjectAtIndex:3];
+            [platformArray exchangeObjectAtIndex:0 withObjectAtIndex:2];
+            [platformArray exchangeObjectAtIndex:1 withObjectAtIndex:2];
+        }
+        
+        
+        self.sharePlatformInfoArray = platformArray;
         
         [self reloadViewWithitems:self.sharePlatformInfoArray];
         
@@ -253,7 +261,7 @@ static NSString *kUMSSharePlatformItemView = @"UMSSharePlatformItemView";
     }
     
     [dict setObject:UMSocialPlatformIconWithName(imageName) forKey:kUMSSharePlatformIconName];
-    [dict setObject:platformName forKey:kUMSplatformType];
+    [dict setObject:platformName forKey:kUMSSharePlatformType];
     //为各平台创建按钮
     UMShareMenuItem *cell = [[UMShareMenuItem alloc] init];
     [cell reloadDataWithImage:[UIImage imageNamed:UMSocialPlatformIconWithName(imageName)] platformName:platformName];

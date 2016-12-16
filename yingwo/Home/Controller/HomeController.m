@@ -565,12 +565,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     @weakify(self);
     [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
-        
-        //网络连接错误的情况下停止刷新
-        if ([YWNetworkTools networkStauts] == NO) {
-            [self.homeTableview.mj_header endRefreshing];
-        }
-        
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             
@@ -615,6 +609,9 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         }
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
+        //错误的情况下停止刷新（网络错误）
+        [self.homeTableview.mj_header endRefreshing];
+        [self.homeTableview.mj_footer endRefreshing];
     }];
     
 }

@@ -151,9 +151,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _replyView.favorBtn.delegate     = self;
         _replyView.favorBtn.post_id      = self.model.tieZi_id;
         //判断是否有点赞过
-        if ( [self.homeViewModel isLikedTieZiWithTieZiId:[NSNumber numberWithInt:self.model.tieZi_id]]) {
+        if (self.model.user_post_like  == 1) {
             [_replyView.favorBtn setBackgroundImage:[UIImage imageNamed:@"heart_red"]
-                                              forState:UIControlStateNormal];
+                                           forState:UIControlStateNormal];
             _replyView.favorBtn.isSpring = YES;
         }
         
@@ -428,12 +428,15 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //显示分享面板
     __weak typeof(self) weakSelf = self;
        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
-        //分享网页
-        [weakSelf shareWebPageToPlatformType:platformType];
+           if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
+               [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.model];
+           }else {
+               //其他平台分享网页
+               [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
+           }
     }];
     
 }
-
 
 #pragma mark UITextfieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -627,10 +630,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     @weakify(self);
     [[self.viewModel.fetchDetailEntityCommand execute:self.requestEntity] subscribeNext:^(NSArray *tieZiList) {
         @strongify(self);
-        //网络连接错误的情况下停止刷新
-        if ([YWNetworkTools networkStauts] == NO) {
-            [self.detailTableView.mj_header endRefreshing];
-        }
         
         if (type == HeaderReloadDataModel) {
             
@@ -679,83 +678,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         
 //        [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
         
+    }error:^(NSError *error) {
+        //错误的情况下停止刷新（网络错误）
+        [self.detailTableView.mj_header endRefreshing];
+        [self.detailTableView.mj_footer endRefreshing];
     }];
     
-}
-
-//网页分享
-- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
-{
-    //创建分享消息对象
-    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    
-    //创建网页内容对象
-
-    NSString *share_title               = [NSString stringWithFormat:@"分享%@的贴子", self.model.user_name];
-    NSString *share_descr               = [NSString stringWithFormat:@"%@", self.model.content];
-    NSString *share_thumbURL            = @"http://image.zhibaizhi.com/icon/share_img.png";
-    if (self.model.imageUrlArrEntity > 0) {
-        ImageViewEntity *entity         = [self.model.imageUrlArrEntity firstObject];
-        share_thumbURL                  =entity.imageName;
-        
-    }
-    UMShareWebpageObject *shareObject   = [UMShareWebpageObject shareObjectWithTitle:share_title
-                                                                               descr:share_descr
-                                                                           thumImage:share_thumbURL];
-    //设置网页地址
-    shareObject.webpageUrl =  [NSString stringWithFormat:@"https://api.yingwoo.com/share/post/%d",self.model.tieZi_id];
-    
-    //分享消息对象设置分享内容对象
-    messageObject.shareObject = shareObject;
-    
-    //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:platformType
-                                        messageObject:messageObject
-                                currentViewController:self completion:^(id data, NSError *error) {
-                                    
-                                    if (error) {
-                                        UMSocialLogInfo(@"************Share fail with error %@*********",error);
-                                    }else{
-                                        if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-                                            UMSocialShareResponse *resp = data;
-                                            //分享结果消息
-                                            UMSocialLogInfo(@"response message is %@",resp.message);
-                                            //第三方原始返回的数据
-                                            UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-                                            
-                                        }else{
-                                            UMSocialLogInfo(@"response data is %@",data);
-                                        }
-                                    }
-                                    [self alertWithError:error];
-                                }];
-}
-
-//分享错误提示
-- (void)alertWithError:(NSError *)error
-{
-    NSString *result = nil;
-    if (!error) {
-        result = [NSString stringWithFormat:@"贴子分享成功"];
-    }
-    else{
-        if (error) {
-            if (error.code == 2009) {
-                result = [NSString stringWithFormat:@"用户取消分享"];
-            }else {
-                result = [NSString stringWithFormat:@"分享失败错误码: %d\n",(int)error.code];
-            }
-        }
-        else{
-            result = [NSString stringWithFormat:@"分享失败"];
-        }
-    }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享"
-                                                    message:result
-                                                   delegate:nil
-                                          cancelButtonTitle:NSLocalizedString(@"sure", @"确定")
-                                          otherButtonTitles:nil];
-    [alert show];
 }
 
 #define mark UITableViewDataSource

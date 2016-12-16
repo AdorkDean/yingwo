@@ -118,11 +118,6 @@ static int start_id = 0;
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.tableView.mj_header endRefreshing];
-    }
-    
     [self loadForType:1 RequestEntity:requestEntity];
     
     [self.tableView.mj_footer resetNoMoreData];
@@ -132,11 +127,7 @@ static int start_id = 0;
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.tableView.mj_footer endRefreshing];
-    }
-    
+
     [self loadForType:2 RequestEntity:requestEntity];
 }
 
@@ -195,6 +186,10 @@ static int start_id = 0;
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
+        //错误的情况下停止刷新（网络错误）
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+
     }];
     
 }
@@ -248,6 +243,7 @@ static int start_id = 0;
         
         MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
         messageEntity.type           = MessageTieZi;
+//        messageEntity.type = 0;
         
         NSLog(@"source_type:%@",messageEntity.source_type);
         [self.delegate didSelectMessageWith:messageEntity];

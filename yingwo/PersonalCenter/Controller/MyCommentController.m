@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
 @property (nonatomic, strong) MessageEntity     *messageEntity;
+@property (nonatomic, strong) TieZi             *tieZiModel;
 
 @property (nonatomic, strong) NSMutableArray    *messageArr;
 @property (nonatomic, strong) NSIndexPath       *selectedIndexPath;
@@ -134,11 +135,6 @@ static int start_id = 0;
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.tableView.mj_header endRefreshing];
-    }
-    
     [self loadForType:1 RequestEntity:requestEntity];
     
     [self.tableView.mj_footer resetNoMoreData];
@@ -148,10 +144,6 @@ static int start_id = 0;
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.tableView.mj_footer endRefreshing];
-    }
     
     [self loadForType:2 RequestEntity:requestEntity];
 }
@@ -204,6 +196,10 @@ static int start_id = 0;
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
+        //错误的情况下停止刷新（网络错误）
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+
     }];
     
 }
@@ -254,6 +250,22 @@ static int start_id = 0;
 //    }
     self.messageEntity = [self.messageArr objectAtIndex:indexPath.row];
     
+    TieZi *tieZiModel = [[TieZi alloc] init];
+    tieZiModel.tieZi_id = self.messageEntity.post_detail_id;
+    tieZiModel.topic_id = self.messageEntity.post_detail_topic_id;
+    tieZiModel.user_id  = self.messageEntity.post_detail_user_id;
+    tieZiModel.create_time = self.messageEntity.post_detail_create_time;
+    tieZiModel.topic_title = self.messageEntity.post_detail_topic_title;
+    tieZiModel.user_name = self.messageEntity.post_detail_user_name;
+    tieZiModel.content = self.messageEntity.post_detail_content;
+    tieZiModel.img = self.messageEntity.post_detail_img;
+    tieZiModel.user_face_img = self.messageEntity.post_detail_user_face_img;
+    tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
+    tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
+    tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
+    tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
+    
+    self.tieZiModel = tieZiModel;
     [self performSegueWithIdentifier:@"detail" sender:self];
     
 }
@@ -268,7 +280,23 @@ static int start_id = 0;
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
     self.messageEntity = messageEntity;
+    TieZi *tieZiModel = [[TieZi alloc] init];
+    tieZiModel.tieZi_id = self.messageEntity.post_detail_id;
+    tieZiModel.topic_id = self.messageEntity.post_detail_topic_id;
+    tieZiModel.user_id  = self.messageEntity.post_detail_user_id;
+    tieZiModel.create_time = self.messageEntity.post_detail_create_time;
+    tieZiModel.topic_title = self.messageEntity.post_detail_topic_title;
+    tieZiModel.user_name = self.messageEntity.post_detail_user_name;
+    tieZiModel.content = self.messageEntity.post_detail_content;
+    tieZiModel.img = self.messageEntity.post_detail_img;
+    tieZiModel.user_face_img = self.messageEntity.post_detail_user_face_img;
+    tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
+    tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
+    tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
+    tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
     
+    self.tieZiModel = tieZiModel;
+
     [self performSegueWithIdentifier:@"detail" sender:self];
     
 }
@@ -294,7 +322,7 @@ static int start_id = 0;
     if ([segue.destinationViewController isKindOfClass:[DetailController class]]) {
         if ([segue.identifier isEqualToString:@"detail"]) {
             DetailController *detailVc = segue.destinationViewController;
-            detailVc.model             = self.messageEntity;
+            detailVc.model             = self.tieZiModel;
         }
     }else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
         if ([segue.identifier isEqualToString:@"ta"]) {

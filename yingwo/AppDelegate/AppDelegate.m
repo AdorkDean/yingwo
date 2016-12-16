@@ -96,7 +96,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105350566"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"wb590675358"  appSecret:@"95e7a907eebbad3cf575561a3f69d8c7" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //移除微信收藏选项
     [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
@@ -176,8 +176,8 @@
     completionHandler(UIBackgroundFetchResultNewData);
     
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground ||
-        [UIApplication sharedApplication].applicationState == UIApplicationStateInactive) {
-        //应用在后台时
+        [UIApplication sharedApplication].applicationState == UIApplicationStateInactive) { //应用在后台时
+
         [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION
                                                             object:self
                                                           userInfo:userInfo];
@@ -186,16 +186,12 @@
 //        [UMessage setAutoAlert:NO];
         [UMessage didReceiveRemoteNotification:userInfo];
         
-    }else if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        //应用从前台时
-//        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION_ACTIVE
-//                                                            object:self
-//                                                          userInfo:userInfo];
+    }else if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {//应用从前台时
+
         NSLog(@"device token: %@",userInfo);
         
         [UMessage setAutoAlert:NO];
-//        [UMessage didReceiveRemoteNotification:userInfo];
-        //系统声音弹窗
+        //应用从前台时
         [EBForeNotification handleRemoteNotification:userInfo soundID:1312 isIos10:NO];
     }
 }
@@ -217,14 +213,11 @@
     NSDictionary *userInfo = notification.request.content.userInfo;
     
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-        //应用处于前台时的远程推送接受
-//        [[NSNotificationCenter defaultCenter] postNotificationName:USERINFO_NOTIFICATION_ACTIVE
-//                                                            object:self
-//                                                          userInfo:userInfo];
         //关闭友盟自带的弹出框
         [UMessage setAutoAlert:NO];
 
-        [EBForeNotification handleRemoteNotification:userInfo soundID:1312 isIos10:NO];
+        //应用处于前台时的远程推送接受
+        [EBForeNotification handleRemoteNotification:userInfo soundID:1312 isIos10:YES];
     }else{
         //应用处于前台时的本地推送接受
     }

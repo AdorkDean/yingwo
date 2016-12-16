@@ -42,10 +42,9 @@
                                       [subscriber sendNext:tieZi];
                                       [subscriber sendCompleted];
                                                       
-            } failure:^(NSString *error) {
-                
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                [subscriber sendError:error];
             }];
-            
             return nil;
         }];
     }];
@@ -260,8 +259,7 @@
 - (void)requestReplyWithUrl:(NSString *)url
                  paramaters:(NSDictionary *)paramaters
                     success:(void (^)(NSArray *tieZi))success
-                    failure:(void (^)(NSString *error))failure {
-    
+                    failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager = [YWHTTPManager manager];
     
@@ -333,7 +331,7 @@
                       
                       [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
                                           paramaters:paramaters
-                                             success: weakself.singleSuccessBlock
+                                             success:weakself.singleSuccessBlock
                                              failure:weakself.singleFailureBlock];
 
                   }
@@ -341,7 +339,8 @@
               }
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"回贴获取失败");
+              NSLog(@"回帖失败");
+              failure(task,error);
           }];
 }
 
@@ -476,6 +475,102 @@
           }];
 }
 
+//网页分享
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType withModel:(TieZi *)model
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    
+    NSString *share_title               = [NSString stringWithFormat:@"%@", model.topic_title];
+    NSString *share_descr               = [NSString stringWithFormat:@"%@", model.content];
+    NSString *share_thumbURL            = @"http://image.zhibaizhi.com/icon/share_img.png";
+    if (model.imageUrlArrEntity > 0) {
+        ImageViewEntity *entity         = [model.imageUrlArrEntity firstObject];
+        share_thumbURL                  =entity.imageName;
+        
+    }
+    UMShareWebpageObject *shareObject   = [UMShareWebpageObject shareObjectWithTitle:share_title
+                                                                               descr:share_descr
+                                                                           thumImage:share_thumbURL];
+    //设置网页地址
+    shareObject.webpageUrl =  [NSString stringWithFormat:@"https://share.yingwoo.com/share/post/%d",model.tieZi_id];
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType
+                                        messageObject:messageObject
+                                currentViewController:self completion:^(id data, NSError *error) {
+                                    
+                                    if (error) {
+                                        UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                                    }else{
+                                        if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                                            UMSocialShareResponse *resp = data;
+                                            //分享结果消息
+                                            UMSocialLogInfo(@"response message is %@",resp.message);
+                                            //第三方原始返回的数据
+                                            UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                                            
+                                        }else{
+                                            UMSocialLogInfo(@"response data is %@",data);
+                                        }
+                                    }
+                                    [self alertWithError:error];
+                                }];
+}
+
+//文本分享
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType withModel:(TieZi *)model
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //设置文本
+    NSString *share_descr = model.content;
+    if (model.content.length >= 45) {
+        share_descr =  [model.content substringToIndex:45];
+    }
+    messageObject.text = [NSString stringWithFormat:@"%@···(%@的贴子,分享自@应我校园) https://share.yingwoo.com/share/post/%d #校内事，一起聊#",share_descr, model.user_name,model.tieZi_id];
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+        }
+    }];
+}
+
+//分享错误提示
+- (void)alertWithError:(NSError *)error
+{
+    NSString *result = nil;
+    if (!error) {
+        result = [NSString stringWithFormat:@"贴子分享成功"];
+    }
+    else{
+        if (error) {
+            if (error.code == 2009) {
+                result = [NSString stringWithFormat:@"用户取消分享"];
+            }else {
+                result = [NSString stringWithFormat:@"分享失败错误码: %d\n",(int)error.code];
+            }
+        }
+        else{
+            result = [NSString stringWithFormat:@"分享失败"];
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享"
+                                                    message:result
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"确定", @"确定")
+                                          otherButtonTitles:nil];
+    [alert show];
+}
 
 //- (void)downloadCompletedImageViewByUrls:(NSArray *)imageEntities
 //                                progress:(void (^)(CGFloat))progress

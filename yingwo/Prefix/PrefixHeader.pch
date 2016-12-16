@@ -86,6 +86,7 @@
 #import "UIImage+blur.h"
 #import "NSMutableAttributedString+commentString.h"
 #import "YWWebViewController.h"
+#import "NSObject+Properties.h"
 
 
 

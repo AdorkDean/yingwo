@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) MessageEntity     *messageEntity;
 
+@property (nonatomic, strong) TieZi             *tieZiModel;
+
 @end
 
 @implementation MessageController
@@ -139,25 +141,42 @@
     }
 }
 
-
 #pragma mark MessageControllerDelegate
 
 - (void)didSelectMessageWith:(MessageEntity *)model{
     
     self.messageEntity = model;
-    
-    if (([model.source_type isEqualToString:@"POST"] && model.type == 0) ||
-        [model.follow_type isEqualToString:@"LIKE_POST"]) {
-        
-        [self performSegueWithIdentifier:@"detail" sender:self];
+    TieZi *tieZiModel = [[TieZi alloc] init];
+    tieZiModel.tieZi_id = self.messageEntity.post_detail_id;
+    tieZiModel.topic_id = self.messageEntity.post_detail_topic_id;
+    tieZiModel.user_id  = self.messageEntity.post_detail_user_id;
+    tieZiModel.create_time = self.messageEntity.post_detail_create_time;
+    tieZiModel.topic_title = self.messageEntity.post_detail_topic_title;
+    tieZiModel.user_name = self.messageEntity.post_detail_user_name;
+    tieZiModel.content = self.messageEntity.post_detail_content;
+    tieZiModel.img = self.messageEntity.post_detail_img;
+    tieZiModel.user_face_img = self.messageEntity.post_detail_user_face_img;
+    tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
+    tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
+    tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
+    tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
 
-    }
-    else
-    {
-        [self performSegueWithIdentifier:@"messageDetail" sender:self];
-
-    }
+    self.tieZiModel = tieZiModel;
     
+    [self performSegueWithIdentifier:@"detail" sender:self];
+
+    
+//    if (([model.source_type isEqualToString:@"POST"] && model.type == 0) ||
+//        [model.follow_type isEqualToString:@"LIKE_POST"]) {
+//        
+//        [self performSegueWithIdentifier:@"detail" sender:self];
+//
+//    }
+//    else
+//    {
+//        [self performSegueWithIdentifier:@"messageDetail" sender:self];
+//
+//    }
     
 }
 
@@ -180,7 +199,7 @@
         
         if([segue.identifier isEqualToString:@"detail"]) {
         DetailController *detailVc = segue.destinationViewController;
-        detailVc.model             = self.messageEntity;
+        detailVc.model             = self.tieZiModel;
             
         }
     }else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
