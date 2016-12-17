@@ -540,6 +540,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
+    //检测登录状态
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString *isExit = [userDefault objectForKey:@"isUserInfoExit"];
+    if ([isExit intValue] == 0) {
+        [self testLoginState];
+    }
+
     [self requestNewTieziCount];
     [self loadForType:1 RequestEntity:requestEntity];
     
@@ -614,6 +621,32 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         [self.homeTableview.mj_footer endRefreshing];
     }];
     
+}
+
+//检测登录状态
+- (void)testLoginState {
+    
+    NSDictionary *patamaters;
+    [self.viewModel requestForLoginStatusWithUrl:HOME_INDEX_CNT_URL
+                                      paramaters:patamaters
+                                         success:^(StatusEntity *statusEntity) {
+
+                                             if (statusEntity.error_code == ERROR_UNLOGIN_CODE) {
+                                                 
+                                                 NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+                                                 NSString *isExit = @"1";
+                                                 [userDefault setValue:isExit forKey:@"isUserInfoExit"];
+                                                 [User deleteLoginInformation];
+                                                 
+                                                 [SVProgressHUD showErrorStatus:@"验证过期，请重新登录。"
+                                                                     afterDelay:2.0];
+                                                 LoginController *loginVC  = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
+                                                 [self.navigationController pushViewController:loginVC animated:YES];
+                                                 
+                                             }
+                                         } failure:^(NSString *error) {
+                                             
+                                         }];
 }
 
 //获取新帖子数
