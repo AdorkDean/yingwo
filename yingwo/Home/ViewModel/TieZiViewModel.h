@@ -166,6 +166,12 @@ typedef void(^ImageCntBlock)(NSUInteger imageCnt);
                           success:(void (^)(StatusEntity *statusEntity))success
                           failure:(void (^)(NSString *error))failure;
 
+//请求登录状态
+- (void)requestForLoginStatusWithUrl:(NSString *)url
+                          paramaters:(NSDictionary *)paramaters
+                             success:(void (^)(StatusEntity *statusEntity))success
+                             failure:(void (^)(NSString *error))failure;
+
 /**
  *  本地保存点赞记录
  *
