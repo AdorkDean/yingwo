@@ -546,7 +546,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     if ([isExit intValue] == 0) {
         [self testLoginState];
     }
-    
+
     [self requestNewTieziCount];
     [self loadForType:1 RequestEntity:requestEntity];
     
