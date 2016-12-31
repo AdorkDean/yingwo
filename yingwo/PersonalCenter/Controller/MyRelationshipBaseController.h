@@ -13,6 +13,7 @@
 @property (nonatomic, strong) RequestEntity         *requestEntity;
 //关系类型 1我的好友 2我的关注 3我的粉丝 4我的访客 5Ta的关注 6Ta的粉丝
 @property (nonatomic, assign) int                   relationType;
+@property (nonatomic, assign) int                   friendCnt;
 @property (nonatomic, assign) int                   followCnt;
 @property (nonatomic, assign) int                   fansCnt;
 

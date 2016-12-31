@@ -12,14 +12,13 @@
 #import "HotTopicController.h"
 #import "NewTopicController.h"
 #import "AnnounceController.h"
-#import "TAController.h"
 
 #import "TopicViewModel.h"
 #import "YWTopicSegmentViewCell.h"
 #import "YWTopicHeaderView.h"
 #import "SMPagerTabView.h"
 
-//#import "UMSocialUIManager.h"
+#import "UMSocialUIManager.h"
 
 #import "TopicEntity.h"
 
@@ -734,71 +733,15 @@ static int start_id = 0;
 
 //显示分享面板
 - (void)showShareView {
-//    __weak typeof(self) weakSelf = self;
-//    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
-//        //分享网页
-//        [weakSelf shareWebPageToPlatformType:platformType];
-//    }];
-//    
-}
-
-////网页分享
-//- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
-//{
-//    //创建分享消息对象
-//    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-//    
-//    //创建网页内容对象
-//    //    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:[UIImage imageNamed:@"icon"]];
-//    NSString* thumbURL =  @"http://weixintest.ihk.cn/ihkwx_upload/heji/material/img/20160414/1460616012469.jpg";
-//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:thumbURL];
-//    //设置网页地址
-//    shareObject.webpageUrl =@"http://mobile.umeng.com/social";
-//    
-//    //分享消息对象设置分享内容对象
-//    messageObject.shareObject = shareObject;
-//    
-//    //调用分享接口
-//    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-//        if (error) {
-//            UMSocialLogInfo(@"************Share fail with error %@*********",error);
-//        }else{
-//            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-//                UMSocialShareResponse *resp = data;
-//                //分享结果消息
-//                UMSocialLogInfo(@"response message is %@",resp.message);
-//                //第三方原始返回的数据
-//                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-//                
-//            }else{
-//                UMSocialLogInfo(@"response data is %@",data);
-//            }
-//        }
-//        [self alertWithError:error];
-//    }];
-//}
-
-//分享错误提示
-- (void)alertWithError:(NSError *)error
-{
-    NSString *result = nil;
-    if (!error) {
-        result = [NSString stringWithFormat:@"Share succeed"];
-    }
-    else{
-        if (error) {
-            result = [NSString stringWithFormat:@"Share fail with error code: %d\n",(int)error.code];
+    __weak typeof(self) weakSelf = self;
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
+        if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
+            [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.topicEntity];
+        }else {
+            //其他平台分享网页
+            [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.topicEntity];
         }
-        else{
-            result = [NSString stringWithFormat:@"Share fail"];
-        }
-    }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"share"
-                                                    message:result
-                                                   delegate:nil
-                                          cancelButtonTitle:NSLocalizedString(@"sure", @"确定")
-                                          otherButtonTitles:nil];
-    [alert show];
+    }];
+    
 }
-
 @end

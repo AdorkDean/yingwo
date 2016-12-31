@@ -11,7 +11,6 @@
 #import "FavorController.h"
 #import "MessageDetailController.h"
 
-
 @interface MessageController ()<SMPagerTabViewDelegate,MessageControllerDelegate>
 
 @property (nonatomic, strong) UIView            *messageSectionView;
@@ -22,6 +21,8 @@
 @property (nonatomic, strong) FavorController   *favorVc;
 
 @property (nonatomic, strong) MessageEntity     *messageEntity;
+
+@property (nonatomic, strong) TieZi             *tieZiModel;
 
 @end
 
@@ -96,8 +97,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+    [super viewWillAppear:animated];    
     self.title = @"我的消息";
 
 }
@@ -141,26 +141,49 @@
     }
 }
 
-
 #pragma mark MessageControllerDelegate
 
 - (void)didSelectMessageWith:(MessageEntity *)model{
     
     self.messageEntity = model;
-    
-    if (([model.source_type isEqualToString:@"POST"] && model.type == 0) ||
-        [model.follow_type isEqualToString:@"LIKE_POST"]) {
-        
-        [self performSegueWithIdentifier:@"detail" sender:self];
+    TieZi *tieZiModel = [[TieZi alloc] init];
+    tieZiModel.tieZi_id = self.messageEntity.post_detail_id;
+    tieZiModel.topic_id = self.messageEntity.post_detail_topic_id;
+    tieZiModel.user_id  = self.messageEntity.post_detail_user_id;
+    tieZiModel.create_time = self.messageEntity.post_detail_create_time;
+    tieZiModel.topic_title = self.messageEntity.post_detail_topic_title;
+    tieZiModel.user_name = self.messageEntity.post_detail_user_name;
+    tieZiModel.content = self.messageEntity.post_detail_content;
+    tieZiModel.img = self.messageEntity.post_detail_img;
+    tieZiModel.user_face_img = self.messageEntity.post_detail_user_face_img;
+    tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
+    tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
+    tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
+    tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
 
-    }
-    else
-    {
-        [self performSegueWithIdentifier:@"messageDetail" sender:self];
+    self.tieZiModel = tieZiModel;
+    
+    [self performSegueWithIdentifier:@"detail" sender:self];
 
-    }
     
+//    if (([model.source_type isEqualToString:@"POST"] && model.type == 0) ||
+//        [model.follow_type isEqualToString:@"LIKE_POST"]) {
+//        
+//        [self performSegueWithIdentifier:@"detail" sender:self];
+//
+//    }
+//    else
+//    {
+//        [self performSegueWithIdentifier:@"messageDetail" sender:self];
+//
+//    }
     
+}
+
+- (void)didSelectHeadImageWith:(MessageEntity *)model {
+
+    self.messageEntity = model;
+    [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -171,14 +194,20 @@
             MessageDetailController *messageDetailVc = segue.destinationViewController;
             messageDetailVc.model                    = self.messageEntity;
 
+        }
+    }else if ([segue.destinationViewController isKindOfClass:[DetailController class]]) {
+        
+        if([segue.identifier isEqualToString:@"detail"]) {
+        DetailController *detailVc = segue.destinationViewController;
+        detailVc.model             = self.tieZiModel;
             
         }
-    }
-    else
-    {
-        DetailController *detailVc = segue.destinationViewController;
-        detailVc.model             = self.messageEntity;
-
+    }else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
+        
+        if ([segue.identifier isEqualToString:@"ta"]) {
+            TAController *taVc = segue.destinationViewController;
+            taVc.ta_id = [self.messageEntity.follow_user_id intValue];
+        }
     }
     
 }

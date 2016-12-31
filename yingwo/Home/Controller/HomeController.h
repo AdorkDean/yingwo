@@ -32,4 +32,10 @@ typedef NS_ENUM(NSInteger, ContentCategory){
 @property (nonatomic, assign) ContentCategory contentCategoryModel;
 @property (nonatomic, strong) UITableView     *homeTableview;
 
+@property (nonatomic, assign) BOOL            type_topic;
+@property (nonatomic, assign) BOOL            type_post;
+@property (nonatomic, assign) int             item_id;
+
+- (void)weatherPush;
+
 @end

@@ -327,7 +327,7 @@
     }else {
         menuController.menuItems = @[copyItem,reportItem];
     }
-    
+    //将悬浮菜单栏置于回复视图上
     [menuController setTargetRect:commentView.content.frame inView:commentView.content];
     [menuController setMenuVisible:YES animated:YES];
     
@@ -377,8 +377,8 @@
                                     paramaters:paramaters
                                        success:^(StatusEntity *statusEntity) {
                                            if (statusEntity.status == YES) {
-                                               
-                                               
+                                               //将被删除的view从视图中移除
+                                               [self.selectedCommentView removeFromSuperview];
                                                [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
                                            }else if(statusEntity.status == NO){
                                                

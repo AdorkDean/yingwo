@@ -9,7 +9,6 @@
 #import "MessageDetailController.h"
 
 #import "AnnounceController.h"
-#import "MainNavController.h"
 
 #import "YWDetailTableViewCell.h"
 #import "YWDetailBaseTableViewCell.h"
@@ -163,7 +162,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     _replyView.favorBtn.delegate     = self;
     _replyView.favorBtn.post_id      = self.originModel.tieZi_id;
     //判断是否有点赞过
-    if ( [self.homeViewModel isLikedTieZiWithTieZiId:[NSNumber numberWithInt:self.originModel.tieZi_id]]) {
+    if (self.originModel.user_post_like == 1) {
         [_replyView.favorBtn setBackgroundImage:[UIImage imageNamed:@"heart_red"]
                                        forState:UIControlStateNormal];
         _replyView.favorBtn.isSpring = YES;
@@ -359,6 +358,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                              selector:@selector(didHiddenKeyboard:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willHiddKeyboard:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+
 }
 
 #pragma mark 禁止pop手势
@@ -412,15 +417,15 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.commentView = nil;
 }
 
+- (void)willHiddKeyboard:(NSNotification *) notes{
+    
+    self.detailTableView.frame = self.view.bounds;
+}
 
 /**
  *  下拉刷新
  */
 - (void)loadData {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.detailTableView.mj_header endRefreshing];
-    }
     
     NSDictionary *parameter = @{@"post_id":@(self.model.post_id)};
     
@@ -453,7 +458,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
         
     } failure:^(NSString *error) {
-        
+        [self.detailTableView.mj_header endRefreshing];
     }];
     
 }
@@ -571,6 +576,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 //            [self.detailTableView reloadData];
 //            
 //        }
+    }error:^(NSError *error) {
+        //错误的情况下停止刷新（网络错误）
+        [self.detailTableView.mj_header endRefreshing];
+        [self.detailTableView.mj_footer endRefreshing];
     }];
     
 }

@@ -21,6 +21,8 @@
 
 #import "DetailViewModelHepler.h"
 
+#import "UMSocialUIManager.h"
+
 typedef NS_ENUM(NSInteger,ReloadModel) {
     HeaderReloadDataModel,
     FooterReoladDataModel
@@ -38,6 +40,20 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
 @property (nonatomic, assign) NSInteger master_id;
 
 @property (nonatomic, strong) NSMutableArray *imageUrlEntity;
+
+/**
+ *  请求原贴
+ *
+ *  @param url        Post/detail
+ *  @param paramaters post_id
+ *  @param success    success description
+ *  @param failure    failure description
+ */
+- (void)requestDetailWithUrl:(NSString *)url
+                  paramaters:(NSDictionary *)paramaters
+                     success:(void (^)(TieZi *tieZi))success
+                     failure:(void (^)(NSString *error))failure;
+
 /**
  *  初始化cell
  *
@@ -69,7 +85,7 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
 - (void)requestReplyWithUrl:(NSString *)url
                  paramaters:(NSDictionary *)paramaters
                     success:(void (^)(NSArray *tieZi))success
-                    failure:(void (^)(NSString *error))failure;
+                    failure:(void (^)(NSURLSessionDataTask *,NSError *))failure;
 
 
 /**
@@ -124,4 +140,9 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
                   paramaters:(NSDictionary *)paramaters
                      success:(void (^)(StatusEntity *statusEntity))success
                      failure:(void (^)(NSString *error))failure;
+
+//分享网页
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType withModel:(TieZi *)model;
+//分享文本
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType withModel:(TieZi *)model;
 @end

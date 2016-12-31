@@ -17,7 +17,7 @@
 
 
 /**
- *  注册请求
+ *  重置密码请求
  *
  *  @param url        部分url
  *  @param parameters 密码

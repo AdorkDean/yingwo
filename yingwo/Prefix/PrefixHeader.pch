@@ -19,7 +19,7 @@
 #import <Photos/Photos.h>
 
 //pod第三方库
-#import "ReactiveCocoa.h"
+#import "ReactiveObjC.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "SVProgressHUD.h"
@@ -42,6 +42,8 @@
 #import "ISEmojiView.h"
 #import "UINavigationBar+Awesome.h"
 #import "TZImagePickerController.h"
+#import "UMMobClick/MobClick.h"
+
 
 
 //自定义宏
@@ -84,6 +86,7 @@
 #import "UIImage+blur.h"
 #import "NSMutableAttributedString+commentString.h"
 #import "YWWebViewController.h"
+#import "NSObject+Properties.h"
 
 
 
@@ -100,5 +103,6 @@
 #import "VerificationController.h"
 #import "LoginNavController.h"
 #import "LoginController.h"
+#import "TAController.h"
 
 #endif /* PrefixHeader_pch */

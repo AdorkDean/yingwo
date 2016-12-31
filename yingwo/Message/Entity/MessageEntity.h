@@ -66,5 +66,36 @@ typedef NS_ENUM(NSInteger, TieZiType) {
  */
 @property (nonatomic, copy) NSString *follow_img;
 
+//贴子的id
+@property (nonatomic, assign) int       post_detail_id;
+//话题ID 0 是新鲜事
+@property (nonatomic, assign) int       post_detail_topic_id;
+//用户id
+@property (nonatomic, assign) int       post_detail_user_id;
+//创建时间戳
+@property (nonatomic, assign) int       post_detail_create_time;
+//贴子的所属标签
+@property (nonatomic, copy  ) NSString  *post_detail_topic_title;
+//用户昵称
+@property (nonatomic, copy  ) NSString  *post_detail_user_name;
+//贴子内容
+@property (nonatomic, copy  ) NSString  *post_detail_content;
+//图片
+@property (nonatomic, copy  ) NSString  *post_detail_img;
+//用户头像
+@property (nonatomic, copy  ) NSString  *post_detail_user_face_img;
+
+//点赞数
+@property (nonatomic, copy  ) NSString  *post_detail_like_cnt;
+
+//回复数
+@property (nonatomic, copy  ) NSString  *post_detail_reply_cnt;
+
+//用户是否点赞
+@property (nonatomic, assign) int       post_detail_user_post_like;
+
+
+//这个是将img解析后的images url 数组
+@property (nonatomic, strong) NSArray   *post_detail_imageUrlArrEntity;
 
 @end

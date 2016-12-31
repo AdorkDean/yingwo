@@ -56,8 +56,8 @@
                                          [subscriber sendNext:hotArr];
                                          [subscriber sendCompleted];
                                          
-                                     } failure:^(NSString *error) {
-                                         
+                                     } error:^(NSURLSessionDataTask *task, NSError *error) {
+                                         [subscriber sendError:error];
                                      }];
 
             return nil;
@@ -89,7 +89,7 @@
 
 - (void)requestTopicFieldWithUrl:(NSString *)url
                          success:(void (^)(NSArray *fieldArr))success
-                         failure:(void (^)(NSString *error))failure{
+                         failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager =[YWHTTPManager manager];
@@ -120,7 +120,7 @@
               }
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
+              failure(task, error);
           }];
 
     
@@ -129,7 +129,7 @@
 
 - (void)requestHotTopicListWithUrl:(NSString *)url
                            success:(void (^)(NSArray *hotArr))success
-                           failure:(void (^)(NSString *error))failure{
+                             error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager =[YWHTTPManager manager];
@@ -161,7 +161,8 @@
               }
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
+              NSLog(@"error:%@",error);
+              failure(task,error);
           }];
     
     

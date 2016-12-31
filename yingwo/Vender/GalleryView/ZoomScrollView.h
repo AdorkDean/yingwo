@@ -5,6 +5,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImageViewEntity.h"
 
 /*
  *  此类用于图片点击放大的UIScrollView，用来放大图片和限制图片放大倍数
@@ -29,6 +30,18 @@
  *  @return
  */
 - (id)initWithFrame:(CGRect)frame andImageView:(UIImageView *)imageView atIndex:(NSInteger)index;
+
+/**
+ *  添加图片
+ *
+ *  @param frame
+ *  @param imageView
+ *  @param index
+ *  @param entity
+ *
+ *  @return
+ */
+- (id)initWithFrame:(CGRect)frame andImageView:(UIImageView *)imageView andEntity:(ImageViewEntity *)entity atIndex:(NSInteger)index;
 
 /**
  *  添加并展示图片，以动画形式展现

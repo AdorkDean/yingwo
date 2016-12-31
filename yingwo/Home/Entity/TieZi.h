@@ -15,7 +15,6 @@
 
 //贴子的id
 @property (nonatomic, assign) int       tieZi_id;
-
 //话题ID 0 是新鲜事
 @property (nonatomic, assign) int       topic_id;
 //用户id
@@ -38,6 +37,9 @@
 
 //回复数
 @property (nonatomic, copy  ) NSString  *reply_cnt;
+
+//用户是否点赞
+@property (nonatomic, assign) int       user_post_like;
 
 
 //这个是将img解析后的images url 数组

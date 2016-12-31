@@ -14,9 +14,11 @@
 #import "DiscoveryController.h"
 #import "DetailController.h"
 #import "MessageController.h"
+#import "TopicController.h"
 
 #import "WZLBadgeImport.h"
 #import "BadgeCount.h"
+#import "EBForeNotification.h"
 
 @interface MainController ()
 
@@ -112,8 +114,14 @@
     [self requestForBadgeCount];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showMessagePage:)
-                                                 name:MESSAGE_NOTIFICATION object:nil];
+                                             selector:@selector(userInfoNotification:)
+                                                 name:USERINFO_NOTIFICATION
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eBBannerViewDidClick:)
+                                                 name:EBBannerViewDidClick
+                                               object:nil];
 
 }
 
@@ -122,9 +130,66 @@
     
 }
 
-- (void)showMessagePage:(NSNotification *)notification {
+
+-(void)userInfoNotification:(NSNotification*)notification{
+//判断推送类型及推送id
+    NSDictionary *dict = [notification userInfo];
+    NSString *type = [dict valueForKey:@"push_type"];
+    NSString *item_id = [dict valueForKey:@"push_item_id"];
     
-    NSLog(@"remote notification is comming");
+    if ([type isEqualToString:@"MESSAGE"]) {
+        [self showMessagePage];
+    }else if ([type isEqualToString:@"LIKE"])
+    {
+        [self showMessagePage];
+    }else if ([type isEqualToString:@"ALERT"])
+    {
+        [self showHomePage];
+    }else if ([type isEqualToString:@"TOPIC"]) {
+        self.homeVC.type_topic = YES;
+        self.homeVC.item_id = [item_id intValue];
+        [self showHomePage];
+    }else if ([type isEqualToString:@"POST"]) {
+        self.homeVC.type_post = YES;
+        self.homeVC.item_id = [item_id intValue];
+        [self showHomePage];
+    }
+    
+}
+
+-(void)eBBannerViewDidClick:(NSNotification*)notification{
+    //判断推送类型及推送id
+    NSDictionary *dict = [notification object];
+    NSString *type = [dict valueForKey:@"push_type"];
+    NSString *item_id = [dict valueForKey:@"push_item_id"];
+    
+    if ([type isEqualToString:@"MESSAGE"]) {
+        [self showMessagePage];
+    }else if ([type isEqualToString:@"LIKE"])
+    {
+        [self showMessagePage];
+    }else if ([type isEqualToString:@"ALERT"])
+    {
+        [self showHomePage];
+    }else if ([type isEqualToString:@"TOPIC"]) {
+        self.homeVC.type_topic = YES;
+        self.homeVC.item_id = [item_id intValue];
+        [self showHomePage];
+    }else if ([type isEqualToString:@"POST"]) {
+        self.homeVC.type_post = YES;
+        self.homeVC.item_id = [item_id intValue];
+        [self showHomePage];
+    }
+}
+
+
+- (void)showHomePage {
+    [_mainTabBarController displayViewAtIndex:0];
+    [_mainTabBarController.tabBar showSelectedTabBarAtIndex:0];
+
+}
+
+- (void)showMessagePage {
 
     [_mainTabBarController displayViewAtIndex:3];
     [_mainTabBarController.tabBar showSelectedTabBarAtIndex:3];
@@ -269,6 +334,9 @@
         
         //如果点击了其他页面后点击home页面，则不刷新，再次点击home页面才刷新
         self.selectedIndex = index;
+        
+        //进入home页面前判断是否是推送
+        [self.homeVC weatherPush];
         
         if (self.reloaded == NO) {
             self.reloaded  = YES;

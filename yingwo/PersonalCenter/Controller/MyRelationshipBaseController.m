@@ -7,7 +7,6 @@
 //
 
 #import "MyRelationshipBaseController.h"
-#import "TAController.h"
 
 #import "YWMyRelationShipCell.h"
 
@@ -89,7 +88,7 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
         _viewModel                  = [[RelationViewModel alloc] init];
     }
     return _viewModel;
-}
+} 
 
 
 - (void)viewDidLoad {
@@ -166,7 +165,7 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
     switch (self.relationType) {
         case 1:
         {
-            self.requestEntity.requestUrl = TA_USER_LIKE_LIST_URL;
+            self.requestEntity.requestUrl = TA_USER_FRIEND_LIST_URL;
             break;
         }
         case 2:
@@ -205,7 +204,7 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
         case 1:
         {
             self.title           = @"我的好友";
-            self.countLabel.text = [NSString stringWithFormat:@"共xx位好友"];
+            self.countLabel.text = [NSString stringWithFormat:@"共%d位好友",self.friendCnt];
             break;
         }
         case 2:

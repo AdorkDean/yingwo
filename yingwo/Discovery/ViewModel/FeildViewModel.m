@@ -83,8 +83,7 @@
 - (void)requestTopicSubjectListWithUrl:(NSString *)url
                             paramaters:(NSDictionary *)paramaters
                                success:(void (^)(NSArray *fieldArr))success
-                               failure:(void (^)(NSString *error))failure{
-    
+                               failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager =[YWHTTPManager manager];
     
@@ -115,6 +114,7 @@
               
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSLog(@"获取主题失败");
+              failure(task,error);
           }];
     
     

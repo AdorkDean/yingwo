@@ -41,7 +41,7 @@
  */
  - (void)requestHotTopicListWithUrl:(NSString *)url
                            success:(void (^)(NSArray *hotArr))success
-                           failure:(void (^)(NSString *error))failure;
+                              error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
 
 
 

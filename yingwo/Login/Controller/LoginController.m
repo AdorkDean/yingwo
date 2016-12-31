@@ -219,8 +219,7 @@
     NSString *password              = self.passwordText.rightTextField.text;
 
     //设备号
-    NSUserDefaults *userDefault     = [NSUserDefaults standardUserDefaults];
-    NSString *token                 = [userDefault objectForKey:TOKEN_KEY];
+    NSString *token = [YWNetworkTools getDeviceToken];
     NSLog(@"%@", token);
     NSDictionary *paramaters = @{MOBILE:mobile,
                                PASSWORD:password,

@@ -25,7 +25,6 @@
 
 @property (nonatomic, strong) MessageController *messageController;
 
-@property (nonatomic, strong) MainController    *mainController;
 @end
 
 static NSString *noImageCellidentifier = @"noImage";
@@ -44,7 +43,7 @@ static int start_id = 0;
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 150, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(5, 0, 165, 0);
         
         [_tableView registerClass:[YWMessageCell class] forCellReuseIdentifier:noImageCellidentifier];
         [_tableView registerClass:[YWImageMessageCell class] forCellReuseIdentifier:imageCellidentifier];
@@ -79,14 +78,6 @@ static int start_id = 0;
         _messageArr = [[NSMutableArray alloc] init];
     }
     return _messageArr;
-}
-
-- (MainController *)mainController {
-    if (_mainController == nil) {
-        _mainController = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
-
-    }
-    return _mainController;
 }
 
 - (void)layoutSubview {
@@ -127,11 +118,6 @@ static int start_id = 0;
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.tableView.mj_header endRefreshing];
-    }
-    
     [self loadForType:1 RequestEntity:requestEntity];
     
     [self.tableView.mj_footer resetNoMoreData];
@@ -141,11 +127,7 @@ static int start_id = 0;
  *  上拉刷新
  */
 - (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
-    //网络连接错误的情况下停止刷新
-    if ([YWNetworkTools networkStauts] == NO) {
-        [self.tableView.mj_footer endRefreshing];
-    }
-    
+
     [self loadForType:2 RequestEntity:requestEntity];
 }
 
@@ -204,6 +186,10 @@ static int start_id = 0;
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
+        //错误的情况下停止刷新（网络错误）
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+
     }];
     
 }
@@ -225,6 +211,10 @@ static int start_id = 0;
                                                                forIndexPath:indexPath];
     [self.viewModel setupModelOfCell:cell model:self.messageArr[indexPath.row]];
 
+    if (cell.topView.deleteBtn) {
+        [cell.topView.deleteBtn removeFromSuperview];
+    }
+    
     cell.delegate            = self;
     cell.messageEntity       = self.messageArr[indexPath.row];
 
@@ -253,6 +243,7 @@ static int start_id = 0;
         
         MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
         messageEntity.type           = MessageTieZi;
+//        messageEntity.type = 0;
         
         NSLog(@"source_type:%@",messageEntity.source_type);
         [self.delegate didSelectMessageWith:messageEntity];
@@ -260,13 +251,12 @@ static int start_id = 0;
     
 }
 
+#pragma mark YWMessageCellDelegate
 /**
  *  查看原贴
  *
- *  @return 
+ *  @return
  */
-#pragma mark YWMessageCellDelegate
-
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
     if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
@@ -275,9 +265,19 @@ static int start_id = 0;
 
         [self.delegate didSelectMessageWith:messageEntity];
     }
-    
+
 }
 
+/**
+ * 进入用户主页
+ *
+ *  @return
+ */
+-(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
+    if ([self.delegate respondsToSelector:@selector(didSelectHeadImageWith:)]) {
+        [self.delegate didSelectHeadImageWith:messageEntity];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

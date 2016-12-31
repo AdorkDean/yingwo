@@ -25,8 +25,9 @@
 /********************************Color************************************************/
 
 /********************************Notification************************************************/
-#define TOKEN_KEY            @"token"
-#define MESSAGE_NOTIFICATION @"message"
+#define TOKEN_KEY                    @"token"
+#define USERINFO_NOTIFICATION        @"userInfoNotification"
+#define USERINFO_NOTIFICATION_ACTIVE @"userInfoNotificationActive"
 
 /********************************Notification************************************************/
 
@@ -48,6 +49,7 @@
 #define CONTROLLER_OF_ANNOUNCE_IDENTIFIER       @"AnnounceController"
 #define CONTROLLER_OF_TOPIC_IDENTIFIER          @"TopicController"
 #define CONTROLLER_OF_TOPIC_LIST_IDENTIFIER     @"TopicListController"
+
 
 /********************************storyboard identifier************************************************/
 
@@ -76,25 +78,29 @@
 
 /********************************segue identify************************************************/
 
-// new api 139.198.190.240
-// old api yw.zhibaizhi.com/yingwophp
+
+// new api 139.198.190.240 http://api.yingwoo.com/api/v1
+// old api http://yw.zhibaizhi.com/yingwophp/api/v1
 /********************************* URL ******************************************************/
-#define BASE_URL        @"http://api.yingwoo.com/api/v1"
-#define LOGIN_URL       @"/User/Login"
-#define REGISTER_URL    @"/User/Register"
-#define SMS_URL         @"/Sms/Send"
-#define SMS_CHECK       @"/Sms/Check"
-#define MOBILE_CHECK_URL @"/User/Check_mobile"
+#define BASE_URL                @"https://api.yingwoo.com/api/v1"
+//#define BASE_URL                @"http://yw.zhibaizhi.com/yingwophp/api/v1"
+//#define BASE_URL                @"http://yw.zhibaizhi.com:8081"
 
-#define HEADIMAGE_URL   @"/Public/uploads/"
-#define SCHOOL_URL      @"/school/school_list"
-#define ACADEMY_URL     @"/school/academy_list"
+#define LOGIN_URL               @"/User/Login"
+#define REGISTER_URL            @"/User/Register"
+#define SMS_URL                 @"/Sms/Send"
+#define SMS_CHECK               @"/Sms/Check"
+#define MOBILE_CHECK_URL        @"/User/Check_mobile"
+#define RESET_PASSWORD_URL      @"/User/reset_password"
 
-#define BASE_INFO_URL   @"/User/Base_info"
-#define UPDATE_INFO_URL @"/User/Update"
+#define HEADIMAGE_URL           @"/Public/uploads/"
+#define SCHOOL_URL              @"/school/school_list"
+#define ACADEMY_URL             @"/school/academy_list"
 
+#define BASE_INFO_URL           @"/User/Base_info"
+#define UPDATE_INFO_URL         @"/User/Update"
 
-#define ANNOUNCE_URL @"/Post/add_new"
+#define ANNOUNCE_URL            @"/Post/add_new"
 
 //贴子
 #define HOME_URL                @"/Post/index"
@@ -106,7 +112,6 @@
 #define TIEZI_LIKE_URL          @"/Post/like"
 #define MY_TIEZI_URL            @"/Post/my_list"
 #define MY_LIKE_URL             @"/Post/my_like_list"
-#define MY_LIKED_URL            @"/Post/my_liked_list"
 #define TIEZI_DEL_URL           @"/Post/del"
 #define TIEZI_REPLY_DEL_URL     @"/Post/reply_del"
 #define TIEZI_COMMENT_DEL_URL   @"/Post/comment_del"
@@ -131,12 +136,15 @@
 #define TA_USER_LIKE_URL        @"/User/like"
 #define TA_USER_LIKE_LIST_URL   @"/User/like_list"
 #define TA_USER_LIKED_LIST_URL  @"/User/liked_list"
+#define TA_USER_FRIEND_LIST_URL @"/User/friend_list"
 
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"
 
 //消息
 #define MESSAGE_REPLY_AND_COMMENT_URL @"/Post/my_reply_and_comment_list"
+#define MY_REPLY_AND_COMMENT_URL      @"/Post/reply_and_comment_list"
+#define MY_LIKED_URL                  @"/Post/my_liked_list"
 
 #define DEVICE_TOKEN_URL        @"/User/update_device_token"
 /********************************* errorCode ******************************************************/
@@ -173,7 +181,7 @@
 #define MOBILE       @"mobile"
 #define RN           @"rn"
 #define SIGN         @"sign"
-#define SMS_MODEL    @"model"
+#define SMS_MODEL    @"mode"
 #define SMS_CODE     @"code"
 
 //贴子

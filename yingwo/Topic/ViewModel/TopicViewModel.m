@@ -187,6 +187,91 @@
           }];
 }
 
+//网页分享
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType withModel:(TopicEntity *)topicEntity
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    NSString *share_title             = [NSString stringWithFormat:@"%@",topicEntity.title];
+    NSString *share_descr             = [NSString stringWithFormat:@"%@",topicEntity.field_description];
+    NSString *share_thumbURL          = [NSString selectCorrectUrlWithAppendUrl:topicEntity.img];
+    
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:share_title
+                                                                             descr:share_descr
+                                                                         thumImage:share_thumbURL];
+    //设置网页地址
+    shareObject.webpageUrl            = [NSString stringWithFormat:@"https://share.yingwoo.com/share/topic/%@",topicEntity.topic_id];
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject         = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType
+                                        messageObject:messageObject
+                                currentViewController:self
+                                           completion:^(id data, NSError *error) {
+                                               if (error) {
+                                                   UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                                               }else{
+                                                   if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                                                       UMSocialShareResponse *resp = data;
+                                                       //分享结果消息
+                                                       UMSocialLogInfo(@"response message is %@",resp.message);
+                                                       //第三方原始返回的数据
+                                                       UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                                                       
+                                                   }else{
+                                                       UMSocialLogInfo(@"response data is %@",data);
+                                                   }
+                                               }
+                                               [self alertWithError:error];
+                                           }];
+}
+
+//分享文本
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType withModel:(TopicEntity *)topicEntity
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //设置文本
+    messageObject.text = [NSString stringWithFormat:@"#%@# (分享自@应我校园) https://share.yingwoo.com/share/topic/%@ #校内事，一起聊#",topicEntity.title,topicEntity.topic_id];
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+        }
+        [self alertWithError:error];
+    }];
+}
+
+//分享错误提示
+- (void)alertWithError:(NSError *)error
+{
+    NSString *result = nil;
+    if (!error) {
+        result = [NSString stringWithFormat:@"话题分享成功"];
+    }
+    else{
+        if (error) {
+            result = [NSString stringWithFormat:@"分享失败错误码: %d\n",(int)error.code];
+        }
+        else{
+            result = [NSString stringWithFormat:@"分享失败"];
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享"
+                                                    message:result
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"确定", @"确定")
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 
 #pragma mark private method
 

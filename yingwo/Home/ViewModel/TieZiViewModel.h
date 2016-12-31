@@ -47,6 +47,20 @@ typedef void(^ImageCntBlock)(NSUInteger imageCnt);
 - (void)setupModelOfCell:(YWHomeTableViewCellBase *)cell model:(TieZi *)model;
 
 /**
+ *  请求原贴
+ *
+ *  @param url        Post/detail
+ *  @param paramaters post_id
+ *  @param success    success description
+ *  @param failure    failure description
+ */
+- (void)requestDetailWithUrl:(NSString *)url
+                  paramaters:(NSDictionary *)paramaters
+                     success:(void (^)(TieZi *tieZi))success
+                     failure:(void (^)(NSString *error))failure;
+
+
+/**
  *  不分类获取所有新鲜事、贴子信息
  *
  *  @param url
@@ -151,6 +165,12 @@ typedef void(^ImageCntBlock)(NSUInteger imageCnt);
                        paramaters:(NSDictionary *)paramaters
                           success:(void (^)(StatusEntity *statusEntity))success
                           failure:(void (^)(NSString *error))failure;
+
+//请求登录状态
+- (void)requestForLoginStatusWithUrl:(NSString *)url
+                          paramaters:(NSDictionary *)paramaters
+                             success:(void (^)(StatusEntity *statusEntity))success
+                             failure:(void (^)(NSString *error))failure;
 
 /**
  *  本地保存点赞记录

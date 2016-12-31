@@ -83,7 +83,7 @@ static NSString *SUBJECT_CELL_IDENTIER =  @"subjectCell";
                                                
                                                [self loadTopicDataWith:subjectArr];
                                           
-    } failure:^(NSString *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
 }

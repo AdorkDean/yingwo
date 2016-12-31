@@ -192,7 +192,7 @@ static CGFloat HeadViewHeight = 250;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithWhite:0 alpha:0];
     
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
-
+    
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -463,6 +463,11 @@ static CGFloat HeadViewHeight = 250;
 
     }
     
+    [self setTaBgImage];
+    
+}
+
+- (void)setTaBgImage {
     //用户背景图
     int nowHour = [[NSDate getNowHour] intValue];
     if (nowHour <= 4 && nowHour >=0) { //凌晨
@@ -478,9 +483,7 @@ static CGFloat HeadViewHeight = 250;
     }else { //晚上
         self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage1"];
     }
-    
 }
-
 
 //关注TA
 - (void)addLike:(UIButton *)sender {
