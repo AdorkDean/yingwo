@@ -18,6 +18,7 @@
 
 #import "TieZi.h"
 #import "TieZiComment.h"
+#import "ReplyCommentList.h"
 
 #import "DetailViewModelHepler.h"
 

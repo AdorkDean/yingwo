@@ -1,0 +1,711 @@
+BCSymbolMap Version: 2.0
+Apple LLVM version 8.0.0 (clang-800.0.38)
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/DataImport/MagicalImportFunctions.m
+/Users/apple/Downloads/yingwo-ios/Pods
+MR_colorFromString
+MR_newColorComponentsFromString
+MR_numberFromString
+MR_dateFromNumber
+MR_dateFromString
+MR_adjustDateForDST
+MR_primaryKeyNameFromString
+MR_attributeNameFromString
++[MagicalRecord(Actions) saveWithBlock:]
++[MagicalRecord(Actions) saveWithBlock:completion:]
+___51+[MagicalRecord(Actions) saveWithBlock:completion:]_block_invoke
+___copy_helper_block_
+___destroy_helper_block_
++[MagicalRecord(Actions) saveWithBlockAndWait:]
+___47+[MagicalRecord(Actions) saveWithBlockAndWait:]_block_invoke
+___copy_helper_block_.11
+___destroy_helper_block_.12
++[MagicalRecord(ActionsDeprecated) saveUsingCurrentThreadContextWithBlock:completion:]
+___86+[MagicalRecord(ActionsDeprecated) saveUsingCurrentThreadContextWithBlock:completion:]_block_invoke
+___copy_helper_block_.21
+___destroy_helper_block_.22
++[MagicalRecord(ActionsDeprecated) saveUsingCurrentThreadContextWithBlockAndWait:]
+___82+[MagicalRecord(ActionsDeprecated) saveUsingCurrentThreadContextWithBlockAndWait:]_block_invoke
+___copy_helper_block_.24
+___destroy_helper_block_.25
++[MagicalRecord(ActionsDeprecated) saveInBackgroundWithBlock:]
++[MagicalRecord(ActionsDeprecated) saveInBackgroundWithBlock:completion:]
+___73+[MagicalRecord(ActionsDeprecated) saveInBackgroundWithBlock:completion:]_block_invoke
+___copy_helper_block_.31
+___destroy_helper_block_.32
++[MagicalRecord(ActionsDeprecated) saveInBackgroundUsingCurrentContextWithBlock:completion:errorHandler:]
+___105+[MagicalRecord(ActionsDeprecated) saveInBackgroundUsingCurrentContextWithBlock:completion:errorHandler:]_block_invoke
+___105+[MagicalRecord(ActionsDeprecated) saveInBackgroundUsingCurrentContextWithBlock:completion:errorHandler:]_block_invoke_2
+___copy_helper_block_.34
+___destroy_helper_block_.35
+___copy_helper_block_.40
+___destroy_helper_block_.41
+___block_descriptor_tmp
+___block_descriptor_tmp.13
+___block_descriptor_tmp.23
+___block_descriptor_tmp.26
+___block_descriptor_tmp.33
+___block_descriptor_tmp.37
+___block_descriptor_tmp.42
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Core/MagicalRecord+Actions.m
+__destroy_helper_block_
+__copy_helper_block_
+__105+[MagicalRecord(ActionsDeprecated) saveInBackgroundUsingCurrentContextWithBlock:completion:errorHandler:]_block_invoke_2
+__105+[MagicalRecord(ActionsDeprecated) saveInBackgroundUsingCurrentContextWithBlock:completion:errorHandler:]_block_invoke
+__73+[MagicalRecord(ActionsDeprecated) saveInBackgroundWithBlock:completion:]_block_invoke
+__82+[MagicalRecord(ActionsDeprecated) saveUsingCurrentThreadContextWithBlockAndWait:]_block_invoke
+__86+[MagicalRecord(ActionsDeprecated) saveUsingCurrentThreadContextWithBlock:completion:]_block_invoke
+__47+[MagicalRecord(Actions) saveWithBlockAndWait:]_block_invoke
+__51+[MagicalRecord(Actions) saveWithBlock:completion:]_block_invoke
++[MagicalRecord(ErrorHandling) cleanUpErrorHanding]
++[MagicalRecord(ErrorHandling) defaultErrorHandler:]
++[MagicalRecord(ErrorHandling) handleErrors:]
++[MagicalRecord(ErrorHandling) errorHandlerTarget]
++[MagicalRecord(ErrorHandling) errorHandlerAction]
++[MagicalRecord(ErrorHandling) setErrorHandlerTarget:action:]
+-[MagicalRecord(ErrorHandling) handleErrors:]
+_errorHandlerTarget
+_errorHandlerAction
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Core/MagicalRecord+ErrorHandling.m
++[MagicalRecord(iCloud) isICloudEnabled]
++[MagicalRecord(iCloud) setICloudEnabled:]
++[MagicalRecord(iCloud) setupCoreDataStackWithiCloudContainer:localStoreNamed:]
++[MagicalRecord(iCloud) setupCoreDataStackWithiCloudContainer:contentNameKey:localStoreNamed:cloudStorePathComponent:]
++[MagicalRecord(iCloud) setupCoreDataStackWithiCloudContainer:contentNameKey:localStoreNamed:cloudStorePathComponent:completion:]
++[MagicalRecord(iCloud) setupCoreDataStackWithiCloudContainer:localStoreAtURL:]
++[MagicalRecord(iCloud) setupCoreDataStackWithiCloudContainer:contentNameKey:localStoreAtURL:cloudStorePathComponent:]
++[MagicalRecord(iCloud) setupCoreDataStackWithiCloudContainer:contentNameKey:localStoreAtURL:cloudStorePathComponent:completion:]
+__iCloudEnabled
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Core/MagicalRecord+iCloud.m
++[MagicalRecord(Options) shouldAutoCreateManagedObjectModel]
++[MagicalRecord(Options) setShouldAutoCreateManagedObjectModel:]
++[MagicalRecord(Options) shouldAutoCreateDefaultPersistentStoreCoordinator]
++[MagicalRecord(Options) setShouldAutoCreateDefaultPersistentStoreCoordinator:]
++[MagicalRecord(Options) shouldDeleteStoreOnModelMismatch]
++[MagicalRecord(Options) setShouldDeleteStoreOnModelMismatch:]
++[MagicalRecord(Options) loggingLevel]
++[MagicalRecord(Options) setLoggingLevel:]
+_kMagicalRecordShouldAutoCreateManagedObjectModel
+_kMagicalRecordShouldAutoCreateDefaultPersistentStoreCoordinator
+_kMagicalRecordShouldDeleteStoreOnModelMismatch
+_kMagicalRecordLoggingLevel
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Core/MagicalRecord+Options.m
++[MagicalRecord(Setup) setupCoreDataStack]
++[MagicalRecord(Setup) setupAutoMigratingCoreDataStack]
++[MagicalRecord(Setup) setupCoreDataStackWithStoreNamed:]
++[MagicalRecord(Setup) setupCoreDataStackWithAutoMigratingSqliteStoreNamed:]
++[MagicalRecord(Setup) setupCoreDataStackWithStoreAtURL:]
++[MagicalRecord(Setup) setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:]
++[MagicalRecord(Setup) setupCoreDataStackWithInMemoryStore]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Core/MagicalRecord+Setup.m
++[MagicalRecord(ShorthandMethods) enableShorthandMethods]
+___57+[MagicalRecord(ShorthandMethods) enableShorthandMethods]_block_invoke
++[MagicalRecord(ShorthandMethods) classesToSwizzle]
++[MagicalRecord(ShorthandMethods) methodNameBlacklist]
++[MagicalRecord(ShorthandMethods) MR_resolveClassMethod:]
++[MagicalRecord(ShorthandMethods) MR_resolveInstanceMethod:]
++[MagicalRecord(ShorthandMethods) updateResolveMethodsForClass:]
+_MRReplaceSelectorForTargetWithSourceImplementation
+_kMagicalRecordShorthandMethodsSwizzled
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Core/MagicalRecord+ShorthandMethods.m
+MRReplaceSelectorForTargetWithSourceImplementation
+MRAddShorthandMethodForPrefixedInstanceMethod
+MRAddShortHandMethodForPrefixedClassMethod
+__57+[MagicalRecord(ShorthandMethods) enableShorthandMethods]_block_invoke
+/Users/apple/Downloads/yingwo-ios/Pods/Target Support Files/MagicalRecord/MagicalRecord-dummy.m
++[MagicalRecord version]
++[MagicalRecord cleanUp]
++[MagicalRecord cleanUpStack]
++[MagicalRecord currentStack]
++[MagicalRecord setDefaultModelNamed:]
++[MagicalRecord setDefaultModelFromClass:]
++[MagicalRecord defaultStoreName]
++[MagicalRecord initialize]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Core/MagicalRecordInternal.m
+-[NSAttributeDescription(MagicalRecord_DataImport) MR_primaryKey]
+-[NSAttributeDescription(MagicalRecord_DataImport) MR_valueForKeyPath:fromObjectData:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/DataImport/NSAttributeDescription+MagicalDataImport.m
+-[NSEntityDescription(MagicalRecord_DataImport) MR_primaryAttributeToRelateBy]
+-[NSEntityDescription(MagicalRecord_DataImport) MR_createInstanceInContext:]
+-[NSEntityDescription(MagicalRecord_DataImport) MR_attributeDescriptionForName:]
+___Block_byref_object_copy_
+___Block_byref_object_dispose_
+___80-[NSEntityDescription(MagicalRecord_DataImport) MR_attributeDescriptionForName:]_block_invoke
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/DataImport/NSEntityDescription+MagicalDataImport.m
+__80-[NSEntityDescription(MagicalRecord_DataImport) MR_attributeDescriptionForName:]_block_invoke
+__Block_byref_object_dispose_
+__Block_byref_object_copy_
++[NSManagedObject(MagicalAggregation) MR_numberOfEntitiesWithContext:]
++[NSManagedObject(MagicalAggregation) MR_numberOfEntities]
++[NSManagedObject(MagicalAggregation) MR_numberOfEntitiesWithPredicate:inContext:]
++[NSManagedObject(MagicalAggregation) MR_numberOfEntitiesWithPredicate:]
++[NSManagedObject(MagicalAggregation) MR_countOfEntities]
++[NSManagedObject(MagicalAggregation) MR_countOfEntitiesWithContext:]
++[NSManagedObject(MagicalAggregation) MR_countOfEntitiesWithPredicate:]
++[NSManagedObject(MagicalAggregation) MR_countOfEntitiesWithPredicate:inContext:]
++[NSManagedObject(MagicalAggregation) MR_hasAtLeastOneEntity]
++[NSManagedObject(MagicalAggregation) MR_hasAtLeastOneEntityInContext:]
+-[NSManagedObject(MagicalAggregation) MR_minValueFor:]
+-[NSManagedObject(MagicalAggregation) MR_maxValueFor:]
+-[NSManagedObject(MagicalAggregation) MR_objectWithMinValueFor:inContext:]
+-[NSManagedObject(MagicalAggregation) MR_objectWithMinValueFor:]
++[NSManagedObject(MagicalAggregation) MR_aggregateOperation:onAttribute:withPredicate:inContext:]
++[NSManagedObject(MagicalAggregation) MR_aggregateOperation:onAttribute:withPredicate:]
++[NSManagedObject(MagicalAggregation) MR_aggregateOperation:onAttribute:withPredicate:groupBy:inContext:]
++[NSManagedObject(MagicalAggregation) MR_aggregateOperation:onAttribute:withPredicate:groupBy:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalAggregation.m
+-[NSManagedObject(MagicalRecord_DataImport) MR_importValue:forKey:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_setAttributes:forKeysWithObject:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_findObjectForRelationship:withData:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_addObject:forRelationship:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_setRelationships:forKeysWithObject:withBlock:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_preImport:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_postImport:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_performDataImportFromObject:relationshipBlock:]
+-[NSManagedObject(MagicalRecord_DataImport) MR_importValuesForKeysWithObject:]
+___78-[NSManagedObject(MagicalRecord_DataImport) MR_importValuesForKeysWithObject:]_block_invoke
++[NSManagedObject(MagicalRecord_DataImport) MR_importFromObject:inContext:]
+___75+[NSManagedObject(MagicalRecord_DataImport) MR_importFromObject:inContext:]_block_invoke
+___copy_helper_block_.166
+___destroy_helper_block_.167
++[NSManagedObject(MagicalRecord_DataImport) MR_importFromObject:]
++[NSManagedObject(MagicalRecord_DataImport) MR_importFromArray:]
++[NSManagedObject(MagicalRecord_DataImport) MR_importFromArray:inContext:]
+___74+[NSManagedObject(MagicalRecord_DataImport) MR_importFromArray:inContext:]_block_invoke
+___copy_helper_block_.184
+___destroy_helper_block_.185
+___block_descriptor_tmp.169
+___block_descriptor_tmp.188
+l_OBJC_PROTOCOL_$_NSObject
+l_OBJC_LABEL_PROTOCOL_$_NSObject
+l_OBJC_PROTOCOL_$_MagicalRecordDataImportProtocol
+l_OBJC_LABEL_PROTOCOL_$_MagicalRecordDataImportProtocol
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalDataImport.m
+__74+[NSManagedObject(MagicalRecord_DataImport) MR_importFromArray:inContext:]_block_invoke
+__75+[NSManagedObject(MagicalRecord_DataImport) MR_importFromObject:inContext:]_block_invoke
+__78-[NSManagedObject(MagicalRecord_DataImport) MR_importValuesForKeysWithObject:]_block_invoke
++[NSManagedObject(MagicalFinders) MR_findAllInContext:]
++[NSManagedObject(MagicalFinders) MR_findAll]
++[NSManagedObject(MagicalFinders) MR_findAllSortedBy:ascending:inContext:]
++[NSManagedObject(MagicalFinders) MR_findAllSortedBy:ascending:]
++[NSManagedObject(MagicalFinders) MR_findAllSortedBy:ascending:withPredicate:inContext:]
++[NSManagedObject(MagicalFinders) MR_findAllSortedBy:ascending:withPredicate:]
++[NSManagedObject(MagicalFinders) MR_findAllWithPredicate:inContext:]
++[NSManagedObject(MagicalFinders) MR_findAllWithPredicate:]
++[NSManagedObject(MagicalFinders) MR_findFirstInContext:]
++[NSManagedObject(MagicalFinders) MR_findFirst]
++[NSManagedObject(MagicalFinders) MR_findFirstByAttribute:withValue:inContext:]
++[NSManagedObject(MagicalFinders) MR_findFirstByAttribute:withValue:]
++[NSManagedObject(MagicalFinders) MR_findFirstOrderedByAttribute:ascending:inContext:]
++[NSManagedObject(MagicalFinders) MR_findFirstOrderedByAttribute:ascending:]
++[NSManagedObject(MagicalFinders) MR_findFirstOrCreateByAttribute:withValue:]
++[NSManagedObject(MagicalFinders) MR_findFirstOrCreateByAttribute:withValue:inContext:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:inContext:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:sortedBy:ascending:inContext:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:sortedBy:ascending:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:andRetrieveAttributes:inContext:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:andRetrieveAttributes:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:sortedBy:ascending:inContext:andRetrieveAttributes:]
++[NSManagedObject(MagicalFinders) MR_findFirstWithPredicate:sortedBy:ascending:andRetrieveAttributes:]
++[NSManagedObject(MagicalFinders) MR_findByAttribute:withValue:inContext:]
++[NSManagedObject(MagicalFinders) MR_findByAttribute:withValue:]
++[NSManagedObject(MagicalFinders) MR_findByAttribute:withValue:andOrderBy:ascending:inContext:]
++[NSManagedObject(MagicalFinders) MR_findByAttribute:withValue:andOrderBy:ascending:]
++[NSManagedObject(MagicalFinders) MR_fetchController:delegate:useFileCache:groupedBy:inContext:]
++[NSManagedObject(MagicalFinders) MR_fetchAllWithDelegate:]
++[NSManagedObject(MagicalFinders) MR_fetchAllWithDelegate:inContext:]
++[NSManagedObject(MagicalFinders) MR_fetchAllGroupedBy:withPredicate:sortedBy:ascending:delegate:inContext:]
++[NSManagedObject(MagicalFinders) MR_fetchAllGroupedBy:withPredicate:sortedBy:ascending:delegate:]
++[NSManagedObject(MagicalFinders) MR_fetchAllGroupedBy:withPredicate:sortedBy:ascending:inContext:]
++[NSManagedObject(MagicalFinders) MR_fetchAllGroupedBy:withPredicate:sortedBy:ascending:]
++[NSManagedObject(MagicalFinders) MR_fetchAllSortedBy:ascending:withPredicate:groupBy:inContext:]
++[NSManagedObject(MagicalFinders) MR_fetchAllSortedBy:ascending:withPredicate:groupBy:]
++[NSManagedObject(MagicalFinders) MR_fetchAllSortedBy:ascending:withPredicate:groupBy:delegate:inContext:]
++[NSManagedObject(MagicalFinders) MR_fetchAllSortedBy:ascending:withPredicate:groupBy:delegate:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalFinders.m
++[NSManagedObject(MagicalRecord) MR_entityName]
++[NSManagedObject(MagicalRecord) MR_setDefaultBatchSize:]
++[NSManagedObject(MagicalRecord) MR_defaultBatchSize]
++[NSManagedObject(MagicalRecord) MR_executeFetchRequest:inContext:]
+___67+[NSManagedObject(MagicalRecord) MR_executeFetchRequest:inContext:]_block_invoke
++[NSManagedObject(MagicalRecord) MR_executeFetchRequest:]
++[NSManagedObject(MagicalRecord) MR_executeFetchRequestAndReturnFirstObject:inContext:]
++[NSManagedObject(MagicalRecord) MR_executeFetchRequestAndReturnFirstObject:]
++[NSManagedObject(MagicalRecord) MR_performFetch:]
++[NSManagedObject(MagicalRecord) MR_entityDescription]
++[NSManagedObject(MagicalRecord) MR_entityDescriptionInContext:]
++[NSManagedObject(MagicalRecord) MR_propertiesNamed:]
++[NSManagedObject(MagicalRecord) MR_propertiesNamed:inContext:]
++[NSManagedObject(MagicalRecord) MR_sortAscending:attributes:]
++[NSManagedObject(MagicalRecord) MR_ascendingSortDescriptors:]
++[NSManagedObject(MagicalRecord) MR_descendingSortDescriptors:]
++[NSManagedObject(MagicalRecord) MR_createEntityInContext:]
++[NSManagedObject(MagicalRecord) MR_createEntity]
+-[NSManagedObject(MagicalRecord) MR_deleteEntityInContext:]
+-[NSManagedObject(MagicalRecord) MR_deleteEntity]
++[NSManagedObject(MagicalRecord) MR_deleteAllMatchingPredicate:inContext:]
++[NSManagedObject(MagicalRecord) MR_deleteAllMatchingPredicate:]
++[NSManagedObject(MagicalRecord) MR_truncateAllInContext:]
++[NSManagedObject(MagicalRecord) MR_truncateAll]
+-[NSManagedObject(MagicalRecord) MR_inContext:]
+-[NSManagedObject(MagicalRecord) MR_inThreadContext]
++[NSManagedObject(MagicalRecordDeprecated) MR_createInContext:]
+-[NSManagedObject(MagicalRecordDeprecated) MR_deleteInContext:]
+_kMagicalRecordDefaultBatchSize
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalRecord.m
+__67+[NSManagedObject(MagicalRecord) MR_executeFetchRequest:inContext:]_block_invoke
++[NSManagedObject(MagicalRequests) MR_createFetchRequestInContext:]
++[NSManagedObject(MagicalRequests) MR_createFetchRequest]
++[NSManagedObject(MagicalRequests) MR_requestAll]
++[NSManagedObject(MagicalRequests) MR_requestAllInContext:]
++[NSManagedObject(MagicalRequests) MR_requestAllWithPredicate:]
++[NSManagedObject(MagicalRequests) MR_requestAllWithPredicate:inContext:]
++[NSManagedObject(MagicalRequests) MR_requestAllWhere:isEqualTo:]
++[NSManagedObject(MagicalRequests) MR_requestAllWhere:isEqualTo:inContext:]
++[NSManagedObject(MagicalRequests) MR_requestFirstWithPredicate:]
++[NSManagedObject(MagicalRequests) MR_requestFirstWithPredicate:inContext:]
++[NSManagedObject(MagicalRequests) MR_requestFirstByAttribute:withValue:]
++[NSManagedObject(MagicalRequests) MR_requestFirstByAttribute:withValue:inContext:]
++[NSManagedObject(MagicalRequests) MR_requestAllSortedBy:ascending:inContext:]
++[NSManagedObject(MagicalRequests) MR_requestAllSortedBy:ascending:]
++[NSManagedObject(MagicalRequests) MR_requestAllSortedBy:ascending:withPredicate:inContext:]
++[NSManagedObject(MagicalRequests) MR_requestAllSortedBy:ascending:withPredicate:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalRequests.m
+-[NSManagedObjectContext(MagicalRecord_ChainSave) MR_saveWithBlock:]
+-[NSManagedObjectContext(MagicalRecord_ChainSave) MR_saveWithBlock:completion:]
+___79-[NSManagedObjectContext(MagicalRecord_ChainSave) MR_saveWithBlock:completion:]_block_invoke
+-[NSManagedObjectContext(MagicalRecord_ChainSave) MR_saveWithBlockAndWait:]
+___75-[NSManagedObjectContext(MagicalRecord_ChainSave) MR_saveWithBlockAndWait:]_block_invoke
+___copy_helper_block_.9
+___destroy_helper_block_.10
+___block_descriptor_tmp.11
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObjectContext/NSManagedObjectContext+MagicalChainSave.m
+__75-[NSManagedObjectContext(MagicalRecord_ChainSave) MR_saveWithBlockAndWait:]_block_invoke
+__79-[NSManagedObjectContext(MagicalRecord_ChainSave) MR_saveWithBlock:completion:]_block_invoke
+-[NSManagedObjectContext(MagicalObserving) MR_observeContext:]
+-[NSManagedObjectContext(MagicalObserving) MR_stopObservingContext:]
+-[NSManagedObjectContext(MagicalObserving) MR_observeContextOnMainThread:]
+-[NSManagedObjectContext(MagicalObserving) MR_mergeChangesFromiCloud:]
+___70-[NSManagedObjectContext(MagicalObserving) MR_mergeChangesFromiCloud:]_block_invoke
+-[NSManagedObjectContext(MagicalObserving) MR_mergeChangesFromNotification:]
+-[NSManagedObjectContext(MagicalObserving) MR_mergeChangesOnMainThread:]
+-[NSManagedObjectContext(MagicalObserving) MR_observeiCloudChangesInCoordinator:]
+-[NSManagedObjectContext(MagicalObserving) MR_stopObservingiCloudChangesInCoordinator:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObjectContext/NSManagedObjectContext+MagicalObserving.m
+__70-[NSManagedObjectContext(MagicalObserving) MR_mergeChangesFromiCloud:]_block_invoke
++[NSManagedObjectContext(MagicalRecord) MR_initializeDefaultContextWithCoordinator:]
++[NSManagedObjectContext(MagicalRecord) MR_defaultContext]
++[NSManagedObjectContext(MagicalRecord) MR_rootSavingContext]
++[NSManagedObjectContext(MagicalRecord) MR_context]
++[NSManagedObjectContext(MagicalRecord) MR_contextWithParent:]
++[NSManagedObjectContext(MagicalRecord) MR_contextWithStoreCoordinator:]
+___72+[NSManagedObjectContext(MagicalRecord) MR_contextWithStoreCoordinator:]_block_invoke
++[NSManagedObjectContext(MagicalRecord) MR_newMainQueueContext]
++[NSManagedObjectContext(MagicalRecord) MR_newPrivateQueueContext]
+-[NSManagedObjectContext(MagicalRecord) MR_setWorkingName:]
+___59-[NSManagedObjectContext(MagicalRecord) MR_setWorkingName:]_block_invoke
+-[NSManagedObjectContext(MagicalRecord) MR_workingName]
+___55-[NSManagedObjectContext(MagicalRecord) MR_workingName]_block_invoke
+___copy_helper_block_.50
+___destroy_helper_block_.51
+-[NSManagedObjectContext(MagicalRecord) MR_description]
+___55-[NSManagedObjectContext(MagicalRecord) MR_description]_block_invoke
+___copy_helper_block_.61
+___destroy_helper_block_.62
+-[NSManagedObjectContext(MagicalRecord) MR_parentChain]
++[NSManagedObjectContext(MagicalRecord) MR_resetDefaultContext]
+___63+[NSManagedObjectContext(MagicalRecord) MR_resetDefaultContext]_block_invoke
+___copy_helper_block_.92
+___destroy_helper_block_.93
+-[NSManagedObjectContext(MagicalRecord) MR_deleteObjects:]
+-[NSManagedObjectContext(MagicalRecord) MR_contextWillSave:]
++[NSManagedObjectContext(MagicalRecord) rootContextDidSave:]
+___60+[NSManagedObjectContext(MagicalRecord) rootContextDidSave:]_block_invoke
+___copy_helper_block_.117
+___destroy_helper_block_.118
++[NSManagedObjectContext(MagicalRecord) MR_cleanUp]
+-[NSManagedObjectContext(MagicalRecord) MR_obtainPermanentIDsBeforeSaving]
++[NSManagedObjectContext(MagicalRecord) MR_setDefaultContext:]
+___62+[NSManagedObjectContext(MagicalRecord) MR_setDefaultContext:]_block_invoke
+___copy_helper_block_.156
+___destroy_helper_block_.157
++[NSManagedObjectContext(MagicalRecord) MR_setRootSavingContext:]
+___65+[NSManagedObjectContext(MagicalRecord) MR_setRootSavingContext:]_block_invoke
++[NSManagedObjectContext(MagicalRecordDeprecated) MR_contextWithoutParent]
++[NSManagedObjectContext(MagicalRecordDeprecated) MR_newContext]
++[NSManagedObjectContext(MagicalRecordDeprecated) MR_newContextWithParent:]
++[NSManagedObjectContext(MagicalRecordDeprecated) MR_newContextWithStoreCoordinator:]
+_MagicalRecordDefaultContext
+_MagicalRecordRootSavingContext
+___block_descriptor_tmp.52
+___block_descriptor_tmp.63
+___block_descriptor_tmp.94
+___block_descriptor_tmp.120
+_MagicalRecordUbiquitySetupNotificationObserver
+___block_descriptor_tmp.159
+___block_descriptor_tmp.168
+___block_literal_global
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObjectContext/NSManagedObjectContext+MagicalRecord.m
+__65+[NSManagedObjectContext(MagicalRecord) MR_setRootSavingContext:]_block_invoke
+__62+[NSManagedObjectContext(MagicalRecord) MR_setDefaultContext:]_block_invoke
+__60+[NSManagedObjectContext(MagicalRecord) rootContextDidSave:]_block_invoke
+__63+[NSManagedObjectContext(MagicalRecord) MR_resetDefaultContext]_block_invoke
+__55-[NSManagedObjectContext(MagicalRecord) MR_description]_block_invoke
+__55-[NSManagedObjectContext(MagicalRecord) MR_workingName]_block_invoke
+__59-[NSManagedObjectContext(MagicalRecord) MR_setWorkingName:]_block_invoke
+__72+[NSManagedObjectContext(MagicalRecord) MR_contextWithStoreCoordinator:]_block_invoke
+-[NSManagedObjectContext(MagicalSaves) MR_saveOnlySelfWithCompletion:]
+-[NSManagedObjectContext(MagicalSaves) MR_saveOnlySelfAndWait]
+-[NSManagedObjectContext(MagicalSaves) MR_saveToPersistentStoreWithCompletion:]
+-[NSManagedObjectContext(MagicalSaves) MR_saveToPersistentStoreAndWait]
+-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]
+___70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke
+___70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke.12
+___copy_helper_block_.13
+___destroy_helper_block_.14
+___70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke.20
+___70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke_2
+___copy_helper_block_.47
+___destroy_helper_block_.48
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_save]
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveWithErrorCallback:]
+___75-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveWithErrorCallback:]_block_invoke
+___copy_helper_block_.62
+___destroy_helper_block_.63
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundCompletion:]
+___80-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundCompletion:]_block_invoke
+___copy_helper_block_.66
+___destroy_helper_block_.67
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundErrorHandler:]
+___82-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundErrorHandler:]_block_invoke
+___copy_helper_block_.70
+___destroy_helper_block_.71
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundErrorHandler:completion:]
+___93-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundErrorHandler:completion:]_block_invoke
+___copy_helper_block_.73
+___destroy_helper_block_.74
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveNestedContexts]
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveNestedContextsErrorHandler:]
+___84-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveNestedContextsErrorHandler:]_block_invoke
+___copy_helper_block_.77
+___destroy_helper_block_.78
+-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveNestedContextsErrorHandler:completion:]
+___95-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveNestedContextsErrorHandler:completion:]_block_invoke
+___copy_helper_block_.80
+___destroy_helper_block_.81
+___block_descriptor_tmp.15
+___block_descriptor_tmp.49
+___block_descriptor_tmp.65
+___block_descriptor_tmp.68
+___block_descriptor_tmp.72
+___block_descriptor_tmp.75
+___block_descriptor_tmp.79
+___block_descriptor_tmp.82
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObjectContext/NSManagedObjectContext+MagicalSaves.m
+__95-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveNestedContextsErrorHandler:completion:]_block_invoke
+__84-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveNestedContextsErrorHandler:]_block_invoke
+__93-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundErrorHandler:completion:]_block_invoke
+__82-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundErrorHandler:]_block_invoke
+__80-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveInBackgroundCompletion:]_block_invoke
+__75-[NSManagedObjectContext(MagicalSavesDeprecated) MR_saveWithErrorCallback:]_block_invoke
+__70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke_2
+__70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke.20
+__70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke.12
+__70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke
++[NSManagedObjectContext(MagicalThreading) MR_resetContextForCurrentThread]
++[NSManagedObjectContext(MagicalThreading) MR_clearNonMainThreadContextsCache]
++[NSManagedObjectContext(MagicalThreading) MR_contextForCurrentThread]
++[NSManagedObjectContext(MagicalThreading) MR_clearContextForCurrentThread]
+_contextsCacheVersion
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObjectContext/NSManagedObjectContext+MagicalThreading.m
++[NSManagedObjectModel(MagicalRecord) MR_defaultManagedObjectModel]
++[NSManagedObjectModel(MagicalRecord) MR_setDefaultManagedObjectModel:]
++[NSManagedObjectModel(MagicalRecord) MR_mergedObjectModelFromMainBundle]
++[NSManagedObjectModel(MagicalRecord) MR_newModelNamed:inBundleNamed:]
++[NSManagedObjectModel(MagicalRecord) MR_newModelNamed:inBundle:]
++[NSManagedObjectModel(MagicalRecord) MR_newManagedObjectModelNamed:]
++[NSManagedObjectModel(MagicalRecord) MR_managedObjectModelNamed:]
+_defaultManagedObjectModel_
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSManagedObjectModel+MagicalRecord.m
+-[NSNumber(MagicalRecord_DataImport) MR_lookupKeyForAttribute:]
+-[NSNumber(MagicalRecord_DataImport) MR_relatedValueForRelationship:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/DataImport/NSNumber+MagicalDataImport.m
+-[NSObject(MagicalRecord_DataImport) MR_lookupKeyForAttribute:]
+-[NSObject(MagicalRecord_DataImport) MR_valueForAttribute:]
+-[NSObject(MagicalRecord_DataImport) MR_lookupKeyForRelationship:]
+-[NSObject(MagicalRecord_DataImport) MR_relatedValueForRelationship:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/DataImport/NSObject+MagicalDataImport.m
++[NSPersistentStore(MagicalRecord) MR_defaultPersistentStore]
++[NSPersistentStore(MagicalRecord) MR_setDefaultPersistentStore:]
++[NSPersistentStore(MagicalRecord) MR_directory:]
++[NSPersistentStore(MagicalRecord) MR_applicationDocumentsDirectory]
++[NSPersistentStore(MagicalRecord) MR_applicationStorageDirectory]
++[NSPersistentStore(MagicalRecord) MR_urlForStoreName:]
++[NSPersistentStore(MagicalRecord) MR_cloudURLForUbiquitousContainer:]
++[NSPersistentStore(MagicalRecord) MR_cloudURLForUbiqutiousContainer:]
++[NSPersistentStore(MagicalRecord) MR_defaultLocalStoreUrl]
+_defaultPersistentStore_
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSPersistentStore+MagicalRecord.m
++[NSPersistentStoreCoordinator(MagicalRecord) MR_defaultStoreCoordinator]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_setDefaultStoreCoordinator:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_createPathToStoreFileIfNeccessary:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addSqliteStoreNamed:withOptions:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addSqliteStoreNamed:configuration:withOptions:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:storeIdentifier:cloudStorePathComponent:completion:]
+___137-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:storeIdentifier:cloudStorePathComponent:completion:]_block_invoke
+___137-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:storeIdentifier:cloudStorePathComponent:completion:]_block_invoke_2
+___137-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:storeIdentifier:cloudStorePathComponent:completion:]_block_invoke.124
+___copy_helper_block_.125
+___destroy_helper_block_.126
+___copy_helper_block_.128
+___destroy_helper_block_.129
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addInMemoryStore]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_autoMigrationOptions]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addAutoMigratingSqliteStoreNamed:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addAutoMigratingSqliteStoreAtURL:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithAutoMigratingSqliteStoreNamed:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithAutoMigratingSqliteStoreAtURL:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithInMemoryStore]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_newPersistentStoreCoordinator]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:localStoreNamed:cloudStorePathComponent:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:localStoreAtURL:cloudStorePathComponent:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:localStoreNamed:cloudStorePathComponent:completion:]
+-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:localStoreAtURL:cloudStorePathComponent:completion:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithiCloudContainerID:contentNameKey:localStoreNamed:cloudStorePathComponent:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithiCloudContainerID:contentNameKey:localStoreAtURL:cloudStorePathComponent:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithiCloudContainerID:contentNameKey:localStoreNamed:cloudStorePathComponent:completion:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithiCloudContainerID:contentNameKey:localStoreAtURL:cloudStorePathComponent:completion:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithPersistentStore:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithSqliteStoreNamed:withOptions:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithSqliteStoreAtURL:withOptions:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithSqliteStoreNamed:]
++[NSPersistentStoreCoordinator(MagicalRecord) MR_coordinatorWithSqliteStoreAtURL:]
+-[NSDictionary(Merging) MR_dictionaryByMergingDictionary:]
+_defaultCoordinator_
+___block_descriptor_tmp.127
+___block_descriptor_tmp.130
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/NSPersistentStoreCoordinator+MagicalRecord.m
+__137-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:storeIdentifier:cloudStorePathComponent:completion:]_block_invoke.124
+__137-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:storeIdentifier:cloudStorePathComponent:completion:]_block_invoke_2
+__137-[NSPersistentStoreCoordinator(MagicalRecord) MR_addiCloudContainerID:contentNameKey:storeIdentifier:cloudStorePathComponent:completion:]_block_invoke
+-[NSRelationshipDescription(MagicalRecord_DataImport) MR_primaryKey]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/DataImport/NSRelationshipDescription+MagicalDataImport.m
+-[NSString(MagicalRecord_DataImport) MR_capitalizedFirstCharacterString]
+-[NSString(MagicalRecord_DataImport) MR_relatedValueForRelationship:]
+-[NSString(MagicalRecord_DataImport) MR_lookupKeyForAttribute:]
+/Users/apple/Downloads/yingwo-ios/Pods/MagicalRecord/MagicalRecord/Categories/DataImport/NSString+MagicalDataImport.m
+/Users/apple/Library/Developer/Xcode/DerivedData/yingwo-ckixqpsiyhgxmxbsymmmyjjlaede/Build/Intermediates/ArchiveIntermediates/yingwo/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/MagicalRecord.build/DerivedSources/MagicalRecord_vers.c
+__ZL15__ARCLite__loadv
+__ZL30add_image_hook_autoreleasepoolPK11mach_headerl
+__ZL34__arclite_objc_autoreleasePoolPushv
+__ZL33__arclite_objc_autoreleasePoolPopPv
+__ZL19patch_lazy_pointersPK11mach_headerP7patch_tm
+__ZL42__arclite_NSArray_objectAtIndexedSubscriptP7NSArrayP13objc_selectorj
+__ZL53__arclite_NSMutableArray_setObject_atIndexedSubscriptP14NSMutableArrayP13objc_selectorP11objc_objectj
+__ZL46__arclite_NSDictionary_objectForKeyedSubscriptP12NSDictionaryP13objc_selectorP11objc_object
+__ZL47__arclite_NSOrderedSet_objectAtIndexedSubscriptP12NSOrderedSetP13objc_selectorj
+__ZL58__arclite_NSMutableOrderedSet_setObject_atIndexedSubscriptP19NSMutableOrderedSetP13objc_selectorP11objc_objectj
+__ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+__ZL18add_image_hook_ARCPK11mach_headerl
+__ZL36__arclite_object_setInstanceVariableP11objc_objectPKcPv
+__ZL24__arclite_object_setIvarP11objc_objectP9objc_ivarS0_
+__ZL21__arclite_object_copyP11objc_objectm
+__ZL21__arclite_objc_retainP11objc_object
+__ZL26__arclite_objc_retainBlockP11objc_object
+__ZL22__arclite_objc_releaseP11objc_object
+__ZL26__arclite_objc_autoreleaseP11objc_object
+__ZL32__arclite_objc_retainAutoreleaseP11objc_object
+__ZL37__arclite_objc_autoreleaseReturnValueP11objc_object
+__ZL43__arclite_objc_retainAutoreleaseReturnValueP11objc_object
+__ZL44__arclite_objc_retainAutoreleasedReturnValueP11objc_object
+__ZL26__arclite_objc_storeStrongPP11objc_objectS0_
+__ZL22add_image_hook_swiftV1PK11mach_headerl
+__ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+__ZL13replaceMethodP10objc_classP13objc_selectorPFP11objc_objectS4_S2_zEPS6_
+__ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+__ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+__ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+__ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+__ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+__ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+__ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+__ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+__ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+__ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+__ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+__ZL32__arclite_object_getIndexedIvarsP11objc_object
+__ZL23__arclite_objc_getClassPKc
+__ZL27__arclite_objc_getMetaClassPKc
+__ZL31__arclite_objc_getRequiredClassPKc
+__ZL26__arclite_objc_lookUpClassPKc
+__ZL26__arclite_objc_getProtocolPKc
+__ZL23__arclite_class_getNameP10objc_class
+__ZL26__arclite_protocol_getNameP8Protocol
+__ZL37__arclite_objc_copyClassNamesForImagePKcPj
+__ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+__ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+__ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+__ZL14initialize_impP11objc_objectP13objc_selector
+__ZL18allocateMaybeSwiftP18glue_swift_class_tm
+__ZL22copySwiftV1MangledNamePKcb
+__ZL13demangledNamePKcb
+__ZL16scanMangledFieldRPKcS0_S1_Ri
+__ZL30arclite_uninitialized_functionv
+__ZL12cxxConstructP11objc_object
+__ZL20fixStringForCoreDataP11objc_object
+_OBJC_METACLASS_$___ARCLite__
+__ZL24OBJC_CLASS_$___ARCLite__
+__ZL31OBJC_METACLASS_RO_$___ARCLite__
+__non_lazy_classes
+__ZL27OBJC_CLASS_RO_$___ARCLite__
+__ZL11_class_name
+__ZL32OBJC_$_CLASS_METHODS___ARCLite__
+__ZL17_load_method_name
+__ZL17_load_method_type
+__ZL23NSAutoreleasePool_class
+__ZZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+__ZGVZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+l_OBJC_PROTOCOL_$___ARCLiteIndexedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteIndexedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteIndexedSubscripting__
+l_OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+__ZZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZGVZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZL30NSUndoManagerProxy_targetClass
+__ZL29original_NSManagedObject_init
+__ZL40original_NSManagedObject_allocWithEntity
+__ZL35original_NSManagedObject_allocBatch
+__ZL25NSMutableDictionary_class
+__ZL22NSConstantString_class
+__ZL14NSString_class
+__ZL36original_NSKKMS_fastIndexForKnownKey
+__ZL27original_NSKKMS_indexForKey
+__ZL28original_NSKKsD_objectForKey
+__ZL34original_NSKKsD_removeObjectForKey
+__ZL32original_NSKKsD_setObject_forKey
+__ZL40original_NSKKsD_addEntriesFromDictionary
+__ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZL31original_objc_allocateClassPair
+__ZL31original_object_getIndexedIvars
+__ZL22original_objc_getClass
+__ZL26original_objc_getMetaClass
+__ZL30original_objc_getRequiredClass
+__ZL25original_objc_lookUpClass
+__ZL25original_objc_getProtocol
+__ZL22original_class_getName
+__ZL25original_protocol_getName
+__ZL36original_objc_copyClassNamesForImage
+__ZL12demangleLock
+__ZL9Demangled
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/armv7 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~835/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.o -mlinker-version=274.1 -march=armv7a
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65
+fixStringForCoreData
+cxxConstruct
+arclite_uninitialized_function
+scanMangledField
+isdigit
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.Internal.sdk/usr/include/ctype.h
+__isctype
+demangledName
+copySwiftV1DemangledName
+copySwiftV1MangledName
+allocateMaybeSwift
+word_align
+isSwift
+initialize_imp
+transcribeProperties
+property_list_nth
+transcribeProtocols
+transcribeMethods
+data
+method_list_nth
+__arclite_objc_copyClassNamesForImage
+__arclite_protocol_getName
+__arclite_class_getName
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+__arclite_objc_getClass
+__arclite_object_getIndexedIvars
+__arclite_objc_allocateClassPair
+metaclass
+__arclite_objc_readClassPair
+transcribeIvars
+ivar_list_nth
+max
+alignment
+ro
+fastFlags
+__arclite_NSKKsD_addEntriesFromDictionary
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+__arclite_NSManagedObject_init
+replaceMethod
+__arclite_NSUndoManagerProxy_isKindOfClass
+add_image_hook_swiftV1
+patch_t<const char **(const char *, unsigned int *)>
+patch_t<const char *(Protocol *)>
+patch_t<const char *(Class)>
+patch_t<Protocol *(const char *)>
+patch_t<Class (const char *)>
+patch_t<void *(id)>
+patch_t<Class (Class, const char *, unsigned long)>
+patch_t<Class (Class, const objc_image_info *)>
+__arclite_objc_storeStrong
+__arclite_objc_release
+__arclite_objc_retain
+__arclite_objc_retainAutoreleasedReturnValue
+__arclite_objc_retainAutoreleaseReturnValue
+__arclite_objc_autoreleaseReturnValue
+__arclite_objc_retainAutorelease
+__arclite_objc_autorelease
+__arclite_objc_retainBlock
+__arclite_object_copy
+fixupCopiedReferences
+_class_getInstanceStart
+alignedInstanceStart
+__arclite_class_usesAutomaticRetainRelease
+classOrSuperClassesUseARR
+__arclite_object_setIvar
+isScannedOffset
+_ivar_getClass
+__arclite_object_setInstanceVariable
+add_image_hook_ARC
+patch_t<void (id *, id)>
+patch_t<id (id)>
+patch_t<void (id)>
+patch_t<id (id, unsigned long)>
+patch_t<void (id, objc_ivar *, id)>
+patch_t<objc_ivar *(id, const char *, void *)>
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+__arclite_NSMutableOrderedSet_setObject_atIndexedSubscript
+__arclite_NSOrderedSet_objectAtIndexedSubscript
+__arclite_NSDictionary_objectForKeyedSubscript
+__arclite_NSMutableArray_setObject_atIndexedSubscript
+__arclite_NSArray_objectAtIndexedSubscript
+patch_lazy_pointers
+__arclite_objc_autoreleasePoolPop
+__arclite_objc_autoreleasePoolPush
+add_image_hook_autoreleasepool
+patch_t<void (void *)>
+patch_t<void *()>
+__ARCLite__load
+install_swiftV1
+install_ARC
+install_dict_nil_value
+addOrReplaceMethod
+keyedGetter
+install_subscripting
+addMethod
+indexedGetter
+install_autoreleasepool

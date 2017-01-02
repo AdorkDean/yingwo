@@ -210,6 +210,7 @@
 		CC056BFD1DAFABAE00613F27 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC056C0B1DB34C2300613F27 /* YWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC056C0A1DB34C2300613F27 /* YWWebViewController.m */; };
+		CC0B958A1E13BF1B00BFE72A /* ReplyCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0B95891E13BF1B00BFE72A /* ReplyCommentList.m */; };
 		CC1228CD1DE43F4A00ABE8AB /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */; };
 		CC3AD4881DC9FD8200874834 /* BadgeCount.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4871DC9FD8200874834 /* BadgeCount.m */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
@@ -709,6 +710,8 @@
 		CC056BFE1DB0ABA800613F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = yingwo/Assets.xcassets; sourceTree = "<group>"; };
 		CC056C091DB34C2300613F27 /* YWWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWWebViewController.h; path = Tools/YWWebViewController.h; sourceTree = "<group>"; };
 		CC056C0A1DB34C2300613F27 /* YWWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWWebViewController.m; path = Tools/YWWebViewController.m; sourceTree = "<group>"; };
+		CC0B95881E13BF1B00BFE72A /* ReplyCommentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReplyCommentList.h; path = Home/Entity/ReplyCommentList.h; sourceTree = "<group>"; };
+		CC0B95891E13BF1B00BFE72A /* ReplyCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReplyCommentList.m; path = Home/Entity/ReplyCommentList.m; sourceTree = "<group>"; };
 		CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMMobClick.framework; path = yingwo/UMMobClick.framework; sourceTree = "<group>"; };
 		CC3AD4861DC9FD8200874834 /* BadgeCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeCount.h; sourceTree = "<group>"; };
 		CC3AD4871DC9FD8200874834 /* BadgeCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeCount.m; sourceTree = "<group>"; };
@@ -1405,6 +1408,8 @@
 				18D2438B1D7BF7A700DAC374 /* TieZiReply.m */,
 				18F9212E1D7EB32000A44846 /* TieZiComment.h */,
 				18F9212F1D7EB32000A44846 /* TieZiComment.m */,
+				CC0B95881E13BF1B00BFE72A /* ReplyCommentList.h */,
+				CC0B95891E13BF1B00BFE72A /* ReplyCommentList.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -2371,7 +2376,7 @@
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8P2DS22MA9;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -2471,7 +2476,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2592,6 +2597,7 @@
 				CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */,
 				1883DD5E1D892F3B00EB9629 /* YWFieldListView.m in Sources */,
 				187D2F921D55BC9E006C5C5F /* YWQiNiuUploadTool.m in Sources */,
+				CC0B958A1E13BF1B00BFE72A /* ReplyCommentList.m in Sources */,
 				1807FEC01D6830A0009393E2 /* MXImageView.m in Sources */,
 				CCB2ABF11DFFEC2900DFB2DF /* NSObject+Properties.m in Sources */,
 				CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */,
@@ -2853,8 +2859,8 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2900,9 +2906,7 @@
 					"-framework",
 					"\"RSKImageCropper\"",
 					"-framework",
-					"\"ReactiveCocoa\"",
-					"-framework",
-					"\"Result\"",
+					"\"ReactiveObjC\"",
 					"-framework",
 					"\"SDWebImage\"",
 					"-framework",
@@ -2917,8 +2921,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};
@@ -2933,8 +2937,8 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2980,9 +2984,7 @@
 					"-framework",
 					"\"RSKImageCropper\"",
 					"-framework",
-					"\"ReactiveCocoa\"",
-					"-framework",
-					"\"Result\"",
+					"\"ReactiveObjC\"",
 					"-framework",
 					"\"SDWebImage\"",
 					"-framework",
@@ -2997,8 +2999,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};
@@ -3054,8 +3056,8 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3101,9 +3103,7 @@
 					"-framework",
 					"\"RSKImageCropper\"",
 					"-framework",
-					"\"ReactiveCocoa\"",
-					"-framework",
-					"\"Result\"",
+					"\"ReactiveObjC\"",
 					"-framework",
 					"\"SDWebImage\"",
 					"-framework",
@@ -3118,8 +3118,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};

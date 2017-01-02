@@ -1,3 +1,4 @@
+
 //
 //  DetailViewModel.m
 //  yingwo
@@ -39,12 +40,12 @@
                            paramaters:requestEntity.paramaters
                               success:^(NSArray *tieZi) {
                                   
-                                      [subscriber sendNext:tieZi];
-                                      [subscriber sendCompleted];
-                                                      
-            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                [subscriber sendError:error];
-            }];
+                                  [subscriber sendNext:tieZi];
+                                  [subscriber sendCompleted];
+                                  
+                              } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                  [subscriber sendError:error];
+                              }];
             return nil;
         }];
     }];
@@ -62,7 +63,7 @@
 - (void)setupModelOfCell:(YWDetailBaseTableViewCell *)cell
                    model:(TieZiReply *)model
                indexPath:(NSIndexPath *)indexPath{
-
+    
     if ([cell isMemberOfClass:[YWDetailTableViewCell class]]) {
         [self setupModelOfDetailCell:(YWDetailTableViewCell *)cell
                                model:model];
@@ -79,7 +80,7 @@
 - (void)setupModelOfDetailCell:(YWDetailTableViewCell *)cell model:(TieZiReply *)model {
     
     [cell createSubview];
-
+    
     //保存楼主的user_id
     self.master_id = model.user_id;
     
@@ -133,7 +134,7 @@
     [cell createSubview];
     
     //所在楼层
-  //  cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",model.reply_id];
+    //  cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",model.reply_id];
     cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",(int)(indexPath.row +1)];
     //回复内容
     cell.contentLabel.text                     = model.content;
@@ -144,7 +145,7 @@
     {
         //昵称
         cell.masterView.nicnameLabel.text          = model.user_name;
-
+        
     }
     //时间
     NSString *dataString                       = [NSString stringWithFormat:@"%d",model.create_time];
@@ -164,7 +165,7 @@
     cell.masterView.user_id                          = model.user_id;
     
     cell.bottomView.favourLabel.text                 = model.like_cnt;
-
+    
     //回复评论的数量
     cell.bottomView.messageLabel.text                = [NSString stringWithFormat:@"%d",model.comment_cnt];
     
@@ -283,24 +284,22 @@
                   }
                   
                   //保存跟贴数据对象TieZiReply
-                 NSMutableArray *replyArr        = [[NSMutableArray alloc] init];
+                  NSMutableArray *replyArr        = [[NSMutableArray alloc] init];
                   //计数
-                 __block NSUInteger currentIndex = 0;
-                  
-                //  NSLog(@"reply:%@",content);
+                  __block NSUInteger currentIndex = 0;
                   
                   //单例实现多线程下载，这里不能用for循环实现，否则会出现数据混乱现象，即使最后排序也没用！！！
                   DetailViewModelHepler *loadHepler  = [DetailViewModelHepler shareInstance];
                   __weak typeof(loadHepler) weakself = loadHepler;
-
+                  
                   weakself.singleSuccessBlock = ^(NSArray *commentArr){
                       
                       TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
-
+                      
                       replyEntity.imageUrlArrEntity = [NSString separateImageViewURLString:replyEntity.img];
-
+                      
                       currentIndex ++ ;
-
+                      
                       replyEntity.commentArr        = [commentArr mutableCopy];
                       
                       [replyArr addObject:replyEntity];
@@ -312,9 +311,9 @@
                       {
                           //currentIndex已经++
                           TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
-
+                          
                           NSDictionary *paramaters      = @{@"post_reply_id":@(replyEntity.reply_id)};
-
+                          
                           [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
                                               paramaters:paramaters
                                                  success:weakself.singleSuccessBlock
@@ -333,7 +332,7 @@
                                           paramaters:paramaters
                                              success:weakself.singleSuccessBlock
                                              failure:weakself.singleFailureBlock];
-
+                      
                   }
                   
               }
@@ -345,9 +344,9 @@
 }
 
 - (void)requestForCommentWithUrl:(NSString *)url
-                 paramaters:(NSDictionary *)paramaters
-                    success:(void (^)(NSArray *commentArr))success
-                    failure:(void (^)(NSString *error))failure {
+                      paramaters:(NSDictionary *)paramaters
+                         success:(void (^)(NSArray *commentArr))success
+                         failure:(void (^)(NSString *error))failure {
     
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager = [YWHTTPManager manager];
@@ -367,14 +366,14 @@
                   StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
                   NSMutableArray *commentArr = [[NSMutableArray alloc] init];
                   
-                //  NSLog(@"commentList:%@",content);
+                  //  NSLog(@"commentList:%@",content);
                   //回复字典转模型
                   for (NSDictionary *comment in statusEntity.info) {
                       TieZiComment *commentEntity = [TieZiComment mj_objectWithKeyValues:comment];
                       [commentArr addObject:commentEntity];
                   }
-
-               //   NSLog(@"commentArr.count:%lu",commentArr.count);
+                  
+                  //   NSLog(@"commentArr.count:%lu",commentArr.count);
                   success(commentArr);
               }
               
@@ -576,12 +575,12 @@
 //                                progress:(void (^)(CGFloat))progress
 //                                 success:(void (^)(NSMutableArray *imageArr))imageArr
 //                                 failure:(void (^)(NSString *error))failure{
-//    
-//    
+//
+//
 //    ImageViewEntity *imageEntity = [imageEntities objectAtIndex:0];
 //    NSMutableArray *imageUrls    = [ImageViewEntity getImageUrlsFromImageEntities:imageEntities];
 //    Boolean hasExsitImages       = [YWSandBoxTool isExistImageByName:imageEntity.imageName];
-//    
+//
 //    //先从沙盒中找图片
 //    if (hasExsitImages) {
 //        imageArr([YWSandBoxTool getImagesFromCacheByUrlsArr:imageUrls]);
@@ -595,15 +594,15 @@
 //                                           progress(progressNum);
 //                                       }
 //                                        success:^(NSMutableArray *success) {
-//                                            
+//
 //                                            imageArr(success);
-//                                            
+//
 //                                        } failure:^(NSString *error) {
 //                                            failure(error);
 //                                            NSLog(@"failure:%@",error);
 //                                        }];
 //    }
-//    
+//
 //}
 
 
