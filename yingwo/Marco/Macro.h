@@ -78,7 +78,6 @@
 
 /********************************segue identify************************************************/
 
-
 // new api 139.198.190.240 http://api.yingwoo.com/api/v1
 // old api http://yw.zhibaizhi.com/yingwophp/api/v1
 /********************************* URL ******************************************************/
@@ -107,6 +106,7 @@
 #define TIEZI_URL               @"/Post/get_list"
 #define TIEZI_REPLY             @"/Post/reply"
 #define TIEZI_COMMENT_LIST_URL  @"/Post/Comment_list"
+#define TIEZI_COMMENT_MERGE_URL @"/Post/Comment_list_merged"
 #define TIEZI_COMMENT_URL       @"/Post/Comment"
 #define TIEZI_RELPY_URL         @"/Post/reply_list"
 #define TIEZI_LIKE_URL          @"/Post/like"

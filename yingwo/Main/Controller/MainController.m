@@ -130,7 +130,6 @@
     
 }
 
-
 -(void)userInfoNotification:(NSNotification*)notification{
 //判断推送类型及推送id
     NSDictionary *dict = [notification userInfo];

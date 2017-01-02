@@ -239,8 +239,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
         
         //必须加这句代码
         [UMessage didReceiveRemoteNotification:userInfo];
-        
-        
     }else{
         //应用处于后台时的本地推送接受
     }

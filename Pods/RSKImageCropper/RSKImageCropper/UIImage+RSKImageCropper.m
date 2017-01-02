@@ -110,33 +110,21 @@
 
 - (UIImage *)rotateByAngle:(CGFloat)angleInRadians
 {
-    // Calculate the size of the rotated image.
-    UIView *rotatedView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.size.width, self.size.height)];
-    rotatedView.transform = CGAffineTransformMakeRotation(angleInRadians);
-    CGSize rotatedViewSize = rotatedView.frame.size;
+    CGSize contextSize = self.size;
     
-    // Create a bitmap-based graphics context.
-    UIGraphicsBeginImageContextWithOptions(rotatedViewSize, NO, self.scale);
-    
+    UIGraphicsBeginImageContextWithOptions(contextSize, NO, self.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    // Move the origin of the user coordinate system in the context to the middle.
-    CGContextTranslateCTM(context, rotatedViewSize.width / 2, rotatedViewSize.height / 2);
-    
-    // Rotates the user coordinate system in the context.
+    CGContextTranslateCTM(context, 0.5 * contextSize.width, 0.5 * contextSize.height);
     CGContextRotateCTM(context, angleInRadians);
+    CGContextTranslateCTM(context, -0.5 * contextSize.width, -0.5 * contextSize.height);
+    [self drawAtPoint:CGPointZero];
     
-    // Flip the handedness of the user coordinate system in the context.
-    CGContextScaleCTM(context, 1.0, -1.0);
-    
-    // Draw the image into the context.
-    CGContextDrawImage(context, CGRectMake(-self.size.width / 2, -self.size.height / 2, self.size.width, self.size.height), self.CGImage);
-    
-    UIImage *rotatedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
     
-    return rotatedImage;
+    return image;
 }
 
 @end

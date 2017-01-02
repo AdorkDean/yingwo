@@ -169,7 +169,6 @@
 		18D4E7361D9E6BAA00A0978E /* YWPersonCenterTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */; };
 		18D4E73D1D9E770000A0978E /* YWPersonCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4E72F1D9E6BAA00A0978E /* YWPersonCenterCell.m */; };
 		18D7C6161DCDD75300D5F9D6 /* MessageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7C6151DCDD75300D5F9D6 /* MessageEntity.m */; };
-		18DED5471E178C5800E812A9 /* HotDiscusssController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DED5461E178C5800E812A9 /* HotDiscusssController.m */; };
 		18E74CB11D3CA2A800176142 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CAE1D3CA2A800176142 /* LoginController.m */; };
 		18E74CB21D3CA2A800176142 /* LoginNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB01D3CA2A800176142 /* LoginNavController.m */; };
 		18E74CB51D3CA2C300176142 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CB41D3CA2C300176142 /* LoginModel.m */; };
@@ -211,6 +210,7 @@
 		CC056BFD1DAFABAE00613F27 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4E8E71DAE6ED2008CDE89 /* libUMessage_Sdk_1.4.0.a */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC056C0B1DB34C2300613F27 /* YWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC056C0A1DB34C2300613F27 /* YWWebViewController.m */; };
+		CC0B958A1E13BF1B00BFE72A /* ReplyCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0B95891E13BF1B00BFE72A /* ReplyCommentList.m */; };
 		CC1228CD1DE43F4A00ABE8AB /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */; };
 		CC3AD4881DC9FD8200874834 /* BadgeCount.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4871DC9FD8200874834 /* BadgeCount.m */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
@@ -624,8 +624,6 @@
 		18D4E7331D9E6BAA00A0978E /* YWPersonCenterTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWPersonCenterTopView.m; path = PersonalCenter/View/YWPersonCenterTopView.m; sourceTree = "<group>"; };
 		18D7C6141DCDD75300D5F9D6 /* MessageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageEntity.h; path = Message/Entity/MessageEntity.h; sourceTree = "<group>"; };
 		18D7C6151DCDD75300D5F9D6 /* MessageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageEntity.m; path = Message/Entity/MessageEntity.m; sourceTree = "<group>"; };
-		18DED5451E178C5800E812A9 /* HotDiscusssController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotDiscusssController.h; path = Discovery/Controller/HotDiscusssController.h; sourceTree = "<group>"; };
-		18DED5461E178C5800E812A9 /* HotDiscusssController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HotDiscusssController.m; path = Discovery/Controller/HotDiscusssController.m; sourceTree = "<group>"; };
 		18E74CAD1D3CA2A800176142 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginController.h; path = Login/Controller/LoginController.h; sourceTree = "<group>"; };
 		18E74CAE1D3CA2A800176142 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginController.m; path = Login/Controller/LoginController.m; sourceTree = "<group>"; };
 		18E74CAF1D3CA2A800176142 /* LoginNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginNavController.h; path = Login/Controller/LoginNavController.h; sourceTree = "<group>"; };
@@ -712,6 +710,8 @@
 		CC056BFE1DB0ABA800613F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = yingwo/Assets.xcassets; sourceTree = "<group>"; };
 		CC056C091DB34C2300613F27 /* YWWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWWebViewController.h; path = Tools/YWWebViewController.h; sourceTree = "<group>"; };
 		CC056C0A1DB34C2300613F27 /* YWWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWWebViewController.m; path = Tools/YWWebViewController.m; sourceTree = "<group>"; };
+		CC0B95881E13BF1B00BFE72A /* ReplyCommentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReplyCommentList.h; path = Home/Entity/ReplyCommentList.h; sourceTree = "<group>"; };
+		CC0B95891E13BF1B00BFE72A /* ReplyCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReplyCommentList.m; path = Home/Entity/ReplyCommentList.m; sourceTree = "<group>"; };
 		CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMMobClick.framework; path = yingwo/UMMobClick.framework; sourceTree = "<group>"; };
 		CC3AD4861DC9FD8200874834 /* BadgeCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeCount.h; sourceTree = "<group>"; };
 		CC3AD4871DC9FD8200874834 /* BadgeCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeCount.m; sourceTree = "<group>"; };
@@ -958,8 +958,6 @@
 				1807FEFF1D6847F1009393E2 /* FieldOneController.m */,
 				18EE351E1D8A77A0003F8548 /* TopicListController.h */,
 				18EE351F1D8A77A0003F8548 /* TopicListController.m */,
-				18DED5451E178C5800E812A9 /* HotDiscusssController.h */,
-				18DED5461E178C5800E812A9 /* HotDiscusssController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1410,6 +1408,8 @@
 				18D2438B1D7BF7A700DAC374 /* TieZiReply.m */,
 				18F9212E1D7EB32000A44846 /* TieZiComment.h */,
 				18F9212F1D7EB32000A44846 /* TieZiComment.m */,
+				CC0B95881E13BF1B00BFE72A /* ReplyCommentList.h */,
+				CC0B95891E13BF1B00BFE72A /* ReplyCommentList.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -2376,7 +2376,7 @@
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8P2DS22MA9;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -2597,6 +2597,7 @@
 				CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */,
 				1883DD5E1D892F3B00EB9629 /* YWFieldListView.m in Sources */,
 				187D2F921D55BC9E006C5C5F /* YWQiNiuUploadTool.m in Sources */,
+				CC0B958A1E13BF1B00BFE72A /* ReplyCommentList.m in Sources */,
 				1807FEC01D6830A0009393E2 /* MXImageView.m in Sources */,
 				CCB2ABF11DFFEC2900DFB2DF /* NSObject+Properties.m in Sources */,
 				CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */,
@@ -2674,7 +2675,6 @@
 				CCF64E871DC0E994009B4B21 /* YWTaTopicListView.m in Sources */,
 				1883DD531D89299A00EB9629 /* SubjectEntity.m in Sources */,
 				1807FEEA1D6830C5009393E2 /* CMSDWebImageDownloader.m in Sources */,
-				18DED5471E178C5800E812A9 /* HotDiscusssController.m in Sources */,
 				18AF9E821D4F7A390063D81F /* TieZiViewModel.m in Sources */,
 				18D4E7211D9E67AD00A0978E /* NSMutableAttributedString+commentString.m in Sources */,
 				18F3B2561D7AC1E9001A7F18 /* YWDetailCommentView.m in Sources */,
@@ -2859,8 +2859,8 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2906,7 +2906,7 @@
 					"-framework",
 					"\"RSKImageCropper\"",
 					"-framework",
-					"\"ReactiveObjc\"",
+					"\"ReactiveObjC\"",
 					"-framework",
 					"\"SDWebImage\"",
 					"-framework",
@@ -2921,8 +2921,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};
@@ -2937,8 +2937,8 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2984,7 +2984,7 @@
 					"-framework",
 					"\"RSKImageCropper\"",
 					"-framework",
-					"\"ReactiveObjc\"",
+					"\"ReactiveObjC\"",
 					"-framework",
 					"\"SDWebImage\"",
 					"-framework",
@@ -2999,8 +2999,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};
@@ -3056,8 +3056,8 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: HAO ZHANG (7EFCK5HKSG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3103,7 +3103,7 @@
 					"-framework",
 					"\"RSKImageCropper\"",
 					"-framework",
-					"\"ReactiveObjc\"",
+					"\"ReactiveObjC\"",
 					"-framework",
 					"\"SDWebImage\"",
 					"-framework",
@@ -3118,8 +3118,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};

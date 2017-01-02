@@ -48,7 +48,7 @@ static IMP rsk_sharedApplicationOriginalImplementation;
     return nil;
 }
 
-+ (IMP)rsk_sharedApplicationOriginalImplementation
++ (IMP)rsk_sharedApplicationOriginalImplementaion
 {
     return rsk_sharedApplicationOriginalImplementation;
 }
