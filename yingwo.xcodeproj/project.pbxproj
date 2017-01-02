@@ -2870,6 +2870,7 @@
 					"$(PROJECT_DIR)/yingwo",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)/yingwo/ReactiveObjC",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
@@ -2949,6 +2950,7 @@
 					"$(PROJECT_DIR)/yingwo",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)/yingwo/ReactiveObjC",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
@@ -3069,6 +3071,7 @@
 					"$(PROJECT_DIR)/yingwo",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)/yingwo/ReactiveObjC",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
 				INFOPLIST_FILE = yingwo/Info.plist;
