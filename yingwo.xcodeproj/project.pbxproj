@@ -2855,7 +2855,7 @@
 			baseConfigurationReference = 895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2870,9 +2870,9 @@
 					"$(PROJECT_DIR)/yingwo",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/UMSocialSDK",
-					"$(PROJECT_DIR)/yingwo/ReactiveObjC",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2883,6 +2883,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/WeChat",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -2935,7 +2936,7 @@
 			baseConfigurationReference = 69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2950,9 +2951,9 @@
 					"$(PROJECT_DIR)/yingwo",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/UMSocialSDK",
-					"$(PROJECT_DIR)/yingwo/ReactiveObjC",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2963,6 +2964,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/WeChat",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -3056,7 +3058,7 @@
 			baseConfigurationReference = 36F7A65220E9B448DF920CAE /* Pods-yingwo.release copy.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -3071,9 +3073,9 @@
 					"$(PROJECT_DIR)/yingwo",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/UMSocialSDK",
-					"$(PROJECT_DIR)/yingwo/ReactiveObjC",
 				);
 				GCC_PREFIX_HEADER = yingwo/Prefix/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = yingwo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3084,6 +3086,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/WeChat",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
