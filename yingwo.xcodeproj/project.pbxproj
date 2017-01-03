@@ -2928,6 +2928,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
+				VALID_ARCHS = "armv7 armv7s armv64";
 			};
 			name = Debug;
 		};
@@ -2964,7 +2965,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/WeChat",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -3009,6 +3010,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
+				VALID_ARCHS = "armv7 armv7s armv64";
 			};
 			name = Release;
 		};
@@ -3086,7 +3088,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/WeChat",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -3131,6 +3133,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
+				VALID_ARCHS = "armv7 armv7s armv64";
 			};
 			name = "Release copy";
 		};
