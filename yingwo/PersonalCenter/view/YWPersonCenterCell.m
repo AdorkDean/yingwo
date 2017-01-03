@@ -13,7 +13,7 @@
 - (instancetype)initWithLeftImage:(UIImage *)leftImage labelText:(NSString *)text {
     self = [super init];
     if (self) {
-        
+        /*
         UIImageView *leftImageView  = [[UIImageView alloc] init];
         UIImageView *rightImageView = [[UIImageView alloc] init];
         UILabel *textLabel          = [[UILabel alloc] init];
@@ -43,7 +43,7 @@
             make.centerY.equalTo(self);
             make.right.equalTo(self.mas_right).offset(-15);
         }];
-        
+        */
     }
     return self;
 }
