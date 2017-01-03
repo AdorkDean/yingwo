@@ -19,7 +19,7 @@
 #import <Photos/Photos.h>
 
 //pod第三方库
-#import "ReactiveObjC.h"
+#import <ReactiveObjC/ReactiveObjC.h>
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "SVProgressHUD.h"
