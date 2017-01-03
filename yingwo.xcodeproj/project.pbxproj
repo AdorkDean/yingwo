@@ -554,7 +554,6 @@
 		18AFE5F11D30B7E2007BEBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18AFE5F91D30B7E2007BEBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18AFE5FB1D30B7E2007BEBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18B0C6701D97CC4A00F776DF /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "../../../../Library/Developer/Xcode/DerivedData/yingwo-dzqebdqcfqsytufreincemehrvnw/Build/Products/Debug-iphonesimulator/ReactiveCocoa/ReactiveCocoa.framework"; sourceTree = "<group>"; };
 		18B0C6731D980FBA00F776DF /* HYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HYViewController.h; path = Vender/HYNavBarHidden/HYViewController.h; sourceTree = "<group>"; };
 		18B0C6741D980FBA00F776DF /* HYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HYViewController.m; path = Vender/HYNavBarHidden/HYViewController.m; sourceTree = "<group>"; };
 		18B0C6751D980FBA00F776DF /* UIViewController+NavBarHidden.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+NavBarHidden.h"; path = "Vender/HYNavBarHidden/UIViewController+NavBarHidden.h"; sourceTree = "<group>"; };
@@ -569,6 +568,7 @@
 		18B926D31D3907ED0067FE24 /* SmsMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SmsMessage.m; path = Register/entity/SmsMessage.m; sourceTree = "<group>"; };
 		18B926DA1D39270C0067FE24 /* MBProgressHUD+Dispaly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+Dispaly.h"; path = "Tools/MBProgressHUD+Dispaly.h"; sourceTree = "<group>"; };
 		18B926DB1D39270C0067FE24 /* MBProgressHUD+Dispaly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+Dispaly.m"; path = "Tools/MBProgressHUD+Dispaly.m"; sourceTree = "<group>"; };
+		18BE89F61E1B8E0400970B9C /* ReactiveObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveObjC.framework; path = "../../../../Library/Developer/Xcode/DerivedData/yingwo-dppxnmeaarhshuhipvmapahappgz/Build/Products/Debug-iphonesimulator/ReactiveObjC/ReactiveObjC.framework"; sourceTree = "<group>"; };
 		18C350511D7FBA64008BFDD3 /* YWCommentReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWCommentReplyView.h; path = Home/View/YWCommentReplyView.h; sourceTree = "<group>"; };
 		18C350521D7FBA64008BFDD3 /* YWCommentReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWCommentReplyView.m; path = Home/View/YWCommentReplyView.m; sourceTree = "<group>"; };
 		18CEE7131DAF5823004FEDFE /* yingwo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yingwo.entitlements; sourceTree = "<group>"; };
@@ -2327,6 +2327,7 @@
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18BE89F61E1B8E0400970B9C /* ReactiveObjC.framework */,
 				CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */,
 				CCF82B9B1DDB249700C3B5A1 /* libc++.tbd */,
 				CCF82B991DDB248500C3B5A1 /* libz.tbd */,
@@ -2334,7 +2335,6 @@
 				CCF82B951DDB246F00C3B5A1 /* CoreTelephony.framework */,
 				CCF82B931DDB246000C3B5A1 /* SystemConfiguration.framework */,
 				CCF82B911DDB242E00C3B5A1 /* libsqlite3.tbd */,
-				18B0C6701D97CC4A00F776DF /* ReactiveCocoa.framework */,
 				1803C1201D541F350078EF0F /* AssetsLibrary.framework */,
 				3709C5A61291B822052D7CFB /* Pods_yingwo.framework */,
 			);
@@ -2928,7 +2928,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
-				VALID_ARCHS = "armv7 armv7s armv64";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -3010,7 +3010,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
-				VALID_ARCHS = "armv7 armv7s armv64";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -3088,7 +3088,7 @@
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/yingwo/Vender/UMSocial/SocialLibraries/WeChat",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -3133,7 +3133,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
-				VALID_ARCHS = "armv7 armv7s armv64";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = "Release copy";
 		};
