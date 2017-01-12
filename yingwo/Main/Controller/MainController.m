@@ -11,7 +11,7 @@
 #import "PersonalCenterController.h"
 #import "HomeController.h"
 #import "AnnounceController.h"
-#import "DiscoveryController.h"
+#import "DiscoveryNavController.h"
 #import "DetailController.h"
 #import "MessageController.h"
 #import "TopicController.h"
@@ -23,7 +23,7 @@
 @interface MainController ()
 
 @property (nonatomic, strong) HomeController           *homeVC;
-@property (nonatomic, strong) DiscoveryController      *discoveryVC;
+@property (nonatomic, strong) DiscoveryNavController   *discoveryNavVC;
 @property (nonatomic, strong) PersonalCenterController *personCenterVC;
 @property (nonatomic, strong) AnnounceController       *announceVC;
 @property (nonatomic, strong) MessageController        *messageVC;
@@ -41,14 +41,14 @@
     self.reloaded = YES;
     
     self.homeVC                        = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
-    self.discoveryVC                   = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
+    self.discoveryNavVC                   = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
     self.messageVC                     = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
     self.personCenterVC                = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
 
     self.announceVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
 
     MainNavController *homeNav         = [[MainNavController alloc] initWithRootViewController:self.homeVC];
-    MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryVC];
+    MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryNavVC];
     MainNavController *messageNav    = [[MainNavController alloc] initWithRootViewController:self.messageVC];
     MainNavController *personCenterNav = [[MainNavController alloc] initWithRootViewController:self.personCenterVC];
     MainNavController *announceNav     = [[MainNavController alloc] initWithRootViewController:self.announceVC];

@@ -106,6 +106,7 @@
 #define TIEZI_URL               @"/Post/get_list"
 #define TIEZI_REPLY             @"/Post/reply"
 #define TIEZI_COMMENT_LIST_URL  @"/Post/Comment_list"
+#define TIEZI_COMMENT_MERGE_URL @"/Post/Comment_list_merged"
 #define TIEZI_COMMENT_URL       @"/Post/Comment"
 #define TIEZI_RELPY_URL         @"/Post/reply_list"
 #define TIEZI_LIKE_URL          @"/Post/like"
@@ -119,6 +120,10 @@
 #define MESSAGE_COMMENT_CNT_URL @"/Post/my_reply_and_comment_cnt"
 #define MESSAGE_LIKE_CNT_URL    @"/Post/my_liked_cnt"
 #define TIEZI_DETAIL            @"/Post/detail"
+
+//发现
+#define HOT_DISCUSS_URL         @"/Discover/post"
+
 //话题
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"

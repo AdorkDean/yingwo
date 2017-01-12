@@ -28,7 +28,7 @@
 
 @implementation MessageController
 
-- (SMPagerTabView *)topicPgaeView {
+- (SMPagerTabView *)messagePgaeView {
     if (_messagePgaeView == nil) {
         
         _messagePgaeView          = [[SMPagerTabView alloc] initWithFrame:CGRectMake(0,
@@ -56,7 +56,7 @@
                                                                      SCREEN_WIDTH,
                                                                      40)];
         
-        [_messageSectionView addSubview:self.topicPgaeView.tabView];
+        [_messageSectionView addSubview:self.messagePgaeView.tabView];
     }
     return _messageSectionView;
 }
@@ -91,7 +91,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.topicPgaeView];
+    [self.view addSubview:self.messagePgaeView];
     [self.view addSubview:self.messageSectionView];
     
 }

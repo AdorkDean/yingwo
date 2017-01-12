@@ -92,8 +92,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.dataSource      = self;
         _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _homeTableview.backgroundColor = [UIColor clearColor];
-        _homeTableview.sectionFooterHeight = 50;
-      //  _homeTableview.fd_debugLogEnabled = YES;
 
         [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
                forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
