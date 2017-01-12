@@ -59,7 +59,7 @@
     [_middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backgroundView.mas_left).offset(5);
         make.right.equalTo(self.backgroundView.mas_right).offset(-5);
-        make.top.equalTo(_topView.mas_bottom).offset(10);
+        make.top.equalTo(_topView.mas_bottom).offset(20);
     }];
         
     [_bottomView mas_makeConstraints:^(MASConstraintMaker *make) {

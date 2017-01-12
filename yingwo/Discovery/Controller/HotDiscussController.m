@@ -74,6 +74,7 @@ static int start_id = 0;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
+        weakself.requestEntity.start_id = start_id;
         [weakself loadDataWithRequestEntity:self.requestEntity];
         
     } ];
