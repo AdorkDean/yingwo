@@ -20,6 +20,7 @@
 
 //pod第三方库
 #import "ReactiveObjC.h"
+
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "SVProgressHUD.h"
@@ -35,6 +36,7 @@
 #import "TTTAttributedLabel.h"
 #import "HPGrowingTextView.h"
 #import <RSKImageCropper/RSKImageCropper.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 
 //第三方框架vender,这里的第三方框架后做改动
 #import "CatZanButton.h"

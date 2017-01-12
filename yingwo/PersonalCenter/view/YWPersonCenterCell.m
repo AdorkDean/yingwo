@@ -43,7 +43,7 @@
             make.centerY.equalTo(self);
             make.right.equalTo(self.mas_right).offset(-15);
         }];
-        
+    
     }
     return self;
 }
