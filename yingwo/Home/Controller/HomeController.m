@@ -612,6 +612,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
             
             [self.homeTableview.mj_footer endRefreshingWithNoMoreData];
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.homeTableview.mj_footer.mj_y += 30;
+        });
+        
+        
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
         //错误的情况下停止刷新（网络错误）

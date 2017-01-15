@@ -40,7 +40,7 @@
 
     
     [self.contentView addSubview:self.backgroundView];
-    [self.backgroundView addSubview:_topView];
+  //  [self.backgroundView addSubview:_topView];
     [self.backgroundView addSubview:_middleView];
     [self.backgroundView addSubview:_bottomView];
     
@@ -48,18 +48,18 @@
         make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 2.5, 10));
     }];
     
-    [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.backgroundView.mas_left).offset(10);
-        make.right.equalTo(self.backgroundView.mas_right);
-        make.top.equalTo(self.backgroundView.mas_top).offset(20);
-        make.height.equalTo(@10);
-    }];
+//    [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.left.equalTo(self.backgroundView.mas_left).offset(10);
+//        make.right.equalTo(self.backgroundView.mas_right);
+//        make.top.equalTo(self.backgroundView.mas_top).offset(20);
+//        make.height.equalTo(@10);
+//    }];
     
     [_middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backgroundView.mas_left).offset(5);
         make.right.equalTo(self.backgroundView.mas_right).offset(-5);
-        make.top.equalTo(_topView.mas_bottom).offset(20);
+        make.top.equalTo(self.backgroundView.mas_top).offset(20);
     }];
         
     [_bottomView mas_makeConstraints:^(MASConstraintMaker *make) {

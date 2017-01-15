@@ -88,7 +88,7 @@
                   NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                             options:NSJSONReadingMutableContainers
                                                                               error:nil];
-                  
+                //  NSLog(@"content%@:",content);
                   StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
                   NSMutableArray *tempArr = [[NSMutableArray alloc] init];
                   
