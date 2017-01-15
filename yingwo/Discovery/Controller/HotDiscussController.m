@@ -11,7 +11,7 @@
 #import "YWHotDiscussCell.h"
 
 
-@interface HotDiscussController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HotDiscussController ()<UITableViewDelegate,UITableViewDataSource,YWLabelDelegate>
 
 @property (nonatomic, strong) UITableView          *tableView;
 
@@ -100,9 +100,10 @@ static int start_id = 0;
 - (YWHotDiscussCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     YWHotDiscussCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    [self.viewModel setupModelOfCell:cell model:self.dataSource[indexPath.row]];
     cell.selectionStyle             = UITableViewCellSelectionStyleNone;
-
+    [self.viewModel setupModelOfCell:cell model:self.dataSource[indexPath.row]];
+    cell.topView.title.delegate     = self;
+    
     return cell;
 }
 
@@ -125,6 +126,16 @@ static int start_id = 0;
     if ([self.delegate respondsToSelector:@selector(didSelectHotDisTopicWith:)]) {
         [self.delegate didSelectHotDisTopicWith:self.model];
     }
+}
+
+#pragma mark YWLabelDelegate
+
+- (void)didSelectLabel:(YWLabel *)label {
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectHotDisTopicLabelWith:)]) {
+        [self.delegate didSelectHotDisTopicLabelWith:label.topic_id];
+    }
+    
 }
 
 #pragma mark private method

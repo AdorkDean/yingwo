@@ -52,7 +52,9 @@
 
 - (void)setupModelOfCell:(YWHotDiscussCell *)cell model:(HotDiscussEntity *)model {
     
+    
     cell.topView.title.label.text = model.topic_title;
+    cell.topView.title.topic_id   = model.topic_id;
     cell.middleView.content.text = model.body;
     
     [cell.middleView.imageView sd_setImageWithURL:[NSURL URLWithString:model.imageURL]

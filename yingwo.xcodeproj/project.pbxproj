@@ -2629,7 +2629,6 @@
 				CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */,
 				187D2F921D55BC9E006C5C5F /* YWQiNiuUploadTool.m in Sources */,
 				18B5B67D1E25C99F00ABA88C /* SubjectEntity.m in Sources */,
-
 				CC0B958A1E13BF1B00BFE72A /* ReplyCommentList.m in Sources */,
 				1807FEC01D6830A0009393E2 /* MXImageView.m in Sources */,
 				CCB2ABF11DFFEC2900DFB2DF /* NSObject+Properties.m in Sources */,

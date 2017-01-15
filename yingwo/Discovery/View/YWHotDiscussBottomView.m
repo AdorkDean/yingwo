@@ -103,15 +103,23 @@
 
 - (void)addHeadImagesWith:(NSArray *)imageURLArr {
     
-    for (int i = 0; i < imageURLArr.count; i ++) {
+    for (int i = 0; i < 7; i ++) {
         
         UIImageView *imageView = [self viewWithTag:i+1];
-        
-        
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[imageURLArr objectAtIndex:i]]
-                     placeholderImage:[UIImage imageNamed:@"ying"]];
-        
+
+        if (i < imageURLArr.count) {
+            
+            
+            [imageView sd_setImageWithURL:[NSURL URLWithString:[imageURLArr objectAtIndex:i]]
+                         placeholderImage:[UIImage imageNamed:@"ying"]];
+            
+
+        }
+        else {
+            imageView.image = nil;
+        }
     }
+    
     
 }
 

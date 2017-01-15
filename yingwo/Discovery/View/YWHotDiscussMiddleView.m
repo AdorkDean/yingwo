@@ -25,7 +25,7 @@
     
     _content.numberOfLines  = 2;
     _content.textColor      = [UIColor colorWithHexString:THEME_COLOR_2];
-    _content.font           = [UIFont systemFontOfSize:16];
+    _content.font           = [UIFont systemFontOfSize:16 weight:2];
     _content.textAlignment  = NSTextAlignmentCenter;
     
     [self addSubview:_content];

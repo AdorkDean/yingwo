@@ -154,9 +154,16 @@
 - (void)didSelectHotDisTopicWith:(HotDiscussEntity *)model {
     
     self.tieZi = model;
-    self.tieZi.user_name = @"南工土拨鼠";
+    self.tieZi.user_name = model.user_name;
     
     [self performSegueWithIdentifier:@"detail" sender:self];
+    
+}
+
+- (void)didSelectHotDisTopicLabelWith:(int)topic_id {
+    
+    self.topic_id = topic_id;
+    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
     
 }
 
@@ -168,6 +175,7 @@
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
 
 }
+
 
 - (void)didSelectModuleTopicWith:(int)topic_id subjectId:(int)subjectId subject:(NSString *)subject {
     
