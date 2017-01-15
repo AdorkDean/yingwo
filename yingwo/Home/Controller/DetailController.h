@@ -9,7 +9,6 @@
 #import "BaseViewController.h"
 #import "TieZi.h"
 #import "TieZiReply.h"
-#import "YWRefreshFooter.h"
 
 typedef NS_ENUM(NSInteger,CommentType) {
     TieZiCommentModel, //帖子的评论
