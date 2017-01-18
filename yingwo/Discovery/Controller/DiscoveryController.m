@@ -558,7 +558,13 @@ static int start_id = 0;
             HotTopicEntity *hotEntity = [self.discoveryViewModel.bannerArr objectAtIndex:index];
             self.topic_id             = [hotEntity.topic_id intValue];
             
-            [self performSegueWithIdentifier:@"topic" sender:self];
+           // [self performSegueWithIdentifier:@"topic" sender:self];
+            
+            if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
+                
+                [self.delegate didSelectModuleTopicWith:self.topic_id];
+                
+            }
             
         };
         

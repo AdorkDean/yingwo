@@ -63,7 +63,7 @@
         
         [itemButton setFrame:CGRectMake(itemButtonWidth*i, 0, itemButtonWidth, self.tabFrameHeight)];
         [itemButton.titleLabel setBaselineAdjustment:UIBaselineAdjustmentAlignCenters];
-        [itemButton.titleLabel setFont:[UIFont systemFontOfSize:self.tabButtonFontSize]];
+        [itemButton.titleLabel setFont:[UIFont systemFontOfSize:self.tabButtonFontSize weight:self.tabButtonFontWeight]];
         [itemButton setTitle:vc.title forState:UIControlStateNormal];
         [itemButton setTitleColor:self.tabButtonTitleColorForNormal forState:UIControlStateNormal];
         [itemButton setTitleColor:self.tabButtonTitleColorForSelected forState:UIControlStateSelected];
@@ -251,7 +251,7 @@
  */
 - (UIView *)tabView {
     if (!_tabView) {
-        _tabView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, _tabFrameHeight)];
+        _tabView = [[UIView alloc]initWithFrame:CGRectMake(self.leftTabMargin, 0, self.width, _tabFrameHeight)];
         //分离tabView，不能添加到self上
        // [self addSubview:_tabView];
     }

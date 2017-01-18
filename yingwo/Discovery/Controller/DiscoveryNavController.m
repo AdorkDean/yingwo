@@ -53,18 +53,20 @@
         [self.catalogVcArr addObject:self.hotDisVc];
         [self.catalogVcArr addObject:self.moduleVc];
         
-
+        _discoveryPageView.tabButtonFontWeight = 3;
+        _discoveryPageView.tabButtonFontSize   = 18;
         _discoveryPageView.tabButtonTitleColorForSelected = [UIColor whiteColor];
         _discoveryPageView.tabButtonTitleColorForNormal = [UIColor whiteColor];
         _discoveryPageView.selectedLineColor = [UIColor whiteColor];
 
         //开始构建UI
         [_discoveryPageView buildUI];
-        
+                
         _discoveryPageView.tabView.backgroundColor = [UIColor clearColor];
         
         //起始选择一个tab
         [_discoveryPageView selectTabWithIndex:0 animate:NO];
+
     }
     return _discoveryPageView;
 }
@@ -102,8 +104,7 @@
     
     
     self.navigationItem.titleView = self.discoveryPageView.tabView;
-   
-
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
