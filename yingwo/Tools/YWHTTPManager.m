@@ -22,6 +22,7 @@
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSString *token             = [userDefault objectForKey:TOKEN_KEY];
 
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     [mgr.requestSerializer setValue:token forHTTPHeaderField:@"device_id"];
 
  //   mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
