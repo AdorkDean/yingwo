@@ -6,19 +6,10 @@
 //  Copyright © 2016年 wangxiaofa. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "TopicController.h"
+#import "TopicItemController.h"
 
-@interface NewTopicController : BaseViewController
+@interface NewTopicController : TopicItemController
 
-@property (nonatomic, strong) UITableView             *homeTableview;
-@property (nonatomic, strong) UIScrollView            *topicSrcView;
-@property (nonatomic, assign) CGSize                  freshTableViewSize;
-@property (nonatomic, assign) CGFloat                  freshTableViewY;
 
-@property (nonatomic, assign) int                     topic_id;
-@property (nonatomic, assign) id<TopicControllerDelegate> delegate;
-
-- (void)refreshData;
 
 @end
