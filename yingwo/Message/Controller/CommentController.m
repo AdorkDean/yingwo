@@ -67,7 +67,7 @@ static int start_id = 0;
 - (RequestEntity *)requestEntity {
     if (_requestEntity == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
-        _requestEntity.requestUrl = MESSAGE_REPLY_AND_COMMENT_URL;
+        _requestEntity.URLString = MESSAGE_REPLY_AND_COMMENT_URL;
         _requestEntity.start_id   = 0;
     }
     return _requestEntity;

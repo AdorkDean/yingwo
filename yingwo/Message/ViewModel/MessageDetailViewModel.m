@@ -40,7 +40,7 @@
                   TieZi *originTieZi            = [TieZi mj_objectWithKeyValues:content[@"info"]];
                   
                   //图片实体
-                  originTieZi.imageUrlArrEntity = [NSString separateImageViewURLString:originTieZi.img];
+               //   originTieZi.imageUrlArrEntity = [NSString separateImageViewURLString:originTieZi.img];
 
                   
                   success(originTieZi);

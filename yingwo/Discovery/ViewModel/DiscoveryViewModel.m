@@ -46,7 +46,7 @@
             
             //这里刷新只刷新banner大图
             //先获取热点大图
-            [self requestHotTopicListWithUrl:requestEntity.requestUrl
+            [self requestHotTopicListWithUrl:requestEntity.URLString
                                      success:^(NSArray *hotArr) {
                                          
                                          [self.bannerArr removeAllObjects];

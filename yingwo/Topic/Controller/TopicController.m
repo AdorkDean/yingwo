@@ -165,6 +165,8 @@ static int start_id = 0;
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_addBtn setBackgroundImage:[UIImage imageNamed:@"xiehuati"]
                            forState:UIControlStateNormal];
+        _addBtn.layer.shadowOffset = CGSizeMake(2, 2);
+        _addBtn.layer.shadowOpacity = 0.8;
     }
     return _addBtn;
 }
@@ -192,7 +194,7 @@ static int start_id = 0;
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.requestUrl = TIEZI_URL;
+        _requestEntity.URLString = TIEZI_URL;
         //请求的事新鲜事
         _requestEntity.topic_id   = self.topic_id;
         //偏移量开始为0
@@ -214,10 +216,11 @@ static int start_id = 0;
 
 - (HotTopicController *)hotVc {
     if (_hotVc == nil) {
-        _hotVc              = [[HotTopicController alloc] init];
-        _hotVc.topicSrcView = self.topicSrcllView;
-        _hotVc.topic_id     = self.topic_id;
-        _hotVc.delegate     = self;
+        _hotVc                    = [[HotTopicController alloc] init];
+        _hotVc.topicSrcView       = self.topicSrcllView;
+        _hotVc.topic_id           = self.topic_id;
+        _hotVc.requestEntity.sort = @"hot";
+        _hotVc.delegate           = self;
     }
     return _hotVc;
 }
@@ -359,24 +362,24 @@ static int start_id = 0;
     
     if (number == 0) {
         
-        self.topicSrcllView.contentSize = self.freshVc.freshTableViewSize;
+        self.topicSrcllView.contentSize = self.freshVc.tableViewSize;
         
         if (self.topicSrcllView.contentOffset.y >= HeaderViewHeight-self.navgationBarHeight) {
             
             self.topicSrcllView.contentOffset = CGPointMake(0,
-                                                            self.freshVc.homeTableview.contentOffset.y+HeaderViewHeight-self.navgationBarHeight);
+                                                            self.freshVc.tableView.contentOffset.y+HeaderViewHeight-self.navgationBarHeight);
         }
 
 
     }
     else
     {
-        self.topicSrcllView.contentSize = self.hotVc.hotTableViewSize;
+        self.topicSrcllView.contentSize = self.hotVc.tableViewSize;
 
         if (self.topicSrcllView.contentOffset.y >= HeaderViewHeight-self.navgationBarHeight) {
             
             self.topicSrcllView.contentOffset = CGPointMake(0,
-                                                            self.hotVc.homeTableview.contentOffset.y+HeaderViewHeight-self.navgationBarHeight);
+                                                            self.hotVc.tableView.contentOffset.y+HeaderViewHeight-self.navgationBarHeight);
         }
         
  
@@ -442,7 +445,7 @@ static int start_id = 0;
             
             if (self.pageModel == NewPageModel) {
                 
-                self.freshVc.homeTableview.contentOffset = CGPointMake(0, offsetY-HeaderViewHeight+self.navgationBarHeight);
+                self.freshVc.tableView.contentOffset = CGPointMake(0, offsetY-HeaderViewHeight+self.navgationBarHeight);
 //                
 //                if (self.freshVc.homeTableview.contentSize.height - (offsetY-HeaderViewHeight+self.navgationBarHeight)) {
 //                    
@@ -456,7 +459,7 @@ static int start_id = 0;
             else
             {
                 
-                self.hotVc.homeTableview.contentOffset = CGPointMake(0, offsetY-HeaderViewHeight+self.navgationBarHeight);
+                self.hotVc.tableView.contentOffset = CGPointMake(0, offsetY-HeaderViewHeight+self.navgationBarHeight);
                 
             }
         }
@@ -466,8 +469,8 @@ static int start_id = 0;
     //滑倒顶部后需要将segmentView至0
     if(offsetY <= HeaderViewHeight - self.navgationBarHeight) {
         
-        self.freshVc.homeTableview.contentOffset = CGPointMake(0, 0);
-        self.hotVc.homeTableview.contentOffset   = CGPointMake(0, 0);
+        self.freshVc.tableView.contentOffset = CGPointMake(0, 0);
+        self.hotVc.tableView.contentOffset   = CGPointMake(0, 0);
         self.segmentView.frame                   = CGRectMake(0,
                                                               HeaderViewHeight+40,
                                                               self.segmentView.width,
@@ -536,13 +539,13 @@ static int start_id = 0;
     self.model = model;
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
-
+/*
 - (void)didSelectBottomWith:(YWHomeCellBottomView *)bottomView {
 
     self.tap_ta_id = bottomView.user_id;
     [self performSegueWithIdentifier:@"ta" sender:self];
 }
-
+*/
 #pragma mark private method
 
 - (void)fillTopicHeaderViewWith:(TopicEntity *)topic {

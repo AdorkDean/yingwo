@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YWLabel.h"
+#import "YWTitle.h"
 
 @protocol YWMasterDelegate;
 

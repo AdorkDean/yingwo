@@ -138,8 +138,8 @@
 
     if (index == 0) {
         HomeController *homeVc = (HomeController *)[targetViewController.viewControllers objectAtIndex:0];;
-        homeVc.tabBar = _tabBar;
-        homeVc.index  = index;
+//        homeVc.tabBar = _tabBar;
+//        homeVc.index  = index;
         [self addTabBarOnSelectedController:homeVc];
     }else {
         

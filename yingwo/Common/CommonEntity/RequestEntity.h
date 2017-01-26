@@ -19,10 +19,10 @@ typedef NS_ENUM(NSInteger, MessageType){
 @interface RequestEntity : NSObject
 
 //请求网址
-@property (nonatomic, copy  ) NSString     *requestUrl;
+@property (nonatomic, copy  ) NSString     *URLString;
 
 //请求所需参数
-@property (nonatomic, strong) NSDictionary *paramaters;
+@property (nonatomic, strong) NSDictionary *parameter;
 
 //领域下的id
 @property (nonatomic, assign) int          field_id;

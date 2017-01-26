@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YWHomeCellLabelView.h"
 #import "YWDetailMasterView.h"
 #import "YWDetailTopView.h"
 #import "YWContentLabel.h"

@@ -15,7 +15,7 @@
 #import "YWDetailReplyCell.h"
 
 #import "MessageDetailViewModel.h"
-#import "TieZiViewModel.h"
+#import "GalleryViewModel.h"
 
 #import "YWDetailBottomView.h"
 #import "YWDetailCommentView.h"
@@ -27,7 +27,7 @@
 
 
 
-@interface MessageDetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol>
+@interface MessageDetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,YWGalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol>
 
 @property (nonatomic, strong) UITableView            *detailTableView;
 @property (nonatomic, strong) UIBarButtonItem        *leftBarItem;
@@ -39,10 +39,10 @@
 
 @property (nonatomic, strong) YWDetailBottomView     *replyView;
 @property (nonatomic, strong) YWDetailCommentView    *commentView;
-@property (nonatomic, strong) GalleryView            *galleryView;
+@property (nonatomic, strong) YWGalleryView            *galleryView;
 
 @property (nonatomic, strong) MessageDetailViewModel *viewModel;
-@property (nonatomic, strong) TieZiViewModel         *homeViewModel;
+@property (nonatomic, strong) GalleryViewModel         *homeViewModel;
 
 @property (nonatomic, strong) RequestEntity          *requestEntity;
 @property (nonatomic, strong) TieZiComment           *commentEntity;
@@ -92,9 +92,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _viewModel;
 }
 
-- (TieZiViewModel *)homeViewModel {
+- (GalleryViewModel *)homeViewModel {
     if (_homeViewModel == nil) {
-        _homeViewModel = [[TieZiViewModel alloc] init];
+        _homeViewModel = [[GalleryViewModel alloc] init];
     }
     return _homeViewModel;
 }
@@ -174,9 +174,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
 }
 
-- (GalleryView *)galleryView {
+- (YWGalleryView *)galleryView {
     if (_galleryView == nil) {
-        _galleryView                 = [[GalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _galleryView                 = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _galleryView.backgroundColor = [UIColor blackColor];
         _galleryView.delegate        = self;
     }
@@ -231,6 +231,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 /**
  *  复制帖子文字内容
  */
+/*
 - (void)copyTiZiText:(UIButton *)more {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     //复制内容 获取帖子文字内容
@@ -239,7 +240,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //复制到剪切板
     pasteboard.string = copyString;
 }
-
+*/
 
 #pragma mark add action
 
@@ -445,8 +446,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                          self.originModel  = tieZi;
                                          [self.tieZiReplyArr addObject:self.originModel];
                                          
-                                         self.requestEntity.requestUrl = TIEZI_RELPY_URL;
-                                         self.requestEntity.paramaters = @{@"post_id":@(self.originModel.tieZi_id)};
+                                         self.requestEntity.URLString = TIEZI_RELPY_URL;
+                                       //  self.requestEntity.paramaters = @{@"post_id":@(self.originModel.tieZi_id)};
                                          
                                          //初始化底部栏
                                          [self setReplyViewData];
@@ -699,7 +700,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     newImageView.y            += self.navgationBarHeight;
     newImageView.tag          = 1;
     
-    [self showImageView:newImageView];
+   // [self showImageView:newImageView];
     
 }
 /**
@@ -707,42 +708,42 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *
  *  @param imageView
  */
-- (void)showImageView:(UIImageView *)imageView {
-    
-    //禁止后面的DetailController的滑动手势
-    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
-    
-    [self stopSystemPopGestureRecognizer];
-    
-    
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
-    [imageViewArr addObject:imageView];
-    
-    [self.galleryView setImages:imageViewArr showAtIndex:0];
-    [self.navigationController.view addSubview:self.galleryView];
-    
-}
-
-#pragma mark - GalleryView Delegate
-
-- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
-{
-}
-
-- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
-{
-    [self.galleryView removeImageView];
-}
-
-- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-    self.galleryView = nil;
-    
-    //开启滑动手势
-    [self openSystemPopGestureRecognizer];
-}
+//- (void)showImageView:(UIImageView *)imageView {
+//    
+//    //禁止后面的DetailController的滑动手势
+//    //这里不禁止的话，会造成点击看图片，然后左滑动的时候DetailController pop 回HomeController中
+//    
+//    [self stopSystemPopGestureRecognizer];
+//    
+//    
+//    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:1];
+//    [imageViewArr addObject:imageView];
+//    
+//    [self.galleryView setImages:imageViewArr showAtIndex:0];
+//    [self.navigationController.view addSubview:self.galleryView];
+//    
+//}
+//
+//#pragma mark - GalleryView Delegate
+//
+//- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
+//{
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
+//{
+//    [self.galleryView removeImageView];
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+//    self.galleryView = nil;
+//    
+//    //开启滑动手势
+//    [self openSystemPopGestureRecognizer];
+//}
 
 #pragma YWSpringButtonDelegate
-
+/*
 - (void)didSelectSpringButtonOnView:(UIView *)view postId:(int)postId model:(int)model {
     
     //网络请求
@@ -769,7 +770,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                      }];
     
 }
-
+*/
+/*
 - (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model {
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
@@ -804,6 +806,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                           }];
     
 }
+ */
 #pragma mark YWDetailCellBottomViewDelegate
 
 //点击跟贴上的气泡，跳转到跟贴界面
@@ -863,7 +866,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 }
 
 #pragma mark HPGrowingTextViewDelegate
-
+/*
 - (BOOL)growingTextViewShouldReturn:(HPGrowingTextView *)growingTextView {
     
     //没有内容不让发送
@@ -879,7 +882,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     return YES;
 }
-
+*/
 #pragma mark HPGrowingTextViewDelegate
 
 -(void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height{
@@ -912,6 +915,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 /**
  *  贴子评论、评论的评论
  */
+/*
 - (void)commentTieZi {
     
     self.commetParamaters[@"content"] = self.commentView.messageTextView.text;
@@ -928,12 +932,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                    
                                }];
     
-}
+}*/
 
 
 /**
  *  页面上添加评论
  */
+/*
 - (void)addCommentOnReplyTieZi {
     
     NSIndexPath *indexPath  = [self.detailTableView indexPathForCell:self.commentCell];
@@ -959,7 +964,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                      }];
     
     
-}
+}*/
 
 /*
  *  添加跟贴到tableview的最后一个
@@ -970,7 +975,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //获取刚才发布的跟贴
     TieZiReply *reply = [TieZiReply mj_objectWithKeyValues:paramters];
     
-    reply.imageUrlArrEntity         = [NSString separateImageViewURLString:reply.img];
+    reply.imageUrlEntityArr         = [NSString separateImageViewURLStringToModel:reply.img];
     reply.user_name                 = user.name;
     reply.user_face_img             = user.face_img;
     reply.create_time               = [[NSDate date] timeIntervalSince1970];

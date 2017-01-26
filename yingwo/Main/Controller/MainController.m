@@ -145,12 +145,12 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-        self.homeVC.type_topic = YES;
-        self.homeVC.item_id = [item_id intValue];
+//        self.homeVC.type_topic = YES;
+  //      self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-        self.homeVC.type_post = YES;
-        self.homeVC.item_id = [item_id intValue];
+//        self.homeVC.type_post = YES;
+//        self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }
     
@@ -171,12 +171,12 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-        self.homeVC.type_topic = YES;
-        self.homeVC.item_id = [item_id intValue];
+//        self.homeVC.type_topic = YES;
+//        self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-        self.homeVC.type_post = YES;
-        self.homeVC.item_id = [item_id intValue];
+//        self.homeVC.type_post = YES;
+//        self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }
 }
@@ -196,7 +196,7 @@
 }
 
 - (void)refreshHomeVC {
-    [self.homeVC.homeTableview.mj_header beginRefreshing];
+//    [self.homeVC.homeTableview.mj_header beginRefreshing];
 }
 
 - (void)refreshBadgeState {
@@ -335,7 +335,7 @@
         self.selectedIndex = index;
         
         //进入home页面前判断是否是推送
-        [self.homeVC weatherPush];
+//        [self.homeVC weatherPush];
         
         if (self.reloaded == NO) {
             self.reloaded  = YES;
@@ -344,7 +344,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.mainTabBarController.tabBar.homeBtn clearBadge];
             });
-            [self.homeVC.homeTableview.mj_header beginRefreshing];
+//            [self.homeVC.homeTableview.mj_header beginRefreshing];
         }
     }
     else if(index == 1) {

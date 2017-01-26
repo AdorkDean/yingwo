@@ -53,10 +53,10 @@
                                @"start_id":@(requestEntity.start_id)};
             }
             
-            if (![requestEntity.requestUrl isEqualToString: TOPIC_DETAIL_URL]) {
+            if (![requestEntity.URLString isEqualToString: TOPIC_DETAIL_URL]) {
                 
                 
-                [self requestTopicWithUrl:requestEntity.requestUrl
+                [self requestTopicWithUrl:requestEntity.URLString
                                paramaters:paramaters
                                   success:^(NSArray *tieZi) {
                                       
@@ -278,7 +278,7 @@
 - (void)changeImageUrlModelFor:(NSArray *)tieZiArr {
     
     for (TieZi *tie in tieZiArr) {
-        tie.imageUrlArrEntity = [NSString separateImageViewURLString:tie.img];
+     //   tie.imageUrlArrEntity = [NSString separateImageViewURLString:tie.img];
         
     }
     

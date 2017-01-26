@@ -12,6 +12,19 @@
  */
 #ifndef Macro_h
 #define Macro_h
+
+/********************************Debug************************************************/
+
+#ifdef DEBUG
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define DLog(...)
+#endif
+
+#define WeakSelf(type)  __weak typeof(type) weak##type = type;
+#define StrongSelf(type)  __strong typeof(type) strong##type = weak##type;
+
+
 /********************************Color************************************************/
 #define THEME_COLOR_1    @"#1DD2A6"
 #define THEME_COLOR_2    @"#3A3A3A" //灰度越来越浅

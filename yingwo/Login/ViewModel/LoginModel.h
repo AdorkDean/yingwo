@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LoginModel : NSObject
+@interface LoginModel : BaseViewModel
+
+- (void)requestForLogin;
 
 /**
  *  登录请求

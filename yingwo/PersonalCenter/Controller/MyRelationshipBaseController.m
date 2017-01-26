@@ -165,32 +165,32 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
     switch (self.relationType) {
         case 1:
         {
-            self.requestEntity.requestUrl = TA_USER_FRIEND_LIST_URL;
+            self.requestEntity.URLString = TA_USER_FRIEND_LIST_URL;
             break;
         }
         case 2:
         {
-            self.requestEntity.requestUrl = TA_USER_LIKE_LIST_URL;
+            self.requestEntity.URLString = TA_USER_LIKE_LIST_URL;
             break;
         }
         case 3:
         {
-            self.requestEntity.requestUrl = TA_USER_LIKED_LIST_URL;
+            self.requestEntity.URLString = TA_USER_LIKED_LIST_URL;
             break;
         }
         case 4:
         {
-            self.requestEntity.requestUrl = nil;
+            self.requestEntity.URLString = nil;
             break;
         }
         case 5:
         {
-            self.requestEntity.requestUrl = TA_USER_LIKE_LIST_URL;
+            self.requestEntity.URLString = TA_USER_LIKE_LIST_URL;
             break;
         }
         case 6:
         {
-            self.requestEntity.requestUrl = TA_USER_LIKED_LIST_URL;
+            self.requestEntity.URLString = TA_USER_LIKED_LIST_URL;
             break;
         }
         default:

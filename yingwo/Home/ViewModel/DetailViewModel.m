@@ -21,12 +21,6 @@
     return self;
 }
 
-- (TieZiViewModel *)tieZiViewModel {
-    if (_tieZiViewModel == nil) {
-        _tieZiViewModel = [[TieZiViewModel alloc] init];
-    }
-    return _tieZiViewModel;
-}
 
 - (void)setupRACComand {
     
@@ -36,8 +30,8 @@
             
             @strongify(self);
             
-            [self requestReplyWithUrl:requestEntity.requestUrl
-                           paramaters:requestEntity.paramaters
+            [self requestReplyWithUrl:requestEntity.URLString
+                           parameter:requestEntity.parameter
                               success:^(NSArray *tieZi) {
                                   
                                   [subscriber sendNext:tieZi];
@@ -77,7 +71,8 @@
     
 }
 
-- (void)setupModelOfDetailCell:(YWDetailTableViewCell *)cell model:(TieZiReply *)model {
+- (void)setupModelOfDetailCell:(YWDetailTableViewCell *)cell
+                         model:(TieZi *)model {
     
     [cell createSubview];
     
@@ -113,8 +108,8 @@
         cell.topView.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
     }
     
-    if (model.imageUrlArrEntity.count > 0) {
-        NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlArrEntity];
+    if (model.imageUrlEntityArr.count > 0) {
+        NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlEntityArr];
         [cell addImageViewByImageArr:entities];
     }
 }
@@ -197,9 +192,9 @@
     }
     
     //加载跟帖图片
-    if (model.imageUrlArrEntity.count > 0) {
+    if (model.imageUrlEntityArr.count > 0) {
         
-        NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlArrEntity];
+        NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlEntityArr];
         
         self.imageUrlEntity      = entities;
         
@@ -219,7 +214,7 @@
 }
 
 - (void)requestDetailWithUrl:(NSString *)url
-                  paramaters:(NSDictionary *)paramaters
+                  parameter:(NSDictionary *)parameter
                      success:(void (^)(TieZi *tieZi))success
                      failure:(void (^)(NSString *error))failure {
     
@@ -227,7 +222,7 @@
     YWHTTPManager *manager = [YWHTTPManager manager];
     
     [manager POST:fullUrl
-       parameters:paramaters
+       parameters:parameter
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               
@@ -242,7 +237,7 @@
                   TieZi *TieZiDetail         = [TieZi mj_objectWithKeyValues:content[@"info"]];
                   
                   //图片实体
-                  TieZiDetail.imageUrlArrEntity = [NSString separateImageViewURLString:TieZiDetail.img];
+                 // TieZiDetail.imageUrlArrEntity = [NSString separateImageViewURLString:TieZiDetail.img];
                   
                   success(TieZiDetail);
               }
@@ -258,14 +253,14 @@
 }
 
 - (void)requestReplyWithUrl:(NSString *)url
-                 paramaters:(NSDictionary *)paramaters
+                 parameter:(NSDictionary *)parameter
                     success:(void (^)(NSArray *tieZi))success
                     failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     YWHTTPManager *manager = [YWHTTPManager manager];
     
     [manager POST:fullUrl
-       parameters:paramaters
+       parameters:parameter
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               
@@ -296,7 +291,7 @@
                       
                       TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
                       
-                      replyEntity.imageUrlArrEntity = [NSString separateImageViewURLString:replyEntity.img];
+                      replyEntity.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:replyEntity.img];
                       
                       currentIndex ++ ;
                       
@@ -312,10 +307,10 @@
                           //currentIndex已经++
                           TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
                           
-                          NSDictionary *paramaters      = @{@"post_reply_id":@(replyEntity.reply_id)};
+                          NSDictionary *parameter      = @{@"post_reply_id":@(replyEntity.reply_id)};
                           
                           [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                              paramaters:paramaters
+                                              parameter:parameter
                                                  success:weakself.singleSuccessBlock
                                                  failure:weakself.singleFailureBlock];
                       }
@@ -325,11 +320,11 @@
                       
                       TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[0]];
                       //获取图片链接
-                      replyEntity.imageUrlArrEntity = [NSString separateImageViewURLString:replyEntity.img];
-                      NSDictionary *paramaters      = @{@"post_reply_id":@(replyEntity.reply_id)};
+                      replyEntity.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:replyEntity.img];
+                      NSDictionary *parameter      = @{@"post_reply_id":@(replyEntity.reply_id)};
                       
                       [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                          paramaters:paramaters
+                                          parameter:parameter
                                              success:weakself.singleSuccessBlock
                                              failure:weakself.singleFailureBlock];
                       
@@ -344,7 +339,7 @@
 }
 
 - (void)requestForCommentWithUrl:(NSString *)url
-                      paramaters:(NSDictionary *)paramaters
+                      parameter:(NSDictionary *)parameter
                          success:(void (^)(NSArray *commentArr))success
                          failure:(void (^)(NSString *error))failure {
     
@@ -352,7 +347,7 @@
     YWHTTPManager *manager = [YWHTTPManager manager];
     
     [manager POST:fullUrl
-       parameters:paramaters
+       parameters:parameter
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               
@@ -385,7 +380,7 @@
 }
 
 - (void)postCommentWithUrl:(NSString *)url
-                paramaters:(NSDictionary *)paramaters
+                parameter:(NSDictionary *)parameter
                    success:(void (^)(StatusEntity *status))success
                    failure:(void (^)(NSString *error))failure {
     
@@ -393,7 +388,7 @@
     YWHTTPManager *manager = [YWHTTPManager manager];
     
     [manager POST:fullUrl
-       parameters:paramaters
+       parameters:parameter
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               
@@ -419,7 +414,7 @@
 }
 
 - (void)deleteReplyWithUrl:(NSString *)url
-                paramaters:(NSDictionary *)paramaters
+                parameter:(NSDictionary *)parameter
                    success:(void (^)(StatusEntity *statusEntity))success
                    failure:(void (^)(NSString *error))failure{
     
@@ -427,7 +422,7 @@
     YWHTTPManager *manager =[YWHTTPManager manager];
     
     [manager POST:fullUrl
-       parameters:paramaters
+       parameters:parameter
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               
@@ -447,7 +442,7 @@
 }
 
 - (void)deleteCommentWithUrl:(NSString *)url
-                  paramaters:(NSDictionary *)paramaters
+                  parameter:(NSDictionary *)parameter
                      success:(void (^)(StatusEntity *statusEntity))success
                      failure:(void (^)(NSString *error))failure{
     
@@ -455,7 +450,7 @@
     YWHTTPManager *manager =[YWHTTPManager manager];
     
     [manager POST:fullUrl
-       parameters:paramaters
+       parameters:parameter
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
               
@@ -485,11 +480,13 @@
     NSString *share_title               = [NSString stringWithFormat:@"%@", model.topic_title];
     NSString *share_descr               = [NSString stringWithFormat:@"%@", model.content];
     NSString *share_thumbURL            = @"http://image.zhibaizhi.com/icon/share_img.png";
-    if (model.imageUrlArrEntity > 0) {
-        ImageViewEntity *entity         = [model.imageUrlArrEntity firstObject];
+    
+    if (model.imageUrlEntityArr > 0) {
+        ImageViewEntity *entity         = [model.imageUrlEntityArr firstObject];
         share_thumbURL                  =entity.imageName;
         
     }
+     
     UMShareWebpageObject *shareObject   = [UMShareWebpageObject shareObjectWithTitle:share_title
                                                                                descr:share_descr
                                                                            thumImage:share_thumbURL];
@@ -570,117 +567,6 @@
                                           otherButtonTitles:nil];
     [alert show];
 }
-
-//- (void)downloadCompletedImageViewByUrls:(NSArray *)imageEntities
-//                                progress:(void (^)(CGFloat))progress
-//                                 success:(void (^)(NSMutableArray *imageArr))imageArr
-//                                 failure:(void (^)(NSString *error))failure{
-//
-//
-//    ImageViewEntity *imageEntity = [imageEntities objectAtIndex:0];
-//    NSMutableArray *imageUrls    = [ImageViewEntity getImageUrlsFromImageEntities:imageEntities];
-//    Boolean hasExsitImages       = [YWSandBoxTool isExistImageByName:imageEntity.imageName];
-//
-//    //先从沙盒中找图片
-//    if (hasExsitImages) {
-//        imageArr([YWSandBoxTool getImagesFromCacheByUrlsArr:imageUrls]);
-//        progress(1);
-//    }
-//    else
-//    {
-//        [YWAvatarBrowser downloadImagesWithUrls:imageUrls
-//                                       progress:^(CGFloat progressNum) {
-//                                           //这个不能写
-//                                           progress(progressNum);
-//                                       }
-//                                        success:^(NSMutableArray *success) {
-//
-//                                            imageArr(success);
-//
-//                                        } failure:^(NSString *error) {
-//                                            failure(error);
-//                                            NSLog(@"failure:%@",error);
-//                                        }];
-//    }
-//
-//}
-
-
-//- (void)requestReplyWithUrl:(NSString *)url
-//                 paramaters:(NSDictionary *)paramaters
-//                    success:(void (^)(NSArray *tieZi))success
-//                    failure:(void (^)(NSString *error))failure {
-//
-//    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-//    YWHTTPManager *manager = [YWHTTPManager manager];
-//
-//    [manager POST:fullUrl
-//       parameters:paramaters
-//         progress:nil
-//          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//
-//              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-//
-//              if (httpResponse.statusCode == SUCCESS_STATUS) {
-//
-//                NSDictionary *content      = [NSJSONSerialization JSONObjectWithData:responseObject
-//                                                                             options:NSJSONReadingMutableContainers
-//                                                                               error:nil];
-//                StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-//
-//                  //没有评论直接返回nil
-//                  if (statusEntity.info.count == 0) {
-//                      success(nil) ;
-//                  }
-//
-//                  NSMutableArray *replyArr = [[NSMutableArray alloc] init];
-//
-//                  NSLog(@"reply:%@",content);
-//
-//                  //回复字典转模型
-//                  for (NSDictionary *reply in statusEntity.info) {
-//
-//                      TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:reply];
-//                      //获取图片链接
-//                      replyEntity.imageUrlArrEntity = [NSString separateImageViewURLString:replyEntity.img];
-//
-//                      NSDictionary *paramaters      = @{@"post_reply_id":@(replyEntity.reply_id)};
-//
-//                      [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-//                                          paramaters:paramaters
-//                                             success:^(NSArray *commentArr) {
-//
-//
-//                                                 replyEntity.commentArr = [commentArr mutableCopy];
-//
-//                                                 //这里使用的是一步加载，因此replyArr add的顺序是可能改变的
-//                                                 //需要按照reply_id进行排序
-//
-//                                                 [replyArr addObject:replyEntity];
-//
-//                                                 //这里获取完所有的评论才回调数据！！
-//                                                 if (replyArr.count == statusEntity.info.count && replyArr.count != 0) {
-//                                                     //升序排序
-//                                                     [replyArr bubSortWithArrayByAsc];
-//
-//                                                     success(replyArr);
-//                                                 }
-//
-//                      } failure:^(NSString *error) {
-//
-//                      }];
-//
-//                  }
-//
-//
-//
-//              }
-//
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"回帖获取失败");
-//    }];
-//}
 
 
 

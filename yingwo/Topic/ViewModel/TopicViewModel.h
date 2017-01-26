@@ -7,16 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import "TieZiViewModel.h"
-
+#import "GalleryViewModel.h"
 #import "TieZi.h"
 #import "TieZiResult.h"
 #import "TopicResult.h"
 #import "TopicEntity.h"
 
 #import "UMSocialUIManager.h"
-@interface TopicViewModel : TieZiViewModel
+@interface TopicViewModel : GalleryViewModel
 
 @property (nonatomic, strong) TieZi *model;
 

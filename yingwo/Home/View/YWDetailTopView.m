@@ -21,7 +21,7 @@
 - (void)createSubView {
     
     _labelImage               = [[UIImageView alloc] init];
-    _label                    = [[YWLabel alloc] init];
+    _label                    = [[YWTitle alloc] init];
     _moreBtn                  = [[YWAlertButton alloc] init];
 
     _labelImage.image         = [UIImage imageNamed:@"#_gray"];

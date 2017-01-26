@@ -32,7 +32,7 @@
             
             NSDictionary *paramaters = @{@"start_id":@(requestEntity.start_id)};
             
-            [self requestMessageWithUrl:requestEntity.requestUrl
+            [self requestMessageWithUrl:requestEntity.URLString
                              paramaters:paramaters
                                 success:^(NSArray *messages) {
                 
@@ -194,7 +194,7 @@
 - (void)changeImageUrlModelFor:(NSArray *)messageArr {
     
     for (MessageEntity *message in messageArr) {
-        message.imageUrlArrEntity = [NSString separateImageViewURLString:message.img];
+        message.imageUrlEntityArr = [NSString separateImageViewURLString:message.img];
         message.post_detail_imageUrlArrEntity = [NSString separateImageViewURLString:message.post_detail_img];
     }
     

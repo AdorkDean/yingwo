@@ -43,6 +43,9 @@
 
 
 //这个是将img解析后的images url 数组
-@property (nonatomic, strong) NSArray   *imageUrlArrEntity;
+@property (nonatomic, strong) NSArray   *imageURLArr;
+
+//这个是将img解析后的images url 数组,ImageEntity(带长宽)
+@property (nonatomic, strong) NSArray   *imageUrlEntityArr;
 
 @end

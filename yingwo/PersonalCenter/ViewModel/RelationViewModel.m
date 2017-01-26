@@ -38,7 +38,7 @@
             
             NSDictionary *paramaters = @{@"user_id":@(requestEntity.user_id)};
             
-            [self requestRelationListWithUrl:requestEntity.requestUrl
+            [self requestRelationListWithUrl:requestEntity.URLString
                                   paramaters:paramaters
                                      success:^(NSArray *relationArr) {
                                          [subscriber sendNext:relationArr];

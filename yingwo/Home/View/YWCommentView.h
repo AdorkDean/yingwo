@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YWLabel.h"
-#import "YWContentLabel.h"
 
 
 @interface YWCommentView : UIView

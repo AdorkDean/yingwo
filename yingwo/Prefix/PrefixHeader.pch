@@ -38,13 +38,16 @@
 
 //第三方框架vender,这里的第三方框架后做改动
 #import "CatZanButton.h"
-#import "GalleryView.h"
+#import "YWGalleryView.h"
 #import "ISEmojiView.h"
 #import "UINavigationBar+Awesome.h"
 #import "TZImagePickerController.h"
 #import "UMMobClick/MobClick.h"
 
 
+//base class
+#import "BaseViewController.h"
+#import "BaseViewModel.h"
 
 //自定义宏
 #import "Macro.h"
@@ -57,47 +60,53 @@
 
 //自定义tools
 #import "InputTextField.h"
+#import "Validate.h"
+#import "Customer.h"
+#import "User.h"
+#import "MD5.h"
+
+#import "CustomPresentSegue.h"
+#import "CustomDismissSegue.h"
+#import "YWQiNiuUploadTool.h"
+#import "YWAvatarBrowser.h"
+#import "YWWebViewController.h"
+
+//network tools
+#import "YWRequestTool.h"
+#import "YWNetworkTools.h"
+#import "YWHTTPManager.h"
+
+//catagory
 #import "UIView+Frame.h"
 #import "UIColor+Hex.h"
 #import "UIImage+(Copping).h"
 #import "MBProgressHUD+Dispaly.h"
 #import "SVProgressHUD+Display.h"
-#import "Validate.h"
-#import "Customer.h"
-#import "User.h"
-#import "MD5.h"
-#import "User+CURD.h"
-#import "YWSandBoxTool.h"
-#import "UINavigationBar+HideBottomLine.h"
-#import "UIBarButtonItem+Left.h"
-#import "NSDate+Grade.h"
-#import "YWNetworkTools.h"
-#import "YWHTTPManager.h"
-#import "CustomPresentSegue.h"
-#import "CustomDismissSegue.h"
-#import "YWQiNiuUploadTool.h"
-#import "NSDate+String.h"
-#import "NSString+Url.h"
-#import "YWAvatarBrowser.h"
 #import "NSArray+(String).h"
 #import "NSMutableArray+Sort.h"
 #import "NSString+fileSizeExtension.h"
 #import "UIImage+Orientation.h"
 #import "UIImage+blur.h"
-#import "NSMutableAttributedString+commentString.h"
-#import "YWWebViewController.h"
+#import "NSDate+String.h"
+#import "NSString+Url.h"
 #import "NSObject+Properties.h"
-
-
-
+#import "NSMutableAttributedString+commentString.h"
+#import "YWSandBoxTool.h"
+#import "UINavigationBar+HideBottomLine.h"
+#import "UIBarButtonItem+Left.h"
+#import "NSDate+Grade.h"
+#import "User+CURD.h"
 
 //自定义控件
 #import "InputTextField.h"
 #import "YWInputButton.h"
 #import "YWAvatarBrowser.h"
+#import "YWSpringButton.h"
+#import "YWAlertButton.h"
+#import "YWTitle.h"
+#import "YWContentLabel.h"
 
 //controller
-#import "BaseViewController.h"
 #import "MainNavController.h"
 #import "MainController.h"
 #import "VerificationController.h"

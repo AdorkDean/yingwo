@@ -11,21 +11,11 @@
 #import "DetailController.h"
 #import "TopicController.h"
 
-
-#import "YWHomeTableViewCellNoImage.h"
-#import "YWHomeTableViewCellOneImage.h"
-#import "YWHomeTableViewCellTwoImage.h"
-#import "YWHomeTableViewCellThreeImage.h"
-#import "YWHomeTableViewCellFourImage.h"
-#import "YWHomeTableViewCellSixImage.h"
-#import "YWHomeTableViewCellNineImage.h"
-#import "YWHomeTableViewCellMoreNineImage.h"
-
 //刷新的初始值
 static int start_id = 0;
 
 @protocol  YWHomeCellMiddleViewBaseProtocol;
-@interface YWTaTieziView()<UITableViewDataSource,UITableViewDelegate,YWHomeCellMiddleViewBaseProtocol,GalleryViewDelegate,YWAlertButtonProtocol,YWSpringButtonDelegate,YWLabelDelegate, YWHomeCellBottomViewDelegate,TTTAttributedLabelDelegate>
+@interface YWTaTieziView()
 
 
 @property (nonatomic, strong) TieZi             *model;
@@ -38,7 +28,7 @@ static int start_id = 0;
 @property (nonatomic, strong) NSMutableArray    *cellNewImageArr;
 @property (nonatomic,strong ) NSArray           *images;
 
-@property (nonatomic, strong) GalleryView       *galleryView;
+@property (nonatomic, strong) YWGalleryView       *galleryView;
 @property (nonatomic,assign ) CGFloat           navgationBarHeight;
 
 
@@ -55,20 +45,14 @@ static int start_id = 0;
     return _model;
 }
 
-- (TieZiViewModel *)viewModel {
-    if (_viewModel == nil) {
-        _viewModel = [[TieZiViewModel alloc] init];
-    }
-    return _viewModel;
-}
 
 - (RequestEntity *)requestEntity {
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.requestUrl = MY_TIEZI_URL;
+        _requestEntity.URLString = MY_TIEZI_URL;
         //请求的事新鲜事
-        _requestEntity.topic_id   = AllThingModel;
+      //  _requestEntity.topic_id   = AllThingModel;
         //偏移量开始为0
         _requestEntity.start_id  = start_id;
     }
@@ -136,9 +120,9 @@ static int start_id = 0;
     return _rowHeightArr;
 }
 
-- (GalleryView *)galleryView {
+- (YWGalleryView *)galleryView {
     if (_galleryView == nil) {
-        _galleryView                 = [[GalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _galleryView                 = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _galleryView.backgroundColor = [UIColor blackColor];
         _galleryView.delegate        = self;
     }
@@ -224,23 +208,6 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         _homeTableview.backgroundColor = [UIColor clearColor];
         _homeTableview.scrollEnabled   = NO;
         
-        [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
-               forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
-        [_homeTableview registerClass:[YWHomeTableViewCellOneImage class]
-               forCellReuseIdentifier:YWHomeCellOneImageIdentifier];
-        [_homeTableview registerClass:[YWHomeTableViewCellTwoImage class]
-               forCellReuseIdentifier:YWHomeCellTwoImageIdentifier];
-        [_homeTableview registerClass:[YWHomeTableViewCellThreeImage class]
-               forCellReuseIdentifier:YWHomeCellThreeImageIdentifier];
-        [_homeTableview registerClass:[YWHomeTableViewCellFourImage class]
-               forCellReuseIdentifier:YWHomeCellFourImageIdentifier];
-        [_homeTableview registerClass:[YWHomeTableViewCellSixImage class]
-               forCellReuseIdentifier:YWHomeCellSixImageIdentifier];
-        [_homeTableview registerClass:[YWHomeTableViewCellNineImage class]
-               forCellReuseIdentifier:YWHomeCellNineImageIdentifier];
-        [_homeTableview registerClass:[YWHomeTableViewCellMoreNineImage class]
-               forCellReuseIdentifier:YWHomeCellMoreNineImageIdentifier];
-        
     }
     return _homeTableview;
 }
@@ -254,7 +221,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                                            [self deleteTieZi:more];
+                                                           // [self deleteTieZi:more];
                                                         }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
                                                         style:UIAlertActionStyleCancel
@@ -271,6 +238,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 /**
  *  删除帖子
  */
+/*
 - (void)deleteTieZi:(UIButton *)more {
     YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)more.superview.superview.superview.superview;
     NSIndexPath *indexPath                = [self.homeTableview indexPathForCell:selectedCell];
@@ -278,13 +246,13 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     int postId = selectedModel.tieZi_id;
     //网络请求
-    NSDictionary *paramaters = @{@"post_id":@(postId)};
+    NSDictionary *parameter = @{@"post_id":@(postId)};
     
     //必须要加载cookie，否则无法请求
     [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
     
     [self.viewModel deleteTieZiWithUrl:TIEZI_DEL_URL
-                            paramaters:paramaters
+                            parameter:parameter
                                success:^(StatusEntity *statusEntity) {
                                    
                                    if (statusEntity.status == YES) {
@@ -303,10 +271,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                }];
     
 }
-
+*/
 /**
  *  复制帖子文字内容
  */
+/*
 - (void)copyTiZiText:(UIButton *)more {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     //复制内容 获取帖子文字内容
@@ -317,7 +286,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
     
-}
+}*/
 
 - (void)loadData {
     
@@ -360,7 +329,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
-        [self copyTiZiText:more];
+    //    [self copyTiZiText:more];
         
     }else if (index == 1) {
         self.alertView = alertView;
@@ -379,12 +348,12 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:101];
     __block int count       = [favour.text intValue];
-        
+        /*
     //网络请求
-    NSDictionary *paramaters = @{@"post_id":@(postId),@"value":@(model)};
+    NSDictionary *parameter = @{@"post_id":@(postId),@"value":@(model)};
     
     [self.viewModel postTieZiLIkeWithUrl:TIEZI_LIKE_URL
-                              paramaters:paramaters
+                              parameter:parameter
                                  success:^(StatusEntity *statusEntity) {
                                      
                                      if (statusEntity.status == YES) {
@@ -409,7 +378,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
                                  } failure:^(NSString *error) {
                                      
                                  }];
-    
+    */
 }
 
 
@@ -448,7 +417,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         return 2;
     }
 }
-
+/*
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     self.model                      = [self.tieZiList objectAtIndex:indexPath.row];
     NSString *cellIdentifier        = [self.viewModel idForRowByModel:self.model];
@@ -469,13 +438,14 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     return cell;
 
 }
-
+*/
 #pragma mark - UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 #pragma mark UITableViewDelegate 自适应高度
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     self.model               = [self.tieZiList objectAtIndex:indexPath.row];
@@ -500,7 +470,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     return rowHeight;
 }
-
+*/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 //    self.model = [self.tieZiList objectAtIndex:indexPath.row];
@@ -510,6 +480,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 }
 
 #pragma mark YWHomeCellBottomViewDelegate
+/*
 - (void)didSelecteMessageWithBtn:(UIButton *)message {
     
     YWHomeTableViewCellBase *selectedCell = (YWHomeTableViewCellBase *)message.superview.superview.superview.superview;
@@ -519,7 +490,7 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     //点击跳转到详情里面
 //    [self performSegueWithIdentifier:@"detail" sender:self];
 }
-
+*/
 #pragma mark AvatarImageView
 
 - (void)showImage:(UIImageView *)avatarImageView WithImageViewArr:(NSArray *)imageViewArr{
@@ -532,22 +503,22 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 #pragma mark - GalleryView Delegate
 
-- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
-{
-}
-
-- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
-{
-    [self.galleryView removeImageView];
-    
-}
-
-- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-    self.galleryView = nil;
-    
-    //开启滑动手势
-//    [self openSystemPopGestureRecognizer];
-}
+//- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
+//{
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
+//{
+//    [self.galleryView removeImageView];
+//    
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+//    self.galleryView = nil;
+//    
+//    //开启滑动手势
+////    [self openSystemPopGestureRecognizer];
+//}
 
 #pragma mark TTTAttributedLabelDelegate
 -(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
@@ -560,10 +531,10 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
 
 
 #pragma mark YWLabelDelegate
-
+/*
 - (void)didSelectLabel:(YWLabel *)label {
     
-    if (label.topic_id != 0) {
+  //  if (label.topic_id != 0) {
 //        
 //        self.tap_topic_id = label.topic_id;
 //        
@@ -571,11 +542,11 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
         
     }
     
-}
+}*/
 
 
 #define mark - YWHomeCellMiddleViewBaseProtocol
-
+/*
 - (void)didSelectedAvatarImageViewOfMiddleView:(UIImageView *)imageView imageArr:(NSMutableArray *)imageViewArr {
     
     if (imageView.image == nil) {
@@ -590,15 +561,16 @@ static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
     
     [self covertRectFromOldImageViewArr:imageViewArr];
     
+ 
     [self.galleryView setImageViews:self.cellNewImageArr
               withImageUrlArrEntity:selectedModel.imageUrlArrEntity
                         showAtIndex:imageView.tag-1];
-    
+ 
 //    [self.navigationController.view addSubview:self.galleryView];
     
     
 }
-
+*/
 - (void)covertRectFromOldImageViewArr:(NSArray *)imageViewArr{
     
     for (int i = 0; i < imageViewArr.count; i ++) {

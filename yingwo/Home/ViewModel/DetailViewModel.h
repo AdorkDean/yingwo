@@ -13,9 +13,7 @@
 #import "YWDetailReplyCell.h"
 #import "YWDetailTableViewCell.h"
 #import "TieZiReply.h"
-
-#import "TieZiViewModel.h"
-
+#import "GalleryViewModel.h"
 #import "TieZi.h"
 #import "TieZiComment.h"
 #import "ReplyCommentList.h"
@@ -34,7 +32,7 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  */
 @interface DetailViewModel : NSObject
 
-@property (nonatomic, strong) TieZiViewModel *tieZiViewModel;
+@property (nonatomic, strong) GalleryViewModel *tieZiViewModel;
 
 @property (nonatomic, strong) RACCommand *fetchDetailEntityCommand;
 //楼主的user_id
@@ -46,12 +44,12 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *  请求原贴
  *
  *  @param url        Post/detail
- *  @param paramaters post_id
+ *  @param parameter post_id
  *  @param success    success description
  *  @param failure    failure description
  */
 - (void)requestDetailWithUrl:(NSString *)url
-                  paramaters:(NSDictionary *)paramaters
+                  parameter:(NSDictionary *)parameter
                      success:(void (^)(TieZi *tieZi))success
                      failure:(void (^)(NSString *error))failure;
 
@@ -79,12 +77,12 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *  请求回帖
  *
  *  @param url        /Post/reply_list
- *  @param paramaters post_id 和 page
+ *  @param parameter post_id 和 page
  *  @param success    成功返回所有回帖
  *  @param failure    失败
  */
 - (void)requestReplyWithUrl:(NSString *)url
-                 paramaters:(NSDictionary *)paramaters
+                 parameter:(NSDictionary *)parameter
                     success:(void (^)(NSArray *tieZi))success
                     failure:(void (^)(NSURLSessionDataTask *,NSError *))failure;
 
@@ -93,12 +91,12 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *  发表评论
  *
  *  @param url        发表评论的url
- *  @param paramaters 参数四个post_reply_id、post_comment_id、post_comment_user_id、content
+ *  @param parameter 参数四个post_reply_id、post_comment_id、post_comment_user_id、content
  *  @param success    成功
  *  @param failure    失败
  */
 - (void)postCommentWithUrl:(NSString *)url
-                paramaters:(NSDictionary *)paramaters
+                parameter:(NSDictionary *)parameter
                    success:(void (^)(StatusEntity *status))success
                    failure:(void (^)(NSString *error))failure;
 
@@ -106,12 +104,12 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *  获取每一个跟贴的评论
  *
  *  @param url        获取评论的url
- *  @param paramaters 两个参数：post_reply_id，page
+ *  @param parameter 两个参数：post_reply_id，page
  *  @param success    成功
  *  @param failure    失败
  */
 - (void)requestForCommentWithUrl:(NSString *)url
-                      paramaters:(NSDictionary *)paramaters
+                      parameter:(NSDictionary *)parameter
                          success:(void (^)(NSArray *commentArr))success
                          failure:(void (^)(NSString *error))failure;
 
@@ -120,12 +118,12 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *  删除回帖
  *
  *  @param url        /Post/reply_del
- *  @param paramaters reply_id
+ *  @param parameter reply_id
  *  @param success
  *  @param failure    失败
  */
 - (void)deleteReplyWithUrl:(NSString *)url
-                paramaters:(NSDictionary *)paramaters
+                parameter:(NSDictionary *)parameter
                    success:(void (^)(StatusEntity *statusEntity))success
                    failure:(void (^)(NSString *error))failure;
 
@@ -133,12 +131,12 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
  *  删除回帖评论
  *
  *  @param url        /Post/comment_del
- *  @param paramaters comment_id
+ *  @param parameter comment_id
  *  @param success    
  *  @param failure    失败
  */
 - (void)deleteCommentWithUrl:(NSString *)url
-                  paramaters:(NSDictionary *)paramaters
+                  parameter:(NSDictionary *)parameter
                      success:(void (^)(StatusEntity *statusEntity))success
                      failure:(void (^)(NSString *error))failure;
 

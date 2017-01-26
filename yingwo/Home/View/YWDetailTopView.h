@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YWLabel.h"
-#import "YWAlertButton.h"
-
 
 @interface YWDetailTopView : UIView
 
 @property (nonatomic, strong) UIImageView   *labelImage;
-@property (nonatomic, strong) YWLabel       *label;
+@property (nonatomic, strong) YWTitle       *label;
 @property (nonatomic, strong) YWAlertButton *moreBtn;
 
 @end

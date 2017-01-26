@@ -73,7 +73,7 @@ static int start_id = 0;
 -(RequestEntity *)requestEntity {
     if (_requestEntity == nil) {
         _requestEntity = [[RequestEntity alloc] init];
-        _requestEntity.requestUrl = MY_REPLY_AND_COMMENT_URL;
+        _requestEntity.URLString = MY_REPLY_AND_COMMENT_URL;
         _requestEntity.start_id = 0;
     }
     return _requestEntity;
@@ -263,7 +263,7 @@ static int start_id = 0;
     tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
     tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
     tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
-    tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
+   // tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
     
     self.tieZiModel = tieZiModel;
     [self performSegueWithIdentifier:@"detail" sender:self];
@@ -293,7 +293,7 @@ static int start_id = 0;
     tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
     tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
     tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
-    tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
+   // tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
     
     self.tieZiModel = tieZiModel;
 
@@ -362,24 +362,24 @@ static int start_id = 0;
         //必须要加载cookie，否则无法请求
         [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
         
-        [self.detailViewModel deleteReplyWithUrl:TIEZI_REPLY_DEL_URL
-                                      paramaters:paramaters
-                                         success:^(StatusEntity *statusEntity) {
-                                             if (statusEntity.status == YES) {
-                                                 
-                                                 //删除该行跟帖数据源
-                                                                                              [self.messageArr removeObjectAtIndex:self.selectedIndexPath.row];
-                                                                                              //将该行从视图中移除
-                                                                                              [self.tableView deleteRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                                                 [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-                                             }else if(statusEntity.status == NO){
-                                                 
-                                                 [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-                                             }
-                                         }
-                                         failure:^(NSString *error) {
-                                             NSLog(@"error:%@",error);
-                                         }];
+//        [self.detailViewModel deleteReplyWithUrl:TIEZI_REPLY_DEL_URL
+//                                      paramaters:paramaters
+//                                         success:^(StatusEntity *statusEntity) {
+//                                             if (statusEntity.status == YES) {
+//                                                 
+//                                                 //删除该行跟帖数据源
+//                                                                                              [self.messageArr removeObjectAtIndex:self.selectedIndexPath.row];
+//                                                                                              //将该行从视图中移除
+//                                                                                              [self.tableView deleteRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//                                                 [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+//                                             }else if(statusEntity.status == NO){
+//                                                 
+//                                                 [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+//                                             }
+//                                         }
+//                                         failure:^(NSString *error) {
+//                                             NSLog(@"error:%@",error);
+//                                         }];
         
     }else if([self.messageEntity.follow_type isEqualToString:@"COMMENT"]) {
         
@@ -388,24 +388,24 @@ static int start_id = 0;
         //必须要加载cookie，否则无法请求
         [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
         
-        [self.detailViewModel deleteCommentWithUrl:TIEZI_COMMENT_DEL_URL
-                                        paramaters:paramaters
-                                           success:^(StatusEntity *statusEntity) {
-                                               if (statusEntity.status == YES) {
-                                                   
-                                                   //删除该行跟帖数据源
-                                                   [self.messageArr removeObjectAtIndex:self.selectedIndexPath.row];
-                                                   //将该行从视图中移除
-                                                   [self.tableView deleteRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                                                   [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-                                               }else if(statusEntity.status == NO){
-                                                   
-                                                   [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-                                               }
-                                           }
-                                           failure:^(NSString *error) {
-                                               NSLog(@"error:%@",error);
-                                           }];
+//        [self.detailViewModel deleteCommentWithUrl:TIEZI_COMMENT_DEL_URL
+//                                        paramaters:paramaters
+//                                           success:^(StatusEntity *statusEntity) {
+//                                               if (statusEntity.status == YES) {
+//                                                   
+//                                                   //删除该行跟帖数据源
+//                                                   [self.messageArr removeObjectAtIndex:self.selectedIndexPath.row];
+//                                                   //将该行从视图中移除
+//                                                   [self.tableView deleteRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//                                                   [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+//                                               }else if(statusEntity.status == NO){
+//                                                   
+//                                                   [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+//                                               }
+//                                           }
+//                                           failure:^(NSString *error) {
+//                                               NSLog(@"error:%@",error);
+//                                           }];
 
     }
     

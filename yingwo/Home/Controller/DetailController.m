@@ -15,7 +15,6 @@
 #import "YWDetailReplyCell.h"
 
 #import "DetailViewModel.h"
-#import "TieZiViewModel.h"
 #import "UMSocialUIManager.h"
 
 #import "YWDetailBottomView.h"
@@ -26,7 +25,7 @@
 
 #import "YWAlertButton.h"
 
-@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,GalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWLabelDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
+@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,YWGalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWTitleDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
 
 @property (nonatomic, strong) UITableView         *detailTableView;
 @property (nonatomic, strong) UIBarButtonItem     *leftBarItem;
@@ -38,10 +37,10 @@
 
 @property (nonatomic, strong) YWDetailBottomView  *replyView;
 @property (nonatomic, strong) YWDetailCommentView *commentView;
-@property (nonatomic, strong) GalleryView         *galleryView;
+@property (nonatomic, strong) YWGalleryView         *galleryView;
 
 @property (nonatomic, strong) DetailViewModel     *viewModel;
-@property (nonatomic, strong) TieZiViewModel      *homeViewModel;
+@property (nonatomic, strong) GalleryViewModel      *homeViewModel;
 
 @property (nonatomic, strong) RequestEntity       *requestEntity;
 @property (nonatomic, strong) TieZiComment        *commentEntity;
@@ -56,7 +55,7 @@
 @property (nonatomic, assign) CGFloat             navgationBarHeight;
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
-@property (nonatomic, strong) NSMutableDictionary *commetParamaters;
+@property (nonatomic, strong) NSMutableDictionary *commetparameter;
 
 @property (nonatomic,assign ) int                 comment_reply_id;
 
@@ -95,9 +94,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _viewModel;
 }
 
-- (TieZiViewModel *)homeViewModel {
+- (GalleryViewModel *)homeViewModel {
     if (_homeViewModel == nil) {
-        _homeViewModel = [[TieZiViewModel alloc] init];
+        _homeViewModel = [[GalleryViewModel alloc] init];
     }
     return _homeViewModel;
 }
@@ -164,9 +163,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _replyView;
 }
 
-- (GalleryView *)galleryView {
+- (YWGalleryView *)galleryView {
     if (_galleryView == nil) {
-        _galleryView                 = [[GalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _galleryView                 = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _galleryView.backgroundColor = [UIColor blackColor];
         _galleryView.delegate        = self;
     }
@@ -193,11 +192,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _tieZiReplyArr;
 }
 
-- (NSMutableDictionary *)commetParamaters {
-    if (_commetParamaters == nil) {
-        _commetParamaters = [[NSMutableDictionary alloc] init];
+- (NSMutableDictionary *)commetparameter {
+    if (_commetparameter == nil) {
+        _commetparameter = [[NSMutableDictionary alloc] init];
     }
-    return _commetParamaters;
+    return _commetparameter;
 }
 
 - (CGFloat)navgationBarHeight {
@@ -283,34 +282,20 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)deleteTieZi:(UIButton *)more {
     
+    RequestEntity *request = [[RequestEntity alloc] init];
+
     //判断删除楼主的帖子
     if ([more.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
         
-        int postId = self.model.tieZi_id;
         //网络请求
-        NSDictionary *paramaters = @{@"post_id":@(postId)};
+        NSDictionary *parameter = @{@"post_id":@(self.model.tieZi_id)};
         
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
         
-        [self.homeViewModel deleteTieZiWithUrl:TIEZI_DEL_URL
-                                    paramaters:paramaters
-                                       success:^(StatusEntity *statusEntity) {
-                                           
-                                           if (statusEntity.status == YES) {
-                                               
-                                               [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-                                               //跳转回上一页面
-                                               
-                                               [self.navigationController popViewControllerAnimated:YES];
-                                               
-                                           }else if (statusEntity.status == NO){
-                                               [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-                                           }
-                                           
-                                       } failure:^(NSString *error) {
-                                           NSLog(@"error:%@",error);
-                                       }];
+        request.URLString = TIEZI_DEL_URL;
+        request.parameter = parameter;
+        
+        [self deleteIndexTieZiWithRequest:request];
+        
     }
     
     //判断删除跟帖
@@ -321,34 +306,84 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         NSIndexPath *indexPath          = [self.detailTableView indexPathForCell:selectedCell];
         TieZiReply *replyModel;
         replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
-        int replyId = replyModel.reply_id;
-        
-        //网络请求
-        NSDictionary *paramaters = @{@"reply_id":@(replyId)};
-        
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-        
-        [self.viewModel deleteReplyWithUrl:TIEZI_REPLY_DEL_URL
-                                paramaters:paramaters
-                                   success:^(StatusEntity *statusEntity) {
-                                       if (statusEntity.status == YES) {
 
-                                           //删除该行跟帖数据源
-                                           [self.tieZiReplyArr removeObjectAtIndex:indexPath.row];
-                                           //将该行从视图中移除
-                                           [self.detailTableView deleteRowsAtIndexPaths:@[indexPath]
-                                                                       withRowAnimation:UITableViewRowAnimationFade];
-                                           [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-                                       }else if(statusEntity.status == NO){
-                                           
-                                           [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-                                       }
-                                   }
-                                   failure:^(NSString *error) {
-                                       NSLog(@"error:%@",error);
-                                   }];
+        //网络请求
+        NSDictionary *parameter         = @{@"reply_id":@( replyModel.reply_id)};
+
+        request.URLString               = TIEZI_REPLY_DEL_URL;
+        request.parameter               = parameter;
+
+        [self deleteReplyTieZiWithRequest:request indexPath:indexPath];
+        
+
     }
+}
+
+- (void)deleteIndexTieZiWithRequest:(RequestEntity *)request {
+    
+    WeakSelf(self);
+    
+    [self.homeViewModel setDeleteSuccessBlock:^(StatusEntity *statusEntity) {
+        
+        if (statusEntity.status == YES) {
+            
+            [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+            //跳转回上一页面
+            
+            [weakself.navigationController popViewControllerAnimated:YES];
+            
+        }else if (statusEntity.status == NO){
+            
+            [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+        }
+        
+        
+    } failureBlock:^(id deleteFailureBlock) {
+        
+        [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+        
+    }];
+    
+    [self.homeViewModel deleteTieZiWithRequest:request];
+
+    
+}
+
+- (void)deleteReplyTieZiWithRequest:(RequestEntity *)request indexPath:(NSIndexPath *)indexPath{
+    
+    WeakSelf(self);
+    
+    [self.homeViewModel setDeleteSuccessBlock:^(StatusEntity *statusEntity) {
+        
+        if (statusEntity.status == YES) {
+            
+            [weakself deleteReplyTieZiByIndexPath:indexPath];
+            
+            [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:1.0];
+            
+        }else if (statusEntity.status == NO){
+            
+            [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:1.0];
+        }
+        
+        
+    } failureBlock:^(id deleteFailureBlock) {
+        
+    }];
+    
+    [self.homeViewModel deleteTieZiWithRequest:request];
+    
+    
+}
+
+- (void)deleteReplyTieZiByIndexPath:(NSIndexPath *)indexPath {
+    
+    //删除该行跟帖数据源
+    [self.tieZiReplyArr removeObjectAtIndex:indexPath.row];
+    //将该行从视图中移除
+    [self.detailTableView deleteRowsAtIndexPaths:@[indexPath]
+                                withRowAnimation:UITableViewRowAnimationFade];
+    [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
     
 }
 
@@ -407,10 +442,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     announceVC.post_id             = self.model.tieZi_id;
     
     //block传参数
-    announceVC.replyTieZiBlock = ^(NSDictionary *paramaters,BOOL isRelease){
+    announceVC.replyTieZiBlock = ^(NSDictionary *parameter,BOOL isRelease){
         if (isRelease == YES) {
             
-//            [self addReplyViewAtLastWith:paramaters];
+//            [self addReplyViewAtLastWith:parameter];
             [self.detailTableView.mj_footer beginRefreshing];
 
         }
@@ -588,16 +623,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
     //必须要加载cookie，否则无法请求
     [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
+    /*
     [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
-                             paramaters:parameter
+                             parameters:parameter
                                 success:^(TieZi *tieZi) {
                                     
                                     self.model = tieZi;
                                     
     }                           failure:^(NSString *error) {
         
-    }];
+    }];*/
 }
 /**
  *  下拉刷新
@@ -605,8 +640,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)loadData {
     
     TieZi *tieZi                  = [self.tieZiReplyArr objectAtIndex:0];
-    self.requestEntity.requestUrl = TIEZI_RELPY_URL;
-    self.requestEntity.paramaters = @{@"post_id":@(tieZi.tieZi_id)};
+    self.requestEntity.URLString = TIEZI_RELPY_URL;
+    self.requestEntity.parameter = @{@"post_id":@(tieZi.tieZi_id)};
 
     [self loadForType:HeaderReloadDataModel];
     
@@ -617,8 +652,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)loadMoreData {
 
-    self.requestEntity.requestUrl = TIEZI_RELPY_URL;
-    self.requestEntity.paramaters = @{@"post_id":@(self.model.tieZi_id),
+    self.requestEntity.URLString = TIEZI_RELPY_URL;
+    self.requestEntity.parameter = @{@"post_id":@(self.model.tieZi_id),
                                       @"start_id":@(self.requestEntity.start_id)};
     
 
@@ -708,7 +743,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                model:replyModel
                            indexPath:indexPath];
     //图片显示问题，回帖中复用问题
-    self.replyModel.imageUrlArrEntity = self.viewModel.imageUrlEntity;
+    self.replyModel.imageUrlEntityArr = self.viewModel.imageUrlEntity;
     
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
     cell.masterView.delegate        = self;
@@ -775,9 +810,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //  获取点击的cell
     self.commentCell                               = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
     //评论所需参数
-    self.commetParamaters[@"post_reply_id"]        = @(commentView.post_reply_id);
-    self.commetParamaters[@"post_comment_id"]      = @(commentView.post_comment_id);
-    self.commetParamaters[@"post_comment_user_id"] = @(commentView.post_comment_user_id);
+    self.commetparameter[@"post_reply_id"]        = @(commentView.post_reply_id);
+    self.commetparameter[@"post_comment_id"]      = @(commentView.post_comment_id);
+    self.commetparameter[@"post_comment_user_id"] = @(commentView.post_comment_user_id);
     self.commentView.messageTextView.placeholder   = [NSString stringWithFormat:@"回复 %@:",commentView.user_name];
 
     [self.commentView.messageTextView becomeFirstResponder];
@@ -822,7 +857,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
     //
     if ([imageView.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
-        [self showImageView:newImageView];
+       // [self showImageView:newImageView];
     }else {
         [self showReplyImageView:newImageView];
     }
@@ -834,6 +869,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *
  *  @param imageView
  */
+/*
 - (void)showImageView:(UIImageView *)imageView {
     
     NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
@@ -859,7 +895,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self.navigationController.view addSubview:self.galleryView];
     
 }
-
+*/
 /**
   *  展示回复视图图片
   *
@@ -869,16 +905,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     [self stopSystemPopGestureRecognizer];
     
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.replyModel.imageUrlArrEntity.count];
+    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.replyModel.imageUrlEntityArr.count];
     
-    for (int i = 0; i < self.replyModel.imageUrlArrEntity.count; i++) {
+    for (int i = 0; i < self.replyModel.imageUrlEntityArr.count; i++) {
         [imageViewArr addObject:imageView];
     }
     
-    [self.galleryView setImageViews:imageViewArr
-              withImageUrlArrEntity:self.replyModel.imageUrlArrEntity
-                        showAtIndex:imageView.tag - 1];
-    
+//    [self.galleryView setImageViews:imageViewArr
+//              withImageUrlArrEntity:self.replyModel.imageUrlArrEntity
+//                        showAtIndex:imageView.tag - 1];
+//    
     [self.navigationController.view addSubview:self.galleryView];
     
 }
@@ -886,85 +922,114 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 #pragma mark - GalleryView Delegate
 
-- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
-{
-}
-
-- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
-{
-    [self.galleryView removeImageView];
-}
-
-- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-    self.galleryView = nil;
-    
-    //开启滑动手势
-    [self openSystemPopGestureRecognizer];
-}
+//- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
+//{
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
+//{
+//    [self.galleryView removeImageView];
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+//    self.galleryView = nil;
+//    
+//    //开启滑动手势
+//    [self openSystemPopGestureRecognizer];
+//}
 
 #pragma YWSpringButtonDelegate
 
 - (void)didSelectSpringButtonOnView:(UIView *)view postId:(int)postId model:(int)model {
 
-    //网络请求
-    NSDictionary *paramaters = @{@"post_id":@(postId),@"value":@(model)};
     
-    [self.homeViewModel postTieZiLIkeWithUrl:TIEZI_LIKE_URL
-                                  paramaters:paramaters
-                                     success:^(StatusEntity *statusEntity) {
-                                     
-                                     if (statusEntity.status == YES) {
-                                         
-                                         if (model == YES) {
-                                             [self.homeViewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
-                                         }
-                                         else
-                                         {
-                                             [self.homeViewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
-                                         }
-                                
-                                     }
-                                     
-                                 } failure:^(NSString *error) {
-                                     
-                                 }];
+    NSDictionary *parameter = @{@"post_id":@(postId),@"value":@(model)};
+
+    WeakSelf(self);
+    
+    [self.homeViewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
+        
+        if (statusEntity.status == YES) {
+            
+            if (statusEntity.status == YES) {
+                
+                if (model == YES) {
+                    [weakself.homeViewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
+                }
+                else
+                {
+                    [weakself.homeViewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
+                }
+                
+            }
+        }
+        
+        
+    } likeFailureBlock:^(id likeFailureBlock) {
+        
+    }];
+    
+    RequestEntity *requestEntity = [[RequestEntity alloc] init];
+    requestEntity.URLString = TIEZI_LIKE_URL;
+    requestEntity.parameter = parameter;
+    
+    [self.homeViewModel requestForLikeTieZiWithRequest:requestEntity];
     
 }
+
 
 - (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model {
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
     UILabel *favour = [view viewWithTag:201];
-    __block int count       = [favour.text intValue];
     
-    NSDictionary *paramaters = @{@"reply_id":@(replyId),@"value":@(model)};
+    NSDictionary *parameter = @{@"reply_id":@(replyId),@"value":@(model)};
     
-    [self.homeViewModel postReplyTieZiLikeWithUrl:TIEZI_REPLY_LIKE
-                                       paramaters:paramaters
-                                          success:^(StatusEntity *statusEntity) {
-                                              if (statusEntity.status == YES) {
-                                                  
-                                                  if (model == YES) {
-                                                      count ++;
-                                                      [self.homeViewModel saveLikeCookieWithReplyId:[NSNumber numberWithInt:replyId]];
-                                                  }
-                                                  else
-                                                  {
-                                                      count --;
-                                                      [self.homeViewModel deleteLikeCookieWithReplyId:[NSNumber numberWithInt:replyId]];
-                                                  }
-                                                  if (count >= 0) {
-                                                      favour.text = [NSString stringWithFormat:@"%d",count];
-                                                  }else {
-                                                      favour.text = [NSString stringWithFormat:@"%d",0];
-                                                  }
-                                              }
-                                          }
-                                          failure:^(NSString *error) {
-                                              
-                                          }];
+    WeakSelf(self);
+    
+    [self.homeViewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
+        
+        if (statusEntity.status == YES) {
+            
+            [weakself setReplyLikeCountWithModel:model countLabel:favour saveWithId:replyId];
+            
+        }
+        
+        
+    } likeFailureBlock:^(id likeFailureBlock) {
+        
+    }];
+    
+    RequestEntity *requestEntity = [[RequestEntity alloc] init];
+    requestEntity.URLString = TIEZI_REPLY_LIKE;
+    requestEntity.parameter = parameter;
+    
+    [self.homeViewModel requestForLikeTieZiWithRequest:requestEntity];
     
 }
+
+- (void)setReplyLikeCountWithModel:(Boolean)model countLabel:(UILabel *)label saveWithId:(int)postId{
+    
+    int count       = [label.text intValue];
+    
+    if (model == YES) {
+        count ++;
+        [self.homeViewModel saveLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
+    }
+    else
+    {
+        count --;
+        [self.homeViewModel deleteLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
+    }
+    if (count >= 0) {
+        label.text = [NSString stringWithFormat:@"%d",count];
+    }else {
+        label.text = [NSString stringWithFormat:@"%d",0];
+    }
+    
+}
+
+
 #pragma mark YWDetailCellBottomViewDelegate
 
 //点击跟贴上的气泡，跳转到跟贴界面
@@ -976,7 +1041,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     self.commentType                        = TieZiCommentModel;
     
-    self.commetParamaters[@"post_reply_id"] = @(post_id);
+    self.commetparameter[@"post_reply_id"] = @(post_id);
 
     //获得被评论的cell
     self.commentCell                        = (YWDetailReplyCell *)view.superview.superview;
@@ -1093,7 +1158,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 #pragma mark YWLabelDelegate
 
-- (void)didSelectLabel:(YWLabel *)label {
+- (void)didSelectLabel:(YWTitle *)label {
     
     self.tap_topic_id = label.topic_id;
     [self performSegueWithIdentifier:@"topic" sender:self];
@@ -1113,10 +1178,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)commentTieZi {
     
-    self.commetParamaters[@"content"] = self.commentView.messageTextView.text;
+    self.commetparameter[@"content"] = self.commentView.messageTextView.text;
     
     [self.viewModel postCommentWithUrl:TIEZI_COMMENT_URL
-                            paramaters:self.commetParamaters
+                            parameter:self.commetparameter
                                success:^(StatusEntity *status) {
         
                                    if (status.status == YES) {
@@ -1139,10 +1204,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:indexPath.row];
     
-    NSDictionary *paramaters = @{@"post_reply_id":@(replyEntity.reply_id)};
+    NSDictionary *parameter = @{@"post_reply_id":@(replyEntity.reply_id)};
     
     [self.viewModel requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                  paramaters:paramaters
+                                  parameter:parameter
                                      success:^(NSArray *commentArr) {
                                          [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
                                          
@@ -1165,14 +1230,14 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)addReplyViewAtLastWith:(NSDictionary *)paramters {
     
-    Customer *user = [User findCustomer];
+    Customer *user          = [User findCustomer];
     //获取刚才发布的跟贴
-    TieZiReply *reply = [TieZiReply mj_objectWithKeyValues:paramters];
-    
-    reply.imageUrlArrEntity         = [NSString separateImageViewURLString:reply.img];
-    reply.user_name                 = user.name;
-    reply.user_face_img             = user.face_img;
-    reply.create_time               = [[NSDate date] timeIntervalSince1970];
+    TieZiReply *reply       = [TieZiReply mj_objectWithKeyValues:paramters];
+
+    reply.imageUrlEntityArr = [NSString separateImageViewURLString:reply.img];
+    reply.user_name         = user.name;
+    reply.user_face_img     = user.face_img;
+    reply.create_time       = [[NSDate date] timeIntervalSince1970];
     
     //将跟帖添加到self.tieZiReplyArr数组中
     
@@ -1192,7 +1257,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark 收起键盘
 - (void)hiddenKeyboard {
     
-    self.commetParamaters      = nil;
+    self.commetparameter      = nil;
     self.selectCommentView     = nil;
     self.detailTableView.frame = self.view.bounds;
 

@@ -17,14 +17,14 @@
 #import "YWTaTieziView.h"
 #import "YWTaFollowView.h"
 
-@interface TAController ()<UIScrollViewDelegate,GalleryViewDelegate,YWTaTopicViewDelegate>
+@interface TAController ()<UIScrollViewDelegate,YWGalleryViewDelegate,YWTaTopicViewDelegate>
 
 @property (nonatomic, strong) UIScrollView              *taScrollView;
 @property (nonatomic, strong) YWTaHeaderView            *taHeaderView;
 @property (nonatomic, strong) YWTaTopicView             *taTopicView;
 @property (nonatomic, strong) YWTaTieziView             *taTieziView;
 @property (nonatomic, strong) YWTaFollowView            *taFollowView;
-@property (nonatomic, strong) GalleryView               *galleryView;
+@property (nonatomic, strong) YWGalleryView               *galleryView;
 
 @property (nonatomic, strong) TaViewModel               *viewModel;
 @property (nonatomic, strong) TaEntity                  *taEntity;
@@ -148,9 +148,9 @@ static CGFloat HeadViewHeight = 250;
     return _taNavigationBar;
 }
 
--(GalleryView *)galleryView {
+-(YWGalleryView *)galleryView {
     if (_galleryView == nil) {
-        _galleryView                        = [[GalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _galleryView                        = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _galleryView.backgroundColor        = [UIColor blackColor];
         _galleryView.delegate               = self;
     }
@@ -327,19 +327,19 @@ static CGFloat HeadViewHeight = 250;
 
 #pragma mark - GalleryView Delegate
 
-- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
-{
-    
-}
-
-- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
-{
-    [self.galleryView removeImageView];
-}
-
-- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-    self.galleryView = nil;
-}
+//- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
+//{
+//    
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
+//{
+//    [self.galleryView removeImageView];
+//}
+//
+//- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+//    self.galleryView = nil;
+//}
 
 
 #pragma mark - YWTaTopicViewDelegate
@@ -404,7 +404,7 @@ static CGFloat HeadViewHeight = 250;
     NSMutableArray *imagesArr = [NSMutableArray array];
     [imagesArr addObject:self.taHeaderView.headerView];
     
-    [self.galleryView setImages:imagesArr showAtIndex:0];
+   // [self.galleryView setImages:imagesArr showAtIndex:0];
     self.galleryView.pageLabel.text = @"";
     [self.navigationController.view addSubview:self.galleryView];
 }

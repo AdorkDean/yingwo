@@ -249,7 +249,7 @@ static int start_id = 0;
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.requestUrl = HOT_TOPIC_URL;
+        _requestEntity.URLString = HOT_TOPIC_URL;
         //偏移量开始为0
         _requestEntity.start_id  = start_id;
     }
@@ -279,7 +279,7 @@ static int start_id = 0;
     
     self.discoveryTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        self.requestEntity.requestUrl = HOT_TOPIC_URL;
+        self.requestEntity.URLString = HOT_TOPIC_URL;
         [weakself loadDataWithRequestEntity:self.requestEntity];
         
     } ];

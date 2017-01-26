@@ -159,7 +159,7 @@
     tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
     tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
     tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
-    tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
+  //  tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
 
     self.tieZiModel = tieZiModel;
     

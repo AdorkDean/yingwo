@@ -1,12 +1,13 @@
 //
-//  HomeController.h
+//  NHomeController.h
 //  yingwo
 //
-//  Created by apple on 16/8/1.
-//  Copyright © 2016年 wangxiaofa. All rights reserved.
+//  Created by apple on 2017/1/6.
+//  Copyright © 2017年 wangxiaofa. All rights reserved.
 //
 
 #import "BaseViewController.h"
+#import "GalleryController.h"
 
 typedef NS_ENUM(NSInteger, ContentCategory){
     
@@ -18,24 +19,15 @@ typedef NS_ENUM(NSInteger, ContentCategory){
     ConcernedTopicModel = 2,
     //好友动态
     FriendActivityModel = 3,
-
+    
 };
 
-/**
- *  HomeController 用于首页显示贴子、新鲜事
- *  同时此类具备内容的筛选，就是上面的 ContentCategory 分类
- */
-@interface HomeController : BaseViewController
+@interface HomeController :GalleryController
 
 @property (nonatomic, strong) YWTabBar        *tabBar;
+
 @property (nonatomic, assign) NSUInteger      index;
+
 @property (nonatomic, assign) ContentCategory contentCategoryModel;
-@property (nonatomic, strong) UITableView     *homeTableview;
-
-@property (nonatomic, assign) BOOL            type_topic;
-@property (nonatomic, assign) BOOL            type_post;
-@property (nonatomic, assign) int             item_id;
-
-- (void)weatherPush;
 
 @end

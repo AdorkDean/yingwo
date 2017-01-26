@@ -238,6 +238,7 @@
  *  发送短信验证
  *  除了手机号，还有生成的本地签名
  */
+
 - (void)sendSmsRequest {
     
     long int number = [self getRandomNumber:1000000000 to:9999999999];

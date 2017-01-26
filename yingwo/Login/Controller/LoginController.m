@@ -221,110 +221,35 @@
     //设备号
     NSString *token = [YWNetworkTools getDeviceToken];
     NSLog(@"%@", token);
-    NSDictionary *paramaters = @{MOBILE:mobile,
-                               PASSWORD:password,
-                           DEVICE_TOEKN:token};
-    
-    [self requestForLoginWithUrl:LOGIN_URL paramaters:paramaters];
-    
-}
-//登录网路请求
-- (void)requestForLoginWithUrl:(NSString *)url paramaters:(id)paramaters {
-    
-    [self.viewModel requestForLoginWithUrl:url
-                                parameters:paramaters
-                                   success:^(User *user) {
-                                   
-        if (user != nil) {
-            
-            //登录成功后保存cookie
-            [YWNetworkTools cookiesValueWithKey:LOGIN_COOKIE];
-            
-            //登录后本地保存数据
-            //首先改变face_img的形式
-            user.face_img = [NSString selectCorrectUrlWithAppendUrl:user.face_img];
-            
-            [self saveDataAfterSuccessLogin:user];
-            //头像
-            [self requestForHeadImageWithUrl:user.face_img];
-            
-        }else{
-            
-            [SVProgressHUD showErrorStatus:@"帐号或密码错误" afterDelay:HUD_DELAY];
 
+    
+    self.viewModel.request.URLString = LOGIN_URL;
+    self.viewModel.request.parameter = @{MOBILE:mobile,
+                                         PASSWORD:password,
+                                         DEVICE_TOEKN:token};
+    
+    __weak typeof (LoginController) *weakSelf = self;
+    
+    [self.viewModel setSuccessBlock:^(User* user) {
+        
+        //保存用户的个人信息
+        [User saveCustomerByUser:user];
+        [User saveLoginInformationWithUsernmae:mobile password:password];
+        
+        //跳转
+        if ([user.register_status intValue] == 1) {
+            [weakSelf jumpToMainPage];
+        }else {
+            //仅仅注册未完善个人信息的直接跳到个人信息界面
+            [weakSelf performSegueWithIdentifier:SEGUE_IDENTIFY_PERFECTINFO sender:weakSelf];
         }
-//        NSLog(@"%d",log.status);
-//        NSLog(@"%@",log.customer.userId);
-//        NSLog(@"%@",log.customer.username);
-
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
-        [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
-
-    }];
-}
-
-/**
- *  下载头像
- *
- *  @param url
- */
-- (void)requestForHeadImageWithUrl:(NSString *)url {
-    
-    if (url.length > 0) {
+    } errorBlock:^(id error) {
         
-        [self.viewModel requestForHeadImageWithUrl:url];
-        
-    }
-    
-    
-}
-
-- (void)saveDataAfterSuccessLogin:(User *)user {
-    
-    //保存用户的个人信息
-    [User saveCustomerByUser:user];
-    
-    //登录信息保存    
-    [self saveLoginInfoWith:self.phoneText.rightTextField.text
-                   password:self.passwordText.rightTextField.text
-                    success:^(int successCode) {
-                        
-        if (successCode == SUCCESS_STATUS) {
-            
-            [SVProgressHUD showSuccessStatus:@"登录成功" afterDelay:HUD_DELAY];
-            //跳转
-            if ([user.register_status intValue] == 1) {
-                [self jumpToMainPage];
-            }else {
-                //仅仅注册未完善个人信息的直接跳到个人信息界面
-                [self performSegueWithIdentifier:SEGUE_IDENTIFY_PERFECTINFO sender:self];
-            }
-        }
-    } failure:^(int errorCode) {
-        
-        NSLog(@"login is failure");
     }];
     
-}
-
-/**
- *  登录信息保存
- *
- *  @param phone    登录手机号
- *  @param password 登录密码
- *  @param success  成功后的回调
- */
-- (void)saveLoginInfoWith:(NSString *)phone
-                 password:(NSString *)password
-                  success:(void (^)(int successCode))success
-                  failure:(void (^)(int errorCode))failure{
+    [self.viewModel requestForLogin];
     
-    BOOL isSave = [User saveLoginInformationWithUsernmae:phone password:password];
-    if (isSave) {
-        success(SUCCESS_STATUS);
-    }
-    failure(FAILURE_STATUS);
 }
 
 //初始化登录信息
@@ -375,7 +300,7 @@
     
   //  [User saveLoginInformationWithUsernmae:@"15295732669" password:@"123456"];
     
-    NSLog(@"%@",NSHomeDirectory());
+//    NSLog(@"%@",NSHomeDirectory());
 
 }
 

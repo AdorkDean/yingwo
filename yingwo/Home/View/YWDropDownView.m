@@ -33,8 +33,12 @@
 }
 
 - (void)createSubview {
-    
-    _tableView                     = [[UITableView alloc] initWithFrame:CGRectMake(30, 70, _tableViewWidth, 0) style:UITableViewStylePlain];
+
+    _tableView                     = [[UITableView alloc] initWithFrame:CGRectMake(30,
+                                                                                   50,
+                                                                                   _tableViewWidth,
+                                                                                   _tableViewHeight)
+                                                                  style:UITableViewStylePlain];
     _tableView.delegate            = self;
     _tableView.dataSource          = self;
     _tableView.layer.masksToBounds = YES;
@@ -42,7 +46,7 @@
     [_tableView setSeparatorInset:UIEdgeInsetsZero];
     [_tableView setLayoutMargins:UIEdgeInsetsZero];
     _tableView.separatorColor      = [UIColor colorWithHexString:@"#F5F5F5"];
-    
+    _tableView.alpha               = 0;
 }
 
 static CGFloat ANIMATION_TIME = 0.3;
@@ -57,18 +61,21 @@ static CGFloat ANIMATION_TIME = 0.3;
     
     [UIView animateWithDuration:ANIMATION_TIME
                      animations:^{
-        _tableView.frame = CGRectMake(30, 70, _tableViewWidth, _tableViewHeight);
+                         _tableView.alpha = 1;
+                         _tableView.frame = CGRectMake(30, 70, _tableViewWidth, _tableViewHeight);
     }];
 }
 
 - (void)hideDropDownView{
     
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        _tableView.frame = CGRectMake(30, 70, _tableViewWidth, 0);
+        _tableView.frame = CGRectMake(30, 70, _tableViewWidth, _tableViewHeight);
 
     } completion:^(BOOL finished) {
         self.hidden = YES;
         [_tableView removeFromSuperview];
+        _tableView.alpha = 0;
+        _tableView.frame = CGRectMake(30, 50, _tableViewWidth, _tableViewHeight);
     }];
 }
 

@@ -10,8 +10,8 @@
 
 @interface InputTextField : UIImageView
 
-@property (nonatomic, strong) UILabel *leftLabel;
-@property (nonatomic, strong) UITextField  *rightTextField;
+@property (nonatomic, strong) UILabel     *leftLabel;
+@property (nonatomic, strong) UITextField *rightTextField;
 
 - (instancetype)initWithLeftLabel:(NSString *)name rightPlace:(NSString *)placeName;
 

@@ -10,7 +10,6 @@
 #import "YWSearchController.h"
 
 #import "YWInputButton.h"
-#import "CroppingController.h"
 #import "GradePickerView.h"
 
 #import "PerfectViewModel.h"
