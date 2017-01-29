@@ -16,6 +16,7 @@ pod 'MagicalRecord', '~> 2.3.2'
 pod 'Qiniu', '~> 7.1.0.1'
 pod 'TTTAttributedLabel', '~> 2.0.0'
 pod 'HPGrowingTextView', '~> 1.1'
+pod 'HYBNetworking', '~> 3.3.0'
 
 target:yingwo do
 use_frameworks!

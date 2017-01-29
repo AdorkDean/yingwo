@@ -133,6 +133,10 @@
 #define MESSAGE_COMMENT_CNT_URL @"/Post/my_reply_and_comment_cnt"
 #define MESSAGE_LIKE_CNT_URL    @"/Post/my_liked_cnt"
 #define TIEZI_DETAIL            @"/Post/detail"
+
+//发现
+#define HOT_DISCUSS_URL         @"/Discover/post"
+
 //话题
 #define TOPIC_FIELD_URL         @"/Field/get_list"
 #define TOPIC_SUBJECT_URL       @"/Subject/get_list"

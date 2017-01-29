@@ -11,7 +11,7 @@
 #import "PersonalCenterController.h"
 #import "HomeController.h"
 #import "AnnounceController.h"
-#import "DiscoveryController.h"
+#import "DiscoveryNavController.h"
 #import "DetailController.h"
 #import "MessageController.h"
 #import "TopicController.h"
@@ -23,7 +23,7 @@
 @interface MainController ()
 
 @property (nonatomic, strong) HomeController           *homeVC;
-@property (nonatomic, strong) DiscoveryController      *discoveryVC;
+@property (nonatomic, strong) DiscoveryNavController   *discoveryNavVC;
 @property (nonatomic, strong) PersonalCenterController *personCenterVC;
 @property (nonatomic, strong) AnnounceController       *announceVC;
 @property (nonatomic, strong) MessageController        *messageVC;
@@ -41,14 +41,14 @@
     self.reloaded = YES;
     
     self.homeVC                        = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
-    self.discoveryVC                   = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
+    self.discoveryNavVC                   = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
     self.messageVC                     = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
     self.personCenterVC                = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
 
     self.announceVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
 
     MainNavController *homeNav         = [[MainNavController alloc] initWithRootViewController:self.homeVC];
-    MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryVC];
+    MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryNavVC];
     MainNavController *messageNav    = [[MainNavController alloc] initWithRootViewController:self.messageVC];
     MainNavController *personCenterNav = [[MainNavController alloc] initWithRootViewController:self.personCenterVC];
     MainNavController *announceNav     = [[MainNavController alloc] initWithRootViewController:self.announceVC];
@@ -145,12 +145,12 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-//        self.homeVC.type_topic = YES;
-  //      self.homeVC.item_id = [item_id intValue];
+        self.homeVC.type_topic = YES;
+        self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-//        self.homeVC.type_post = YES;
-//        self.homeVC.item_id = [item_id intValue];
+        self.homeVC.type_post = YES;
+        self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }
     
@@ -171,12 +171,12 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-//        self.homeVC.type_topic = YES;
-//        self.homeVC.item_id = [item_id intValue];
+        self.homeVC.type_topic = YES;
+        self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-//        self.homeVC.type_post = YES;
-//        self.homeVC.item_id = [item_id intValue];
+        self.homeVC.type_post = YES;
+        self.homeVC.item_id = [item_id intValue];
         [self showHomePage];
     }
 }
@@ -196,7 +196,7 @@
 }
 
 - (void)refreshHomeVC {
-//    [self.homeVC.homeTableview.mj_header beginRefreshing];
+    [self.homeVC.tableView.mj_header beginRefreshing];
 }
 
 - (void)refreshBadgeState {
@@ -335,7 +335,7 @@
         self.selectedIndex = index;
         
         //进入home页面前判断是否是推送
-//        [self.homeVC weatherPush];
+      //  [self.homeVC weatherPush];
         
         if (self.reloaded == NO) {
             self.reloaded  = YES;
@@ -344,7 +344,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.mainTabBarController.tabBar.homeBtn clearBadge];
             });
-//            [self.homeVC.homeTableview.mj_header beginRefreshing];
+            [self.homeVC.tableView.mj_header beginRefreshing];
         }
     }
     else if(index == 1) {

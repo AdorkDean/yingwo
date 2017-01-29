@@ -19,12 +19,20 @@
     //response 返回的是js object 需要序列化
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *token             = [userDefault objectForKey:TOKEN_KEY];
+//    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+//    NSString *token             = [userDefault objectForKey:TOKEN_KEY];
 
-    [mgr.requestSerializer setValue:token forHTTPHeaderField:@"device_id"];
+ //   [mgr.requestSerializer setValue:token forHTTPHeaderField:@"device_id"];
 
- //   mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    mgr.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
+                                                                              @"text/html",
+                                                                              @"text/json",
+                                                                              @"text/plain",
+                                                                              @"text/javascript",
+                                                                              @"text/xml",
+                                                                              @"image/*"]];
+    
     return mgr;
 }
 @end

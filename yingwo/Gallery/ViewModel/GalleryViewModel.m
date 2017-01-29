@@ -166,9 +166,9 @@
                     success:(void (^)(NSArray *))success
                       error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
 
-    [YWRequestTool YWRequestPOSTWithURL:url
-                              parameter:parameter
-                           successBlock:^(id content) {
+    [YWRequestTool YWRequestCachedPOSTWithURL:url
+                                    parameter:parameter
+                                 successBlock:^(id content) {
         
                                TieZiResult *tieZiResult = [TieZiResult mj_objectWithKeyValues:content];
                                

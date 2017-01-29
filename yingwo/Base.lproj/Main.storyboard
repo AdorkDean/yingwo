@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="90W-dO-pB3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="90W-dO-pB3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -222,10 +222,10 @@
             </objects>
             <point key="canvasLocation" x="2476" y="2221"/>
         </scene>
-        <!--Discovery Controller-->
+        <!--Discovery Nav Controller-->
         <scene sceneID="rUY-00-jak">
             <objects>
-                <viewController storyboardIdentifier="DiscoveryController" id="7W1-mn-AvJ" customClass="DiscoveryController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DiscoveryController" id="7W1-mn-AvJ" customClass="DiscoveryNavController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vy2-ty-Udj"/>
                         <viewControllerLayoutGuide type="bottom" id="S78-mG-ofT"/>
@@ -239,6 +239,7 @@
                     <connections>
                         <segue destination="vyd-Eb-hsg" kind="show" identifier="topicList" id="Ebf-1q-488"/>
                         <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="gC9-wQ-CaA"/>
+                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="v7k-LG-TEa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmj-Bd-yaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -648,14 +649,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6ez-F0-LOf"/>
-        <segue reference="Fsf-vw-onw"/>
-        <segue reference="L3e-ko-g57"/>
-        <segue reference="DZx-xw-Vme"/>
-        <segue reference="jOE-G1-vCx"/>
-        <segue reference="cO5-zM-Dpn"/>
         <segue reference="q7d-3y-7Bc"/>
-        <segue reference="XB9-Kd-qqL"/>
+        <segue reference="EUt-Q0-JhM"/>
+        <segue reference="z8l-m0-DzE"/>
+        <segue reference="wrw-I9-9Lh"/>
+        <segue reference="gXB-c9-GK2"/>
         <segue reference="dQL-fh-5s4"/>
+        <segue reference="ZMN-sb-BDP"/>
+        <segue reference="v7k-LG-TEa"/>
+        <segue reference="mNj-nk-xUF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -30,6 +30,16 @@
 
 @implementation SMPagerTabView
 
+- (instancetype)init {
+    
+    if (self = [super init]) {
+        
+    }
+    
+    return self;
+    
+}
+
 - (void)buildUI {
     _isBuildUI = NO;
     _isUseDragging = NO;
@@ -53,10 +63,10 @@
         
         [itemButton setFrame:CGRectMake(itemButtonWidth*i, 0, itemButtonWidth, self.tabFrameHeight)];
         [itemButton.titleLabel setBaselineAdjustment:UIBaselineAdjustmentAlignCenters];
-        [itemButton.titleLabel setFont:[UIFont systemFontOfSize:self.tabButtonFontSize]];
+        [itemButton.titleLabel setFont:[UIFont systemFontOfSize:self.tabButtonFontSize weight:self.tabButtonFontWeight]];
         [itemButton setTitle:vc.title forState:UIControlStateNormal];
-        [itemButton setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
-        [itemButton setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateSelected];
+        [itemButton setTitleColor:self.tabButtonTitleColorForNormal forState:UIControlStateNormal];
+        [itemButton setTitleColor:self.tabButtonTitleColorForSelected forState:UIControlStateSelected];
         [itemButton addTarget:self action:@selector(onTabButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
         itemButton.tag = i;
         [self.tabButtons addObject:itemButton];
@@ -241,7 +251,7 @@
  */
 - (UIView *)tabView {
     if (!_tabView) {
-        _tabView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, _tabFrameHeight)];
+        _tabView = [[UIView alloc]initWithFrame:CGRectMake(self.leftTabMargin, 0, self.width, _tabFrameHeight)];
         //分离tabView，不能添加到self上
        // [self addSubview:_tabView];
     }
@@ -291,7 +301,7 @@
 }
 - (UIColor *)tabButtonTitleColorForNormal {
     if (!_tabButtonTitleColorForNormal) {
-        _tabButtonTitleColorForNormal = [UIColor blueColor];
+        _tabButtonTitleColorForNormal = [UIColor colorWithHexString:THEME_COLOR_2];
     }
     return _tabButtonTitleColorForNormal;
 }
@@ -301,24 +311,32 @@
     }
     return _tabButtonTitleColorForSelected;
 }
+
+- (UIColor *)selectedLineColor {
+    if (_selectedLineColor == nil) {
+        _selectedLineColor = [UIColor colorWithHexString:THEME_COLOR_1];
+    }
+    return _selectedLineColor;
+}
+
 - (UIView *)selectedLine {
     if (!_selectedLine) {
      //   self.selectedLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.tabView.height - 2, self.selectedLineWidth, 2)];
-        self.selectedLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, self.selectedLineWidth, 2)];
-        _selectedLine.backgroundColor = [UIColor colorWithHexString:THEME_COLOR_1];
+        _selectedLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, self.selectedLineWidth, 2)];
+        _selectedLine.backgroundColor = self.selectedLineColor;
         [self.tabView addSubview:_selectedLine];
     }
     return _selectedLine;
 }
 - (CGFloat)selectedLineWidth {
     if (!_selectedLineWidth) {
-        self.selectedLineWidth = 58;
+        _selectedLineWidth = 58;
     }
     return _selectedLineWidth;
 }
 - (CGFloat)selectedLineOffsetXBeforeMoving {
     if (!_selectedLineOffsetXBeforeMoving) {
-        self.selectedLineOffsetXBeforeMoving = 0;
+        _selectedLineOffsetXBeforeMoving = 0;
     }
     return _selectedLineOffsetXBeforeMoving;
 }
@@ -344,7 +362,7 @@
 }
 - (NSMutableArray *)viewsArray {
     if (!_viewsArray) {
-        self.viewsArray = [[NSMutableArray alloc] init];
+        _viewsArray = [[NSMutableArray alloc] init];
     }
     return _viewsArray;
 }

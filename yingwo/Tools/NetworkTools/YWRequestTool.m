@@ -47,6 +47,13 @@
     
 }
 
++ (void)YWRequestGETWithRequest:(RequestEntity *)request
+                   successBlock:(SuccessBlock)contentBlock
+                     errorBlock:(ErrorBlock)errorBlock{
+    // 根据需要在实现
+    
+}
+
 + (void)YWRequestPOSTWithURL:(NSString *)urlString
                    parameter:(id)parameter
                 successBlock:(SuccessBlock)contentBlock
@@ -90,6 +97,7 @@
                     successBlock:(SuccessBlock)contentBlock
                       errorBlock:(ErrorBlock)errorBlock {
     
+
     [YWRequestTool YWRequestPOSTWithURL:request.URLString
                               parameter:request.parameter
                            successBlock:^(id success) {
@@ -104,23 +112,71 @@
     
 }
 
-+ (void)YWRequestGETWithRequest:(RequestEntity *)request
-                   successBlock:(SuccessBlock)contentBlock
-                     errorBlock:(ErrorBlock)errorBlock {
++ (void)YWRequestCachedPOSTWithURL:(NSString *)urlString
+                         parameter:(id)parameter
+                      successBlock:(SuccessBlock)contentBlock
+                        errorBlock:(ErrorBlock)errorBlock {
     
-    [YWRequestTool YWRequestGETWithURL:request.URLString
-                             parameter:request.parameter
-                          successBlock:^(id success) {
-                               
-                               contentBlock(success);
-                               
-                           } errorBlock:^(id error) {
-                               
-                               errorBlock([error description]);
-                               
-                           }];
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:urlString];
+
+    [HYBNetworking configCommonHttpHeaders:@{@"X-Requested-With":@"XMLHttpRequest"}];
+
+    [HYBNetworking configRequestType:kHYBRequestTypePlainText
+                        responseType:kHYBResponseTypeData
+                 shouldAutoEncodeUrl:YES
+             callbackOnCancelRequest:NO];
+    
+    [HYBNetworking cacheGetRequest:YES shoulCachePost:YES];
+    [HYBNetworking obtainDataFromLocalWhenNetworkUnconnected:YES];
+
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+
+    [HYBNetworking postWithUrl:fullUrl
+                  refreshCache:YES
+                        params:parameter
+                       success:^(id response) {
+                           
+                           contentBlock(response);
+        
+    } fail:^(NSError *error) {
+        DLog(@"网络请求错误：%@",error);
+        errorBlock(error);
+    }];
     
 }
 
++ (void)YWRequestCachedPOSTWithRequest:(RequestEntity *)request
+                          successBlock:(SuccessBlock)contentBlock
+                            errorBlock:(ErrorBlock)errorBlock{
+    
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:request.URLString];
+    
+    [HYBNetworking configCommonHttpHeaders:@{@"X-Requested-With":@"XMLHttpRequest"}];
+    
+    [HYBNetworking configRequestType:kHYBRequestTypePlainText
+                        responseType:kHYBResponseTypeData
+                 shouldAutoEncodeUrl:YES
+             callbackOnCancelRequest:NO];
+    
+    [HYBNetworking cacheGetRequest:YES shoulCachePost:YES];
+    [HYBNetworking obtainDataFromLocalWhenNetworkUnconnected:YES];
+    
+    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+    
+    [HYBNetworking postWithUrl:fullUrl
+                  refreshCache:YES
+                        params:request.parameter
+                       success:^(id response) {
+                           
+                           contentBlock(response);
+                           
+                       } fail:^(NSError *error) {
+                           DLog(@"网络请求错误：%@",error);
+                           errorBlock(error);
+                       }];
+
+    
+}
 
 @end

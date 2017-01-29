@@ -291,13 +291,12 @@ static int start_id = 0;
     
     [self.discoveryTableView.mj_header beginRefreshing];
     
-    //   [self loadSubjectData];
+    self.title = @"版块";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"DiscoveryPage"];
-    self.title = @"发现";
     
 }
 
@@ -559,7 +558,13 @@ static int start_id = 0;
             HotTopicEntity *hotEntity = [self.discoveryViewModel.bannerArr objectAtIndex:index];
             self.topic_id             = [hotEntity.topic_id intValue];
             
-            [self performSegueWithIdentifier:@"topic" sender:self];
+           // [self performSegueWithIdentifier:@"topic" sender:self];
+            
+            if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
+                
+                [self.delegate didSelectModuleTopicWith:self.topic_id];
+                
+            }
             
         };
         
@@ -624,23 +629,23 @@ static int start_id = 0;
 }
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[TopicListController class]]) {
-        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPICLIST]) {
-            
-            TopicListController *topicListVc = segue.destinationViewController;
-            topicListVc.subject_id           = self.subject_id;
-            topicListVc.subject              = self.subject;
-            
-        }
-    }
-    //TopicController
-    else if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
-        
-        TopicController *topicVc = segue.destinationViewController;
-        topicVc.topic_id         = self.topic_id;
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([segue.destinationViewController isKindOfClass:[TopicListController class]]) {
+//        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPICLIST]) {
+//            
+//            TopicListController *topicListVc = segue.destinationViewController;
+//            topicListVc.subject_id           = self.subject_id;
+//            topicListVc.subject              = self.subject;
+//            
+//        }
+//    }
+//    //TopicController
+//    else if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
+//        
+//        TopicController *topicVc = segue.destinationViewController;
+//        topicVc.topic_id         = self.topic_id;
+//    }
+//}
 
 
 #pragma mark YWSubjectViewCellDelegate
@@ -649,7 +654,12 @@ static int start_id = 0;
     
     self.topic_id = topicId;
     
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
+    if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
+        
+        [self.delegate didSelectModuleTopicWith:topicId];
+        
+    }
+ //   [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
     
 }
 
@@ -672,7 +682,13 @@ static int start_id = 0;
     self.subject_id                = [subject.subject_id intValue];
     self.topic_id                  = [topic.topic_id intValue];
     
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:subjectId:subject:)]) {
+        
+        [self.delegate didSelectModuleTopicWith:self.topic_id subjectId:self.subject_id subject:self.subject];
+        
+    }
+   // [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
     
 }
 

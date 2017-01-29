@@ -10,7 +10,7 @@
 
 /**
  *  继承于 AFHTTPSessionManager
- *  在对 AFNetworking框架使用时，一半不直接使用 AFNetworking 中的类
+ *  在对 AFNetworking框架使用时，一般不直接使用 AFNetworking 中的类
  */
 @interface YWHTTPManager : AFHTTPSessionManager
 

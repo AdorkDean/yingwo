@@ -120,7 +120,7 @@ static BOOL networkStatus = YES;
     
     for (NSHTTPCookie *cookies in loadCookies){
         [cookieStorage setCookie: cookies];
-        NSLog(@"%@", cookies);
+      //  NSLog(@"%@", cookies);
     }
 }
 
