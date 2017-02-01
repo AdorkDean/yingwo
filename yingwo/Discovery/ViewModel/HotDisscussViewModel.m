@@ -31,7 +31,11 @@
             
             NSDictionary *parameter = @{@"start_id":@(requestEntity.start_id)};
             
+<<<<<<< HEAD
             [self requestForHotDiscussWithURL:requestEntity.URLString
+=======
+            [self requestForHotDiscussWithURL:requestEntity.requestUrl
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
                                     parameter:parameter
                                       success:^(NSArray *items) {
                 
@@ -73,6 +77,7 @@
                             success:(void (^)(NSArray *items ))success
                             failure:(void (^)(NSError *failure))failure {
     
+<<<<<<< HEAD
     [YWRequestTool YWRequestCachedPOSTWithURL:url
                                     parameter:parameter
                                  successBlock:^(id content) {
@@ -97,6 +102,44 @@
         
     }];
 
+=======
+    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
+    YWHTTPManager *manager =[YWHTTPManager manager];
+    
+    [manager POST:fullUrl
+       parameters:parameter
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              
+              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+              
+              if (httpResponse.statusCode == SUCCESS_STATUS) {
+                  
+                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                            options:NSJSONReadingMutableContainers
+                                                                              error:nil];
+                //  NSLog(@"content%@:",content);
+                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
+                  NSMutableArray *tempArr = [[NSMutableArray alloc] init];
+                  
+                  for (NSDictionary *dic in entity.info) {
+                      
+                      HotDiscussEntity *field = [HotDiscussEntity mj_objectWithKeyValues:dic];
+                      
+                      field.imageUrlArrEntity = [NSString separateImageViewURLString:field.img];
+
+                      [tempArr addObject:field];
+                      
+                  }
+                  
+                  success(tempArr);
+              }
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"获取主题失败");
+          }];
+    
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 }
 
 

@@ -22,7 +22,11 @@
 - (void)createSubView {
     
     _labelImage               = [[UIImageView alloc] init];
+<<<<<<< HEAD
     _title                    = [[YWTitle alloc] init];
+=======
+    _title                    = [[YWLabel alloc] init];
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
     
     _labelImage.image         = [UIImage imageNamed:@"#_gray"];
     _title.label.text         = @"新鲜事";

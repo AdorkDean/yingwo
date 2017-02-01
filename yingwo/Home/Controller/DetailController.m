@@ -36,6 +36,7 @@
 
 @property (nonatomic, strong) YWCommentView       *selectCommentView;
 
+@property (nonatomic, strong) MJRefreshAutoNormalFooter *footer;
 //点击查看话题内容
 @property (nonatomic, assign) int                 tap_topic_id;
 //点击查看用户详情
@@ -49,6 +50,8 @@
 @property (nonatomic,assign ) int                 comment_reply_id;
 
 @property (nonatomic, assign) CGFloat             keyboardHeight;
+
+
 
 @end
 
@@ -486,10 +489,20 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         [weakSelf loadData];
     }];
     
-    self.detailTableView.mj_footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+   self.footer  = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf loadMoreData];
+        
     }];
     
+<<<<<<< HEAD
+=======
+
+    
+    self.detailTableView.mj_footer = self.footer;
+    
+    [self setAllUILayout];
+
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
     [self.detailTableView.mj_header beginRefreshing];
 
     
@@ -669,8 +682,16 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
             }
             
             [self.detailTableView.mj_header endRefreshing];
+            self.footer.stateLabel.text = @"点击或上拉查看更多跟贴";
+
             [self.detailTableView reloadData];
             
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //刷新完成
+                self.footer.mj_y -= 40;
+                
+            });
+
         }
         else if (type == FooterReoladDataModel) {
             
@@ -680,9 +701,20 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                 [self.tieZiReplyArr addObjectsFromArray:tieZiList];
                 [self.detailTableView.mj_footer endRefreshing];
                 [self.detailTableView reloadData];
+                self.footer.stateLabel.text = @"点击或上拉查看更多跟贴";
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //刷新完成
+                    self.footer.mj_y -= 40;
+                    
+                });
+
             }else {
                 [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
+                self.footer.stateLabel.text = @"没有更多贴子了";
+
             }
+            
             
         }
         if (tieZiList.count != 0) {
@@ -693,14 +725,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
         }
         
-//        [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
-        
     }error:^(NSError *error) {
         //错误的情况下停止刷新（网络错误）
         [self.detailTableView.mj_header endRefreshing];
         [self.detailTableView.mj_footer endRefreshing];
     }];
-    
+
 }
 
 #define mark UITableViewDataSource

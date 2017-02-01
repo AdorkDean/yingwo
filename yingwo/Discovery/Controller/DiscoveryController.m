@@ -208,6 +208,7 @@ static int start_id = 0;
     
     [self.tableView.mj_header beginRefreshing];
     
+<<<<<<< HEAD
 }
 
 - (void)initDataSourceBlock {
@@ -239,6 +240,9 @@ static int start_id = 0;
     
     self.title = @"版块";
 
+=======
+    self.title = @"版块";
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -377,9 +381,17 @@ static int start_id = 0;
             
             HotTopicEntity *hotEntity = [self.viewModel.bannerArr objectAtIndex:index];
             
+<<<<<<< HEAD
             if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
                 
                 [self.delegate didSelectModuleTopicWith: [hotEntity.topic_id intValue]];
+=======
+           // [self performSegueWithIdentifier:@"topic" sender:self];
+            
+            if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
+                
+                [self.delegate didSelectModuleTopicWith:self.topic_id];
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
                 
             }
             
@@ -446,16 +458,47 @@ static int start_id = 0;
 }
 
 
+<<<<<<< HEAD
+=======
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([segue.destinationViewController isKindOfClass:[TopicListController class]]) {
+//        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPICLIST]) {
+//            
+//            TopicListController *topicListVc = segue.destinationViewController;
+//            topicListVc.subject_id           = self.subject_id;
+//            topicListVc.subject              = self.subject;
+//            
+//        }
+//    }
+//    //TopicController
+//    else if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
+//        
+//        TopicController *topicVc = segue.destinationViewController;
+//        topicVc.topic_id         = self.topic_id;
+//    }
+//}
+
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 
 #pragma mark YWSubjectViewCellDelegate
 
 - (void)didSelectTopicWith:(int)topicId {
     
+<<<<<<< HEAD
+=======
+    self.topic_id = topicId;
+    
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
     if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
         
         [self.delegate didSelectModuleTopicWith:topicId];
         
     }
+<<<<<<< HEAD
+=======
+ //   [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
+    
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 }
 
 #pragma mark private method
@@ -486,11 +529,21 @@ static int start_id = 0;
 
 - (void)loadRecommendTopicListWithFieldId:(int)fieldId {
     
+<<<<<<< HEAD
     RequestEntity *request = [[RequestEntity alloc] init];
     request.URLString      = RECOMMENDED_TOPIC_URL;
     request.parameter      = @{@"field_id":@(fieldId)};
     
     [self.viewModel requestRecommendTopicListWith:request];
+=======
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:subjectId:subject:)]) {
+        
+        [self.delegate didSelectModuleTopicWith:self.topic_id subjectId:self.subject_id subject:self.subject];
+        
+    }
+   // [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
     
 }
 

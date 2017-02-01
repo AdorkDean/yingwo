@@ -11,7 +11,11 @@
 #import "YWHotDiscussCell.h"
 
 
+<<<<<<< HEAD
 @interface HotDiscussController ()<UITableViewDelegate,UITableViewDataSource,YWTitleDelegate>
+=======
+@interface HotDiscussController ()<UITableViewDelegate,UITableViewDataSource,YWLabelDelegate>
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 
 @property (nonatomic, strong) UITableView          *tableView;
 
@@ -19,7 +23,11 @@
 
 @property (nonatomic, strong) NSMutableArray       *dataSource;
 
+<<<<<<< HEAD
 @property (nonatomic, strong) RequestEntity        *requestEntity;
+=======
+@property (nonatomic, strong) RequestEntity       *requestEntity;
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 
 @end
 
@@ -56,7 +64,11 @@ static int start_id = 0;
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
+<<<<<<< HEAD
         _requestEntity.URLString = HOT_DISCUSS_URL;
+=======
+        _requestEntity.requestUrl = HOT_DISCUSS_URL;
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
         //偏移量开始为0
         _requestEntity.start_id  = start_id;
     }
@@ -128,9 +140,15 @@ static int start_id = 0;
     }
 }
 
+<<<<<<< HEAD
 #pragma mark YWTitleDelegate
 
 - (void)didSelectLabel:(YWTitle *)label {
+=======
+#pragma mark YWLabelDelegate
+
+- (void)didSelectLabel:(YWLabel *)label {
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
     
     if ([self.delegate respondsToSelector:@selector(didSelectHotDisTopicLabelWith:)]) {
         [self.delegate didSelectHotDisTopicLabelWith:label.topic_id];

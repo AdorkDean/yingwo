@@ -23,6 +23,60 @@
 
 @implementation HomeController
 
+<<<<<<< HEAD
+=======
+/**
+ *  cell identifier
+ */
+static NSString *YWHomeCellNoImageIdentifier       = @"noImageCell";
+static NSString *YWHomeCellOneImageIdentifier      = @"oneImageCell";
+static NSString *YWHomeCellTwoImageIdentifier      = @"twoImageCell";
+static NSString *YWHomeCellThreeImageIdentifier    = @"threeImageCell";
+static NSString *YWHomeCellFourImageIdentifier     = @"fourImageCell";
+static NSString *YWHomeCellSixImageIdentifier      = @"sixImageCell";
+static NSString *YWHomeCellNineImageIdentifier     = @"nineImageCell";
+static NSString *YWHomeCellMoreNineImageIdentifier = @"moreNineImageCell";
+
+
+#pragma mark 懒加载
+
+- (UITableView *)homeTableview {
+    if (_homeTableview == nil) {
+        _homeTableview                 = [[UITableView alloc] initWithFrame:self.view.bounds
+                                                                      style:UITableViewStyleGrouped];
+        _homeTableview.delegate        = self;
+        _homeTableview.dataSource      = self;
+        _homeTableview.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _homeTableview.backgroundColor = [UIColor clearColor];
+
+        [_homeTableview registerClass:[YWHomeTableViewCellNoImage class]
+               forCellReuseIdentifier:YWHomeCellNoImageIdentifier];
+        [_homeTableview registerClass:[YWHomeTableViewCellOneImage class]
+               forCellReuseIdentifier:YWHomeCellOneImageIdentifier];
+        [_homeTableview registerClass:[YWHomeTableViewCellTwoImage class]
+               forCellReuseIdentifier:YWHomeCellTwoImageIdentifier];
+        [_homeTableview registerClass:[YWHomeTableViewCellThreeImage class]
+               forCellReuseIdentifier:YWHomeCellThreeImageIdentifier];
+        [_homeTableview registerClass:[YWHomeTableViewCellFourImage class]
+               forCellReuseIdentifier:YWHomeCellFourImageIdentifier];
+        [_homeTableview registerClass:[YWHomeTableViewCellSixImage class]
+               forCellReuseIdentifier:YWHomeCellSixImageIdentifier];
+        [_homeTableview registerClass:[YWHomeTableViewCellNineImage class]
+               forCellReuseIdentifier:YWHomeCellNineImageIdentifier];
+        [_homeTableview registerClass:[YWHomeTableViewCellMoreNineImage class]
+               forCellReuseIdentifier:YWHomeCellMoreNineImageIdentifier];
+    }
+    return _homeTableview;
+}
+
+- (TieZi *)model {
+    if (_model == nil) {
+        
+        _model = [[TieZi alloc] init];
+    }
+    return _model;
+}
+>>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 
 //刷新的初始值
 static int start_id = 0;
@@ -221,6 +275,12 @@ static int start_id = 0;
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.homeTableview.mj_footer.mj_y += 30;
+        });
+        
+        
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
         //错误的情况下停止刷新（网络错误）
