@@ -18,13 +18,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 
-//pod第三方库
-<<<<<<< HEAD
-#import "ReactiveObjC/ReactiveObjC.h"
-=======
-#import "ReactiveObjC.h"
-
->>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "SVProgressHUD.h"
@@ -40,11 +33,8 @@
 #import "TTTAttributedLabel.h"
 #import "HPGrowingTextView.h"
 #import <RSKImageCropper/RSKImageCropper.h>
-<<<<<<< HEAD
 #import <HYBNetworking/HYBNetworking.h>
-=======
 #import <ReactiveObjC/ReactiveObjC.h>
->>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 
 //第三方框架vender,这里的第三方框架后做改动
 #import "CatZanButton.h"

@@ -494,15 +494,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         
     }];
     
-<<<<<<< HEAD
-=======
-
-    
-    self.detailTableView.mj_footer = self.footer;
-    
-    [self setAllUILayout];
-
->>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
     [self.detailTableView.mj_header beginRefreshing];
 
     
