@@ -7,10 +7,7 @@
 //
 
 #import "YWDetailReplyCell.h"
-#import "TieZiComment.h"
-#import "YWCommentView.h"
-#import "YWCommentReplyView.h"
-#import "DetailViewModel.h"
+
 
 @interface YWDetailReplyCell()
 
@@ -90,7 +87,6 @@
         make.height.equalTo(@40);
         make.left.equalTo(self.contentLabel.mas_left);
         make.right.equalTo(self.contentLabel.mas_right);
-     //   make.bottom.equalTo(self.bgCommentView.mas_top).offset(-20).priorityLow();
     }];
     
     [self.bgCommentView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -169,17 +165,39 @@
 
 //添加评论
 - (void)addCommentViewByCommentArr:(NSMutableArray *)commentArr withMasterId:(NSInteger)master_id{
-
+    
     UIView *lastView;
     
-    for (int i = 0; i < commentArr.count; i ++) {
+    NSInteger count = commentArr.count > 1 ? 1 : commentArr.count;
+    
+    UIButton *moreBtn;
+    if (commentArr.count > 1) {
+        
+        moreBtn                 = [UIButton buttonWithType:UIButtonTypeCustom];
+        moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+
+        // 获取replyId
+        TieZiComment *entity    = [commentArr objectAtIndex:0];
+
+        moreBtn.tag             = [entity.post_reply_id integerValue];
+        
+        [moreBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
+        [moreBtn setTitle:@"查看更多评论" forState:UIControlStateNormal];
+
+        [moreBtn addTarget:self
+                    action:@selector(selectMoreCommetBtn:)
+          forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.bgCommentView addSubview:moreBtn];
+    }
+    
+    for (int i = 0; i < count; i ++) {
         
         TieZiComment *entity            = [commentArr objectAtIndex:i];
-
+        
         YWCommentView *commentView;
         
         //含楼主的评论需要重新布局，不能在init初始化实现所有布局
-        //在createSubview中不能写实现所想的布局，不信自己试试去～
         if ([entity.user_id integerValue] == master_id) {
             
             commentView                        = [[YWCommentView alloc] init];
@@ -191,21 +209,21 @@
             
             if (entity.commented_user_name == nil) {
                 connectString            = [NSString stringWithFormat:@"%@占占 : %@",
-                                                      entity.user_name,
-                                                      entity.content];
-
+                                            entity.user_name,
+                                            entity.content];
+                
             }
             else
             {
                 connectString            = [NSString stringWithFormat:@"%@占占 回复 %@ : %@",
-                                                      entity.user_name,
-                                                      entity.commented_user_name,
-                                                      entity.content];
-
+                                            entity.user_name,
+                                            entity.commented_user_name,
+                                            entity.content];
+                
             }
-                //首行缩进
-                commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
-                                                                                                WithTextIndext:entity.user_name.length + 2];
+            //首行缩进
+            commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
+                                                                                            WithTextIndext:entity.user_name.length + 2];
         }
         else
         {
@@ -233,7 +251,7 @@
                 commentView.content.attributedText = [NSMutableAttributedString changeCommentContentWithString:connectString
                                                                                                 WithTextIndext:entity.user_name.length];
             }
-
+            
         }
         
         commentView.post_reply_id               = [entity.post_reply_id intValue];
@@ -244,7 +262,7 @@
         commentView.sourceContent               = entity.content;
         
         UITapGestureRecognizer *tap             = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                              action:@selector(comment:)];
+                                                                                          action:@selector(comment:)];
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                 action:@selector(showMenuController:)];
         tap.numberOfTapsRequired                = 1;
@@ -254,7 +272,7 @@
         [commentView addGestureRecognizer:longPress];
         
         [self.bgCommentView addSubview:commentView];
-            
+        
         if (!lastView) {
             [commentView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.bgCommentView.mas_top).offset(10).priorityHigh();
@@ -273,10 +291,27 @@
         lastView = commentView;
     }
     
-    [lastView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.bgCommentView.mas_bottom).offset(-10).priorityLow();
-    }];
+    if (moreBtn != nil) {
+        
+        [lastView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(moreBtn.mas_top).offset(-10).priorityLow();
+        }];
+        
+        [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.bgCommentView);
+            make.bottom.equalTo(self.bgCommentView.mas_bottom).offset(-10).priorityLow();
+        }];
+    }
+    else
+    {
+        [lastView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.bgCommentView.mas_bottom).offset(-10).priorityLow();
+        }];
+    }
+
+
 }
+#pragma mark private
 
 - (void)comment:(UITapGestureRecognizer *)sender{
     
@@ -399,6 +434,14 @@
     return action==@selector(deleteAction:)||
     action==@selector(reportAction:)||
     action==@selector(copyAction:);
+}
+
+- (void)selectMoreCommetBtn:(UIButton *)btn {
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectMoreCommentBtnWith:)]) {
+        [self.delegate didSelectMoreCommentBtnWith:btn];
+    }
+    
 }
 
 @end

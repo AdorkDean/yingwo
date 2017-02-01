@@ -41,12 +41,10 @@
 - (void)addTopicListViewBy:(NSArray *)entities {
     
     YWTopicListView *lastView;
-    
- //   int count = (entities.count > 3 ) ? 3 : (int)entities.count ;
-    
+        
     for (int i = 0; i < entities.count; i ++) {
         
-        TopicEntity *entity               = [entities objectAtIndex:i];
+        TopicEntity *entity               = [TopicEntity mj_objectWithKeyValues:[entities objectAtIndex:i]];
 
         YWTopicListView *topicListView    = [[YWTopicListView alloc] init];
         topicListView.tag                 = i+1;

@@ -54,4 +54,7 @@
 
 - (void)didSelectCommentView:(YWCommentView *)commentView;
 
+@optional
+- (void)didSelectMoreCommentBtnWith:(UIButton *)btn;
+
 @end

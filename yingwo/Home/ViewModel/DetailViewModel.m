@@ -131,6 +131,8 @@
     //所在楼层
     //  cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",model.reply_id];
     cell.masterView.floorLabel.text            = [NSString stringWithFormat:@"第%d楼",(int)(indexPath.row +1)];
+    model.floor                                = (int)(indexPath.row +1);
+    
     //回复内容
     cell.contentLabel.text                     = model.content;
     if (model.user_name.length == 0) {

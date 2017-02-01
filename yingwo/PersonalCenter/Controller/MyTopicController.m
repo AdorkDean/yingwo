@@ -8,19 +8,17 @@
 
 #import "MyTopicController.h"
 #import "TopicController.h"
-
-#import "FeildViewModel.h"
-
+#import "MyTopicViewModel.h"
 #import "SMPagerTabView.h"
 
 @interface MyTopicController ()<SMPagerTabViewDelegate,TopicListControllerDelegate>
 
-@property (nonatomic, strong) SMPagerTabView      *topicPgaeView;
-@property (nonatomic, strong) UIView              *topicSectionView;
+@property (nonatomic, strong) SMPagerTabView   *topicPgaeView;
+@property (nonatomic, strong) UIView           *topicSectionView;
 
-@property (nonatomic, strong) NSMutableArray      *catalogVcArr;
+@property (nonatomic, strong) NSMutableArray   *catalogVcArr;
 
-@property (nonatomic, strong) FeildViewModel      *fieldViewModel;
+@property (nonatomic, strong) MyTopicViewModel *viewModel;
 
 @property (nonatomic, assign) int                  topicId;
 
@@ -112,11 +110,11 @@
     return _threeFieldVc;
 }
 
--(FeildViewModel *)fieldViewModel {
-    if (_fieldViewModel == nil) {
-        _fieldViewModel = [[FeildViewModel alloc] init];
+-(MyTopicViewModel *)viewModel {
+    if (_viewModel == nil) {
+        _viewModel = [[MyTopicViewModel alloc] init];
     }
-    return _fieldViewModel;
+    return _viewModel;
 }
 
 - (void)viewDidLoad {
@@ -248,18 +246,18 @@
  */
 - (void)loadFieldList {
     
-    [self.fieldViewModel requestTopicFieldWithUrl:TOPIC_FIELD_URL
-                                          success:^(NSArray *fieldArr) {
-                                              
-                                              self.fieldViewModel.fieldArr = [fieldArr mutableCopy];
-                                              
-                                              [self.view addSubview:self.topicPgaeView];
-                                              [self.view addSubview:self.topicSectionView];
+    WeakSelf(self);
+    [self.viewModel setSuccessBlock:^(NSArray *fieldArr) {
+        
+    //    weakself.viewModel.fieldArr = [fieldArr mutableCopy];
+        
+        [weakself.view addSubview:weakself.topicPgaeView];
+        [weakself.view addSubview:weakself.topicSectionView];
 
-                                          }
-                                          failure:^(NSString *error) {
-                                              
-                                          }];
+    } errorBlock:^(id error) {
+        
+    }];
+    
 }
 
 

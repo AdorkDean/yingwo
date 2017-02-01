@@ -27,6 +27,14 @@
     return _bannerArr;
 }
 
+- (void)setFieldSuccessBlock:(FieldSuccessBlock)fieldSuccessBlock
+           fieldFailureBlock:(FieldFailureBlock)fieldFailureBlock {
+    
+    _fieldSuccessBlock = fieldSuccessBlock;
+    _fieldFailureBlock = fieldFailureBlock;
+    
+}
+
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0)
     {
@@ -66,7 +74,7 @@
     
 }
 
-- (void)setupModelOfCell:(YWDiscoveryBaseCell *)cell model:(DiscoveryViewModel *)model {
+- (void)setupModelForBannerOfCell:(YWDiscoveryBaseCell *)cell model:(DiscoveryViewModel *)model {
     
     if (model == nil) {
         
@@ -87,87 +95,97 @@
 
 }
 
-- (void)requestTopicFieldWithUrl:(NSString *)url
-                         success:(void (^)(NSArray *fieldArr))success
-                         failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+- (void)setupModelForFieldTopicOfCell:(YWDiscoveryBaseCell *)cell
+                                model:(SubjectEntity *)model{
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
+    //解决cell复用带来的问题
+    //移除所有的子试图，再添加
+    NSArray *subviews = [[NSArray alloc] initWithArray:cell.backgroundView.subviews];
+    for (UIView *subview in subviews) {
+        [subview removeFromSuperview];
+    }
     
-    [manager POST:fullUrl
-       parameters:nil
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                          options:NSJSONReadingMutableContainers
-                                                                            error:nil];
-                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
-                  NSMutableArray *tempArr = [[NSMutableArray alloc] init];
-
-                  for (NSDictionary *dic in entity.info) {
-                      
-                      FieldEntity *field = [FieldEntity mj_objectWithKeyValues:dic];
-                      [tempArr addObject:field];
-                      
-                  }
-                  
-                  success(tempArr);
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              failure(task, error);
-          }];
-
+    //子view的创建延迟到viewmodel中
+    [cell createSubview];
+    
+    cell.fieldListView.subject.text = model.title;
+    [cell.fieldListView.leftImageView sd_setImageWithURL:[NSURL URLWithString:model.img]
+                                        placeholderImage:[UIImage imageNamed:@"Row"]];
+    
+    if (model.topicArr.count > 0) {
+        
+        [cell addTopicListViewBy:model.topicArr];
+    }
     
 }
-
 
 - (void)requestHotTopicListWithUrl:(NSString *)url
                            success:(void (^)(NSArray *hotArr))success
                              error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:nil
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                            options:NSJSONReadingMutableContainers
-                                                                              error:nil];
-                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
-                  NSMutableArray *tempArr = [[NSMutableArray alloc] init];
-                  
-                  for (NSDictionary *dic in entity.info) {
-                      
-                      HotTopicEntity *field = [HotTopicEntity mj_objectWithKeyValues:dic];
-                      
-                      [tempArr addObject:field];
-                      
-                  }
-                  
-                  success(tempArr);
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"error:%@",error);
-              failure(task,error);
-          }];
+    [YWRequestTool YWRequestCachedPOSTWithURL:url
+                                    parameter:nil
+                                 successBlock:^(id content) {
+        
+                                     StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
+                                     NSMutableArray *tempArr = [[NSMutableArray alloc] init];
+                                     
+                                     for (NSDictionary *dic in entity.info) {
+                                         
+                                         HotTopicEntity *Field = [HotTopicEntity mj_objectWithKeyValues:dic];
+                                         
+                                         [tempArr addObject:Field];
+                                         
+                                     }
+                                     
+                                     success(tempArr);
+
+    } errorBlock:^(id error) {
+        
+    }];
     
     
 }
 
+- (void)requestRecommendTopicListWith:(RequestEntity *)request {
+    
+    [YWRequestTool YWRequestCachedPOSTWithRequest:request
+                                     successBlock:^(id content) {
+                                         
+                                         StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
+                                         NSArray *subjects = [SubjectEntity mj_objectArrayWithKeyValuesArray:entity.info];
+                                         
+                                         
+                                         self.successBlock(subjects);
+                                         
+                                     } errorBlock:^(id error) {
+                                         
+                                     }];
+    
+}
 
+- (void)requestForField {
+    
+    [YWRequestTool YWRequestCachedPOSTWithURL:TOPIC_FIELD_URL
+                                    parameter:nil
+                                 successBlock:^(id content) {
+        
+                                     StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
+                                     NSMutableArray *tempArr = [[NSMutableArray alloc] init];
+                               
+                                     for (NSDictionary *dic in entity.info) {
+                                   
+                                         FieldEntity *field = [FieldEntity mj_objectWithKeyValues:dic];
+                                         [tempArr addObject:field];
+                                   
+                                     }
+                               
+                                     self.fieldSuccessBlock(tempArr);
+                               
+    } errorBlock:^(id error) {
+        
+    }];
+    
+}
 
 @end

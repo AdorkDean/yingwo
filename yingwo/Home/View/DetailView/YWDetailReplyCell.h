@@ -8,7 +8,14 @@
 
 #import "YWDetailBaseTableViewCell.h"
 
+#import "TieZiComment.h"
+#import "YWCommentView.h"
+#import "YWCommentReplyView.h"
+#import "DetailViewModel.h"
+
 @interface YWDetailReplyCell : YWDetailBaseTableViewCell
 
+- (void)comment:(UITapGestureRecognizer *)sender;
+- (void)showMenuController:(UILongPressGestureRecognizer *)sender;
 
 @end

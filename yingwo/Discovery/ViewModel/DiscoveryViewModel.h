@@ -8,25 +8,35 @@
 
 #import <UIKit/UIKit.h>
 #import "YWDiscoveryBaseCell.h"
-#import "FeildViewModel.h"
 
 #import "FieldEntity.h"
-#import "SubjectEntity.h"
 #import "TopicEntity.h"
 #import "HotTopicEntity.h"
 
 
-@interface DiscoveryViewModel : NSObject
+typedef void(^FieldSuccessBlock)(id content);
+typedef void(^FieldFailureBlock)(id failure);
+
+@interface DiscoveryViewModel : BaseViewModel
 
 @property (nonatomic, strong) RACCommand     *fecthTopicEntityCommand;
 
 @property (nonatomic, strong) NSMutableArray *bannerArr;
 
-@property (nonatomic, strong) NSMutableArray *fieldArr;
+@property (nonatomic, strong) NSMutableArray *FieldArr;
+
+@property (nonatomic, strong) FieldSuccessBlock fieldSuccessBlock;
+@property (nonatomic, strong) FieldFailureBlock fieldFailureBlock;
 
 
 
-- (void)setupModelOfCell:(YWDiscoveryBaseCell *)cell model:(DiscoveryViewModel *)model;
+- (void)setFieldSuccessBlock:(FieldSuccessBlock)fieldSuccessBlock
+           fieldFailureBlock:(FieldFailureBlock)fieldFailureBlock;
+
+- (void)setupModelForBannerOfCell:(YWDiscoveryBaseCell *)cell model:(DiscoveryViewModel *)model;
+
+- (void)setupModelForFieldTopicOfCell:(YWDiscoveryBaseCell *)cell
+                                model:(FieldEntity *)model;
 
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath;
 
@@ -44,6 +54,15 @@
                               error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
 
 
+/**
+ 获取推荐话题列表
+ 
+ @param request RequestEntity
+ */
+- (void)requestRecommendTopicListWith:(RequestEntity *)request;
 
-
+/**
+ 领域请求
+ */
+- (void)requestForField;
 @end

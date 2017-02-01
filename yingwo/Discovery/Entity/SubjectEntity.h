@@ -24,5 +24,6 @@
 
 @property (nonatomic, copy) NSString *top;
 
+@property (nonatomic, strong)NSArray *topicArr;
 
 @end

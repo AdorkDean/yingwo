@@ -26,6 +26,10 @@
     
 }
 
+- (void)initDataSourceBlock {
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -33,7 +37,8 @@
     
     [self createSubviews];
     [self layoutSubviews];
-    
+    [self initDataSourceBlock];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {

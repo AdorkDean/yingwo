@@ -22,4 +22,6 @@
 
 - (void)addAction;
 
+- (void)initDataSourceBlock;
+
 @end

@@ -41,6 +41,8 @@
 //用户是否点赞
 @property (nonatomic, assign) int       user_post_like;
 
+//楼层
+@property (nonatomic, assign) int       floor;
 
 //这个是将img解析后的images url 数组
 @property (nonatomic, strong) NSArray   *imageURLArr;

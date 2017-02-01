@@ -12,7 +12,6 @@
 
 #import "UIViewAdditions.h"
 #import "DiscoveryViewModel.h"
-#import "FeildViewModel.h"
 
 #import "YWDiscoveryBaseCell.h"
 #import "YWBannerTableViewCell.h"
@@ -25,44 +24,26 @@ static NSString *YWBANNER_CELL_IDENTIFIER = @"bannerCell";
 static NSString *SUBJECT_CELL_IDENTIER    = @"subjectCell";
 
 @interface DiscoveryController ()<UITableViewDataSource,UITableViewDelegate,MXScrollViewDelegate,YWSubjectViewCellDelegate>
-@property (nonatomic, strong) UITableView         *discoveryTableView;
+@property (nonatomic, strong) UITableView         *tableView;
 @property (nonatomic, strong) YWDiscoveryBaseCell *segmentViewCell;
 @property (nonatomic, strong) NSMutableArray      *bannerArr;
 @property (nonatomic, strong) UIView              *coverView;
 
 @property (nonatomic, strong) RequestEntity       *requestEntity;
+@property (nonatomic, strong) FieldEntity         *fieldEntity;
 
 @property (nonatomic, assign) CGFloat             navgationBarHeight;
-@property (nonatomic, strong) DiscoveryViewModel  *discoveryViewModel;
-@property (nonatomic, strong) FeildViewModel      *fieldViewModel;
+@property (nonatomic, strong) DiscoveryViewModel  *viewModel;
 
 @property (nonatomic, strong) UIView              *fieldView;
 @property (nonatomic, strong) UIButton            *firstFieldBtn;
 @property (nonatomic, strong) UIButton            *secondFieldBtn;
 @property (nonatomic, strong) UIButton            *thirdFieldBtn;
 
-@property (nonatomic, strong) NSArray             *subjectCacheArrOne;
-@property (nonatomic, strong) NSArray             *subjectCacheArrTwo;
-@property (nonatomic, strong) NSArray             *subjectCacheArrThree;
-
-@property (nonatomic, strong) NSArray             *topicCacheArrOne;
-@property (nonatomic, strong) NSArray             *topicCacheArrTwo;
-@property (nonatomic, strong) NSArray             *topicCacheArrThree;
-
-
-//主题
-@property (nonatomic, copy  ) NSString            *subject;
-
-@property (nonatomic, assign) int                 field_id;
-
-//主题id
-@property (nonatomic, assign) int                 subject_id;
 
 //主题下话题数组
-@property (nonatomic, strong) NSArray             *topicArr;
+@property (nonatomic, strong) NSArray             *subjectArr;
 
-//选择的话题id
-@property (nonatomic, assign) int                 topic_id;
 
 //点击选中的推荐主题
 @property (nonatomic, assign) NSInteger         selectIndex;
@@ -74,44 +55,37 @@ static int start_id = 0;
 
 @implementation DiscoveryController
 
-- (UITableView *)discoveryTableView {
+- (UITableView *)tableView {
     
-    if (_discoveryTableView == nil) {
+    if (_tableView == nil) {
         
-        _discoveryTableView                 = [[UITableView alloc] initWithFrame:CGRectMake(0,
+        _tableView                 = [[UITableView alloc] initWithFrame:CGRectMake(0,
                                                                                             0,
                                                                                             self.view.width,
                                                                                             self.navgationBarHeight+self.view.height)
                                                                            style:UITableViewStylePlain];
-        _discoveryTableView.delegate        = self;
-        _discoveryTableView.dataSource      = self;
-        _discoveryTableView.allowsSelection = NO;
-        _discoveryTableView.tag             = 101;
-        _discoveryTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
-        _discoveryTableView.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
+        _tableView.delegate        = self;
+        _tableView.dataSource      = self;
+        _tableView.allowsSelection = NO;
+        _tableView.tag             = 101;
+        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
         
-        _discoveryTableView.contentInset    = UIEdgeInsetsMake(0, 0, 300, 0);
-        [_discoveryTableView registerClass:[YWBannerTableViewCell class]
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 300, 0);
+        [_tableView registerClass:[YWBannerTableViewCell class]
                     forCellReuseIdentifier:YWBANNER_CELL_IDENTIFIER];
-        [_discoveryTableView registerClass:[YWSubjectViewCell class]
+        [_tableView registerClass:[YWSubjectViewCell class]
                     forCellReuseIdentifier:SUBJECT_CELL_IDENTIER];
         
     }
-    return _discoveryTableView;
+    return _tableView;
 }
 
-- (DiscoveryViewModel *)discoveryViewModel {
-    if (_discoveryViewModel == nil) {
-        _discoveryViewModel = [[DiscoveryViewModel alloc] init];
+- (DiscoveryViewModel *)viewModel {
+    if (_viewModel == nil) {
+        _viewModel = [[DiscoveryViewModel alloc] init];
     }
-    return _discoveryViewModel;
-}
-
-- (FeildViewModel *)fieldViewModel {
-    if (_fieldViewModel == nil) {
-        _fieldViewModel = [[FeildViewModel alloc] init];
-    }
-    return _fieldViewModel;
+    return _viewModel;
 }
 
 
@@ -128,8 +102,7 @@ static int start_id = 0;
         _firstFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1]
                              forState:UIControlStateNormal];
-        //        [_firstFieldBtn setTitle:@"校园生活" forState:UIControlStateNormal];
-        
+
         [_firstFieldBtn addTarget:self
                            action:@selector(firstFieldBtnSetFieldId)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -147,8 +120,6 @@ static int start_id = 0;
         _secondFieldBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         _secondFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_secondFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
-        //        [_secondFieldBtn setTitle:@"兴趣爱好" forState:UIControlStateNormal];
-        
         [_secondFieldBtn addTarget:self
                             action:@selector(secondFieldBtnSetFieldtId)
                   forControlEvents:UIControlEventTouchUpInside];
@@ -164,7 +135,7 @@ static int start_id = 0;
         _thirdFieldBtn.titleLabel.font = [UIFont systemFontOfSize:16 ];
         _thirdFieldBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
-        //        [_thirdFieldBtn setTitle:@"学科专业" forState:UIControlStateNormal];
+
         [_thirdFieldBtn addTarget:self
                            action:@selector(thirdFieldBtnSetFieldtId)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -173,48 +144,6 @@ static int start_id = 0;
     }
     
     return _thirdFieldBtn;
-}
-
--(NSArray *)subjectCacheArrOne {
-    if (_subjectCacheArrOne == nil) {
-        _subjectCacheArrOne = [NSArray array];
-    }
-    return _subjectCacheArrOne;
-}
-
--(NSArray *)subjectCacheArrTwo {
-    if (_subjectCacheArrTwo == nil) {
-        _subjectCacheArrTwo = [NSArray array];
-    }
-    return _subjectCacheArrTwo;
-}
-
--(NSArray *)subjectCacheArrThree {
-    if (_subjectCacheArrThree == nil) {
-        _subjectCacheArrThree = [NSArray array];
-    }
-    return _subjectCacheArrThree;
-}
-
--(NSArray *)topicCacheArrOne {
-    if (_topicCacheArrOne == nil) {
-        _topicCacheArrOne = [NSArray array];
-    }
-    return _topicCacheArrOne;
-}
-
--(NSArray *)topicCacheArrTwo {
-    if (_topicCacheArrTwo == nil) {
-        _topicCacheArrTwo = [NSArray array];
-    }
-    return _topicCacheArrTwo;
-}
-
--(NSArray *)topicCacheArrThree {
-    if (_topicCacheArrThree == nil) {
-        _topicCacheArrThree = [NSArray array];
-    }
-    return _topicCacheArrThree;
 }
 
 
@@ -256,42 +185,60 @@ static int start_id = 0;
     return _requestEntity;
 }
 
-- (int)field_id {
-    if (_field_id == 0) {
-        _field_id = 1;
-    }
-    return _field_id;
-}
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)layoutSubviews {
     
-    //  [self.discoveryTableView addSubview:self.discoverySegmentView];
-    [self.view addSubview:self.discoveryTableView];
-    //添加遮挡视图，遮盖刷新前显示出的部分
-    [self addTheCoverView];
-    
-    //不能放到viewWillAppear中，否则不起作用
-    //   [self scrollViewDidScroll:self.discoveryTableView];
+    [self.view addSubview:self.tableView];
+    //添加遮挡视图，遮盖刷新前显示出的部分    
     
     __weak DiscoveryController *weakself = self;
     
-    self.discoveryTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         self.requestEntity.URLString = HOT_TOPIC_URL;
         [weakself loadDataWithRequestEntity:self.requestEntity];
         
     } ];
     
-    self.discoveryTableView.mj_footer = [MJRefreshFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_footer = [MJRefreshFooter footerWithRefreshingBlock:^{
         
         [weakself loadMoreDataWithRequestEntity:self.requestEntity];
     }];
     
-    [self.discoveryTableView.mj_header beginRefreshing];
+    [self.tableView.mj_header beginRefreshing];
+    
+}
+
+- (void)initDataSourceBlock {
+    
+    WeakSelf(self);
+    [self.viewModel setSuccessBlock:^(NSArray *subjectArr) {
+        
+    
+        weakself.subjectArr = subjectArr;
+        [weakself.tableView reloadData];
+        [SVProgressHUD dismiss];
+        
+    } errorBlock:^(id error) {
+        
+    }];
+
+    [self.viewModel setFieldSuccessBlock:^(id content) {
+        
+        [weakself setFieldBtnTitleWith:content];
+    } fieldFailureBlock:^(id failure) {
+        
+    }];
+    
+
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     self.title = @"版块";
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -318,7 +265,7 @@ static int start_id = 0;
 
     [self loadForType:1 RequestEntity:requestEntity];
     
-    [self.discoveryTableView.mj_footer resetNoMoreData];
+    [self.tableView.mj_footer resetNoMoreData];
 }
 
 
@@ -336,199 +283,72 @@ static int start_id = 0;
  *  @param type  上拉or下拉
  */
 - (void)loadForType:(int)type RequestEntity:(RequestEntity *)requestEntity {
+    
     if (![YWNetworkTools networkStauts]) {
-        [self.discoveryTableView.mj_header endRefreshing];
+        [self.tableView.mj_header endRefreshing];
     }
     
     @weakify(self);
-    [[self.discoveryViewModel.fecthTopicEntityCommand execute:requestEntity] subscribeNext:^(NSArray *banners) {
+    [[self.viewModel.fecthTopicEntityCommand execute:requestEntity] subscribeNext:^(NSArray *banners) {
         @strongify(self);
         
         if (type == 1) {
-            //清空缓存数组
-            self.subjectCacheArrOne     = nil;
-            self.subjectCacheArrTwo     = nil;
-            self.subjectCacheArrThree   = nil;
-            self.topicCacheArrOne       = nil;
-            self.topicCacheArrTwo       = nil;
-            self.topicCacheArrThree     = nil;
             
-            [self loadSubjectData];
-            [self loadFieldList];
+            [self loadRecommendTopicListWithFieldId:1];
+            [self.viewModel requestForField];
+            
         }
         else
         {
             
         }
         
+        [self.tableView.mj_header endRefreshing];
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
         //错误的情况下停止刷新（网络错误）
-        [self.discoveryTableView.mj_header endRefreshing];
-        [self.discoveryTableView.mj_footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
 
     }];
     
 }
 
 - (void)firstFieldBtnSetFieldId {
-    self.field_id = 1;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
     [_secondFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
     [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
     
-    //第一次点击和下拉刷新后第一次点击需要加载，之后点击都从本地保存的数组中获取
-    if (self.subjectCacheArrOne.count > 0 && self.topicCacheArrOne.count > 0) {
-        self.fieldViewModel.subjectArr = [self.subjectCacheArrOne mutableCopy];
-        self.fieldViewModel.topicArr   = [self.topicCacheArrOne mutableCopy];
-        [self.discoveryTableView reloadData];
-    }else {
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-        [SVProgressHUD showWithStatus:@""];
-        [self loadSubjectData];
-    }
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
-
+    [self loadRecommendTopicListWithFieldId:1];
 }
 
 - (void)secondFieldBtnSetFieldtId {
 
-    self.field_id = 2;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
     [_secondFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
     [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
     
-    if (self.subjectCacheArrTwo.count > 0 && self.topicCacheArrTwo.count > 0) {
-        self.fieldViewModel.subjectArr = [self.subjectCacheArrTwo mutableCopy];
-        self.fieldViewModel.topicArr   = [self.topicCacheArrTwo mutableCopy];
-        [self.discoveryTableView reloadData];
-    }else {
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-        [SVProgressHUD showWithStatus:@""];
-        [self loadSubjectData];
-    }
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
+    
+    [self loadRecommendTopicListWithFieldId:2];
     
 }
 
 - (void)thirdFieldBtnSetFieldtId {
     
-    self.field_id = 3;
     [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
     [_secondFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
     [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
     
-    if (self.subjectCacheArrThree.count > 0 && self.topicCacheArrThree.count > 0) {
-        self.fieldViewModel.subjectArr = [self.subjectCacheArrThree mutableCopy];
-        self.fieldViewModel.topicArr   = [self.topicCacheArrThree mutableCopy];
-        [self.discoveryTableView reloadData];
-    }else {
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-        [SVProgressHUD showWithStatus:@""];
-        [self loadSubjectData];
-    }
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@""];
     
-}
-
-- (void)addTheCoverView {
-    UIView *coverView                   = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                                   50,
-                                                                                   SCREEN_WIDTH,
-                                                                                   self.discoveryTableView.frame.size.height)];
-    
-    coverView.backgroundColor           = [UIColor colorWithHexString:BACKGROUND_COLOR];
-    self.coverView                      = coverView;
-    [self.view addSubview:self.coverView];
-}
-
-/**
- *  获取领域
- */
-- (void)loadFieldList {
-    
-    [self.fieldViewModel requestTopicFieldWithUrl:TOPIC_FIELD_URL
-                                          success:^(NSArray *fieldArr) {
-                                              self.fieldViewModel.fieldArr = [fieldArr mutableCopy];
-                                              
-                                              [self setFieldBtnTitle];
-                                          }
-                                          failure:^(NSString *error) {
-                                              //错误的情况下停止刷新（网络错误）
-                                              [self.discoveryTableView.mj_header endRefreshing];
-                                              [self.discoveryTableView.mj_footer endRefreshing];
-                                          }];
-}
-
-
-/**
- *  获取对应的主题
- */
-- (void)loadSubjectData {
-    
-    NSDictionary *paramaters = @{@"field_id":@(self.field_id)};
-    
-    [self.fieldViewModel requestTopicSubjectListWithUrl:TOPIC_SUBJECT_URL
-                                             paramaters:paramaters
-                                                success:^(NSArray *subjectArr) {
-                                                    
-                                                    self.fieldViewModel.subjectArr = [subjectArr mutableCopy];
-                                                    if (self.field_id == 1) {
-                                                        self.subjectCacheArrOne = [subjectArr mutableCopy];
-                                                    }
-                                                    if (self.field_id == 2) {
-                                                        self.subjectCacheArrTwo = [subjectArr mutableCopy];
-                                                    }
-                                                    if (self.field_id == 3) {
-                                                        self.subjectCacheArrThree = [subjectArr mutableCopy];
-                                                    }
-                                                    
-                                                    [self loadTopicDataWith:subjectArr];
-                                                    
-                                                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                                    //错误的情况下停止刷新（网络错误）
-                                                    [self.discoveryTableView.mj_header endRefreshing];
-                                                    [self.discoveryTableView.mj_footer endRefreshing];
-                                                }];
-}
-
-
-/**
- *  获取主题下的话题
- *
- *  @param subjectArr 主题数组
- */
-- (void)loadTopicDataWith:(NSArray *) subjectArr{
-    
-    [self.fieldViewModel requestTopicListWithSubjectArr:subjectArr
-                                                success:^(NSArray *topicArr) {
-                                                    
-                                                    self.fieldViewModel.topicArr = [topicArr mutableCopy];
-                                                    
-                                                    if (self.field_id == 1) {
-                                                        self.topicCacheArrOne = [topicArr mutableCopy];
-                                                    }
-                                                    if (self.field_id == 2) {
-                                                        self.topicCacheArrTwo = [topicArr mutableCopy];
-                                                    }
-                                                    if (self.field_id == 3) {
-                                                        self.topicCacheArrThree = [topicArr mutableCopy];
-                                                    }
-                                                    
-                                                    [self.discoveryTableView reloadData];
-                                                    [self.discoveryTableView.mj_header endRefreshing];
-                                                    
-                                                    //移除遮盖视图
-                                                    if (self.coverView != nil) {
-                                                        [self.coverView removeFromSuperview];
-                                                    }
-                                                    
-                                                    [SVProgressHUD dismiss];
-                                                } failure:^(NSString *error) {
-                                                    [SVProgressHUD dismiss];
-                                                    //错误的情况下停止刷新（网络错误）
-                                                    [self.discoveryTableView.mj_header endRefreshing];
-                                                    [self.discoveryTableView.mj_footer endRefreshing];
-                                                }];
+    [self loadRecommendTopicListWithFieldId:3];
 }
 
 
@@ -538,12 +358,12 @@ static int start_id = 0;
     if (section == 0) {
         return 1;
     }
-    return self.fieldViewModel.subjectArr.count;
+    return self.subjectArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier = [self.discoveryViewModel idForRowByIndexPath:indexPath];
+    NSString *cellIdentifier = [self.viewModel idForRowByIndexPath:indexPath];
     
     YWDiscoveryBaseCell *cell    = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                                    forIndexPath:indexPath];
@@ -551,18 +371,15 @@ static int start_id = 0;
     
     if (indexPath.section == 0) {
         
-        [self.discoveryViewModel setupModelOfCell:cell model:nil];
+        [self.viewModel setupModelForBannerOfCell:cell model:nil];
         
         cell.mxScrollView.tapImageHandle = ^(NSInteger index) {
             
-            HotTopicEntity *hotEntity = [self.discoveryViewModel.bannerArr objectAtIndex:index];
-            self.topic_id             = [hotEntity.topic_id intValue];
-            
-           // [self performSegueWithIdentifier:@"topic" sender:self];
+            HotTopicEntity *hotEntity = [self.viewModel.bannerArr objectAtIndex:index];
             
             if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
                 
-                [self.delegate didSelectModuleTopicWith:self.topic_id];
+                [self.delegate didSelectModuleTopicWith: [hotEntity.topic_id intValue]];
                 
             }
             
@@ -571,8 +388,8 @@ static int start_id = 0;
         
     }else if (indexPath.section == 1) {
         
-        [self.fieldViewModel setupModelOfCell:cell indexPath:indexPath];
-        
+        [self.viewModel setupModelForFieldTopicOfCell:cell
+                                                model:[self.subjectArr objectAtIndex:indexPath.row]];
         [cell.fieldListView addTarget:self
                                action:@selector(jumpToTopicListView:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -620,8 +437,8 @@ static int start_id = 0;
                                         cacheByIndexPath:indexPath
                                            configuration:^(id cell) {
                                                
-                                               [self.fieldViewModel setupModelOfCell:cell indexPath:indexPath];
-                                               
+                                               [self.viewModel setupModelForFieldTopicOfCell:cell
+                                                                                       model:[self.subjectArr objectAtIndex:indexPath.row]];
                                                
                                            }];
     }
@@ -629,38 +446,16 @@ static int start_id = 0;
 }
 
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.destinationViewController isKindOfClass:[TopicListController class]]) {
-//        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPICLIST]) {
-//            
-//            TopicListController *topicListVc = segue.destinationViewController;
-//            topicListVc.subject_id           = self.subject_id;
-//            topicListVc.subject              = self.subject;
-//            
-//        }
-//    }
-//    //TopicController
-//    else if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
-//        
-//        TopicController *topicVc = segue.destinationViewController;
-//        topicVc.topic_id         = self.topic_id;
-//    }
-//}
-
 
 #pragma mark YWSubjectViewCellDelegate
 
 - (void)didSelectTopicWith:(int)topicId {
-    
-    self.topic_id = topicId;
     
     if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
         
         [self.delegate didSelectModuleTopicWith:topicId];
         
     }
- //   [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
-    
 }
 
 #pragma mark private method
@@ -668,40 +463,52 @@ static int start_id = 0;
 - (void)jumpToTopicListView:(UIButton *)sender {
     
     YWSubjectViewCell *subjectCell = (YWSubjectViewCell *)sender.superview.superview.superview;
-    NSIndexPath *indexPath         = [self.discoveryTableView indexPathForCell:subjectCell];
+    NSIndexPath *indexPath         = [self.tableView indexPathForCell:subjectCell];
     
     self.selectIndex               = indexPath.row;
     
-    SubjectEntity *subject         = [self.fieldViewModel.subjectArr objectAtIndex:self.selectIndex];
-    NSArray *topicArr              = [self.fieldViewModel.topicArr objectAtIndex:self.selectIndex];
+    SubjectEntity *subject           = [self.subjectArr objectAtIndex:self.selectIndex];
     
     //获取第一个贴子中的subject_id
-    TopicEntity *topic             = [topicArr objectAtIndex:0];
-    
-    self.subject                   = subject.title;
-    self.subject_id                = [subject.subject_id intValue];
-    self.topic_id                  = [topic.topic_id intValue];
-    
+    TopicEntity *topic             = [TopicEntity mj_objectWithKeyValues:subject.topicArr[0]];
     
     if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:subjectId:subject:)]) {
         
-        [self.delegate didSelectModuleTopicWith:self.topic_id subjectId:self.subject_id subject:self.subject];
+        [self.delegate didSelectModuleTopicWith:[topic.topic_id intValue]
+                                      subjectId:[topic.subject_id intValue]
+                                        subject:subject.title];
         
     }
-   // [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
     
 }
 
-- (void)setFieldBtnTitle {
-    if (self.fieldViewModel.fieldArr.firstObject != nil) {
-        FieldEntity *fieldOne   = [self.fieldViewModel.fieldArr objectAtIndex:0];
-        FieldEntity *fieldTwo   = [self.fieldViewModel.fieldArr objectAtIndex:1];
-        FieldEntity *fieldThree = [self.fieldViewModel.fieldArr objectAtIndex:2];
+#pragma mark priavte method
+
+- (void)loadRecommendTopicListWithFieldId:(int)fieldId {
+    
+    RequestEntity *request = [[RequestEntity alloc] init];
+    request.URLString      = RECOMMENDED_TOPIC_URL;
+    request.parameter      = @{@"field_id":@(fieldId)};
+    
+    [self.viewModel requestRecommendTopicListWith:request];
+    
+}
+
+- (void)setFieldBtnTitleWith:(NSArray *)fieldArr {
+    
+    if (fieldArr.firstObject != nil) {
+        
+        FieldEntity *fieldOne   = [fieldArr objectAtIndex:0];
+        FieldEntity *fieldTwo   = [fieldArr objectAtIndex:1];
+        FieldEntity *fieldThree = [fieldArr objectAtIndex:2];
+        
         [self.firstFieldBtn setTitle:fieldOne.title forState:UIControlStateNormal];
         [self.secondFieldBtn setTitle:fieldTwo.title forState:UIControlStateNormal];
-        [self.thirdFieldBtn setTitle:fieldThree.title forState:UIControlStateNormal];        
+        [self.thirdFieldBtn setTitle:fieldThree.title forState:UIControlStateNormal];
+        
     }
 }
+
 
 
 - (void)didReceiveMemoryWarning {

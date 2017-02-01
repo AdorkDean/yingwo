@@ -1,83 +1,80 @@
 //
-//  DetailController.m
+//  ReplyDetailController.m
 //  yingwo
 //
-//  Created by apple on 16/8/7.
-//  Copyright © 2016年 wangxiaofa. All rights reserved.
+//  Created by apple on 2017/1/30.
+//  Copyright © 2017年 wangxiaofa. All rights reserved.
 //
-
-#import "DetailController.h"
+#import "ReplyDetailController.h"
 #import "AnnounceController.h"
 #import "TopicController.h"
-#import "ReplyDetailController.h"
+#import "ReplyViewModel.h"
 
 
-@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,YWGalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWTitleDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
+@interface ReplyDetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,YWGalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWTitleDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
 
-@property (nonatomic, strong) UITableView     *detailTableView;
+@property (nonatomic, strong) UITableView           *tableView;
 
-@property (nonatomic, strong) DetailViewModel *viewModel;
+@property (nonatomic, strong)  ReplyViewModel      *viewModel;
 
-@property (nonatomic, strong) UIBarButtonItem     *leftBarItem;
-@property (nonatomic, strong) UIBarButtonItem     *rightBarItem;
-@property (nonatomic, strong) UIAlertController   *alertView;
-@property (nonatomic, strong) UIAlertController   *compliantAlertView;
+@property (nonatomic, strong) UIBarButtonItem       *leftBarItem;
+@property (nonatomic, strong) UIBarButtonItem       *rightBarItem;
+@property (nonatomic, strong) UIAlertController     *alertView;
+@property (nonatomic, strong) UIAlertController     *compliantAlertView;
 
-@property (nonatomic, strong) YWDetailReplyCell   *commentCell;
+@property (nonatomic, strong) YWDetailReplyCell     *commentCell;
 
-@property (nonatomic, strong) YWDetailBottomView  *replyView;
-@property (nonatomic, strong) YWDetailCommentView *commentView;
-@property (nonatomic, strong) YWGalleryView       *galleryView;
+@property (nonatomic, strong) YWDetailBottomView    *replyView;
+@property (nonatomic, strong) YWDetailCommentView   *commentView;
+@property (nonatomic, strong) YWGalleryView         *galleryView;
 
-@property (nonatomic, strong) GalleryViewModel    *homeViewModel;
+@property (nonatomic, strong) GalleryViewModel      *homeViewModel;
 
-@property (nonatomic, strong) RequestEntity       *requestEntity;
-@property (nonatomic, strong) TieZiComment        *commentEntity;
+@property (nonatomic, strong) RequestEntity         *requestEntity;
+@property (nonatomic, strong) TieZiComment          *commentEntity;
 
-@property (nonatomic, strong) YWCommentView       *selectCommentView;
+@property (nonatomic, strong) YWCommentView         *selectCommentView;
 
 //点击查看话题内容
-@property (nonatomic, assign) int                 tap_topic_id;
+@property (nonatomic, assign) int                   tap_topic_id;
 //点击查看用户详情
-@property (nonatomic, assign) int                 tap_ta_id;
+@property (nonatomic, assign) int                   tap_ta_id;
 
-@property (nonatomic, assign) CGFloat             navgationBarHeight;
+@property (nonatomic, assign) CGFloat               navgationBarHeight;
 
-@property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
-@property (nonatomic, strong) NSMutableDictionary *commetparameter;
+@property (nonatomic, strong) NSMutableArray        *tieZiReplyArr;
+@property (nonatomic, strong) NSMutableDictionary   *commetparameter;
 
-@property (nonatomic,assign ) int                 comment_reply_id;
+@property (nonatomic,assign ) int                   comment_reply_id;
 
 @property (nonatomic, assign) CGFloat             keyboardHeight;
 
 @end
 
-@implementation DetailController
+@implementation ReplyDetailController
 
-static NSString *detailCellIdentifier      = @"detailCell";
-static NSString *detailReplyCellIdentifier = @"replyCell";
+static NSString *replyCellIdentifier = @"replyCell";
 
 #pragma mark 懒加载
 
-- (UITableView *)detailTableView {
-    if (_detailTableView == nil) {
-        _detailTableView                 = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _detailTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
-        _detailTableView.backgroundColor = [UIColor clearColor];
-        _detailTableView.delegate        = self;
-        _detailTableView.dataSource      = self;
-        _detailTableView.contentInset    = UIEdgeInsetsMake(0, 0, 40, 0);
-      //  _detailTableView.fd_debugLogEnabled = YES;
-        [_detailTableView registerClass:[YWDetailTableViewCell class] forCellReuseIdentifier:detailCellIdentifier];
-        [_detailTableView registerClass:[YWDetailReplyCell class] forCellReuseIdentifier:detailReplyCellIdentifier];
-
+- (UITableView *)tableView {
+    if (_tableView == nil) {
+        _tableView                 = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.delegate        = self;
+        _tableView.dataSource      = self;
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 40, 0);
+        //  _tableView.fd_debugLogEnabled = YES;
+        [_tableView registerClass:[YWReplyCell class] forCellReuseIdentifier:replyCellIdentifier];
+        
     }
-    return _detailTableView;
+    return _tableView;
 }
 
-- (DetailViewModel *)viewModel {
+- (ReplyViewModel *)viewModel {
     if (_viewModel == nil) {
-        _viewModel                 = [[DetailViewModel alloc] init];
+        _viewModel                 = [[ReplyViewModel alloc] init];
         
     }
     return _viewModel;
@@ -102,20 +99,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _commentEntity = [[TieZiComment alloc] init];
     }
     return _commentEntity;
-}
-
-- (TieZi *)model {
-    if (_model == nil) {
-        _model = [[TieZi alloc] init];
-    }
-    return _model;
-}
-
--(TieZiReply *)replyModel {
-    if (_replyModel == nil) {
-        _replyModel = [[TieZiReply alloc] init];
-    }
-    return _replyModel;
 }
 
 - (UIBarButtonItem *)leftBarItem {
@@ -145,8 +128,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
             _replyView.favorBtn.isSpring = YES;
         }
         
-        _replyView.messageField.placeholder = [NSString stringWithFormat:@"%@个评论 %@个赞",
-                                               self.model.reply_cnt,
+        _replyView.messageField.placeholder = [NSString stringWithFormat:@"%d个评论 %@个赞",
+                                               self.model.comment_cnt,
                                                self.model.like_cnt];
     }
     return _replyView;
@@ -164,12 +147,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (YWDetailCommentView *)commentView {
     if (_commentView == nil) {
         _commentView                              = [[YWDetailCommentView alloc] initWithFrame:CGRectMake(0,
-                                                                                                        SCREEN_HEIGHT,
-                                                                                                        SCREEN_WIDTH,
+                                                                                                          SCREEN_HEIGHT,
+                                                                                                          SCREEN_WIDTH,
                                                                                                           45)];
         _commentView.delegate                     = self;
         self.commentView.messageTextView.delegate = self;
-
+        
     }
     return _commentView;
 }
@@ -226,7 +209,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                                               }]];
         
         _compliantAlertView.view.tintColor = [UIColor blackColor];
-
+        
     }
     return _compliantAlertView;
 }
@@ -272,7 +255,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)deleteTieZi:(UIButton *)more {
     
     RequestEntity *request = [[RequestEntity alloc] init];
-
+    
     //判断删除楼主的帖子
     if ([more.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
         
@@ -292,19 +275,19 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         
         //获取当前选中的cell的reply_id
         YWDetailReplyCell *selectedCell = (YWDetailReplyCell *)more.superview.superview.superview;
-        NSIndexPath *indexPath          = [self.detailTableView indexPathForCell:selectedCell];
+        NSIndexPath *indexPath          = [self.tableView indexPathForCell:selectedCell];
         TieZiReply *replyModel;
         replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
-
+        
         //网络请求
         NSDictionary *parameter         = @{@"reply_id":@( replyModel.reply_id)};
-
+        
         request.URLString               = TIEZI_REPLY_DEL_URL;
         request.parameter               = parameter;
-
+        
         [self deleteReplyTieZiWithRequest:request indexPath:indexPath];
         
-
+        
     }
 }
 
@@ -334,7 +317,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     }];
     
     [self.homeViewModel deleteTieZiWithRequest:request];
-
+    
     
 }
 
@@ -370,7 +353,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //删除该行跟帖数据源
     [self.tieZiReplyArr removeObjectAtIndex:indexPath.row];
     //将该行从视图中移除
-    [self.detailTableView deleteRowsAtIndexPaths:@[indexPath]
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                                 withRowAnimation:UITableViewRowAnimationFade];
     [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
     
@@ -419,39 +402,17 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)jumpToFollowTieZiPage {
-    AnnounceController *announceVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
-    announceVC.isFollowTieZi       = YES;
-    announceVC.post_id             = self.model.tieZi_id;
-    
-    //block传参数
-    announceVC.replyTieZiBlock = ^(NSDictionary *parameter,BOOL isRelease){
-        if (isRelease == YES) {
-            
-//            [self addReplyViewAtLastWith:parameter];
-            [self.detailTableView.mj_footer beginRefreshing];
-
-        }
-    };
-
-    
-    MainNavController *mainNav = [[MainNavController alloc] initWithRootViewController:announceVC];
-    
-    [self presentViewController:mainNav
-                       animated:YES
-                     completion:nil];
-}
 
 - (void)showShareView {
     //显示分享面板
     __weak typeof(self) weakSelf = self;
-       [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
-           if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
-               [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.model];
-           }else {
-               //其他平台分享网页
-               [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
-           }
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
+        if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
+            [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.model];
+        }else {
+            //其他平台分享网页
+            [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
+        }
     }];
     
 }
@@ -459,7 +420,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark UITextfieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.replyView.messageField) {
-        [self jumpToFollowTieZiPage];
+        [self commentOnReplyView:textField];
     }
     return YES;
 }
@@ -471,8 +432,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     //初始化楼主数据
     [self.tieZiReplyArr addObject:self.model];
     
-    [self.view addSubview:self.detailTableView];
+    [self.view addSubview:self.tableView];
     [self.view addSubview:self.replyView];
+    
+    [self.tableView.mj_header beginRefreshing];
     
     [self.replyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(40);
@@ -481,17 +444,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         make.right.equalTo(self.view.mas_right).priorityHigh();
     }];
     
-    __weak DetailController *weakSelf = self;
-    self.detailTableView.mj_header    = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf loadData];
+    WeakSelf(self);
+    self.tableView.mj_header    = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakself loadData];
     }];
     
-    self.detailTableView.mj_footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
-        [weakSelf loadMoreData];
-    }];
-    
-    [self.detailTableView.mj_header beginRefreshing];
-
     
 }
 
@@ -503,18 +460,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.title = @"贴子";
+    self.title = [NSString stringWithFormat:@"%d楼",self.model.floor];
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
-
     
-    [self judgeNetworkStatus];
-
-    //显示刚发布的跟贴内容，追加到tableview的最后一个
-    if (self.isReleased == YES) {
-        
-    }
-
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -530,11 +480,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                              selector:@selector(keyboardWillChangeFrame:)
                                                  name:UIKeyboardWillChangeFrameNotification
                                                object:nil];
-     //监听键盘消失事件
-     [[NSNotificationCenter defaultCenter] addObserver:self
-                                              selector:@selector(didHiddenKeyboard:)
-                                                  name:UIKeyboardDidHideNotification
-                                                object:nil];
+    //监听键盘消失事件
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didHiddenKeyboard:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(willHiddKeyboard:)
@@ -560,13 +510,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     //获取键盘的frame
     CGRect endFrame  = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
+    
     //获取键盘弹出时长
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey]floatValue];
-
+    
     //修改底部视图高度
     CGFloat bottom   = endFrame.origin.y != SCREEN_HEIGHT ? endFrame.origin.y:0;
-
+    
     CGFloat originY;
     
     if (bottom == 0) {
@@ -575,130 +525,58 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     else
     {
         originY = bottom - self.navgationBarHeight - 44 ;
-
+        
     }
     // 约束动画
     [UIView animateWithDuration:duration
                      animations:^{
-        
-        self.commentView.frame = CGRectMake(0,
-                                            originY,
-                                            SCREEN_WIDTH,
-                                            45);
-    }];
+                         
+                         self.commentView.frame = CGRectMake(0,
+                                                             originY,
+                                                             SCREEN_WIDTH,
+                                                             45);
+                     }];
     
 }
 
 - (void)didHiddenKeyboard:(NSNotification *) notes{
     
     self.commentView = nil;
-
+    
 }
 
 - (void)willHiddKeyboard:(NSNotification *) notes{
     
-    self.detailTableView.frame = self.view.bounds;
+    self.tableView.frame = self.view.bounds;
 }
 
-- (void)loadTieziDetail {
-    NSDictionary *parameter = @{@"post_id":@(self.push_post_id)};
-
-    //必须要加载cookie，否则无法请求
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    /*
-    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
-                             parameters:parameter
-                                success:^(TieZi *tieZi) {
-                                    
-                                    self.model = tieZi;
-                                    
-    }                           failure:^(NSString *error) {
-        
-    }];*/
-}
 /**
  *  下拉刷新
  */
 - (void)loadData {
     
-    TieZi *tieZi                  = [self.tieZiReplyArr objectAtIndex:0];
-    self.requestEntity.URLString = TIEZI_RELPY_URL;
-    self.requestEntity.parameter = @{@"post_id":@(tieZi.tieZi_id)};
+    self.requestEntity.URLString = TIEZI_REPLY;
 
+  //  self.requestEntity.parameter = @{@"post_id":@(self.replyId)};
+    
     [self loadForType:HeaderReloadDataModel];
     
-}
-
-/**
- *  上拉加载
- */
-- (void)loadMoreData {
-
-    self.requestEntity.URLString = TIEZI_RELPY_URL;
-    self.requestEntity.parameter = @{@"post_id":@(self.model.tieZi_id),
-                                      @"start_id":@(self.requestEntity.start_id)};
-    
-
-    [self loadForType:FooterReoladDataModel];
 }
 
 - (void)loadForType:(ReloadModel)type{
     
     @weakify(self);
-    [[self.viewModel.fetchDetailEntityCommand execute:self.requestEntity] subscribeNext:^(NSArray *tieZiList) {
+    [[self.viewModel.fetchEntityCommand execute:self.requestEntity] subscribeNext:^(TieZiReply *model) {
         @strongify(self);
         
-        if (type == HeaderReloadDataModel) {
-            
-            //tieZiList 这里应该返回的是model成员数组，不是字典数组
-            if (tieZiList.count != 0) {
-                
-                //最开始里面会存放一个楼主的贴子信息
-                if (self.tieZiReplyArr.count == 1) {
-                    
-                    [self.tieZiReplyArr addObjectsFromArray:tieZiList];
-               //     NSLog(@"tieZiList.count:%lu",(unsigned long)tieZiList.count);
-                 //   NSLog(@"self.tieZiReplyArr.count:%lu",(unsigned long)self.tieZiReplyArr.count);
-                }
-                else {
-                    [self.tieZiReplyArr removeAllObjects];
-                    [self.tieZiReplyArr addObject:self.model];
-                    [self.tieZiReplyArr addObjectsFromArray:tieZiList];
-
-                }
-            }
-            
-            [self.detailTableView.mj_header endRefreshing];
-            [self.detailTableView reloadData];
-            
-        }
-        else if (type == FooterReoladDataModel) {
-            
-            if (tieZiList != nil) {
-                
-                [self.detailTableView.mj_footer resetNoMoreData];
-                [self.tieZiReplyArr addObjectsFromArray:tieZiList];
-                [self.detailTableView.mj_footer endRefreshing];
-                [self.detailTableView reloadData];
-            }else {
-                [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
-            }
-            
-        }
-        if (tieZiList.count != 0) {
-            
-            //获得最后一个帖子的id,有了这个id才能向前继续获取model
-            TieZiReply *lastObject           = [tieZiList objectAtIndex:tieZiList.count-1];
-            self.requestEntity.start_id      = lastObject.reply_id;
-
-        }
+        self.model = model;
+        [self.tableView reloadData];
         
-//        [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
-        
+
     }error:^(NSError *error) {
         //错误的情况下停止刷新（网络错误）
-        [self.detailTableView.mj_header endRefreshing];
-        [self.detailTableView.mj_footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     }];
     
 }
@@ -706,26 +584,20 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #define mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.tieZiReplyArr.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TieZiReply *replyModel;
-    replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
-    NSString *cellIdentifier        = [self.viewModel idForRowByIndexPath:indexPath model:replyModel];
-
-    YWDetailBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
-                                                                      forIndexPath:indexPath];
     
-    cell.selectionStyle             = UITableViewCellSelectionStyleNone;
-    cell.delegate                   = self;
+    YWReplyCell *cell   = [tableView dequeueReusableCellWithIdentifier:replyCellIdentifier
+                                                                      forIndexPath:indexPath];
+    self.commentCell    = cell;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.delegate       = self;
     
     [self.viewModel setupModelOfCell:cell
-                               model:replyModel
-                           indexPath:indexPath];
-    //图片显示问题，回帖中复用问题
-    self.replyModel.imageUrlEntityArr = self.viewModel.imageUrlEntity;
+                               model:self.model];
     
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
     cell.masterView.delegate        = self;
@@ -736,24 +608,19 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     cell.moreBtn.delegate           = self;
     cell.contentLabel.delegate      = self;
     
-
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TieZiReply *replyModel;
-    replyModel                      = [self.tieZiReplyArr objectAtIndex:indexPath.row];
-    NSString *cellIdentifier        = [self.viewModel idForRowByIndexPath:indexPath model:replyModel];
-    
-    return [tableView fd_heightForCellWithIdentifier:cellIdentifier
+    return [tableView fd_heightForCellWithIdentifier:replyCellIdentifier
                                     cacheByIndexPath:indexPath
                                        configuration:^(id cell) {
-        
-        [self.viewModel setupModelOfCell:cell
-                                   model:replyModel
-                               indexPath:indexPath];
-    }];
+                                           
+                                           [self.viewModel setupModelOfCell:cell
+                                                                      model:self.model];
+                                       }];
 }
 
 //  tableview header高度
@@ -767,7 +634,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 #pragma mark TTTAttributedLabelDelegate
 -(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-
+    
     
     YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
     
@@ -786,9 +653,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self.view addSubview:self.commentView];
     //评论的评论
     self.commentType                               = CommentedModel;
-
+    
     self.selectCommentView                         = commentView;
-
+    
     //  获取点击的cell
     self.commentCell                               = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
     //评论所需参数
@@ -796,38 +663,29 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.commetparameter[@"post_comment_id"]      = @(commentView.post_comment_id);
     self.commetparameter[@"post_comment_user_id"] = @(commentView.post_comment_user_id);
     self.commentView.messageTextView.placeholder   = [NSString stringWithFormat:@"回复 %@:",commentView.user_name];
-
+    
     [self.commentView.messageTextView becomeFirstResponder];
     
     
     //获取相对self.view的坐标
     CGRect commentViewFrame = [commentView convertRect:commentView.frame
-                                     toView:self.view];
+                                                toView:self.view];
     //如果键盘遮挡住了评论的view，需要上移
     if (commentViewFrame.origin.y > self.commentView.frame.origin.y) {
         
         [UIView animateWithDuration:0.3f
                          animations:^{
                              
-                             self.detailTableView.frame = CGRectMake(0,
+                             self.tableView.frame = CGRectMake(0,
                                                                      -(SCREEN_HEIGHT-commentViewFrame.origin.y+44),
                                                                      SCREEN_WIDTH,
                                                                      SCREEN_HEIGHT);
                              
                          }];
- 
+        
     }
     
     
-}
-
-- (void)didSelectMoreCommentBtnWith:(UIButton *)btn {
-    
-    YWDetailTableViewCell *cell = (YWDetailTableViewCell *)btn.superview.superview.superview.superview;
-    NSIndexPath *selectIndex    = [self.detailTableView indexPathForCell:cell];
-    self.replyModel             = [self.tieZiReplyArr objectAtIndex:selectIndex.row];
-    
-    [self performSegueWithIdentifier:@"replyDetail" sender:self];
 }
 
 /**
@@ -837,18 +695,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)covertImageView:(UIImageView *)imageView {
     
-//    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
+    //    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
     UIImageView *newImageView = [[UIImageView alloc] init];
     newImageView.frame        = [imageView.superview convertRect:imageView.frame toView:self.view];
-//    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
+    //    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
     newImageView.image        = imageView.image;
     newImageView.y            += self.navgationBarHeight;
     newImageView.tag          = imageView.tag;
     newImageView.clipsToBounds = YES;
-
+    
     //
     if ([imageView.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
-       // [self showImageView:newImageView];
+        // [self showImageView:newImageView];
     }else {
         [self showReplyImageView:newImageView];
     }
@@ -861,51 +719,42 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  *  @param imageView
  */
 /*
-- (void)showImageView:(UIImageView *)imageView {
-    
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
-    
-    ImageViewEntity *lastEntity = [self.model.imageUrlArrEntity lastObject];
-    
-    if (lastEntity.isDownload == YES) {
-        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
-            ImageViewEntity *entity = [self.model.imageUrlArrEntity objectAtIndex:i];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName]];
-            [imageViewArr addObject:imageView];
-        }
-    }else {
-        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
-            [imageViewArr addObject:imageView];
-        }
-    }
-   
-    [self.galleryView setImageViews:imageViewArr
-              withImageUrlArrEntity:self.model.imageUrlArrEntity
-                        showAtIndex:imageView.tag - 1];
-    
-    [self.navigationController.view addSubview:self.galleryView];
-    
-}
-*/
+ - (void)showImageView:(UIImageView *)imageView {
+ 
+ NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
+ 
+ ImageViewEntity *lastEntity = [self.model.imageUrlArrEntity lastObject];
+ 
+ if (lastEntity.isDownload == YES) {
+ for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+ ImageViewEntity *entity = [self.model.imageUrlArrEntity objectAtIndex:i];
+ [imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName]];
+ [imageViewArr addObject:imageView];
+ }
+ }else {
+ for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
+ [imageViewArr addObject:imageView];
+ }
+ }
+ 
+ [self.galleryView setImageViews:imageViewArr
+ withImageUrlArrEntity:self.model.imageUrlArrEntity
+ showAtIndex:imageView.tag - 1];
+ 
+ [self.navigationController.view addSubview:self.galleryView];
+ 
+ }
+ */
 /**
-  *  展示回复视图图片
-  *
-  *  @param imageView
-  */
+ *  展示回复视图图片
+ *
+ *  @param imageView
+ */
 - (void)showReplyImageView:(UIImageView *)imageView {
     
     [self stopSystemPopGestureRecognizer];
     
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.replyModel.imageUrlEntityArr.count];
-    
-    for (int i = 0; i < self.replyModel.imageUrlEntityArr.count; i++) {
-        [imageViewArr addObject:imageView];
-    }
-    
-//    [self.galleryView setImageViews:imageViewArr
-//              withImageUrlArrEntity:self.replyModel.imageUrlArrEntity
-//                        showAtIndex:imageView.tag - 1];
-//    
+
     [self.navigationController.view addSubview:self.galleryView];
     
 }
@@ -924,7 +773,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 //
 //- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
 //    self.galleryView = nil;
-//    
+//
 //    //开启滑动手势
 //    [self openSystemPopGestureRecognizer];
 //}
@@ -932,10 +781,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma YWSpringButtonDelegate
 
 - (void)didSelectSpringButtonOnView:(UIView *)view postId:(int)postId model:(int)model {
-
+    
     
     NSDictionary *parameter = @{@"post_id":@(postId),@"value":@(model)};
-
+    
     WeakSelf(self);
     
     [self.homeViewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
@@ -1033,12 +882,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.commentType                        = TieZiCommentModel;
     
     self.commetparameter[@"post_reply_id"] = @(post_id);
-
+    
     //获得被评论的cell
     self.commentCell                        = (YWDetailReplyCell *)view.superview.superview;
-
+    
     [self.commentView.messageTextView becomeFirstResponder];
-
+    
 }
 
 #pragma mark YWKeyboardToolViewProtocol
@@ -1046,7 +895,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)didSelectedEmoji {
     
     [self.commentView.messageTextView becomeFirstResponder];
-        
+    
     ISEmojiView *emojiView = [[ISEmojiView alloc] initWithTextField:self.commentView.messageTextView
                                                            delegate:self];
     
@@ -1073,7 +922,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.commentView.messageTextView.text = [self.commentView.messageTextView.text stringByReplacingCharactersInRange:insertRange withString:emoji];
     //插入后光标仍在插入后的位置
     self.commentView.messageTextView.selectedRange = NSMakeRange(insertRange.location + emoji.length, 0);
-
+    
 }
 
 -(void)emojiView:(ISEmojiView *)emojiView didPressDeleteButton:(UIButton *)deletebutton{
@@ -1089,7 +938,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     //没有内容不让发送
     if ([Validate validateIsEmpty:self.commentView.messageTextView.text]) {
-    
+        
         [SVProgressHUD showErrorStatus:@"请填写内容～" afterDelay:HUD_DELAY];
     }
     else
@@ -1104,10 +953,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark HPGrowingTextViewDelegate
 
 -(void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height{
-
-//    NSLog(@"growingTextViewheight:%f",growingTextView.height);
-//    NSLog(@"width:%f",height);
-//
+    
+    //    NSLog(@"growingTextViewheight:%f",growingTextView.height);
+    //    NSLog(@"width:%f",height);
+    //
     if (height != 0 && growingTextView.height != 0) {
         
         //growingTextView 比height要高1
@@ -1122,9 +971,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                                            self.commentView.y+diff,
                                                            self.commentView.width,
                                                            self.commentView.height-diff);
-
+        
     }
-
+    
     
 }
 
@@ -1145,12 +994,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
             taVc.ta_id         = self.tap_ta_id;
         }
     }
-    else if ([segue.destinationViewController isKindOfClass:[ReplyDetailController class]]) {
-        if ([segue.identifier isEqualToString:@"replyDetail"]) {
-            ReplyDetailController *replyVc = segue.destinationViewController;
-            replyVc.model                  = self.replyModel;
-        }
-    }
 }
 
 #pragma mark YWLabelDelegate
@@ -1163,12 +1006,26 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 #pragma mark YWMasterDelegate
 -(void)didSelectMaster:(YWDetailMasterView *)masterView {
-
+    
     self.tap_ta_id = masterView.user_id;
     [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
 #pragma private method
+
+- (void)commentOnReplyView:(UIView *)view {
+    
+    [self.view addSubview:self.commentView];
+    
+    self.commentType                        = TieZiCommentModel;
+    
+    self.commetparameter[@"post_reply_id"] = @(self.model.post_id);
+    
+    //获得被评论的cell
+    self.commentCell                        = (YWDetailReplyCell *)view.superview.superview;
+    
+    [self.commentView.messageTextView becomeFirstResponder];
+}
 
 /**
  *  贴子评论、评论的评论
@@ -1178,17 +1035,17 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.commetparameter[@"content"] = self.commentView.messageTextView.text;
     
     [self.viewModel postCommentWithUrl:TIEZI_COMMENT_URL
-                            parameter:self.commetparameter
+                             parameter:self.commetparameter
                                success:^(StatusEntity *status) {
-        
+                                   
                                    if (status.status == YES) {
                                        [self hiddenKeyboard];
                                        [self addCommentOnReplyTieZi];
                                    }
-    } failure:^(NSString *error) {
-        
-    }];
-
+                               } failure:^(NSString *error) {
+                                   
+                               }];
+    
 }
 
 
@@ -1197,14 +1054,14 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)addCommentOnReplyTieZi {
     
-    NSIndexPath *indexPath  = [self.detailTableView indexPathForCell:self.commentCell];
+    NSIndexPath *indexPath  = [self.tableView indexPathForCell:self.commentCell];
     
     TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:indexPath.row];
     
     NSDictionary *parameter = @{@"post_reply_id":@(replyEntity.reply_id)};
     
     [self.viewModel requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                  parameter:parameter
+                                   parameter:parameter
                                      success:^(NSArray *commentArr) {
                                          [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
                                          
@@ -1213,12 +1070,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                                          [self.tieZiReplyArr replaceObjectAtIndex:indexPath.row
                                                                        withObject:replyEntity];
                                          //更新cell，更新评论
-                                         [self.detailTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
+                                         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
                                                                      withRowAnimation:UITableViewRowAnimationNone];
-    } failure:^(NSString *error) {
-        
-    }];
-
+                                     } failure:^(NSString *error) {
+                                         
+                                     }];
+    
     
 }
 
@@ -1230,7 +1087,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     Customer *user          = [User findCustomer];
     //获取刚才发布的跟贴
     TieZiReply *reply       = [TieZiReply mj_objectWithKeyValues:paramters];
-
+    
     reply.imageUrlEntityArr = [NSString separateImageViewURLString:reply.img];
     reply.user_name         = user.name;
     reply.user_face_img     = user.face_img;
@@ -1244,11 +1101,11 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.tieZiReplyArr.count-1
                                                 inSection:0];
-    [self.detailTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                 withRowAnimation:UITableViewRowAnimationAutomatic];
     
     //通过insertSections将数据插入到tableview的指定数组中
-
+    
 }
 
 #pragma mark 收起键盘
@@ -1256,8 +1113,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     self.commetparameter      = nil;
     self.selectCommentView     = nil;
-    self.detailTableView.frame = self.view.bounds;
-
+    self.tableView.frame = self.view.bounds;
+    
     [self.commentView.messageTextView resignFirstResponder];
     
 }

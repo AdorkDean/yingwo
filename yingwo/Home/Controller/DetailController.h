@@ -15,6 +15,21 @@ typedef NS_ENUM(NSInteger,CommentType) {
     CommentedModel, //评论的评论
 };
 
+#import "YWDetailTableViewCell.h"
+#import "YWDetailBaseTableViewCell.h"
+#import "YWDetailReplyCell.h"
+
+#import "DetailViewModel.h"
+#import "UMSocialUIManager.h"
+
+#import "YWDetailBottomView.h"
+#import "YWDetailCommentView.h"
+#import "YWCommentView.h"
+
+#import "TieZiComment.h"
+
+#import "YWAlertButton.h"
+
 /**
  *  DetailController 用于显示贴子、新鲜事的详细信息
  *  包括贴子的评论，用户可还可以评论贴子
@@ -22,16 +37,16 @@ typedef NS_ENUM(NSInteger,CommentType) {
 @interface DetailController : BaseViewController
 
 //点击的贴子
-@property (nonatomic, strong) TieZi       *model;
+@property (nonatomic, strong) TieZi           *model;
 
-@property (nonatomic, assign) CommentType commentType;
+@property (nonatomic, assign) CommentType     commentType;
 
-@property (nonatomic, strong) TieZiReply  *replyModel;
+@property (nonatomic, strong) TieZiReply      *replyModel;
 
-@property (nonatomic, assign) int         push_post_id;
+@property (nonatomic, assign) int             push_post_id;
 
 //是否跟贴完成
-@property (nonatomic, assign) BOOL        isReleased;
+@property (nonatomic, assign) BOOL            isReleased;
 
 @property (nonatomic, strong) NSDictionary *tieZiParamters;
 

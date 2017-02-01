@@ -120,6 +120,8 @@
     
     NSString *fullUrl      = [BASE_URL stringByAppendingString:urlString];
 
+    [HYBNetworking enableInterfaceDebug:NO];
+    
     [HYBNetworking configCommonHttpHeaders:@{@"X-Requested-With":@"XMLHttpRequest"}];
 
     [HYBNetworking configRequestType:kHYBRequestTypePlainText
