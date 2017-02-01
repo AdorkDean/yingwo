@@ -69,7 +69,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _detailTableView.backgroundColor = [UIColor clearColor];
         _detailTableView.delegate        = self;
         _detailTableView.dataSource      = self;
-        _detailTableView.contentInset    = UIEdgeInsetsMake(0, 0, 40, 0);
+        _detailTableView.contentInset    = UIEdgeInsetsMake(0, 0, 60, 0);
       //  _detailTableView.fd_debugLogEnabled = YES;
         [_detailTableView registerClass:[YWDetailTableViewCell class] forCellReuseIdentifier:detailCellIdentifier];
         [_detailTableView registerClass:[YWDetailReplyCell class] forCellReuseIdentifier:detailReplyCellIdentifier];

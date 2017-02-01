@@ -293,11 +293,8 @@
                       
                       TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
                       
-<<<<<<< HEAD
                       replyEntity.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:replyEntity.img];
-=======
-                      replyEntity.imageUrlArrEntity = [NSString separateImageViewURLString:replyEntity.img];
->>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
+
                       
                       currentIndex ++ ;
                       
@@ -313,11 +310,8 @@
                           //currentIndex已经++
                           TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
                           
-<<<<<<< HEAD
                           NSDictionary *parameter      = @{@"post_reply_id":@(replyEntity.reply_id)};
-=======
-                          NSDictionary *paramaters      = @{@"post_reply_id":@(replyEntity.reply_id)};
->>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
+
                           
                           [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
                                               parameter:parameter
@@ -349,11 +343,8 @@
 }
 
 - (void)requestForCommentWithUrl:(NSString *)url
-<<<<<<< HEAD
                       parameter:(NSDictionary *)parameter
-=======
-                      paramaters:(NSDictionary *)paramaters
->>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
+
                          success:(void (^)(NSArray *commentArr))success
                          failure:(void (^)(NSString *error))failure {
     
@@ -582,120 +573,6 @@
     [alert show];
 }
 
-<<<<<<< HEAD
-=======
-//- (void)downloadCompletedImageViewByUrls:(NSArray *)imageEntities
-//                                progress:(void (^)(CGFloat))progress
-//                                 success:(void (^)(NSMutableArray *imageArr))imageArr
-//                                 failure:(void (^)(NSString *error))failure{
-//
-//
-//    ImageViewEntity *imageEntity = [imageEntities objectAtIndex:0];
-//    NSMutableArray *imageUrls    = [ImageViewEntity getImageUrlsFromImageEntities:imageEntities];
-//    Boolean hasExsitImages       = [YWSandBoxTool isExistImageByName:imageEntity.imageName];
-//
-//    //先从沙盒中找图片
-//    if (hasExsitImages) {
-//        imageArr([YWSandBoxTool getImagesFromCacheByUrlsArr:imageUrls]);
-//        progress(1);
-//    }
-//    else
-//    {
-//        [YWAvatarBrowser downloadImagesWithUrls:imageUrls
-//                                       progress:^(CGFloat progressNum) {
-//                                           //这个不能写
-//                                           progress(progressNum);
-//                                       }
-//                                        success:^(NSMutableArray *success) {
-//
-//                                            imageArr(success);
-//
-//                                        } failure:^(NSString *error) {
-//                                            failure(error);
-//                                            NSLog(@"failure:%@",error);
-//                                        }];
-//    }
-//
-//}
-
-
-//- (void)requestReplyWithUrl:(NSString *)url
-//                 paramaters:(NSDictionary *)paramaters
-//                    success:(void (^)(NSArray *tieZi))success
-//                    failure:(void (^)(NSString *error))failure {
-//
-//    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-//    YWHTTPManager *manager = [YWHTTPManager manager];
-//
-//    [manager POST:fullUrl
-//       parameters:paramaters
-//         progress:nil
-//          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//
-//              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-//
-//              if (httpResponse.statusCode == SUCCESS_STATUS) {
-//
-//                NSDictionary *content      = [NSJSONSerialization JSONObjectWithData:responseObject
-//                                                                             options:NSJSONReadingMutableContainers
-//                                                                               error:nil];
-//                StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-//
-//                  //没有评论直接返回nil
-//                  if (statusEntity.info.count == 0) {
-//                      success(nil) ;
-//                  }
-//
-//                  NSMutableArray *replyArr = [[NSMutableArray alloc] init];
-//
-//                  NSLog(@"reply:%@",content);
-//
-//                  //回复字典转模型
-//                  for (NSDictionary *reply in statusEntity.info) {
-//
-//                      TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:reply];
-//                      //获取图片链接
-//                      replyEntity.imageUrlArrEntity = [NSString separateImageViewURLString:replyEntity.img];
-//
-//                      NSDictionary *paramaters      = @{@"post_reply_id":@(replyEntity.reply_id)};
-//
-//                      [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-//                                          paramaters:paramaters
-//                                             success:^(NSArray *commentArr) {
-//
-//
-//                                                 replyEntity.commentArr = [commentArr mutableCopy];
-//
-//                                                 //这里使用的是一步加载，因此replyArr add的顺序是可能改变的
-//                                                 //需要按照reply_id进行排序
-//
-//                                                 [replyArr addObject:replyEntity];
-//
-//                                                 //这里获取完所有的评论才回调数据！！
-//                                                 if (replyArr.count == statusEntity.info.count && replyArr.count != 0) {
-//                                                     //升序排序
-//                                                     [replyArr bubSortWithArrayByAsc];
-//
-//                                                     success(replyArr);
-//                                                 }
-//
-//                      } failure:^(NSString *error) {
-//
-//                      }];
-//
-//                  }
-//
-//
-//
-//              }
-//
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"回帖获取失败");
-//    }];
-//}
-
->>>>>>> 032525b30a6e58b93166d49338fddfe66ebcf377
 
 
 @end
