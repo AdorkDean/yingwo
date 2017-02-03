@@ -131,6 +131,10 @@
     
     [self.imagesItem.URLArr enumerateObjectsUsingBlock:^(UIImageView *obj, NSUInteger idx, BOOL * stop) {
         
+        //只显示9张图片
+        if (idx > 8) {
+            return ;
+        }
         //保存imageView在cell上的位置
         UIImageView *oldImageView = [self.imagesArr objectAtIndex:idx];
         

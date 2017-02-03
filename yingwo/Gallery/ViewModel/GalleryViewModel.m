@@ -151,6 +151,12 @@
     
     cell.middleView.imagesItem.URLArr = model.imageURLArr;
     
+    
+    if (model.imageURLArr.count > 9) {
+        
+        cell.middleView.imageCnt = model.imageURLArr.count;
+    }
+    
     [model.imageURLArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
         
         UIImageView *imageView = [cell viewWithTag:idx+1];
@@ -271,9 +277,12 @@
     else if(count > 2) {
         imageWidth = (SCREEN_WIDTH - 10*2 - 5 *2 - 5 * 2)/3*2;
     }
+    
+    
+    NSString *correctURL   = [NSString selectCorrectUrlWithAppendUrl:url];
     //图片模式，这里请求的是正方形图片
-    NSString *imageMode    = [NSString stringWithFormat:QINIU_SQUARE_IMAGE_MODEL,imageWidth];
-    NSString *fullurl      = [url stringByAppendingString:imageMode];
+    NSString *imageMode    = [NSString stringWithFormat:QINIU_BLUR_IMAGE_MODEL,imageWidth,imageWidth];
+    NSString *fullurl      = [correctURL stringByAppendingString:imageMode];
     NSURL *imageUrl        = [NSURL URLWithString:fullurl];
     
     [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];

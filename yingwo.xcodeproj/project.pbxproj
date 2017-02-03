@@ -2566,7 +2566,7 @@
 					18AFE5E31D30B7E1007BEBDE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8P2DS22MA9;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -3066,8 +3066,8 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
-				DEVELOPMENT_TEAM = 8P2DS22MA9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3165,8 +3165,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};
@@ -3183,8 +3183,8 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
-				DEVELOPMENT_TEAM = 8P2DS22MA9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3244,8 +3244,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};
@@ -3303,8 +3303,8 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
-				DEVELOPMENT_TEAM = 8P2DS22MA9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3364,8 +3364,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yingwoo.yingwoxiaoyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ad08c208-00fa-42d6-ae98-41de89c3f82c";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.yingwoo.yingwoxiaoyuan";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 2.3;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)";
 			};

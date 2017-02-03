@@ -12,6 +12,6 @@
 
 @interface YWMiddleViewOfMoreNine : YWBaseMiddleView
 
-@property (nonatomic, assign) NSUInteger imageCnt;
+@property (nonatomic, strong) YWTitle *numbersLabel;
 
 @end

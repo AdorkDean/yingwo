@@ -104,6 +104,7 @@ static int start_id = 0;
 
     [self addRefreshForTableView];
 
+    NSLog(@"home:%@",NSHomeDirectory());
 }
 
 - (void)addRefreshForTableView {
@@ -221,6 +222,7 @@ static int start_id = 0;
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
+        
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
         //错误的情况下停止刷新（网络错误）

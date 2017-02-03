@@ -37,16 +37,16 @@ typedef NS_ENUM(NSInteger,CommentType) {
 @interface DetailController : BaseViewController
 
 //点击的贴子
-@property (nonatomic, strong) TieZi           *model;
+@property (nonatomic, strong) TieZi       *model;
 
-@property (nonatomic, assign) CommentType     commentType;
+@property (nonatomic, assign) CommentType commentType;
 
-@property (nonatomic, strong) TieZiReply      *replyModel;
+@property (nonatomic, strong) TieZiReply  *replyModel;
 
-@property (nonatomic, assign) int             push_post_id;
+@property (nonatomic, assign) int         push_post_id;
 
 //是否跟贴完成
-@property (nonatomic, assign) BOOL            isReleased;
+@property (nonatomic, assign) BOOL        isReleased;
 
 @property (nonatomic, strong) NSDictionary *tieZiParamters;
 

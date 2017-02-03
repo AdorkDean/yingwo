@@ -10,6 +10,12 @@
 
 @implementation YWMiddleViewOfMoreNine
 
+- (void)setImageCnt:(NSUInteger)imageCnt {
+    
+    _numbersLabel.label.text = [NSString stringWithFormat:@"共%d张",(int)imageCnt];
+
+}
+
 - (void)addImageViewsFrameToView {
     
     [self setImageHeightByDivide:3];
@@ -56,16 +62,15 @@
         
     }];
     
-    YWTitle *numbersLabel = [[YWTitle alloc] init];
+    _numbersLabel                 = [[YWTitle alloc] init];
 
-    numbersLabel.label.text      = [NSString stringWithFormat:@"共%d张",(int)self.imageCnt];
-    numbersLabel.label.textColor = [UIColor whiteColor];
-    numbersLabel.backgroundColor = [UIColor blackColor];
-    numbersLabel.alpha           = 0.5;
+    _numbersLabel.label.textColor = [UIColor whiteColor];
+    _numbersLabel.backgroundColor = [UIColor blackColor];
+    _numbersLabel.alpha           = 0.5;
     
-    [self addSubview:numbersLabel];
+    [self addSubview:_numbersLabel];
     
-    [numbersLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_numbersLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(20);
         make.right.equalTo(self.mas_right).offset(-10);
     }];

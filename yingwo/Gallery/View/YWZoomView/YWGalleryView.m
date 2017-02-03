@@ -77,14 +77,15 @@
 - (void)setImagesItem:(ImageViewItem *)imagesItem showAtIndex:(NSInteger)index {
 
     _imagesItem = imagesItem;
-        
+
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width * imagesItem.URLArr.count,
                                                self.scrollView.bounds.size.height)];
-    
+
     self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width*index, 0);
+
+    NSInteger imageCount          = self.imagesItem.URLArr.count > 9 ? 9 : self.imagesItem.URLArr.count;
     
-    
-    for (int i = 0; i < self.imagesItem.URLArr.count; i++)
+    for (int i = 0; i < imageCount; i++)
     {
         CGRect rect = CGRectMake(self.scrollView.frame.size.width * i,
                                  0,
@@ -118,6 +119,12 @@
 
 - (void)removeImageView{
     
+    [self removeImageViewWithLightHidden];
+}
+
+//缩放删除
+- (void)removeImageViewWithScale {
+    
     //获取被放大的小图
     UIImageView *currentSmallView    = [self.imagesItem.imageViewArr objectAtIndex:self.currentPage];
     //获取放大后的图
@@ -129,16 +136,41 @@
     //先去除背景色
     self.backgroundColor             = [UIColor clearColor];
     self.pageLabel.textColor         = [UIColor clearColor];
-
+    
     [UIView animateWithDuration:0.3
                      animations:^{
-        
+                         
                          [zoomScrollView setZoomScale:1];
                          currentBigImageView.frame = currentSmallView.frame;
-        
-    }completion:^(BOOL finished) {
-        [self removeFromSuperview];
-    }];
+                         
+                     }completion:^(BOOL finished) {
+                         [self removeFromSuperview];
+                         if([self.delegate respondsToSelector:@selector(galleryView:removePageAtIndex:)]) {
+                             [self.delegate galleryView:self removePageAtIndex:self.currentPage+1];
+                         }
+                     }];
+
+    
+}
+
+//淡隐去除
+- (void)removeImageViewWithLightHidden {
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         
+                         //先去除背景色
+                         self.alpha = 0;
+                         
+                     }completion:^(BOOL finished) {
+                         [self removeFromSuperview];
+                         
+                         if([self.delegate respondsToSelector:@selector(galleryView:removePageAtIndex:)]) {
+                             [self.delegate galleryView:self removePageAtIndex:self.currentPage+1];
+                         }
+                     }];
+
+    
 }
 
 
@@ -231,13 +263,19 @@
 - (void)resizeImageViewByzoomScrollView:(YWZoomScrollView *)zoomScrollView atIndex:(NSInteger)index{
   
     
-    NSString *imageURL = [self.imagesItem.URLArr objectAtIndex:index];
+    NSString *imageURL  = [self.imagesItem.URLArr objectAtIndex:index];
+    UIImage *smallImage = zoomScrollView.imageView.image;
     
-    [zoomScrollView.imageView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:nil
+    
+    [SVProgressHUD showLoadingWithNoMask];
+    
+    [zoomScrollView.imageView sd_setImageWithURL:[NSURL URLWithString:imageURL]
+                                placeholderImage:smallImage
                                          options:SDWebImageRetryFailed
                                         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                 
                                             [SVProgressHUD showLoadingWithNoMask];
+
     }
                                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                            
@@ -252,6 +290,7 @@
     
     
 }
+
 
 
 

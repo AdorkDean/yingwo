@@ -178,6 +178,8 @@
 /********************************* 七牛图片模式 imageView2 model**************************/
 //居中裁剪图片的模式，网络较差时图片渐进显示
 #define QINIU_SQUARE_IMAGE_MODEL @"?imageView2/1/w/%d/interlace/1"
+//模糊居中
+#define QINIU_BLUR_IMAGE_MODEL @"?imageMogr2/thumbnail/%dx%d/interlace/1/"
 //图片等比缩放,这里我限定宽度和长度，替2g网节省流量😊，其中参数中的长和宽都是像素值！(1pt=2px)
 #define QINIU_PROPORTION_IMAGE_MODEL @"?imageView2/0/w/%d/h/%d/interlace/1"
 /********************************* 七牛图片模式 imageView2 model**************************/
