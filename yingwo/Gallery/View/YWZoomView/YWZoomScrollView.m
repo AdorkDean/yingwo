@@ -59,12 +59,15 @@
     self = [self initWithFrame:frame];
     if (self)
     {
-        self.index = index;
+
+        _imageView.image = nil;
+
+        _index           = index;
         
         //初始化scrollerView
         [self initZoomScrollView];
         
-        //实现点击放大
+        //添加图片并实现点击放大
         [self adjustScaleForImageView:imageView];
         
         //添加单击、双击、长按事件
@@ -97,9 +100,10 @@
 
     [self.imageView setUserInteractionEnabled:YES];
 
+    [self addSubview:self.imageView];
+
     [self addAnimationForImageViewScaleWithSize:self.imageView.frame.size];
 
-    [self addSubview:self.imageView];
 
 }
 
@@ -119,6 +123,7 @@
 - (void)addAnimationForImageViewScaleWithSize:(CGSize)size {
     
     CGFloat height       = self.frame.size.width / size.width * size.height;
+    
     
     [UIView animateWithDuration:0.3 animations:^{
         

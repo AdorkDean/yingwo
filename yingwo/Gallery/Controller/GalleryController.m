@@ -200,6 +200,11 @@
     
 }
 
+#pragma mark YWGalleryViewDelegate
+
+- (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+    galleryView = nil;
+}
 
 #pragma YWSpringButtonDelegate
 

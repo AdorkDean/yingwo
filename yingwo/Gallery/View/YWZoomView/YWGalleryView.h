@@ -46,9 +46,10 @@
 //点击某一页时调用
 - (void)galleryView:(YWGalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex;
 
+@required
 /**
  *  移除所有的展现的视图
- *
+ *  这个
  */
 - (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex;
 

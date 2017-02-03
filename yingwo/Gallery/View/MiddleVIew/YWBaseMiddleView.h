@@ -16,6 +16,9 @@ typedef void(^AvatarImageTapBlock)(UIImageView *imageView,ImageViewItem *imagesI
 //点击图片的时候使用
 @property (nonatomic, strong) ImageViewItem       *imagesItem;
 
+//图片个数
+@property (nonatomic, assign) NSUInteger          imageCnt;
+
 //布局的时候使用
 @property (nonatomic, strong) NSMutableArray      *imagesArr;
 @property (nonatomic, assign) double              YWOneImageHeight;

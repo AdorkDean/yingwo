@@ -37,6 +37,7 @@
 @property (nonatomic, strong) YWCommentView       *selectCommentView;
 
 @property (nonatomic, strong) MJRefreshAutoNormalFooter *footer;
+
 //点击查看话题内容
 @property (nonatomic, assign) int                 tap_topic_id;
 //点击查看用户详情
@@ -489,10 +490,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         [weakSelf loadData];
     }];
     
-   self.footer  = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+
+    self.footer  = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf loadMoreData];
         
     }];
+    
+    self.detailTableView.mj_footer = self.footer;
     
     [self.detailTableView.mj_header beginRefreshing];
 
@@ -604,22 +608,22 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.detailTableView.frame = self.view.bounds;
 }
 
-- (void)loadTieziDetail {
-    NSDictionary *parameter = @{@"post_id":@(self.push_post_id)};
-
-    //必须要加载cookie，否则无法请求
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    /*
-    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
-                             parameters:parameter
-                                success:^(TieZi *tieZi) {
-                                    
-                                    self.model = tieZi;
-                                    
-    }                           failure:^(NSString *error) {
-        
-    }];*/
-}
+//- (void)loadTieziDetail {
+//    NSDictionary *parameter = @{@"post_id":@(self.push_post_id)};
+//
+//    //必须要加载cookie，否则无法请求
+//    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+//    /*
+//    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
+//                             parameters:parameter
+//                                success:^(TieZi *tieZi) {
+//                                    
+//                                    self.model = tieZi;
+//                                    
+//    }                           failure:^(NSString *error) {
+//        
+//    }];*/
+//}
 /**
  *  下拉刷新
  */
@@ -679,10 +683,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 //刷新完成
-                self.footer.mj_y -= 40;
+
+                self.footer.mj_y -= 50;
                 
             });
-
         }
         else if (type == FooterReoladDataModel) {
             
@@ -696,15 +700,17 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //刷新完成
-                    self.footer.mj_y -= 40;
+                    self.footer.mj_y -= 50;
                     
                 });
-
             }else {
+                
+                
                 [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
                 self.footer.stateLabel.text = @"没有更多贴子了";
-
+    
             }
+            
             
             
         }
@@ -783,6 +789,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [self hiddenKeyboard];
 }
 
@@ -1280,7 +1287,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.detailTableView.frame = self.view.bounds;
 
     [self.commentView.messageTextView resignFirstResponder];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
