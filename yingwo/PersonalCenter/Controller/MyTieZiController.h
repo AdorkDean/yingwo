@@ -6,11 +6,8 @@
 //  Copyright © 2016年 wangxiaofa. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "GalleryViewModel.h"
+#import "GalleryController.h"
 
-@interface MyTieZiController : BaseViewController
-
-@property (nonatomic, strong) GalleryViewModel    *viewModel;
+@interface MyTieZiController : GalleryController
 
 @end

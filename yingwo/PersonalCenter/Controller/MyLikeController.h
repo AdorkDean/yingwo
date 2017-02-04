@@ -6,8 +6,8 @@
 //  Copyright © 2016年 wangxiaofa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "GalleryController.h"
 
-@interface MyLikeController : BaseViewController
+@interface MyLikeController :GalleryController
 
 @end

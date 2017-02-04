@@ -17,6 +17,19 @@
 #import "YWDropDownView.h"
 #import "YWPhotoCotentView.h"
 
+typedef NS_ENUM(NSInteger, ContentCategory){
+    
+    //不分类，所有帖子
+    AllThingModel = 0,
+    //新鲜事
+    FreshThingModel = 1,
+    //关注的话题
+    ConcernedTopicModel = 2,
+    //好友动态
+    FriendActivityModel = 3,
+    
+};
+
 @interface GalleryController : BaseViewController
 
 @property (nonatomic, strong) UITableView      *tableView;

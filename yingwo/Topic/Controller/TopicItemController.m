@@ -117,7 +117,7 @@ static CGFloat footerHeight = 250;
 - (void)loadForType:(int)type RequestEntity:(RequestEntity *)requestEntity {
     
     @weakify(self);
-    [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
+    [[self.topicViewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
         
         //这里是倒序获取前10个

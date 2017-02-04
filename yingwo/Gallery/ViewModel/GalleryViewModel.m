@@ -201,10 +201,10 @@
                                successBlock:^(id content) {
         
                                    StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
-                                   self.successBlock(entity);
+                                   self.deleteSuccessBlock(entity);
                                    
     } errorBlock:^(id error) {
-        
+        self.deleteFailureBlock(error);
     }];
 
 }

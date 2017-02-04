@@ -84,7 +84,7 @@
                                   
                                          HotDiscussEntity *field = [HotDiscussEntity mj_objectWithKeyValues:dic];
                                          
-                                         field.imageUrlEntityArr = [NSString separateImageViewURLString:field.img];
+                                         field.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:field.img];
                                   
                                          [tempArr addObject:field];
                                   
@@ -98,6 +98,7 @@
     }];
 
 }
+
 
 
 @end
