@@ -161,7 +161,7 @@
     cell.bottemView.delegate        = self;
     cell.titleView.title.delegate   = self;
     cell.bottemView.favour.delegate = self;
-    
+    cell.bottemView.more.delegate   = self;
     //回调block实现点击图片放大
     cell.middleView.imageTapBlock = ^(UIImageView *imageView, ImageViewItem *imagesItem) {
             

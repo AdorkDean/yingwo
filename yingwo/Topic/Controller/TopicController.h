@@ -18,15 +18,15 @@ typedef NS_ENUM(NSInteger,PageSelectedModel) {
 
 @interface TopicController : BaseViewController
 
-@property (nonatomic, strong) TieZi                   *model;
+@property (nonatomic, strong) TieZi             *model;
 
-@property (nonatomic, assign) int                     topic_id;
-@property (nonatomic, copy  ) NSString                * topic_title;
+@property (nonatomic, assign) int               topic_id;
+@property (nonatomic, copy  ) NSString          *topic_title;
 
-@property (nonatomic, assign) CGSize                  pageTableViewSize;
-@property (nonatomic, assign) CGFloat                 oldTableViewY;
+@property (nonatomic, assign) CGSize            pageTableViewSize;
+@property (nonatomic, assign) CGFloat           oldTableViewY;
 
-@property (nonatomic, assign) PageSelectedModel       pageModel;
+@property (nonatomic, assign) PageSelectedModel pageModel;
 
 
 @end
