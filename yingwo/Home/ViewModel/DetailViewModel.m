@@ -21,6 +21,12 @@
     return self;
 }
 
+- (void)setLikeSuccessBlock:(ReplyLikeTieZiBlock)likeSuccessBlock
+           likeFailureBlock:(ReplyLikeFailureBlock)likeFailureBlock{
+    _likeSuccessBlock = likeSuccessBlock;
+    _likeFailureBlock = likeFailureBlock;
+    
+}
 
 - (void)setupRACComand {
     
@@ -183,7 +189,7 @@
     }
     
     //判断是否有点赞过
-    if ( [self.tieZiViewModel isLikedTieZiWithReplyId:[NSNumber numberWithInt:model.reply_id]]) {
+    if ( [self isLikedTieZiWithReplyId:[NSNumber numberWithInt:model.reply_id]]) {
         [cell.bottomView.favour   setBackgroundImage:[UIImage imageNamed:@"heart_red"]
                                             forState:UIControlStateNormal];
         cell.bottomView.favour.isSpringReply = YES;
@@ -570,6 +576,83 @@
     [alert show];
 }
 
+- (void)requestForReplyLikeTieZiWithRequest:(RequestEntity *)request {
+    
+    [YWRequestTool YWRequestPOSTWithURL:request.URLString
+                              parameter:request.parameter
+                           successBlock:^(id content) {
+                               
+                               StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                               //本地存储点赞记录
+                               
+                               if ([request.parameter[@"value"] integerValue] == 1) {
+                                   
+                                   [self saveLikeCookieWithReplyId:request.parameter[@"reply_id"]];
+                               }
+                               else {
+                                   [self deleteLikeCookieWithReplyId:request.parameter[@"reply_id"]];
+                               }
+                               
+                               self.likeSuccessBlock(entity);
+                               
+                           } errorBlock:^(id error) {
+                               self.likeFailureBlock(error);
+                           }];
+    
+}
+//保存跟帖点赞记录
+- (void)saveLikeCookieWithReplyId:(NSNumber *) replyId {
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+    if (likeArr == nil ) {
+        
+        likeArr = [[NSMutableArray alloc] init];
+    }
+    else
+    {
+        likeArr = [NSMutableArray arrayWithArray:likeArr];
+    }
+    
+    [likeArr addObject:replyId];
+    [userDefault setObject:likeArr forKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+}
 
+//取消跟帖点赞记录
+- (void)deleteLikeCookieWithReplyId:(NSNumber *) replyId {
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+    if (likeArr == nil ) {
+        
+        return;
+    }
+    else
+    {
+        likeArr = [NSMutableArray arrayWithArray:likeArr];
+    }
+    
+    [likeArr removeObject:replyId];
+    [userDefault setObject:likeArr forKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+}
+
+//判断跟帖是否有点赞记录
+- (BOOL)isLikedTieZiWithReplyId:(NSNumber *) replyId {
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
+    
+    for (NSNumber *postId in likeArr) {
+        if ([postId integerValue] == [replyId integerValue]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
 
 @end

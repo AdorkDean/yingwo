@@ -12,6 +12,8 @@
 #import "TopicController.h"
 #import "MyRelationshipBaseController.h"
 
+#import "ChatController.h"
+
 #import "YWTaHeaderView.h"
 #import "YWTaTopicView.h"
 #import "YWTaTieziView.h"
@@ -102,6 +104,9 @@ static CGFloat HeadViewHeight = 250;
 //        _taFollowView.backgroundColor       = [UIColor colorWithHexString:@"DCDCDC" alpha:1.0];
         _taFollowView.layer.masksToBounds   = YES;
         _taFollowView.layer.cornerRadius    = SCREEN_WIDTH / 375 * 22;
+        [_taFollowView.chatBtn addTarget:self
+                                  action:@selector(jumpToChatWithTa)
+                        forControlEvents:UIControlEventTouchUpInside];
     }
     return _taFollowView;
 }
@@ -625,5 +630,13 @@ static CGFloat HeadViewHeight = 250;
     [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
 }
 
+- (void)jumpToChatWithTa {
+    
+    ChatController *chatVc = [[ChatController alloc] initWithConversationType:ConversationType_PRIVATE
+                                                                     targetId:[NSString stringWithFormat:@"%d",self.ta_id]];
+    chatVc.title = self.taHeaderView.userName.text;
+    [self.navigationController pushViewController:chatVc animated:YES];
+    
+}
 
 @end

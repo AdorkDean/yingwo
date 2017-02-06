@@ -52,7 +52,7 @@ static BOOL networkStatus = YES;
             case 0:
                 NSLog(@"无网络");
                 networkStatus = NO;
-                [MBProgressHUD showErrorHUDToAddToView:[UIApplication sharedApplication].keyWindow labelText:@"网络连接错误" animated:YES afterDelay:2];
+                [SVProgressHUD showErrorStatus:@"网络连接错误" afterDelay:HUD_DELAY];
                 break;
                 
             case 1:

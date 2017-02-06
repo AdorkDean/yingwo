@@ -10,90 +10,103 @@
 #import "CommentController.h"
 #import "FavorController.h"
 #import "MessageDetailController.h"
+#import "ChatListController.h"
+#import "YWCustomerCell.h"
 
-@interface MessageController ()<SMPagerTabViewDelegate,MessageControllerDelegate>
+@interface MessageController ()
 
-@property (nonatomic, strong) UIView            *messageSectionView;
+@property (nonatomic, strong) ChatListController *chatListVc;
 
-@property (nonatomic, strong) NSMutableArray    *catalogVcArr;
-
-@property (nonatomic, strong) CommentController *commentVc;
-@property (nonatomic, strong) FavorController   *favorVc;
-
-@property (nonatomic, strong) MessageEntity     *messageEntity;
-
-@property (nonatomic, strong) TieZi             *tieZiModel;
+@property (nonatomic, strong) YWCustomerCell     *commentBtn;
+@property (nonatomic, strong) YWCustomerCell     *favorBtn;
+@property (nonatomic, strong) YWCustomerCell     *concernBtn;
+@property (nonatomic, strong) YWCustomerCell     *chatlistBtn;
 
 @end
 
 @implementation MessageController
 
-- (SMPagerTabView *)topicPgaeView {
-    if (_messagePgaeView == nil) {
-        
-        _messagePgaeView          = [[SMPagerTabView alloc] initWithFrame:CGRectMake(0,
-                                                                                   40,
-                                                                                   SCREEN_WIDTH,
-                                                                                   SCREEN_HEIGHT)];
-        _messagePgaeView.delegate = self;
-        
-        
-        [self.catalogVcArr addObject:self.commentVc];
-        [self.catalogVcArr addObject:self.favorVc];
-        
-        //开始构建UI
-        [_messagePgaeView buildUI];
-        //起始选择一个tab
-        [_messagePgaeView selectTabWithIndex:0 animate:NO];
+- (ChatListController *)chatListVc {
+    if (_chatListVc == nil) {
+        _chatListVc = [[ChatListController alloc] init];
     }
-    return _messagePgaeView;
+    return _chatListVc;
 }
 
-- (UIView *)messageSectionView {
-    if (_messageSectionView == nil) {
-        _messageSectionView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                     0,
-                                                                     SCREEN_WIDTH,
-                                                                     40)];
+- (YWCustomerCell *)commentBtn {
+    if (_commentBtn == nil) {
+        _commentBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"pinglun"] labelText:@"我的评论"];
+        [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top"] forState:UIControlStateNormal];
+        [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top_selected"] forState:UIControlStateHighlighted];
+        [_commentBtn addTarget:self action:@selector(jumpToMyCommentPage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _commentBtn;
+}
+
+- (YWCustomerCell *)favorBtn {
+    if (_favorBtn == nil) {
+        _favorBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"zan"] labelText:@"赞了我的"];
+        [_favorBtn setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
+        [_favorBtn setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
+        [_favorBtn addTarget:self action:@selector(jumpToMyFavorPage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _favorBtn;
+}
+- (YWCustomerCell *)concernBtn {
+    if (_concernBtn == nil) {
+        _concernBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"guanzhu"] labelText:@"关注我的"];
+        [_concernBtn setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
+        [_concernBtn setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
+    }
+    return _concernBtn;
+}
+
+- (YWCustomerCell *)chatlistBtn {
+    if (_chatlistBtn == nil) {
+        _chatlistBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"pinglun"] labelText:@"聊天"];
+        [_chatlistBtn setBackgroundImage:[UIImage imageNamed:@"input_col"] forState:UIControlStateNormal];
+        [_chatlistBtn setBackgroundImage:[UIImage imageNamed:@"input_col_selected"] forState:UIControlStateHighlighted];
+        [_chatlistBtn addTarget:self action:@selector(jumpToMyChatListPage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _chatlistBtn;
+}
+
+- (void)layoutSubviews {
+    
+    [self.view addSubview:self.commentBtn];
+    [self.view addSubview:self.favorBtn];
+    [self.view addSubview:self.concernBtn];
+    [self.view addSubview:self.chatlistBtn];
+
+    [self.commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        [_messageSectionView addSubview:self.topicPgaeView.tabView];
-    }
-    return _messageSectionView;
-}
+        make.top.equalTo(self.view.mas_top).offset(10);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    [self.favorBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.commentBtn.mas_bottom);
+        make.centerX.equalTo(self.view);
 
-- (CommentController *)commentVc {
+    }];
     
-    if (_commentVc == nil) {
-        _commentVc          = [[CommentController alloc] init];
-        _commentVc.delegate = self;
-    }
-    return _commentVc;
-    
-}
+    [self.concernBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.favorBtn.mas_bottom);
+        make.centerX.equalTo(self.view);
 
-- (FavorController *)favorVc {
+    }];
     
-    if (_favorVc == nil) {
-        _favorVc          = [[FavorController alloc] init];
-        _favorVc.delegate = self;
-    }
-    return _favorVc;
-    
-}
+    [self.chatlistBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.concernBtn.mas_bottom);
+        make.centerX.equalTo(self.view);
 
-- (NSMutableArray *)catalogVcArr {
-    if (_catalogVcArr == nil) {
-        _catalogVcArr = [[NSMutableArray alloc] init];
-    }
-    return _catalogVcArr;
+    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.topicPgaeView];
-    [self.view addSubview:self.messageSectionView];
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,85 +120,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - DBPagerTabView Delegate
-- (NSUInteger)numberOfPagers:(SMPagerTabView *)view {
-    
-    return [self.catalogVcArr count];
-}
-- (UIViewController *)pagerViewOfPagers:(SMPagerTabView *)view indexOfPagers:(NSUInteger)number {
-    
-    UIViewController *vc = self.catalogVcArr[number];
-    
-    return vc;
-}
 
-- (void)whenSelectOnPager:(NSUInteger)number {
-    
-    NSLog(@"页面 %lu",(unsigned long)number);
-    
-    if (number == 0) {
-        UIView *redDot = [self.messagePgaeView.tabRedDots objectAtIndex:0];
-        if (redDot.hidden == NO) {
-            [self.commentVc.tableView.mj_header beginRefreshing];
-            [self.messagePgaeView hideRedDotWithIndex:0];
-        }
-    }
 
-    if (number == 1) {
-        
-        UIView *redDot = [self.messagePgaeView.tabRedDots objectAtIndex:1];
-        if (redDot.hidden == NO) {
-            [self.favorVc.tableView.mj_header beginRefreshing];
-            [self.messagePgaeView hideRedDotWithIndex:1];
-        }
-    }
-}
-
-#pragma mark MessageControllerDelegate
-
-- (void)didSelectMessageWith:(MessageEntity *)model{
-    
-    self.messageEntity = model;
-    TieZi *tieZiModel = [[TieZi alloc] init];
-    tieZiModel.tieZi_id = self.messageEntity.post_detail_id;
-    tieZiModel.topic_id = self.messageEntity.post_detail_topic_id;
-    tieZiModel.user_id  = self.messageEntity.post_detail_user_id;
-    tieZiModel.create_time = self.messageEntity.post_detail_create_time;
-    tieZiModel.topic_title = self.messageEntity.post_detail_topic_title;
-    tieZiModel.user_name = self.messageEntity.post_detail_user_name;
-    tieZiModel.content = self.messageEntity.post_detail_content;
-    tieZiModel.img = self.messageEntity.post_detail_img;
-    tieZiModel.user_face_img = self.messageEntity.post_detail_user_face_img;
-    tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
-    tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
-    tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
-  //  tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
-
-    self.tieZiModel = tieZiModel;
-    
-    [self performSegueWithIdentifier:@"detail" sender:self];
-
-    
-//    if (([model.source_type isEqualToString:@"POST"] && model.type == 0) ||
-//        [model.follow_type isEqualToString:@"LIKE_POST"]) {
-//        
-//        [self performSegueWithIdentifier:@"detail" sender:self];
-//
-//    }
-//    else
-//    {
-//        [self performSegueWithIdentifier:@"messageDetail" sender:self];
-//
-//    }
-    
-}
-
-- (void)didSelectHeadImageWith:(MessageEntity *)model {
-
-    self.messageEntity = model;
-    [self performSegueWithIdentifier:@"ta" sender:self];
-}
-
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.destinationViewController isKindOfClass:[MessageDetailController class]]) {
@@ -211,7 +148,34 @@
     }
     
 }
+*/
 
+#pragma mark private method
 
+- (void)jumpToMyCommentPage {
+    
+    CommentController *commentVc = [[CommentController alloc] init];
+    
+    [self.navigationController pushViewController:commentVc animated:YES];
+
+}
+
+- (void)jumpToMyFavorPage {
+    
+    FavorController *favorVc = [[FavorController alloc] init];
+    [self.navigationController pushViewController:favorVc animated:YES];
+}
+
+- (void)jumpToMyConcernPage {
+    
+   // [self.navigationController pushViewController:commentVc animated:YES];
+}
+
+- (void)jumpToMyChatListPage {
+    
+    ChatListController *chatList = [[ChatListController alloc] init];
+    
+    [self.navigationController pushViewController:chatList animated:YES];
+}
 
 @end

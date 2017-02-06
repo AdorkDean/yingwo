@@ -12,7 +12,7 @@
 #import "MyTieZiController.h"
 #import "MyRelationshipBaseController.h"
 
-#import "YWPersonCenterCell.h"
+#import "YWCustomerCell.h"
 #import "YWPersonCenterTopView.h"
 #import "YWPersonCenterMidCell.h"
 
@@ -22,10 +22,10 @@
 
 @property (nonatomic, strong) YWPersonCenterTopView *headView;
 @property (nonatomic, strong) YWPersonCenterMidCell *midView;
-@property (nonatomic, strong) YWPersonCenterCell    *cellView1;
-@property (nonatomic, strong) YWPersonCenterCell    *cellView2;
-@property (nonatomic, strong) YWPersonCenterCell    *cellView3;
-@property (nonatomic, strong) YWPersonCenterCell    *cellView4;
+@property (nonatomic, strong) YWCustomerCell    *cellView1;
+@property (nonatomic, strong) YWCustomerCell    *cellView2;
+@property (nonatomic, strong) YWCustomerCell    *cellView3;
+@property (nonatomic, strong) YWCustomerCell    *cellView4;
 @property (nonatomic, strong) UIBarButtonItem       *rightBarItem;
 
 @property (nonatomic, strong) TaEntity              *taEntity;
@@ -61,9 +61,9 @@
     return _midView;
 }
 
-- (YWPersonCenterCell *)cellView1 {
+- (YWCustomerCell *)cellView1 {
     if (_cellView1 == nil) {
-        _cellView1 = [[YWPersonCenterCell alloc] initWithLeftImage:[UIImage imageNamed:@"#"] labelText:@"我的话题"];
+        _cellView1 = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"#"] labelText:@"我的话题"];
         [_cellView1 setBackgroundImage:[UIImage imageNamed:@"input_top"] forState:UIControlStateNormal];
         [_cellView1 setBackgroundImage:[UIImage imageNamed:@"input_top_selected"] forState:UIControlStateHighlighted];
     }
@@ -71,9 +71,9 @@
 }
 
 
-- (YWPersonCenterCell *)cellView2 {
+- (YWCustomerCell *)cellView2 {
     if (_cellView2 == nil) {
-        _cellView2 = [[YWPersonCenterCell alloc] initWithLeftImage:[UIImage imageNamed:@"note"] labelText:@"我的贴子"];
+        _cellView2 = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"note"] labelText:@"我的贴子"];
         [_cellView2 setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
         [_cellView2 setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
 
@@ -81,18 +81,18 @@
     return _cellView2;
 }
 
-- (YWPersonCenterCell *)cellView3 {
+- (YWCustomerCell *)cellView3 {
     if (_cellView3 == nil) {
-        _cellView3 = [[YWPersonCenterCell alloc] initWithLeftImage:[UIImage imageNamed:@"mes"] labelText:@"我的评论"];
+        _cellView3 = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"mes"] labelText:@"我的评论"];
         [_cellView3 setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
         [_cellView3 setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
     }
     return _cellView3;
 }
 
-- (YWPersonCenterCell *)cellView4 {
+- (YWCustomerCell *)cellView4 {
     if (_cellView4 == nil) {
-        _cellView4 = [[YWPersonCenterCell alloc] initWithLeftImage:[UIImage imageNamed:@"heart"] labelText:@"我的点赞"];
+        _cellView4 = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"heart"] labelText:@"我的点赞"];
         [_cellView4 setBackgroundImage:[UIImage imageNamed:@"input_col"] forState:UIControlStateNormal];
         [_cellView4 setBackgroundImage:[UIImage imageNamed:@"input_col_selected"] forState:UIControlStateHighlighted];
     }

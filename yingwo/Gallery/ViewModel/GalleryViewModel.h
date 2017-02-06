@@ -35,7 +35,7 @@ typedef void(^LikeFailureBlock)(id likeFailureBlock);
 @property (nonatomic, strong) DeleteFailureBlock      deleteFailureBlock;
 
 @property (nonatomic, strong) LikeTieZiBlock          likeSuccessBlock;
-@property (nonatomic, strong) LikeFailureBlock        LikeFailureBlock;
+@property (nonatomic, strong) LikeFailureBlock        likeFailureBlock;
 
 
 - (void)setupRACComand;
@@ -126,29 +126,6 @@ typedef void(^LikeFailureBlock)(id likeFailureBlock);
  *  @return YES or NO
  */
 - (BOOL)isLikedTieZiWithTieZiId:(NSNumber *) postId;
-
-/**
- *  本地保存跟帖点赞记录
- *
- *  @param replyId 跟帖id
- */
-- (void)saveLikeCookieWithReplyId:(NSNumber *) replyId;
-
-/**
- *  取消跟帖点赞记录
- *
- *  @param replyId 跟帖id
- */
-- (void)deleteLikeCookieWithReplyId:(NSNumber *) replyId;
-
-/**
- *  判断跟帖是否有点赞过
- *
- *  @param replyId 跟帖id
- *
- *  @return YES or NO
- */
-- (BOOL)isLikedTieZiWithReplyId:(NSNumber *) replyId;
 
 @end
 

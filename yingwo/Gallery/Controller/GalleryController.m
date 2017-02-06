@@ -164,7 +164,10 @@
     cell.bottemView.more.delegate   = self;
     //回调block实现点击图片放大
     cell.middleView.imageTapBlock = ^(UIImageView *imageView, ImageViewItem *imagesItem) {
-            
+        
+        if (imageView.tag > imagesItem.URLArr.count) {
+            return ;
+        }
         YWGalleryView *galleryView  = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         galleryView.backgroundColor = [UIColor blackColor];
         galleryView.delegate = self;

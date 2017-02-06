@@ -291,15 +291,15 @@
             [self setCountDownTimer];
             
         }else if(sms.status == NO){
-            
-            [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"验证码获取失败" animated:YES afterDelay:2];
+            [SVProgressHUD showErrorStatus:@"验证码获取失败" afterDelay:HUD_DELAY];
         }else {
-            [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"请查看网络" animated:YES afterDelay:2];
+            [SVProgressHUD showErrorStatus:@"请查看网络" afterDelay:HUD_DELAY];
+
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@",error);
-        [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"请查看网络" animated:YES afterDelay:0.7];
+        [SVProgressHUD showErrorStatus:@"请查看网络" afterDelay:HUD_DELAY];
 
     }];
     
@@ -326,11 +326,12 @@
                                                        
                                                    }else if (sms.status == NO) {
                                                        //验证码错误
-                                                       [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"验证码输入错误" animated:YES afterDelay:1.5];
-                                                       
+                                                       [SVProgressHUD showErrorStatus:@"验证码输入错误" afterDelay:HUD_DELAY];
+                                           
                                                    }
                                                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                                   [MBProgressHUD showErrorHUDToAddToView:self.view labelText:@"网络错误" animated:YES afterDelay:1];
+                                                   [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
+
                                                }];
 }
 
@@ -406,9 +407,8 @@
     if ([self checkPasswordIsReasonable]) {
         [self.navigationController popViewControllerAnimated:YES];
     }else {
-        [MBProgressHUD showHUDToAddToView:self.view labelText:@"密码格式不正确" animated:YES afterDelay:3 success:^{
-            
-        }];
+        [SVProgressHUD showErrorStatus:@"密码格式不正确" afterDelay:HUD_DELAY];
+
     }
 }
 

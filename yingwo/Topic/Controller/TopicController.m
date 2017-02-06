@@ -18,8 +18,6 @@
 #import "YWTopicHeaderView.h"
 #import "SMPagerTabView.h"
 
-#import "UMSocialUIManager.h"
-
 #import "TopicEntity.h"
 
 @interface TopicController ()<TopicControllerDelegate,SMPagerTabViewDelegate,UIScrollViewDelegate>
@@ -446,15 +444,6 @@ static int start_id = 0;
             if (self.pageModel == NewPageModel) {
                 
                 self.freshVc.tableView.contentOffset = CGPointMake(0, offsetY-HeaderViewHeight+self.navgationBarHeight);
-//                
-//                if (self.freshVc.homeTableview.contentSize.height - (offsetY-HeaderViewHeight+self.navgationBarHeight)) {
-//                    
-//                    CGFloat moreOffsetY = offsetY-HeaderViewHeight+self.navgationBarHeight + 553;
-//                    
-//                    self.freshVc.homeTableview.contentSize = CGSizeMake(self.freshVc.homeTableview.contentSize.width,moreOffsetY);
-//                }
-                
-//                NSLog(@"freshTableView:%@",self.freshVc.homeTableview);
             }
             else
             {
@@ -511,6 +500,14 @@ static int start_id = 0;
     }
     
     
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
+    [self hiddenAddButton];
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView  {
+    [self showAddButton];
 }
 
 #pragma mark segue prepare
@@ -720,12 +717,25 @@ static int start_id = 0;
 }
 
 
-#pragma mark priavate method
-
 -(void)finishReloadData {
     
     [self.refreshIndictor stopAnimating];
     [self.refreshIndictor removeFromSuperview];
+}
+
+- (void)hiddenAddButton {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.addBtn.alpha = 0;
+    }];
+    
+}
+
+- (void)showAddButton {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.addBtn.alpha = 1;
+    }];
 }
 
 
@@ -737,6 +747,7 @@ static int start_id = 0;
 //显示分享面板
 - (void)showShareView {
     __weak typeof(self) weakSelf = self;
+    /*
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
         if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
             [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.topicEntity];
@@ -745,6 +756,6 @@ static int start_id = 0;
             [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.topicEntity];
         }
     }];
-    
+    */
 }
 @end

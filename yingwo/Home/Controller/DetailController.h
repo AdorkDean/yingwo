@@ -20,7 +20,6 @@ typedef NS_ENUM(NSInteger,CommentType) {
 #import "YWDetailReplyCell.h"
 
 #import "DetailViewModel.h"
-#import "UMSocialUIManager.h"
 
 #import "YWDetailBottomView.h"
 #import "YWDetailCommentView.h"

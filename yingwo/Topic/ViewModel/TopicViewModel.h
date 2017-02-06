@@ -13,7 +13,6 @@
 #import "TopicResult.h"
 #import "TopicEntity.h"
 
-#import "UMSocialUIManager.h"
 @interface TopicViewModel : GalleryViewModel
 
 @property (nonatomic, strong) TieZi *model;

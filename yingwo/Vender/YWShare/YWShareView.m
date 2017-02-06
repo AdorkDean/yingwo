@@ -7,8 +7,6 @@
 //
 
 #import "YWShareView.h"
-#import "UMShareMenuItem.h"
-
 static NSString *kUMSplatformType = @"kUMSplatformType";
 static NSString *kUMSSharePlatformType = @"kUMSSharePlatformType";
 static NSString *kUMSSharePlatformIconName = @"kUMSSharePlatformIconName";
@@ -155,10 +153,10 @@ static NSString *kUMSSharePlatformItemView = @"UMSSharePlatformItemView";
             imageName = @"UMS_wechat_timeline_icon";
             platformName = UMLocalizedString(@"wechat_timeline",@"微信朋友圈");
             break;
-        case UMSocialPlatformType_CopyLink:
-            imageName = @"icon_link";
-            platformName = UMLocalizedString(@"copyLink", @"复制链接");
-            break;
+//        case UMSocialPlatformType_CopyLink:
+//            imageName = @"icon_link";
+//            platformName = UMLocalizedString(@"copyLink", @"复制链接");
+//            break;
         case UMSocialPlatformType_WechatFavorite:
             imageName = @"UMS_wechat_favorite_icon";
             platformName = UMLocalizedString(@"wechat_favorite",@"微信收藏");

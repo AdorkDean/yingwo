@@ -194,8 +194,8 @@
 - (void)changeImageUrlModelFor:(NSArray *)messageArr {
     
     for (MessageEntity *message in messageArr) {
-        message.imageUrlEntityArr = [NSString separateImageViewURLString:message.img];
-        message.post_detail_imageUrlArrEntity = [NSString separateImageViewURLString:message.post_detail_img];
+        message.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:message.img];
+        message.post_detail_imageUrlArrEntity = [NSString separateImageViewURLStringToModel:message.post_detail_img];
     }
     
 }

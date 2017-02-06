@@ -21,8 +21,6 @@
 //pod第三方库
 #import "ReactiveObjC/ReactiveObjC.h"
 #import "AFNetworking.h"
-#import "MBProgressHUD.h"
-#import "SVProgressHUD.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
 #import "Masonry.h"
 #import "MJExtension.h"
@@ -36,6 +34,13 @@
 #import "HPGrowingTextView.h"
 #import <RSKImageCropper/RSKImageCropper.h>
 #import <HYBNetworking/HYBNetworking.h>
+#import <SVProgressHUD/SVProgressHUD.h>
+
+#import <UMSocialCore/UMSocialCore.h>
+#import "UMessage.h"
+
+#import <RongIMKit/RongIMKit.h>
+#import <RongIMLib/RongIMLib.h>
 
 //第三方框架vender,这里的第三方框架后做改动
 #import "CatZanButton.h"
@@ -70,18 +75,18 @@
 #import "CustomDismissSegue.h"
 #import "YWQiNiuUploadTool.h"
 #import "YWAvatarBrowser.h"
-#import "YWWebViewController.h"
+#import "MyWebViewController.h"
 
 //network tools
 #import "YWRequestTool.h"
 #import "YWNetworkTools.h"
 #import "YWHTTPManager.h"
+#import "RongCloudTools.h"
 
 //catagory
 #import "UIView+Frame.h"
 #import "UIColor+Hex.h"
 #import "UIImage+(Copping).h"
-#import "MBProgressHUD+Dispaly.h"
 #import "SVProgressHUD+Display.h"
 #import "NSArray+(String).h"
 #import "NSMutableArray+Sort.h"
