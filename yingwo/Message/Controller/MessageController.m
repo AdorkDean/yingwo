@@ -26,50 +26,20 @@
 
 @implementation MessageController
 
-<<<<<<< HEAD
-- (SMPagerTabView *)messagePgaeView {
-    if (_messagePgaeView == nil) {
-        
-        _messagePgaeView          = [[SMPagerTabView alloc] initWithFrame:CGRectMake(0,
-                                                                                   40,
-                                                                                   SCREEN_WIDTH,
-                                                                                   SCREEN_HEIGHT)];
-        _messagePgaeView.delegate = self;
-        
-        
-        [self.catalogVcArr addObject:self.commentVc];
-        [self.catalogVcArr addObject:self.favorVc];
-        
-        //开始构建UI
-        [_messagePgaeView buildUI];
-        //起始选择一个tab
-        [_messagePgaeView selectTabWithIndex:0 animate:NO];
-=======
+
 - (ChatListController *)chatListVc {
     if (_chatListVc == nil) {
         _chatListVc = [[ChatListController alloc] init];
->>>>>>> Developing
     }
     return _chatListVc;
 }
 
-<<<<<<< HEAD
-- (UIView *)messageSectionView {
-    if (_messageSectionView == nil) {
-        _messageSectionView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                     0,
-                                                                     SCREEN_WIDTH,
-                                                                     40)];
-        
-        [_messageSectionView addSubview:self.messagePgaeView.tabView];
-=======
 - (YWCustomerCell *)commentBtn {
     if (_commentBtn == nil) {
         _commentBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"pinglun"] labelText:@"我的评论"];
         [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top"] forState:UIControlStateNormal];
         [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top_selected"] forState:UIControlStateHighlighted];
         [_commentBtn addTarget:self action:@selector(jumpToMyCommentPage) forControlEvents:UIControlEventTouchUpInside];
->>>>>>> Developing
     }
     return _commentBtn;
 }
@@ -137,13 +107,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-<<<<<<< HEAD
-    [self.view addSubview:self.messagePgaeView];
-    [self.view addSubview:self.messageSectionView];
-    
-=======
 
->>>>>>> Developing
 }
 
 - (void)viewWillAppear:(BOOL)animated {

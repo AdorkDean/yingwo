@@ -32,9 +32,7 @@
 #import "HPGrowingTextView.h"
 #import <RSKImageCropper/RSKImageCropper.h>
 #import <HYBNetworking/HYBNetworking.h>
-<<<<<<< HEAD
 #import <ReactiveObjC/ReactiveObjC.h>
-=======
 #import <SVProgressHUD/SVProgressHUD.h>
 
 #import <UMSocialCore/UMSocialCore.h>
@@ -42,7 +40,6 @@
 
 #import <RongIMKit/RongIMKit.h>
 #import <RongIMLib/RongIMLib.h>
->>>>>>> Developing
 
 //第三方框架vender,这里的第三方框架后做改动
 #import "CatZanButton.h"

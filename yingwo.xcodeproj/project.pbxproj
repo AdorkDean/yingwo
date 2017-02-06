@@ -442,12 +442,7 @@
 		18AFE5E41D30B7E1007BEBDE /* yingwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yingwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFE5F91D30B7E2007BEBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18AFE5FB1D30B7E2007BEBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		18B0C6731D980FBA00F776DF /* HYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HYViewController.h; path = Vender/HYNavBarHidden/HYViewController.h; sourceTree = "<group>"; };
-		18B0C6741D980FBA00F776DF /* HYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HYViewController.m; path = Vender/HYNavBarHidden/HYViewController.m; sourceTree = "<group>"; };
-		18B0C6751D980FBA00F776DF /* UIViewController+NavBarHidden.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+NavBarHidden.h"; path = "Vender/HYNavBarHidden/UIViewController+NavBarHidden.h"; sourceTree = "<group>"; };
-		18B0C6761D980FBA00F776DF /* UIViewController+NavBarHidden.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+NavBarHidden.m"; path = "Vender/HYNavBarHidden/UIViewController+NavBarHidden.m"; sourceTree = "<group>"; };
-=======
+
 		18B155851E46E71100E355D0 /* RongCloudTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RongCloudTools.h; sourceTree = "<group>"; };
 		18B155861E46E71100E355D0 /* RongCloudTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RongCloudTools.m; sourceTree = "<group>"; };
 		18B155891E46E76C00E355D0 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
@@ -458,7 +453,6 @@
 		18B1558F1E46E76C00E355D0 /* TokenEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenEntity.m; sourceTree = "<group>"; };
 		18B155921E46E76C00E355D0 /* ChatViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewModel.h; sourceTree = "<group>"; };
 		18B155931E46E76C00E355D0 /* ChatViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewModel.m; sourceTree = "<group>"; };
->>>>>>> Developing
 		18B926C31D38B9E60067FE24 /* CustomPresentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomPresentSegue.h; path = CustomSegue/CustomPresentSegue.h; sourceTree = "<group>"; };
 		18B926C41D38B9E60067FE24 /* CustomPresentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomPresentSegue.m; path = CustomSegue/CustomPresentSegue.m; sourceTree = "<group>"; };
 		18CEE7131DAF5823004FEDFE /* yingwo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yingwo.entitlements; sourceTree = "<group>"; };
@@ -2439,19 +2433,10 @@
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				CC1228CB1DE43F2E00ABE8AB /* UMMobClick.framework */,
-				CCF82B9B1DDB249700C3B5A1 /* libc++.tbd */,
-				CCF82B991DDB248500C3B5A1 /* libz.tbd */,
-				CCF82B971DDB247900C3B5A1 /* ImageIO.framework */,
-				CCF82B951DDB246F00C3B5A1 /* CoreTelephony.framework */,
-				CCF82B931DDB246000C3B5A1 /* SystemConfiguration.framework */,
-				CCF82B911DDB242E00C3B5A1 /* libsqlite3.tbd */,
-=======
+
 				18409FCD1E45D41B0029B49E /* libresolv.tbd */,
 				18409F4A1E45D0100029B49E /* SystemConfiguration.framework */,
 				18409F481E45D0050029B49E /* AddressBook.framework */,
->>>>>>> Developing
 				1803C1201D541F350078EF0F /* AssetsLibrary.framework */,
 				CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */,
 			);
@@ -2602,11 +2587,8 @@
 				18F4C7A41E4849DE00BA3F43 /* UIButton+CMWebCache.m in Sources */,
 				18F4C7C31E4849DE00BA3F43 /* UITabBarItem+WZLBadge.m in Sources */,
 				18F363061E1FB19A0077D3CC /* SVProgressHUD+Display.m in Sources */,
-<<<<<<< HEAD
-				188B34A21E41DD5F00C9777E /* TopicEntity.h in Sources */,
-=======
+
 				18F4C7BC1E4849DE00BA3F43 /* TZPhotoPreviewCell.m in Sources */,
->>>>>>> Developing
 				188B349D1E41B44500C9777E /* ReplyViewModel.m in Sources */,
 				18F4C7921E4849DE00BA3F43 /* EBForeNotification.m in Sources */,
 				18F365031E1FB8940077D3CC /* YWMessageBottomView.m in Sources */,
@@ -2623,12 +2605,8 @@
 				18F363761E1FB64F0077D3CC /* YWZoomScrollView.m in Sources */,
 				18F363081E1FB19A0077D3CC /* UIColor+Hex.m in Sources */,
 				18F364B31E1FB8940077D3CC /* YWPhotoDisplayView.m in Sources */,
-<<<<<<< HEAD
-				CC9857721DFA83AA009FA4FF /* CAAnimation+WAnimation.m in Sources */,
-				188B34A31E41DE7600C9777E /* Topic.h in Sources */,
-=======
+
 				18B155971E46E76C00E355D0 /* ChatViewModel.m in Sources */,
->>>>>>> Developing
 				18F365101E1FB8940077D3CC /* GradePickerView.m in Sources */,
 				18F3639A1E1FB87A0077D3CC /* LoginController.m in Sources */,
 				18A075881E3E20B100C4159D /* HotTopicController.m in Sources */,
