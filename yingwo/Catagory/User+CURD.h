@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^SuccessReturnValue)(id returnValue);
+typedef void(^FailureValue)(id failureValue);
+
 /**
  *  User的分类，用于实现User类的从数据库的增、删、改、查
  *  是一个间接类，直接操作的是 Customer 类
@@ -47,6 +50,17 @@
 
 + (void)deleteLoginInformation;
 
+
+/**
+ 聊天获取用户信息
+
+ @param userId 用户ID
+ @param successValue 成功
+ @param failure 失败
+ */
++ (void)getUserInfoForChatWithUserId:(NSString *)userId
+                             success:(SuccessBlock)successValue
+                             failure:(FailureValue)failure;
 @end
 
 

@@ -406,6 +406,7 @@ static NSString *replyCellIdentifier = @"replyCell";
 - (void)showShareView {
     //显示分享面板
     __weak typeof(self) weakSelf = self;
+    /*
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
         if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
             [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.model];
@@ -414,7 +415,7 @@ static NSString *replyCellIdentifier = @"replyCell";
             [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
         }
     }];
-    
+    */
 }
 
 #pragma mark UITextfieldDelegate
@@ -464,6 +465,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
+    [self.replyView.messageField becomeFirstResponder];
     
 }
 
@@ -636,7 +638,7 @@ static NSString *replyCellIdentifier = @"replyCell";
 -(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     
     
-    YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
+    MyWebViewController *webVc = [[MyWebViewController alloc] initWithURL:url];
     
     [self.navigationController pushViewController:webVc animated:YES];
 }
@@ -677,7 +679,7 @@ static NSString *replyCellIdentifier = @"replyCell";
                          animations:^{
                              
                              self.tableView.frame = CGRectMake(0,
-                                                                     -(SCREEN_HEIGHT-commentViewFrame.origin.y+44),
+                                                                     -(commentViewFrame.origin.y-self.commentView.frame.origin.y),
                                                                      SCREEN_WIDTH,
                                                                      SCREEN_HEIGHT);
                              
@@ -844,7 +846,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     requestEntity.URLString = TIEZI_REPLY_LIKE;
     requestEntity.parameter = parameter;
     
-    [self.homeViewModel requestForLikeTieZiWithRequest:requestEntity];
+    [self.viewModel requestForReplyLikeTieZiWithRequest:requestEntity];
     
 }
 
@@ -854,12 +856,12 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     if (model == YES) {
         count ++;
-        [self.homeViewModel saveLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
+        [self.viewModel saveLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
     }
     else
     {
         count --;
-        [self.homeViewModel deleteLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
+        [self.viewModel deleteLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
     }
     if (count >= 0) {
         label.text = [NSString stringWithFormat:@"%d",count];

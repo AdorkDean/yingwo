@@ -456,7 +456,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="6Jv-2G-YyI"/>
                     <connections>
-                        <segue destination="25N-FV-RWd" kind="show" identifier="messageDetail" id="aMU-ts-hIJ"/>
                         <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="xfh-Am-3PH"/>
                         <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="siW-fk-Kp9"/>
                     </connections>
@@ -464,24 +463,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X8X-WH-btd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6615.1999999999998" y="3047.226386806597"/>
-        </scene>
-        <!--Message Detail Controller-->
-        <scene sceneID="xmI-Ia-jg0">
-            <objects>
-                <viewController storyboardIdentifier="MessageDetailController" id="25N-FV-RWd" customClass="MessageDetailController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Mkt-WH-YhN"/>
-                        <viewControllerLayoutGuide type="bottom" id="d6E-Lx-TAb"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gAh-a8-SMP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7CA-Nf-EF3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7550" y="3047"/>
         </scene>
         <!--My Tie Zi Controller-->
         <scene sceneID="tIK-Sg-uab">
@@ -668,14 +649,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="q7d-3y-7Bc"/>
-        <segue reference="EUt-Q0-JhM"/>
-        <segue reference="z8l-m0-DzE"/>
-        <segue reference="wrw-I9-9Lh"/>
         <segue reference="gXB-c9-GK2"/>
         <segue reference="dQL-fh-5s4"/>
-        <segue reference="ZMN-sb-BDP"/>
-        <segue reference="v7k-LG-TEa"/>
-        <segue reference="mNj-nk-xUF"/>
+        <segue reference="siW-fk-Kp9"/>
+        <segue reference="xfh-Am-3PH"/>
+        <segue reference="jOE-G1-vCx"/>
+        <segue reference="DZx-xw-Vme"/>
+        <segue reference="6ez-F0-LOf"/>
+        <segue reference="cO5-zM-Dpn"/>
+        <segue reference="q7d-3y-7Bc"/>
     </inferredMetricsTieBreakers>
 </document>

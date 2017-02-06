@@ -126,4 +126,24 @@
     
 }
 
++ (void)getUserInfoForChatWithUserId:(NSString *)userId
+                             success:(SuccessBlock)successValue
+                             failure:(FailureValue)failure{
+    
+    NSDictionary *parameter = @{@"user_id":userId};
+    
+    [YWRequestTool YWRequestPOSTWithURL:TA_INFO_URL
+                              parameter:parameter
+                           successBlock:^(id success) {
+                               
+
+                               User *user = [User mj_objectWithKeyValues:success[@"info"]];
+                               
+                               successValue(user);
+    } errorBlock:^(id error) {
+        failure(error);
+    }];
+    
+}
+
 @end

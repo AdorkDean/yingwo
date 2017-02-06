@@ -106,7 +106,7 @@
     }
     
     //判断是否有点赞过
-    if ( [self.tieZiViewModel isLikedTieZiWithReplyId:[NSNumber numberWithInt:model.reply_id]]) {
+    if ( [self isLikedTieZiWithReplyId:[NSNumber numberWithInt:model.reply_id]]) {
         [cell.bottomView.favour   setBackgroundImage:[UIImage imageNamed:@"heart_red"]
                                             forState:UIControlStateNormal];
         cell.bottomView.favour.isSpringReply = YES;

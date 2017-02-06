@@ -6,6 +6,10 @@
 //  Copyright © 2016年 wangxiaofa. All rights reserved.
 //
 
+/*
+ * 18888880017
+ * 111111
+ */
 
 /*
  *  全局宏，所有文件共享的宏都放在这里
@@ -179,11 +183,20 @@
 //居中裁剪图片的模式，网络较差时图片渐进显示
 #define QINIU_SQUARE_IMAGE_MODEL @"?imageView2/1/w/%d/interlace/1"
 //模糊居中
-#define QINIU_BLUR_IMAGE_MODEL @"?imageMogr2/thumbnail/%dx%d/interlace/1/"
+#define QINIU_BLUR_IMAGE_MODEL @"?imageMogr2/thumbnail/%dx%d/interlace/1/auto-orient"
 //图片等比缩放,这里我限定宽度和长度，替2g网节省流量😊，其中参数中的长和宽都是像素值！(1pt=2px)
 #define QINIU_PROPORTION_IMAGE_MODEL @"?imageView2/0/w/%d/h/%d/interlace/1"
 /********************************* 七牛图片模式 imageView2 model**************************/
 
+/***************************************融云 URL***********************************************/
+
+#define RongCloud_Key       @"pkfcgjstpkqm8"
+
+#define RongCloud_App_Secret @"J89Lo3z46y6e8"
+
+#define RongCloud_Token_URL @"https://api.cn.ronghub.com/user/getToken.json"
+
+#define RongCloud_Refresh_URL @"https://api.cn.ronghub.com/user/refresh.json"
 
 /********************************* network status code ******************************************/
 #define SUCCESS_STATUS 200

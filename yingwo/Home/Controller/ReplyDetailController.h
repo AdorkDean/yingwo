@@ -11,7 +11,6 @@
 #import "YWDetailReplyCell.h"
 
 #import "DetailViewModel.h"
-#import "UMSocialUIManager.h"
 
 #import "YWDetailBottomView.h"
 #import "YWDetailCommentView.h"

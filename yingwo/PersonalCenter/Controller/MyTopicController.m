@@ -73,8 +73,7 @@
     if (_oneFieldVc == nil) {
         _oneFieldVc           = [[TopicListController alloc] init];
         _oneFieldVc.delegate  = self;
-//        FieldEntity *fieldOne = [self.fieldViewModel.fieldArr objectAtIndex:0];
-//        _oneFieldVc.title     = fieldOne.title;
+
         _oneFieldVc.title     = @"校园生活";
         _oneFieldVc.field_id  = 1;
         _oneFieldVc.isMyTopic = YES;
@@ -86,8 +85,7 @@
     if (_twoFieldVc == nil) {
         _twoFieldVc           = [[TopicListController alloc] init];
         _twoFieldVc.delegate  = self;
-//        FieldEntity *fieldTwo = [self.fieldViewModel.fieldArr objectAtIndex:1];
-//        _twoFieldVc.title     = fieldTwo.title;
+
         _twoFieldVc.title     = @"兴趣爱好";
         _twoFieldVc.field_id  = 2;
         _twoFieldVc.isMyTopic = YES;
@@ -100,8 +98,7 @@
     if (_threeFieldVc == nil) {
         _threeFieldVc           = [[TopicListController alloc] init];
         _threeFieldVc.delegate  = self;
-//        FieldEntity *fieldThree = [self.fieldViewModel.fieldArr objectAtIndex:2];
-//        _threeFieldVc.title     = fieldThree.title;
+
         _threeFieldVc.title     = @"学科专业";
         _threeFieldVc.field_id  = 3;
         _threeFieldVc.isMyTopic = YES;
@@ -117,10 +114,18 @@
     return _viewModel;
 }
 
+- (void)layoutSubviews {
+    
+    [self.view addSubview:self.topicPgaeView];
+    [self.view addSubview:self.topicSectionView];
+    
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadFieldList];
+ //   [self loadFieldList];
     
 }
 
@@ -248,8 +253,6 @@
     
     WeakSelf(self);
     [self.viewModel setSuccessBlock:^(NSArray *fieldArr) {
-        
-    //    weakself.viewModel.fieldArr = [fieldArr mutableCopy];
         
         [weakself.view addSubview:weakself.topicPgaeView];
         [weakself.view addSubview:weakself.topicSectionView];

@@ -31,8 +31,8 @@
 - (void)setLikeSuccessBlock:(LikeTieZiBlock)likeSuccessBlock
            likeFailureBlock:(LikeFailureBlock)likeFailureBlock {
     
-    _likeSuccessBlock = likeSuccessBlock;
-    _LikeFailureBlock  = likeFailureBlock;
+    _likeSuccessBlock  = likeSuccessBlock;
+    _likeFailureBlock  = likeFailureBlock;
     
 }
 
@@ -162,7 +162,7 @@
         UIImageView *imageView = [cell viewWithTag:idx+1];
         
         [self showImageView:imageView WithURL:obj cutByCount:(int)model.imageURLArr.count];
-
+        
     }];
 
 }
@@ -218,11 +218,19 @@
                                StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
                                //本地存储点赞记录
                                
-                               [self saveLikeCookieWithPostId:request.parameter[@"post_id"]];
+                               if ([request.parameter[@"value"] integerValue] == 1) {
+                                   
+                                   [self saveLikeCookieWithPostId:request.parameter[@"post_id"]];
+                               }
+                               else {
+                                   [self deleteLikeCookieWithPostId:request.parameter[@"post_id"]];
+                               }
+
+                   
                                self.likeSuccessBlock(entity);
-                               
+
                            } errorBlock:^(id error) {
-                               self.LikeFailureBlock(error);
+                               self.likeFailureBlock(error);
                            }];
     
 }
@@ -285,6 +293,8 @@
     NSString *fullurl      = [correctURL stringByAppendingString:imageMode];
     NSURL *imageUrl        = [NSURL URLWithString:fullurl];
     
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
     [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
 }
 
@@ -337,61 +347,6 @@
     
     for (NSNumber *tieZiId in likeArr) {
         if ([tieZiId integerValue] == [postId integerValue]) {
-            return YES;
-        }
-    }
-    
-    return NO;
-}
-
-//保存跟帖点赞记录
-- (void)saveLikeCookieWithReplyId:(NSNumber *) replyId {
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
-    
-    if (likeArr == nil ) {
-        
-        likeArr = [[NSMutableArray alloc] init];
-    }
-    else
-    {
-        likeArr = [NSMutableArray arrayWithArray:likeArr];
-    }
-    
-    [likeArr addObject:replyId];
-    [userDefault setObject:likeArr forKey:TIEZI_REPLY_LIKE_COOKIE];
-    
-}
-
-//取消跟帖点赞记录
-- (void)deleteLikeCookieWithReplyId:(NSNumber *) replyId {
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
-    
-    if (likeArr == nil ) {
-        
-        return;
-    }
-    else
-    {
-        likeArr = [NSMutableArray arrayWithArray:likeArr];
-    }
-    
-    [likeArr removeObject:replyId];
-    [userDefault setObject:likeArr forKey:TIEZI_REPLY_LIKE_COOKIE];
-    
-}
-
-//判断跟帖是否有点赞记录
-- (BOOL)isLikedTieZiWithReplyId:(NSNumber *) replyId {
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *likeArr     = [userDefault objectForKey:TIEZI_REPLY_LIKE_COOKIE];
-    
-    for (NSNumber *postId in likeArr) {
-        if ([postId integerValue] == [replyId integerValue]) {
             return YES;
         }
     }

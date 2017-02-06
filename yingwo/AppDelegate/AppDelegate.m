@@ -8,10 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "UMessage.h"
-#import <UMSocialCore/UMSocialCore.h>
-#import "YWCustomSharePlatform.h"
-#import "UMMobClick/MobClick.h"
 #import "BadgeCount.h"
 #import "EBForeNotification.h"
 
@@ -26,7 +22,7 @@
 #import "LoginController.h"
 #import "YWTabBarController.h"
 
-@interface AppDelegate ()<UNUserNotificationCenterDelegate>
+@interface AppDelegate ()<UNUserNotificationCenterDelegate,RCIMUserInfoDataSource,RCIMGroupInfoDataSource>
 
 @property (nonatomic, strong) YWTabBarController       *mainTabBarController;
 
@@ -41,7 +37,14 @@
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"yingwoDatabase.sqlite"];
     
-    //[NSThread sleepForTimeInterval:1.5];//设置启动页面时间
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    
+    [[RCIM sharedRCIM] setGroupInfoDataSource:self];
+    [[RCIM sharedRCIM] clearUserInfoCache];
+
+  //  [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+  //  [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+
     
     [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
     [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
@@ -81,7 +84,7 @@
      *  友盟分享配置项
      */
     //打开调试日志
-    [[UMSocialManager defaultManager] openLog:YES];
+   // [[UMSocialManager defaultManager] openLog:YES];
     
     //设置友盟appkey
     [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f8af24e0f55a291700280b"];
@@ -102,9 +105,9 @@
     [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
     
     //添加自定义选项
-    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
-    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_CopyLink];
-    
+//    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
+//    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_Line];
+//    
     /**
      *  友盟统计与崩溃
      */
@@ -324,6 +327,39 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
  //   [self saveContext];
+}
+
+#pragma mark RCIMUserInfoDataSource，RCIMGroupInfoDataSource
+
+
+- (void)getUserInfoWithUserId:(NSString *)userId
+                   completion:(void (^)(RCUserInfo *userInfo))completion {
+    
+    Customer *customer = [User findCustomer];
+    
+    NSLog(@"user:%@",userId);
+
+    if ([userId isEqualToString:customer.userId]) {
+        return completion([[RCUserInfo alloc] initWithUserId:userId
+                                                        name:customer.name
+                                                   portrait:customer.face_img]);
+    }else
+    {
+        [User getUserInfoForChatWithUserId:userId success:^(User *user) {
+            
+            return completion([[RCUserInfo alloc] initWithUserId:userId
+                                                            name:user.name
+                                                        portrait:user.face_img]);
+
+        } failure:^(id failureValue) {
+            
+        }];
+    }
+}
+
+- (void)getGroupInfoWithGroupId:(NSString *)groupId
+                     completion:(void (^)(RCGroup *groupInfo))completion {
+    
 }
 
 //请求

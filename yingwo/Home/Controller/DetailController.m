@@ -449,6 +449,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)showShareView {
     //显示分享面板
     __weak typeof(self) weakSelf = self;
+    /*
        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
            if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
                [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.model];
@@ -457,6 +458,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
            }
     }];
+    */
     
 }
 
@@ -762,7 +764,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     cell.topView.moreBtn.delegate   = self;
     cell.moreBtn.delegate           = self;
     cell.contentLabel.delegate      = self;
-    
 
     return cell;
 }
@@ -797,7 +798,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 -(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
 
     
-    YWWebViewController *webVc = [[YWWebViewController alloc] initWithURL:url];
+    MyWebViewController *webVc = [[MyWebViewController alloc] initWithURL:url];
     
     [self.navigationController pushViewController:webVc animated:YES];
 }
@@ -996,7 +997,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
 }
 
-
 - (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model {
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
@@ -1006,7 +1006,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     WeakSelf(self);
     
-    [self.homeViewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
+    [self.viewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
         
         if (statusEntity.status == YES) {
             
@@ -1023,7 +1023,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     requestEntity.URLString = TIEZI_REPLY_LIKE;
     requestEntity.parameter = parameter;
     
-    [self.homeViewModel requestForLikeTieZiWithRequest:requestEntity];
+    [self.viewModel requestForReplyLikeTieZiWithRequest:requestEntity];
     
 }
 
@@ -1033,13 +1033,14 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     if (model == YES) {
         count ++;
-        [self.homeViewModel saveLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
+        [self.viewModel saveLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
     }
     else
     {
         count --;
-        [self.homeViewModel deleteLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
+        [self.viewModel deleteLikeCookieWithReplyId:[NSNumber numberWithInt:postId]];
     }
+    
     if (count >= 0) {
         label.text = [NSString stringWithFormat:@"%d",count];
     }else {

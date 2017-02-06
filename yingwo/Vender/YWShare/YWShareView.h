@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <UMSocialCore/UMSocialCore.h>
-
+#import "UMShareMenuItem.h"
 @class YWShareView;
 typedef void(^UMSocialSharePlatformSelectionBlock)(YWShareView *NewsShareView,UMSocialPlatformType platformType);
 

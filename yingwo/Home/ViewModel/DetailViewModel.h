@@ -20,25 +20,33 @@
 
 #import "DetailViewModelHepler.h"
 
-#import "UMSocialUIManager.h"
-
 typedef NS_ENUM(NSInteger,ReloadModel) {
     HeaderReloadDataModel,
     FooterReoladDataModel
 };
 
+typedef void(^ReplyLikeTieZiBlock)(id likeSuccessBlock);
+typedef void(^ReplyLikeFailureBlock)(id likeFailureBlock);
+
+
 /**
  *  DetailViewController 的ViewModel
  */
-@interface DetailViewModel : NSObject
+@interface DetailViewModel : BaseViewModel
 
-@property (nonatomic, strong) GalleryViewModel *tieZiViewModel;
+@property (nonatomic, strong) ReplyLikeTieZiBlock   likeSuccessBlock;
+@property (nonatomic, strong) ReplyLikeFailureBlock likeFailureBlock;
 
-@property (nonatomic, strong) RACCommand *fetchDetailEntityCommand;
+@property (nonatomic, strong) GalleryViewModel      *tieZiViewModel;
+
+@property (nonatomic, strong) RACCommand            *fetchDetailEntityCommand;
 //楼主的user_id
-@property (nonatomic, assign) NSInteger master_id;
+@property (nonatomic, assign) NSInteger             master_id;
 
 @property (nonatomic, strong) NSMutableArray *imageUrlEntity;
+
+- (void)setLikeSuccessBlock:(ReplyLikeTieZiBlock)likeSuccessBlock
+           likeFailureBlock:(ReplyLikeFailureBlock)likeFailureBlock;
 
 /**
  *  请求原贴
@@ -139,6 +147,37 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
                   parameter:(NSDictionary *)parameter
                      success:(void (^)(StatusEntity *statusEntity))success
                      failure:(void (^)(NSString *error))failure;
+
+
+/**
+ *  点赞请求
+ *
+ *  @param parameter post_id（帖子ID）、value（	0为取消喜欢 1为喜欢）
+ */
+- (void)requestForReplyLikeTieZiWithRequest:(RequestEntity *)request;
+
+/**
+ *  判断跟帖是否有点赞过
+ *
+ *  @param replyId 跟帖id
+ *
+ *  @return YES or NO
+ */
+- (BOOL)isLikedTieZiWithReplyId:(NSNumber *) replyId;
+/**
+ *  本地保存跟帖点赞记录
+ *
+ *  @param replyId 跟帖id
+ */
+- (void)saveLikeCookieWithReplyId:(NSNumber *) replyId;
+
+/**
+ *  取消跟帖点赞记录
+ *
+ *  @param replyId 跟帖id
+ */
+- (void)deleteLikeCookieWithReplyId:(NSNumber *) replyId;
+
 
 //分享网页
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType withModel:(TieZi *)model;

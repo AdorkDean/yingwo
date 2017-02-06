@@ -253,7 +253,7 @@
                              }else if (badgeCount == 0) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
                                      [self.mainTabBarController.tabBar.bubBtn clearBadge];
-                                     [self.messageVC.messagePgaeView hideRedDotWithIndex:0];
+                               //      [self.messageVC.messagePgaeView hideRedDotWithIndex:0];
                                  });
                              }
                              
@@ -275,7 +275,7 @@
                              }else if (badgeCount == 0) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
                                      [self.mainTabBarController.tabBar.bubBtn clearBadge];
-                                     [self.messageVC.messagePgaeView hideRedDotWithIndex:1];
+                               //      [self.messageVC.messagePgaeView hideRedDotWithIndex:1];
                                  });
                              }
 
