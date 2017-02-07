@@ -11,6 +11,9 @@
 		180DB1351D421B38007786A0 /* MainNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DB1341D421B38007786A0 /* MainNavController.m */; };
 		181E34211D93E3F800A6283C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 181E341F1D93E3F800A6283C /* Podfile */; };
 		181E34221D93E3F800A6283C /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 181E34201D93E3F800A6283C /* Podfile.lock */; };
+		182CACF11E49E8CA000CE59F /* UMShareTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CACF01E49E8CA000CE59F /* UMShareTools.m */; };
+		182CACF51E49E9F1000CE59F /* UMAnalyticsTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CACF41E49E9F1000CE59F /* UMAnalyticsTools.m */; };
+		182CACF91E49EBBA000CE59F /* UMessageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CACF81E49EBBA000CE59F /* UMessageTools.m */; };
 		18328CFE1E3F09840080C79D /* TopicListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18328CF61E3F09840080C79D /* TopicListController.m */; };
 		18328D001E3F09840080C79D /* YWTopicListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18328CFC1E3F09840080C79D /* YWTopicListView.m */; };
 		18328D031E3F15330080C79D /* TopicListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18328D021E3F15330080C79D /* TopicListViewModel.m */; };
@@ -308,6 +311,12 @@
 		180DB1341D421B38007786A0 /* MainNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainNavController.m; path = Main/Controller/MainNavController.m; sourceTree = "<group>"; };
 		181E341F1D93E3F800A6283C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		181E34201D93E3F800A6283C /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
+		182CACEF1E49E8CA000CE59F /* UMShareTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMShareTools.h; sourceTree = "<group>"; };
+		182CACF01E49E8CA000CE59F /* UMShareTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMShareTools.m; sourceTree = "<group>"; };
+		182CACF31E49E9F1000CE59F /* UMAnalyticsTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMAnalyticsTools.h; sourceTree = "<group>"; };
+		182CACF41E49E9F1000CE59F /* UMAnalyticsTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMAnalyticsTools.m; sourceTree = "<group>"; };
+		182CACF71E49EBBA000CE59F /* UMessageTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessageTools.h; sourceTree = "<group>"; };
+		182CACF81E49EBBA000CE59F /* UMessageTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMessageTools.m; sourceTree = "<group>"; };
 		18328CF51E3F09840080C79D /* TopicListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicListController.h; sourceTree = "<group>"; };
 		18328CF61E3F09840080C79D /* TopicListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicListController.m; sourceTree = "<group>"; };
 		18328CFB1E3F09840080C79D /* YWTopicListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTopicListView.h; sourceTree = "<group>"; };
@@ -898,6 +907,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		182CACEE1E49E8B3000CE59F /* UMShareTools */ = {
+			isa = PBXGroup;
+			children = (
+				182CACEF1E49E8CA000CE59F /* UMShareTools.h */,
+				182CACF01E49E8CA000CE59F /* UMShareTools.m */,
+			);
+			path = UMShareTools;
+			sourceTree = "<group>";
+		};
+		182CACF21E49E9E6000CE59F /* UMAnalyticsTools */ = {
+			isa = PBXGroup;
+			children = (
+				182CACF31E49E9F1000CE59F /* UMAnalyticsTools.h */,
+				182CACF41E49E9F1000CE59F /* UMAnalyticsTools.m */,
+			);
+			name = UMAnalyticsTools;
+			path = UMengAnalyticsTools;
+			sourceTree = "<group>";
+		};
+		182CACF61E49EBAC000CE59F /* UMessageTools */ = {
+			isa = PBXGroup;
+			children = (
+				182CACF71E49EBBA000CE59F /* UMessageTools.h */,
+				182CACF81E49EBBA000CE59F /* UMessageTools.m */,
+			);
+			path = UMessageTools;
+			sourceTree = "<group>";
+		};
 		18328CF31E3F09840080C79D /* TopicList */ = {
 			isa = PBXGroup;
 			children = (
@@ -956,6 +993,9 @@
 		1870DC541E1FC352008767A5 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				182CACF61E49EBAC000CE59F /* UMessageTools */,
+				182CACF21E49E9E6000CE59F /* UMAnalyticsTools */,
+				182CACEE1E49E8B3000CE59F /* UMShareTools */,
 				18B155841E46E71100E355D0 /* RongCloudTools */,
 				1870DC871E1FCC89008767A5 /* QiNiuTools */,
 				1870DC7D1E1FC692008767A5 /* NetworkTools */,
@@ -2703,6 +2743,7 @@
 				18F4C7A71E4849DE00BA3F43 /* UIImage+CMWebP.m in Sources */,
 				18F3630B1E1FB19A0077D3CC /* UIImage+Orientation.m in Sources */,
 				1870DC921E1FCC89008767A5 /* YWQiNiuUploadHelper.m in Sources */,
+				182CACF51E49E9F1000CE59F /* UMAnalyticsTools.m in Sources */,
 				18A075891E3E20B100C4159D /* NewTopicController.m in Sources */,
 				18A0758B1E3E20B100C4159D /* TopicItemController.m in Sources */,
 				18F4C7A11E4849DE00BA3F43 /* CMSDWebImagePrefetcher.m in Sources */,
@@ -2721,6 +2762,7 @@
 				18F365011E1FB8940077D3CC /* MessageEntity.m in Sources */,
 				18F4C79E1E4849DE00BA3F43 /* CMSDWebImageDownloader.m in Sources */,
 				18F363071E1FB19A0077D3CC /* UIBarButtonItem+Left.m in Sources */,
+				182CACF11E49E8CA000CE59F /* UMShareTools.m in Sources */,
 				CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */,
 				1871DD2C1E41B17E00C6BF30 /* YWDetailTableViewCell.m in Sources */,
 				18F4C7DA1E4854B200BA3F43 /* UMShareMenuSelectionView.m in Sources */,
@@ -2842,6 +2884,7 @@
 				18A075CC1E3E236500C4159D /* FieldEntity.m in Sources */,
 				18F3639F1E1FB87A0077D3CC /* RegisterController.m in Sources */,
 				18A075D91E3E236500C4159D /* YWSubjectViewCell.m in Sources */,
+				182CACF91E49EBBA000CE59F /* UMessageTools.m in Sources */,
 				18F3636E1E1FB64F0077D3CC /* YWMiddleViewOfFour.m in Sources */,
 				1870DC911E1FCC89008767A5 /* YWAvatarBrowserHelper.m in Sources */,
 				18F363641E1FB64F0077D3CC /* YWGalleryCellOfThree.m in Sources */,

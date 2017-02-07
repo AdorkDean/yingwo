@@ -16,6 +16,8 @@ typedef void(^RongCloudReturnError)(id rongCloudReturnError);
 
 @interface RongCloudTools : NSObject
 
++ (void)initCustomConfigurationIn:(id)controller;
+
 + (void)initRongCloudWithAppKey:(NSString *)key
                           token:(NSString *)token
                         success:(RongCloudReturnValue)success

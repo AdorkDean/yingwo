@@ -36,14 +36,13 @@
             
             @strongify(self);
             
-            [self requestReplyWithUrl:requestEntity.URLString
-                           parameter:requestEntity.parameter
-                              success:^(NSArray *tieZi) {
+            [self requestReplyWithRequest:requestEntity
+                                  success:^(NSArray *tieZi) {
                                   
-                                  [subscriber sendNext:tieZi];
-                                  [subscriber sendCompleted];
+                                      [subscriber sendNext:tieZi];
+                                      [subscriber sendCompleted];
                                   
-                              } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                              } failure:^(id error) {
                                   [subscriber sendError:error];
                               }];
             return nil;
@@ -260,167 +259,42 @@
           }];
 }
 
-- (void)requestReplyWithUrl:(NSString *)url
-                 parameter:(NSDictionary *)parameter
-                    success:(void (^)(NSArray *tieZi))success
-                    failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:parameter
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content      = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                               options:NSJSONReadingMutableContainers
-                                                                                 error:nil];
-                  StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-                  NSLog(@"reply:%@",content);
-                  //没有评论直接返回nil
-                  if (statusEntity.info.count == 0) {
-                      success(nil) ;
-                  }
-                  
-                  //保存跟贴数据对象TieZiReply
-                  NSMutableArray *replyArr        = [[NSMutableArray alloc] init];
-                  //计数
-                  __block NSUInteger currentIndex = 0;
-                  
-                  //单例实现多线程下载，这里不能用for循环实现，否则会出现数据混乱现象，即使最后排序也没用！！！
-                  DetailViewModelHepler *loadHepler  = [DetailViewModelHepler shareInstance];
-                  __weak typeof(loadHepler) weakself = loadHepler;
-                  
-                  weakself.singleSuccessBlock = ^(NSArray *commentArr){
-                      
-                      TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
-                      
-                      replyEntity.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:replyEntity.img];
 
-                      
-                      currentIndex ++ ;
-                      
-                      replyEntity.commentArr        = [commentArr mutableCopy];
-                      
-                      [replyArr addObject:replyEntity];
-                      
-                      if (currentIndex == statusEntity.info.count) {
-                          success(replyArr);
-                      }
-                      else
-                      {
-                          //currentIndex已经++
-                          TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[currentIndex]];
-                          
-                          NSDictionary *parameter      = @{@"post_reply_id":@(replyEntity.reply_id)};
+- (void)requestReplyWithRequest:(RequestEntity *)request
+                        success:(void (^)(NSArray *tieZi))success
+                        failure:(void (^)(id error))failure {
+    
+    [YWRequestTool YWRequestCachedPOSTWithRequest:request
+                                     successBlock:^(id content) {
+        
+                                         StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
+                                         //没有评论直接返回nil
+                                         if (statusEntity.info.count == 0) {
+                                             success(nil) ;
+                                         }
+                                        
+                                         NSMutableArray *commentArr = [[NSMutableArray alloc] init];
+                                         NSMutableArray *replyList = [[NSMutableArray alloc] init];
 
-                          
-                          [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                              parameter:parameter
-                                                 success:weakself.singleSuccessBlock
-                                                 failure:weakself.singleFailureBlock];
-                      }
-                  };
-                  
-                  if (statusEntity.info.count > 0) {
-                      
-                      TieZiReply *replyEntity       = [TieZiReply mj_objectWithKeyValues:statusEntity.info[0]];
-                      //获取图片链接
-                      replyEntity.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:replyEntity.img];
-                      NSDictionary *parameter      = @{@"post_reply_id":@(replyEntity.reply_id)};
-                      
-                      [self requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                          parameter:parameter
-                                             success:weakself.singleSuccessBlock
-                                             failure:weakself.singleFailureBlock];
-                      
-                  }
-                  
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"回帖失败");
-              failure(task,error);
-          }];
-}
-
-- (void)requestForCommentWithUrl:(NSString *)url
-                      parameter:(NSDictionary *)parameter
-
-                         success:(void (^)(NSArray *commentArr))success
-                         failure:(void (^)(NSString *error))failure {
-    
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:parameter
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content      = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                               options:NSJSONReadingMutableContainers
-                                                                                 error:nil];
-                  StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-                  NSMutableArray *commentArr = [[NSMutableArray alloc] init];
-                  
-                  //  NSLog(@"commentList:%@",content);
-                  //回复字典转模型
-                  for (NSDictionary *comment in statusEntity.info) {
-                      TieZiComment *commentEntity = [TieZiComment mj_objectWithKeyValues:comment];
-                      [commentArr addObject:commentEntity];
-                  }
-                  
-                  //   NSLog(@"commentArr.count:%lu",commentArr.count);
-                  success(commentArr);
-              }
-              
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"评论获取失败");
-          }];
-    
-}
-
-- (void)postCommentWithUrl:(NSString *)url
-                parameter:(NSDictionary *)parameter
-                   success:(void (^)(StatusEntity *status))success
-                   failure:(void (^)(NSString *error))failure {
-    
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:parameter
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content      = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                               options:NSJSONReadingMutableContainers
-                                                                                 error:nil];
-                  StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-                  
-                  NSLog(@"postcomment:%@",content);
-                  
-                  success(statusEntity);
-              }
-              
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"评论失败");
-          }];
+                                         for (NSDictionary *reply in statusEntity.info) {
+                                             
+                                             TieZiReply *replyModel = [TieZiReply mj_objectWithKeyValues:reply];
+                                             
+                                             for (NSDictionary *comment in replyModel.commentArr) {
+                                                 
+                                                 TieZiComment *commentEntity = [TieZiComment mj_objectWithKeyValues:comment];
+                                                 [commentArr addObject:commentEntity];
+                                             }
+                                             replyModel.commentArr = commentArr;
+                                             [replyList addObject:replyModel];
+                                         }
+                                         
+                                         success(replyList);
+                                         
+ 
+    } errorBlock:^(id error) {
+        failure(error);
+    }];
     
 }
 
@@ -429,27 +303,16 @@
                    success:(void (^)(StatusEntity *statusEntity))success
                    failure:(void (^)(NSString *error))failure{
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:parameter
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                          options:NSJSONReadingMutableContainers
-                                                                            error:nil];
-                  StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
-                  success(entity);
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
-          }];
+    [YWRequestTool YWRequestPOSTWithURL:url
+                              parameter:parameter
+                           successBlock:^(id content) {
+                               
+                               StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                               success(entity);
+        
+    } errorBlock:^(id error) {
+        
+    }];
 }
 
 - (void)deleteCommentWithUrl:(NSString *)url
@@ -457,27 +320,16 @@
                      success:(void (^)(StatusEntity *statusEntity))success
                      failure:(void (^)(NSString *error))failure{
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:parameter
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                          options:NSJSONReadingMutableContainers
-                                                                            error:nil];
-                  StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
-                  success(entity);
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
-          }];
+    [YWRequestTool YWRequestPOSTWithURL:url
+                              parameter:parameter
+                           successBlock:^(id content) {
+                               
+                               StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                               success(entity);
+                               
+                           } errorBlock:^(id error) {
+                               
+                           }];
 }
 
 //网页分享

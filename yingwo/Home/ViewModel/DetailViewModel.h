@@ -89,10 +89,10 @@ typedef void(^ReplyLikeFailureBlock)(id likeFailureBlock);
  *  @param success    成功返回所有回帖
  *  @param failure    失败
  */
-- (void)requestReplyWithUrl:(NSString *)url
-                 parameter:(NSDictionary *)parameter
+- (void)requestReplyRequest:(RequestEntity *)request
+                  parameter:(NSDictionary *)parameter
                     success:(void (^)(NSArray *tieZi))success
-                    failure:(void (^)(NSURLSessionDataTask *,NSError *))failure;
+                    failure:(void (^)(id error))failure;
 
 
 /**

@@ -67,21 +67,6 @@ typedef void(^LikeFailureBlock)(id likeFailureBlock);
 
 
 /**
- *  跟帖点赞请求
- *
- *  @param url        /Post/reply_like
- *  @param parameter reply_id（帖子ID）、value（	0为取消喜欢 1为喜欢）
- *  @param success    成功回调StatusEntity
- *  @param failure    失败
- */
-- (void)postReplyTieZiLikeWithUrl:(NSString *)url
-                       parameter:(NSDictionary *)parameter
-                          success:(SuccessBlock) success
-                          failure:(ErrorBlock) failure;
-
-
-
-/**
  删帖
 
  @param request 请求模型
@@ -96,13 +81,6 @@ typedef void(^LikeFailureBlock)(id likeFailureBlock);
  *  @param parameter post_id（帖子ID）、value（	0为取消喜欢 1为喜欢）
  */
 - (void)requestForLikeTieZiWithRequest:(RequestEntity *)request;
-
-
-//请求登录状态
-- (void)requestForLoginStatusWithUrl:(NSString *)url
-                          parameter:(NSDictionary *)parameter
-                             success:(SuccessBlock) success
-                             failure:(ErrorBlock) failure;
 
 /**
  *  本地保存点赞记录

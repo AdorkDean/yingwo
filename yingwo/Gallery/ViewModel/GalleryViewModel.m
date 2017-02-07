@@ -66,7 +66,7 @@
                                   [subscriber sendNext:tieZi];
                                   [subscriber sendCompleted];
                                   
-                              } error:^(NSURLSessionDataTask *task, NSError *error) {
+                              } error:^(id error) {
                                   [subscriber sendError:error];
                               }];
             
@@ -170,7 +170,7 @@
 - (void)requestTieZiWithUrl:(NSString *)url
                   parameter:(id)parameter
                     success:(void (^)(NSArray *))success
-                      error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+                      error:(void (^)(id error))failure {
 
     [YWRequestTool YWRequestCachedPOSTWithURL:url
                                     parameter:parameter
@@ -190,7 +190,7 @@
     } errorBlock:^(id error) {
         
         NSLog(@"error:%@",error);
-
+        failure(error);
     }];
     
 }

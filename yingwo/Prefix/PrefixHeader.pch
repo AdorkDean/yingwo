@@ -81,6 +81,9 @@
 #import "YWNetworkTools.h"
 #import "YWHTTPManager.h"
 #import "RongCloudTools.h"
+#import "UMShareTools.h"
+#import "UMAnalyticsTools.h"
+#import "UMessageTools.h"
 
 //catagory
 #import "UIView+Frame.h"

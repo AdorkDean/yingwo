@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RequestEntity.h"
 
-typedef void(^SuccessBlock)(id success);
+typedef void(^SuccessBlock)(id content);
 typedef void(^ErrorBlock)(id error);
 
 @interface BaseViewModel : NSObject

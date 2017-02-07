@@ -464,9 +464,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.title = [NSString stringWithFormat:@"%d楼",self.model.floor];
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
-    
-    [self.replyView.messageField becomeFirstResponder];
-    
+        
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
