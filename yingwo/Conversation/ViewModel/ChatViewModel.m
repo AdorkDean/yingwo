@@ -42,7 +42,7 @@
                                     [self requestForRongCloudLoginWithToken:token];
                                     
     } rongCloudTokenError:^(id rongCloudError) {
-        
+        self.tokenFailureBlock(rongCloudError);
     }];
     
 }
@@ -57,7 +57,7 @@
                                         
                                         
     } failure:^(id rongCloudReturnError) {
-        
+        self.tokenFailureBlock(rongCloudReturnError);
     }];
     
 }

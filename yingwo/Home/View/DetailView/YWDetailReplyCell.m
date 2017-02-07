@@ -168,10 +168,10 @@
     
     UIView *lastView;
     
-    NSInteger count = commentArr.count > 1 ? 1 : commentArr.count;
+    NSInteger count = commentArr.count > 3 ? 3 : commentArr.count;
     
     UIButton *moreBtn;
-    if (commentArr.count > 1) {
+    if (commentArr.count > 3) {
         
         moreBtn                 = [UIButton buttonWithType:UIButtonTypeCustom];
         moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];

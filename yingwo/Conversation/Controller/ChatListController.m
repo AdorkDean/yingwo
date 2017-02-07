@@ -30,11 +30,10 @@
     WeakSelf(self);
     [self.viewModel setTokenSuccessBlock:^(NSString *userId) {
         
-        
         [weakself initConversation];
         
     } tokenFailureBlock:^(id tokenFailureBlock) {
-        
+        [weakself initConversation];
     }];
     
 }
@@ -64,6 +63,9 @@
     
 
     [self initDataSource];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
 }
 
 //重写RCConversationListViewController的onSelectedTableRow事件

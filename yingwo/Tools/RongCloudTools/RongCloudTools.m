@@ -12,6 +12,16 @@
 
 @implementation RongCloudTools
 
++ (void)initCustomConfigurationIn:(id)controller {
+    
+    [[RCIM sharedRCIM] setUserInfoDataSource:controller];
+    
+    [[RCIM sharedRCIM] setGroupInfoDataSource:controller];
+    [[RCIM sharedRCIM] clearUserInfoCache];
+    
+    [RCIM sharedRCIM].enablePersistentUserInfoCache = controller;
+}
+
 + (void)initRongCloudWithAppKey:(NSString *)key
                           token:(NSString *)token
                         success:(RongCloudReturnValue)success
@@ -38,6 +48,7 @@
         //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
         //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
         NSLog(@"token错误");
+        failure(@"token错误");
     }];
 
 }
@@ -86,7 +97,7 @@
              // NSLog(@"responseObject:%@",content);
               
     } failure:^(NSURLSessionDataTask * task, NSError * error) {
-        
+        rongCloudTokenError(@"请求失败token获取失败");
     }];
     /*
     [TERequestTool TERequestPOSTWithURL:URLString

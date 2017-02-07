@@ -11,7 +11,7 @@
 @implementation TieZiReply
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"reply_id":@"id"};
+    return @{@"reply_id":@"id",@"commentArr":@"comment_list"};
 }
 
 

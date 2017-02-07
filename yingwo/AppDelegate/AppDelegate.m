@@ -37,110 +37,36 @@
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"yingwoDatabase.sqlite"];
     
-    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    //初始化融云
+    [RongCloudTools initCustomConfigurationIn:self];
     
-    [[RCIM sharedRCIM] setGroupInfoDataSource:self];
-    [[RCIM sharedRCIM] clearUserInfoCache];
-
-  //  [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
-  //  [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
-
+    /**
+     *  友盟分享配置项
+     */
+    [UMShareTools initUMShareConfiguration];
     
-    [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
-    [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
-
-    UIStoryboard *storyboard                                      = [UIStoryboard storyboardWithName:@"Main"
-                                                                                              bundle:nil];
-    MainNavController *mainNav ;
+    /**
+     *  友盟统计与崩溃
+     */
+    [UMAnalyticsTools initUMengAnalyticsConfiguration];
     
     /**
      *  友盟推送配置项
      */
     //设置 AppKey 及 LaunchOptions
-    [UMessage startWithAppkey:@"57f8af24e0f55a291700280b"
-                launchOptions:launchOptions];
-    //注册通知
-    [UMessage registerForRemoteNotifications];
+    [UMessageTools initUMessageConfigurationWithLaunchOptions:launchOptions];
+    
+    //初始化UIApplication
+    [self initCustomAppDelegate];
+
+    //初始化main controller
+    [self initLoadingController];
+
     //iOS10必须加下面这段代码。
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate                  = self;
-    UNAuthorizationOptions types10   = UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
-    
-    [center requestAuthorizationWithOptions:types10
-                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                              if (granted) {
-                                  //点击允许
-                                  
-                              } else {
-                                  //点击不允许
-                                  
-                              }
-                          }];
-    
-    [UMessage setLogEnabled:YES];
-    [UMessage setBadgeClear:YES];
-    
-    /**
-     *  友盟分享配置项
-     */
-    //打开调试日志
-   // [[UMSocialManager defaultManager] openLog:YES];
-    
-    //设置友盟appkey
-    [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f8af24e0f55a291700280b"];
-    
-    // 获取友盟social版本号
-    //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
-    
-    //设置微信的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxa5620512b44a6653" appSecret:@"2075207f2ec67ebea6dff904c35d3bdb" redirectURL:@"http://mobile.umeng.com/social"];
-    
-    //设置分享到QQ互联的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105350566"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
-    
-    //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"wb590675358"  appSecret:@"95e7a907eebbad3cf575561a3f69d8c7" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-    
-    //移除微信收藏选项
-    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
-    
-    //添加自定义选项
-//    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
-//    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_Line];
-//    
-    /**
-     *  友盟统计与崩溃
-     */
-    
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [MobClick setAppVersion:version];
-    UMConfigInstance.appKey = @"57f8af24e0f55a291700280b";
-    UMConfigInstance.channelId = @"App Store";
-    [MobClick startWithConfigure:UMConfigInstance];
-    
-    Customer *user = [User findCustomer];
-    //发送用户统计信息
-    if (user.name != nil) {
-        [MobClick profileSignInWithPUID:user.name];
-    }
-    
-    //如果有帐号，则直接登录
-    if ([User haveExistedLoginInformation] && [user.register_status intValue] == 1) {
-        
-        MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
-        self.window.rootViewController = mainVC;
+    [self letIOS10RemoteNotification];
 
-    }else {
-        UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginController *loginVC       = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
-        mainNav                        = [[MainNavController alloc] initWithRootViewController:loginVC];
-        self.window.rootViewController = mainNav;
+    
 
-    }
-    
-    [self.window makeKeyAndVisible];
-    
-//
     return YES;
 }
 
@@ -406,7 +332,59 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 }
 
 
+#pragma mark private method
 
+- (void)initCustomAppDelegate {
+    
+    [UIApplication sharedApplication].statusBarStyle              = UIStatusBarStyleLightContent;
+    [[UIApplication sharedApplication] keyWindow].backgroundColor = [UIColor whiteColor];
+    
+}
+
+- (void)initLoadingController {
+    
+    
+    UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main"
+                                                               bundle:nil];
+    MainNavController *mainNav ;
+
+    Customer *user                 = [User findCustomer];
+
+    //如果有帐号，则直接登录
+    if ([User haveExistedLoginInformation] && [user.register_status intValue] == 1) {
+
+    MainController *mainVC         = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
+    self.window.rootViewController = mainVC;
+
+    }else {
+    UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginController *loginVC       = [storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_LOGINVC_IDENTIFIER];
+    mainNav                        = [[MainNavController alloc] initWithRootViewController:loginVC];
+        self.window.rootViewController = mainNav;
+        
+    }
+    
+    [self.window makeKeyAndVisible];
+
+}
+
+-(void)letIOS10RemoteNotification {
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate                  = self;
+    UNAuthorizationOptions types10   = UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
+    
+    [center requestAuthorizationWithOptions:types10
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              if (granted) {
+                                  //点击允许
+                                  
+                              } else {
+                                  //点击不允许
+                                  
+                              }
+                          }];
+}
 
 #pragma mark - Core Data stack
 

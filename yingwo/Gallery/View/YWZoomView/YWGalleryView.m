@@ -262,34 +262,43 @@
 
 - (void)resizeImageViewByzoomScrollView:(YWZoomScrollView *)zoomScrollView atIndex:(NSInteger)index{
   
-    
-    NSString *imageURL  = [self.imagesItem.URLArr objectAtIndex:index];
-    UIImage *smallImage = zoomScrollView.imageView.image;
-    
-    
-    [SVProgressHUD showLoadingWithNoMask];
-    
-    [zoomScrollView.imageView sd_setImageWithURL:[NSURL URLWithString:imageURL]
-                                placeholderImage:smallImage
-                                         options:SDWebImageRetryFailed
-                                        progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                
-                                            [SVProgressHUD showLoadingWithNoMask];
-
+    if ([YWNetworkTools networkStauts] == NO) {
+        
+        UIImageView *smallImageView = self.imagesItem.imageViewArr[index];
+        [zoomScrollView resizeImageViewWithImage:smallImageView.image];
     }
-                                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                           
-                                           [SVProgressHUD dismiss];
-                                           [zoomScrollView resizeImageViewWithImage:image];
-                                           
-                                           if (zoomScrollView.zoomScale != 1) {
-                                               [zoomScrollView setZoomScale:1.0];
-                                           }
+    else
+    {
+        NSString *imageURL  = [self.imagesItem.URLArr objectAtIndex:index];
+        UIImage *smallImage = zoomScrollView.imageView.image;
+        
+        
+        [SVProgressHUD showLoadingWithNoMask];
+        
+        [zoomScrollView.imageView sd_setImageWithURL:[NSURL URLWithString:imageURL]
+                                    placeholderImage:smallImage
+                                             options:SDWebImageRetryFailed
+                                            progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                                
+                                                [SVProgressHUD showLoadingWithNoMask];
+                                                
+                                            }
+                                           completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                               
+                                               [SVProgressHUD dismiss];
+                                               [zoomScrollView resizeImageViewWithImage:image];
+                                               
+                                               if (zoomScrollView.zoomScale != 1) {
+                                                   [zoomScrollView setZoomScale:1.0];
+                                               }
+                                               
+                                           }];
+    }
 
-    }];
     
     
 }
+
 
 
 
