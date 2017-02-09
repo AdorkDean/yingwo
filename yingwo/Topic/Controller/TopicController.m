@@ -192,7 +192,7 @@ static int start_id = 0;
     if (_requestEntity  == nil) {
         _requestEntity            = [[RequestEntity alloc] init];
         //贴子请求url
-        _requestEntity.URLString = TIEZI_URL;
+        _requestEntity.URLString = TOPIC_DETAIL_URL;
         //请求的事新鲜事
         _requestEntity.topic_id   = self.topic_id;
         //偏移量开始为0
@@ -329,17 +329,21 @@ static int start_id = 0;
 
 - (void)loadTopicInfoWith:(int)topicId {
     
-    NSDictionary *paramters = @{@"topic_id":@(topicId)};
-    
-    [self.viewModel requestTopicDetailInfoWithUrl:TOPIC_DETAIL_URL
-                                       paramaters:paramters
-                                          success:^(TopicEntity * topic){
-                                              self.topicEntity = topic;
-                                              [self fillTopicHeaderViewWith:topic];
-                                              
-    } error:^(NSURLSessionDataTask * task, NSError *error) {
+    WeakSelf(self);
+    [self.viewModel setTopicDetailSuccess:^(TopicEntity * topic) {
+        
+        weakself.topicEntity = topic;
+        [weakself fillTopicHeaderViewWith:topic];
+        
+    } failure:^(id topicDetailfailure) {
         
     }];
+    
+    RequestEntity *request = [[RequestEntity alloc] init];
+    request.URLString      = TOPIC_DETAIL_URL;
+    request.parameter      = @{@"topic_id":@(topicId)};
+    
+    [self.viewModel requestForTopicDetailWithRequest:request];
     
 }
 
@@ -630,40 +634,46 @@ static int start_id = 0;
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     [SVProgressHUD showWithStatus:@""];
     
-    NSDictionary *paramater = @{@"topic_id":@(self.topic_id),@"value":@1};
+
+    WeakSelf(self);
+    [self.viewModel setTopicLikeSuccess:^(StatusEntity *status) {
+        
+        
+        if (status.status == YES) {
+            
+            [sender setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
+                              forState:UIControlStateNormal];
+            
+            //先移除之前已经添加的action，再添加新的action
+            [sender removeTarget:weakself
+                          action:@selector(addLike:)
+                forControlEvents:UIControlEventTouchUpInside];
+            [sender addTarget:weakself
+                       action:@selector(cancelLike:)
+             forControlEvents:UIControlEventTouchUpInside];
+            
+            [SVProgressHUD showSuccessStatus:@"关注成功" afterDelay:HUD_DELAY];
+            //显示的话题数+1
+            weakself.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[weakself.topicEntity.like_cnt intValue] + 1];
+            weakself.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[weakself.topicEntity.like_cnt intValue] + 1];
+            
+        }
+        else
+        {
+            [SVProgressHUD showErrorStatus:@"关注失败" afterDelay:HUD_DELAY];
+        }
+        
+        
+    } failure:^(id topicLikeFailure) {
+        
+        [SVProgressHUD showErrorStatus:@"关注失败" afterDelay:HUD_DELAY];
+
+    }];
     
-    [self.viewModel requestTopicLikeWithUrl:TOPIC_LIKE_URL
-                                 paramaters:paramater
-                                    success:^(StatusEntity *status) {
-                              
-                              if (status.status == YES) {
-                                  
-                                  [sender setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
-                                                    forState:UIControlStateNormal];
-                                  
-                                  //先移除之前已经添加的action，再添加新的action
-                                  [sender removeTarget:self
-                                                action:@selector(addLike:)
-                                      forControlEvents:UIControlEventTouchUpInside];
-                                  [sender addTarget:self
-                                             action:@selector(cancelLike:)
-                                   forControlEvents:UIControlEventTouchUpInside];
-                                  
-                                  [SVProgressHUD showSuccessStatus:@"关注成功" afterDelay:HUD_DELAY];
-                                  //显示的话题数+1
-                                  self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[self.topicEntity.like_cnt intValue] + 1];
-                                  self.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[self.topicEntity.like_cnt intValue] + 1];
-                                  
-                              }
-                              else
-                              {
-                                  [SVProgressHUD showErrorStatus:@"关注失败" afterDelay:HUD_DELAY];
-                              }
-                          } failure:^(NSString *error) {
-                              
-                              [SVProgressHUD showErrorStatus:@"关注失败" afterDelay:HUD_DELAY];
-                              
-                          }];
+    RequestEntity *request = [[RequestEntity alloc] init];
+    request.URLString      = TOPIC_LIKE_URL;
+    request.parameter      = @{@"topic_id":@(self.topic_id),@"value":@1};
+    [self.viewModel requestForTopicLikeWithRequest:request];
     
     
 }
@@ -674,45 +684,49 @@ static int start_id = 0;
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     [SVProgressHUD showWithStatus:@""];
     
-    NSDictionary *paramater = @{@"topic_id":@(self.topic_id),@"value":@0};
+
+    WeakSelf(self);
+    [self.viewModel setTopicLikeSuccess:^(StatusEntity *status) {
+        
+        
+        if (status.status == YES) {
+            
+            [sender setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
+                              forState:UIControlStateNormal];
+            
+            //先移除之前已经添加的action，在添加新的action
+            [sender removeTarget:weakself
+                          action:@selector(cancelLike:)
+                forControlEvents:UIControlEventTouchUpInside];
+            
+            [sender addTarget:weakself
+                       action:@selector(addLike:)
+             forControlEvents:UIControlEventTouchUpInside];
+            
+            [SVProgressHUD showSuccessStatus:@"取消关注" afterDelay:HUD_DELAY];
+            
+            //显示的话题数-1
+            weakself.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[weakself.topicEntity.like_cnt intValue] - 1];
+            weakself.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[self.topicEntity.like_cnt intValue] - 1];
+            
+            
+        }
+        else
+        {
+            [SVProgressHUD showErrorStatus:@"取消关注失败" afterDelay:HUD_DELAY];
+            
+        }
+        
+    } failure:^(id topicLikeFailure) {
+        
+    }];
+
+    RequestEntity *request = [[RequestEntity alloc] init];
+    request.URLString      = TOPIC_LIKE_URL;
+    request.parameter      = @{@"topic_id":@(self.topic_id),
+                               @"value":@0};
+    [self.viewModel requestForTopicLikeWithRequest:request];
     
-    [self.viewModel requestTopicLikeWithUrl:TOPIC_LIKE_URL
-                                 paramaters:paramater
-                                    success:^(StatusEntity *status) {
-                              
-                              if (status.status == YES) {
-                                  
-                                  [sender setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
-                                                    forState:UIControlStateNormal];
-                                  
-                                  //先移除之前已经添加的action，在添加新的action
-                                  [sender removeTarget:self
-                                                action:@selector(cancelLike:)
-                                      forControlEvents:UIControlEventTouchUpInside];
-                                  
-                                  [sender addTarget:self
-                                             action:@selector(addLike:)
-                                   forControlEvents:UIControlEventTouchUpInside];
-                                  
-                                  [SVProgressHUD showSuccessStatus:@"取消关注" afterDelay:HUD_DELAY];
-                                  
-                                  //显示的话题数-1
-                                  self.topicHeaderView.numberOfFavour.text = [NSString stringWithFormat:@"| %d关注",[self.topicEntity.like_cnt intValue] - 1];
-                                  self.topicEntity.like_cnt = [NSString stringWithFormat:@"%d",[self.topicEntity.like_cnt intValue] - 1];
-                                  
-                                  
-                              }
-                              else
-                              {
-                                  [SVProgressHUD showErrorStatus:@"取消关注失败" afterDelay:HUD_DELAY];
-                                  
-                              }
-                          } failure:^(NSString *error) {
-                              
-                              [SVProgressHUD showErrorStatus:@"取消关注失败" afterDelay:HUD_DELAY];
-                              
-                              
-                          }];
     
 }
 

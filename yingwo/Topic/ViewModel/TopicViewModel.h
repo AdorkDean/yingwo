@@ -13,10 +13,28 @@
 #import "TopicResult.h"
 #import "TopicEntity.h"
 
+typedef void(^TopicDetailSuccess)(id topicDetailSuccess);
+typedef void(^TopicDetailFailure)(id topicDetailfailure);
+
+typedef void(^TopicLikeSuccess)(id topicLikeSuccess);
+typedef void(^TopicLikeFailure)(id topicLikeFailure);
+
 @interface TopicViewModel : GalleryViewModel
 
-@property (nonatomic, strong) TieZi *model;
+@property (nonatomic, strong) TopicDetailSuccess topicDetailSuccess;
+@property (nonatomic, strong) TopicDetailFailure topicDetailFailure;
 
+@property (nonatomic, strong) TopicLikeSuccess   topicLikeSuccess;
+@property (nonatomic, strong) TopicLikeFailure   topicLikeFailure;
+
+
+@property (nonatomic, strong) TieZi              *model;
+
+- (void)setTopicDetailSuccess:(TopicDetailSuccess)topicDetailSuccess
+                      failure:(TopicDetailFailure)failure;
+
+- (void)setTopicLikeSuccess:(TopicLikeSuccess)topicLikeSuccess
+                    failure:(TopicLikeFailure)faliure;
 
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath;
 
@@ -28,21 +46,10 @@
  *  @param success    返回TopicEntity
  *  @param failure    失败
  */
-- (void)requestTopicDetailInfoWithUrl:(NSString *)url
-                           paramaters:(id)paramaters
-                              success:(void (^)(TopicEntity *topic))success
-                                error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
+- (void)requestForTopicDetailWithRequest:(RequestEntity *)request;
 
+- (void)requestForTopicLikeWithRequest:(RequestEntity *)request;
 
-- (void)requestTopicWithUrl:(NSString *)url
-                 paramaters:(id)paramaters
-                    success:(void (^)(NSArray *))success
-                      error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
-
-- (void)requestTopicLikeWithUrl:(NSString *)url
-                     paramaters:(NSDictionary *)paramaters
-                        success:(void (^)(StatusEntity *status))success
-                        failure:(void (^)(NSString *error))failure;
 //分享文本
 - (void)shareTextToPlatformType:(UMSocialPlatformType)platformType withModel:(TopicEntity *)topicEntity;
 //分享网页

@@ -10,6 +10,18 @@
 
 @implementation TopicViewModel
 
+- (void)setTopicDetailSuccess:(TopicDetailSuccess)topicDetailSuccess
+                      failure:(TopicDetailFailure)failure {
+    _topicDetailSuccess = topicDetailSuccess;
+    _topicDetailFailure = failure;
+    
+}
+- (void)setTopicLikeSuccess:(TopicLikeSuccess)topicLikeSuccess
+                    failure:(TopicLikeFailure)faliure {
+    _topicLikeSuccess = topicLikeSuccess;
+    _topicLikeFailure     = faliure;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -38,26 +50,20 @@
             @strongify(self);
             RequestEntity *requestEntity = (RequestEntity *)input;
             
-            NSDictionary *paramaters = nil;
-        
             if (requestEntity.sort != nil) {
                 
-                paramaters = @{@"topic_id":@(requestEntity.topic_id),
-                               @"start_id":@(requestEntity.start_id),
-                               @"page":@(requestEntity.page),
-                               @"sort":requestEntity.sort};
+                requestEntity.parameter = @{@"topic_id":@(requestEntity.topic_id),
+                                            @"start_id":@(requestEntity.start_id),
+                                            @"page":@(requestEntity.page),
+                                            @"sort":requestEntity.sort};
             }
             else
             {
-                paramaters = @{@"topic_id":@(requestEntity.topic_id),
-                               @"start_id":@(requestEntity.start_id)};
+                requestEntity.parameter = @{@"topic_id":@(requestEntity.topic_id),
+                                            @"start_id":@(requestEntity.start_id)};
             }
             
-            if (![requestEntity.URLString isEqualToString: TOPIC_DETAIL_URL]) {
-                
-                
-                [self requestTopicWithUrl:requestEntity.URLString
-                               paramaters:paramaters
+            [self requestTopicWithRequest:requestEntity
                                   success:^(NSArray *tieZi) {
                                       
                                       [subscriber sendNext:tieZi];
@@ -67,7 +73,6 @@
                                       [subscriber sendError:error];
                                   }];
 
-            }
             
             return nil;
         }];
@@ -75,116 +80,58 @@
     
 }
 
-
-- (void)requestTopicDetailInfoWithUrl:(NSString *)url
-                           paramaters:(id)paramaters
-                              success:(void (^)(TopicEntity *topic))success
-                                error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+- (void)requestForTopicDetailWithRequest:(RequestEntity *)request {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                      options:NSJSONReadingMutableContainers
-                                                                        error:nil];
-              
-              
-              TopicResult *topicDetail = [TopicResult mj_objectWithKeyValues:content];
-              TopicEntity *topic       = [TopicEntity mj_objectWithKeyValues:topicDetail.info];
-              
-              success(topic);
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
-              NSLog(@"topic detail error:%@",error);
-              failure(task,error);
-              
-          }];
-
+    [YWRequestTool YWRequestCachedPOSTWithRequest:request
+                                     successBlock:^(id content) {
+                                         
+                                         TopicResult *topicDetail = [TopicResult mj_objectWithKeyValues:content];
+                                         TopicEntity *topic       = [TopicEntity mj_objectWithKeyValues:topicDetail.info];
+                                         
+                                         self.topicDetailSuccess(topic);
+   
+        
+    } errorBlock:^(id error) {
+        self.topicDetailFailure(error);
+    }];
     
 }
 
-- (void)requestTopicWithUrl:(NSString *)url
-                 paramaters:(id)paramaters
-                    success:(void (^)(NSArray *))success
-                      error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+
+- (void)requestTopicWithRequest:(RequestEntity *)request
+                        success:(void (^)(NSArray *))success
+                          error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                      options:NSJSONReadingMutableContainers
-                                                                        error:nil];
-              
-              
-              TieZiResult *tieZiResult = [TieZiResult mj_objectWithKeyValues:content];
-              
-              NSArray *tieZiArr        = [TieZi mj_objectArrayWithKeyValuesArray:tieZiResult.info];
-              
-              
-              NSLog(@"tieZiArr:%@",tieZiResult.info);
-              
-              //需要将返回的url字符串，转化为imageUrl数组
-              [self changeImageUrlModelFor:tieZiArr];
-              
-              success(tieZiArr);
-              
-              //  NSLog(@"content:%@",content);
-              //  NSLog(@"tieZiArr:%@",tieZiResult.info);
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
-              NSLog(@"error:%@",error);
-              failure(task,error);
-              
-          }];
+    [YWRequestTool YWRequestCachedPOSTWithRequest:request
+                                     successBlock:^(id content) {
+                                         
+                                         TieZiResult *tieZiResult = [TieZiResult mj_objectWithKeyValues:content];
+                                         
+                                         NSArray *tieZiArr        = [TieZi mj_objectArrayWithKeyValuesArray:tieZiResult.info];
+                                         
+                                         
+                                         //需要将返回的url字符串，转化为imageUrl数组
+                                         [self changeImageUrlModelFor:tieZiArr];
+                                         
+                                         success(tieZiArr);
+        
+    } errorBlock:^(id error) {
+        
+    }];
     
 }
 
-- (void)requestTopicLikeWithUrl:(NSString *)url
-                     paramaters:(NSDictionary *)paramaters
-                        success:(void (^)(StatusEntity *status))success
-                        failure:(void (^)(NSString *error))failure{
+- (void)requestForTopicLikeWithRequest:(RequestEntity *)request {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content   = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                            options:NSJSONReadingMutableContainers
-                                                                              error:nil];
-                  StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
-                  
-                  success(entity);
-              }
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              failure(@"网络错误");
-          }];
+    [YWRequestTool YWRequestCachedPOSTWithRequest:request
+                                     successBlock:^(id content) {
+                                         
+                                         StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
+                                         
+                                         self.topicLikeSuccess(entity);
+    } errorBlock:^(id error) {
+        self.topicLikeFailure(error);
+    }];
 }
 
 //网页分享
@@ -278,7 +225,8 @@
 - (void)changeImageUrlModelFor:(NSArray *)tieZiArr {
     
     for (TieZi *tie in tieZiArr) {
-     //   tie.imageUrlArrEntity = [NSString separateImageViewURLString:tie.img];
+        tie.imageURLArr       = [NSString separateImageViewURLString:tie.img];
+        tie.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:tie.img];
         
     }
     

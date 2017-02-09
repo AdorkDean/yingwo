@@ -48,18 +48,6 @@ typedef void(^ReplyLikeFailureBlock)(id likeFailureBlock);
 - (void)setLikeSuccessBlock:(ReplyLikeTieZiBlock)likeSuccessBlock
            likeFailureBlock:(ReplyLikeFailureBlock)likeFailureBlock;
 
-/**
- *  请求原贴
- *
- *  @param url        Post/detail
- *  @param parameter post_id
- *  @param success    success description
- *  @param failure    failure description
- */
-- (void)requestDetailWithUrl:(NSString *)url
-                  parameter:(NSDictionary *)parameter
-                     success:(void (^)(TieZi *tieZi))success
-                     failure:(void (^)(NSString *error))failure;
 
 /**
  *  初始化cell
@@ -80,20 +68,6 @@ typedef void(^ReplyLikeFailureBlock)(id likeFailureBlock);
  *  @return 返回id
  */
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath model:(TieZi *)model;
-
-/**
- *  请求回帖
- *
- *  @param url        /Post/reply_list
- *  @param parameter post_id 和 page
- *  @param success    成功返回所有回帖
- *  @param failure    失败
- */
-- (void)requestReplyRequest:(RequestEntity *)request
-                  parameter:(NSDictionary *)parameter
-                    success:(void (^)(NSArray *tieZi))success
-                    failure:(void (^)(id error))failure;
-
 
 /**
  *  发表评论
@@ -134,6 +108,7 @@ typedef void(^ReplyLikeFailureBlock)(id likeFailureBlock);
                 parameter:(NSDictionary *)parameter
                    success:(void (^)(StatusEntity *statusEntity))success
                    failure:(void (^)(NSString *error))failure;
+
 
 /**
  *  删除回帖评论

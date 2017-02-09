@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1803C1201D541F350078EF0F /* AssetsLibrary.framework */; };
 		180DB1351D421B38007786A0 /* MainNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DB1341D421B38007786A0 /* MainNavController.m */; };
+		181826671E4C406D00779294 /* MyCommentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181826661E4C406D00779294 /* MyCommentViewModel.m */; };
 		181E34211D93E3F800A6283C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 181E341F1D93E3F800A6283C /* Podfile */; };
 		181E34221D93E3F800A6283C /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 181E34201D93E3F800A6283C /* Podfile.lock */; };
 		182CACF11E49E8CA000CE59F /* UMShareTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CACF01E49E8CA000CE59F /* UMShareTools.m */; };
@@ -307,6 +308,8 @@
 		1803C1201D541F350078EF0F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		180DB1331D421B38007786A0 /* MainNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainNavController.h; path = Main/Controller/MainNavController.h; sourceTree = "<group>"; };
 		180DB1341D421B38007786A0 /* MainNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainNavController.m; path = Main/Controller/MainNavController.m; sourceTree = "<group>"; };
+		181826651E4C406D00779294 /* MyCommentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommentViewModel.h; sourceTree = "<group>"; };
+		181826661E4C406D00779294 /* MyCommentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommentViewModel.m; sourceTree = "<group>"; };
 		181E341F1D93E3F800A6283C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		181E34201D93E3F800A6283C /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		182CACEF1E49E8CA000CE59F /* UMShareTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMShareTools.h; sourceTree = "<group>"; };
@@ -2064,6 +2067,8 @@
 				18F364AE1E1FB8940077D3CC /* RelationViewModel.m */,
 				18328D0A1E3F62DC0080C79D /* MyTopicViewModel.h */,
 				18328D0B1E3F62DC0080C79D /* MyTopicViewModel.m */,
+				181826651E4C406D00779294 /* MyCommentViewModel.h */,
+				181826661E4C406D00779294 /* MyCommentViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2824,6 +2829,7 @@
 				18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */,
 				18F364B91E1FB8940077D3CC /* ResetPasswordController.m in Sources */,
 				1870DC901E1FCC89008767A5 /* YWAvatarBrowser.m in Sources */,
+				181826671E4C406D00779294 /* MyCommentViewModel.m in Sources */,
 				18F4C7DC1E4854B200BA3F43 /* UMSocialUIManager.m in Sources */,
 				18F4C7AA1E4849DE00BA3F43 /* UIView+CMWebCacheOperation.m in Sources */,
 				18F4C79B1E4849DE00BA3F43 /* CMSDImageCache.m in Sources */,

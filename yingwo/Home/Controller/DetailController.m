@@ -607,22 +607,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.detailTableView.frame = self.view.bounds;
 }
 
-//- (void)loadTieziDetail {
-//    NSDictionary *parameter = @{@"post_id":@(self.push_post_id)};
-//
-//    //必须要加载cookie，否则无法请求
-//    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-//    /*
-//    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
-//                             parameters:parameter
-//                                success:^(TieZi *tieZi) {
-//                                    
-//                                    self.model = tieZi;
-//                                    
-//    }                           failure:^(NSString *error) {
-//        
-//    }];*/
-//}
 /**
  *  下拉刷新
  */
@@ -664,8 +648,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                 if (self.tieZiReplyArr.count == 1) {
                     
                     [self.tieZiReplyArr addObjectsFromArray:tieZiList];
-               //     NSLog(@"tieZiList.count:%lu",(unsigned long)tieZiList.count);
-                 //   NSLog(@"self.tieZiReplyArr.count:%lu",(unsigned long)self.tieZiReplyArr.count);
                 }
                 else {
                     [self.tieZiReplyArr removeAllObjects];

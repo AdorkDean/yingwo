@@ -64,7 +64,7 @@ static NSString *replyCellIdentifier = @"replyCell";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate        = self;
         _tableView.dataSource      = self;
-        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 40, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 80, 0);
         //  _tableView.fd_debugLogEnabled = YES;
         [_tableView registerClass:[YWReplyCell class] forCellReuseIdentifier:replyCellIdentifier];
         

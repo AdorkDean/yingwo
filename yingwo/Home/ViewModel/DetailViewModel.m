@@ -220,45 +220,6 @@
     }
 }
 
-- (void)requestDetailWithUrl:(NSString *)url
-                  parameter:(NSDictionary *)parameter
-                     success:(void (^)(TieZi *tieZi))success
-                     failure:(void (^)(NSString *error))failure {
-    
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:parameter
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSDictionary *content      = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                               options:NSJSONReadingMutableContainers
-                                                                                 error:nil];
-                  NSLog(@"detail:%@",content);
-                  TieZi *TieZiDetail         = [TieZi mj_objectWithKeyValues:content[@"info"]];
-                  
-                  //图片实体
-                 // TieZiDetail.imageUrlArrEntity = [NSString separateImageViewURLString:TieZiDetail.img];
-                  
-                  success(TieZiDetail);
-              }
-              else
-              {
-                  NSLog(@"原帖获取失败");
-              }
-              
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"获取失败");
-          }];
-}
-
 - (void)requestReplyWithRequest:(RequestEntity *)request
                         success:(void (^)(NSArray *tieZi))success
                         failure:(void (^)(id error))failure {
@@ -267,20 +228,21 @@
                                      successBlock:^(id content) {
         
                                          StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-                                         //没有评论直接返回nil
-                                         if (statusEntity.info.count == 0) {
-                                             success(nil) ;
-                                         }
+    
                                         
-                                         NSMutableArray *commentArr = [[NSMutableArray alloc] init];
                                          NSMutableArray *replyList = [[NSMutableArray alloc] init];
 
                                          for (NSDictionary *reply in statusEntity.info) {
                                              
                                              TieZiReply *replyModel = [TieZiReply mj_objectWithKeyValues:reply];
                                              
+                                             replyModel.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:replyModel.img];
+                                             
+                                             NSMutableArray *commentArr = [[NSMutableArray alloc] init];
+
                                              for (NSDictionary *comment in replyModel.commentArr) {
                                                  
+
                                                  TieZiComment *commentEntity = [TieZiComment mj_objectWithKeyValues:comment];
                                                  [commentArr addObject:commentEntity];
                                              }
@@ -508,5 +470,15 @@
     
     return NO;
 }
+
+- (void)changeImageUrlModelFor:(NSArray *)tieZiArr {
+    
+    for (TieZi *tie in tieZiArr) {
+        tie.imageURLArr       = [NSString separateImageViewURLString:tie.img];
+        tie.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:tie.img];
+    }
+    
+}
+
 
 @end
