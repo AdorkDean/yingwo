@@ -17,8 +17,6 @@
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
 
-@property (nonatomic, strong) NSMutableArray    *tieZiList;
-
 @end
 
 @implementation HomeController

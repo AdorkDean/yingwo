@@ -28,27 +28,43 @@ typedef NS_ENUM(NSInteger,ReloadModel) {
 typedef void(^ReplyLikeTieZiBlock)(id likeSuccessBlock);
 typedef void(^ReplyLikeFailureBlock)(id likeFailureBlock);
 
+typedef void(^CommentReplySuccessBlock)(id commentReplySuccessBlock);
+typedef void(^CommentReplyFailureBlock)(id commentReplyFailureBlock);
+
+typedef void(^CommentListSuccessBlock)(id commentListSuccessBlock);
+typedef void(^CommentListFailureBlock)(id commentListFailureBlock);
 
 /**
  *  DetailViewController 的ViewModel
  */
 @interface DetailViewModel : BaseViewModel
 
-@property (nonatomic, strong) ReplyLikeTieZiBlock   likeSuccessBlock;
-@property (nonatomic, strong) ReplyLikeFailureBlock likeFailureBlock;
+@property (nonatomic, strong) ReplyLikeTieZiBlock      likeSuccessBlock;
+@property (nonatomic, strong) ReplyLikeFailureBlock    likeFailureBlock;
 
-@property (nonatomic, strong) GalleryViewModel      *tieZiViewModel;
+@property (nonatomic, strong) CommentReplySuccessBlock commentReplySuccessBlock;
+@property (nonatomic, strong) CommentReplyFailureBlock commentReplyFailureBlock;
 
-@property (nonatomic, strong) RACCommand            *fetchDetailEntityCommand;
+@property (nonatomic, strong) CommentListSuccessBlock  commentListSuccessBlock;
+@property (nonatomic, strong) CommentListFailureBlock  commentListFailureBlock;
+
+
+@property (nonatomic, strong) GalleryViewModel         *tieZiViewModel;
+
+@property (nonatomic, strong) RACCommand               *fetchDetailEntityCommand;
 //楼主的user_id
-@property (nonatomic, assign) NSInteger             master_id;
+@property (nonatomic, assign) NSInteger                master_id;
 
 @property (nonatomic, strong) NSMutableArray *imageUrlEntity;
 
 - (void)setLikeSuccessBlock:(ReplyLikeTieZiBlock)likeSuccessBlock
            likeFailureBlock:(ReplyLikeFailureBlock)likeFailureBlock;
 
+- (void)setCommentReplySuccessBlock:(CommentReplySuccessBlock)commentReplySuccessBlock
+                            failure:(CommentReplyFailureBlock)commentReplyFailureBlock;
 
+- (void)setCommentListSuccessBlock:(CommentListSuccessBlock)commentListSuccessBlock
+                           failure:(CommentListFailureBlock)commentListFailureBlock;
 /**
  *  初始化cell
  *
@@ -69,32 +85,30 @@ typedef void(^ReplyLikeFailureBlock)(id likeFailureBlock);
  */
 - (NSString *)idForRowByIndexPath:(NSIndexPath *)indexPath model:(TieZi *)model;
 
+
+/**
+ 获取回复
+
+ @param request parameter replyId
+ */
+- (void)requestReplyWithRequest:(RequestEntity *)request
+                        success:(void (^)(NSArray *tieZi))success
+                        failure:(void (^)(id error))failure;
+
 /**
  *  发表评论
  *
  *  @param url        发表评论的url
  *  @param parameter 参数四个post_reply_id、post_comment_id、post_comment_user_id、content
- *  @param success    成功
- *  @param failure    失败
  */
-- (void)postCommentWithUrl:(NSString *)url
-                parameter:(NSDictionary *)parameter
-                   success:(void (^)(StatusEntity *status))success
-                   failure:(void (^)(NSString *error))failure;
+- (void)postCommentWithRequest:(RequestEntity *)request;
 
 /**
- *  获取每一个跟贴的评论
- *
- *  @param url        获取评论的url
- *  @param parameter 两个参数：post_reply_id，page
- *  @param success    成功
- *  @param failure    失败
- */
-- (void)requestForCommentWithUrl:(NSString *)url
-                      parameter:(NSDictionary *)parameter
-                         success:(void (^)(NSArray *commentArr))success
-                         failure:(void (^)(NSString *error))failure;
+ 请求评论，用于发表评论时刷新评论
 
+ @param request  两个参数：post_reply_id，page
+ */
+- (void)requestCommentWithRequest:(RequestEntity *)request;
 
 /**
  *  删除回帖

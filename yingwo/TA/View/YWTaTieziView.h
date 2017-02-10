@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GalleryViewModel.h"
+#import "GalleryController.h"
 @interface YWTaTieziView : UIView
 
-@property (nonatomic, strong) UITableView             *homeTableview;
+@property (nonatomic, strong) GalleryController        *gallerVc;
 
-@property (nonatomic, strong) GalleryViewModel          *viewModel;
-@property (nonatomic, strong) NSMutableArray          *rowHeightArr;
+@property (nonatomic, strong) NSMutableArray           *rowHeightArr;
+
+- (void)addSomeTieZiWith:(NSMutableArray *)tieZiArr;
 
 @end

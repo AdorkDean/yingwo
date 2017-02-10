@@ -13,6 +13,7 @@
 
 @interface TaViewModel : NSObject
 
+@property (nonatomic, assign) int userId;
 
 /**
  *  获取TA的详细资料

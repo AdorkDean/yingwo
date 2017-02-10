@@ -155,12 +155,15 @@
     
 }
 
-- (void)singleTapEnlarge:(UITapGestureRecognizer *)sender {
+- (void)singleTapEnlarge:(UITapGestureRecognizer *)gesture {
     
-    if ([self.delegate respondsToSelector:@selector(didSeletedImageView:)]) {
-        [self.delegate didSeletedImageView:(UIImageView *)sender.view];
-        
-    }
+    
+    UIImageView *imageView = (UIImageView *)gesture.view;
+    
+    [self convertImageViewArr];
+    
+    self.imageTapBlock(imageView,self.imagesItem);
+    
 }
 
 //添加评论
@@ -313,6 +316,31 @@
 }
 #pragma mark private
 
+- (void)convertImageViewArr {
+    
+    [self.imagesItem.imageViewArr removeAllObjects];
+    
+    [self.imagesItem.URLArr enumerateObjectsUsingBlock:^(UIImageView *obj,
+                                                         NSUInteger idx,
+                                                         BOOL * stop) {
+        
+        //保存imageView在cell上的位置
+        UIImageView *oldImageView = [self viewWithTag:idx+1];
+        
+        //oldImageView有可能是空的，只是个占位imageView
+        if (oldImageView.image == nil) {
+            return;
+        }
+        UIImageView *newImageView = [[UIImageView alloc] init];
+        newImageView.image        = oldImageView.image;
+        newImageView.tag          = oldImageView.tag;
+        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame
+                                                                 toView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
+        [self.imagesItem.imageViewArr addObject:newImageView];
+    }];
+}
+
+
 - (void)comment:(UITapGestureRecognizer *)sender{
     
     YWCommentView *tapView = (YWCommentView *)[sender view];
@@ -443,6 +471,7 @@
     }
     
 }
+
 
 @end
 

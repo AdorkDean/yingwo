@@ -156,6 +156,8 @@
 //淡隐去除
 - (void)removeImageViewWithLightHidden {
     
+    [SVProgressHUD dismiss];
+    
     [UIView animateWithDuration:0.3
                      animations:^{
                          

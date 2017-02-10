@@ -26,7 +26,7 @@
 @property (nonatomic, strong) YWTaTopicView             *taTopicView;
 @property (nonatomic, strong) YWTaTieziView             *taTieziView;
 @property (nonatomic, strong) YWTaFollowView            *taFollowView;
-@property (nonatomic, strong) YWGalleryView               *galleryView;
+@property (nonatomic, strong) YWGalleryView             *galleryView;
 
 @property (nonatomic, strong) TaViewModel               *viewModel;
 @property (nonatomic, strong) TaEntity                  *taEntity;
@@ -93,7 +93,6 @@ static CGFloat HeadViewHeight = 250;
         _taTieziView.backgroundColor        = [UIColor whiteColor];
         _taTieziView.layer.masksToBounds    = YES;
         _taTieziView.layer.cornerRadius     = 5;
-        _taTieziView.viewModel.user_id      = self.ta_id;
     }
     return _taTieziView;
 }
@@ -114,6 +113,7 @@ static CGFloat HeadViewHeight = 250;
 -(TaViewModel *)viewModel {
     if (_viewModel == nil) {
         _viewModel = [[TaViewModel alloc] init];
+        _viewModel.userId = self.ta_id;
     }
     return _viewModel;
 }
