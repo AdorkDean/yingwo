@@ -16,11 +16,16 @@
 @protocol YWDetailTabeleViewDelegate;
 @protocol YWCommentViewDelegate;
 
+typedef void(^AvatarImageTapBlock)(UIImageView *imageView,ImageViewItem *imagesItem);
+
 @interface YWDetailBaseTableViewCell : UITableViewCell
 
 //YWDetailTableViewCell members
 @property (nonatomic, strong ) YWDetailTopView            *topView;
 @property (nonatomic, strong ) YWDetailMasterView         *masterView;
+@property (nonatomic, strong ) AvatarImageTapBlock        imageTapBlock;
+@property (nonatomic, strong ) ImageViewItem              *imagesItem;
+
 //图片容器
 @property (nonatomic, strong ) UIView                     *bgImageView;
 //评论容器
@@ -48,9 +53,6 @@
 @end
 
 @protocol YWDetailTabeleViewDelegate <NSObject>
-
-//点击图片查看
-- (void)didSeletedImageView:(UIImageView *)seletedImageView;
 
 - (void)didSelectCommentView:(YWCommentView *)commentView;
 

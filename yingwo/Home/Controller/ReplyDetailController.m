@@ -64,7 +64,7 @@ static NSString *replyCellIdentifier = @"replyCell";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate        = self;
         _tableView.dataSource      = self;
-        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 40, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(0, 0, 80, 0);
         //  _tableView.fd_debugLogEnabled = YES;
         [_tableView registerClass:[YWReplyCell class] forCellReuseIdentifier:replyCellIdentifier];
         
@@ -1032,19 +1032,27 @@ static NSString *replyCellIdentifier = @"replyCell";
  */
 - (void)commentTieZi {
     
+    
+    WeakSelf(self);
+    [self.viewModel setCommentReplySuccessBlock:^(StatusEntity *status) {
+        
+        if (status.status == YES) {
+            [weakself hiddenKeyboard];
+            [weakself addCommentOnReplyTieZi];
+        }
+        
+    } failure:^(id commentReplyFailureBlock) {
+        
+    }];
+    
     self.commetparameter[@"content"] = self.commentView.messageTextView.text;
     
-    [self.viewModel postCommentWithUrl:TIEZI_COMMENT_URL
-                             parameter:self.commetparameter
-                               success:^(StatusEntity *status) {
-                                   
-                                   if (status.status == YES) {
-                                       [self hiddenKeyboard];
-                                       [self addCommentOnReplyTieZi];
-                                   }
-                               } failure:^(NSString *error) {
-                                   
-                               }];
+    RequestEntity *request           = [[RequestEntity alloc] init];
+    request.URLString                = TIEZI_COMMENT_URL;
+    request.parameter                = self.commetparameter;
+    
+    [self.viewModel postCommentWithRequest:request];
+    
     
 }
 
@@ -1058,24 +1066,29 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:indexPath.row];
     
-    NSDictionary *parameter = @{@"post_reply_id":@(replyEntity.reply_id)};
+    WeakSelf(self);
+    [self.viewModel setCommentReplySuccessBlock:^(NSArray *commentArr) {
+        
+        
+        [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
+        
+        replyEntity.commentArr = [commentArr mutableCopy];
+        //替换新的评论
+        [weakself.tieZiReplyArr replaceObjectAtIndex:indexPath.row
+                                          withObject:replyEntity];
+        //更新cell，更新评论
+        [weakself.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
+                                        withRowAnimation:UITableViewRowAnimationNone];
+        
+    } failure:^(id commentReplyFailureBlock) {
+        
+    }];
     
-    [self.viewModel requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                   parameter:parameter
-                                     success:^(NSArray *commentArr) {
-                                         [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
-                                         
-                                         replyEntity.commentArr = [commentArr mutableCopy];
-                                         //替换新的评论
-                                         [self.tieZiReplyArr replaceObjectAtIndex:indexPath.row
-                                                                       withObject:replyEntity];
-                                         //更新cell，更新评论
-                                         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
-                                                                     withRowAnimation:UITableViewRowAnimationNone];
-                                     } failure:^(NSString *error) {
-                                         
-                                     }];
+    RequestEntity *request           = [[RequestEntity alloc] init];
+    request.URLString                = TIEZI_COMMENT_LIST_URL;
+    request.parameter                = @{@"post_reply_id":@(replyEntity.reply_id)};
     
+    [self.viewModel requestCommentWithRequest:request];
     
 }
 

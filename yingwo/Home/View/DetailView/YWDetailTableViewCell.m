@@ -79,14 +79,15 @@
         imageView.tag                     = i+1;
         imageView.userInteractionEnabled  = YES;
         imageView.contentMode             = UIViewContentModeScaleAspectFit;
-
+        
 
         //添加单击放大事件
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapEnlarge:)];
         singleTap.numberOfTouchesRequired = 1;
         singleTap.numberOfTapsRequired    = 1;
-        [imageView addGestureRecognizer:singleTap];
         
+        [imageView addGestureRecognizer:singleTap];
+                
         imageView.mas_key                 = [NSString stringWithFormat:@"DetailImageView%d:",i+1];
     
         [self.bgImageView addSubview:imageView];
@@ -122,23 +123,40 @@
     
 }
 
-- (void)singleTapEnlarge:(UITapGestureRecognizer *)sender {
+- (void)singleTapEnlarge:(UITapGestureRecognizer *)gesture {
     
-    if ([self.delegate respondsToSelector:@selector(didSeletedImageView:)]) {
-        [self.delegate didSeletedImageView:(UIImageView *)sender.view];
+    UIImageView *imageView = (UIImageView *)gesture.view;
 
-    }
+    [self convertImageViewArr];
+    
+    self.imageTapBlock(imageView,self.imagesItem);
+    
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
+#pragma mark private method
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)convertImageViewArr {
+    
+    [self.imagesItem.imageViewArr removeAllObjects];
+    
+    [self.imagesItem.URLArr enumerateObjectsUsingBlock:^(UIImageView *obj,
+                                                         NSUInteger idx,
+                                                         BOOL * stop) {
+        
+        //保存imageView在cell上的位置
+        UIImageView *oldImageView = [self viewWithTag:idx+1];
+        
+        //oldImageView有可能是空的，只是个占位imageView
+        if (oldImageView.image == nil) {
+            return;
+        }
+        UIImageView *newImageView = [[UIImageView alloc] init];
+        newImageView.image        = oldImageView.image;
+        newImageView.tag          = oldImageView.tag;
+        newImageView.frame        = [oldImageView.superview convertRect:oldImageView.frame
+                                                                 toView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
+        [self.imagesItem.imageViewArr addObject:newImageView];
+    }];
 }
 
 @end

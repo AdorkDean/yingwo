@@ -22,6 +22,6 @@
 @property (nonatomic, assign) int             item_id;
 
 
-- (void)weatherPush;
+//- (void)weatherPush;
 
 @end

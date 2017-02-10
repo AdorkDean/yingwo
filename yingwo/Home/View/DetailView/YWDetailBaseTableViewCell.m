@@ -10,6 +10,13 @@
 
 @implementation YWDetailBaseTableViewCell
 
+- (ImageViewItem *)imagesItem {
+    if (_imagesItem == nil) {
+        _imagesItem = [[ImageViewItem alloc] init];
+    }
+    return _imagesItem;
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier {
     

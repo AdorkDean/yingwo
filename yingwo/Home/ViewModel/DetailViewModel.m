@@ -28,6 +28,19 @@
     
 }
 
+- (void)setCommentReplySuccessBlock:(CommentReplySuccessBlock)commentReplySuccessBlock
+                            failure:(CommentReplyFailureBlock)commentReplyFailureBlock {
+    _commentReplySuccessBlock = commentReplySuccessBlock;
+    _commentReplyFailureBlock = commentReplyFailureBlock;
+}
+
+
+- (void)setCommentListSuccessBlock:(CommentListSuccessBlock)commentListSuccessBlock
+                           failure:(CommentListFailureBlock)commentListFailureBlock {
+    _commentListSuccessBlock = commentListSuccessBlock;
+    _commentListFailureBlock = commentListFailureBlock;
+}
+
 - (void)setupRACComand {
     
     @weakify(self);
@@ -112,6 +125,8 @@
     }else {
         cell.topView.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
     }
+    
+    cell.imagesItem.URLArr = model.imageURLArr;
     
     if (model.imageUrlEntityArr.count > 0) {
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlEntityArr];
@@ -198,6 +213,8 @@
         cell.bottomView.favour.isSpringReply = NO;
     }
     
+    cell.imagesItem.URLArr = model.imageURLArr;
+
     //加载跟帖图片
     if (model.imageUrlEntityArr.count > 0) {
         
@@ -220,6 +237,7 @@
     }
 }
 
+<<<<<<< HEAD
 - (void)requestDetailWithUrl:(NSString *)url
                   parameter:(NSDictionary *)parameter
                      success:(void (^)(TieZi *tieZi))success
@@ -260,6 +278,8 @@
 }
 
 
+=======
+>>>>>>> Developing
 - (void)requestReplyWithRequest:(RequestEntity *)request
                         success:(void (^)(NSArray *tieZi))success
                         failure:(void (^)(id error))failure {
@@ -268,26 +288,14 @@
                                      successBlock:^(id content) {
         
                                          StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-                                         //没有评论直接返回nil
-                                         if (statusEntity.info.count == 0) {
-                                             success(nil) ;
-                                         }
+    
                                         
-                                         NSMutableArray *commentArr = [[NSMutableArray alloc] init];
                                          NSMutableArray *replyList = [[NSMutableArray alloc] init];
 
-                                         for (NSDictionary *reply in statusEntity.info) {
-                                             
-                                             TieZiReply *replyModel = [TieZiReply mj_objectWithKeyValues:reply];
-                                             
-                                             for (NSDictionary *comment in replyModel.commentArr) {
-                                                 
-                                                 TieZiComment *commentEntity = [TieZiComment mj_objectWithKeyValues:comment];
-                                                 [commentArr addObject:commentEntity];
-                                             }
-                                             replyModel.commentArr = commentArr;
-                                             [replyList addObject:replyModel];
-                                         }
+                                         //字典转模型
+                                         [self changeReplyDicArr:statusEntity.info toModelArr:replyList];
+                                         //URL转模型
+                                         [self changeImageUrlModelFor:replyList];
                                          
                                          success(replyList);
                                          
@@ -455,6 +463,43 @@
                            }];
     
 }
+
+- (void)postCommentWithRequest:(RequestEntity *)request {
+    
+    [YWRequestTool YWRequestPOSTWithRequest:request
+                               successBlock:^(id content) {
+                                   
+                                   StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
+                                   
+                                   self.commentReplySuccessBlock(statusEntity);
+        
+    } errorBlock:^(id error) {
+        self.commentReplyFailureBlock(error);
+    }];
+    
+}
+
+- (void)requestCommentWithRequest:(RequestEntity *)request {
+    
+    [YWRequestTool YWRequestPOSTWithRequest:request
+                               successBlock:^(id content) {
+                                   
+                                   StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
+                                   NSMutableArray *commentArr = [[NSMutableArray alloc] init];
+                                   
+                                   //回复字典转模型
+                                   for (NSDictionary *comment in statusEntity.info) {
+                                       TieZiComment *commentEntity = [TieZiComment mj_objectWithKeyValues:comment];
+                                       [commentArr addObject:commentEntity];
+                                   }
+                                   
+                                   self.commentListSuccessBlock(commentArr);
+
+                               } errorBlock:^(id error) {
+                                   self.commentListFailureBlock(error);
+                               }];
+}
+
 //保存跟帖点赞记录
 - (void)saveLikeCookieWithReplyId:(NSNumber *) replyId {
     
@@ -509,5 +554,34 @@
     
     return NO;
 }
+
+- (void)changeReplyDicArr:(NSArray *)relpyList toModelArr:(NSMutableArray *)modelArr {
+    
+    for (NSDictionary *reply in relpyList) {
+        
+        TieZiReply *replyModel = [TieZiReply mj_objectWithKeyValues:reply];
+        
+        NSMutableArray *commentArr = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *comment in replyModel.commentArr) {
+            
+            
+            TieZiComment *commentEntity = [TieZiComment mj_objectWithKeyValues:comment];
+            [commentArr addObject:commentEntity];
+        }
+        replyModel.commentArr = commentArr;
+        [modelArr addObject:replyModel];
+    }
+}
+
+- (void)changeImageUrlModelFor:(NSArray *)tieZiArr {
+    
+    for (TieZi *tie in tieZiArr) {
+        tie.imageURLArr       = [NSString separateImageViewURLString:tie.img];
+        tie.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:tie.img];
+    }
+    
+}
+
 
 @end

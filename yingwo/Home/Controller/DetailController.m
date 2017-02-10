@@ -610,22 +610,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.detailTableView.frame = self.view.bounds;
 }
 
-//- (void)loadTieziDetail {
-//    NSDictionary *parameter = @{@"post_id":@(self.push_post_id)};
-//
-//    //必须要加载cookie，否则无法请求
-//    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-//    /*
-//    [self.viewModel requestDetailWithUrl:TIEZI_DETAIL
-//                             parameters:parameter
-//                                success:^(TieZi *tieZi) {
-//                                    
-//                                    self.model = tieZi;
-//                                    
-//    }                           failure:^(NSString *error) {
-//        
-//    }];*/
-//}
 /**
  *  下拉刷新
  */
@@ -667,8 +651,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                 if (self.tieZiReplyArr.count == 1) {
                     
                     [self.tieZiReplyArr addObjectsFromArray:tieZiList];
-               //     NSLog(@"tieZiList.count:%lu",(unsigned long)tieZiList.count);
-                 //   NSLog(@"self.tieZiReplyArr.count:%lu",(unsigned long)self.tieZiReplyArr.count);
                 }
                 else {
                     [self.tieZiReplyArr removeAllObjects];
@@ -755,6 +737,21 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                            indexPath:indexPath];
     //图片显示问题，回帖中复用问题
     self.replyModel.imageUrlEntityArr = self.viewModel.imageUrlEntity;
+    
+    //回调block实现点击图片放大
+    cell.imageTapBlock = ^(UIImageView *imageView, ImageViewItem *imagesItem) {
+        
+        if (imageView.tag > imagesItem.URLArr.count) {
+            return ;
+        }
+        YWGalleryView *galleryView  = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        galleryView.backgroundColor = [UIColor blackColor];
+        galleryView.delegate = self;
+        
+        [galleryView setImagesItem:imagesItem showAtIndex:imageView.tag-1];
+        [self.view.window.rootViewController.view addSubview:galleryView];
+    };
+    
     
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
     cell.masterView.delegate        = self;
@@ -1204,19 +1201,26 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
  */
 - (void)commentTieZi {
     
-    self.commetparameter[@"content"] = self.commentView.messageTextView.text;
-    
-    [self.viewModel postCommentWithUrl:TIEZI_COMMENT_URL
-                            parameter:self.commetparameter
-                               success:^(StatusEntity *status) {
+    WeakSelf(self);
+    [self.viewModel setCommentReplySuccessBlock:^(StatusEntity *status) {
         
-                                   if (status.status == YES) {
-                                       [self hiddenKeyboard];
-                                       [self addCommentOnReplyTieZi];
-                                   }
-    } failure:^(NSString *error) {
+        if (status.status == YES) {
+            [weakself hiddenKeyboard];
+            [weakself addCommentOnReplyTieZi];
+        }
+        
+    } failure:^(id commentReplyFailureBlock) {
         
     }];
+    
+    self.commetparameter[@"content"] = self.commentView.messageTextView.text;
+
+    RequestEntity *request           = [[RequestEntity alloc] init];
+    request.URLString                = TIEZI_COMMENT_URL;
+    request.parameter                = self.commetparameter;
+    
+    [self.viewModel postCommentWithRequest:request];
+    
 
 }
 
@@ -1230,23 +1234,29 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:indexPath.row];
     
-    NSDictionary *parameter = @{@"post_reply_id":@(replyEntity.reply_id)};
-    
-    [self.viewModel requestForCommentWithUrl:TIEZI_COMMENT_LIST_URL
-                                  parameter:parameter
-                                     success:^(NSArray *commentArr) {
-                                         [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
-                                         
-                                         replyEntity.commentArr = [commentArr mutableCopy];
-                                         //替换新的评论
-                                         [self.tieZiReplyArr replaceObjectAtIndex:indexPath.row
-                                                                       withObject:replyEntity];
-                                         //更新cell，更新评论
-                                         [self.detailTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
-                                                                     withRowAnimation:UITableViewRowAnimationNone];
-    } failure:^(NSString *error) {
+    WeakSelf(self);
+    [self.viewModel setCommentReplySuccessBlock:^(NSArray *commentArr) {
+        
+        
+        [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
+        
+        replyEntity.commentArr = [commentArr mutableCopy];
+        //替换新的评论
+        [weakself.tieZiReplyArr replaceObjectAtIndex:indexPath.row
+                                      withObject:replyEntity];
+        //更新cell，更新评论
+        [weakself.detailTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
+                                    withRowAnimation:UITableViewRowAnimationNone];
+        
+    } failure:^(id commentReplyFailureBlock) {
         
     }];
+    
+    RequestEntity *request           = [[RequestEntity alloc] init];
+    request.URLString                = TIEZI_COMMENT_LIST_URL;
+    request.parameter                = @{@"post_reply_id":@(replyEntity.reply_id)};
+    
+    [self.viewModel requestCommentWithRequest:request];
 
     
 }

@@ -16,4 +16,5 @@
 - (void)setupModelOfCell:(YWReplyCell *)cell
                    model:(TieZiReply *)model;
 
+
 @end

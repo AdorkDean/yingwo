@@ -81,7 +81,8 @@
         imageView.mas_key = [NSString stringWithFormat:@"imageView%d",i];
         
         //给每个图片添加点击事件
-        UITapGestureRecognizer *tap      = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedImageView:)];
+        UITapGestureRecognizer *tap      = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                   action:@selector(selectedImageView:)];
         imageView.userInteractionEnabled = YES;
         [imageView addGestureRecognizer:tap];
     }
@@ -119,6 +120,7 @@
 }
 
 - (void)selectedImageView:(UIGestureRecognizer *)gesture {
+    
     UIImageView *imageView = (UIImageView *)gesture.view;
     
     [self convertImageViewArr];
@@ -129,12 +131,17 @@
 
 - (void)convertImageViewArr {
     
-    [self.imagesItem.URLArr enumerateObjectsUsingBlock:^(UIImageView *obj, NSUInteger idx, BOOL * stop) {
+    [self.imagesItem.imageViewArr removeAllObjects];
+
+    [self.imagesItem.URLArr enumerateObjectsUsingBlock:^(UIImageView *obj,
+                                                         NSUInteger idx,
+                                                         BOOL * stop) {
         
         //只显示9张图片
         if (idx > 8) {
             return ;
         }
+        
         //保存imageView在cell上的位置
         UIImageView *oldImageView = [self.imagesArr objectAtIndex:idx];
         
