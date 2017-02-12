@@ -11,8 +11,10 @@
 #import "TopicController.h"
 #import "ReplyDetailController.h"
 
+#import "UMSocialUIManager.h"
 
-@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,YWGalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWTitleDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
+
+@interface DetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,YWGalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWTitleDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
 
 @property (nonatomic, strong) UITableView     *detailTableView;
 
@@ -32,9 +34,6 @@
 @property (nonatomic, strong) GalleryViewModel    *homeViewModel;
 
 @property (nonatomic, strong) RequestEntity       *requestEntity;
-@property (nonatomic, strong) TieZiComment        *commentEntity;
-
-@property (nonatomic, strong) YWCommentView       *selectCommentView;
 
 @property (nonatomic, strong) MJRefreshAutoNormalFooter *footer;
 
@@ -43,14 +42,10 @@
 //点击查看用户详情
 @property (nonatomic, assign) int                 tap_ta_id;
 
-@property (nonatomic, assign) CGFloat             navgationBarHeight;
+@property (nonatomic, assign) int                 isMessage;
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
 @property (nonatomic, strong) NSMutableDictionary *commetparameter;
-
-@property (nonatomic,assign ) int                 comment_reply_id;
-
-@property (nonatomic, assign) CGFloat             keyboardHeight;
 
 @end
 
@@ -97,13 +92,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _requestEntity = [[RequestEntity alloc] init];
     }
     return _requestEntity;
-}
-
-- (TieZiComment *)commentEntity {
-    if (_commentEntity == nil) {
-        _commentEntity = [[TieZiComment alloc] init];
-    }
-    return _commentEntity;
 }
 
 - (TieZi *)model {
@@ -415,8 +403,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark Button action
 
 - (void)jumpToHomePage {
-    //隐藏键盘
-    [self hiddenKeyboard];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -442,22 +428,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self presentViewController:mainNav
                        animated:YES
                      completion:nil];
-}
-
-- (void)showShareView {
-    //显示分享面板
-    __weak typeof(self) weakSelf = self;
-    /*
-       [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
-           if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
-               [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.model];
-           }else {
-               //其他平台分享网页
-               [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
-           }
-    }];
-    */
-    
 }
 
 #pragma mark UITextfieldDelegate
@@ -532,22 +502,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    //监听键盘frame改变事件
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillChangeFrame:)
-                                                 name:UIKeyboardWillChangeFrameNotification
-                                               object:nil];
-     //监听键盘消失事件
-     [[NSNotificationCenter defaultCenter] addObserver:self
-                                              selector:@selector(didHiddenKeyboard:)
-                                                  name:UIKeyboardDidHideNotification
-                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(willHiddKeyboard:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
 }
 
 #pragma mark 禁止pop手势
@@ -560,52 +514,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     self.fd_interactivePopDisabled = NO;
 }
 
-
-//键盘弹出后调用
-- (void)keyboardWillChangeFrame:(NSNotification *)note {
-    
-    
-    //获取键盘的frame
-    CGRect endFrame  = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
-    //获取键盘弹出时长
-    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey]floatValue];
-
-    //修改底部视图高度
-    CGFloat bottom   = endFrame.origin.y != SCREEN_HEIGHT ? endFrame.origin.y:0;
-
-    CGFloat originY;
-    
-    if (bottom == 0) {
-        originY = SCREEN_HEIGHT;
-    }
-    else
-    {
-        originY = bottom - self.navgationBarHeight - 44 ;
-
-    }
-    // 约束动画
-    [UIView animateWithDuration:duration
-                     animations:^{
-        
-        self.commentView.frame = CGRectMake(0,
-                                            originY,
-                                            SCREEN_WIDTH,
-                                            45);
-    }];
-    
-}
-
-- (void)didHiddenKeyboard:(NSNotification *) notes{
-    
-    self.commentView = nil;
-
-}
-
-- (void)willHiddKeyboard:(NSNotification *) notes{
-    
-    self.detailTableView.frame = self.view.bounds;
-}
 
 /**
  *  下拉刷新
@@ -784,7 +692,15 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [self hiddenKeyboard];
+    if (indexPath.row > 0) {
+        
+        self.replyModel          = [self.tieZiReplyArr objectAtIndex:indexPath.row];
+        
+        [self performSegueWithIdentifier:@"replyDetail" sender:self];
+        
+    }
+
+
 }
 
 #pragma mark TTTAttributedLabelDelegate
@@ -798,158 +714,24 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 #pragma mark YWDetailTabeleViewDelegate
 
-- (void)didSeletedImageView:(UIImageView *)seletedImageView {
-    
-    [self covertImageView:seletedImageView];
-}
-
 - (void)didSelectCommentView:(YWCommentView *)commentView {
     
-    [self.view addSubview:self.commentView];
-    //评论的评论
-    self.commentType                               = CommentedModel;
-
-    self.selectCommentView                         = commentView;
-
-    //  获取点击的cell
-    self.commentCell                               = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
-    //评论所需参数
-    self.commetparameter[@"post_reply_id"]        = @(commentView.post_reply_id);
-    self.commetparameter[@"post_comment_id"]      = @(commentView.post_comment_id);
-    self.commetparameter[@"post_comment_user_id"] = @(commentView.post_comment_user_id);
-    self.commentView.messageTextView.placeholder   = [NSString stringWithFormat:@"回复 %@:",commentView.user_name];
-
-    [self.commentView.messageTextView becomeFirstResponder];
-    
-    
-    //获取相对self.view的坐标
-    CGRect commentViewFrame = [commentView convertRect:commentView.frame
-                                     toView:self.view];
-    //如果键盘遮挡住了评论的view，需要上移
-    if (commentViewFrame.origin.y > self.commentView.frame.origin.y) {
-        
-        [UIView animateWithDuration:0.3f
-                         animations:^{
-                             
-                             self.detailTableView.frame = CGRectMake(0,
-                                                                     -(SCREEN_HEIGHT-commentViewFrame.origin.y+44),
-                                                                     SCREEN_WIDTH,
-                                                                     SCREEN_HEIGHT);
-                             
-                         }];
- 
-    }
-    
-    
+    YWDetailReplyCell *cell  = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
+    [self didSelectReplyCell:cell];
 }
 
 - (void)didSelectMoreCommentBtnWith:(UIButton *)btn {
     
-    YWDetailTableViewCell *cell = (YWDetailTableViewCell *)btn.superview.superview.superview.superview;
-    NSIndexPath *selectIndex    = [self.detailTableView indexPathForCell:cell];
-    self.replyModel             = [self.tieZiReplyArr objectAtIndex:selectIndex.row];
-    
-    [self performSegueWithIdentifier:@"replyDetail" sender:self];
-}
+    YWDetailReplyCell *cell  = (YWDetailReplyCell *)btn.superview.superview.superview.superview;
+    [self didSelectReplyCell:cell];
 
-/**
- *  坐标转换
- *
- *  @param imageView
- */
-- (void)covertImageView:(UIImageView *)imageView {
-    
-//    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
-    UIImageView *newImageView = [[UIImageView alloc] init];
-    newImageView.frame        = [imageView.superview convertRect:imageView.frame toView:self.view];
-//    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
-    newImageView.image        = imageView.image;
-    newImageView.y            += self.navgationBarHeight;
-    newImageView.tag          = imageView.tag;
-    newImageView.clipsToBounds = YES;
-
-    //
-    if ([imageView.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
-       // [self showImageView:newImageView];
-    }else {
-        [self showReplyImageView:newImageView];
-    }
-    
-    
-}
-/**
- *  展示图片
- *
- *  @param imageView
- */
-/*
-- (void)showImageView:(UIImageView *)imageView {
-    
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
-    
-    ImageViewEntity *lastEntity = [self.model.imageUrlArrEntity lastObject];
-    
-    if (lastEntity.isDownload == YES) {
-        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
-            ImageViewEntity *entity = [self.model.imageUrlArrEntity objectAtIndex:i];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName]];
-            [imageViewArr addObject:imageView];
-        }
-    }else {
-        for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
-            [imageViewArr addObject:imageView];
-        }
-    }
-   
-    [self.galleryView setImageViews:imageViewArr
-              withImageUrlArrEntity:self.model.imageUrlArrEntity
-                        showAtIndex:imageView.tag - 1];
-    
-    [self.navigationController.view addSubview:self.galleryView];
-    
-}
-*/
-/**
-  *  展示回复视图图片
-  *
-  *  @param imageView
-  */
-- (void)showReplyImageView:(UIImageView *)imageView {
-    
-    [self stopSystemPopGestureRecognizer];
-    
-    NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.replyModel.imageUrlEntityArr.count];
-    
-    for (int i = 0; i < self.replyModel.imageUrlEntityArr.count; i++) {
-        [imageViewArr addObject:imageView];
-    }
-    
-//    [self.galleryView setImageViews:imageViewArr
-//              withImageUrlArrEntity:self.replyModel.imageUrlArrEntity
-//                        showAtIndex:imageView.tag - 1];
-//    
-    [self.navigationController.view addSubview:self.galleryView];
-    
 }
 
 
 #pragma mark - GalleryView Delegate
-
-//- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
-//{
-//}
-//
-//- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
-//{
-//    [self.galleryView removeImageView];
-//}
-//
-//- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-//    self.galleryView = nil;
-//    
-//    //开启滑动手势
-//    [self openSystemPopGestureRecognizer];
-//}
+- (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+    galleryView = nil;
+}
 
 #pragma YWSpringButtonDelegate
 
@@ -1050,104 +832,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)didSelectMessageWith:(NSInteger)post_id onSuperview:(UIView *)view{
     
-    [self.view addSubview:self.commentView];
+    self.isMessage = YES;
     
-    self.commentType                        = TieZiCommentModel;
-    
-    self.commetparameter[@"post_reply_id"] = @(post_id);
-
-    //获得被评论的cell
-    self.commentCell                        = (YWDetailReplyCell *)view.superview.superview;
-
-    [self.commentView.messageTextView becomeFirstResponder];
-
-}
-
-#pragma mark YWKeyboardToolViewProtocol
-
-- (void)didSelectedEmoji {
-    
-    [self.commentView.messageTextView becomeFirstResponder];
-        
-    ISEmojiView *emojiView = [[ISEmojiView alloc] initWithTextField:self.commentView.messageTextView
-                                                           delegate:self];
-    
-    self.commentView.messageTextView.internalTextView.inputView = emojiView;
-    [self.commentView.messageTextView.internalTextView reloadInputViews];
-}
-
-- (void)didSelectedKeyboard {
-    
-    [self.commentView.messageTextView becomeFirstResponder];
-    
-    //先去除表情包的所占的inputView，否则弹不出键盘
-    self.commentView.messageTextView.internalTextView.inputView = nil;
-    
-    self.commentView.messageTextView.internalTextView.keyboardType = UIKeyboardTypeDefault;
-    [self.commentView.messageTextView.internalTextView reloadInputViews];
-    
-}
-
-#pragma mark ISEmojiViewDelegate
-
--(void)emojiView:(ISEmojiView *)emojiView didSelectEmoji:(NSString *)emoji{
-    NSRange insertRange = self.commentView.messageTextView.selectedRange;
-    self.commentView.messageTextView.text = [self.commentView.messageTextView.text stringByReplacingCharactersInRange:insertRange withString:emoji];
-    //插入后光标仍在插入后的位置
-    self.commentView.messageTextView.selectedRange = NSMakeRange(insertRange.location + emoji.length, 0);
-
-}
-
--(void)emojiView:(ISEmojiView *)emojiView didPressDeleteButton:(UIButton *)deletebutton{
-    if (self.commentView.messageTextView.text.length > 0) {
-        NSRange lastRange = [self.commentView.messageTextView.text rangeOfComposedCharacterSequenceAtIndex:self.commentView.messageTextView.text.length-1];
-        self.commentView.messageTextView.text = [self.commentView.messageTextView.text substringToIndex:lastRange.location];
-    }
-}
-
-#pragma mark HPGrowingTextViewDelegate
-
-- (BOOL)growingTextViewShouldReturn:(HPGrowingTextView *)growingTextView {
-    
-    //没有内容不让发送
-    if ([Validate validateIsEmpty:self.commentView.messageTextView.text]) {
-    
-        [SVProgressHUD showErrorStatus:@"请填写内容～" afterDelay:HUD_DELAY];
-    }
-    else
-    {
-        [self commentTieZi];
-    }
-    
-    
-    return YES;
-}
-
-#pragma mark HPGrowingTextViewDelegate
-
--(void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height{
-
-//    NSLog(@"growingTextViewheight:%f",growingTextView.height);
-//    NSLog(@"width:%f",height);
-//
-    if (height != 0 && growingTextView.height != 0) {
-        
-        //growingTextView 比height要高1
-        CGFloat diff                           = growingTextView.height+1 - height;
-        
-        //改变growingTextView的高度这里默认为三行高度
-        growingTextView.height                 -= diff;
-        self.commentView.backgroundView.height -= diff;
-        
-        
-        self.commentView.frame                = CGRectMake(0,
-                                                           self.commentView.y+diff,
-                                                           self.commentView.width,
-                                                           self.commentView.height-diff);
-
-    }
-
-    
+    YWDetailReplyCell *cell  = (YWDetailReplyCell *)view.superview.superview;
+    [self didSelectReplyCell:cell];
 }
 
 #pragma mark segue
@@ -1171,6 +859,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         if ([segue.identifier isEqualToString:@"replyDetail"]) {
             ReplyDetailController *replyVc = segue.destinationViewController;
             replyVc.model                  = self.replyModel;
+            replyVc.shouldShowKeyboard     = self.isMessage;
+            self.isMessage                 = NO;
         }
     }
 }
@@ -1190,70 +880,20 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
-#pragma private method
+#pragma mark private method
 
-/**
- *  贴子评论、评论的评论
- */
-- (void)commentTieZi {
-    
+- (void)showShareView {
+    //显示分享面板
     WeakSelf(self);
-    [self.viewModel setCommentReplySuccessBlock:^(StatusEntity *status) {
-        
-        if (status.status == YES) {
-            [weakself hiddenKeyboard];
-            [weakself addCommentOnReplyTieZi];
-        }
-        
-    } failure:^(id commentReplyFailureBlock) {
-        
-    }];
+     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
+     if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
+     [weakself.viewModel shareTextToPlatformType:platformType withModel:self.model];
+     }else {
+     //其他平台分享网页
+     [weakself.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
+     }
+     }];
     
-    self.commetparameter[@"content"] = self.commentView.messageTextView.text;
-
-    RequestEntity *request           = [[RequestEntity alloc] init];
-    request.URLString                = TIEZI_COMMENT_URL;
-    request.parameter                = self.commetparameter;
-    
-    [self.viewModel postCommentWithRequest:request];
-    
-
-}
-
-
-/**
- *  页面上添加评论
- */
-- (void)addCommentOnReplyTieZi {
-    
-    NSIndexPath *indexPath  = [self.detailTableView indexPathForCell:self.commentCell];
-    
-    TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:indexPath.row];
-    
-    WeakSelf(self);
-    [self.viewModel setCommentReplySuccessBlock:^(NSArray *commentArr) {
-        
-        
-        [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
-        
-        replyEntity.commentArr = [commentArr mutableCopy];
-        //替换新的评论
-        [weakself.tieZiReplyArr replaceObjectAtIndex:indexPath.row
-                                      withObject:replyEntity];
-        //更新cell，更新评论
-        [weakself.detailTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
-                                    withRowAnimation:UITableViewRowAnimationNone];
-        
-    } failure:^(id commentReplyFailureBlock) {
-        
-    }];
-    
-    RequestEntity *request           = [[RequestEntity alloc] init];
-    request.URLString                = TIEZI_COMMENT_LIST_URL;
-    request.parameter                = @{@"post_reply_id":@(replyEntity.reply_id)};
-    
-    [self.viewModel requestCommentWithRequest:request];
-
     
 }
 
@@ -1286,15 +926,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 }
 
-#pragma mark 收起键盘
-- (void)hiddenKeyboard {
+- (void)didSelectReplyCell:(YWDetailReplyCell *)replyCell {
     
-    self.commetparameter      = nil;
-    self.selectCommentView     = nil;
-    self.detailTableView.frame = self.view.bounds;
-
-    [self.commentView.messageTextView resignFirstResponder];
-
+    NSIndexPath *selectIndex = [self.detailTableView indexPathForCell:replyCell];
+    self.replyModel          = [self.tieZiReplyArr objectAtIndex:selectIndex.row];
+    
+    [self performSegueWithIdentifier:@"replyDetail" sender:self];
+    
 }
 
 - (void)didReceiveMemoryWarning {

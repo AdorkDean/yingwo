@@ -38,5 +38,8 @@ typedef NS_ENUM(NSInteger, ContentCategory){
 
 @property (nonatomic, strong) NSMutableArray   *tieZiList;
 
+//能否点击话题标签,默认初始化为可点击
+@property (nonatomic, assign) BOOL             shouldClickTitle;
+
 @end
 

@@ -9,13 +9,26 @@
 #import "BaseViewController.h"
 #import "MessageEntity.h"
 #import "SMPagerTabView.h"
+#import "YWCustomerCell.h"
 
 
 @protocol MessageControllerDelegate ;
 
 @interface MessageController : BaseViewController
 
-@property (nonatomic, strong) SMPagerTabView    *messagePgaeView;
+@property (nonatomic, strong) SMPagerTabView *messagePgaeView;
+
+// main tabBar上的消息按钮
+@property (nonatomic, strong) UIButton       *bubBtn;
+
+@property (nonatomic, strong) YWCustomerCell *commentBtn;
+@property (nonatomic, strong) YWCustomerCell *favorBtn;
+@property (nonatomic, strong) YWCustomerCell *chatlistBtn;
+
+@property (nonatomic, assign) BOOL           hasCommentBadge;
+@property (nonatomic, assign) BOOL           hasLikeBadge;
+
+
 
 @end
 

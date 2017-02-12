@@ -379,7 +379,7 @@ CGFloat delay = 2.0f;
     {
         [self dismissViewControllerAnimated:YES completion:^{
             MainController *main = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
-            main.reloaded = NO;
+          //  main.reloaded = NO;
         }];
     }
     

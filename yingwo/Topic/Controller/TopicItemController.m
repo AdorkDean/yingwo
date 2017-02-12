@@ -54,6 +54,8 @@ static CGFloat footerHeight = 250;
     [super viewDidLoad];
     
     self.tableView.scrollEnabled = NO;
+
+    self.shouldClickTitle        = NO;
     
     [SVProgressHUD showLoadingWithNoMask];
     

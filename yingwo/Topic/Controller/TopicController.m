@@ -7,11 +7,14 @@
 //
 
 
+
 #import "TopicController.h"
 #import "DetailController.h"
 #import "HotTopicController.h"
 #import "NewTopicController.h"
 #import "AnnounceController.h"
+
+#import "UMSocialUIManager.h"
 
 #import "TopicViewModel.h"
 #import "YWTopicSegmentViewCell.h"
@@ -758,18 +761,21 @@ static int start_id = 0;
     // Dispose of any resources that can be recreated.
 }
 
-//显示分享面板
+
+
 - (void)showShareView {
-    __weak typeof(self) weakSelf = self;
-    /*
+    //显示分享面板
+    WeakSelf(self);
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
         if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
-            [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.topicEntity];
+            [weakself.viewModel shareTextToPlatformType:platformType withModel:self.topicEntity];
         }else {
             //其他平台分享网页
-            [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.topicEntity];
+            [weakself.viewModel shareWebPageToPlatformType:platformType withModel:self.topicEntity];
         }
     }];
-    */
+    
+    
 }
+
 @end

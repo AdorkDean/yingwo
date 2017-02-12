@@ -16,8 +16,8 @@
 
 @property (nonatomic, strong) YWTabBarController       *mainTabBarController;
 
-@property (nonatomic, assign) BOOL                     reloaded;
-@property (nonatomic, assign) BOOL                     reloaded2;
+//@property (nonatomic, assign) BOOL                     reloaded;
+//@property (nonatomic, assign) BOOL                     reloaded2;
 
 - (void)clearRedDotWithIndex:(NSUInteger)index;
 

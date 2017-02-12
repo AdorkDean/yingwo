@@ -432,25 +432,22 @@
     int commentId = self.selectedCommentView.post_comment_id;
     //网络请求
     NSDictionary *paramaters = @{@"comment_id":@(commentId)};
-    
-    //必须要加载cookie，否则无法请求
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
-//    [self.detailViewModel deleteCommentWithUrl:TIEZI_COMMENT_DEL_URL
-//                                    paramaters:paramaters
-//                                       success:^(StatusEntity *statusEntity) {
-//                                           if (statusEntity.status == YES) {
-//                                               //将被删除的view从视图中移除
-//                                               [self.selectedCommentView removeFromSuperview];
-//                                               [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-//                                           }else if(statusEntity.status == NO){
-//                                               
-//                                               [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-//                                           }
-//                                       }
-//                                       failure:^(NSString *error) {
-//                                           NSLog(@"error:%@",error);
-//                                       }];
+
+    [self.detailViewModel deleteCommentWithUrl:TIEZI_COMMENT_DEL_URL
+                                     parameter:paramaters
+                                       success:^(StatusEntity *statusEntity) {
+                                           if (statusEntity.status == YES) {
+                                               //将被删除的view从视图中移除
+                                               [self.selectedCommentView removeFromSuperview];
+                                               [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+                                           }else if(statusEntity.status == NO){
+                                               
+                                               [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+                                           }
+                                       
+    } failure:^(NSString *error) {
+        
+    }];
 }
 
 -(BOOL)canBecomeFirstResponder

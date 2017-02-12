@@ -10,6 +10,8 @@
 #import "TopicController.h"
 #import "ReplyViewModel.h"
 
+#import "UMSocialUIManager.h"
+
 
 @interface ReplyDetailController ()<UITableViewDelegate,UITableViewDataSource,YWDetailTabeleViewDelegate,YWGalleryViewDelegate,UITextFieldDelegate,YWKeyboardToolViewProtocol,ISEmojiViewDelegate,HPGrowingTextViewDelegate,YWDetailCellBottomViewDelegate,YWSpringButtonDelegate,YWAlertButtonProtocol, YWTitleDelegate,TTTAttributedLabelDelegate,YWMasterDelegate>
 
@@ -403,21 +405,6 @@ static NSString *replyCellIdentifier = @"replyCell";
 }
 
 
-- (void)showShareView {
-    //显示分享面板
-    __weak typeof(self) weakSelf = self;
-    /*
-    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
-        if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
-            [weakSelf.viewModel shareTextToPlatformType:platformType withModel:self.model];
-        }else {
-            //其他平台分享网页
-            [weakSelf.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
-        }
-    }];
-    */
-}
-
 #pragma mark UITextfieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.replyView.messageField) {
@@ -464,7 +451,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.title = [NSString stringWithFormat:@"%d楼",self.model.floor];
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
-        
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -490,6 +477,12 @@ static NSString *replyCellIdentifier = @"replyCell";
                                              selector:@selector(willHiddKeyboard:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    if (self.shouldShowKeyboard) {
+        
+        [self.commentView.messageTextView becomeFirstResponder];
+        
+    }
     
 }
 
@@ -557,7 +550,8 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     self.requestEntity.URLString = TIEZI_REPLY;
 
-  //  self.requestEntity.parameter = @{@"post_id":@(self.replyId)};
+    self.requestEntity.parameter = @{@"post_id":@(self.model.reply_id),
+                                     @"post_reply_id":@(self.model.post_id)};
     
     [self loadForType:HeaderReloadDataModel];
     
@@ -566,12 +560,16 @@ static NSString *replyCellIdentifier = @"replyCell";
 - (void)loadForType:(ReloadModel)type{
     
     @weakify(self);
-    [[self.viewModel.fetchEntityCommand execute:self.requestEntity] subscribeNext:^(TieZiReply *model) {
+    [[self.viewModel.fetchEntityCommand execute:self.requestEntity] subscribeNext:^(NSArray *replyArr) {
         @strongify(self);
         
-        self.model = model;
-        [self.tableView reloadData];
-        
+        if (replyArr.count != 0) {
+            
+            self.model = replyArr[0];
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+
+        }
 
     }error:^(NSError *error) {
         //错误的情况下停止刷新（网络错误）
@@ -641,12 +639,6 @@ static NSString *replyCellIdentifier = @"replyCell";
     [self.navigationController pushViewController:webVc animated:YES];
 }
 
-#pragma mark YWDetailTabeleViewDelegate
-
-- (void)didSeletedImageView:(UIImageView *)seletedImageView {
-    
-    [self covertImageView:seletedImageView];
-}
 
 - (void)didSelectCommentView:(YWCommentView *)commentView {
     
@@ -689,63 +681,6 @@ static NSString *replyCellIdentifier = @"replyCell";
 }
 
 /**
- *  坐标转换
- *
- *  @param imageView
- */
-- (void)covertImageView:(UIImageView *)imageView {
-    
-    //    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
-    UIImageView *newImageView = [[UIImageView alloc] init];
-    newImageView.frame        = [imageView.superview convertRect:imageView.frame toView:self.view];
-    //    NSLog(@"%@", NSStringFromCGRect(newImageView.frame));
-    newImageView.image        = imageView.image;
-    newImageView.y            += self.navgationBarHeight;
-    newImageView.tag          = imageView.tag;
-    newImageView.clipsToBounds = YES;
-    
-    //
-    if ([imageView.superview.superview.superview.superview isKindOfClass:[YWDetailTableViewCell class]]) {
-        // [self showImageView:newImageView];
-    }else {
-        [self showReplyImageView:newImageView];
-    }
-    
-    
-}
-/**
- *  展示图片
- *
- *  @param imageView
- */
-/*
- - (void)showImageView:(UIImageView *)imageView {
- 
- NSMutableArray *imageViewArr = [NSMutableArray arrayWithCapacity:self.model.imageUrlArrEntity.count];
- 
- ImageViewEntity *lastEntity = [self.model.imageUrlArrEntity lastObject];
- 
- if (lastEntity.isDownload == YES) {
- for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
- ImageViewEntity *entity = [self.model.imageUrlArrEntity objectAtIndex:i];
- [imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName]];
- [imageViewArr addObject:imageView];
- }
- }else {
- for (int i = 0; i < self.model.imageUrlArrEntity.count; i++) {
- [imageViewArr addObject:imageView];
- }
- }
- 
- [self.galleryView setImageViews:imageViewArr
- withImageUrlArrEntity:self.model.imageUrlArrEntity
- showAtIndex:imageView.tag - 1];
- 
- [self.navigationController.view addSubview:self.galleryView];
- 
- }
- */
-/**
  *  展示回复视图图片
  *
  *  @param imageView
@@ -762,21 +697,9 @@ static NSString *replyCellIdentifier = @"replyCell";
 
 #pragma mark - GalleryView Delegate
 
-//- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
-//{
-//}
-//
-//- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
-//{
-//    [self.galleryView removeImageView];
-//}
-//
-//- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-//    self.galleryView = nil;
-//
-//    //开启滑动手势
-//    [self openSystemPopGestureRecognizer];
-//}
+- (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+    galleryView = nil;
+}
 
 #pragma YWSpringButtonDelegate
 
@@ -1011,7 +934,22 @@ static NSString *replyCellIdentifier = @"replyCell";
     [self performSegueWithIdentifier:@"ta" sender:self];
 }
 
-#pragma private method
+#pragma mark private method
+
+- (void)showShareView {
+    //显示分享面板
+    WeakSelf(self);
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(YWShareView *shareSelectionView, UMSocialPlatformType platformType) {
+        if (platformType == UMSocialPlatformType_Sina) { //如果是微博平台的话，分享文本
+            [weakself.viewModel shareTextToPlatformType:platformType withModel:self.model];
+        }else {
+            //其他平台分享网页
+            [weakself.viewModel shareWebPageToPlatformType:platformType withModel:self.model];
+        }
+    }];
+    
+    
+}
 
 - (void)commentOnReplyView:(UIView *)view {
     

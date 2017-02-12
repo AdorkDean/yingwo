@@ -11,16 +11,10 @@
 #import "FavorController.h"
 #import "MessageDetailController.h"
 #import "ChatListController.h"
-#import "YWCustomerCell.h"
 
 @interface MessageController ()
 
 @property (nonatomic, strong) ChatListController *chatListVc;
-
-@property (nonatomic, strong) YWCustomerCell     *commentBtn;
-@property (nonatomic, strong) YWCustomerCell     *favorBtn;
-@property (nonatomic, strong) YWCustomerCell     *concernBtn;
-@property (nonatomic, strong) YWCustomerCell     *chatlistBtn;
 
 @end
 
@@ -35,7 +29,7 @@
 
 - (YWCustomerCell *)commentBtn {
     if (_commentBtn == nil) {
-        _commentBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"pinglun"] labelText:@"我的评论"];
+        _commentBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"pinglun"] labelText:@"评论"];
         [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top"] forState:UIControlStateNormal];
         [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top_selected"] forState:UIControlStateHighlighted];
         [_commentBtn addTarget:self action:@selector(jumpToMyCommentPage) forControlEvents:UIControlEventTouchUpInside];
@@ -45,20 +39,12 @@
 
 - (YWCustomerCell *)favorBtn {
     if (_favorBtn == nil) {
-        _favorBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"zan"] labelText:@"赞了我的"];
+        _favorBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"zan"] labelText:@"点赞"];
         [_favorBtn setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
         [_favorBtn setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
         [_favorBtn addTarget:self action:@selector(jumpToMyFavorPage) forControlEvents:UIControlEventTouchUpInside];
     }
     return _favorBtn;
-}
-- (YWCustomerCell *)concernBtn {
-    if (_concernBtn == nil) {
-        _concernBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"guanzhu"] labelText:@"关注我的"];
-        [_concernBtn setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
-        [_concernBtn setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
-    }
-    return _concernBtn;
 }
 
 - (YWCustomerCell *)chatlistBtn {
@@ -75,7 +61,6 @@
     
     [self.view addSubview:self.commentBtn];
     [self.view addSubview:self.favorBtn];
-    [self.view addSubview:self.concernBtn];
     [self.view addSubview:self.chatlistBtn];
 
     [self.commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,15 +75,10 @@
 
     }];
     
-    [self.concernBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.chatlistBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.favorBtn.mas_bottom);
         make.centerX.equalTo(self.view);
 
-    }];
-    
-    [self.chatlistBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.concernBtn.mas_bottom);
-        make.centerX.equalTo(self.view);
 
     }];
 }
@@ -106,13 +86,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];    
     self.title = @"我的消息";
 
+    [self clearBubRedDot];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,38 +101,13 @@
 }
 
 
-
-/*
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.destinationViewController isKindOfClass:[MessageDetailController class]]) {
-        if ([segue.identifier isEqualToString:@"messageDetail"]) {
-            
-            MessageDetailController *messageDetailVc = segue.destinationViewController;
-            messageDetailVc.model                    = self.messageEntity;
-
-        }
-    }else if ([segue.destinationViewController isKindOfClass:[DetailController class]]) {
-        
-        if([segue.identifier isEqualToString:@"detail"]) {
-        DetailController *detailVc = segue.destinationViewController;
-        detailVc.model             = self.tieZiModel;
-            
-        }
-    }else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
-        
-        if ([segue.identifier isEqualToString:@"ta"]) {
-            TAController *taVc = segue.destinationViewController;
-            taVc.ta_id = [self.messageEntity.follow_user_id intValue];
-        }
-    }
-    
-}
-*/
-
 #pragma mark private method
 
 - (void)jumpToMyCommentPage {
+    
+    self.hasCommentBadge = NO;
+    
+    [self clearBubRedDot];
     
     CommentController *commentVc = [[CommentController alloc] init];
     
@@ -162,13 +117,11 @@
 
 - (void)jumpToMyFavorPage {
     
+    self.hasLikeBadge = NO;
+    [self clearBubRedDot];
+
     FavorController *favorVc = [[FavorController alloc] init];
     [self.navigationController pushViewController:favorVc animated:YES];
-}
-
-- (void)jumpToMyConcernPage {
-    
-   // [self.navigationController pushViewController:commentVc animated:YES];
 }
 
 - (void)jumpToMyChatListPage {
@@ -176,6 +129,13 @@
     ChatListController *chatList = [[ChatListController alloc] init];
     
     [self.navigationController pushViewController:chatList animated:YES];
+}
+
+- (void)clearBubRedDot {
+    if (!self.hasCommentBadge && !self.hasLikeBadge) {
+        
+        [self.bubBtn clearBadge];
+    }
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "UMShareTools.h"
+#import "YWCustomSharePlatform.h"
 
 @implementation UMShareTools
 
@@ -33,8 +34,9 @@
     [[UMSocialManager defaultManager] removePlatformProviderWithPlatformType:UMSocialPlatformType_WechatFavorite];
     
     //添加自定义选项
-    //    YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
-    //    [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform withUserDefinePlatformType:UMSocialPlatformType_Line];
-    //
+        YWCustomSharePlatform *cusPlatform = [[YWCustomSharePlatform alloc] init];
+        [[UMSocialManager defaultManager] addAddUserDefinePlatformProvider:cusPlatform
+                                                withUserDefinePlatformType:UMSocialPlatformType_UserDefine_Begin];
+    
 }
 @end

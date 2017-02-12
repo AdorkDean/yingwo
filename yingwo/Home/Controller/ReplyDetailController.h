@@ -26,4 +26,5 @@
 
 @property (nonatomic, assign) CommentType commentType;
 
+@property (nonatomic, assign) BOOL        shouldShowKeyboard;
 @end
