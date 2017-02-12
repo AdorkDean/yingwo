@@ -46,16 +46,6 @@
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
 @property (nonatomic, strong) NSMutableDictionary *commetparameter;
-
-<<<<<<< HEAD
-@property (nonatomic,assign ) int                 comment_reply_id;
-
-@property (nonatomic, assign) CGFloat             keyboardHeight;
-
-
-
-=======
->>>>>>> Developing
 @end
 
 @implementation DetailController

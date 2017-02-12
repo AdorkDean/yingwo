@@ -46,16 +46,12 @@
             make.centerY.equalTo(self);
             make.right.equalTo(self.mas_right).offset(-15);
         }];
-<<<<<<< HEAD
-    
-=======
         
         [_badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(rightImageView.mas_left);
             make.centerY.equalTo(self);
         }];
         
->>>>>>> Developing
     }
     return self;
 }
