@@ -10,8 +10,10 @@
 
 @interface YWCustomerCell : UIButton
 
-@property (nonatomic, strong) UIImage *leftImage;
+@property (nonatomic, strong) UIImage  *leftImage;
 @property (nonatomic, strong) NSString *text;
+
+@property (nonatomic, strong) UILabel  *badgeLabel;
 
 - (instancetype)initWithLeftImage:(UIImage *)leftImage labelText:(NSString *)text;
 

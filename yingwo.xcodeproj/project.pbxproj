@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1803C1201D541F350078EF0F /* AssetsLibrary.framework */; };
-		180DB1351D421B38007786A0 /* MainNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DB1341D421B38007786A0 /* MainNavController.m */; };
 		181826671E4C406D00779294 /* MyCommentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181826661E4C406D00779294 /* MyCommentViewModel.m */; };
 		181E34211D93E3F800A6283C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 181E341F1D93E3F800A6283C /* Podfile */; };
 		181E34221D93E3F800A6283C /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 181E34201D93E3F800A6283C /* Podfile.lock */; };
@@ -22,6 +21,13 @@
 		1838C98D1D3A0E0F000DF843 /* CustomDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1838C98C1D3A0E0F000DF843 /* CustomDismissSegue.m */; };
 		18409F491E45D0050029B49E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18409F481E45D0050029B49E /* AddressBook.framework */; };
 		18409F4B1E45D0100029B49E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18409F4A1E45D0100029B49E /* SystemConfiguration.framework */; };
+		18465DF31E4E044C00E16A4D /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DE61E4E044C00E16A4D /* MainController.m */; };
+		18465DF41E4E044C00E16A4D /* MainNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DE81E4E044C00E16A4D /* MainNavController.m */; };
+		18465DF51E4E044C00E16A4D /* YWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DEA1E4E044C00E16A4D /* YWTabBarController.m */; };
+		18465DF61E4E044C00E16A4D /* BadgeCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DED1E4E044C00E16A4D /* BadgeCount.m */; };
+		18465DF71E4E044C00E16A4D /* YWButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DF01E4E044C00E16A4D /* YWButton.m */; };
+		18465DF81E4E044C00E16A4D /* YWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DF21E4E044C00E16A4D /* YWTabBar.m */; };
+		18465DFC1E4E048600E16A4D /* MainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DFB1E4E048600E16A4D /* MainViewModel.m */; };
 		1870DC701E1FC352008767A5 /* UINavigationBar+HideBottomLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870DC5A1E1FC352008767A5 /* UINavigationBar+HideBottomLine.m */; };
 		1870DC711E1FC352008767A5 /* Validate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870DC5C1E1FC352008767A5 /* Validate.m */; };
 		1870DC781E1FC352008767A5 /* YWSandBoxTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870DC6B1E1FC352008767A5 /* YWSandBoxTool.m */; };
@@ -83,6 +89,7 @@
 		18A075EF1E3E23FA00C4159D /* HotDisscussViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A075E91E3E23FA00C4159D /* HotDisscussViewModel.m */; };
 		18A075F61E3E27B900C4159D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A075F41E3E27B900C4159D /* Main.storyboard */; };
 		18A0F8921D34B697005FE091 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8911D34B697005FE091 /* AppDelegate.m */; };
+		18AA83B21E5021B700D0C548 /* NotificationTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AA83B11E5021B700D0C548 /* NotificationTools.m */; };
 		18AFE5FA1D30B7E2007BEBDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AFE5F81D30B7E2007BEBDE /* LaunchScreen.storyboard */; };
 		18B155871E46E71100E355D0 /* RongCloudTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B155861E46E71100E355D0 /* RongCloudTools.m */; };
 		18B155941E46E76C00E355D0 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1558A1E46E76C00E355D0 /* ChatController.m */; };
@@ -99,10 +106,6 @@
 		18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243B81D7D8CD800DAC374 /* Test+CoreDataProperties.m */; };
 		18D243BC1D7D8CD800DAC374 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243BA1D7D8CD800DAC374 /* Test.m */; };
 		18E6AC961E210BC1008B2DF9 /* MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6AC951E210BC1008B2DF9 /* MD5.m */; };
-		18E74CD01D3CEB8B00176142 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CCD1D3CEB8B00176142 /* MainController.m */; };
-		18E74CD11D3CEB8B00176142 /* YWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CCF1D3CEB8B00176142 /* YWTabBarController.m */; };
-		18E74CD41D3CEB9500176142 /* YWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CD31D3CEB9500176142 /* YWTabBar.m */; };
-		18E74CDA1D3CF9A900176142 /* YWButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E74CD91D3CF9A900176142 /* YWButton.m */; };
 		18F362FE1E1FB19A0077D3CC /* NSArray+(String).m in Sources */ = {isa = PBXBuildFile; fileRef = 18F362D81E1FB19A0077D3CC /* NSArray+(String).m */; };
 		18F362FF1E1FB19A0077D3CC /* NSDate+Grade.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F362DA1E1FB19A0077D3CC /* NSDate+Grade.m */; };
 		18F363001E1FB19A0077D3CC /* NSDate+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F362DC1E1FB19A0077D3CC /* NSDate+String.m */; };
@@ -184,7 +187,6 @@
 		18F364D41E1FB8940077D3CC /* TieZiReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364001E1FB8940077D3CC /* TieZiReply.m */; };
 		18F364D51E1FB8940077D3CC /* TieZiResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364021E1FB8940077D3CC /* TieZiResult.m */; };
 		18F364FA1E1FB8940077D3CC /* DetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3644F1E1FB8940077D3CC /* DetailViewModel.m */; };
-		18F364FB1E1FB8940077D3CC /* DetailViewModelHepler.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364511E1FB8940077D3CC /* DetailViewModelHepler.m */; };
 		18F364FD1E1FB8940077D3CC /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364571E1FB8940077D3CC /* CommentController.m */; };
 		18F364FE1E1FB8940077D3CC /* FavorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364591E1FB8940077D3CC /* FavorController.m */; };
 		18F364FF1E1FB8940077D3CC /* MessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3645B1E1FB8940077D3CC /* MessageController.m */; };
@@ -291,7 +293,6 @@
 		18F4C7DE1E4854B200BA3F43 /* YWShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F4C7D71E4854B200BA3F43 /* YWShareView.m */; };
 		B243CD67F346DCA423FA5C69 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
-		CC3AD4881DC9FD8200874834 /* BadgeCount.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD4871DC9FD8200874834 /* BadgeCount.m */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
 		CC4CDE461D9D04A0002A80B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE421D9D04A0002A80B0 /* main.m */; };
 		CC4CDE471D9D04A0002A80B0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE441D9D04A0002A80B0 /* ViewController.m */; };
@@ -308,8 +309,6 @@
 
 /* Begin PBXFileReference section */
 		1803C1201D541F350078EF0F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		180DB1331D421B38007786A0 /* MainNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainNavController.h; path = Main/Controller/MainNavController.h; sourceTree = "<group>"; };
-		180DB1341D421B38007786A0 /* MainNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainNavController.m; path = Main/Controller/MainNavController.m; sourceTree = "<group>"; };
 		181826651E4C406D00779294 /* MyCommentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommentViewModel.h; sourceTree = "<group>"; };
 		181826661E4C406D00779294 /* MyCommentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommentViewModel.m; sourceTree = "<group>"; };
 		181E341F1D93E3F800A6283C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -333,6 +332,20 @@
 		18409F481E45D0050029B49E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		18409F4A1E45D0100029B49E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		18409FCD1E45D41B0029B49E /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		18465DE51E4E044C00E16A4D /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
+		18465DE61E4E044C00E16A4D /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
+		18465DE71E4E044C00E16A4D /* MainNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNavController.h; sourceTree = "<group>"; };
+		18465DE81E4E044C00E16A4D /* MainNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNavController.m; sourceTree = "<group>"; };
+		18465DE91E4E044C00E16A4D /* YWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTabBarController.h; sourceTree = "<group>"; };
+		18465DEA1E4E044C00E16A4D /* YWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTabBarController.m; sourceTree = "<group>"; };
+		18465DEC1E4E044C00E16A4D /* BadgeCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeCount.h; sourceTree = "<group>"; };
+		18465DED1E4E044C00E16A4D /* BadgeCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeCount.m; sourceTree = "<group>"; };
+		18465DEF1E4E044C00E16A4D /* YWButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWButton.h; sourceTree = "<group>"; };
+		18465DF01E4E044C00E16A4D /* YWButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWButton.m; sourceTree = "<group>"; };
+		18465DF11E4E044C00E16A4D /* YWTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTabBar.h; sourceTree = "<group>"; };
+		18465DF21E4E044C00E16A4D /* YWTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTabBar.m; sourceTree = "<group>"; };
+		18465DFA1E4E048600E16A4D /* MainViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewModel.h; sourceTree = "<group>"; };
+		18465DFB1E4E048600E16A4D /* MainViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewModel.m; sourceTree = "<group>"; };
 		1870DC591E1FC352008767A5 /* UINavigationBar+HideBottomLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+HideBottomLine.h"; sourceTree = "<group>"; };
 		1870DC5A1E1FC352008767A5 /* UINavigationBar+HideBottomLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+HideBottomLine.m"; sourceTree = "<group>"; };
 		1870DC5B1E1FC352008767A5 /* Validate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Validate.h; sourceTree = "<group>"; };
@@ -451,6 +464,8 @@
 		18A0F88E1D34B681005FE091 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrefixHeader.pch; path = Prefix/PrefixHeader.pch; sourceTree = "<group>"; };
 		18A0F8901D34B697005FE091 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AppDelegate/AppDelegate.h; sourceTree = "<group>"; };
 		18A0F8911D34B697005FE091 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = AppDelegate/AppDelegate.m; sourceTree = "<group>"; };
+		18AA83B01E5021B700D0C548 /* NotificationTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTools.h; sourceTree = "<group>"; };
+		18AA83B11E5021B700D0C548 /* NotificationTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTools.m; sourceTree = "<group>"; };
 		18AFE5E41D30B7E1007BEBDE /* yingwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yingwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFE5F91D30B7E2007BEBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18AFE5FB1D30B7E2007BEBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -485,14 +500,6 @@
 		18D243BA1D7D8CD800DAC374 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Test.m; path = CoreData/Test.m; sourceTree = "<group>"; };
 		18E6AC941E210BC1008B2DF9 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
 		18E6AC951E210BC1008B2DF9 /* MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5.m; sourceTree = "<group>"; };
-		18E74CCC1D3CEB8B00176142 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainController.h; path = Main/Controller/MainController.h; sourceTree = "<group>"; };
-		18E74CCD1D3CEB8B00176142 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainController.m; path = Main/Controller/MainController.m; sourceTree = "<group>"; };
-		18E74CCE1D3CEB8B00176142 /* YWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWTabBarController.h; path = Main/Controller/YWTabBarController.h; sourceTree = "<group>"; };
-		18E74CCF1D3CEB8B00176142 /* YWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWTabBarController.m; path = Main/Controller/YWTabBarController.m; sourceTree = "<group>"; };
-		18E74CD21D3CEB9500176142 /* YWTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWTabBar.h; path = Main/View/YWTabBar.h; sourceTree = "<group>"; };
-		18E74CD31D3CEB9500176142 /* YWTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWTabBar.m; path = Main/View/YWTabBar.m; sourceTree = "<group>"; };
-		18E74CD81D3CF9A900176142 /* YWButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YWButton.h; path = Main/View/YWButton.h; sourceTree = "<group>"; };
-		18E74CD91D3CF9A900176142 /* YWButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YWButton.m; path = Main/View/YWButton.m; sourceTree = "<group>"; };
 		18F362D71E1FB19A0077D3CC /* NSArray+(String).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+(String).h"; sourceTree = "<group>"; };
 		18F362D81E1FB19A0077D3CC /* NSArray+(String).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+(String).m"; sourceTree = "<group>"; };
 		18F362D91E1FB19A0077D3CC /* NSDate+Grade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Grade.h"; sourceTree = "<group>"; };
@@ -656,8 +663,6 @@
 		18F364031E1FB8940077D3CC /* TiZiReply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiZiReply.h; sourceTree = "<group>"; };
 		18F3644E1E1FB8940077D3CC /* DetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewModel.h; sourceTree = "<group>"; };
 		18F3644F1E1FB8940077D3CC /* DetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewModel.m; sourceTree = "<group>"; };
-		18F364501E1FB8940077D3CC /* DetailViewModelHepler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewModelHepler.h; sourceTree = "<group>"; };
-		18F364511E1FB8940077D3CC /* DetailViewModelHepler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewModelHepler.m; sourceTree = "<group>"; };
 		18F364561E1FB8940077D3CC /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentController.h; sourceTree = "<group>"; };
 		18F364571E1FB8940077D3CC /* CommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentController.m; sourceTree = "<group>"; };
 		18F364581E1FB8940077D3CC /* FavorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavorController.h; sourceTree = "<group>"; };
@@ -868,8 +873,6 @@
 		895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.debug.xcconfig"; sourceTree = "<group>"; };
 		CC056BFE1DB0ABA800613F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = yingwo/Assets.xcassets; sourceTree = "<group>"; };
 		CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yingwo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC3AD4861DC9FD8200874834 /* BadgeCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeCount.h; sourceTree = "<group>"; };
-		CC3AD4871DC9FD8200874834 /* BadgeCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeCount.m; sourceTree = "<group>"; };
 		CC3AD4891DCC522500874834 /* YWTaFollowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaFollowView.h; sourceTree = "<group>"; };
 		CC3AD48A1DCC522500874834 /* YWTaFollowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaFollowView.m; sourceTree = "<group>"; };
 		CC4CDE421D9D04A0002A80B0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Support/main.m; sourceTree = "<group>"; };
@@ -985,6 +988,59 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		18465DE31E4E044C00E16A4D /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				18465DF91E4E046500E16A4D /* ViewModel */,
+				18465DE41E4E044C00E16A4D /* Controller */,
+				18465DEB1E4E044C00E16A4D /* Entity */,
+				18465DEE1E4E044C00E16A4D /* View */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		18465DE41E4E044C00E16A4D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18465DE51E4E044C00E16A4D /* MainController.h */,
+				18465DE61E4E044C00E16A4D /* MainController.m */,
+				18465DE71E4E044C00E16A4D /* MainNavController.h */,
+				18465DE81E4E044C00E16A4D /* MainNavController.m */,
+				18465DE91E4E044C00E16A4D /* YWTabBarController.h */,
+				18465DEA1E4E044C00E16A4D /* YWTabBarController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18465DEB1E4E044C00E16A4D /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				18465DEC1E4E044C00E16A4D /* BadgeCount.h */,
+				18465DED1E4E044C00E16A4D /* BadgeCount.m */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		18465DEE1E4E044C00E16A4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18465DEF1E4E044C00E16A4D /* YWButton.h */,
+				18465DF01E4E044C00E16A4D /* YWButton.m */,
+				18465DF11E4E044C00E16A4D /* YWTabBar.h */,
+				18465DF21E4E044C00E16A4D /* YWTabBar.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18465DF91E4E046500E16A4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18465DFA1E4E048600E16A4D /* MainViewModel.h */,
+				18465DFB1E4E048600E16A4D /* MainViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		186191A91D33622600804CB2 /* Prefix */ = {
 			isa = PBXGroup;
 			children = (
@@ -996,6 +1052,7 @@
 		1870DC541E1FC352008767A5 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				18AA83AF1E50217A00D0C548 /* NotificationTools */,
 				182CACF61E49EBAC000CE59F /* UMessageTools */,
 				182CACF21E49E9E6000CE59F /* UMAnalyticsTools */,
 				182CACEE1E49E8B3000CE59F /* UMShareTools */,
@@ -1256,6 +1313,15 @@
 			name = AppDelagate;
 			sourceTree = "<group>";
 		};
+		18AA83AF1E50217A00D0C548 /* NotificationTools */ = {
+			isa = PBXGroup;
+			children = (
+				18AA83B01E5021B700D0C548 /* NotificationTools.h */,
+				18AA83B11E5021B700D0C548 /* NotificationTools.m */,
+			);
+			path = NotificationTools;
+			sourceTree = "<group>";
+		};
 		18AFE5DB1D30B7E1007BEBDE = {
 			isa = PBXGroup;
 			children = (
@@ -1294,7 +1360,7 @@
 				1870DC541E1FC352008767A5 /* Tools */,
 				18B926C21D38B94A0067FE24 /* CustomSegue */,
 				18A0F88F1D34B689005FE091 /* AppDelagate */,
-				18E74CBD1D3CE83500176142 /* MainTabBar */,
+				18465DE31E4E044C00E16A4D /* MainTabBar */,
 				18B1557F1E46E6C600E355D0 /* Conversation */,
 				18F363A51E1FB8940077D3CC /* Announce */,
 				18F363B51E1FB8940077D3CC /* Configuration */,
@@ -1425,40 +1491,6 @@
 				18D2439C1D7D60F400DAC374 /* yingwo.xcdatamodeld */,
 			);
 			name = CoreData;
-			sourceTree = "<group>";
-		};
-		18E74CBD1D3CE83500176142 /* MainTabBar */ = {
-			isa = PBXGroup;
-			children = (
-				CC3AD4851DC9FD8200874834 /* Entity */,
-				18E74CC21D3CE8C000176142 /* View */,
-				18E74CBE1D3CE85D00176142 /* Controller */,
-			);
-			name = MainTabBar;
-			sourceTree = "<group>";
-		};
-		18E74CBE1D3CE85D00176142 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				180DB1331D421B38007786A0 /* MainNavController.h */,
-				180DB1341D421B38007786A0 /* MainNavController.m */,
-				18E74CCE1D3CEB8B00176142 /* YWTabBarController.h */,
-				18E74CCF1D3CEB8B00176142 /* YWTabBarController.m */,
-				18E74CCC1D3CEB8B00176142 /* MainController.h */,
-				18E74CCD1D3CEB8B00176142 /* MainController.m */,
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
-		18E74CC21D3CE8C000176142 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				18E74CD81D3CF9A900176142 /* YWButton.h */,
-				18E74CD91D3CF9A900176142 /* YWButton.m */,
-				18E74CD21D3CEB9500176142 /* YWTabBar.h */,
-				18E74CD31D3CEB9500176142 /* YWTabBar.m */,
-			);
-			name = View;
 			sourceTree = "<group>";
 		};
 		18F362D41E1FB19A0077D3CC /* Catagory */ = {
@@ -1871,8 +1903,6 @@
 			children = (
 				18F3644E1E1FB8940077D3CC /* DetailViewModel.h */,
 				18F3644F1E1FB8940077D3CC /* DetailViewModel.m */,
-				18F364501E1FB8940077D3CC /* DetailViewModelHepler.h */,
-				18F364511E1FB8940077D3CC /* DetailViewModelHepler.m */,
 				188B349B1E41B44500C9777E /* ReplyViewModel.h */,
 				188B349C1E41B44500C9777E /* ReplyViewModel.m */,
 			);
@@ -2408,16 +2438,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		CC3AD4851DC9FD8200874834 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				CC3AD4861DC9FD8200874834 /* BadgeCount.h */,
-				CC3AD4871DC9FD8200874834 /* BadgeCount.m */,
-			);
-			name = Entity;
-			path = Main/Entity;
-			sourceTree = "<group>";
-		};
 		CCF64E751DC0954A009B4B21 /* TA */ = {
 			isa = PBXGroup;
 			children = (
@@ -2662,15 +2682,16 @@
 				CCF64E7E1DC0A5FF009B4B21 /* YWTaHeaderView.m in Sources */,
 				18F364D41E1FB8940077D3CC /* TieZiReply.m in Sources */,
 				CC4CDE461D9D04A0002A80B0 /* main.m in Sources */,
-				18E74CD41D3CEB9500176142 /* YWTabBar.m in Sources */,
 				18F364BB1E1FB8940077D3CC /* YWConfigurationCell.m in Sources */,
 				189342581E3CD17A00131AFB /* YWNetworkCache.m in Sources */,
 				18F4C7BB1E4849DE00BA3F43 /* TZPhotoPickerController.m in Sources */,
 				18F3635F1E1FB64E0077D3CC /* YWGalleryCellOfMoreNine.m in Sources */,
+				18465DF51E4E044C00E16A4D /* YWTabBarController.m in Sources */,
 				18F365021E1FB8940077D3CC /* YWImageMessageCell.m in Sources */,
 				1871DD2E1E41B17E00C6BF30 /* YWDropDownView.m in Sources */,
 				18A0758D1E3E20B100C4159D /* YWTopicHeaderView.m in Sources */,
 				18A075CA1E3E236500C4159D /* HotDiscussController.m in Sources */,
+				18465DF61E4E044C00E16A4D /* BadgeCount.m in Sources */,
 				18F4C7951E4849DE00BA3F43 /* UIImage+ColorAtPoint.m in Sources */,
 				18F363101E1FB19A0077D3CC /* User+CURD.m in Sources */,
 				1871DD291E41B17E00C6BF30 /* YWDetailCommentView.m in Sources */,
@@ -2680,13 +2701,13 @@
 				18F4C7DD1E4854B200BA3F43 /* YWCustomSharePlatform.m in Sources */,
 				18F4C7B21E4849DE00BA3F43 /* NJKWebViewProgressView.m in Sources */,
 				18F4C7B51E4849DE00BA3F43 /* NSBundle+TZImagePicker.m in Sources */,
+				18465DF81E4E044C00E16A4D /* YWTabBar.m in Sources */,
 				18F364D11E1FB8940077D3CC /* ReplyCommentList.m in Sources */,
 				18F3650A1E1FB8940077D3CC /* PerfectInfoController.m in Sources */,
 				18F3651F1E1FB8950077D3CC /* YWPersonCenterMidCell.m in Sources */,
 				18F3651C1E1FB8950077D3CC /* RelationEntity.m in Sources */,
 				18F4C7AC1E4849DE00BA3F43 /* MXImageView.m in Sources */,
 				18F3650B1E1FB8940077D3CC /* WriteNicknameController.m in Sources */,
-				18E74CDA1D3CF9A900176142 /* YWButton.m in Sources */,
 				1871DD251E41B17E00C6BF30 /* YWCommentView.m in Sources */,
 				18F365211E1FB8950077D3CC /* PersonViewModel.m in Sources */,
 				18D243951D7D4F2200DAC374 /* ImageViewEntity.m in Sources */,
@@ -2761,6 +2782,7 @@
 				18F364BA1E1FB8940077D3CC /* UpdatePwdEntity.m in Sources */,
 				18F365091E1FB8940077D3CC /* MessageViewModel.m in Sources */,
 				1871DD301E41B17E00C6BF30 /* YWPhotoCotentView.m in Sources */,
+				18465DFC1E4E048600E16A4D /* MainViewModel.m in Sources */,
 				18F3639D1E1FB87A0077D3CC /* LoginModel.m in Sources */,
 				18A075D51E3E236500C4159D /* YWHotDiscussBottomView.m in Sources */,
 				18F4C7DB1E4854B200BA3F43 /* UMSocialShareScrollView.m in Sources */,
@@ -2776,6 +2798,8 @@
 				18F4C7BE1E4849DE00BA3F43 /* TZVideoPlayerController.m in Sources */,
 				18F363601E1FB64F0077D3CC /* YWGalleryCellOfNine.m in Sources */,
 				18F4C7501E4849DE00BA3F43 /* CatZanButton.m in Sources */,
+				18AA83B21E5021B700D0C548 /* NotificationTools.m in Sources */,
+				18465DF71E4E044C00E16A4D /* YWButton.m in Sources */,
 				18F4C7BF1E4849DE00BA3F43 /* UIView+Layout.m in Sources */,
 				1871DD2A1E41B17E00C6BF30 /* YWDetailMasterView.m in Sources */,
 				18F3635C1E1FB64E0077D3CC /* ImageViewItem.m in Sources */,
@@ -2797,6 +2821,7 @@
 				18F363661E1FB64F0077D3CC /* YWAlertButton.m in Sources */,
 				18D243A41D7D61C400DAC374 /* Customer.m in Sources */,
 				18F3636F1E1FB64F0077D3CC /* YWMiddleViewOfMoreNine.m in Sources */,
+				18465DF31E4E044C00E16A4D /* MainController.m in Sources */,
 				18D100DB1D3E153400D75968 /* User.m in Sources */,
 				18F4C79D1E4849DE00BA3F43 /* CMSDWebImageDecoder.m in Sources */,
 				18A075CD1E3E236500C4159D /* HotDiscussEntity.m in Sources */,
@@ -2813,14 +2838,12 @@
 				1838C98D1D3A0E0F000DF843 /* CustomDismissSegue.m in Sources */,
 				18F363721E1FB64F0077D3CC /* YWMiddleViewOfSix.m in Sources */,
 				18E6AC961E210BC1008B2DF9 /* MD5.m in Sources */,
-				180DB1351D421B38007786A0 /* MainNavController.m in Sources */,
 				18F3639B1E1FB87A0077D3CC /* LoginNavController.m in Sources */,
 				18328D0C1E3F62DC0080C79D /* MyTopicViewModel.m in Sources */,
 				18F365131E1FB8940077D3CC /* CollegeModel.m in Sources */,
 				18F363A41E1FB87A0077D3CC /* RegisterModel.m in Sources */,
 				18F365201E1FB8950077D3CC /* YWPersonCenterTopView.m in Sources */,
 				1871DD2F1E41B17E00C6BF30 /* YWDropDownViewCell.m in Sources */,
-				18E74CD11D3CEB8B00176142 /* YWTabBarController.m in Sources */,
 				CCFB0EA01DC4882400E19DB6 /* TaViewModel.m in Sources */,
 				18F365151E1FB8940077D3CC /* BaseInfoController.m in Sources */,
 				18F3635B1E1FB64E0077D3CC /* GalleryController.m in Sources */,
@@ -2860,15 +2883,14 @@
 				18F365171E1FB8940077D3CC /* MyLikeController.m in Sources */,
 				1870DC931E1FCC89008767A5 /* YWQiNiuUploadTool.m in Sources */,
 				18D243891D7BF41F00DAC374 /* RequestEntity.m in Sources */,
-				CC3AD4881DC9FD8200874834 /* BadgeCount.m in Sources */,
 				18A075D01E3E236500C4159D /* Topic.m in Sources */,
 				18F3630F1E1FB19A0077D3CC /* UIViewController+Camera.m in Sources */,
 				18F363741E1FB64F0077D3CC /* YWMiddleViewOfTwo.m in Sources */,
 				18F363631E1FB64F0077D3CC /* YWGalleryCellOfSix.m in Sources */,
 				18F4C7B11E4849DE00BA3F43 /* NJKWebViewProgress.m in Sources */,
+				18465DF41E4E044C00E16A4D /* MainNavController.m in Sources */,
 				18F4C7A91E4849DE00BA3F43 /* UIImageView+CMWebCache.m in Sources */,
 				18F365221E1FB8950077D3CC /* RelationViewModel.m in Sources */,
-				18F364FB1E1FB8940077D3CC /* DetailViewModelHepler.m in Sources */,
 				18F365181E1FB8940077D3CC /* MyRelationshipBaseController.m in Sources */,
 				18328D001E3F09840080C79D /* YWTopicListView.m in Sources */,
 				18F363051E1FB19A0077D3CC /* NSString+Url.m in Sources */,
@@ -2881,7 +2903,6 @@
 				18F4C7C41E4849DE00BA3F43 /* CAAnimation+WAnimation.m in Sources */,
 				18F4C79C1E4849DE00BA3F43 /* CMSDWebImageCompat.m in Sources */,
 				18F363011E1FB19A0077D3CC /* NSMutableArray+Sort.m in Sources */,
-				18E74CD01D3CEB8B00176142 /* MainController.m in Sources */,
 				18F4C7AE1E4849DE00BA3F43 /* MXScrollConst.m in Sources */,
 				18F364B71E1FB8940077D3CC /* ForgetPasswordController.m in Sources */,
 				18F3630E1E1FB19A0077D3CC /* UIView+Frame.m in Sources */,

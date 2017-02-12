@@ -135,6 +135,7 @@
     
     [self.view addSubview:self.tableView];
     
+    self.shouldClickTitle = YES;
     
 }
 
@@ -158,19 +159,23 @@
     [self.viewModel setupModelOfCell:cell
                                model:self.tieZiList[indexPath.row]];
     
-    cell.bottemView.delegate        = self;
-    cell.titleView.title.delegate   = self;
-    cell.bottemView.favour.delegate = self;
-    cell.bottemView.more.delegate   = self;
+    cell.bottemView.delegate                    = self;
+    cell.titleView.title.delegate               = self;
+    cell.bottemView.favour.delegate             = self;
+    cell.bottemView.more.delegate               = self;
+
+    cell.titleView.title.userInteractionEnabled = self.shouldClickTitle;
+    
     //回调block实现点击图片放大
     cell.middleView.imageTapBlock = ^(UIImageView *imageView, ImageViewItem *imagesItem) {
         
         if (imageView.tag > imagesItem.URLArr.count) {
             return ;
         }
+        
         YWGalleryView *galleryView  = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         galleryView.backgroundColor = [UIColor blackColor];
-        galleryView.delegate = self;
+        galleryView.delegate        = self;
         
         [galleryView setImagesItem:imagesItem showAtIndex:imageView.tag-1];
         [self.view.window.rootViewController.view addSubview:galleryView];

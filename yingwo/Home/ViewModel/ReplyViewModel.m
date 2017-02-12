@@ -10,7 +10,37 @@
 
 @implementation ReplyViewModel
 
+- (instancetype)init {
+    
+    if (self = [super init]) {
+        
+        [self setupRACComand];
+        
+    }
+    return self;
+}
 
+- (void)setupRACComand {
+    
+    @weakify(self);
+    _fetchEntityCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RequestEntity *requestEntity) {
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            
+            @strongify(self);
+            
+            [self requestReplyWithRequest:requestEntity
+                                  success:^(NSArray *tieZi) {
+                                      
+                                      [subscriber sendNext:tieZi];
+                                      [subscriber sendCompleted];
+                                      
+                                  } failure:^(id error) {
+                                      [subscriber sendError:error];
+                                  }];
+            return nil;
+        }];
+    }];
+}
 
 - (void)setupModelOfCell:(YWReplyCell *)cell model:(TieZiReply *)model {
     //解决cell复用带来的问题

@@ -18,16 +18,19 @@
         UIImageView *rightImageView = [[UIImageView alloc] init];
         UILabel *textLabel          = [[UILabel alloc] init];
 
-        rightImageView.image = [UIImage imageNamed:@"Row"];
+        _badgeLabel                 = [[UILabel alloc] init];
 
-        leftImageView.image  = leftImage;
-        textLabel.text       = text;
-        textLabel.font       = [UIFont systemFontOfSize:15];
-        textLabel.textColor  = [UIColor colorWithHexString:THEME_COLOR_2];
-                
+        rightImageView.image        = [UIImage imageNamed:@"Row"];
+
+        leftImageView.image         = leftImage;
+        textLabel.text              = text;
+        textLabel.font              = [UIFont systemFontOfSize:15];
+        textLabel.textColor         = [UIColor colorWithHexString:THEME_COLOR_2];
+        
         [self addSubview:leftImageView];
         [self addSubview:rightImageView];
         [self addSubview:textLabel];
+        [self addSubview:_badgeLabel];
         
         [leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
@@ -43,7 +46,16 @@
             make.centerY.equalTo(self);
             make.right.equalTo(self.mas_right).offset(-15);
         }];
+<<<<<<< HEAD
     
+=======
+        
+        [_badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(rightImageView.mas_left);
+            make.centerY.equalTo(self);
+        }];
+        
+>>>>>>> Developing
     }
     return self;
 }

@@ -49,7 +49,6 @@
 #import "TZImagePickerController.h"
 #import "UMMobClick/MobClick.h"
 
-
 //base class
 #import "BaseViewController.h"
 #import "BaseViewModel.h"
@@ -84,6 +83,7 @@
 #import "UMShareTools.h"
 #import "UMAnalyticsTools.h"
 #import "UMessageTools.h"
+#import "NotificationTools.h"
 
 //catagory
 #import "UIView+Frame.h"

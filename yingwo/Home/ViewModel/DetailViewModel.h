@@ -18,8 +18,6 @@
 #import "TieZiComment.h"
 #import "ReplyCommentList.h"
 
-#import "DetailViewModelHepler.h"
-
 typedef NS_ENUM(NSInteger,ReloadModel) {
     HeaderReloadDataModel,
     FooterReoladDataModel
@@ -65,6 +63,10 @@ typedef void(^CommentListFailureBlock)(id commentListFailureBlock);
 
 - (void)setCommentListSuccessBlock:(CommentListSuccessBlock)commentListSuccessBlock
                            failure:(CommentListFailureBlock)commentListFailureBlock;
+
+
+- (void)setupRACComand;
+
 /**
  *  初始化cell
  *

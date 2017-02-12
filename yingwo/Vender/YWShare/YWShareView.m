@@ -153,10 +153,10 @@ static NSString *kUMSSharePlatformItemView = @"UMSSharePlatformItemView";
             imageName = @"UMS_wechat_timeline_icon";
             platformName = UMLocalizedString(@"wechat_timeline",@"微信朋友圈");
             break;
-//        case UMSocialPlatformType_CopyLink:
-//            imageName = @"icon_link";
-//            platformName = UMLocalizedString(@"copyLink", @"复制链接");
-//            break;
+        case UMSocialPlatformType_UserDefine_Begin:
+            imageName = @"icon_link";
+            platformName = UMLocalizedString(@"copyLink", @"复制链接");
+            break;
         case UMSocialPlatformType_WechatFavorite:
             imageName = @"UMS_wechat_favorite_icon";
             platformName = UMLocalizedString(@"wechat_favorite",@"微信收藏");

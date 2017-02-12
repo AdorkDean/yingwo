@@ -14,5 +14,4 @@
 @property (nonatomic, strong) UIImageView *labelImage;
 @property (nonatomic, strong) YWTitle     *title;
 
-
 @end
