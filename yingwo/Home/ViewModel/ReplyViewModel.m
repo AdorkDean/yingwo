@@ -23,7 +23,7 @@
 - (void)setupRACComand {
     
     @weakify(self);
-    _fetchEntityCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RequestEntity *requestEntity) {
+    _fetchReplyEntityCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RequestEntity *requestEntity) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             
             @strongify(self);
@@ -43,12 +43,6 @@
 }
 
 - (void)setupModelOfCell:(YWReplyCell *)cell model:(TieZiReply *)model {
-    //解决cell复用带来的问题
-    //移除所有的子试图，再添加
-    NSArray *subviews = [[NSArray alloc] initWithArray:cell.contentView.subviews];
-    for (UIView *subview in subviews) {
-        [subview removeFromSuperview];
-    }
     
     //子view的创建延迟到viewmodel中
     [cell createSubview];
@@ -118,9 +112,7 @@
     if (model.imageUrlEntityArr.count > 0) {
         
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.imageUrlEntityArr];
-        
-        self.imageUrlEntity      = entities;
-        
+                
         [cell addImageViewByImageArr:entities];
     }
     

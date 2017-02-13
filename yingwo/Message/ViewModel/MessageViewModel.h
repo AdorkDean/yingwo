@@ -11,7 +11,7 @@
 #import "YWMessageCell.h"
 #import "YWImageMessageCell.h"
 
-@interface MessageViewModel : NSObject
+@interface MessageViewModel : BaseViewModel
 
 @property (nonatomic, strong)RACCommand *fecthTieZiEntityCommand;
 
@@ -44,9 +44,8 @@
  *  @param success    返回含有MessageEntity的数组
  *  @param failure    获取失败
  */
-- (void)requestMessageWithUrl:(NSString *)url
-                   paramaters:(id)paramaters
-                      success:(void (^)(NSArray *))success
-                        error:(void (^)(NSURLSessionDataTask *, NSError *))failure;
+- (void)requestMessageWithRequest:(RequestEntity *)request
+                          success:(SuccessBlock)success
+                            error:(ErrorBlock)failure;
 
 @end

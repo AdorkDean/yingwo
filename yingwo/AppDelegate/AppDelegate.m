@@ -66,7 +66,8 @@
     [self letIOS10RemoteNotification];
 
     
-
+    [YWNetworkTools postDeviceToken];
+    
     return YES;
 }
 
@@ -249,7 +250,8 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
     
     [YWNetworkTools saveDeviceToken:pushToken];
-    
+    [YWNetworkTools postDeviceToken];
+
     return pushToken;
 }
 

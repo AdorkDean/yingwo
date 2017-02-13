@@ -310,7 +310,7 @@
 
         }
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(ErrorBlock error) {
         NSLog(@"%@",error);
         [SVProgressHUD showErrorStatus:@"请查看网络" afterDelay:HUD_DELAY];
         
@@ -343,7 +343,7 @@
                                                        [SVProgressHUD showErrorStatus:@"验证码输入错误" afterDelay:HUD_DELAY];
                                                        
                                                    }
-                                               } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                               } failure:^(ErrorBlock error) {
                                                    [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
 
                                                }];
@@ -372,7 +372,7 @@
                                               }else if (update.status == NO) {
                                                   [SVProgressHUD showErrorStatus:@"更新失败" afterDelay:HUD_DELAY];
                                               }
-                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                          } failure:^(ErrorBlock error) {
                                               NSLog(@"error:%@",error);
                                               [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
                                           }];

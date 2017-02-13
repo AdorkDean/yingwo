@@ -11,7 +11,7 @@
 
 @interface ReplyViewModel : DetailViewModel
 
-@property (nonatomic, strong) RACCommand *fetchEntityCommand;
+@property (nonatomic, strong) RACCommand *fetchReplyEntityCommand;
 
 - (void)setupModelOfCell:(YWReplyCell *)cell
                    model:(TieZiReply *)model;

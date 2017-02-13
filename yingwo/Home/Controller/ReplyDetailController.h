@@ -27,4 +27,7 @@
 @property (nonatomic, assign) CommentType commentType;
 
 @property (nonatomic, assign) BOOL        shouldShowKeyboard;
+
+- (instancetype)initWithReplyModel:(TieZiReply *)model shouldShowKeyBoard:(BOOL)yesOrNo;
+
 @end

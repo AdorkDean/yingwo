@@ -83,9 +83,10 @@
                                      for (NSDictionary *dic in entity.info) {
                                   
                                          HotDiscussEntity *field = [HotDiscussEntity mj_objectWithKeyValues:dic];
-                                         
+
                                          field.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:field.img];
-                                  
+                                         field.imageURLArr       = [NSString separateImageViewURLString:field.img];
+                                         
                                          [tempArr addObject:field];
                                   
                                      }

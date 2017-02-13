@@ -13,4 +13,6 @@
 
 @property (nonatomic, assign) int           ta_id;
 
+- (instancetype)initWithUserId:(int)userId;
+
 @end

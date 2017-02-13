@@ -164,4 +164,21 @@ static BOOL networkStatus = YES;
     return deviceToken;
 }
 
++ (void)postDeviceToken {
+    
+    NSDictionary *parameters = @{@"device_token":[YWNetworkTools getDeviceToken]};
+
+    [YWRequestTool YWRequestPOSTWithURL:DEVICE_TOKEN_URL
+                              parameter:parameters
+                           successBlock:^(id success) {
+                               
+                               NSLog(@"device token提交成功～%@",success);
+                               
+                               
+                           } errorBlock:^(id error) {
+                               
+                           }];
+
+}
+
 @end

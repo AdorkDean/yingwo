@@ -26,6 +26,16 @@
 
 @implementation MyTopicController
 
+- (instancetype)initWithUserId:(int)userId {
+    
+    self = [super init];
+    
+    if (self) {
+        self.myUserId = userId;
+    }
+    return self;
+}
+
 - (SMPagerTabView *)topicPgaeView {
     if (_topicPgaeView == nil) {
         

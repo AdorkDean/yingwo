@@ -7,6 +7,8 @@
 //
 
 #import "CommentController.h"
+#import "DetailController.h"
+#import "ReplyDetailController.h"
 
 #import "YWMessageCell.h"
 #import "YWImageMessageCell.h"
@@ -20,6 +22,8 @@
 @property (nonatomic, strong) MessageViewModel  *viewModel;
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
+
+@property (nonatomic, strong) MessageEntity     *messagetEntity;
 
 @property (nonatomic, strong) NSMutableArray    *messageArr;
 
@@ -43,7 +47,7 @@ static int start_id = 0;
         _tableView.dataSource      = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.contentInset    = UIEdgeInsetsMake(5, 0, 165, 0);
+        _tableView.contentInset    = UIEdgeInsetsMake(5, 0, 80, 0);
         
         [_tableView registerClass:[YWMessageCell class] forCellReuseIdentifier:noImageCellidentifier];
         [_tableView registerClass:[YWImageMessageCell class] forCellReuseIdentifier:imageCellidentifier];
@@ -113,6 +117,13 @@ static int start_id = 0;
 
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.leftBarButtonItem = self.leftBarItem;
+    
+}
+
 /**
  *  下拉刷新
  */
@@ -151,11 +162,6 @@ static int start_id = 0;
                 self.messageArr = [messages mutableCopy];
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                //清除小红点
-//                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//                MainController *mainVC =  [story instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
-//                [mainVC clearRedDotWithIndex:0];
-                [self.messageController.messagePgaeView hideRedDotWithIndex:0];
                 
             }else {
                 
@@ -238,16 +244,12 @@ static int start_id = 0;
 //查看回复或评论的贴子
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-
-    if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
-        
-        MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
-        messageEntity.type           = MessageTieZi;
-//        messageEntity.type = 0;
-        
-        NSLog(@"source_type:%@",messageEntity.source_type);
-        [self.delegate didSelectMessageWith:messageEntity];
-    }
+    
+    self.messagetEntity = [self.messageArr objectAtIndex:indexPath.row];
+    
+    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:[self.messageArr objectAtIndex:indexPath.row]
+                                                                    shouldShowKeyBoard:NO];
+    [self.navigationController pushViewController:replyVc animated:YES];
     
 }
 
@@ -259,12 +261,8 @@ static int start_id = 0;
  */
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
-    if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
-        
-        messageEntity.type           = 0;
-
-        [self.delegate didSelectMessageWith:messageEntity];
-    }
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:messageEntity];
+    [self.navigationController pushViewController:detailVc animated:YES];
 
 }
 
@@ -274,9 +272,10 @@ static int start_id = 0;
  *  @return
  */
 -(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
-    if ([self.delegate respondsToSelector:@selector(didSelectHeadImageWith:)]) {
-        [self.delegate didSelectHeadImageWith:messageEntity];
-    }
+    
+    TAController *taVc = [[TAController alloc] initWithUserId:messageEntity.user_id];
+    [self.navigationController pushViewController:taVc animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {

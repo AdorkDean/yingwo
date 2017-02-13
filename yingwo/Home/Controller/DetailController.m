@@ -20,7 +20,6 @@
 
 @property (nonatomic, strong) DetailViewModel *viewModel;
 
-@property (nonatomic, strong) UIBarButtonItem     *leftBarItem;
 @property (nonatomic, strong) UIBarButtonItem     *rightBarItem;
 @property (nonatomic, strong) UIAlertController   *alertView;
 @property (nonatomic, strong) UIAlertController   *compliantAlertView;
@@ -37,11 +36,6 @@
 
 @property (nonatomic, strong) MJRefreshAutoNormalFooter *footer;
 
-//点击查看话题内容
-@property (nonatomic, assign) int                 tap_topic_id;
-//点击查看用户详情
-@property (nonatomic, assign) int                 tap_ta_id;
-
 @property (nonatomic, assign) int                 isMessage;
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
@@ -53,6 +47,18 @@
 
 static NSString *detailCellIdentifier      = @"detailCell";
 static NSString *detailReplyCellIdentifier = @"replyCell";
+
+- (instancetype)initWithTieZiModel:(TieZi *)model {
+    
+    self = [super init];
+    
+    if (self) {
+        self.model = model;
+    }
+    
+    return self;
+    
+}
 
 #pragma mark 懒加载
 
@@ -106,13 +112,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _replyModel = [[TieZiReply alloc] init];
     }
     return _replyModel;
-}
-
-- (UIBarButtonItem *)leftBarItem {
-    if (_leftBarItem == nil) {
-        _leftBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"] style:UIBarButtonItemStylePlain target:self action:@selector(jumpToHomePage)];
-    }
-    return _leftBarItem;
 }
 
 - (UIBarButtonItem *)rightBarItem {
@@ -402,11 +401,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 #pragma mark Button action
 
-- (void)jumpToHomePage {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)jumpToFollowTieZiPage {
     AnnounceController *announceVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
     announceVC.isFollowTieZi       = YES;
@@ -578,7 +572,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         }
         else if (type == FooterReoladDataModel) {
             
-            if (tieZiList != nil) {
+            if (tieZiList.count != 0) {
                 
                 [self.detailTableView.mj_footer resetNoMoreData];
                 [self.tieZiReplyArr addObjectsFromArray:tieZiList];
@@ -694,10 +688,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     if (indexPath.row > 0) {
         
-        self.replyModel          = [self.tieZiReplyArr objectAtIndex:indexPath.row];
         
-        [self performSegueWithIdentifier:@"replyDetail" sender:self];
-        
+        ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:[self.tieZiReplyArr objectAtIndex:indexPath.row]
+                                                                        shouldShowKeyBoard:NO];
+        [self.navigationController pushViewController:replyVc animated:YES];
     }
 
 
@@ -717,12 +711,14 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)didSelectCommentView:(YWCommentView *)commentView {
     
     YWDetailReplyCell *cell  = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
+    self.isMessage = NO;
     [self didSelectReplyCell:cell];
 }
 
 - (void)didSelectMoreCommentBtnWith:(UIButton *)btn {
     
     YWDetailReplyCell *cell  = (YWDetailReplyCell *)btn.superview.superview.superview.superview;
+    self.isMessage = NO;
     [self didSelectReplyCell:cell];
 
 }
@@ -838,46 +834,23 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self didSelectReplyCell:cell];
 }
 
-#pragma mark segue
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    //进入话题详情页面
-    if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
-        if ([segue.identifier isEqualToString:@"topic"]) {
-            TopicController *topicVc = segue.destinationViewController;
-            topicVc.topic_id = self.tap_topic_id;
-        }
-    }
-    //进入TA的主页
-    else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
-        if ([segue.identifier isEqualToString:@"ta"]) {
-            TAController *taVc = segue.destinationViewController;
-            taVc.ta_id         = self.tap_ta_id;
-        }
-    }
-    else if ([segue.destinationViewController isKindOfClass:[ReplyDetailController class]]) {
-        if ([segue.identifier isEqualToString:@"replyDetail"]) {
-            ReplyDetailController *replyVc = segue.destinationViewController;
-            replyVc.model                  = self.replyModel;
-            replyVc.shouldShowKeyboard     = self.isMessage;
-            self.isMessage                 = NO;
-        }
-    }
-}
-
 #pragma mark YWLabelDelegate
 
 - (void)didSelectLabel:(YWTitle *)label {
+        
+    TopicController *topicVc = [[TopicController alloc] initWithTopicId:label.topic_id];
     
-    self.tap_topic_id = label.topic_id;
-    [self performSegueWithIdentifier:@"topic" sender:self];
+    [self.navigationController pushViewController:topicVc animated:YES];
+    
 }
 
 #pragma mark YWMasterDelegate
 -(void)didSelectMaster:(YWDetailMasterView *)masterView {
 
-    self.tap_ta_id = masterView.user_id;
-    [self performSegueWithIdentifier:@"ta" sender:self];
+    
+    TAController *taVc = [[TAController alloc] initWithUserId:masterView.user_id];
+    
+    [self.navigationController pushViewController:taVc animated:YES];
 }
 
 #pragma mark private method
@@ -928,11 +901,13 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 
 - (void)didSelectReplyCell:(YWDetailReplyCell *)replyCell {
     
-    NSIndexPath *selectIndex = [self.detailTableView indexPathForCell:replyCell];
-    self.replyModel          = [self.tieZiReplyArr objectAtIndex:selectIndex.row];
+    NSIndexPath *selectIndex       = [self.detailTableView indexPathForCell:replyCell];
+    TieZiReply *model              = [self.tieZiReplyArr objectAtIndex:selectIndex.row];
+
+    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:model
+                                                                    shouldShowKeyBoard:self.isMessage];
     
-    [self performSegueWithIdentifier:@"replyDetail" sender:self];
-    
+    [self.navigationController pushViewController:replyVc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

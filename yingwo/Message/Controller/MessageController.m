@@ -9,7 +9,6 @@
 #import "MessageController.h"
 #import "CommentController.h"
 #import "FavorController.h"
-#import "MessageDetailController.h"
 #import "ChatListController.h"
 
 @interface MessageController ()
@@ -106,6 +105,7 @@
 - (void)jumpToMyCommentPage {
     
     self.hasCommentBadge = NO;
+    [self.commentBtn.badgeLabel clearBadge];
     
     [self clearBubRedDot];
     
@@ -118,6 +118,8 @@
 - (void)jumpToMyFavorPage {
     
     self.hasLikeBadge = NO;
+    [self.favorBtn.badgeLabel clearBadge];
+
     [self clearBubRedDot];
 
     FavorController *favorVc = [[FavorController alloc] init];

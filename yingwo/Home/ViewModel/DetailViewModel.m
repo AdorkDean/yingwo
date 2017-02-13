@@ -427,7 +427,7 @@
                                successBlock:^(id content) {
                                    
                                    StatusEntity *statusEntity = [StatusEntity mj_objectWithKeyValues:content];
-                                   
+                                   NSLog(@"评论成功！");
                                    self.commentReplySuccessBlock(statusEntity);
         
     } errorBlock:^(id error) {

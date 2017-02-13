@@ -12,24 +12,21 @@
 #import "YWMessageCell.h"
 #import "YWImageMessageCell.h"
 
-#import "MessageViewModel.h"
-#import "DetailViewModel.h"
+#import "MyCommentViewModel.h"
 
 #import "MessageEntity.h"
 
 @interface MyCommentController ()<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
 
-@property (nonatomic, strong) UITableView       *tableView;
+@property (nonatomic, strong) UITableView        *tableView;
 
-@property (nonatomic, strong) MessageViewModel  *viewModel;
-@property (nonatomic, strong) DetailViewModel   *detailViewModel;
+@property (nonatomic, strong) MyCommentViewModel *viewModel;
 
-@property (nonatomic, strong) RequestEntity     *requestEntity;
-@property (nonatomic, strong) MessageEntity     *messageEntity;
-@property (nonatomic, strong) TieZi             *tieZiModel;
+@property (nonatomic, strong) RequestEntity      *requestEntity;
+@property (nonatomic, strong) MessageEntity      *messageEntity;
 
-@property (nonatomic, strong) NSMutableArray    *messageArr;
-@property (nonatomic, strong) NSIndexPath       *selectedIndexPath;
+@property (nonatomic, strong) NSMutableArray     *messageArr;
+@property (nonatomic, strong) NSIndexPath        *selectedIndexPath;
 
 @end
 
@@ -56,18 +53,11 @@ static int start_id = 0;
     return _tableView;
 }
 
--(MessageViewModel *)viewModel {
+-(MyCommentViewModel *)viewModel {
     if (_viewModel == nil) {
-        _viewModel = [[MessageViewModel alloc] init];
+        _viewModel = [[MyCommentViewModel alloc] init];
     }
     return _viewModel;
-}
-
--(DetailViewModel *)detailViewModel {
-    if (_detailViewModel == nil) {
-        _detailViewModel = [[DetailViewModel alloc] init];
-    }
-    return _detailViewModel;
 }
 
 -(RequestEntity *)requestEntity {
@@ -157,7 +147,7 @@ static int start_id = 0;
 - (void)loadForType:(int)type RequestEntity:(RequestEntity *)requestEntity {
     
     @weakify(self);
-    [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *messages) {
+    [[self.viewModel.fecthCommentEntityCommand execute:requestEntity] subscribeNext:^(NSArray *messages) {
         @strongify(self);
         
         //这里是倒序获取前10个
@@ -240,34 +230,8 @@ static int start_id = 0;
 //查看回复或评论的贴子
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    if ([self.delegate respondsToSelector:@selector(didSelectMessageWith:)]) {
-//        
-//        MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
-//        messageEntity.type           = MessageTieZi;
-//        
-//        NSLog(@"source_type:%@",messageEntity.source_type);
-//        [self.delegate didSelectMessageWith:messageEntity];
-//    }
-    self.messageEntity = [self.messageArr objectAtIndex:indexPath.row];
-    
-    TieZi *tieZiModel = [[TieZi alloc] init];
-    tieZiModel.tieZi_id = self.messageEntity.post_detail_id;
-    tieZiModel.topic_id = self.messageEntity.post_detail_topic_id;
-    tieZiModel.user_id  = self.messageEntity.post_detail_user_id;
-    tieZiModel.create_time = self.messageEntity.post_detail_create_time;
-    tieZiModel.topic_title = self.messageEntity.post_detail_topic_title;
-    tieZiModel.user_name = self.messageEntity.post_detail_user_name;
-    tieZiModel.content = self.messageEntity.post_detail_content;
-    tieZiModel.img = self.messageEntity.post_detail_img;
-    tieZiModel.user_face_img = self.messageEntity.post_detail_user_face_img;
-    tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
-    tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
-    tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
-   // tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
-    
-    self.tieZiModel = tieZiModel;
-    [self performSegueWithIdentifier:@"detail" sender:self];
-    
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:[self.messageArr objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
 
 /**
@@ -279,32 +243,15 @@ static int start_id = 0;
 
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
-    self.messageEntity = messageEntity;
-    TieZi *tieZiModel = [[TieZi alloc] init];
-    tieZiModel.tieZi_id = self.messageEntity.post_detail_id;
-    tieZiModel.topic_id = self.messageEntity.post_detail_topic_id;
-    tieZiModel.user_id  = self.messageEntity.post_detail_user_id;
-    tieZiModel.create_time = self.messageEntity.post_detail_create_time;
-    tieZiModel.topic_title = self.messageEntity.post_detail_topic_title;
-    tieZiModel.user_name = self.messageEntity.post_detail_user_name;
-    tieZiModel.content = self.messageEntity.post_detail_content;
-    tieZiModel.img = self.messageEntity.post_detail_img;
-    tieZiModel.user_face_img = self.messageEntity.post_detail_user_face_img;
-    tieZiModel.like_cnt = self.messageEntity.post_detail_like_cnt;
-    tieZiModel.reply_cnt = self.messageEntity.post_detail_reply_cnt;
-    tieZiModel.user_post_like = self.messageEntity.post_detail_user_post_like;
-   // tieZiModel.imageUrlArrEntity = self.messageEntity.post_detail_imageUrlArrEntity;
-    
-    self.tieZiModel = tieZiModel;
 
-    [self performSegueWithIdentifier:@"detail" sender:self];
-    
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:messageEntity];
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
 
 -(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
-    self.messageEntity = messageEntity;
     
-    [self performSegueWithIdentifier:@"ta" sender:self];
+    TAController *taVc = [[TAController alloc] initWithUserId:[messageEntity.follow_user_id intValue]];
+    [self.navigationController pushViewController:taVc animated:YES];
 }
 
 -(void)didSelectedDeleteBtn:(UIButton *)deleteBtn withEntity:(MessageEntity *)messageEntity {
@@ -316,20 +263,6 @@ static int start_id = 0;
     self.messageEntity = messageEntity;
     [self showDeleteAlertView];
     
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[DetailController class]]) {
-        if ([segue.identifier isEqualToString:@"detail"]) {
-            DetailController *detailVc = segue.destinationViewController;
-            detailVc.model             = self.tieZiModel;
-        }
-    }else if ([segue.destinationViewController isKindOfClass:[TAController class]]) {
-        if ([segue.identifier isEqualToString:@"ta"]) {
-            TAController *taVc = segue.destinationViewController;
-            taVc.ta_id = [self.messageEntity.follow_user_id intValue];
-        }
-    }
 }
 
 /**
@@ -355,58 +288,59 @@ static int start_id = 0;
 
 - (void)deleteReplyOrComment {
     
+    RequestEntity *request = [[RequestEntity alloc] init];
+
+    WeakSelf(self);
+    [self.viewModel setDeleteReplySuccessBlock:^(StatusEntity *statusEntity) {
+        
+        if (statusEntity.status == YES) {
+            
+            //删除该行跟帖数据源
+            [weakself.messageArr removeObjectAtIndex:weakself.selectedIndexPath.row];
+            //将该行从视图中移除
+            [weakself.tableView deleteRowsAtIndexPaths:@[weakself.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+        }else if(statusEntity.status == NO){
+            
+            [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+        }
+     
+    } failure:^(id deleteReplyFailureBlock) {
+        
+    }];
+    
+    [self.viewModel setDeleteCommentSuccessBlock:^(StatusEntity *statusEntity) {
+        
+        if (statusEntity.status == YES) {
+            
+            //删除该行跟帖数据源
+            [weakself.messageArr removeObjectAtIndex:weakself.selectedIndexPath.row];
+            //将该行从视图中移除
+            [weakself.tableView deleteRowsAtIndexPaths:@[weakself.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+        }else if(statusEntity.status == NO){
+            
+            [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+        }
+        
+    } failure:^(id deleteCommentFailureBlock) {
+        
+    }];
+    
     //网络请求
     if ([self.messageEntity.follow_type isEqualToString:@"REPLY"]) {
         
-        NSDictionary *paramaters = @{@"reply_id":@(self.messageEntity.reply_id)};
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+        request.URLString = TIEZI_REPLY_DEL_URL;
+        request.parameter = @{@"reply_id":@(self.messageEntity.reply_id)};
         
-//        [self.detailViewModel deleteReplyWithUrl:TIEZI_REPLY_DEL_URL
-//                                      paramaters:paramaters
-//                                         success:^(StatusEntity *statusEntity) {
-//                                             if (statusEntity.status == YES) {
-//                                                 
-//                                                 //删除该行跟帖数据源
-//                                                                                              [self.messageArr removeObjectAtIndex:self.selectedIndexPath.row];
-//                                                                                              //将该行从视图中移除
-//                                                                                              [self.tableView deleteRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-//                                                 [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-//                                             }else if(statusEntity.status == NO){
-//                                                 
-//                                                 [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-//                                             }
-//                                         }
-//                                         failure:^(NSString *error) {
-//                                             NSLog(@"error:%@",error);
-//                                         }];
+        [self.viewModel deleteReplyWithRequest:request];
         
     }else if([self.messageEntity.follow_type isEqualToString:@"COMMENT"]) {
         
-        NSDictionary *paramaters = @{@"comment_id":@(self.messageEntity.reply_id)};
+        request.URLString = TIEZI_COMMENT_DEL_URL;
+        request.parameter = @{@"comment_id":@(self.messageEntity.reply_id)};
         
-        //必须要加载cookie，否则无法请求
-        [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-        
-//        [self.detailViewModel deleteCommentWithUrl:TIEZI_COMMENT_DEL_URL
-//                                        paramaters:paramaters
-//                                           success:^(StatusEntity *statusEntity) {
-//                                               if (statusEntity.status == YES) {
-//                                                   
-//                                                   //删除该行跟帖数据源
-//                                                   [self.messageArr removeObjectAtIndex:self.selectedIndexPath.row];
-//                                                   //将该行从视图中移除
-//                                                   [self.tableView deleteRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-//                                                   [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-//                                               }else if(statusEntity.status == NO){
-//                                                   
-//                                                   [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-//                                               }
-//                                           }
-//                                           failure:^(NSString *error) {
-//                                               NSLog(@"error:%@",error);
-//                                           }];
-
+        [self.viewModel deleteCommentWithRequest:request];
     }
     
 

@@ -186,6 +186,7 @@
         if (self.isOnHomePage) {
             
             [self refreshHomeVC];
+            [self.homeVC.tabBar.homeBtn clearBadge];
             
         }else {
             self.isOnHomePage = YES;
