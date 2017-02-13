@@ -8,6 +8,8 @@
 
 #import "YWGalleryCellBottomView.h"
 
+const int FavourNumLabelTag = 101;
+
 @implementation YWGalleryCellBottomView
 
 - (instancetype)init {
@@ -28,14 +30,14 @@
 
     _favour                            = [[YWSpringButton alloc ] initWithSelectedImage:[UIImage imageNamed:@"heart_red"]
                                                                          andCancelImage:[UIImage imageNamed:@"heart_gray"]];
-    _favour.tag                        = 1;
+    _favour.tag                        = FavourSpringButtonTag;
 
     _more                              = [[YWAlertButton alloc] init];
     _message                           = [[UIButton alloc] init];
     _favourLabel                       = [[UILabel alloc] init];
     _messageLabel                      = [[UILabel alloc] init];
 
-    _favourLabel.tag                   = 101;
+    _favourLabel.tag                   = FavourNumLabelTag;
 
     _headImageView.image               = [UIImage imageNamed:@"touxiang"];
     _headImageView.layer.masksToBounds = YES;

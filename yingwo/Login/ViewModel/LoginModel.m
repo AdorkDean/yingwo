@@ -32,17 +32,19 @@
                                    //头像
                                    [self requestForHeadImageWithUrl:user.face_img];
                                    
+                                   NSDictionary *parameters = @{@"device_token":[YWNetworkTools getDeviceToken]};
+                                   //提交device token
+                                   [self postDeviceTokenWithUrl:DEVICE_TOKEN_URL parameters:parameters];
+                                   
+                                   self.successBlock(user);
+                                   
                                }else{
                                    
                                    [SVProgressHUD showErrorStatus:@"帐号或密码错误" afterDelay:HUD_DELAY];
                                    
                                }
                                
-                               NSDictionary *parameters = @{@"device_token":[YWNetworkTools getDeviceToken]};
-                               //提交device token
-                               [self postDeviceTokenWithUrl:DEVICE_TOKEN_URL parameters:parameters];
-                               
-                               self.successBlock(user);
+
                                
                            } errorBlock:^(id error) {
                                self.errorBlock(error);
@@ -61,9 +63,8 @@
                            successBlock:^(NSDictionary *content) {
                                
                                User *customer           = [User mj_objectWithKeyValues:content[@"info"]];
-                               NSDictionary *parameters = @{@"device_token":[YWNetworkTools getDeviceToken]};
                                //提交device token
-                               [self postDeviceTokenWithUrl:DEVICE_TOKEN_URL parameters:parameters];
+                               [YWNetworkTools postDeviceToken];
                                
                                success(customer);
         

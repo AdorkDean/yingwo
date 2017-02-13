@@ -26,23 +26,25 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 
 @property (nonatomic, strong) TopicListViewModel *viewModel;
 
+@property (nonatomic, assign) int                userId;
+
 //判断是否是从我的话题跳转过来的
-@property (nonatomic, assign) BOOL           isMyTopic;
+@property (nonatomic, assign) BOOL               isMyTopic;
 
 //根据topicType，给出self.title的名字
-@property (nonatomic, assign) TopicTypeModel topicType;
+@property (nonatomic, assign) TopicTypeModel     topicType;
 
 //主题名字
-@property (nonatomic, copy  ) NSString       *subject;
+@property (nonatomic, copy  ) NSString           *subject;
 
 //领域下的id
-@property (nonatomic, assign) int            field_id;
+@property (nonatomic, assign) int                field_id;
 
 //主题id
-@property (nonatomic, assign) int            subject_id;
+@property (nonatomic, assign) int                subject_id;
 
 //主题下话题数组
-@property (nonatomic, strong) NSArray       *topicArr;
+@property (nonatomic, strong) NSArray            *topicArr;
 
 @property (nonatomic, assign) id<TopicListControllerDelegate>            delegate;
 

@@ -22,7 +22,8 @@
 - (void)createSubview {
     _favour       = [[YWSpringButton alloc ] initWithSelectedImage:[UIImage imageNamed:@"heart_red"]
                                                     andCancelImage:[UIImage imageNamed:@"heart_gray"]];
-    [_favour setTag:2];
+    [_favour setTag:FavourSpringButtonTag];
+    
     _message      = [[UIButton alloc] init];
 
     _favourLabel  = [[UILabel alloc] init];

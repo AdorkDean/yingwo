@@ -185,7 +185,7 @@ static NSString *notAgreen = @"不同意";
                                             }
            
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(ErrorBlock error) {
         [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
     }];
     

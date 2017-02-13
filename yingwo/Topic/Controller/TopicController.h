@@ -29,6 +29,8 @@ typedef NS_ENUM(NSInteger,PageSelectedModel) {
 @property (nonatomic, assign) PageSelectedModel pageModel;
 
 
+- (instancetype)initWithTopicId:(int)topicId;
+
 @end
 
 @protocol TopicControllerDelegate <NSObject>

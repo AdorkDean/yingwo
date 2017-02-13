@@ -49,4 +49,6 @@ typedef NS_ENUM(NSInteger,CommentType) {
 
 @property (nonatomic, strong) NSDictionary *tieZiParamters;
 
+- (instancetype)initWithTieZiModel:(TieZi *)model;
+
 @end

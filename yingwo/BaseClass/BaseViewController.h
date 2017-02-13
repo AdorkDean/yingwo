@@ -15,6 +15,8 @@
  */
 @interface BaseViewController : UIViewController
 
+@property (nonatomic, strong) UIBarButtonItem *leftBarItem;
+
 // three abstact methods, you should implements they  when you need
 - (void)createSubviews;
 

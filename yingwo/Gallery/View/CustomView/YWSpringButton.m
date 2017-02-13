@@ -11,6 +11,9 @@
 //按钮缩放倍数
 static CGFloat scaleXY = 1.3;
 
+const int MessageSpringButtonTag = 120;
+const int FavourSpringButtonTag = 121;
+
 @implementation YWSpringButton
 
 
@@ -31,13 +34,13 @@ static CGFloat scaleXY = 1.3;
 }
 
 - (void)select {
-    if (self.tag == 1) {
+    if (self.tag == FavourSpringButtonTag) {
         if (self.isSpring == NO) {
             [self selectedScale];
         }else {
             [self cancelScale];;
         }
-    }else if(self.tag == 2){
+    }else if(self.tag == MessageSpringButtonTag){
         if (self.isSpringReply == NO) {
             [self selectedScale];
         }else {
@@ -64,12 +67,12 @@ static CGFloat scaleXY = 1.3;
         
     anim.completionBlock = ^(POPAnimation *animation, BOOL finished){
        
-        if (self.tag == 1) {
+        if (self.tag == FavourSpringButtonTag) {
             self.isSpring = YES;
             if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
                 [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:YES];
             }
-        }else if (self.tag == 2) {
+        }else if (self.tag == MessageSpringButtonTag) {
             self.isSpringReply = YES;
             if ([self.delegate respondsToSelector:@selector(didSelectReplySpringButtonOnView:replyId:model:)]) {
                 [self.delegate didSelectReplySpringButtonOnView:self.superview replyId:self.reply_id model:YES];
@@ -95,12 +98,12 @@ static CGFloat scaleXY = 1.3;
     [self pop_addAnimation:anim forKey:@"Center"];
     anim.completionBlock = ^(POPAnimation *animation, BOOL finished){
         
-        if (self.tag == 1) {
+        if (self.tag == FavourSpringButtonTag) {
             self.isSpring = NO;
             if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
                 [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:NO];
             }
-        }else if (self.tag == 2) {
+        }else if (self.tag == MessageSpringButtonTag) {
             self.isSpringReply = NO;
             if ([self.delegate respondsToSelector:@selector(didSelectReplySpringButtonOnView:replyId:model:)]) {
                 [self.delegate didSelectReplySpringButtonOnView:self.superview replyId:self.reply_id model:NO];

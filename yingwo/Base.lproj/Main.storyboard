@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="90W-dO-pB3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="90W-dO-pB3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -238,8 +238,6 @@
                     <navigationItem key="navigationItem" id="HCR-ot-E94"/>
                     <connections>
                         <segue destination="vyd-Eb-hsg" kind="show" identifier="topicList" id="Ebf-1q-488"/>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="gC9-wQ-CaA"/>
-                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="v7k-LG-TEa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmj-Bd-yaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -259,9 +257,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="yWL-FP-kPF"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AB-pP-jve" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -280,56 +275,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="fJH-6J-WQ4"/>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="pvc-Sr-Ihp"/>
-                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="Mmx-yH-4h2"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VX9-S6-3wF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2970" y="3089"/>
-        </scene>
-        <!--Detail Controller-->
-        <scene sceneID="8WE-Lv-Owf">
-            <objects>
-                <viewController storyboardIdentifier="DetailController" id="oFH-jO-xJ8" customClass="DetailController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="B9Z-o0-zEw"/>
-                        <viewControllerLayoutGuide type="bottom" id="FiD-8b-Gqg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jtr-G9-g41">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <connections>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="mNj-nk-xUF"/>
-                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="ZMN-sb-BDP"/>
-                        <segue destination="vP6-y3-hJ9" kind="show" identifier="replyDetail" id="ZLu-qb-9UZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wEq-dC-10s" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3025" y="4130"/>
-        </scene>
-        <!--Reply Detail Controller-->
-        <scene sceneID="Wc9-eW-cGy">
-            <objects>
-                <viewController id="vP6-y3-hJ9" customClass="ReplyDetailController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="HxS-Ci-CQG"/>
-                        <viewControllerLayoutGuide type="bottom" id="Rez-kR-3Mt"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Q5T-L9-WHC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M0K-cs-5Ra" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3025" y="4940"/>
         </scene>
         <!--Announce Controller-->
         <scene sceneID="84x-f8-DTx">
@@ -396,30 +345,6 @@
             </objects>
             <point key="canvasLocation" x="3801" y="3089"/>
         </scene>
-        <!--Controller-->
-        <scene sceneID="iN7-Qp-gsO">
-            <objects>
-                <viewController storyboardIdentifier="TAController" id="UqI-gM-WIX" customClass="TAController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aTo-BW-zma"/>
-                        <viewControllerLayoutGuide type="bottom" id="Xa7-2Z-Lzz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cez-AK-dDv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="M84-fc-J5Z" kind="show" identifier="myTopic" id="DZx-xw-Vme"/>
-                        <segue destination="eoW-Yd-MFa" kind="show" identifier="myTieZi" id="cO5-zM-Dpn"/>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="jOE-G1-vCx"/>
-                        <segue destination="511-WS-2xb" kind="show" identifier="myRs" id="6ez-F0-LOf"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dZR-wJ-RPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4732" y="2275"/>
-        </scene>
         <!--My Topic Controller-->
         <scene sceneID="ihF-qI-CES">
             <objects>
@@ -433,9 +358,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="FPB-nA-kGY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v9I-cU-qxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -455,10 +377,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="6Jv-2G-YyI"/>
-                    <connections>
-                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="xfh-Am-3PH"/>
-                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="siW-fk-Kp9"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X8X-WH-btd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -477,10 +395,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="LE3-c2-jZn"/>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="cdF-Xz-IjN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiD-02-nD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -499,11 +413,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="OxQ-Nm-cAH"/>
-                        <segue destination="222-NQ-qSE" kind="show" identifier="topic" id="jSL-7x-npB"/>
-                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="SbM-EK-3PG"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3G-Ds-cyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -522,10 +431,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="L3e-ko-g57"/>
-                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="Fsf-vw-onw"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ezw-8J-gT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -544,36 +449,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="qMc-p4-rOO"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWW-CU-fo3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6487" y="4131"/>
-        </scene>
-        <!--Topic Controller-->
-        <scene sceneID="2Yv-uX-pzr">
-            <objects>
-                <viewController storyboardIdentifier="TopicController" id="222-NQ-qSE" customClass="TopicController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="608-v9-eXM"/>
-                        <viewControllerLayoutGuide type="bottom" id="4CH-GO-hUj"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="lta-eE-PCs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Ihx-F0-ocN"/>
-                    <connections>
-                        <segue destination="oFH-jO-xJ8" kind="show" identifier="detail" id="GGw-Qr-lxh"/>
-                        <segue destination="UqI-gM-WIX" kind="show" identifier="ta" id="70L-g4-KHF"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WbM-4d-K2U" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-513" y="4132"/>
         </scene>
         <!--Main Nav Controller-->
         <scene sceneID="NWH-Ml-H5w">
@@ -621,9 +500,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="222-NQ-qSE" kind="relationship" relationship="rootViewController" id="FXl-pq-whf"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="18g-pr-fBv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -649,14 +525,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gXB-c9-GK2"/>
-        <segue reference="dQL-fh-5s4"/>
-        <segue reference="siW-fk-Kp9"/>
-        <segue reference="xfh-Am-3PH"/>
-        <segue reference="jOE-G1-vCx"/>
-        <segue reference="DZx-xw-Vme"/>
-        <segue reference="6ez-F0-LOf"/>
-        <segue reference="cO5-zM-Dpn"/>
         <segue reference="q7d-3y-7Bc"/>
+        <segue reference="lkq-hJ-fr4"/>
+        <segue reference="gXB-c9-GK2"/>
     </inferredMetricsTieBreakers>
 </document>

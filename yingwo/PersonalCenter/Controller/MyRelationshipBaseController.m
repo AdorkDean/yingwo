@@ -32,6 +32,17 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
 
 @implementation MyRelationshipBaseController
 
+- (instancetype)initWithRelationType:(RelationType)type {
+    
+    self = [super init];
+    if (self) {
+        self.relationType = type;
+    }
+    
+    return self;
+    
+}
+
 -(UIScrollView *)relationScrollView {
     if (_relationScrollView == nil) {
         _relationScrollView                         = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];

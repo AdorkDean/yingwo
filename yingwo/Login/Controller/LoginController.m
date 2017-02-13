@@ -196,7 +196,7 @@
                                                     [self sendLoginRequest]; //确认用户注册，登录
                                                 }
                                             }
-                                            failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                            failure:^(ErrorBlock error) {
                                                 [SVProgressHUD showErrorStatus:@"网络错误" afterDelay:HUD_DELAY];
                                             }];
     

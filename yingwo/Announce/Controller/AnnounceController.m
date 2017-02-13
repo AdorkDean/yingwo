@@ -19,7 +19,6 @@
 @property (nonatomic, strong) YWAnnounceTextView *announceTextView;
 @property (nonatomic, strong) YWKeyboardToolView *keyboardToolView;
 
-@property (nonatomic, strong) UIBarButtonItem    *leftBarItem;
 @property (nonatomic, strong) UIBarButtonItem    *rightBarItem;
 
 @property (nonatomic, strong) YWPhotoDisplayView *photoDisplayView;
@@ -84,17 +83,6 @@
                                                         action:@selector(releaseContent)];
     }
     return _rightBarItem;
-}
-
-- (UIBarButtonItem *)leftBarItem {
-    if (_leftBarItem == nil) {
-        _leftBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                        style:UIBarButtonItemStylePlain
-                                                       target:self
-                                                       action:@selector(backToMainView)];
-    }
-    return _leftBarItem;
-
 }
 
 - (AnnounceModel *)viewModel {

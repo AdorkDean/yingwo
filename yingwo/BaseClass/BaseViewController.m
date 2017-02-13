@@ -14,6 +14,16 @@
 
 @implementation BaseViewController
 
+- (UIBarButtonItem *)leftBarItem {
+    if (_leftBarItem == nil) {
+        _leftBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(backToFarword)];
+    }
+    return _leftBarItem;
+}
+
 - (void)createSubviews {
     
 }
@@ -48,6 +58,10 @@
     
     [YWNetworkTools networkStauts];
 
+}
+
+- (void)backToFarword {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

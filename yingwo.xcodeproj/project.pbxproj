@@ -190,7 +190,6 @@
 		18F364FD1E1FB8940077D3CC /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364571E1FB8940077D3CC /* CommentController.m */; };
 		18F364FE1E1FB8940077D3CC /* FavorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364591E1FB8940077D3CC /* FavorController.m */; };
 		18F364FF1E1FB8940077D3CC /* MessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3645B1E1FB8940077D3CC /* MessageController.m */; };
-		18F365001E1FB8940077D3CC /* MessageDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3645D1E1FB8940077D3CC /* MessageDetailController.m */; };
 		18F365011E1FB8940077D3CC /* MessageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364601E1FB8940077D3CC /* MessageEntity.m */; };
 		18F365021E1FB8940077D3CC /* YWImageMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364631E1FB8940077D3CC /* YWImageMessageCell.m */; };
 		18F365031E1FB8940077D3CC /* YWMessageBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364651E1FB8940077D3CC /* YWMessageBottomView.m */; };
@@ -198,7 +197,6 @@
 		18F365051E1FB8940077D3CC /* YWMessageImageBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364691E1FB8940077D3CC /* YWMessageImageBottomView.m */; };
 		18F365061E1FB8940077D3CC /* YWMessageTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3646B1E1FB8940077D3CC /* YWMessageTopView.m */; };
 		18F365071E1FB8940077D3CC /* FavorViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3646E1E1FB8940077D3CC /* FavorViewModel.m */; };
-		18F365081E1FB8940077D3CC /* MessageDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364701E1FB8940077D3CC /* MessageDetailViewModel.m */; };
 		18F365091E1FB8940077D3CC /* MessageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364721E1FB8940077D3CC /* MessageViewModel.m */; };
 		18F3650A1E1FB8940077D3CC /* PerfectInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364761E1FB8940077D3CC /* PerfectInfoController.m */; };
 		18F3650B1E1FB8940077D3CC /* WriteNicknameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F364781E1FB8940077D3CC /* WriteNicknameController.m */; };
@@ -669,8 +667,6 @@
 		18F364591E1FB8940077D3CC /* FavorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavorController.m; sourceTree = "<group>"; };
 		18F3645A1E1FB8940077D3CC /* MessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageController.h; sourceTree = "<group>"; };
 		18F3645B1E1FB8940077D3CC /* MessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageController.m; sourceTree = "<group>"; };
-		18F3645C1E1FB8940077D3CC /* MessageDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailController.h; sourceTree = "<group>"; };
-		18F3645D1E1FB8940077D3CC /* MessageDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailController.m; sourceTree = "<group>"; };
 		18F3645F1E1FB8940077D3CC /* MessageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEntity.h; sourceTree = "<group>"; };
 		18F364601E1FB8940077D3CC /* MessageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEntity.m; sourceTree = "<group>"; };
 		18F364621E1FB8940077D3CC /* YWImageMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWImageMessageCell.h; sourceTree = "<group>"; };
@@ -685,8 +681,6 @@
 		18F3646B1E1FB8940077D3CC /* YWMessageTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWMessageTopView.m; sourceTree = "<group>"; };
 		18F3646D1E1FB8940077D3CC /* FavorViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavorViewModel.h; sourceTree = "<group>"; };
 		18F3646E1E1FB8940077D3CC /* FavorViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavorViewModel.m; sourceTree = "<group>"; };
-		18F3646F1E1FB8940077D3CC /* MessageDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewModel.h; sourceTree = "<group>"; };
-		18F364701E1FB8940077D3CC /* MessageDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewModel.m; sourceTree = "<group>"; };
 		18F364711E1FB8940077D3CC /* MessageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewModel.h; sourceTree = "<group>"; };
 		18F364721E1FB8940077D3CC /* MessageViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewModel.m; sourceTree = "<group>"; };
 		18F364751E1FB8940077D3CC /* PerfectInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfectInfoController.h; sourceTree = "<group>"; };
@@ -1929,8 +1923,6 @@
 				18F364591E1FB8940077D3CC /* FavorController.m */,
 				18F3645A1E1FB8940077D3CC /* MessageController.h */,
 				18F3645B1E1FB8940077D3CC /* MessageController.m */,
-				18F3645C1E1FB8940077D3CC /* MessageDetailController.h */,
-				18F3645D1E1FB8940077D3CC /* MessageDetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1966,8 +1958,6 @@
 			children = (
 				18F3646D1E1FB8940077D3CC /* FavorViewModel.h */,
 				18F3646E1E1FB8940077D3CC /* FavorViewModel.m */,
-				18F3646F1E1FB8940077D3CC /* MessageDetailViewModel.h */,
-				18F364701E1FB8940077D3CC /* MessageDetailViewModel.m */,
 				18F364711E1FB8940077D3CC /* MessageViewModel.h */,
 				18F364721E1FB8940077D3CC /* MessageViewModel.m */,
 			);
@@ -2755,7 +2745,6 @@
 				18F3635D1E1FB64E0077D3CC /* YWGalleryBaseCell.m in Sources */,
 				18D2439E1D7D60F400DAC374 /* yingwo.xcdatamodeld in Sources */,
 				18A075C71E3E236500C4159D /* DiscoveryController.m in Sources */,
-				18F365081E1FB8940077D3CC /* MessageDetailViewModel.m in Sources */,
 				18328CFE1E3F09840080C79D /* TopicListController.m in Sources */,
 				18F3651B1E1FB8950077D3CC /* PersonalCenterController.m in Sources */,
 				CCFB0EA81DC491B900E19DB6 /* TaResult.m in Sources */,
@@ -2765,7 +2754,6 @@
 				18F4C7DE1E4854B200BA3F43 /* YWShareView.m in Sources */,
 				18F363701E1FB64F0077D3CC /* YWMiddleViewOfNine.m in Sources */,
 				CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */,
-				18F365001E1FB8940077D3CC /* MessageDetailController.m in Sources */,
 				18F4C7A71E4849DE00BA3F43 /* UIImage+CMWebP.m in Sources */,
 				18F3630B1E1FB19A0077D3CC /* UIImage+Orientation.m in Sources */,
 				1870DC921E1FCC89008767A5 /* YWQiNiuUploadHelper.m in Sources */,

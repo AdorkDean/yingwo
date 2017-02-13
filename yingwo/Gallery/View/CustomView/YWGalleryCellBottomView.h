@@ -10,6 +10,8 @@
 #import "YWSpringButton.h"
 #import "YWAlertButton.h"
 
+extern const int FavourNumLabelTag;
+
 @protocol YWGalleryCellBottomViewDelegate;
 
 

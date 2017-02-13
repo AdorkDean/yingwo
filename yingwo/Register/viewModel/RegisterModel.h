@@ -27,7 +27,7 @@
 - (void)requestForUpdatePwdWithUrl:(NSString *)url
                        parameters:(id)parameters
                           success:(void (^)(UpdatePwdEntity *update))success
-                          failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+                          failure:(ErrorBlock)failure;
 
 
 /**
@@ -41,7 +41,7 @@
 - (void)requestForRegisterWithUrl:(NSString *)url
                        parameters:(id)parameters
                           success:(void (^)(Register *reg))success
-                          failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+                          failure:(ErrorBlock)failure;
 
 /**
  *  验证码请求
@@ -54,7 +54,7 @@
 - (void)requestForSMSWithUrl:(NSString *)url
                   paramaters:(id)paramaters
                      success:(void (^)(SmsMessage *sms))success
-                     failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+                     failure:(ErrorBlock)failure;
 
 /**
  *  短信验证
@@ -67,7 +67,7 @@
 - (void)requestSMSForCheckMobleWithUrl:(NSString *)url
                             paramaters:(id)paramaters
                                success:(void (^)(SmsMessage *sms))success
-                               failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+                               failure:(ErrorBlock)failure;
 
 /**
  *  验证手机是否注册过
@@ -80,5 +80,5 @@
 - (void)requestForCheckMobleWithUrl:(NSString *)url
                          paramaters:(id)paramaters
                             success:(void (^)(StatusEntity *status))success
-                            failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure;
+                            failure:(ErrorBlock)failure;
 @end

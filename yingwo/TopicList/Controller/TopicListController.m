@@ -16,7 +16,6 @@
 
 @interface TopicListController ()<UITableViewDelegate,UITableViewDataSource,YWTopicViewCellDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem    *leftBarItem;
 @property (nonatomic, strong) UIBarButtonItem    *rightBarItem;
 
 @property (nonatomic, strong) UIButton           *addTopicBtn;
@@ -70,16 +69,6 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     return _topicTableView;
 }
 
-- (UIBarButtonItem *)leftBarItem {
-    if (_leftBarItem == nil) {
-        _leftBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                        style:UIBarButtonItemStylePlain
-                                                       target:self
-                                                       action:@selector(jumpToDiscoveryPage)];
-    }
-    return _leftBarItem;
-}
-
 - (UIBarButtonItem *)rightBarItem {
     if (_rightBarItem == nil) {
         _rightBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"share"]
@@ -112,6 +101,8 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     if (_viewModel == nil) {
         _viewModel           = [[TopicListViewModel alloc] init];
         _viewModel.isMyTopic = self.isMyTopic;
+        _viewModel.user_id   = self.userId;
+        
     }
     return _viewModel;
 }
@@ -125,10 +116,6 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 }
 
 #pragma mark all action
-
-- (void) jumpToDiscoveryPage {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 
 -(void)loadViewIfNeeded {

@@ -22,23 +22,17 @@
 - (void)requestForUpdatePwdWithUrl:(NSString *)url
                        parameters:(id)parameters
                           success:(void (^)(UpdatePwdEntity *update))success
-                          failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
+                          failure:(ErrorBlock)failure {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
+    [YWRequestTool YWRequestPOSTWithURL:url
+                              parameter:parameters
+                           successBlock:^(id content) {
+                               UpdatePwdEntity *update         = [UpdatePwdEntity mj_objectWithKeyValues:content];
+                               success(update);
+    } errorBlock:^(id error) {
+        failure(error);
+    }];
     
-    [manager POST:fullUrl
-       parameters:parameters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              UpdatePwdEntity *update         = [UpdatePwdEntity mj_objectWithKeyValues:content];
-              success(update);
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              failure(task,error);
-          }];
 }
 
 
@@ -46,94 +40,69 @@
 - (void)requestForRegisterWithUrl:(NSString *)url
                        parameters:(id)parameters
                           success:(void (^)(Register *reg))success
-                          failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
+                          failure:(ErrorBlock)failure {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-
-    [manager POST:fullUrl
-       parameters:parameters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-             
-        NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                options:NSJSONReadingMutableContainers
-                                                                  error:nil];
-        Register *reg         = [Register mj_objectWithKeyValues:content];
-        success(reg);
-
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(task,error);
+    [YWRequestTool YWRequestPOSTWithURL:url
+                              parameter:parameters
+                           successBlock:^(id content) {
+                               Register *reg         = [Register mj_objectWithKeyValues:content];
+                               success(reg);
+    } errorBlock:^(id error) {
+        failure(error);
     }];
+    
 }
 
 - (void)requestForSMSWithUrl:(NSString *)url
                   paramaters:(id)paramaters
                      success:(void (^)(SmsMessage *sms))success
-                     failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
+                     failure:(ErrorBlock)failure {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-
-    YWHTTPManager *manager = [YWHTTPManager manager];
-
-    [manager POST:fullUrl parameters:paramaters
-                            progress:nil
-                            success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                     
-        NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        SmsMessage *sms       = [SmsMessage mj_objectWithKeyValues:content];
-
-        success(sms);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(task,error);
+    [YWRequestTool YWRequestPOSTWithURL:url
+                              parameter:paramaters
+                           successBlock:^(id content) {
+                               SmsMessage *sms       = [SmsMessage mj_objectWithKeyValues:content];
+                               
+                               success(sms);
+    } errorBlock:^(id error) {
+        failure(error);
     }];
+
 }
 
 - (void)requestSMSForCheckMobleWithUrl:(NSString *)url
                             paramaters:(id)paramaters
                                success:(void (^)(SmsMessage *sms))success
-                               failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
+                               failure:(ErrorBlock)failure {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
+    [YWRequestTool YWRequestPOSTWithURL:url
+                              parameter:paramaters
+                           successBlock:^(id content) {
+                               SmsMessage *sms       = [SmsMessage mj_objectWithKeyValues:content];
+                               
+                               success(sms);
+    } errorBlock:^(id error) {
+        failure(error);
+    }];
     
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              SmsMessage *sms       = [SmsMessage mj_objectWithKeyValues:content];
-              
-              success(sms);
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              failure(task,error);
-          }];
 }
 
 - (void)requestForCheckMobleWithUrl:(NSString *)url
                             paramaters:(id)paramaters
                                success:(void (^)(StatusEntity *status))success
-                               failure:(void (^)(NSURLSessionDataTask *task,NSError *error))failure {
+                               failure:(ErrorBlock)failure {
+    [YWRequestTool YWRequestPOSTWithURL:url
+                              parameter:paramaters
+                           successBlock:^(id content) {
+        
+                               StatusEntity *statusEntity       = [StatusEntity mj_objectWithKeyValues:content[@"info"]];
+                               
+                               success(statusEntity);
+                               
+    } errorBlock:^(id error) {
+        failure(error);
+    }];
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-    
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              StatusEntity *statusEntity       = [StatusEntity mj_objectWithKeyValues:content[@"info"]];
-              
-              success(statusEntity);
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              failure(task,error);
-          }];
 }
 
 @end

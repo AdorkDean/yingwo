@@ -188,9 +188,8 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    self.model = self.tieZiList[indexPath.row];
+    [self jumpToDetailPageWithModel:self.tieZiList[indexPath.row]];
     
-    [self performSegueWithIdentifier:@"detail" sender:self];
 
 }
 
@@ -274,9 +273,8 @@
     
     YWGalleryBaseCell *selectedCell = (YWGalleryBaseCell *)message.superview.superview.superview.superview;
     NSIndexPath *indexPath                = [self.tableView indexPathForCell:selectedCell];
-    self.model                            = self.tieZiList[indexPath.row];
     
-    [self performSegueWithIdentifier:@"detail" sender:self];
+    [self jumpToDetailPageWithModel:self.tieZiList[indexPath.row]];
     
 }
 
@@ -323,18 +321,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    //查看贴子详情
-    if ([segue.destinationViewController isKindOfClass:[DetailController class]])
-    {
-        
-        if ([segue.identifier isEqualToString:@"detail"]) {
-            DetailController *detailVc = segue.destinationViewController;
-            detailVc.model             = self.model;
-        }
-    }
-    
     //查看所有话题
-    else if ([segue.destinationViewController isKindOfClass:[TopicController class]])
+     if ([segue.destinationViewController isKindOfClass:[TopicController class]])
     {
         if ([segue.identifier isEqualToString:@"topic"]) {
             TopicController *topicVc = segue.destinationViewController;
@@ -457,6 +445,13 @@
     pasteboard.string               = copyString;
 
     [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
+    
+}
+
+- (void)jumpToDetailPageWithModel:(TieZi *) model{
+    
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
+    [self.navigationController pushViewController:detailVc animated:YES];
     
 }
 

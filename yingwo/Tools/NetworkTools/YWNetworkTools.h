@@ -63,4 +63,6 @@
  *  @return 字符串
  */
 + (NSString *)getDeviceToken;
+
++ (void)postDeviceToken;
 @end

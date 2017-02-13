@@ -11,7 +11,7 @@
 @interface HomeController ()<YWDropDownViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem   *rightBarItem;
-@property (nonatomic, strong) UIBarButtonItem   *leftBarItem;
+@property (nonatomic, strong) UIBarButtonItem   *leftBarButton;
 @property (nonatomic, strong) YWDropDownView    *drorDownView;
 @property (nonatomic, strong) YWPhotoCotentView *contentView;
 
@@ -37,14 +37,14 @@ static int start_id = 0;
     return _requestEntity;
 }
 
-- (UIBarButtonItem *)leftBarItem {
-    if (_leftBarItem == nil) {
-        _leftBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"screen"]
+- (UIBarButtonItem *)leftBarButton {
+    if (_leftBarButton == nil) {
+        _leftBarButton = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"screen"]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(showDropDownView:)];
     }
-    return _leftBarItem;
+    return _leftBarButton;
 }
 
 - (UIBarButtonItem *)rightBarItem {
@@ -128,7 +128,7 @@ static int start_id = 0;
     [super viewWillAppear:animated];
     
     self.title = @"南京工业大学";
-    self.navigationItem.leftBarButtonItem  = self.leftBarItem;
+    self.navigationItem.leftBarButtonItem  = self.leftBarButton;
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
     

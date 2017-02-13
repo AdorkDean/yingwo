@@ -18,4 +18,8 @@
 //学科专业
 @property (nonatomic, strong) TopicListController *threeFieldVc;
 
+@property (nonatomic, assign) int                 myUserId;
+
+- (instancetype)initWithUserId:(int)userId;
+
 @end

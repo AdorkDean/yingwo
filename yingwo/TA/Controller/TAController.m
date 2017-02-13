@@ -32,7 +32,6 @@
 @property (nonatomic, strong) TaEntity                  *taEntity;
 
 @property (nonatomic, strong) UIView                    *taNavigationBar;
-@property (nonatomic, strong) UIBarButtonItem           *leftBarItem;
 
 @property (nonatomic, assign) CGFloat                   navgationBarHeight;
 
@@ -47,6 +46,16 @@ static CGFloat HeadViewHeight = 250;
 
 
 @implementation TAController
+
+- (instancetype)initWithUserId:(int)userId {
+    
+    self = [super init];
+    if (self) {
+        self.ta_id = userId;
+    }
+    
+    return self;
+}
 
 -(UIScrollView *)taScrollView {
     if (_taScrollView == nil) {
@@ -123,18 +132,6 @@ static CGFloat HeadViewHeight = 250;
         _taEntity = [[TaEntity alloc] init];
     }
     return _taEntity;
-}
-
-- (UIBarButtonItem *)leftBarItem {
-    if (_leftBarItem == nil) {
-        _leftBarItem           = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(backFarword)];
-        _leftBarItem.tintColor = [UIColor whiteColor];
-        
-    }
-    return _leftBarItem;
 }
 
 - (CGFloat)navgationBarHeight {
@@ -254,46 +251,6 @@ static CGFloat HeadViewHeight = 250;
 
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    //查看Ta的话题详情
-    if ([segue.destinationViewController isKindOfClass:[MyTopicController class]])
-    {
-        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYTOPIC]) {
-            MyTopicController *taTopicVc = segue.destinationViewController;
-            taTopicVc.oneFieldVc.viewModel.user_id   = self.ta_id;
-            taTopicVc.twoFieldVc.viewModel.user_id   = self.ta_id;
-            taTopicVc.threeFieldVc.viewModel.user_id = self.ta_id;
-            
-        }
-    } else if ([segue.destinationViewController isKindOfClass:[MyTieZiController class]])
-    {
-        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYTIEZI]) {
-            MyTieZiController *taTieziVc = segue.destinationViewController;
-            taTieziVc.viewModel.user_id  = self.ta_id;
-        }
-    } else if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
-        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPIC]) {
-            TopicController *topicVc = segue.destinationViewController;
-            topicVc.topic_id         = self.topic_id;
-        }
-    } else if ([segue.destinationViewController isKindOfClass:[MyRelationshipBaseController class]]) {
-        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYRELATION]) {
-            MyRelationshipBaseController *relationVc = segue.destinationViewController;
-            //关系类型TA的关注和TA的粉丝
-            if (self.relationType == 5) {
-                relationVc.relationType = 5;
-            }else if (self.relationType == 6) {
-                relationVc.relationType = 6;
-            }
-            relationVc.requestEntity.user_id         = self.ta_id;
-            relationVc.followCnt                     = [self.taEntity.like_cnt intValue];
-            relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
-        }
-    }
-    
-}
-
 #define NAVBAR_CHANGE_POINT 50
 
 #pragma mark - UIScrollViewDelegate
@@ -332,27 +289,15 @@ static CGFloat HeadViewHeight = 250;
 
 #pragma mark - GalleryView Delegate
 
-//- (void)galleryView:(GalleryView *)galleryView didShowPageAtIndex:(NSInteger)pageIndex
-//{
-//    
-//}
-//
-//- (void)galleryView:(GalleryView *)galleryView didSelectPageAtIndex:(NSInteger)pageIndex
-//{
-//    [self.galleryView removeImageView];
-//}
-//
-//- (void)galleryView:(GalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-//    self.galleryView = nil;
-//}
-
+- (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
+    galleryView = nil;
+}
 
 #pragma mark - YWTaTopicViewDelegate
 - (void)didSelectTopicWith:(int)topicId {
    
-    self.topic_id = topicId;
-    
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
+    TopicController *topicVc = [[TopicController alloc] initWithTopicId:topicId];
+    [self.navigationController pushViewController:topicVc animated:YES];
 }
 
 #pragma mark - action
@@ -412,11 +357,6 @@ static CGFloat HeadViewHeight = 250;
    // [self.galleryView setImages:imagesArr showAtIndex:0];
     self.galleryView.pageLabel.text = @"";
     [self.navigationController.view addSubview:self.galleryView];
-}
-
-
-- (void)backFarword {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)fillTaHeaderViewWith:(TaEntity *)ta {
@@ -613,22 +553,36 @@ static CGFloat HeadViewHeight = 250;
 
 
 - (void)jumpToTaTopicListPage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTOPIC sender:self];
+    
+    MyTopicController *myTopicVc = [[MyTopicController alloc] initWithUserId:self.ta_id];
+    [self.navigationController pushViewController:myTopicVc animated:YES];
+    
 }
 
 - (void)jumpToTaTieziListPage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTIEZI sender:self];
+    
+    MyTopicController *myTopicVc = [[MyTopicController alloc] initWithUserId:self.ta_id];
+    [self.navigationController pushViewController:myTopicVc animated:YES];
 }
 
 - (void)jumpToTaFollowPage {
-    self.relationType = 5;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+    MyRelationshipBaseController *relationVc = [[MyRelationshipBaseController alloc] initWithRelationType:HisRelationShip];
+    
+    relationVc.requestEntity.user_id         = self.ta_id;
+    relationVc.followCnt                     = [self.taEntity.like_cnt intValue];
+    relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
+
+    [self.navigationController pushViewController:relationVc animated:YES];
 }
 
 - (void)jumpToTaFansPage {
-    self.relationType = 6;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
-}
+    MyRelationshipBaseController *relationVc = [[MyRelationshipBaseController alloc] initWithRelationType:HisFansRelationShip];
+    
+    relationVc.requestEntity.user_id         = self.ta_id;
+    relationVc.followCnt                     = [self.taEntity.like_cnt intValue];
+    relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
+
+    [self.navigationController pushViewController:relationVc animated:YES];}
 
 - (void)jumpToChatWithTa {
     

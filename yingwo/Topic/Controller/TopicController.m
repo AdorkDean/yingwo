@@ -41,7 +41,6 @@
 @property (nonatomic, strong) UIActivityIndicatorView *refreshIndictor;
 
 @property (nonatomic, strong) UIBarButtonItem         *rightBarItem;
-@property (nonatomic, strong) UIBarButtonItem         *leftBarItem;
 
 @property (nonatomic, strong) UIButton                *addBtn;
 
@@ -63,6 +62,18 @@ static CGFloat HeaderViewHeight = 250;
 static int start_id = 0;
 
 @implementation TopicController
+
+- (instancetype)initWithTopicId:(int)topicId {
+    
+    self = [super init];
+    
+    if (self) {
+        
+        self.topic_id = topicId;
+    }
+    
+    return self;
+}
 
 - (UIScrollView *)topicSrcllView {
     if (_topicSrcllView == nil) {
@@ -136,18 +147,6 @@ static int start_id = 0;
         [_topicSectionView addSubview:self.segmentView.tabView];
     }
     return _topicSectionView;
-}
-
-- (UIBarButtonItem *)leftBarItem {
-    if (_leftBarItem == nil) {
-        _leftBarItem           = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(backFarword)];
-        _leftBarItem.tintColor = [UIColor whiteColor];
-
-    }
-    return _leftBarItem;
 }
 
 - (UIBarButtonItem *)rightBarItem {
@@ -267,10 +266,6 @@ static int start_id = 0;
 
     [self presentViewController:mainNav animated:YES completion:nil];
     
-}
-
-- (void)backFarword {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {

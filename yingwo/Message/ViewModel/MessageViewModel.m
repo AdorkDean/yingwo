@@ -29,17 +29,14 @@
             
             @strongify(self);
             RequestEntity *requestEntity = (RequestEntity *)input;
-            
-            NSDictionary *paramaters = @{@"start_id":@(requestEntity.start_id)};
-            
-            [self requestMessageWithUrl:requestEntity.URLString
-                             paramaters:paramaters
-                                success:^(NSArray *messages) {
-                
-                                    [subscriber sendNext:messages];
-                                    [subscriber sendCompleted];
-                                            
-            } error:^(NSURLSessionDataTask *task, NSError *error) {
+                        
+            [self requestMessageWithRequest:requestEntity
+                                    success:^(id messages) {
+                                        
+                                        [subscriber sendNext:messages];
+                                        [subscriber sendCompleted];
+                                        
+            } error:^(id error) {
                 
                 [subscriber sendError:error];
 
@@ -148,54 +145,33 @@
 }
 
 
-- (void)requestMessageWithUrl:(NSString *)url
-                   paramaters:(id)paramaters
-                      success:(void (^)(NSArray *))success
-                        error:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+- (void)requestMessageWithRequest:(RequestEntity *)request
+                          success:(SuccessBlock)success
+                            error:(ErrorBlock)failure {
     
-    NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager =[YWHTTPManager manager];
-    
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              
-              NSDictionary *content = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                      options:NSJSONReadingMutableContainers
-                                                                        error:nil];
-              
-              
-              StatusEntity *result = [StatusEntity mj_objectWithKeyValues:content];
-              
-              NSArray *messageArr    = [MessageEntity mj_objectArrayWithKeyValuesArray:result.info];
-              
-              NSLog(@"messageArr:%@",result.info);
-              
-              [self changeImageUrlModelFor:messageArr];
-              
-              success(messageArr);
-              
+    [YWRequestTool YWRequestCachedPOSTWithRequest:request
+                                     successBlock:^(id content) {
+                                         
+                                         StatusEntity *result = [StatusEntity mj_objectWithKeyValues:content];
+                                         
+                                         NSArray *messageArr    = [MessageEntity mj_objectArrayWithKeyValuesArray:result.info];
+                                         
+                                         //  NSLog(@"messageArr:%@",result.info);
+                                         
+                                         [self changeImageUrlModelFor:messageArr];
+                                         
+                                         success(messageArr);
 
-              //  NSLog(@"content:%@",content);
-              //  NSLog(@"tieZiArr:%@",tieZiResult.info);
-              
-          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
-              NSLog(@"error:%@",error);
-              failure(task,error);
-              
-          }];
-    
+    } errorBlock:^(id error) {
+        failure(error);
+    }];
 }
 
 - (void)changeImageUrlModelFor:(NSArray *)messageArr {
     
     for (MessageEntity *message in messageArr) {
         message.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:message.img];
-        message.post_detail_imageUrlArrEntity = [NSString separateImageViewURLStringToModel:message.post_detail_img];
+        message.imageURLArr = [NSString separateImageViewURLStringToModel:message.img];
     }
     
 }

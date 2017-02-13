@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern const int MessageSpringButtonTag;
+extern const int FavourSpringButtonTag;
+
 @protocol YWSpringButtonDelegate;
 
 @interface YWSpringButton : UIButton
