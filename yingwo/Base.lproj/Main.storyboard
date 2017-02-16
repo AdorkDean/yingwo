@@ -280,25 +280,6 @@
             </objects>
             <point key="canvasLocation" x="2970" y="3089"/>
         </scene>
-        <!--Announce Controller-->
-        <scene sceneID="84x-f8-DTx">
-            <objects>
-                <viewController storyboardIdentifier="AnnounceController" id="8A5-8v-r7y" customClass="AnnounceController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2aX-nv-bZF"/>
-                        <viewControllerLayoutGuide type="bottom" id="d5X-42-e3y"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ZHW-sW-lMD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="kd9-cK-pAX"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fu3-BL-Pfw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="927" y="4131"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="JBh-hL-zbH">
             <objects>
@@ -464,9 +445,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="8A5-8v-r7y" kind="relationship" relationship="rootViewController" id="9Ed-Ul-ol7"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y2p-ia-qnU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

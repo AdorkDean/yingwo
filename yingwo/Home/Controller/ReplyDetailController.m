@@ -6,7 +6,6 @@
 //  Copyright © 2017年 wangxiaofa. All rights reserved.
 //
 #import "ReplyDetailController.h"
-#import "AnnounceController.h"
 #import "TopicController.h"
 #import "ReplyViewModel.h"
 
@@ -415,11 +414,6 @@ static NSString *replyCellIdentifier = @"replyCell";
     
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear: animated];
-    
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -441,8 +435,8 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     if (self.shouldShowKeyboard) {
         
-        [self.commentView.messageTextView becomeFirstResponder];
-        
+        [self.replyView.messageField becomeFirstResponder];
+        [self.commentView.messageTextView becomeFirstResponder] ;
     }
     
 }
@@ -478,7 +472,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     }
     else
     {
-        originY = bottom - self.navgationBarHeight - 44 ;
+        originY = bottom - self.navgationBarHeight - 44 - 60;
         
     }
     // 约束动画
@@ -643,20 +637,6 @@ static NSString *replyCellIdentifier = @"replyCell";
         
     }
     
-    
-}
-
-/**
- *  展示回复视图图片
- *
- *  @param imageView
- */
-- (void)showReplyImageView:(UIImageView *)imageView {
-    
-    [self stopSystemPopGestureRecognizer];
-    
-
-    [self.navigationController.view addSubview:self.galleryView];
     
 }
 

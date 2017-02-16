@@ -86,6 +86,8 @@ static int start_id = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"我的评论";
+
     [self layoutSubviews];
     
     __weak MyCommentController *weakSelf = self;
@@ -109,15 +111,10 @@ static int start_id = 0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.title = @"我的评论";
-    self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                                               style:UIBarButtonItemStylePlain
-                                                                              target:self
-                                                                              action:@selector(backToPersonCenterView)];
-    
-    
+
+    self.navigationItem.leftBarButtonItem = self.leftBarItem;
 }
+
 
 
 /**
@@ -344,11 +341,6 @@ static int start_id = 0;
     }
     
 
-}
-
-//返回个人中心界面
-- (void)backToPersonCenterView {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

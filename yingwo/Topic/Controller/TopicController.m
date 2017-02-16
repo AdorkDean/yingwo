@@ -35,9 +35,6 @@
 @property (nonatomic, strong) HotTopicController      *hotVc;
 @property (nonatomic, strong) NewTopicController      *freshVc;
 
-//点击查看用户详情
-@property (nonatomic, assign) int                     tap_ta_id;
-
 @property (nonatomic, strong) UIActivityIndicatorView *refreshIndictor;
 
 @property (nonatomic, strong) UIBarButtonItem         *rightBarItem;
@@ -258,7 +255,8 @@ static int start_id = 0;
 //发布话题
 - (void)addTopic {
     
-    AnnounceController *announceVc = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
+    AnnounceController *announceVc = [[AnnounceController alloc] initWithTieZiId:self.topic_id
+                                                                           title:self.topic_title];
     announceVc.isTopic             = YES;
     announceVc.topic_id            = self.topic_id;
     announceVc.topic_title         = self.topic_title;
@@ -512,39 +510,20 @@ static int start_id = 0;
     [self showAddButton];
 }
 
-#pragma mark segue prepare
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[DetailController class]]) {
-        
-        if ([segue.identifier isEqualToString:@"detail"]) {
-            DetailController *detailVc = segue.destinationViewController;
-            detailVc.model             = self.model;
-        }
-    }else if ([segue.destinationViewController isKindOfClass:[TAController class]])
-    {
-        if ([segue.identifier isEqualToString:@"ta"]) {
-            TAController *taVc = segue.destinationViewController;
-            taVc.ta_id         = self.tap_ta_id;
-        }
-    }
-    
-}
-
 #pragma mark TopicControllerDelegate
 
 - (void)didSelectCellWith:(TieZi *)model {
     
-    self.model = model;
-    [self performSegueWithIdentifier:@"detail" sender:self];
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
-/*
-- (void)didSelectBottomWith:(YWHomeCellBottomView *)bottomView {
 
-    self.tap_ta_id = bottomView.user_id;
-    [self performSegueWithIdentifier:@"ta" sender:self];
-}
-*/
+//- (void)didSelectBottomWith:(id)bottomView {
+//
+//    TAController *taVc = [[TAController alloc] initWithUserId:bottomView.user_id];
+//    [self.navigationController pushViewController:taVc animated:YES];
+//}
+
 #pragma mark private method
 
 - (void)fillTopicHeaderViewWith:(TopicEntity *)topic {

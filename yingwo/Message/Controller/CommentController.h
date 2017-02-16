@@ -9,11 +9,22 @@
 #import "BaseViewController.h"
 #import "MessageController.h"
 
-@interface CommentController : BaseViewController
+#import "YWMessageCell.h"
+#import "YWImageMessageCell.h"
+
+#import "MessageViewModel.h"
+
+#import "MessageEntity.h"
+
+@interface CommentController : BaseViewController<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
 
 @property (nonatomic, strong) UITableView       *tableView;
 
+@property (nonatomic, strong) RequestEntity     *requestEntity;
+
 @property (nonatomic, assign) id<MessageControllerDelegate> delegate;
+
+@property (nonatomic, strong) NSMutableArray    *messageArr;
 
 @end
 

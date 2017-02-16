@@ -7,7 +7,8 @@
 //
 
 #import "DetailController.h"
-#import "AnnounceController.h"
+#import "FollowTieController.h"
+#import "ReplyTieController.h"
 #import "TopicController.h"
 #import "ReplyDetailController.h"
 
@@ -402,22 +403,23 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark Button action
 
 - (void)jumpToFollowTieZiPage {
-    AnnounceController *announceVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
-    announceVC.isFollowTieZi       = YES;
-    announceVC.post_id             = self.model.tieZi_id;
+    
+    FollowTieController *followVc = [[FollowTieController alloc] initWithTieZiId:self.model.tieZi_id
+                                                                           title:@"跟贴"];
+    
+    
     
     //block传参数
-    announceVC.replyTieZiBlock = ^(NSDictionary *parameter,BOOL isRelease){
+    followVc.replyTieZiBlock = ^(NSDictionary *parameter,BOOL isRelease){
         if (isRelease == YES) {
             
-//            [self addReplyViewAtLastWith:parameter];
             [self.detailTableView.mj_footer beginRefreshing];
 
         }
     };
 
     
-    MainNavController *mainNav = [[MainNavController alloc] initWithRootViewController:announceVC];
+    MainNavController *mainNav = [[MainNavController alloc] initWithRootViewController:followVc];
     
     [self presentViewController:mainNav
                        animated:YES

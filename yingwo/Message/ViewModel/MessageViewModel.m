@@ -171,7 +171,7 @@
     
     for (MessageEntity *message in messageArr) {
         message.imageUrlEntityArr = [NSString separateImageViewURLStringToModel:message.img];
-        message.imageURLArr = [NSString separateImageViewURLStringToModel:message.img];
+        message.imageURLArr = [NSString separateImageViewURLString:message.img];
     }
     
 }

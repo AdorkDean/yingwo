@@ -20,8 +20,6 @@
 
 @property (nonatomic, strong) MyTopicViewModel *viewModel;
 
-@property (nonatomic, assign) int                  topicId;
-
 @end
 
 @implementation MyTopicController
@@ -135,33 +133,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
- //   [self loadFieldList];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
     Customer *user = [User findCustomer];
     if (self.oneFieldVc.viewModel.user_id != [user.userId intValue]) {
         self.title = @"TA的话题";
     }else {
         self.title = @"我的话题";
     }
-    
-    self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                                               style:UIBarButtonItemStylePlain
-                                                                              target:self
-                                                                              action:@selector(backToPersonCenterView)];
-//    [self resetFrameAndContentSize];
-
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [super viewDidAppear:animated];
-    
-
+    self.navigationItem.leftBarButtonItem = self.leftBarItem;
 }
 
 - (void)resetFrameAndContentSize {
@@ -228,33 +211,13 @@
 
 - (void)didSelectTopicListWith:(int)topicId{
     
-    self.topicId = topicId;
+    TopicController *topicVc = [[TopicController alloc] initWithTopicId:topicId];
+    [self.navigationController pushViewController:topicVc animated:YES];
     
-    [self performSegueWithIdentifier:@"topic" sender:self];
-    
-    
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"topic"]) {
-        
-        if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
-            
-            TopicController *topicVc = segue.destinationViewController;
-            topicVc.topic_id         = self.topicId;
-            
-        }
-        
-    }
     
 }
 
 #pragma mark private method
-
-- (void)backToPersonCenterView {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 /**
  *  获取领域

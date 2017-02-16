@@ -24,9 +24,6 @@
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
 
-//点击查看话题内容
-@property (nonatomic, assign) int                topicId;
-
 
 
 @end
@@ -34,6 +31,17 @@
 static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
 
 @implementation TopicListController
+
+- (instancetype)initWithSubjectId:(int)subjectId subjectName:(NSString *)subjectName {
+    
+    self = [super init];
+    
+    if (self) {
+        self.subject_id = subjectId;
+        self.subject = subjectName;
+    }
+    return self;
+}
 
 -(UIScrollView *)topicScrollView {
     if (_topicScrollView == nil) {
@@ -237,16 +245,14 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
    
     TopicEntity *topic = [self.topicArr objectAtIndex:indexPath.row];
     
-    self.topicId       = [topic.topic_id intValue];
-    
     if ([self.delegate respondsToSelector:@selector(didSelectTopicListWith:)]) {
         
-        [self.delegate didSelectTopicListWith:self.topicId];
+        [self.delegate didSelectTopicListWith:[topic.topic_id intValue]];
         
     }
     else
     {
-        [self performSegueWithIdentifier:@"topic" sender:self];
+        [self jumpToTopicPageWithTopicId:[topic.topic_id intValue]];
     }
     
 }
@@ -269,20 +275,12 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)jumpToTopicPageWithTopicId:(int)topicId {
     
-    
-    //查看所有话题
-    if ([segue.destinationViewController isKindOfClass:[TopicController class]])
-    {
-        if ([segue.identifier isEqualToString:@"topic"]) {
-            TopicController *topicVc = segue.destinationViewController;
-            topicVc.topic_id         = self.topicId;
-            
-        }
-        
-    }
+    TopicController *topicVc = [[TopicController alloc] initWithTopicId:topicId];
+    [self.navigationController pushViewController:topicVc animated:YES];
 }
+
 
 
 @end

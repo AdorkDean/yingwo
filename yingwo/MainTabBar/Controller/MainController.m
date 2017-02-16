@@ -56,7 +56,7 @@
     _messageVC                         = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
     _personCenterVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
 
-    _announceVC                        = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
+    _announceVC                        = [[AnnounceController alloc] init];
 
     MainNavController *homeNav         = [[MainNavController alloc] initWithRootViewController:self.homeVC];
     MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryNavVC];
@@ -186,7 +186,7 @@
         if (self.isOnHomePage) {
             
             [self refreshHomeVC];
-            [self.homeVC.tabBar.homeBtn clearBadge];
+            [self.mainTabBarController.tabBar.homeBtn clearBadge];
             
         }else {
             self.isOnHomePage = YES;
@@ -198,7 +198,18 @@
     }
     else if (index == 2) {
 
-        [self performSegueWithIdentifier:@"announce" sender:self];
+        [self presentViewController:self.announceVC animated:YES completion:nil];
+        
+        self.announceVC.delegate = self.announceVC.delegate;
+        WeakSelf(self);
+        self.announceVC.returnValueBlock = ^(BOOL isreloaded2) {
+            
+            if (isreloaded2 == YES) {
+                [weakself refreshHomeVC];
+                
+            }
+        };
+        
     }
     else if (index == 3){
         
@@ -211,33 +222,6 @@
 
     }
 
-}
-
-
-#pragma mark segue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"announce"]) {
-        if ([segue.destinationViewController isKindOfClass:[MainNavController class]]) {
-            
-            MainNavController *mainNav = segue.destinationViewController;
-            
-            AnnounceController *announceVc = [mainNav.viewControllers objectAtIndex:0];
-            
-            announceVc.delegate = self.announceVC.delegate;
-            announceVc.returnValueBlock = ^(BOOL isreloaded2) {
-                                
-                if (isreloaded2 == YES) {
-                    [self refreshHomeVC];
-                    
-                }
-            };
-            
-            
-        }
-    }
-    
 }
 
 - (void)didReceiveMemoryWarning {

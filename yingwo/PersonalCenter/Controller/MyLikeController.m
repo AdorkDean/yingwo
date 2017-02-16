@@ -66,6 +66,12 @@ static int start_id = 0;
     [self addRefreshForTableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.leftBarButtonItem = self.leftBarItem;
+}
+
 /**
  *  下拉刷新
  */

@@ -10,24 +10,11 @@
 #import "DetailController.h"
 #import "ReplyDetailController.h"
 
-#import "YWMessageCell.h"
-#import "YWImageMessageCell.h"
 
-#import "MessageViewModel.h"
 
-#import "MessageEntity.h"
-
-@interface CommentController ()<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
+@interface CommentController ()
 
 @property (nonatomic, strong) MessageViewModel  *viewModel;
-
-@property (nonatomic, strong) RequestEntity     *requestEntity;
-
-@property (nonatomic, strong) MessageEntity     *messagetEntity;
-
-@property (nonatomic, strong) NSMutableArray    *messageArr;
-
-@property (nonatomic, strong) MessageController *messageController;
 
 @end
 
@@ -245,24 +232,45 @@ static int start_id = 0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    self.messagetEntity = [self.messageArr objectAtIndex:indexPath.row];
+    MessageEntity *message = [self.messageArr objectAtIndex:indexPath.row];
     
-    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:[self.messageArr objectAtIndex:indexPath.row]
-                                                                    shouldShowKeyBoard:NO];
-    [self.navigationController pushViewController:replyVc animated:YES];
+    //跟贴
+    if ([message.follow_type isEqualToString:@"REPLY"]) {
+        
+        [self jumpToReplyDetailPageWithModel:message];
+        
+    }
+    //评论
+    else if ([message.follow_type isEqualToString:@"COMMENT"]) {
+        
+        [self jumpToReplyDetailPageWithModel:message];
+
+    }
     
 }
 
 #pragma mark YWMessageCellDelegate
 /**
- *  查看原贴
+ *  查看原贴或跟帖、评论
  *
  *  @return
  */
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
-    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:messageEntity];
-    [self.navigationController pushViewController:detailVc animated:YES];
+    //原贴
+    if ([messageEntity.source_type isEqualToString:@"POST"]) {
+        [self jumpToTieZiDetailPageWithModel:messageEntity];
+    }
+    //跟贴
+    else if ([messageEntity.source_type isEqualToString:@"REPLY"]) {
+        [self jumpToReplyDetailPageWithModel:messageEntity];
+
+    }
+    //评论
+    else if ([messageEntity.source_type isEqualToString:@"COMMENT"]) {
+        [self jumpToReplyDetailPageWithModel:messageEntity];
+
+    }
 
 }
 
@@ -276,6 +284,21 @@ static int start_id = 0;
     TAController *taVc = [[TAController alloc] initWithUserId:messageEntity.user_id];
     [self.navigationController pushViewController:taVc animated:YES];
 
+}
+
+#pragma mark private
+
+- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message {
+    
+    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
+                                                                    shouldShowKeyBoard:NO];
+    [self.navigationController pushViewController:replyVc animated:YES];
+}
+
+- (void)jumpToTieZiDetailPageWithModel:(MessageEntity *)message {
+    
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:message];
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

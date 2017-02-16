@@ -40,6 +40,8 @@ typedef void(^ReplyTieZiBlock)(NSDictionary *paramters,BOOL isRelease);
 
 - (void)returnValue:(returnValueBlock)block;
 
+- (instancetype)initWithTieZiId:(int)postId title:(NSString *)title;
+
 @end
 
 @protocol AnnounceControllerDelegate <NSObject>
