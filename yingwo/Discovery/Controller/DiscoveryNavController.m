@@ -107,36 +107,6 @@
     
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    //查看贴子详情
-    if ([segue.destinationViewController isKindOfClass:[DetailController class]])
-    {
-        
-        if ([segue.identifier isEqualToString:@"detail"]) {
-            DetailController *detailVc = segue.destinationViewController;
-            detailVc.model             = self.tieZi;
-            
-        }
-    }
-    else if ([segue.destinationViewController isKindOfClass:[TopicListController class]]) {
-            if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_TOPICLIST]) {
-            
-            TopicListController *topicListVc = segue.destinationViewController;
-            topicListVc.subject_id           = self.subject_id;
-            topicListVc.subject              = self.subject;
-            
-        }
-    }
-    //TopicController
-    else if ([segue.destinationViewController isKindOfClass:[TopicController class]]) {
-        
-        TopicController *topicVc = segue.destinationViewController;
-        topicVc.topic_id         = self.topic_id;
-    }
-
-}
-
 
 #pragma mark - DBPagerTabView Delegate
 - (NSUInteger)numberOfPagers:(SMPagerTabView *)view {
@@ -154,17 +124,9 @@
 
 - (void)didSelectHotDisTopicWith:(HotDiscussEntity *)model {
     
-    self.tieZi = model;
-    self.tieZi.user_name = model.user_name;
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
+    [self.navigationController pushViewController:detailVc animated:YES];
     
-    [self performSegueWithIdentifier:@"detail" sender:self];
-    
-}
-
-- (void)didSelectHotDisTopicLabelWith:(int)topic_id {
-    
-    self.topic_id = topic_id;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
     
 }
 
@@ -172,19 +134,17 @@
 
 - (void)didSelectModuleTopicWith:(int)topic_id {
     
-    self.topic_id = topic_id;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPIC sender:self];
+    TopicController *topicVc = [[TopicController alloc] initWithTopicId:topic_id];
+    [self.navigationController pushViewController:topicVc animated:YES];
 
 }
 
 
 - (void)didSelectModuleTopicWith:(int)topic_id subjectId:(int)subjectId subject:(NSString *)subject {
     
-    self.topic_id = topic_id;
-    self.subject_id = subjectId;
-    self.subject = subject;
-    
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_TOPICLIST sender:self];
+    TopicListController *topicListVc = [[TopicListController alloc] initWithSubjectId:subjectId
+                                                                           subjectName:subject];
+    [self.navigationController pushViewController:topicListVc animated:YES];
 
 }
 

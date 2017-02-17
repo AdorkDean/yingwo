@@ -49,6 +49,7 @@ typedef NS_ENUM(NSInteger,TopicTypeModel) {
 @property (nonatomic, assign) id<TopicListControllerDelegate>            delegate;
 
 
+- (instancetype)initWithSubjectId:(int)subjectId subjectName:(NSString *)subjectName;
 
 @end
 

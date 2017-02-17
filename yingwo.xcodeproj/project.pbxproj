@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1803C1201D541F350078EF0F /* AssetsLibrary.framework */; };
+		1808BE251E5560A200335459 /* TopicAnnounceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1808BE241E5560A200335459 /* TopicAnnounceController.m */; };
 		181826671E4C406D00779294 /* MyCommentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181826661E4C406D00779294 /* MyCommentViewModel.m */; };
 		181E34211D93E3F800A6283C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 181E341F1D93E3F800A6283C /* Podfile */; };
 		181E34221D93E3F800A6283C /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 181E34201D93E3F800A6283C /* Podfile.lock */; };
@@ -289,11 +290,11 @@
 		18F4C7DC1E4854B200BA3F43 /* UMSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F4C7D31E4854B200BA3F43 /* UMSocialUIManager.m */; };
 		18F4C7DD1E4854B200BA3F43 /* YWCustomSharePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F4C7D51E4854B200BA3F43 /* YWCustomSharePlatform.m */; };
 		18F4C7DE1E4854B200BA3F43 /* YWShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F4C7D71E4854B200BA3F43 /* YWShareView.m */; };
+		18FE9D931E529D3A000E162F /* FollowTieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9D921E529D3A000E162F /* FollowTieController.m */; };
 		B243CD67F346DCA423FA5C69 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
 		CC4CDE461D9D04A0002A80B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE421D9D04A0002A80B0 /* main.m */; };
-		CC4CDE471D9D04A0002A80B0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE441D9D04A0002A80B0 /* ViewController.m */; };
 		CC4CDE481D9D04A0002A80B0 /* YingwoUserClause.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */; };
 		CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7A1DC095FE009B4B21 /* TAController.m */; };
 		CCF64E7E1DC0A5FF009B4B21 /* YWTaHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7D1DC0A5FF009B4B21 /* YWTaHeaderView.m */; };
@@ -307,6 +308,8 @@
 
 /* Begin PBXFileReference section */
 		1803C1201D541F350078EF0F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		1808BE231E5560A200335459 /* TopicAnnounceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicAnnounceController.h; sourceTree = "<group>"; };
+		1808BE241E5560A200335459 /* TopicAnnounceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicAnnounceController.m; sourceTree = "<group>"; };
 		181826651E4C406D00779294 /* MyCommentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommentViewModel.h; sourceTree = "<group>"; };
 		181826661E4C406D00779294 /* MyCommentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommentViewModel.m; sourceTree = "<group>"; };
 		181E341F1D93E3F800A6283C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -862,6 +865,8 @@
 		18F4C7D61E4854B200BA3F43 /* YWShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWShareView.h; sourceTree = "<group>"; };
 		18F4C7D71E4854B200BA3F43 /* YWShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWShareView.m; sourceTree = "<group>"; };
 		18F907F61D32394500175886 /* Macro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Macro.h; path = Marco/Macro.h; sourceTree = "<group>"; };
+		18FE9D911E529D3A000E162F /* FollowTieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowTieController.h; sourceTree = "<group>"; };
+		18FE9D921E529D3A000E162F /* FollowTieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowTieController.m; sourceTree = "<group>"; };
 		36F7A65220E9B448DF920CAE /* Pods-yingwo.release copy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release copy.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release copy.xcconfig"; sourceTree = "<group>"; };
 		69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release.xcconfig"; sourceTree = "<group>"; };
 		895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -870,8 +875,6 @@
 		CC3AD4891DCC522500874834 /* YWTaFollowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaFollowView.h; sourceTree = "<group>"; };
 		CC3AD48A1DCC522500874834 /* YWTaFollowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaFollowView.m; sourceTree = "<group>"; };
 		CC4CDE421D9D04A0002A80B0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Support/main.m; sourceTree = "<group>"; };
-		CC4CDE431D9D04A0002A80B0 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Support/ViewController.h; sourceTree = "<group>"; };
-		CC4CDE441D9D04A0002A80B0 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Support/ViewController.m; sourceTree = "<group>"; };
 		CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = YingwoUserClause.txt; path = Support/YingwoUserClause.txt; sourceTree = "<group>"; };
 		CCF64E791DC095FE009B4B21 /* TAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAController.h; sourceTree = "<group>"; };
 		CCF64E7A1DC095FE009B4B21 /* TAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAController.m; sourceTree = "<group>"; };
@@ -1380,8 +1383,6 @@
 				18AFE5F81D30B7E2007BEBDE /* LaunchScreen.storyboard */,
 				18AFE5FB1D30B7E2007BEBDE /* Info.plist */,
 				CC4CDE421D9D04A0002A80B0 /* main.m */,
-				CC4CDE431D9D04A0002A80B0 /* ViewController.h */,
-				CC4CDE441D9D04A0002A80B0 /* ViewController.m */,
 				CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */,
 			);
 			name = "Supporting Files";
@@ -1777,6 +1778,10 @@
 			children = (
 				18F363A71E1FB8940077D3CC /* AnnounceController.h */,
 				18F363A81E1FB8940077D3CC /* AnnounceController.m */,
+				18FE9D911E529D3A000E162F /* FollowTieController.h */,
+				18FE9D921E529D3A000E162F /* FollowTieController.m */,
+				1808BE231E5560A200335459 /* TopicAnnounceController.h */,
+				1808BE241E5560A200335459 /* TopicAnnounceController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2685,6 +2690,7 @@
 				18F4C7951E4849DE00BA3F43 /* UIImage+ColorAtPoint.m in Sources */,
 				18F363101E1FB19A0077D3CC /* User+CURD.m in Sources */,
 				1871DD291E41B17E00C6BF30 /* YWDetailCommentView.m in Sources */,
+				18FE9D931E529D3A000E162F /* FollowTieController.m in Sources */,
 				CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */,
 				18F364FF1E1FB8940077D3CC /* MessageController.m in Sources */,
 				18A075D31E3E236500C4159D /* YWDiscoveryBaseCell.m in Sources */,
@@ -2718,6 +2724,7 @@
 				18F363141E1FB2E70077D3CC /* BaseViewController.m in Sources */,
 				CCF64E841DC0D781009B4B21 /* YWTaTieziView.m in Sources */,
 				1871DD331E41B1FF00C6BF30 /* YWReplyCell.m in Sources */,
+				1808BE251E5560A200335459 /* TopicAnnounceController.m in Sources */,
 				18F3651E1E1FB8950077D3CC /* YWCustomerCell.m in Sources */,
 				18F4C7A61E4849DE00BA3F43 /* UIImage+CMMultiFormat.m in Sources */,
 				18F4C7C01E4849DE00BA3F43 /* UINavigationBar+Awesome.m in Sources */,
@@ -2796,7 +2803,6 @@
 				18F363A11E1FB87A0077D3CC /* Register.m in Sources */,
 				18F3651A1E1FB8950077D3CC /* MyTopicController.m in Sources */,
 				1871DD281E41B17E00C6BF30 /* YWDetailCellBottomView.m in Sources */,
-				CC4CDE471D9D04A0002A80B0 /* ViewController.m in Sources */,
 				1871DD2B1E41B17E00C6BF30 /* YWDetailReplyCell.m in Sources */,
 				18F363711E1FB64F0077D3CC /* YWMiddleViewOfOne.m in Sources */,
 				18B155941E46E76C00E355D0 /* ChatController.m in Sources */,

@@ -280,8 +280,9 @@
 
 - (void)didSelectBottomView:(YWGalleryCellBottomView *)bottomView {
     
-    self.tap_ta_id = bottomView.user_id;
-    [self performSegueWithIdentifier:@"ta" sender:self];
+    TAController *taVc = [[TAController alloc] initWithUserId:bottomView.user_id];
+    [self.navigationController pushViewController:taVc animated:YES];
+    
 }
 
 #pragma mark YWAlertButtonProtocol
@@ -309,34 +310,9 @@
 
 - (void)didSelectLabel:(YWTitle *)label {
     
+    TopicController *topicVc = [[TopicController alloc] initWithTopicId:label.topic_id];
+    [self.navigationController pushViewController:topicVc animated:YES];
     
-    self.tap_topic_id = label.topic_id;
-    
-    [self performSegueWithIdentifier:@"topic" sender:self];
-    
-}
-
-
-#pragma mark segue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    //查看所有话题
-     if ([segue.destinationViewController isKindOfClass:[TopicController class]])
-    {
-        if ([segue.identifier isEqualToString:@"topic"]) {
-            TopicController *topicVc = segue.destinationViewController;
-            topicVc.topic_id         = self.tap_topic_id;
-            
-        }
-        
-    }else if ([segue.destinationViewController isKindOfClass:[TAController class]])
-    {
-        if ([segue.identifier isEqualToString:@"ta"]) {
-            TAController *taVc = segue.destinationViewController;
-            taVc.ta_id         = self.tap_ta_id;
-        }
-    }
 }
 
 

@@ -20,7 +20,6 @@
 @property (nonatomic, strong) UILabel                         *countLabel;
 
 @property (nonatomic, strong) RelationViewModel               *viewModel;
-@property (nonatomic, strong) RelationEntity                  *relationEntity;
 
 @property (nonatomic, assign) int                             *user_id;
 
@@ -126,15 +125,12 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
     }];
 }
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self setTitleAndLabel];
 
-    self.navigationItem.leftBarButtonItem   = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                                               style:UIBarButtonItemStylePlain
-                                                                              target:self
-                                                                              action:@selector(backToPersonCenterView)];
+    self.navigationItem.leftBarButtonItem = self.leftBarItem;
 }
 
 - (void)hideExtraTableView:(UITableView *)tableview {
@@ -253,11 +249,6 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
 
 }
 
-//返回个人中心界面
-- (void)backToPersonCenterView {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -288,22 +279,10 @@ static NSString *RELATION_CELL_IDENTIFIER = @"relationIdentifier";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //点击进入用户详情
     RelationEntity *relation = [self.relationArr objectAtIndex:indexPath.row];
-    self.relationEntity = relation;
-    
-    [self performSegueWithIdentifier:@"ta" sender:self];
+    TAController *taVc = [[TAController alloc] initWithUserId:[relation.user_id intValue]];
+    [self.navigationController pushViewController:taVc animated:YES];
 }
 
-#pragma mark - segu
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.destinationViewController isKindOfClass:[TAController class]])
-    {
-        if ([segue.identifier isEqualToString:@"ta"]) {
-            TAController *taVc = segue.destinationViewController;
-            taVc.ta_id         = [self.relationEntity.user_id intValue];
-        }
-    }
-}
 @end
 
 

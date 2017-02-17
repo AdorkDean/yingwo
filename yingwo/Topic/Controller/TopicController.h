@@ -37,6 +37,6 @@ typedef NS_ENUM(NSInteger,PageSelectedModel) {
 
 - (void)didSelectCellWith:(TieZi *)model;
 
-- (void)didSelectBottomWith:(id)bottomView;
+//- (void)didSelectBottomWith:()bottomView;
 
 @end

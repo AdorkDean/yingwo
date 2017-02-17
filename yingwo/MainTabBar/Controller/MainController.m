@@ -29,6 +29,7 @@
 @property (nonatomic, strong) PersonalCenterController *personCenterVC;
 @property (nonatomic, strong) AnnounceController       *announceVC;
 @property (nonatomic, strong) MessageController        *messageVC;
+@property (nonatomic, strong) MainNavController        *announceVCNav;
 
 @property (nonatomic,strong ) MainViewModel            *viewModel;
 
@@ -51,22 +52,22 @@
     
     //self.reloaded = YES;
     
-    _homeVC                            = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
-    _discoveryNavVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
-    _messageVC                         = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
-    _personCenterVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
+    _homeVC         = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
+    _discoveryNavVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
+    _messageVC      = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
+    _personCenterVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
 
-    _announceVC                        = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
+    _announceVC     = [[AnnounceController alloc] initWithTieZiId:0 title:@"新鲜事"];
 
     MainNavController *homeNav         = [[MainNavController alloc] initWithRootViewController:self.homeVC];
     MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryNavVC];
     MainNavController *messageNav      = [[MainNavController alloc] initWithRootViewController:self.messageVC];
     MainNavController *personCenterNav = [[MainNavController alloc] initWithRootViewController:self.personCenterVC];
-    MainNavController *announceNav     = [[MainNavController alloc] initWithRootViewController:self.announceVC];
+    _announceVCNav                     = [[MainNavController alloc] initWithRootViewController:self.announceVC];
     
     NSArray *controllerArr = [NSArray arrayWithObjects:homeNav,
                               discoveryNav,
-                              announceNav,
+                              _announceVCNav,
                               messageNav,
                               personCenterNav, nil];
     
@@ -183,10 +184,10 @@
 - (void)didSelectedViewController:(UIViewController *)viewController AtIndex:(NSInteger)index {
     
     if (index == 0) {
+        
         if (self.isOnHomePage) {
             
             [self refreshHomeVC];
-            [self.homeVC.tabBar.homeBtn clearBadge];
             
         }else {
             self.isOnHomePage = YES;
@@ -198,7 +199,8 @@
     }
     else if (index == 2) {
 
-        [self performSegueWithIdentifier:@"announce" sender:self];
+        [self presentViewController:self.announceVCNav animated:YES completion:nil];
+      
     }
     else if (index == 3){
         
@@ -210,34 +212,13 @@
         self.isOnHomePage = NO;
 
     }
-
-}
-
-
-#pragma mark segue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([segue.identifier isEqualToString:@"announce"]) {
-        if ([segue.destinationViewController isKindOfClass:[MainNavController class]]) {
-            
-            MainNavController *mainNav = segue.destinationViewController;
-            
-            AnnounceController *announceVc = [mainNav.viewControllers objectAtIndex:0];
-            
-            announceVc.delegate = self.announceVC.delegate;
-            announceVc.returnValueBlock = ^(BOOL isreloaded2) {
-                                
-                if (isreloaded2 == YES) {
-                    [self refreshHomeVC];
-                    
-                }
-            };
-            
-            
-        }
+    if (index != 2) {
+        
+        self.selectedIndex = index;
+
     }
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -246,10 +227,6 @@
 }
 
 #pragma mark private method
-
-- (void)clearHomeRedDot {
-    [self.mainTabBarController.tabBar.homeBtn clearBadge];
-}
 
 - (void)clearMessageRedDot {
     
@@ -268,8 +245,8 @@
 -(void)eBBannerViewDidClick:(NSNotification*)notification{
     //判断推送类型及推送id
     NSDictionary *dict = [notification object];
-    NSString *type = [dict valueForKey:@"push_type"];
-    NSString *item_id = [dict valueForKey:@"push_item_id"];
+    NSString *type     = [dict valueForKey:@"push_type"];
+    NSString *item_id  = [dict valueForKey:@"push_item_id"];
     
     if ([type isEqualToString:@"MESSAGE"]) {
         [self showMessagePage];
@@ -306,6 +283,13 @@
 
 - (void)refreshHomeVC {
     [self.homeVC.tableView.mj_header beginRefreshing];
+    
+    WeakSelf(self);
+    self.homeVC.tableView.mj_header.endRefreshingCompletionBlock = ^ {
+        [weakself.mainTabBarController.tabBar.homeBtn clearBadge];
+
+    };
+    
 }
 
 - (void)refreshBadgeState {

@@ -7,38 +7,33 @@
 //
 
 #import "BaseViewController.h"
-
-typedef void(^returnValueBlock) (BOOL reloaded2);
-typedef void(^ReplyTieZiBlock)(NSDictionary *paramters,BOOL isRelease);
+#import "YWAnnounceTextView.h"
+#import "AnnounceModel.h"
 
 @protocol AnnounceControllerDelegate;
 
 @interface AnnounceController : BaseViewController
 
-//判断是否是跟帖
-@property (nonatomic, assign) BOOL                       isFollowTieZi;
-
-//判断是否是发话题
-@property (nonatomic, assign) BOOL                       isTopic;
+@property (nonatomic, strong) YWAnnounceTextView         *announceTextView;
 
 //跟贴的id
 @property (nonatomic, assign) NSInteger                  post_id;
 
-//话题的id
-@property (nonatomic, assign) int                        topic_id;
-
-@property (nonatomic, copy)NSString                     *topic_title;
+@property (nonatomic, strong) AnnounceModel              *viewModel;
 
 @property (nonatomic,assign ) id<AnnounceControllerDelegate> delegate;
 
-@property (nonatomic, copy) returnValueBlock            returnValueBlock;
+- (instancetype)initWithTieZiId:(int)postId title:(NSString *)title;
 
-@property (nonatomic, assign)BOOL reloaded2;
+/**
+ *  既有图片又有内容
+ *
+ *  @param photoArr 图片数组
+ *  @param content  贴子内容
+ */
+- (void)postTieZiWithImages:(NSArray *)photoArr andContent:(NSString *)content;
 
-//回调穿参，返回刚发布的贴子内容
-@property (nonatomic, copy)  ReplyTieZiBlock replyTieZiBlock;
-
-- (void)returnValue:(returnValueBlock)block;
+- (void)backToFarword ;
 
 @end
 

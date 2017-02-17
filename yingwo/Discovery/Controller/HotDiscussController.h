@@ -22,6 +22,8 @@
 @protocol HotDiscussControllerDelegate <NSObject>
 
 - (void)didSelectHotDisTopicWith:(HotDiscussEntity *)model;
+
+@optional
 - (void)didSelectHotDisTopicLabelWith:(int)topic_id;
 
 @end

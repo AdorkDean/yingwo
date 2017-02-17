@@ -7,7 +7,7 @@
 //
 
 #import "DetailController.h"
-#import "AnnounceController.h"
+#import "FollowTieController.h"
 #import "TopicController.h"
 #import "ReplyDetailController.h"
 
@@ -37,6 +37,9 @@
 @property (nonatomic, strong) MJRefreshAutoNormalFooter *footer;
 
 @property (nonatomic, assign) int                 isMessage;
+
+//是否回复
+@property (nonatomic, assign) BOOL                 isReply;
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
 @property (nonatomic, strong) NSMutableDictionary *commetparameter;
@@ -401,22 +404,24 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 #pragma mark Button action
 
 - (void)jumpToFollowTieZiPage {
-    AnnounceController *announceVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_ANNOUNCE_IDENTIFIER];
-    announceVC.isFollowTieZi       = YES;
-    announceVC.post_id             = self.model.tieZi_id;
+    
+    FollowTieController *followVc = [[FollowTieController alloc] initWithTieZiId:self.model.tieZi_id
+                                                                           title:@"跟贴"];
+    
+    
     
     //block传参数
-    announceVC.replyTieZiBlock = ^(NSDictionary *parameter,BOOL isRelease){
-        if (isRelease == YES) {
-            
-//            [self addReplyViewAtLastWith:parameter];
-            [self.detailTableView.mj_footer beginRefreshing];
+    WeakSelf(self);
+    followVc.replyTieZiBlock = ^(NSDictionary *parameter){
+        
+        [weakself.detailTableView.mj_footer beginRefreshing];
 
-        }
+        weakself.isReply = YES;
+
     };
 
     
-    MainNavController *mainNav = [[MainNavController alloc] initWithRootViewController:announceVC];
+    MainNavController *mainNav = [[MainNavController alloc] initWithRootViewController:followVc];
     
     [self presentViewController:mainNav
                        animated:YES
@@ -448,14 +453,14 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         make.right.equalTo(self.view.mas_right).priorityHigh();
     }];
     
-    __weak DetailController *weakSelf = self;
+    WeakSelf(self);
     self.detailTableView.mj_header    = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf loadData];
+        [weakself loadData];
     }];
     
 
     self.footer  = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf loadMoreData];
+        [weakself loadMoreData];
         
     }];
     
@@ -463,6 +468,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     [self.detailTableView.mj_header beginRefreshing];
 
+    self.detailTableView.mj_footer.endRefreshingCompletionBlock = ^{
+        
+        if (weakself.isReply) {
+            
+            CGFloat bottom = weakself.detailTableView.contentSize.height - weakself.detailTableView.bounds.size.height;
+            [weakself.detailTableView setContentOffset:CGPointMake(0,
+                                                                   bottom)
+                                          animated:YES];
+            
+            weakself.isReply = NO;
+        }
+    };
     
 }
 
@@ -486,16 +503,6 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         
     }
 
-}
-
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear: animated];
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
 }
 
 #pragma mark 禁止pop手势
@@ -593,8 +600,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                 self.footer.stateLabel.text = @"没有更多贴子了";
     
             }
-            
-            
+
             
         }
         if (tieZiList.count != 0) {

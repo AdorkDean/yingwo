@@ -30,37 +30,21 @@
     }];
 }
 
-- (void)postTieZiWithUrl:(NSString *)url
-            paramaters:(id)paramaters
-                success:(void (^)(NSString * result))success
-                failure:(void (^)(NSError *error))failure {
-
-    NSString *fullUrl = [BASE_URL stringByAppendingString:url];
-    YWHTTPManager *manager = [YWHTTPManager manager];
-    //加载cookie
-    [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
+- (void)postTieZiWithRequest:(RequestEntity *)request
+                     success:(SuccessBlock)success
+                     failure:(ErrorBlock)failure {
     
-    [manager POST:fullUrl
-       parameters:paramaters
-         progress:nil
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [YWRequestTool YWRequestPOSTWithRequest:request
+                               successBlock:^(id content) {
         
-              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-              
-              if (httpResponse.statusCode == SUCCESS_STATUS) {
-                  
-                  NSString *result = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-                  NSLog(@"贴子发布发布成功");
-                  NSLog(@"result%@",result);
-                  success(result);
-
-              }
-              
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+                                   NSLog(@"贴子发布发布成功");
+                                   NSLog(@"result%@",content);
+                                   success(content);
+    } errorBlock:^(id error) {
         NSLog(@"贴子发布发布失败");
         failure(error);
     }];
+    
 }
 
 @end

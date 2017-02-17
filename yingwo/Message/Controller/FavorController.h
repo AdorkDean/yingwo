@@ -6,13 +6,8 @@
 //  Copyright © 2016年 wangxiaofa. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "MessageController.h"
+#import "CommentController.h"
 
-@interface FavorController : BaseViewController
-
-@property (nonatomic, strong) UITableView      *tableView;
-
-@property (nonatomic, assign) id<MessageControllerDelegate> delegate;
+@interface FavorController : CommentController
 
 @end

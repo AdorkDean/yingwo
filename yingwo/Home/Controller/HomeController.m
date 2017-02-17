@@ -101,7 +101,7 @@ static int start_id = 0;
 
     [self addRefreshForTableView];
 
-    NSLog(@"home:%@",NSHomeDirectory());
+   // NSLog(@"home:%@",NSHomeDirectory());
 }
 
 - (void)addRefreshForTableView {
@@ -213,11 +213,12 @@ static int start_id = 0;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
                 //显示新帖子View
-               // [self showNewTieziCount:self.badgeCount];
+                //[self showNewTieziCount:self.badgeCount];
                 
             }
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            
         }
         
 
