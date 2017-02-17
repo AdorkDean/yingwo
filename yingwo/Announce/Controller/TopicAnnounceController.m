@@ -1,18 +1,18 @@
 //
-//  ReplyTieController.m
+//  TopicAnnounceController.m
 //  yingwo
 //
-//  Created by apple on 2017/2/14.
+//  Created by apple on 2017/2/16.
 //  Copyright © 2017年 wangxiaofa. All rights reserved.
 //
 
-#import "ReplyTieController.h"
+#import "TopicAnnounceController.h"
 
-@interface ReplyTieController ()
+@interface TopicAnnounceController ()
 
 @end
 
-@implementation ReplyTieController
+@implementation TopicAnnounceController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,7 +23,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1803C1201D541F350078EF0F /* AssetsLibrary.framework */; };
+		1808BE251E5560A200335459 /* TopicAnnounceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1808BE241E5560A200335459 /* TopicAnnounceController.m */; };
 		181826671E4C406D00779294 /* MyCommentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181826661E4C406D00779294 /* MyCommentViewModel.m */; };
 		181E34211D93E3F800A6283C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 181E341F1D93E3F800A6283C /* Podfile */; };
 		181E34221D93E3F800A6283C /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 181E34201D93E3F800A6283C /* Podfile.lock */; };
@@ -288,7 +289,6 @@
 		18F4C7DD1E4854B200BA3F43 /* YWCustomSharePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F4C7D51E4854B200BA3F43 /* YWCustomSharePlatform.m */; };
 		18F4C7DE1E4854B200BA3F43 /* YWShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F4C7D71E4854B200BA3F43 /* YWShareView.m */; };
 		18FE9D931E529D3A000E162F /* FollowTieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9D921E529D3A000E162F /* FollowTieController.m */; };
-		18FE9D961E529D74000E162F /* ReplyTieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9D951E529D74000E162F /* ReplyTieController.m */; };
 		B243CD67F346DCA423FA5C69 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
@@ -306,6 +306,8 @@
 
 /* Begin PBXFileReference section */
 		1803C1201D541F350078EF0F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		1808BE231E5560A200335459 /* TopicAnnounceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicAnnounceController.h; sourceTree = "<group>"; };
+		1808BE241E5560A200335459 /* TopicAnnounceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicAnnounceController.m; sourceTree = "<group>"; };
 		181826651E4C406D00779294 /* MyCommentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommentViewModel.h; sourceTree = "<group>"; };
 		181826661E4C406D00779294 /* MyCommentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommentViewModel.m; sourceTree = "<group>"; };
 		181E341F1D93E3F800A6283C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -862,8 +864,6 @@
 		18F907F61D32394500175886 /* Macro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Macro.h; path = Marco/Macro.h; sourceTree = "<group>"; };
 		18FE9D911E529D3A000E162F /* FollowTieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowTieController.h; sourceTree = "<group>"; };
 		18FE9D921E529D3A000E162F /* FollowTieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowTieController.m; sourceTree = "<group>"; };
-		18FE9D941E529D74000E162F /* ReplyTieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyTieController.h; sourceTree = "<group>"; };
-		18FE9D951E529D74000E162F /* ReplyTieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyTieController.m; sourceTree = "<group>"; };
 		36F7A65220E9B448DF920CAE /* Pods-yingwo.release copy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release copy.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release copy.xcconfig"; sourceTree = "<group>"; };
 		69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release.xcconfig"; sourceTree = "<group>"; };
 		895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1777,8 +1777,8 @@
 				18F363A81E1FB8940077D3CC /* AnnounceController.m */,
 				18FE9D911E529D3A000E162F /* FollowTieController.h */,
 				18FE9D921E529D3A000E162F /* FollowTieController.m */,
-				18FE9D941E529D74000E162F /* ReplyTieController.h */,
-				18FE9D951E529D74000E162F /* ReplyTieController.m */,
+				1808BE231E5560A200335459 /* TopicAnnounceController.h */,
+				1808BE241E5560A200335459 /* TopicAnnounceController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2718,6 +2718,7 @@
 				18F363141E1FB2E70077D3CC /* BaseViewController.m in Sources */,
 				CCF64E841DC0D781009B4B21 /* YWTaTieziView.m in Sources */,
 				1871DD331E41B1FF00C6BF30 /* YWReplyCell.m in Sources */,
+				1808BE251E5560A200335459 /* TopicAnnounceController.m in Sources */,
 				18F3651E1E1FB8950077D3CC /* YWCustomerCell.m in Sources */,
 				18F4C7A61E4849DE00BA3F43 /* UIImage+CMMultiFormat.m in Sources */,
 				18F4C7C01E4849DE00BA3F43 /* UINavigationBar+Awesome.m in Sources */,
@@ -2897,7 +2898,6 @@
 				18F4C7941E4849DE00BA3F43 /* EBMuteDetector.m in Sources */,
 				18F4C7A31E4849DE00BA3F43 /* NSData+CMImageContentType.m in Sources */,
 				18A075CC1E3E236500C4159D /* FieldEntity.m in Sources */,
-				18FE9D961E529D74000E162F /* ReplyTieController.m in Sources */,
 				18F3639F1E1FB87A0077D3CC /* RegisterController.m in Sources */,
 				18A075D91E3E236500C4159D /* YWSubjectViewCell.m in Sources */,
 				182CACF91E49EBBA000CE59F /* UMessageTools.m in Sources */,

@@ -8,6 +8,11 @@
 
 #import "AnnounceController.h"
 
+typedef void(^ReplyTieZiBlock)(NSDictionary *paramters);
+
 @interface FollowTieController : AnnounceController
+
+//回调穿参，返回刚发布的贴子内容
+@property (nonatomic, copy)  ReplyTieZiBlock replyTieZiBlock;
 
 @end

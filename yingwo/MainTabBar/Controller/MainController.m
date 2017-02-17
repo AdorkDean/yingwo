@@ -29,6 +29,7 @@
 @property (nonatomic, strong) PersonalCenterController *personCenterVC;
 @property (nonatomic, strong) AnnounceController       *announceVC;
 @property (nonatomic, strong) MessageController        *messageVC;
+@property (nonatomic, strong) MainNavController        *announceVCNav;
 
 @property (nonatomic,strong ) MainViewModel            *viewModel;
 
@@ -51,22 +52,22 @@
     
     //self.reloaded = YES;
     
-    _homeVC                            = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
-    _discoveryNavVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
-    _messageVC                         = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
-    _personCenterVC                    = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
+    _homeVC         = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_HOME_IDENTIFIER];
+    _discoveryNavVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_DISCOVERY_IDENTIFIER];
+    _messageVC      = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MESSAGE_IDENTIFY];
+    _personCenterVC = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_PERSONNAL_CENTER_IDENTIFY];
 
-    _announceVC                        = [[AnnounceController alloc] init];
+    _announceVC     = [[AnnounceController alloc] initWithTieZiId:0 title:@"新鲜事"];
 
     MainNavController *homeNav         = [[MainNavController alloc] initWithRootViewController:self.homeVC];
     MainNavController *discoveryNav    = [[MainNavController alloc] initWithRootViewController:self.discoveryNavVC];
     MainNavController *messageNav      = [[MainNavController alloc] initWithRootViewController:self.messageVC];
     MainNavController *personCenterNav = [[MainNavController alloc] initWithRootViewController:self.personCenterVC];
-    MainNavController *announceNav     = [[MainNavController alloc] initWithRootViewController:self.announceVC];
+    _announceVCNav                     = [[MainNavController alloc] initWithRootViewController:self.announceVC];
     
     NSArray *controllerArr = [NSArray arrayWithObjects:homeNav,
                               discoveryNav,
-                              announceNav,
+                              _announceVCNav,
                               messageNav,
                               personCenterNav, nil];
     
@@ -183,10 +184,10 @@
 - (void)didSelectedViewController:(UIViewController *)viewController AtIndex:(NSInteger)index {
     
     if (index == 0) {
+        
         if (self.isOnHomePage) {
             
             [self refreshHomeVC];
-            [self.mainTabBarController.tabBar.homeBtn clearBadge];
             
         }else {
             self.isOnHomePage = YES;
@@ -198,18 +199,8 @@
     }
     else if (index == 2) {
 
-        [self presentViewController:self.announceVC animated:YES completion:nil];
-        
-        self.announceVC.delegate = self.announceVC.delegate;
-        WeakSelf(self);
-        self.announceVC.returnValueBlock = ^(BOOL isreloaded2) {
-            
-            if (isreloaded2 == YES) {
-                [weakself refreshHomeVC];
-                
-            }
-        };
-        
+        [self presentViewController:self.announceVCNav animated:YES completion:nil];
+      
     }
     else if (index == 3){
         
@@ -221,6 +212,12 @@
         self.isOnHomePage = NO;
 
     }
+    
+    if (index != 2) {
+        
+        self.selectedIndex = index;
+
+    }
 
 }
 
@@ -230,10 +227,6 @@
 }
 
 #pragma mark private method
-
-- (void)clearHomeRedDot {
-    [self.mainTabBarController.tabBar.homeBtn clearBadge];
-}
 
 - (void)clearMessageRedDot {
     
@@ -252,8 +245,8 @@
 -(void)eBBannerViewDidClick:(NSNotification*)notification{
     //判断推送类型及推送id
     NSDictionary *dict = [notification object];
-    NSString *type = [dict valueForKey:@"push_type"];
-    NSString *item_id = [dict valueForKey:@"push_item_id"];
+    NSString *type     = [dict valueForKey:@"push_type"];
+    NSString *item_id  = [dict valueForKey:@"push_item_id"];
     
     if ([type isEqualToString:@"MESSAGE"]) {
         [self showMessagePage];
@@ -290,6 +283,13 @@
 
 - (void)refreshHomeVC {
     [self.homeVC.tableView.mj_header beginRefreshing];
+    
+    WeakSelf(self);
+    self.homeVC.tableView.mj_header.endRefreshingCompletionBlock = ^ {
+        [weakself.mainTabBarController.tabBar.homeBtn clearBadge];
+
+    };
+    
 }
 
 - (void)refreshBadgeState {

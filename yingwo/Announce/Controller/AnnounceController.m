@@ -9,29 +9,22 @@
 #import "AnnounceController.h"
 #import "DetailController.h"
 
-#import "YWAnnounceTextView.h"
-#import "AnnounceModel.h"
 #import "YWKeyboardToolView.h"
 #import "YWPhotoDisplayView.h"
 
 @interface AnnounceController ()<ISEmojiViewDelegate,YWKeyboardToolViewProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 
-@property (nonatomic, strong) YWAnnounceTextView *announceTextView;
 @property (nonatomic, strong) YWKeyboardToolView *keyboardToolView;
 
 @property (nonatomic, strong) UIBarButtonItem    *rightBarItem;
 
 @property (nonatomic, strong) YWPhotoDisplayView *photoDisplayView;
 
-@property (nonatomic, strong) AnnounceModel      *viewModel;
-
 //发帖时候的参数
 @property (nonatomic, strong) NSDictionary      *tieZiParamaters;
 
 @property (nonatomic, assign) UIImageView        *lastPhoto;
 @property (nonatomic, assign) NSInteger          photoImagesCount;
-
-@property (nonatomic, assign) BOOL               isRelease;
 
 @end
 
@@ -144,68 +137,29 @@
         
         NSString *allUrlString          = [NSArray appendElementToString:arr];
 
-        NSMutableDictionary *paramaters = [[NSMutableDictionary alloc] init];
-        NSString *requestUrl            = @"";
-
-        //跟贴
-        if (self.isFollowTieZi == YES) {
-            paramaters[@"post_id"] = @(self.post_id);
-            requestUrl             = TIEZI_REPLY;
-        }
-        //发话题
-        else if (self.isTopic == YES) {
-            
-            paramaters[@"topic_id"] = @(self.topic_id);
-            requestUrl             = ANNOUNCE_URL;
-
-        }
-        //发新鲜事
-        else
-        {
-            paramaters[@"topic_id"] = @0;
-            requestUrl              = ANNOUNCE_URL;
-        }
+        RequestEntity *request = [[RequestEntity alloc] init];
         
-        paramaters[@"content"]          = content;
+        request.URLString = ANNOUNCE_URL;
+        request.parameter = @{@"topic_id":@(self.post_id),@"content":content,@"img":allUrlString};
 
-        paramaters[@"img"]              = allUrlString;
-        
-        [self.viewModel postTieZiWithUrl:requestUrl
-                              paramaters:paramaters
-                                 success:^(NSString *result) {
-                                     
-                                     //这里保存参数，返回贴子详情界面，用来刷新刚发布的回贴
-                                     if (self.isFollowTieZi == YES) {
-                                         self.tieZiParamaters = paramaters;
-                                     }
-                                          
-                                          //确认发布完成
-                                          self.isRelease = YES;
-                                          
-                                          [SVProgressHUD showSuccessStatus:@"发布成功" afterDelay:HUD_DELAY];
-                                     
-                                          [[NSNotificationCenter defaultCenter] addObserver:self
-                                                                                   selector:@selector(handleNotification:)
-                                                                                       name:SVProgressHUDDidDisappearNotification
-                                                                                     object:nil];
-                                          
-            
-        } failure:^(NSError *error) {
-       //     [hud hide:YES];
+        [self.viewModel postTieZiWithRequest:request
+                                     success:^(id content) {
+                                                                                  
+                                         [SVProgressHUD showSuccessStatus:@"发布成功" afterDelay:HUD_DELAY];
+                                         
+                                         [self backToForwardView];
+                                         
+
+        } failure:^(id error) {
             [SVProgressHUD showErrorStatus:@"发布失败" afterDelay:HUD_DELAY];
+
         }];
         
     } failure:^{
-    //    [hud hide:YES];
         [SVProgressHUD showErrorStatus:@"发布失败" afterDelay:HUD_DELAY];
 
     }];
     
-}
-
-- (void)handleNotification:(NSNotification *)notification {
-    
-    [self backToMainView];
 }
 
 /**
@@ -220,44 +174,16 @@
 }
 
 
--(void)returnValue:(returnValueBlock)block {
-    self.returnValueBlock = block;
-}
-
-- (void)setReplyTieZiBlock:(ReplyTieZiBlock)replyTieZiBlock {
-    _replyTieZiBlock = replyTieZiBlock;
-}
-
-- (void)backToMainView {
+- (void)backToForwardView {
     
     [self resignKeyboard];
-
-    if (self.isRelease == YES && self.isFollowTieZi == NO) {
-        
-        self.reloaded2       = YES;
-
-        [self dismissViewControllerAnimated:YES completion:^{
-        
-            if ([self.delegate respondsToSelector:@selector(jumpToHomeController)]) {
-            //发布成功返回首页刷新
-                [self.delegate jumpToHomeController];
-                
-        }
-        }];
-    }
-    else if (self.isRelease == YES && self.isFollowTieZi == YES) {
-        
-        [self dismissViewControllerAnimated:YES
-                                 completion:nil];
-    }
-    else
-    {
-        [self dismissViewControllerAnimated:YES completion:^{
-            MainController *main = [self.storyboard instantiateViewControllerWithIdentifier:CONTROLLER_OF_MAINVC_IDENTIFIER];
-          //  main.reloaded = NO;
-        }];
+    
+    if ([self.delegate respondsToSelector:@selector(jumpToHomeController)]) {
+        [self.delegate jumpToHomeController];
     }
     
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 
 }
 
@@ -316,12 +242,7 @@
 
     [self setAllLayout];
 
-//
-  /*  [self.viewModel requestForQiNiuCertificateSerialNumberWithUrl:QINIU_CERTIFICSTE_URL sucess:^(NSString *certfifcate) {
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
-    }];*/
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -348,19 +269,12 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    if (self.returnValueBlock != nil) {
-        
-        self.returnValueBlock(self.reloaded2);
-    }
-    
-    if (self.replyTieZiBlock != nil && self.isFollowTieZi == YES && self.isRelease == YES) {
-        
-        self.replyTieZiBlock(self.tieZiParamaters,self.isRelease);
-
-    }
 
     
+}
+
+- (void)backToFarword {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)makeKeybordBecomeFirstResponder {

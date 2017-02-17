@@ -12,7 +12,7 @@
 #import "DetailController.h"
 #import "HotTopicController.h"
 #import "NewTopicController.h"
-#import "AnnounceController.h"
+#import "TopicAnnounceController.h"
 
 #import "UMSocialUIManager.h"
 
@@ -255,23 +255,20 @@ static int start_id = 0;
 //发布话题
 - (void)addTopic {
     
-    AnnounceController *announceVc = [[AnnounceController alloc] initWithTieZiId:self.topic_id
-                                                                           title:self.topic_title];
-    announceVc.isTopic             = YES;
+    TopicAnnounceController *announceVc = [[TopicAnnounceController alloc] initWithTieZiId:self.topic_id
+                                                                                     title:self.topic_title];
     announceVc.topic_id            = self.topic_id;
     announceVc.topic_title         = self.topic_title;
     MainNavController *mainNav     = [[MainNavController alloc] initWithRootViewController:announceVc];
 
+    
+    
     [self presentViewController:mainNav animated:YES completion:nil];
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
- //   [self.view addSubview:self.topicTableView];
-
- //   [self.topicTableView addSubview:self.topicHeaderView];
     
     [self.topicSrcllView addSubview:self.topicHeaderView];
     [self.topicSrcllView addSubview:self.segmentView];

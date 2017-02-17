@@ -26,4 +26,6 @@
 
 - (void)initDataSourceBlock;
 
+- (void)backToFarword ;
+
 @end

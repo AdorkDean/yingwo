@@ -14,9 +14,21 @@
 
 @property (nonatomic, strong) ChatViewModel *viewModel;
 
+@property (nonatomic, strong) UIBarButtonItem *leftBarItem;
+
 @end
 
 @implementation ChatListController
+
+- (UIBarButtonItem *)leftBarItem {
+    if (_leftBarItem == nil) {
+        _leftBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(backToFarword)];
+    }
+    return _leftBarItem;
+}
 
 - (ChatViewModel *)viewModel {
     if (_viewModel == nil) {
@@ -80,6 +92,11 @@
     [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
+#pragma mark private
+
+- (void)backToFarword {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

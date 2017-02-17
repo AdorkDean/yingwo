@@ -138,8 +138,7 @@
 
     if (index == 0) {
         HomeController *homeVc = (HomeController *)[targetViewController.viewControllers objectAtIndex:0];;
-//        homeVc.tabBar = _tabBar;
-//        homeVc.index  = index;
+
         [self addTabBarOnSelectedController:homeVc];
     }else {
         
@@ -216,6 +215,7 @@
 }
 
 #pragma mark tabBar delegates
+
 - (void)tabBar:(YWTabBar *)tabBar didSelectIndex:(NSInteger)index {
     if (index == 2) {
         
@@ -232,6 +232,11 @@
 
 - (void)jumpToHomeController {
     [self displayViewAtIndex:0];
+    
+    MainNavController *targetViewController = (MainNavController *)[_viewControllers objectAtIndex:0];
+    HomeController *homeVc = (HomeController *)[targetViewController.viewControllers objectAtIndex:0];;
+    [homeVc.tableView.mj_header beginRefreshing];
+    
 }
 
 - (void)didReceiveMemoryWarning {
