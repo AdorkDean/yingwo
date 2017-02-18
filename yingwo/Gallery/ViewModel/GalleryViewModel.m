@@ -49,13 +49,13 @@
             
             if (requestEntity.filter == 0) {
                 parameter = @{@"start_id":@(requestEntity.start_id),
-                               @"user_id":@(self.user_id)};
+                               @"user_id":@(requestEntity.user_id)};
             }
             else
             {
                 parameter = @{@"filter":@(requestEntity.filter),
                                @"start_id":@(requestEntity.start_id),
-                               @"user_id":@(self.user_id)};
+                               @"user_id":@(requestEntity.user_id)};
             }
             
             

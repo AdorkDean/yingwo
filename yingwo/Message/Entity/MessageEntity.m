@@ -18,7 +18,7 @@
              @"user_id":@"source_user_id",
              @"user_name":@"source_user_name",
              @"content":@"source_content",
-             @"img":@"follow_user_face_img",
+             @"img":@"source_img",
              @"user_face_img":@"source_user_face_img"};
 }
 

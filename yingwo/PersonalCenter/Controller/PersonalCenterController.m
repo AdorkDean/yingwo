@@ -11,6 +11,8 @@
 #import "MyTopicController.h"
 #import "MyTieZiController.h"
 #import "MyRelationshipBaseController.h"
+#import "MyLikeController.h"
+#import "MyCommentController.h"
 
 #import "YWCustomerCell.h"
 #import "YWPersonCenterTopView.h"
@@ -22,21 +24,31 @@
 
 @property (nonatomic, strong) YWPersonCenterTopView *headView;
 @property (nonatomic, strong) YWPersonCenterMidCell *midView;
-@property (nonatomic, strong) YWCustomerCell    *cellView1;
-@property (nonatomic, strong) YWCustomerCell    *cellView2;
-@property (nonatomic, strong) YWCustomerCell    *cellView3;
-@property (nonatomic, strong) YWCustomerCell    *cellView4;
+@property (nonatomic, strong) YWCustomerCell        *cellView1;
+@property (nonatomic, strong) YWCustomerCell        *cellView2;
+@property (nonatomic, strong) YWCustomerCell        *cellView3;
+@property (nonatomic, strong) YWCustomerCell        *cellView4;
 @property (nonatomic, strong) UIBarButtonItem       *rightBarItem;
 
 @property (nonatomic, strong) TaEntity              *taEntity;
 
 @property (nonatomic, assign) int                   relationType;
 
+@property (nonatomic, strong) User                  *user;
+
 @end
 
 @implementation PersonalCenterController
 
 #pragma mark 懒加载
+
+- (User *)user {
+    if (_user == nil) {
+        _user = [User findCustomer];
+    }
+    return _user;
+}
+
 - (YWPersonCenterTopView *)headView {
     if (_headView == nil) {
         _headView = [[YWPersonCenterTopView alloc] initWithHeadPortrait:[UIImage imageNamed:@"defaultHead"]
@@ -248,7 +260,10 @@
 }
 
 - (void)jumpToMyTopicPage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTOPIC sender:self];
+    
+    MyTopicController *topicVc = [[MyTopicController alloc] initWithUserId:[self.user.userId intValue]];
+    
+    [self.navigationController pushViewController:topicVc animated:YES];
 }
 //正在开发中
 - (void)developing {
@@ -256,30 +271,51 @@
 }
 
 - (void)jumpToMyTieZiPage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYTIEZI sender:self];
+    MyTieZiController *myTieZiVc = [[MyTieZiController alloc] initWithUserId:[self.user.userId intValue]];
+    [self.navigationController pushViewController:myTieZiVc animated:YES];
+    
 }
 
 - (void)jumpToMyLikePage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYLIKE sender:self];
+    
+    MyLikeController *likeVc = [[MyLikeController alloc] init];
+    
+    [self.navigationController pushViewController:likeVc animated:YES];
 }
 
 - (void)jumpToMyCommentPage {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYCOMMENT sender:self];
+    
+    MyCommentController *commentVc = [[MyCommentController alloc] init];
+    [self.navigationController pushViewController:commentVc animated:YES];
+
 }
 
 - (void)jumpToMyFriendsPage {
-    self.relationType = 1;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+
+    [self jumpToRelationWithRelationType:FriendRelationShip];
 }
 
 - (void)jumpToMyFollowPage {
-    self.relationType = 2;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+
+    [self jumpToRelationWithRelationType:ConcernRelationShip];
+
 }
 
 - (void)jumpToMyFansPage {
     self.relationType = 3;
-    [self performSegueWithIdentifier:SEGUE_IDENTIFY_MYRELATION sender:self];
+    [self jumpToRelationWithRelationType:FansRelationShip];
+}
+
+- (void)jumpToRelationWithRelationType:(RelationType)type {
+    
+    MyRelationshipBaseController *relationVc = [[MyRelationshipBaseController alloc] initWithRelationType:HisRelationShip];
+    
+    relationVc.requestEntity.user_id         = [self.user.userId intValue];
+    relationVc.followCnt                     = [self.taEntity.like_cnt intValue];
+    relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
+    relationVc.relationType                  = type;
+    
+    [self.navigationController pushViewController:relationVc animated:YES];
 }
 
 
@@ -351,38 +387,6 @@
             perfectInfo.headImagePath          = [YWSandBoxTool getHeadPortraitPathFromCache];
             perfectInfo.isModfiyInfo           = YES;
         }
-    }
-    else if ([segue.destinationViewController isKindOfClass:[MyTopicController class]]) {
-        
-        if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYTOPIC]) {
-            MyTopicController *myTopicVc = segue.destinationViewController;
-            Customer *user = [User findCustomer];
-            myTopicVc.oneFieldVc.viewModel.user_id = [user.userId intValue];
-        }
-    }
-    else if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYTIEZI]) {
-        MyTieZiController *myTieziVc = segue.destinationViewController;
-        Customer *user = [User findCustomer];
-        myTieziVc.viewModel.user_id = [user.userId intValue];
-    }
-    else if ([segue.identifier isEqualToString:SEGUE_IDENTIFY_MYRELATION]) {
-        //将好友 关注 粉丝 访客 分别赋给即将进入的页面，以加载相应的数据
-        MyRelationshipBaseController *myRelationVc = segue.destinationViewController;
-        if (self.relationType == 1) {
-            myRelationVc.relationType = 1;
-        }
-        if (self.relationType == 2) {
-            myRelationVc.relationType = 2;
-        }
-        if (self.relationType == 3) {
-            myRelationVc.relationType = 3;
-        }
-        if (self.relationType == 4) {
-            myRelationVc.relationType = 4;
-        }
-        myRelationVc.requestEntity.user_id  = [[User findCustomer].userId intValue];
-        myRelationVc.followCnt              = [self.taEntity.like_cnt intValue];
-        myRelationVc.fansCnt                = [self.taEntity.liked_cnt intValue];
     }
     
 }

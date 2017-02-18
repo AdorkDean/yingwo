@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-extern const int MessageSpringButtonTag;
 extern const int FavourSpringButtonTag;
+extern const int ReplyFavorSpringButtonTag;
 
 @protocol YWSpringButtonDelegate;
 
@@ -31,6 +31,7 @@ extern const int FavourSpringButtonTag;
 
 @protocol YWSpringButtonDelegate <NSObject>
 
+@optional
 /**
  *  点赞所在的贴子
  *
@@ -45,7 +46,7 @@ extern const int FavourSpringButtonTag;
  *  @param postReplyId 贴子Id
  *  @param model  YES or NO (1 或 0)
  */
-@optional
+
 - (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model;
 
 @end

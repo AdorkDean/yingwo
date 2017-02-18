@@ -10,6 +10,82 @@
 
 @implementation YWReplyCell
 
+- (void)createSubview {
+    
+    self.backgroundView                     = [[UIView alloc] init];
+    self.backgroundColor                    = [UIColor clearColor];
+    self.backgroundView.backgroundColor     = [UIColor whiteColor];
+    self.backgroundView.layer.masksToBounds = YES;
+    self.backgroundView.layer.cornerRadius  = 10;
+    
+    
+    self.masterView                         = [[YWDetailMasterView alloc] init];
+    self.contentLabel                       = [[YWContentLabel alloc] initWithFrame:CGRectZero];
+    self.bgImageView                        = [[UIView alloc] init];
+    self.bgCommentView                      = [[UIView alloc] init];
+    self.moreBtn                            = [[YWAlertButton alloc] init];
+    
+    self.bottomLine = [[UILabel alloc] init];
+    
+    self.contentLabel.font                  = [UIFont systemFontOfSize:15];
+    self.contentLabel.numberOfLines         = 0;
+    
+    _bottomLine.backgroundColor = [UIColor colorWithHexString:@"F5F5F5"];
+    _bottomLine.clipsToBounds   = NO;
+    
+    self.bottomView.favour.tag = ReplyFavorSpringButtonTag;
+    
+    [self.masterView.identifier removeFromSuperview];
+    
+    [self.contentView addSubview:self.backgroundView];
+    [self.backgroundView addSubview:self.masterView];
+    [self.backgroundView addSubview:self.contentLabel];
+    [self.backgroundView addSubview:self.bgImageView];
+    [self.backgroundView addSubview:self.bgCommentView];
+    [self.backgroundView addSubview:self.moreBtn];
+    [self addSubview:_bottomLine];
+    
+    [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(5, 10, 2.5, 10));
+    }];
+    
+    [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.backgroundView.mas_top).offset(10);
+        make.right.equalTo(self.backgroundView.mas_right).offset(-10);
+    }];
+    
+    [self.masterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.backgroundView.mas_left).offset(20);
+        make.right.equalTo(self.backgroundView.mas_right).offset(-10);
+        make.top.equalTo(self.backgroundView.mas_top).offset(10);
+    }];
+    
+    [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.masterView.mas_bottom).offset(10);
+        make.left.equalTo(self.masterView.mas_left);
+        make.right.equalTo(self.masterView.mas_right);
+    }];
+    
+    [self.bgImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(10);
+        make.left.equalTo(self.contentLabel.mas_left);
+        make.right.equalTo(self.contentLabel.mas_right);
+    }];
+    
+    [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(5);
+        make.left.right.equalTo(self.backgroundView);
+        make.height.equalTo(@1);
+    }];
+    
+    [self.bgCommentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(10);
+        make.left.right.equalTo(self.backgroundView);
+        make.bottom.equalTo(self.backgroundView.mas_bottom).priorityLow();
+    }];
+    
+}
+
 - (void)addCommentViewByCommentArr:(NSMutableArray *)commentArr withMasterId:(NSInteger)master_id{
 
     UIView *lastView;

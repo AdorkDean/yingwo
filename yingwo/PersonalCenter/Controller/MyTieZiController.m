@@ -33,6 +33,17 @@ static int start_id = 0;
 
 @implementation MyTieZiController
 
+- (instancetype)initWithUserId:(int)userId {
+    
+    self = [super init];
+    
+    if (self) {
+        
+        self.requestEntity.user_id = userId;
+        
+    }
+    return self;
+}
 #pragma mark 懒加载
 
 - (RequestEntity *)requestEntity {
@@ -44,6 +55,7 @@ static int start_id = 0;
         _requestEntity.filter     = AllThingModel;
         //偏移量开始为0
         _requestEntity.start_id   = start_id;
+        
     }
     return _requestEntity;
 }

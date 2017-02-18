@@ -20,6 +20,15 @@
     return self;
 }
 
+- (void)setDeleteSuccessBlock:(DeleteTieZiSuccessBlock)deleteSuccessBlock
+                 failureBlock:(DeleteFailureBlock)deleteFailureBlock {
+    
+    _deleteSuccessBlock = deleteSuccessBlock;
+    _deleteFailureBlock = deleteFailureBlock;
+    
+}
+
+
 - (void)setupRACComand {
     
     @weakify(self);
@@ -124,8 +133,22 @@
     else
     {
         //如果没有任何评论隐藏cell的下划线
-        cell.bottomView.bottomLine.hidden = YES;
+        cell.bottomLine.hidden = NO;
     }
+}
+
+- (void)deleteTieZiWithRequest:(RequestEntity *)request {
+    
+    [YWRequestTool YWRequestPOSTWithRequest:request
+                               successBlock:^(id content) {
+                                   
+                                   StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                                   self.deleteSuccessBlock(entity);
+                                   
+                               } errorBlock:^(id error) {
+                                   self.deleteFailureBlock(error);
+                               }];
+    
 }
 
 @end

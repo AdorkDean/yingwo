@@ -11,8 +11,9 @@
 //按钮缩放倍数
 static CGFloat scaleXY = 1.3;
 
-const int MessageSpringButtonTag = 120;
-const int FavourSpringButtonTag = 121;
+const int FavourSpringButtonTag     = 120;
+
+const int ReplyFavorSpringButtonTag = 121;
 
 @implementation YWSpringButton
 
@@ -40,7 +41,7 @@ const int FavourSpringButtonTag = 121;
         }else {
             [self cancelScale];;
         }
-    }else if(self.tag == MessageSpringButtonTag){
+    }else if(self.tag == ReplyFavorSpringButtonTag){
         if (self.isSpringReply == NO) {
             [self selectedScale];
         }else {
@@ -72,7 +73,7 @@ const int FavourSpringButtonTag = 121;
             if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
                 [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:YES];
             }
-        }else if (self.tag == MessageSpringButtonTag) {
+        }else if (self.tag == ReplyFavorSpringButtonTag) {
             self.isSpringReply = YES;
             if ([self.delegate respondsToSelector:@selector(didSelectReplySpringButtonOnView:replyId:model:)]) {
                 [self.delegate didSelectReplySpringButtonOnView:self.superview replyId:self.reply_id model:YES];
@@ -103,7 +104,7 @@ const int FavourSpringButtonTag = 121;
             if ([self.delegate respondsToSelector:@selector(didSelectSpringButtonOnView:postId:model:)]) {
                 [self.delegate didSelectSpringButtonOnView:self.superview postId:self.post_id model:NO];
             }
-        }else if (self.tag == MessageSpringButtonTag) {
+        }else if (self.tag == ReplyFavorSpringButtonTag) {
             self.isSpringReply = NO;
             if ([self.delegate respondsToSelector:@selector(didSelectReplySpringButtonOnView:replyId:model:)]) {
                 [self.delegate didSelectReplySpringButtonOnView:self.superview replyId:self.reply_id model:NO];

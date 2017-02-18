@@ -22,13 +22,10 @@
 @property (nonatomic, strong) UIAlertController   *alertView;
 @property (nonatomic, strong) UIAlertController   *compliantAlertView;
 
-@property (nonatomic, strong) YWDetailReplyCell   *commentCell;
+@property (nonatomic, strong) NSIndexPath         *indexPath;
 
 @property (nonatomic, strong) YWDetailBottomView  *replyView;
 @property (nonatomic, strong) YWDetailCommentView *commentView;
-@property (nonatomic, strong) YWGalleryView       *galleryView;
-
-@property (nonatomic, strong) GalleryViewModel    *homeViewModel;
 
 @property (nonatomic, strong) RequestEntity       *requestEntity;
 @property (nonatomic, strong) TieZiComment        *commentEntity;
@@ -89,13 +86,6 @@ static NSString *replyCellIdentifier = @"replyCell";
     return _viewModel;
 }
 
-- (GalleryViewModel *)homeViewModel {
-    if (_homeViewModel == nil) {
-        _homeViewModel = [[GalleryViewModel alloc] init];
-    }
-    return _homeViewModel;
-}
-
 - (RequestEntity *)requestEntity {
     if (_requestEntity == nil) {
         _requestEntity = [[RequestEntity alloc] init];
@@ -116,6 +106,7 @@ static NSString *replyCellIdentifier = @"replyCell";
         _replyView.messageField.delegate = self;
         _replyView.favorBtn.delegate     = self;
         _replyView.favorBtn.post_id      = self.model.tieZi_id;
+
         //判断是否有点赞过
         if (self.model.user_post_like  == 1) {
             [_replyView.favorBtn setBackgroundImage:[UIImage imageNamed:@"heart_red"]
@@ -128,15 +119,6 @@ static NSString *replyCellIdentifier = @"replyCell";
                                                self.model.like_cnt];
     }
     return _replyView;
-}
-
-- (YWGalleryView *)galleryView {
-    if (_galleryView == nil) {
-        _galleryView                 = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _galleryView.backgroundColor = [UIColor blackColor];
-        _galleryView.delegate        = self;
-    }
-    return _galleryView;
 }
 
 - (YWDetailCommentView *)commentView {
@@ -271,7 +253,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     WeakSelf(self);
     
-    [self.homeViewModel setDeleteSuccessBlock:^(StatusEntity *statusEntity) {
+    [self.viewModel setDeleteSuccessBlock:^(StatusEntity *statusEntity) {
         
         if (statusEntity.status == YES) {
             
@@ -292,7 +274,7 @@ static NSString *replyCellIdentifier = @"replyCell";
         
     }];
     
-    [self.homeViewModel deleteTieZiWithRequest:request];
+    [self.viewModel deleteTieZiWithRequest:request];
     
     
 }
@@ -301,7 +283,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     WeakSelf(self);
     
-    [self.homeViewModel setDeleteSuccessBlock:^(StatusEntity *statusEntity) {
+    [self.viewModel setDeleteSuccessBlock:^(StatusEntity *statusEntity) {
         
         if (statusEntity.status == YES) {
                         
@@ -319,7 +301,7 @@ static NSString *replyCellIdentifier = @"replyCell";
         
     }];
     
-    [self.homeViewModel deleteTieZiWithRequest:request];
+    [self.viewModel deleteTieZiWithRequest:request];
     
     
 }
@@ -437,6 +419,7 @@ static NSString *replyCellIdentifier = @"replyCell";
         
         [self.replyView.messageField becomeFirstResponder];
         [self.commentView.messageTextView becomeFirstResponder] ;
+        self.commetparameter[@"post_reply_id"]        = @(self.model.reply_id);
     }
     
 }
@@ -550,7 +533,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     YWReplyCell *cell   = [tableView dequeueReusableCellWithIdentifier:replyCellIdentifier
                                                                       forIndexPath:indexPath];
-    self.commentCell    = cell;
+    self.indexPath      = indexPath;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate       = self;
     
@@ -608,8 +591,6 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     self.selectCommentView                         = commentView;
     
-    //  获取点击的cell
-    self.commentCell                               = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
     //评论所需参数
     self.commetparameter[@"post_reply_id"]        = @(commentView.post_reply_id);
     self.commetparameter[@"post_comment_id"]      = @(commentView.post_comment_id);
@@ -649,54 +630,16 @@ static NSString *replyCellIdentifier = @"replyCell";
 
 #pragma YWSpringButtonDelegate
 
-- (void)didSelectSpringButtonOnView:(UIView *)view postId:(int)postId model:(int)model {
-    
-    
-    NSDictionary *parameter = @{@"post_id":@(postId),@"value":@(model)};
-    
-    WeakSelf(self);
-    
-    [self.homeViewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
-        
-        if (statusEntity.status == YES) {
-            
-            if (statusEntity.status == YES) {
-                
-                if (model == YES) {
-                    [weakself.homeViewModel saveLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
-                }
-                else
-                {
-                    [weakself.homeViewModel deleteLikeCookieWithPostId:[NSNumber numberWithInt:postId]];
-                }
-                
-            }
-        }
-        
-        
-    } likeFailureBlock:^(id likeFailureBlock) {
-        
-    }];
-    
-    RequestEntity *requestEntity = [[RequestEntity alloc] init];
-    requestEntity.URLString = TIEZI_LIKE_URL;
-    requestEntity.parameter = parameter;
-    
-    [self.homeViewModel requestForLikeTieZiWithRequest:requestEntity];
-    
-}
-
-
 - (void)didSelectReplySpringButtonOnView:(UIView *)view replyId:(int)replyId model:(int)model {
     
     //点赞数量的改变，这里要注意的是，无论是否可以网络请求，本地数据都要显示改变
-    UILabel *favour = [view viewWithTag:201];
+    UILabel *favour = [view viewWithTag:ReplyFavorSpringButtonTag];
     
     NSDictionary *parameter = @{@"reply_id":@(replyId),@"value":@(model)};
     
     WeakSelf(self);
     
-    [self.homeViewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
+    [self.viewModel setLikeSuccessBlock:^(StatusEntity *statusEntity) {
         
         if (statusEntity.status == YES) {
             
@@ -751,9 +694,6 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.commentType                        = TieZiCommentModel;
     
     self.commetparameter[@"post_reply_id"] = @(post_id);
-    
-    //获得被评论的cell
-    self.commentCell                        = (YWDetailReplyCell *)view.superview.superview;
     
     [self.commentView.messageTextView becomeFirstResponder];
     
@@ -876,9 +816,6 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     self.commetparameter[@"post_reply_id"] = @(self.model.post_id);
     
-    //获得被评论的cell
-    self.commentCell                        = (YWDetailReplyCell *)view.superview.superview;
-    
     [self.commentView.messageTextView becomeFirstResponder];
 }
 
@@ -918,9 +855,7 @@ static NSString *replyCellIdentifier = @"replyCell";
  */
 - (void)addCommentOnReplyTieZi {
     
-    NSIndexPath *indexPath  = [self.tableView indexPathForCell:self.commentCell];
-    
-    TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:indexPath.row];
+    TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:self.indexPath.row];
     
     WeakSelf(self);
 
@@ -930,10 +865,10 @@ static NSString *replyCellIdentifier = @"replyCell";
         
         replyEntity.commentArr = [commentArr mutableCopy];
         //替换新的评论
-        [weakself.tieZiReplyArr replaceObjectAtIndex:indexPath.row
+        [weakself.tieZiReplyArr replaceObjectAtIndex:weakself.indexPath.row
                                           withObject:replyEntity];
         //更新cell，更新评论
-        [weakself.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]
+        [weakself.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:weakself.indexPath,nil]
                                   withRowAnimation:UITableViewRowAnimationNone];
         
     } failure:^(id commentListFailureBlock) {
@@ -942,7 +877,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     RequestEntity *request           = [[RequestEntity alloc] init];
     request.URLString                = TIEZI_COMMENT_LIST_URL;
-    request.parameter                = @{@"post_reply_id":@(replyEntity.reply_id)};
+    request.parameter                = @{@"post_reply_id":@(self.model.reply_id)};
     
     [weakself.viewModel requestCommentWithRequest:request];
     
@@ -963,13 +898,5 @@ static NSString *replyCellIdentifier = @"replyCell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/**
- *  网路监测
- */
-- (void)judgeNetworkStatus {
-    [YWNetworkTools networkStauts];
-}
-
 
 @end

@@ -135,10 +135,7 @@
     }
     
     NSString *content                      = [NSString stringWithFormat:@"%@  %@",cell.bottomView.username.text ,model.content];
-    
-//    cell.bottomView.content.attributedText = [NSMutableAttributedString
-//                                              changeCommentContentWithString:content
-//                                              WithTextIndext:model.user_name.length+1];
+
     cell.bottomView.content.attributedText = [NSMutableAttributedString changeContentWithText:content
                                                                                withTextIndext:cell.bottomView.username.text.length
                                                                                  withFontSize:13];
