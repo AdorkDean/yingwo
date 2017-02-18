@@ -55,6 +55,7 @@
 		1871DD2F1E41B17E00C6BF30 /* YWDropDownViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1871DD201E41B17E00C6BF30 /* YWDropDownViewCell.m */; };
 		1871DD301E41B17E00C6BF30 /* YWPhotoCotentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1871DD221E41B17E00C6BF30 /* YWPhotoCotentView.m */; };
 		1871DD331E41B1FF00C6BF30 /* YWReplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1871DD321E41B1FF00C6BF30 /* YWReplyCell.m */; };
+		188328701E57DFEA0019CB09 /* YWTaTieziView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883286F1E57DFEA0019CB09 /* YWTaTieziView.m */; };
 		188B349D1E41B44500C9777E /* ReplyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B349C1E41B44500C9777E /* ReplyViewModel.m */; };
 		188B34A01E41DCC700C9777E /* TopicEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B349F1E41DCC700C9777E /* TopicEntity.m */; };
 		188B34A21E41DD5F00C9777E /* TopicEntity.h in Sources */ = {isa = PBXBuildFile; fileRef = 188B349E1E41DCC700C9777E /* TopicEntity.h */; };
@@ -299,7 +300,6 @@
 		CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7A1DC095FE009B4B21 /* TAController.m */; };
 		CCF64E7E1DC0A5FF009B4B21 /* YWTaHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7D1DC0A5FF009B4B21 /* YWTaHeaderView.m */; };
 		CCF64E811DC0D751009B4B21 /* YWTaTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E801DC0D751009B4B21 /* YWTaTopicView.m */; };
-		CCF64E841DC0D781009B4B21 /* YWTaTieziView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */; };
 		CCF64E871DC0E994009B4B21 /* YWTaTopicListView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */; };
 		CCFB0EA01DC4882400E19DB6 /* TaViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0E9F1DC4882400E19DB6 /* TaViewModel.m */; };
 		CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0EA41DC4896500E19DB6 /* TaEntity.m */; };
@@ -400,6 +400,8 @@
 		1871DD221E41B17E00C6BF30 /* YWPhotoCotentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWPhotoCotentView.m; sourceTree = "<group>"; };
 		1871DD311E41B1FF00C6BF30 /* YWReplyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWReplyCell.h; sourceTree = "<group>"; };
 		1871DD321E41B1FF00C6BF30 /* YWReplyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWReplyCell.m; sourceTree = "<group>"; };
+		1883286E1E57DFEA0019CB09 /* YWTaTieziView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTieziView.h; sourceTree = "<group>"; };
+		1883286F1E57DFEA0019CB09 /* YWTaTieziView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTieziView.m; sourceTree = "<group>"; };
 		188B349B1E41B44500C9777E /* ReplyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyViewModel.h; sourceTree = "<group>"; };
 		188B349C1E41B44500C9777E /* ReplyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyViewModel.m; sourceTree = "<group>"; };
 		188B349E1E41DCC700C9777E /* TopicEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicEntity.h; sourceTree = "<group>"; };
@@ -882,8 +884,6 @@
 		CCF64E7D1DC0A5FF009B4B21 /* YWTaHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaHeaderView.m; sourceTree = "<group>"; };
 		CCF64E7F1DC0D751009B4B21 /* YWTaTopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTopicView.h; sourceTree = "<group>"; };
 		CCF64E801DC0D751009B4B21 /* YWTaTopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTopicView.m; sourceTree = "<group>"; };
-		CCF64E821DC0D781009B4B21 /* YWTaTieziView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTieziView.h; sourceTree = "<group>"; };
-		CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTieziView.m; sourceTree = "<group>"; };
 		CCF64E851DC0E994009B4B21 /* YWTaTopicListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaTopicListView.h; sourceTree = "<group>"; };
 		CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaTopicListView.m; sourceTree = "<group>"; };
 		CCFB0E9E1DC4882400E19DB6 /* TaViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaViewModel.h; sourceTree = "<group>"; };
@@ -2462,8 +2462,8 @@
 				CCF64E801DC0D751009B4B21 /* YWTaTopicView.m */,
 				CCF64E851DC0E994009B4B21 /* YWTaTopicListView.h */,
 				CCF64E861DC0E994009B4B21 /* YWTaTopicListView.m */,
-				CCF64E821DC0D781009B4B21 /* YWTaTieziView.h */,
-				CCF64E831DC0D781009B4B21 /* YWTaTieziView.m */,
+				1883286E1E57DFEA0019CB09 /* YWTaTieziView.h */,
+				1883286F1E57DFEA0019CB09 /* YWTaTieziView.m */,
 				CC3AD4891DCC522500874834 /* YWTaFollowView.h */,
 				CC3AD48A1DCC522500874834 /* YWTaFollowView.m */,
 			);
@@ -2722,8 +2722,8 @@
 				18A075CE1E3E236500C4159D /* HotTopicEntity.m in Sources */,
 				18F3650F1E1FB8940077D3CC /* Perfect.m in Sources */,
 				18F363141E1FB2E70077D3CC /* BaseViewController.m in Sources */,
-				CCF64E841DC0D781009B4B21 /* YWTaTieziView.m in Sources */,
 				1871DD331E41B1FF00C6BF30 /* YWReplyCell.m in Sources */,
+				188328701E57DFEA0019CB09 /* YWTaTieziView.m in Sources */,
 				1808BE251E5560A200335459 /* TopicAnnounceController.m in Sources */,
 				18F3651E1E1FB8950077D3CC /* YWCustomerCell.m in Sources */,
 				18F4C7A61E4849DE00BA3F43 /* UIImage+CMMultiFormat.m in Sources */,

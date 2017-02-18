@@ -2,18 +2,15 @@
 //  YWTaTieziView.h
 //  yingwo
 //
-//  Created by 王世杰 on 2016/10/26.
-//  Copyright © 2016年 wangxiaofa. All rights reserved.
+//  Created by apple on 2017/2/18.
+//  Copyright © 2017年 wangxiaofa. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "GalleryController.h"
+
 @interface YWTaTieziView : UIView
 
-@property (nonatomic, strong) GalleryController        *gallerVc;
-
-@property (nonatomic, strong) NSMutableArray           *rowHeightArr;
-
-- (void)addSomeTieZiWith:(NSMutableArray *)tieZiArr;
+@property (nonatomic, strong) UIImageView *rightImageView;
+@property (nonatomic, strong) UILabel     *leftLabel;
 
 @end

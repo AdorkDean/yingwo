@@ -183,6 +183,20 @@ static CGFloat footerHeight = 250;
     }
 }
 
+#pragma mark YWGalleryCellBottomViewDelegate
+- (void)didSelecteMessageWithBtn:(UIButton *)message {
+    
+    YWGalleryBaseCell *selectedCell = (YWGalleryBaseCell *)message.superview.superview.superview.superview;
+    NSIndexPath *indexPath                = [self.tableView indexPathForCell:selectedCell];
+    
+    self.model = [self.tieZiList objectAtIndex:indexPath.row];
+    
+    //点击跳转到详情里面
+    if ([self.delegate respondsToSelector:@selector(didSelectCellWith:)]) {
+        [self.delegate didSelectCellWith:self.model];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

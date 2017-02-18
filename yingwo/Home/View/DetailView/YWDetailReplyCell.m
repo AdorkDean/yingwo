@@ -44,6 +44,8 @@
     self.contentLabel.numberOfLines         = 0;
     self.bottomView                         = [[YWDetailCellBottomView alloc] init];
 
+    self.bottomView.favour.tag = ReplyFavorSpringButtonTag;
+    
     [self.masterView.identifier removeFromSuperview];
     
     [self.contentView addSubview:self.backgroundView];
@@ -437,8 +439,10 @@
                                      parameter:paramaters
                                        success:^(StatusEntity *statusEntity) {
                                            if (statusEntity.status == YES) {
+                                               
                                                //将被删除的view从视图中移除
                                                [self.selectedCommentView removeFromSuperview];
+                                               
                                                [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
                                            }else if(statusEntity.status == NO){
                                                

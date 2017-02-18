@@ -16,17 +16,16 @@
 
 #import "YWTaHeaderView.h"
 #import "YWTaTopicView.h"
-#import "YWTaTieziView.h"
 #import "YWTaFollowView.h"
+#import "YWTaTieziView.h"
 
-@interface TAController ()<UIScrollViewDelegate,YWGalleryViewDelegate,YWTaTopicViewDelegate>
+@interface TAController ()<UIScrollViewDelegate,YWTaTopicViewDelegate>
 
 @property (nonatomic, strong) UIScrollView              *taScrollView;
 @property (nonatomic, strong) YWTaHeaderView            *taHeaderView;
 @property (nonatomic, strong) YWTaTopicView             *taTopicView;
 @property (nonatomic, strong) YWTaTieziView             *taTieziView;
 @property (nonatomic, strong) YWTaFollowView            *taFollowView;
-@property (nonatomic, strong) YWGalleryView             *galleryView;
 
 @property (nonatomic, strong) TaViewModel               *viewModel;
 @property (nonatomic, strong) TaEntity                  *taEntity;
@@ -84,6 +83,16 @@ static CGFloat HeadViewHeight = 250;
     return _taHeaderView;
 }
 
+- (YWTaTieziView *)taTieziView {
+    
+    if (_taTieziView == nil) {
+        _taTieziView = [[YWTaTieziView alloc] init];
+        [_taTieziView addTapAction:@selector(jumpToTaTieziListPage) target:self];
+        
+    }
+    return _taTieziView;
+}
+
 -(YWTaTopicView *)taTopicView {
     if (_taTopicView == nil) {
         _taTopicView                        = [[YWTaTopicView alloc] init];
@@ -94,16 +103,6 @@ static CGFloat HeadViewHeight = 250;
         _taTopicView.delegate               = self;
     }
     return _taTopicView;
-}
-
--(YWTaTieziView *)taTieziView {
-    if(_taTieziView == nil) {
-        _taTieziView                        = [[YWTaTieziView alloc] init];
-        _taTieziView.backgroundColor        = [UIColor whiteColor];
-        _taTieziView.layer.masksToBounds    = YES;
-        _taTieziView.layer.cornerRadius     = 5;
-    }
-    return _taTieziView;
 }
 
 -(YWTaFollowView *)taFollowView {
@@ -150,15 +149,6 @@ static CGFloat HeadViewHeight = 250;
     return _taNavigationBar;
 }
 
--(YWGalleryView *)galleryView {
-    if (_galleryView == nil) {
-        _galleryView                        = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _galleryView.backgroundColor        = [UIColor blackColor];
-        _galleryView.delegate               = self;
-    }
-    return _galleryView;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -199,7 +189,6 @@ static CGFloat HeadViewHeight = 250;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self reSetUILayout];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -209,36 +198,22 @@ static CGFloat HeadViewHeight = 250;
 
 }
 
-- (void)reSetUILayout {
-    //获取帖子行高，计算出taTieziView高度
-    CGFloat rowHeight;
-    for (int i = 0; i < self.taTieziView.rowHeightArr.count; i++) {
-        rowHeight += [[self.taTieziView.rowHeightArr objectAtIndex:i] floatValue];
-    }
-    
-    CGFloat taTieziViewHeight = rowHeight + 50;
-    [self.taTieziView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.taTopicView.mas_bottom).offset(10);
-        make.left.right.equalTo(self.taTopicView);
-        make.height.mas_equalTo(taTieziViewHeight);
-    }];
-    
-    self.taScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,HeadViewHeight + SCREEN_HEIGHT / 667 * 170 + self.navgationBarHeight + taTieziViewHeight);
-}
 - (void)setUILayout {
     
-    [self.taTopicView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.taTieziView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.taHeaderView.mas_bottom).offset(10);
+        make.height.equalTo(@40);
+        make.left.equalTo(self.view.mas_left).offset(10);
+        make.right.equalTo(self.view.mas_right).offset(-10);
+    }];
+    
+    [self.taTopicView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.taTieziView.mas_bottom).offset(10);
         make.left.equalTo(self.view).offset(10);
         make.right.equalTo(self.view).offset(-10);
         make.height.mas_equalTo(SCREEN_HEIGHT / 667 * 170);
     }];
     
-    [self.taTieziView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.taTopicView.mas_bottom).offset(10);
-        make.left.right.equalTo(self.taTopicView);
-        make.height.equalTo(@1200);
-    }];
     
     if (self.ta_id != [[User findCustomer].userId intValue]) {
         [self.taFollowView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -286,13 +261,6 @@ static CGFloat HeadViewHeight = 250;
 
 }
 
-
-#pragma mark - GalleryView Delegate
-
-- (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
-    galleryView = nil;
-}
-
 #pragma mark - YWTaTopicViewDelegate
 - (void)didSelectTopicWith:(int)topicId {
    
@@ -303,7 +271,7 @@ static CGFloat HeadViewHeight = 250;
 #pragma mark - action
 
 - (void)setAllAction {
-    [self.taHeaderView.headerView addTapAction:@selector(ShowHeadImage) target:self];
+    [self.taHeaderView.headerView addTapAction:@selector(showHeadImage) target:self];
     [self.taHeaderView.numberOfFollow addTapAction:@selector(jumpToTaFollowPage) target:self];
     [self.taHeaderView.numberOfFans addTapAction:@selector(jumpToTaFansPage) target:self];
     [self.taTopicView addTapAction:@selector(jumpToTaTopicListPage) target:self];
@@ -349,14 +317,43 @@ static CGFloat HeadViewHeight = 250;
 }
 
 
-- (void)ShowHeadImage {
+- (void)showHeadImage {
     //点击头像显示大图
-    NSMutableArray *imagesArr = [NSMutableArray array];
-    [imagesArr addObject:self.taHeaderView.headerView];
     
-   // [self.galleryView setImages:imagesArr showAtIndex:0];
-    self.galleryView.pageLabel.text = @"";
-    [self.navigationController.view addSubview:self.galleryView];
+    UIView *bgView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    bgView.backgroundColor = [UIColor blackColor];
+        
+    [bgView addTapAction:@selector(disappear:) target:self];
+    
+    
+    UIImageView *newImageView = [[UIImageView alloc] init];
+    newImageView.image        = self.taHeaderView.headerView.image;
+    newImageView.frame       = CGRectMake(0, (SCREEN_HEIGHT-SCREEN_WIDTH)/2, SCREEN_WIDTH, SCREEN_WIDTH);
+    
+    [bgView addSubview:newImageView];
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:bgView];
+    
+}
+
+- (void)disappear:(UIGestureRecognizer *)gesture {
+    
+    __block UIView *bgView = gesture.view;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        bgView.alpha = 0;
+
+    } completion:^(BOOL finished) {
+        
+        [bgView removeFromSuperview];
+        bgView = nil;
+
+    }];
+    
+    
+    
 }
 
 -(void)fillTaHeaderViewWith:(TaEntity *)ta {
@@ -561,8 +558,10 @@ static CGFloat HeadViewHeight = 250;
 
 - (void)jumpToTaTieziListPage {
     
-    MyTopicController *myTopicVc = [[MyTopicController alloc] initWithUserId:self.ta_id];
-    [self.navigationController pushViewController:myTopicVc animated:YES];
+    
+     MyTieZiController *userTieZi = [[MyTieZiController alloc] initWithUserId:self.ta_id];
+    [self.navigationController pushViewController:userTieZi animated:YES];
+    
 }
 
 - (void)jumpToTaFollowPage {

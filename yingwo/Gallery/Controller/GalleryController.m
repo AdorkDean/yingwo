@@ -163,7 +163,7 @@
     cell.titleView.title.delegate               = self;
     cell.bottemView.favour.delegate             = self;
     cell.bottemView.more.delegate               = self;
-
+    
     cell.titleView.title.userInteractionEnabled = self.shouldClickTitle;
     
     //回调block实现点击图片放大
@@ -180,6 +180,8 @@
         [galleryView setImagesItem:imagesItem showAtIndex:imageView.tag-1];
         [self.view.window.rootViewController.view addSubview:galleryView];
     };
+    
+    
     
     return cell;
 }

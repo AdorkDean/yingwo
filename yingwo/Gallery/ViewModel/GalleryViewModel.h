@@ -29,8 +29,6 @@ typedef void(^LikeFailureBlock)(id likeFailureBlock);
 @property (nonatomic, strong) RACCommand              *fecthTieZiEntityCommand;
 @property (nonatomic, assign) NSArray                 *imageUrlArr;
 
-@property (nonatomic, assign) int                     user_id;
-
 @property (nonatomic, strong) DeleteTieZiSuccessBlock deleteSuccessBlock;
 @property (nonatomic, strong) DeleteFailureBlock      deleteFailureBlock;
 

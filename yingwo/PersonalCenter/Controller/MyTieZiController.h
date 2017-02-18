@@ -10,4 +10,6 @@
 
 @interface MyTieZiController : GalleryController
 
+- (instancetype)initWithUserId:(int)userId;
+
 @end

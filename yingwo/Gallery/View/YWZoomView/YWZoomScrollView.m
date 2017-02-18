@@ -191,17 +191,17 @@
 - (void)handleDoubleTap:(UITapGestureRecognizer *)gesture
 {
     
+    self.doubleTapped = !self.doubleTapped;
+
     float newScale = 1;
     
     if (self.doubleTapped)
     {
         newScale = self.zoomScale * 3;
-        self.doubleTapped = NO;
     }
     else
     {
         newScale = 1;
-        self.doubleTapped = YES;
     }
     
     CGPoint center  = [gesture locationInView:gesture.view];
