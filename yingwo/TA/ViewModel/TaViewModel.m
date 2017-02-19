@@ -11,6 +11,12 @@
 @implementation TaViewModel
 
 
+- (void)setHeaderImageSuccessBlock:(HeaderImageSuccessBlock)headerImageSuccessBlock
+           headerImageFailureBlock:(HeaderImageFailureBlock)failure {
+    _headerImageSuccessBlock = headerImageSuccessBlock;
+    _headerImageFailureBlock = failure;
+}
+
 - (void)requestTaDetailInfoWithUrl:(NSString *)url
                         paramaters:(id)paramaters
                            success:(void (^)(TaEntity *ta))success
@@ -119,6 +125,21 @@
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               failure(@"网络错误");
           }];
+}
+
+- (void)requestForHeaderImageWithURL:(NSString *)URLString {
+    
+    [YWRequestTool YWRequestPOSTWithURL:URLString
+                              parameter:nil
+                           successBlock:^(id content) {
+                             
+                               StatusEntity *status = [StatusEntity mj_objectWithKeyValues:content];
+                               self.headerImageSuccessBlock(status.info);
+        
+    } errorBlock:^(id error) {
+        self.headerImageFailureBlock(error);
+    }];
+    
 }
 
 

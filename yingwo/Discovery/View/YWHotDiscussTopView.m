@@ -23,7 +23,7 @@
     
     _labelImage               = [[UIImageView alloc] init];
     _title                    = [[YWTitle alloc] init];
-    
+
     _labelImage.image         = [UIImage imageNamed:@"#_gray"];
     _title.label.text         = @"新鲜事";
     _title.layer.cornerRadius = 12;

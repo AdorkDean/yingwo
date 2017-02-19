@@ -10,6 +10,6 @@
 
 @interface MyTieZiController : GalleryController
 
-- (instancetype)initWithUserId:(int)userId;
+- (instancetype)initWithUserId:(int)userId title:(NSString *)title;
 
 @end

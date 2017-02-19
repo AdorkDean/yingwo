@@ -8,8 +8,6 @@
 
 #import "YWDetailReplyCell.h"
 
-@interface YWReplyCell : YWDetailTableViewCell
-
-@property (nonatomic, strong) UILabel *bottomLine;
+@interface YWReplyCell : YWDetailReplyCell
 
 @end

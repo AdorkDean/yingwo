@@ -21,7 +21,6 @@
 
 @implementation HomeController
 
-
 //刷新的初始值
 static int start_id = 0;
 
@@ -222,6 +221,7 @@ static int start_id = 0;
             
         }
         
+
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
         //错误的情况下停止刷新（网络错误）

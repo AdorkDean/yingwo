@@ -149,6 +149,23 @@ static CGFloat HeadViewHeight = 250;
     return _taNavigationBar;
 }
 
+- (void)initDataSourceBlock {
+    
+    WeakSelf(self);
+    [self.viewModel setHeaderImageSuccessBlock:^(NSString *imageURL) {
+        
+        [weakself.taHeaderView.bgImageView sd_setImageWithURL:[NSURL URLWithString:imageURL]
+                                             placeholderImage:[UIImage imageNamed:@"ying"]];
+        
+    } headerImageFailureBlock:^(id headerImageFailureBlock) {
+        
+        weakself.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage1"];
+
+    }];
+    
+    [self.viewModel requestForHeaderImageWithURL:TA_USER_BACKGROUND_URL];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -405,26 +422,7 @@ static CGFloat HeadViewHeight = 250;
 
     }
     
-    [self setTaBgImage];
     
-}
-
-- (void)setTaBgImage {
-    //用户背景图
-    int nowHour = [[NSDate getNowHour] intValue];
-    if (nowHour <= 4 && nowHour >=0) { //凌晨
-        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage6"];
-    }else if (nowHour <= 8 && nowHour >=5) { //早上
-        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage5"];
-    }else if (nowHour <= 11 && nowHour >= 9) { //上午
-        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage2"];
-    }else if (nowHour <= 14 && nowHour >= 12) { //中午
-        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage2"];
-    }else if (nowHour <= 17 && nowHour >= 13) { //下午
-        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage3"];
-    }else { //晚上
-        self.taHeaderView.bgImageView.image         = [UIImage imageNamed:@"TabgImage1"];
-    }
 }
 
 //关注TA
@@ -559,7 +557,7 @@ static CGFloat HeadViewHeight = 250;
 - (void)jumpToTaTieziListPage {
     
     
-     MyTieZiController *userTieZi = [[MyTieZiController alloc] initWithUserId:self.ta_id];
+    MyTieZiController *userTieZi = [[MyTieZiController alloc] initWithUserId:self.ta_id title:@"TA的贴子"];
     [self.navigationController pushViewController:userTieZi animated:YES];
     
 }

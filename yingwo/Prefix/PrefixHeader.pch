@@ -18,8 +18,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 
-//pod第三方库
-#import "ReactiveObjC/ReactiveObjC.h"
 #import "AFNetworking.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
 #import "Masonry.h"
@@ -34,6 +32,7 @@
 #import "HPGrowingTextView.h"
 #import <RSKImageCropper/RSKImageCropper.h>
 #import <HYBNetworking/HYBNetworking.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 
 #import <UMSocialCore/UMSocialCore.h>

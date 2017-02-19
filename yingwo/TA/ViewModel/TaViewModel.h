@@ -11,10 +11,18 @@
 #import "TaResult.h"
 #import "TopicEntity.h"
 
-@interface TaViewModel : NSObject
+typedef void(^HeaderImageSuccessBlock)(id headerImageSuccessBlock);
+typedef void(^HeaderImageFailureBlock)(id headerImageFailureBlock);
+
+@interface TaViewModel : BaseViewModel
+
+@property (nonatomic, strong)HeaderImageSuccessBlock headerImageSuccessBlock;
+@property (nonatomic, strong)HeaderImageFailureBlock headerImageFailureBlock;
 
 @property (nonatomic, assign) int userId;
 
+- (void)setHeaderImageSuccessBlock:(HeaderImageSuccessBlock)headerImageSuccessBlock
+           headerImageFailureBlock:(HeaderImageFailureBlock)failure;
 /**
  *  获取TA的详细资料
  *
@@ -54,5 +62,7 @@
                     paramaters:(NSDictionary *)paramaters
                        success:(void (^)(StatusEntity *status))success
                        failure:(void (^)(NSString *error))failure;
+
+- (void)requestForHeaderImageWithURL:(NSString *)URLString;
 
 @end

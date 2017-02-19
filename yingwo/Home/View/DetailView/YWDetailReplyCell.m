@@ -265,7 +265,9 @@
         commentView.user_id                     = [entity.user_id intValue];
         commentView.user_name                   = entity.user_name;
         commentView.sourceContent               = entity.content;
-        
+
+        commentView.delegate                    = self;
+
         UITapGestureRecognizer *tap             = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                           action:@selector(comment:)];
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -316,6 +318,17 @@
 
 
 }
+
+#pragma mark YWCommentViewDelegate
+
+- (void)didSelectLeftNameWithUserId:(int)userId {
+ 
+    if ([self.delegate respondsToSelector:@selector(didSelectCommentViewLeftNameWithUserId:)]) {
+        [self.delegate didSelectCommentViewLeftNameWithUserId:userId];
+    }
+    
+}
+
 #pragma mark private
 
 - (void)convertImageViewArr {

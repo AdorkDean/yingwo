@@ -158,7 +158,7 @@
 #define TA_USER_LIKE_LIST_URL   @"/User/like_list"
 #define TA_USER_LIKED_LIST_URL  @"/User/liked_list"
 #define TA_USER_FRIEND_LIST_URL @"/User/friend_list"
-
+#define TA_USER_BACKGROUND_URL  @"/User/background_img"
 #define QINIU_BASE_URL          @"http://obabu2buy.bkt.clouddn.com"
 #define QINIU_TOKEN_URL         @"/Qiniu/UploadToken"
 

@@ -33,6 +33,16 @@
 
     self.leftName.textColor       = [UIColor colorWithHexString:THEME_COLOR_1];
 
+    self.leftName.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(tapLeftName:)];
+    
+    tap.numberOfTouchesRequired = 1;
+    tap.numberOfTapsRequired    = 1;
+    
+    [self.leftName addGestureRecognizer:tap];
+    
     self.content.font             = [UIFont systemFontOfSize:14];
     self.content.textColor        = [UIColor colorWithHexString:THEME_COLOR_2];
     self.content.numberOfLines    = 0;
@@ -40,9 +50,9 @@
 
     [self.deleteBtn setBackgroundImage:[UIImage imageNamed:@"X"] forState:UIControlStateNormal];
     
-    [self addSubview:self.leftName];
     [self addSubview:self.identfier];
     [self addSubview:self.content];
+    [self addSubview:self.leftName];
     [self addSubview:self.deleteBtn];
 
     [self.leftName mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -71,6 +81,13 @@
     }];
     
         
+}
+
+- (void)tapLeftName:(UITapGestureRecognizer *)tap {
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectLeftNameWithUserId:)]) {
+        [self.delegate didSelectLeftNameWithUserId:self.user_id];
+    }
 }
 
 @end

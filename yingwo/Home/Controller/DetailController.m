@@ -43,7 +43,6 @@
 
 @property (nonatomic, strong) NSMutableArray      *tieZiReplyArr;
 @property (nonatomic, strong) NSMutableDictionary *commetparameter;
-
 @end
 
 @implementation DetailController
@@ -72,7 +71,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         _detailTableView.backgroundColor = [UIColor clearColor];
         _detailTableView.delegate        = self;
         _detailTableView.dataSource      = self;
-        _detailTableView.contentInset    = UIEdgeInsetsMake(0, 0, 40, 0);
+        _detailTableView.contentInset    = UIEdgeInsetsMake(0, 0, 60, 0);
       //  _detailTableView.fd_debugLogEnabled = YES;
         [_detailTableView registerClass:[YWDetailTableViewCell class] forCellReuseIdentifier:detailCellIdentifier];
         [_detailTableView registerClass:[YWDetailReplyCell class] forCellReuseIdentifier:detailReplyCellIdentifier];
@@ -415,9 +414,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     WeakSelf(self);
     followVc.replyTieZiBlock = ^(NSDictionary *parameter){
         
-        [weakself.detailTableView.mj_footer beginRefreshing];
+        [weakself addReplyViewAtLastWith:parameter];
+      //  [weakself.detailTableView.mj_footer beginRefreshing];
 
-        weakself.isReply = YES;
+      //  weakself.isReply = YES;
 
     };
 
@@ -427,6 +427,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self presentViewController:mainNav
                        animated:YES
                      completion:nil];
+}
+
+- (void)jumpToTaPageWithUserId:(int)userId {
+    
+    TAController *taVc = [[TAController alloc] initWithUserId:userId];
+    [self.navigationController pushViewController:taVc animated:YES];
 }
 
 #pragma mark UITextfieldDelegate
@@ -459,6 +465,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         [weakself loadData];
     }];
     
+
     self.footer  = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakself loadMoreData];
         
@@ -468,18 +475,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     [self.detailTableView.mj_header beginRefreshing];
 
-    self.detailTableView.mj_footer.endRefreshingCompletionBlock = ^{
-        
-        if (weakself.isReply) {
-            
-            CGFloat bottom = weakself.detailTableView.contentSize.height - weakself.detailTableView.bounds.size.height;
-            [weakself.detailTableView setContentOffset:CGPointMake(0,
-                                                                   bottom)
-                                          animated:YES];
-            
-            weakself.isReply = NO;
-        }
-    };
+//    self.detailTableView.mj_footer.endRefreshingCompletionBlock = ^{
+//        
+//        if (weakself.isReply) {
+//            
+//            CGFloat bottom = weakself.detailTableView.contentSize.height - weakself.detailTableView.bounds.size.height;
+//            [weakself.detailTableView setContentOffset:CGPointMake(0,
+//                                                                   bottom)
+//                                          animated:YES];
+//            
+//            weakself.isReply = NO;
+//        }
+//    };
     
 }
 
@@ -568,11 +575,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
             
             [self.detailTableView.mj_header endRefreshing];
             self.footer.stateLabel.text = @"点击或上拉查看更多跟贴";
-            
+
             [self.detailTableView reloadData];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 //刷新完成
+
                 self.footer.mj_y -= 50;
                 
             });
@@ -597,7 +605,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                 
                 [self.detailTableView.mj_footer endRefreshingWithNoMoreData];
                 self.footer.stateLabel.text = @"没有更多贴子了";
-                
+    
             }
 
             
@@ -615,7 +623,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         [self.detailTableView.mj_header endRefreshing];
         [self.detailTableView.mj_footer endRefreshing];
     }];
-    
+
 }
 
 #define mark UITableViewDataSource
@@ -719,6 +727,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     YWDetailReplyCell *cell  = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
     self.isMessage = NO;
     [self didSelectReplyCell:cell];
+}
+
+- (void)didSelectCommentViewLeftNameWithUserId:(int)userId {
+    
+    [self jumpToTaPageWithUserId:userId];
+    
 }
 
 - (void)didSelectMoreCommentBtnWith:(UIButton *)btn {

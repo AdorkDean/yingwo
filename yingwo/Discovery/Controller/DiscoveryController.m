@@ -380,6 +380,7 @@ static int start_id = 0;
             if ([self.delegate respondsToSelector:@selector(didSelectModuleTopicWith:)]) {
                 
                 [self.delegate didSelectModuleTopicWith: [hotEntity.topic_id intValue]];
+
                 
             }
             
@@ -446,7 +447,6 @@ static int start_id = 0;
 }
 
 
-
 #pragma mark YWSubjectViewCellDelegate
 
 - (void)didSelectTopicWith:(int)topicId {
@@ -456,6 +456,7 @@ static int start_id = 0;
         [self.delegate didSelectModuleTopicWith:topicId];
         
     }
+
 }
 
 #pragma mark private method
@@ -491,6 +492,7 @@ static int start_id = 0;
     request.parameter      = @{@"field_id":@(fieldId)};
     
     [self.viewModel requestRecommendTopicListWith:request];
+
     
 }
 

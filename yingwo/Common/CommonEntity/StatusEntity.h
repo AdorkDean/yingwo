@@ -11,7 +11,7 @@
 @interface StatusEntity : NSObject
 
 //返回信息
-@property (nonatomic, strong) NSArray  *info;
+@property (nonatomic, strong) id  info;
 
 //返回状态
 @property (nonatomic, assign) int      status;

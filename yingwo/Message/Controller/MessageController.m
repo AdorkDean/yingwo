@@ -19,6 +19,7 @@
 
 @implementation MessageController
 
+
 - (ChatListController *)chatListVc {
     if (_chatListVc == nil) {
         _chatListVc = [[ChatListController alloc] init];

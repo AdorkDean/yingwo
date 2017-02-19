@@ -404,6 +404,12 @@ static NSString *replyCellIdentifier = @"replyCell";
                                              selector:@selector(keyboardWillChangeFrame:)
                                                  name:UIKeyboardWillChangeFrameNotification
                                                object:nil];
+    
+    //监听键盘frame改变事件
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hadChangeKeyboard:)
+                                                 name:UIKeyboardDidChangeFrameNotification
+                                               object:nil];
     //监听键盘消失事件
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didHiddenKeyboard:)
@@ -418,7 +424,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     if (self.shouldShowKeyboard) {
         
         [self.replyView.messageField becomeFirstResponder];
-        [self.commentView.messageTextView becomeFirstResponder] ;
+        
         self.commetparameter[@"post_reply_id"]        = @(self.model.reply_id);
     }
     
@@ -438,7 +444,8 @@ static NSString *replyCellIdentifier = @"replyCell";
 //键盘弹出后调用
 - (void)keyboardWillChangeFrame:(NSNotification *)note {
     
-    
+    [self.commentView.messageTextView becomeFirstResponder] ;
+
     //获取键盘的frame
     CGRect endFrame  = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
@@ -470,6 +477,12 @@ static NSString *replyCellIdentifier = @"replyCell";
     
 }
 
+- (void)hadChangeKeyboard:(NSNotification *) notes {
+    
+    [self.commentView.messageTextView becomeFirstResponder] ;
+
+}
+
 - (void)didHiddenKeyboard:(NSNotification *) notes{
     
     self.commentView = nil;
@@ -491,6 +504,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.requestEntity.parameter = @{@"post_id":@(self.model.post_id),
                                      @"post_reply_id":@(self.model.reply_id)};
     
+    DLog(@"parameter:%@",self.requestEntity.parameter);
     [self loadForType:HeaderReloadDataModel];
     
 }
@@ -540,6 +554,20 @@ static NSString *replyCellIdentifier = @"replyCell";
     [self.viewModel setupModelOfCell:cell
                                model:self.tieZiReplyArr[indexPath.row]];
     
+    //回调block实现点击图片放大
+    cell.imageTapBlock = ^(UIImageView *imageView, ImageViewItem *imagesItem) {
+        
+        if (imageView.tag > imagesItem.URLArr.count) {
+            return ;
+        }
+        YWGalleryView *galleryView  = [[YWGalleryView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        galleryView.backgroundColor = [UIColor blackColor];
+        galleryView.delegate = self;
+        
+        [galleryView setImagesItem:imagesItem showAtIndex:imageView.tag-1];
+        [self.view.window.rootViewController.view addSubview:galleryView];
+    };
+    
     //这里的赋值必须在setupModelOfCell下面！！！因为bottomView的创建延迟到了viewModel中
     cell.masterView.delegate        = self;
     cell.bottomView.delegate        = self;
@@ -582,6 +610,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     [self.navigationController pushViewController:webVc animated:YES];
 }
 
+#pragma mark YWDetailTabeleViewDelegate
 
 - (void)didSelectCommentView:(YWCommentView *)commentView {
     
@@ -621,6 +650,11 @@ static NSString *replyCellIdentifier = @"replyCell";
     
 }
 
+- (void)didSelectCommentViewLeftNameWithUserId:(int)userId {
+    
+    [self jumpToTaPageWithUserId:userId];
+    
+}
 
 #pragma mark - GalleryView Delegate
 
@@ -801,9 +835,8 @@ static NSString *replyCellIdentifier = @"replyCell";
 -(void)didSelectMaster:(YWDetailMasterView *)masterView {
     
     
-    TAController *taVc = [[TAController alloc] initWithUserId:masterView.user_id];
+    [self jumpToTaPageWithUserId:masterView.user_id];
     
-    [self.navigationController pushViewController:taVc animated:YES];
 }
 
 #pragma mark private method
@@ -882,6 +915,14 @@ static NSString *replyCellIdentifier = @"replyCell";
     [weakself.viewModel requestCommentWithRequest:request];
     
 }
+
+
+- (void)jumpToTaPageWithUserId:(int)userId {
+    
+    TAController *taVc = [[TAController alloc] initWithUserId:userId];
+    [self.navigationController pushViewController:taVc animated:YES];
+}
+
 
 #pragma mark 收起键盘
 - (void)hiddenKeyboard {

@@ -11,8 +11,9 @@
 
 @interface YWHotDiscussTopView : UIView
 
-@property (nonatomic, strong) UIImageView *labelImage;
+
 @property (nonatomic, strong) YWTitle     *title;
+@property (nonatomic, strong) UIImageView *labelImage;
 
 
 @end

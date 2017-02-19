@@ -33,14 +33,14 @@ static int start_id = 0;
 
 @implementation MyTieZiController
 
-- (instancetype)initWithUserId:(int)userId {
+- (instancetype)initWithUserId:(int)userId title:(NSString *)title {
     
     self = [super init];
     
     if (self) {
         
         self.requestEntity.user_id = userId;
-        
+        self.title = title;
     }
     return self;
 }
@@ -83,8 +83,6 @@ static int start_id = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"我的贴子";
-
     [self addRefreshForTableView];
 }
 

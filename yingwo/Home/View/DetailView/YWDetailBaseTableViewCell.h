@@ -45,6 +45,7 @@ typedef void(^AvatarImageTapBlock)(UIImageView *imageView,ImageViewItem *imagesI
 
 //common
 - (void)createSubview;
+
 - (void)addImageViewByImageArr:(NSMutableArray *)imageArr;
 
 //YWDetailReplyCell members
@@ -55,6 +56,8 @@ typedef void(^AvatarImageTapBlock)(UIImageView *imageView,ImageViewItem *imagesI
 @protocol YWDetailTabeleViewDelegate <NSObject>
 
 - (void)didSelectCommentView:(YWCommentView *)commentView;
+
+- (void)didSelectCommentViewLeftNameWithUserId:(int)userId;
 
 @optional
 - (void)didSelectMoreCommentBtnWith:(UIButton *)btn;
