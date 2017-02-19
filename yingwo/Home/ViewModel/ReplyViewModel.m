@@ -133,7 +133,7 @@
     else
     {
         //如果没有任何评论隐藏cell的下划线
-        cell.bottomLine.hidden = NO;
+        cell.bottomView.bottomLine.hidden = YES;
     }
 }
 

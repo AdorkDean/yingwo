@@ -19,12 +19,15 @@ typedef NS_ENUM(NSInteger, TieZiType) {
 
 @interface MessageEntity : TieZiReply
 
-//贴子类型
-@property (nonatomic, assign) TieZiType type;
-
 @property (nonatomic, assign) int message_id;
 
 @property (nonatomic, copy) NSString *url;
+
+@property (nonatomic, assign) int post_detail_id;
+
+@property (nonatomic, assign) int follow_id;
+
+@property (nonatomic, assign) int follow_post_reply_id;
 
 /**
  *  跟贴用户的id

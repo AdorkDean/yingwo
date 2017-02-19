@@ -29,7 +29,7 @@
             
             @strongify(self);
             RequestEntity *requestEntity = (RequestEntity *)input;
-                        
+            requestEntity.parameter = @{@"start_id":@(requestEntity.start_id)};
             [self requestMessageWithRequest:requestEntity
                                     success:^(id messages) {
                                         
@@ -153,7 +153,7 @@
                                          
                                          NSArray *messageArr    = [MessageEntity mj_objectArrayWithKeyValuesArray:result.info];
                                          
-                                         //  NSLog(@"messageArr:%@",result.info);
+                                         DLog(@"%@",content);
                                          
                                          [self changeImageUrlModelFor:messageArr];
                                          

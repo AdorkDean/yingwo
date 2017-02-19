@@ -13,7 +13,7 @@
 #import "YWCommentReplyView.h"
 #import "DetailViewModel.h"
 
-@interface YWDetailReplyCell : YWDetailBaseTableViewCell
+@interface YWDetailReplyCell : YWDetailBaseTableViewCell<YWCommentViewDelegate>
 
 - (void)comment:(UITapGestureRecognizer *)sender;
 - (void)showMenuController:(UILongPressGestureRecognizer *)sender;

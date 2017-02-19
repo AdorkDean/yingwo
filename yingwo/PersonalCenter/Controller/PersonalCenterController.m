@@ -34,7 +34,7 @@
 
 @property (nonatomic, assign) int                   relationType;
 
-@property (nonatomic, strong) User                  *user;
+@property (nonatomic, strong) Customer                  *user;
 
 @end
 
@@ -42,7 +42,7 @@
 
 #pragma mark 懒加载
 
-- (User *)user {
+- (Customer *)user {
     if (_user == nil) {
         _user = [User findCustomer];
     }
@@ -271,7 +271,7 @@
 }
 
 - (void)jumpToMyTieZiPage {
-    MyTieZiController *myTieZiVc = [[MyTieZiController alloc] initWithUserId:[self.user.userId intValue]];
+    MyTieZiController *myTieZiVc = [[MyTieZiController alloc] initWithUserId:[self.user.userId intValue] title:@"我的贴子"];
     [self.navigationController pushViewController:myTieZiVc animated:YES];
     
 }

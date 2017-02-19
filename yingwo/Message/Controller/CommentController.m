@@ -231,18 +231,24 @@ static int start_id = 0;
 //查看回复或评论的贴子
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    MessageEntity *message = [self.messageArr objectAtIndex:indexPath.row];
-    
+
+    MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
+
+    MessageEntity *message       = [[MessageEntity alloc] init];
+
+    message.post_id              = messageEntity.post_id;
+
     //跟贴
-    if ([message.follow_type isEqualToString:@"REPLY"]) {
+    if ([messageEntity.follow_type isEqualToString:@"REPLY"]) {
         
+        message.reply_id = messageEntity.follow_id;
         [self jumpToReplyDetailPageWithModel:message];
         
     }
     //评论
-    else if ([message.follow_type isEqualToString:@"COMMENT"]) {
+    else if ([messageEntity.follow_type isEqualToString:@"COMMENT"]) {
         
+        message.reply_id = messageEntity.follow_post_reply_id;
         [self jumpToReplyDetailPageWithModel:message];
 
     }
@@ -263,11 +269,20 @@ static int start_id = 0;
     }
     //跟贴
     else if ([messageEntity.source_type isEqualToString:@"REPLY"]) {
-        [self jumpToReplyDetailPageWithModel:messageEntity];
+        
+
+        //跟贴的source_post_reply_id是空的
+
+        MessageEntity *message = [[MessageEntity alloc] init];
+        message.reply_id       = messageEntity.post_id;
+        message.post_id        = messageEntity.post_detail_id;
+
+        [self jumpToReplyDetailPageWithModel:message];
 
     }
     //评论
     else if ([messageEntity.source_type isEqualToString:@"COMMENT"]) {
+        
         [self jumpToReplyDetailPageWithModel:messageEntity];
 
     }

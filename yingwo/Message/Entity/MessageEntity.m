@@ -11,10 +11,10 @@
 @implementation MessageEntity
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"tieZi_id":@"source_id",
-             @"reply_id":@"follow_post_reply_id",
-             @"post_id" :@"source_id",
+    return @{@"tieZi_id":@"post_id",
+             @"reply_id":@"source_post_reply_id",
              @"message_id":@"id",
+             @"post_id":@"source_id",
              @"user_id":@"source_user_id",
              @"user_name":@"source_user_name",
              @"content":@"source_content",

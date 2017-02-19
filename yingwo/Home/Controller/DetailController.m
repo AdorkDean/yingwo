@@ -414,9 +414,10 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     WeakSelf(self);
     followVc.replyTieZiBlock = ^(NSDictionary *parameter){
         
-        [weakself.detailTableView.mj_footer beginRefreshing];
+        [weakself addReplyViewAtLastWith:parameter];
+      //  [weakself.detailTableView.mj_footer beginRefreshing];
 
-        weakself.isReply = YES;
+      //  weakself.isReply = YES;
 
     };
 
@@ -426,6 +427,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     [self presentViewController:mainNav
                        animated:YES
                      completion:nil];
+}
+
+- (void)jumpToTaPageWithUserId:(int)userId {
+    
+    TAController *taVc = [[TAController alloc] initWithUserId:userId];
+    [self.navigationController pushViewController:taVc animated:YES];
 }
 
 #pragma mark UITextfieldDelegate
@@ -468,18 +475,18 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     [self.detailTableView.mj_header beginRefreshing];
 
-    self.detailTableView.mj_footer.endRefreshingCompletionBlock = ^{
-        
-        if (weakself.isReply) {
-            
-            CGFloat bottom = weakself.detailTableView.contentSize.height - weakself.detailTableView.bounds.size.height;
-            [weakself.detailTableView setContentOffset:CGPointMake(0,
-                                                                   bottom)
-                                          animated:YES];
-            
-            weakself.isReply = NO;
-        }
-    };
+//    self.detailTableView.mj_footer.endRefreshingCompletionBlock = ^{
+//        
+//        if (weakself.isReply) {
+//            
+//            CGFloat bottom = weakself.detailTableView.contentSize.height - weakself.detailTableView.bounds.size.height;
+//            [weakself.detailTableView setContentOffset:CGPointMake(0,
+//                                                                   bottom)
+//                                          animated:YES];
+//            
+//            weakself.isReply = NO;
+//        }
+//    };
     
 }
 
@@ -720,6 +727,12 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     YWDetailReplyCell *cell  = (YWDetailReplyCell *)commentView.superview.superview.superview.superview;
     self.isMessage = NO;
     [self didSelectReplyCell:cell];
+}
+
+- (void)didSelectCommentViewLeftNameWithUserId:(int)userId {
+    
+    [self jumpToTaPageWithUserId:userId];
+    
 }
 
 - (void)didSelectMoreCommentBtnWith:(UIButton *)btn {

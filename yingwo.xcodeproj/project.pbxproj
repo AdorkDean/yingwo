@@ -58,8 +58,6 @@
 		188328701E57DFEA0019CB09 /* YWTaTieziView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883286F1E57DFEA0019CB09 /* YWTaTieziView.m */; };
 		188B349D1E41B44500C9777E /* ReplyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B349C1E41B44500C9777E /* ReplyViewModel.m */; };
 		188B34A01E41DCC700C9777E /* TopicEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B349F1E41DCC700C9777E /* TopicEntity.m */; };
-		188B34A21E41DD5F00C9777E /* TopicEntity.h in Sources */ = {isa = PBXBuildFile; fileRef = 188B349E1E41DCC700C9777E /* TopicEntity.h */; };
-		188B34A31E41DE7600C9777E /* Topic.h in Sources */ = {isa = PBXBuildFile; fileRef = 18A075A51E3E236500C4159D /* Topic.h */; };
 		188F12971D40BF6C0013B0A0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 188F12961D40BF6C0013B0A0 /* README.md */; };
 		189342581E3CD17A00131AFB /* YWNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 189342571E3CD17A00131AFB /* YWNetworkCache.m */; };
 		18A075881E3E20B100C4159D /* HotTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A075761E3E20B100C4159D /* HotTopicController.m */; };
@@ -472,7 +470,6 @@
 		18AFE5E41D30B7E1007BEBDE /* yingwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yingwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFE5F91D30B7E2007BEBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18AFE5FB1D30B7E2007BEBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-
 		18B155851E46E71100E355D0 /* RongCloudTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RongCloudTools.h; sourceTree = "<group>"; };
 		18B155861E46E71100E355D0 /* RongCloudTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RongCloudTools.m; sourceTree = "<group>"; };
 		18B155891E46E76C00E355D0 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
@@ -2493,7 +2490,6 @@
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-
 				18409FCD1E45D41B0029B49E /* libresolv.tbd */,
 				18409F4A1E45D0100029B49E /* SystemConfiguration.framework */,
 				18409F481E45D0050029B49E /* AddressBook.framework */,
@@ -2647,7 +2643,6 @@
 				18F4C7A41E4849DE00BA3F43 /* UIButton+CMWebCache.m in Sources */,
 				18F4C7C31E4849DE00BA3F43 /* UITabBarItem+WZLBadge.m in Sources */,
 				18F363061E1FB19A0077D3CC /* SVProgressHUD+Display.m in Sources */,
-
 				18F4C7BC1E4849DE00BA3F43 /* TZPhotoPreviewCell.m in Sources */,
 				188B349D1E41B44500C9777E /* ReplyViewModel.m in Sources */,
 				18F4C7921E4849DE00BA3F43 /* EBForeNotification.m in Sources */,
@@ -2665,7 +2660,6 @@
 				18F363761E1FB64F0077D3CC /* YWZoomScrollView.m in Sources */,
 				18F363081E1FB19A0077D3CC /* UIColor+Hex.m in Sources */,
 				18F364B31E1FB8940077D3CC /* YWPhotoDisplayView.m in Sources */,
-
 				18B155971E46E76C00E355D0 /* ChatViewModel.m in Sources */,
 				18F365101E1FB8940077D3CC /* GradePickerView.m in Sources */,
 				18F3639A1E1FB87A0077D3CC /* LoginController.m in Sources */,
