@@ -84,7 +84,7 @@
 
         _oneFieldVc.title     = @"校园生活";
         _oneFieldVc.field_id  = 1;
-        _oneFieldVc.isMyTopic = self.isMyTopic;
+        _oneFieldVc.isMyTopic = YES;
         _oneFieldVc.viewModel.user_id = self.userId;
 
     }
@@ -98,7 +98,7 @@
 
         _twoFieldVc.title     = @"兴趣爱好";
         _twoFieldVc.field_id  = 2;
-        _twoFieldVc.isMyTopic = self.isMyTopic;
+        _twoFieldVc.isMyTopic = YES;
         _twoFieldVc.viewModel.user_id = self.userId;
 
     }
@@ -112,7 +112,7 @@
 
         _threeFieldVc.title     = @"学科专业";
         _threeFieldVc.field_id  = 3;
-        _threeFieldVc.isMyTopic = self.isMyTopic;
+        _threeFieldVc.isMyTopic = YES;
         _threeFieldVc.viewModel.user_id = self.userId;
 
     }

@@ -868,14 +868,12 @@ static NSString *replyCellIdentifier = @"replyCell";
         }
         
     } failure:^(id commentReplyFailureBlock) {
-        
+        [SVProgressHUD dismiss];
     }];
-    
-    self.commetparameter[@"content"] = self.commentView.messageTextView.text;
     
     RequestEntity *request           = [[RequestEntity alloc] init];
     request.URLString                = TIEZI_COMMENT_URL;
-    request.parameter                = self.commetparameter;
+    request.parameter                = @{@"post_reply_id":@(self.model.reply_id),@"content":self.commentView.messageTextView.text};
     
     [self.viewModel postCommentWithRequest:request];
     
