@@ -11,7 +11,7 @@
 @implementation MessageEntity
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"tieZi_id":@"post_id",
+    return @{@"tieZi_id":@"post_detail_id",
              @"reply_id":@"source_post_reply_id",
              @"message_id":@"id",
              @"post_id":@"source_id",

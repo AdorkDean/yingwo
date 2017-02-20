@@ -30,7 +30,7 @@
     _rightImageView      = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Row"]];
 
     _leftLabel.textColor = [UIColor colorWithHexString:THEME_COLOR_4];
-    _leftLabel.font      = [UIFont systemFontOfSize:14];
+    _leftLabel.font      = [UIFont systemFontOfSize:SCREEN_HEIGHT / 667 * 16];
     
     _leftLabel.text = @"TA的贴子";
     

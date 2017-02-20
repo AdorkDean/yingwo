@@ -7,6 +7,8 @@
 //
 
 #import "FavorController.h"
+#import "DetailController.h"
+#import "ReplyDetailController.h"
 
 #import "YWMessageCell.h"
 #import "YWImageMessageCell.h"
@@ -70,6 +72,71 @@
     return cell;
 }
 
+//查看回复或评论的贴子
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //与下面代码一致
+    MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
+    
+    [self jumpToDetailPageWithEntity:messageEntity];
+
+}
+
+
+#pragma mark YWMessageCellDelegate
+/**
+ *  查看原贴或跟帖、评论
+ *
+ *  @return
+ */
+- (void)didSelectedTieZi:(MessageEntity *)messageEntity {
+    
+    [self jumpToDetailPageWithEntity:messageEntity];
+}
+
+#pragma mark private
+
+- (void)jumpToDetailPageWithEntity:(MessageEntity *)messageEntity {
+    
+    //评论点赞数转化
+    messageEntity.reply_cnt = messageEntity.source_reply_cnt;
+    messageEntity.like_cnt = messageEntity.source_like_cnt;
+    
+    //原贴
+    if ([messageEntity.source_type isEqualToString:@"POST"]) {
+        [self jumpToTieZiDetailPageWithModel:messageEntity];
+    }
+    //跟贴
+    else if ([messageEntity.source_type isEqualToString:@"REPLY"]) {
+        
+        
+        //跟贴的source_post_reply_id是空的
+        
+        MessageEntity *message = [[MessageEntity alloc] init];
+        message.reply_id       = messageEntity.post_id;
+        message.post_id        = messageEntity.post_detail_id;
+        message.comment_cnt    = [messageEntity.source_comment_cnt intValue];
+        message.like_cnt       = messageEntity.source_like_cnt;
+        
+        [self jumpToReplyDetailPageWithModel:message];
+        
+    }
+    
+}
+
+
+- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message {
+    
+    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
+                                                                    shouldShowKeyBoard:NO];
+    [self.navigationController pushViewController:replyVc animated:YES];
+}
+
+- (void)jumpToTieZiDetailPageWithModel:(MessageEntity *)message {
+    
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:message];
+    [self.navigationController pushViewController:detailVc animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

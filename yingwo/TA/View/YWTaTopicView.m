@@ -39,18 +39,12 @@
         rightImageView.contentMode      = UIViewContentModeScaleAspectFill;
         self.rightImageView             = rightImageView;
         
-        UILabel *moreLabel              = [[UILabel alloc] init];
-        moreLabel.text                  = @"更多";
-        moreLabel.textColor             = [UIColor colorWithHexString:THEME_COLOR_4];
-        moreLabel.font                  = [UIFont systemFontOfSize:SCREEN_HEIGHT / 667 * 16];
-        
         self.separator                  = [[UIView alloc] init];
         self.separator.backgroundColor  = [UIColor colorWithHexString:@"#F5F5F5"];
         
         [self addSubview:self.taTopicLabel];
         [self addSubview:self.rightImageView];
         [self addSubview:self.separator];
-        [self addSubview:moreLabel];
 
         [self.taTopicLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(10);
@@ -68,11 +62,6 @@
             make.height.equalTo(@1);
         }];
         
-        [moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.rightImageView.mas_left).offset(-10);
-            make.top.equalTo(self.taTopicLabel);
-        }];
-    
     }
     return self;
 }

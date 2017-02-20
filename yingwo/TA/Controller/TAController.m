@@ -549,8 +549,9 @@ static CGFloat HeadViewHeight = 250;
 
 - (void)jumpToTaTopicListPage {
     
-    MyTopicController *myTopicVc = [[MyTopicController alloc] initWithUserId:self.ta_id];
-    [self.navigationController pushViewController:myTopicVc animated:YES];
+    MyTopicController *taTopicVc = [[MyTopicController alloc] initWithUserId:self.ta_id title:@"TA的话题"];
+    taTopicVc.isMyTopic = YES;
+    [self.navigationController pushViewController:taTopicVc animated:YES];
     
 }
 

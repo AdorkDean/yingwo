@@ -261,7 +261,7 @@
 
 - (void)jumpToMyTopicPage {
     
-    MyTopicController *topicVc = [[MyTopicController alloc] initWithUserId:[self.user.userId intValue]];
+    MyTopicController *topicVc = [[MyTopicController alloc] initWithUserId:[self.user.userId intValue] title:@"我的话题"];
     
     [self.navigationController pushViewController:topicVc animated:YES];
 }
