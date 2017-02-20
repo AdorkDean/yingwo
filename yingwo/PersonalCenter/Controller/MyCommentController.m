@@ -8,6 +8,7 @@
 
 #import "MyCommentController.h"
 #import "DetailController.h"
+#import "ReplyDetailController.h"
 
 #import "YWMessageCell.h"
 #import "YWImageMessageCell.h"
@@ -227,8 +228,26 @@ static int start_id = 0;
 //查看回复或评论的贴子
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:[self.messageArr objectAtIndex:indexPath.row]];
-    [self.navigationController pushViewController:detailVc animated:YES];
+    MessageEntity *messageEntity = [self.messageArr objectAtIndex:indexPath.row];
+    
+    MessageEntity *message       = [[MessageEntity alloc] init];
+    
+    message.post_id              = messageEntity.post_id;
+    
+    //跟贴
+    if ([messageEntity.follow_type isEqualToString:@"REPLY"]) {
+        
+        message.reply_id = messageEntity.follow_id;
+        [self jumpToReplyDetailPageWithModel:message];
+        
+    }
+    //评论
+    else if ([messageEntity.follow_type isEqualToString:@"COMMENT"]) {
+        
+        message.reply_id = messageEntity.follow_post_reply_id;
+        [self jumpToReplyDetailPageWithModel:message];
+        
+    }    
 }
 
 /**
@@ -240,9 +259,30 @@ static int start_id = 0;
 
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
     
-
-    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:messageEntity];
-    [self.navigationController pushViewController:detailVc animated:YES];
+    
+    //原贴
+    if ([messageEntity.source_type isEqualToString:@"POST"]) {
+        [self jumpToTieZiDetailPageWithModel:messageEntity];
+    }
+    //跟贴
+    else if ([messageEntity.source_type isEqualToString:@"REPLY"]) {
+        
+        
+        //跟贴的source_post_reply_id是空的
+        
+        MessageEntity *message = [[MessageEntity alloc] init];
+        message.reply_id       = messageEntity.post_id;
+        message.post_id        = messageEntity.post_detail_id;
+        
+        [self jumpToReplyDetailPageWithModel:message];
+        
+    }
+    //评论
+    else if ([messageEntity.source_type isEqualToString:@"COMMENT"]) {
+        
+        [self jumpToReplyDetailPageWithModel:messageEntity];
+        
+    }
 }
 
 -(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
@@ -341,6 +381,20 @@ static int start_id = 0;
     }
     
 
+}
+
+#pragma mark private
+- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message {
+    
+    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
+                                                                    shouldShowKeyBoard:NO];
+    [self.navigationController pushViewController:replyVc animated:YES];
+}
+
+- (void)jumpToTieZiDetailPageWithModel:(MessageEntity *)message {
+    
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:message];
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
 
 @end

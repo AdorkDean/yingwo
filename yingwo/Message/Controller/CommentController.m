@@ -238,6 +238,10 @@ static int start_id = 0;
 
     message.post_id              = messageEntity.post_id;
 
+    message.comment_cnt          = [messageEntity.source_comment_cnt intValue];
+    message.like_cnt             = messageEntity.source_like_cnt;
+    
+
     //跟贴
     if ([messageEntity.follow_type isEqualToString:@"REPLY"]) {
         
@@ -265,6 +269,11 @@ static int start_id = 0;
     
     //原贴
     if ([messageEntity.source_type isEqualToString:@"POST"]) {
+        
+        //评论点赞数转化
+        messageEntity.reply_cnt = messageEntity.source_reply_cnt;
+        messageEntity.like_cnt = messageEntity.source_like_cnt;
+        
         [self jumpToTieZiDetailPageWithModel:messageEntity];
     }
     //跟贴
@@ -276,12 +285,17 @@ static int start_id = 0;
         MessageEntity *message = [[MessageEntity alloc] init];
         message.reply_id       = messageEntity.post_id;
         message.post_id        = messageEntity.post_detail_id;
-
+        message.comment_cnt    = [messageEntity.source_comment_cnt intValue];
+        message.like_cnt       = messageEntity.source_like_cnt;
+        
         [self jumpToReplyDetailPageWithModel:message];
 
     }
     //评论
     else if ([messageEntity.source_type isEqualToString:@"COMMENT"]) {
+        
+        messageEntity.comment_cnt    = [messageEntity.source_comment_cnt intValue];
+        messageEntity.like_cnt       = messageEntity.source_like_cnt;
         
         [self jumpToReplyDetailPageWithModel:messageEntity];
 

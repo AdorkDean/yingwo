@@ -24,12 +24,12 @@
 
 @implementation MyTopicController
 
-- (instancetype)initWithUserId:(int)userId {
-    
+- (instancetype)initWithUserId:(int)userId title:(NSString *)title {
     self = [super init];
     
     if (self) {
-        self.myUserId = userId;
+        self.userId = userId;
+        self.title = title;
     }
     return self;
 }
@@ -84,7 +84,9 @@
 
         _oneFieldVc.title     = @"校园生活";
         _oneFieldVc.field_id  = 1;
-        _oneFieldVc.isMyTopic = YES;
+        _oneFieldVc.isMyTopic = self.isMyTopic;
+        _oneFieldVc.viewModel.user_id = self.userId;
+
     }
     return _oneFieldVc;
 }
@@ -96,7 +98,8 @@
 
         _twoFieldVc.title     = @"兴趣爱好";
         _twoFieldVc.field_id  = 2;
-        _twoFieldVc.isMyTopic = YES;
+        _twoFieldVc.isMyTopic = self.isMyTopic;
+        _twoFieldVc.viewModel.user_id = self.userId;
 
     }
     return _twoFieldVc;
@@ -109,7 +112,8 @@
 
         _threeFieldVc.title     = @"学科专业";
         _threeFieldVc.field_id  = 3;
-        _threeFieldVc.isMyTopic = YES;
+        _threeFieldVc.isMyTopic = self.isMyTopic;
+        _threeFieldVc.viewModel.user_id = self.userId;
 
     }
     return _threeFieldVc;
@@ -133,12 +137,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    Customer *user = [User findCustomer];
-    if (self.oneFieldVc.viewModel.user_id != [user.userId intValue]) {
-        self.title = @"TA的话题";
-    }else {
-        self.title = @"我的话题";
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

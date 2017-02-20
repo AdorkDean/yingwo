@@ -932,7 +932,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.tableView.frame = self.view.bounds;
     
     [self.commentView.messageTextView resignFirstResponder];
-    
+    [self.replyView.messageField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {

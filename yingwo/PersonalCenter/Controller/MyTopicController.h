@@ -18,8 +18,11 @@
 //学科专业
 @property (nonatomic, strong) TopicListController *threeFieldVc;
 
-@property (nonatomic, assign) int                 myUserId;
+@property (nonatomic, assign) int                 userId;
 
-- (instancetype)initWithUserId:(int)userId;
+@property (nonatomic, assign) BOOL                isMyTopic;
+
+
+- (instancetype)initWithUserId:(int)userId title:(NSString *)title;
 
 @end
