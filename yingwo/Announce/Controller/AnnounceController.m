@@ -176,6 +176,12 @@
 
 - (void)backToForwardView {
     
+    [self resignKeyboard];
+    
+    self.announceTextView.contentTextView.text = @"";
+    [self removeDisplayPhotos];
+    
+
     if ([self.delegate respondsToSelector:@selector(jumpToHomeController)]) {
         [self.delegate jumpToHomeController];
     }
@@ -190,8 +196,6 @@
 
 - (void)setDisplyViewLayout {
     
-    [self.view addSubview:self.photoDisplayView];
-    
     [self.photoDisplayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.announceTextView.mas_bottom).offset(20);
         make.left.equalTo(self.announceTextView.mas_left);
@@ -203,6 +207,14 @@
 
 - (void)layoutSubviews {
     
+
+    [self.view addSubview:self.announceTextView];
+
+    [self.view addSubview:self.photoDisplayView];
+
+    [self.view addSubview:self.keyboardToolView];
+    
+
     [self.announceTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.view).offset(10);
         make.right.equalTo(self.view.mas_right).offset(-10);
@@ -213,6 +225,8 @@
         make.left.right.bottom.equalTo(self.view);
         make.height.equalTo(@45);
     }];
+
+    [self setDisplyViewLayout];
 
 }
 
@@ -229,12 +243,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.announceTextView];
-    
-    [self setLayoutDisplayPhotos];
     //特别注意！！
     //这里布局的顺序不能乱了，keyboardToolView 要在photoDisplayView上面，否则键盘弹出时无法点击keyboardToolView
-    [self.view addSubview:self.keyboardToolView];
 
 }
 
@@ -244,7 +254,7 @@
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     
-    [self setDisplyViewLayout];
+    [self layoutSubviews];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -263,14 +273,14 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-    [self resignKeyboard];
-
-    self.announceTextView.contentTextView.text = @"";
-    [self removeDisplayPhotos];
-    
 }
 
 - (void)backToFarword {
+    
+    [self resignKeyboard];
+    
+    self.announceTextView.contentTextView.text = @"";
+    [self removeDisplayPhotos];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
