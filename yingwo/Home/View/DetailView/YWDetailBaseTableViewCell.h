@@ -62,4 +62,8 @@ typedef void(^AvatarImageTapBlock)(UIImageView *imageView,ImageViewItem *imagesI
 @optional
 - (void)didSelectMoreCommentBtnWith:(UIButton *)btn;
 
+@optional
+- (void)didDeleteRigthContentWithCommentId:(int)postId commentView:(YWCommentView *)comentView;
+
+
 @end

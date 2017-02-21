@@ -414,7 +414,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     WeakSelf(self);
     followVc.replyTieZiBlock = ^(NSDictionary *parameter){
         
-        [weakself addReplyViewAtLastWith:parameter];
+        [weakself.detailTableView.mj_footer beginRefreshing];
+        //[weakself addReplyViewAtLastWith:parameter];
       //  [weakself.detailTableView.mj_footer beginRefreshing];
 
       //  weakself.isReply = YES;
