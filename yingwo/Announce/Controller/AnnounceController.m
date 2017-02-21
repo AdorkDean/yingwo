@@ -176,8 +176,6 @@
 
 - (void)backToForwardView {
     
-    [self resignKeyboard];
-    
     if ([self.delegate respondsToSelector:@selector(jumpToHomeController)]) {
         [self.delegate jumpToHomeController];
     }
@@ -190,7 +188,20 @@
 
 #pragma mark setLayout
 
-- (void)setAllLayout {
+- (void)setDisplyViewLayout {
+    
+    [self.view addSubview:self.photoDisplayView];
+    
+    [self.photoDisplayView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.announceTextView.mas_bottom).offset(20);
+        make.left.equalTo(self.announceTextView.mas_left);
+        make.right.equalTo(self.announceTextView.mas_right);
+        make.height.equalTo(@100);
+    }];
+    
+}
+
+- (void)layoutSubviews {
     
     [self.announceTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.view).offset(10);
@@ -202,33 +213,18 @@
         make.left.right.bottom.equalTo(self.view);
         make.height.equalTo(@45);
     }];
-    
-    
-    
+
 }
 
-- (void)setLayoutDisplayPhotos {
+- (void)removeDisplayPhotos {
     
     [self.photoDisplayView removeFromSuperview];
     
     self.photoDisplayView = nil;
     
-    _photoDisplayView = [[YWPhotoDisplayView alloc] init];
-    _photoDisplayView.photoWidth = 80;
-    [_photoDisplayView.addMorePhotosBtn addTarget:self
-                                           action:@selector(enterIntoAlbumsSelectPhotos)
-                                 forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.photoDisplayView];
-
-    [self.photoDisplayView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.announceTextView.mas_bottom).offset(20);
-        make.left.equalTo(self.announceTextView.mas_left);
-        make.right.equalTo(self.announceTextView.mas_right);
-        make.height.equalTo(@100);
-    }];
-
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -240,9 +236,6 @@
     //这里布局的顺序不能乱了，keyboardToolView 要在photoDisplayView上面，否则键盘弹出时无法点击keyboardToolView
     [self.view addSubview:self.keyboardToolView];
 
-    [self setAllLayout];
-
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -251,7 +244,7 @@
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     
-    
+    [self setDisplyViewLayout];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -270,10 +263,15 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
+    [self resignKeyboard];
+
+    self.announceTextView.contentTextView.text = @"";
+    [self removeDisplayPhotos];
     
 }
 
 - (void)backToFarword {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
