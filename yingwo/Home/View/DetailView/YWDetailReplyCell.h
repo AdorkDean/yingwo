@@ -15,5 +15,6 @@
 
 @interface YWDetailReplyCell : YWDetailBaseTableViewCell<YWCommentViewDelegate>
 
+- (void)comment:(UITapGestureRecognizer *)sender;
 
 @end

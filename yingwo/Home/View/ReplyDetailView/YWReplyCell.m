@@ -179,7 +179,12 @@
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                 action:@selector(showMenuController:)];
 
-        
+        UITapGestureRecognizer *tap             = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(comment:)];
+        tap.numberOfTapsRequired                = 1;
+        tap.numberOfTouchesRequired             = 1;
+
+        [commentView addGestureRecognizer:tap];
         [commentView addGestureRecognizer:longPress];
         
         [self.bgCommentView addSubview:commentView];
