@@ -280,22 +280,6 @@
     }];
 }
 
-- (void)deleteCommentWithUrl:(NSString *)url
-                  parameter:(NSDictionary *)parameter
-                     success:(void (^)(StatusEntity *statusEntity))success
-                     failure:(void (^)(NSString *error))failure{
-    
-    [YWRequestTool YWRequestPOSTWithURL:url
-                              parameter:parameter
-                           successBlock:^(id content) {
-                               
-                               StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
-                               success(entity);
-                               
-                           } errorBlock:^(id error) {
-                               
-                           }];
-}
 
 //网页分享
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType withModel:(TieZi *)model

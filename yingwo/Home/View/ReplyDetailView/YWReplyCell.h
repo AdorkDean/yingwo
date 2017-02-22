@@ -10,4 +10,7 @@
 
 @interface YWReplyCell : YWDetailReplyCell
 
+@property (nonatomic, strong) YWCommentView     *selectedCommentView;
+@property (nonatomic, strong) DetailViewModel   *detailViewModel;
+
 @end

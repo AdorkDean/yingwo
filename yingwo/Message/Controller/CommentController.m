@@ -310,7 +310,7 @@ static int start_id = 0;
  */
 -(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
     
-    TAController *taVc = [[TAController alloc] initWithUserId:messageEntity.user_id];
+    TAController *taVc = [[TAController alloc] initWithUserId:[messageEntity.follow_user_id intValue]];
     [self.navigationController pushViewController:taVc animated:YES];
 
 }

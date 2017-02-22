@@ -11,19 +11,9 @@
 
 @interface YWDetailReplyCell()
 
-@property (nonatomic, strong) YWCommentView     *selectedCommentView;
-@property (nonatomic, strong) DetailViewModel   *detailViewModel;
-
 @end
 
 @implementation YWDetailReplyCell
-
--(DetailViewModel *)detailViewModel {
-    if (_detailViewModel == nil) {
-        _detailViewModel = [[DetailViewModel alloc] init];
-    }
-    return _detailViewModel;
-}
 
 - (void)createSubview {
     
@@ -270,13 +260,10 @@
 
         UITapGestureRecognizer *tap             = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                           action:@selector(comment:)];
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                action:@selector(showMenuController:)];
         tap.numberOfTapsRequired                = 1;
         tap.numberOfTouchesRequired             = 1;
         
         [commentView addGestureRecognizer:tap];
-        [commentView addGestureRecognizer:longPress];
         
         [self.bgCommentView addSubview:commentView];
         
@@ -356,6 +343,14 @@
 }
 
 
+- (void)selectMoreCommetBtn:(UIButton *)btn {
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectMoreCommentBtnWith:)]) {
+        [self.delegate didSelectMoreCommentBtnWith:btn];
+    }
+    
+}
+
 - (void)comment:(UITapGestureRecognizer *)sender{
     
     YWCommentView *tapView = (YWCommentView *)[sender view];
@@ -363,127 +358,6 @@
     if ([self.delegate respondsToSelector:@selector(didSelectCommentView:)]) {
         [self.delegate didSelectCommentView:tapView];
     }
-}
-
-- (void)showMenuController:(UILongPressGestureRecognizer *)sender {
-    
-    if (sender.state == UIGestureRecognizerStateBegan) {
-
-        [self showMenuWith:sender];
-        
-    }else if (sender.state == UIGestureRecognizerStateEnded){
-
-    }
-}
-
-- (void)showMenuWith:(UILongPressGestureRecognizer *)sender {
-    
-    [self becomeFirstResponder];
-    YWCommentView *comment = [[YWCommentView alloc] init];
-    YWCommentReplyView *commentReply = [[YWCommentReplyView alloc] init];
-    
-    YWCommentView *commentView;
-    if ([sender.view isKindOfClass:commentReply.class]) {
-        
-        commentView = (YWCommentReplyView *)[sender view];
-        self.selectedCommentView   = commentView;
-        
-    }else if ([sender.view isKindOfClass:comment.class]){
-        
-        commentView = (YWCommentView *)[sender view];
-        self.selectedCommentView   = commentView;
-    }
-
-    UIMenuItem *copyItem = [[UIMenuItem alloc]initWithTitle:@"复制" action:@selector(copyAction:)];
-    UIMenuItem *reportItem = [[UIMenuItem alloc]initWithTitle:@"举报" action:@selector(reportAction:)];
-    UIMenuItem *deleteItem = [[UIMenuItem alloc]initWithTitle:@"删除" action:@selector(deleteAction:)];
-    UIMenuController *menuController = [UIMenuController sharedMenuController];
-    
-    Customer *user = [User findCustomer];
-    if (commentView.user_id == [user.userId intValue]) {
-        menuController.menuItems = @[copyItem,reportItem,deleteItem];
-    }else {
-        menuController.menuItems = @[copyItem,reportItem];
-    }
-    //将悬浮菜单栏置于回复视图上
-    [menuController setTargetRect:commentView.content.frame inView:commentView.content];
-    [menuController setMenuVisible:YES animated:YES];
-    
-}
-
--(void)copyAction:(id)sender {
-    UIPasteboard *pastBoard = [UIPasteboard generalPasteboard];
-    pastBoard.string = self.selectedCommentView.sourceContent;
-    [SVProgressHUD showSuccessStatus:@"已复制" afterDelay:HUD_DELAY];
-}
-
--(void)reportAction:(id)sender {
-    NSLog(@"---%s---",__func__);
-}
-
--(void)deleteAction:(id)sender {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"警告"
-                                                                             message:@"操作不可恢复，确认删除吗？"
-                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确认"
-                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                                            [self deleteComment];
-                                                        }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
-                                                        style:UIAlertActionStyleCancel handler:nil]];
-    
-    alertController.view.tintColor = [UIColor blackColor];
-    
-    [self.window.rootViewController presentViewController:alertController
-                                                      animated:YES
-                                                    completion:nil];
-  
-
-}
-
--(void)deleteComment {
-    
-    int commentId = self.selectedCommentView.post_comment_id;
-    //网络请求
-    NSDictionary *paramaters = @{@"comment_id":@(commentId)};
-
-    [self.detailViewModel deleteCommentWithUrl:TIEZI_COMMENT_DEL_URL
-                                     parameter:paramaters
-                                       success:^(StatusEntity *statusEntity) {
-                                           if (statusEntity.status == YES) {
-                                               
-                                               //将被删除的view从视图中移除
-                                               [self.selectedCommentView removeFromSuperview];
-                                               
-                                               [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
-                                           }else if(statusEntity.status == NO){
-                                               
-                                               [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
-                                           }
-                                       
-    } failure:^(NSString *error) {
-        
-    }];
-}
-
--(BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
--(BOOL)canPerformAction:(SEL)action withSender:(id)sender
-{
-    return action==@selector(deleteAction:)||
-    action==@selector(reportAction:)||
-    action==@selector(copyAction:);
-}
-
-- (void)selectMoreCommetBtn:(UIButton *)btn {
-    
-    if ([self.delegate respondsToSelector:@selector(didSelectMoreCommentBtnWith:)]) {
-        [self.delegate didSelectMoreCommentBtnWith:btn];
-    }
-    
 }
 
 

@@ -178,6 +178,10 @@
     
     [self resignKeyboard];
     
+    self.announceTextView.contentTextView.text = @"";
+    [self removeDisplayPhotos];
+    
+
     if ([self.delegate respondsToSelector:@selector(jumpToHomeController)]) {
         [self.delegate jumpToHomeController];
     }
@@ -190,8 +194,27 @@
 
 #pragma mark setLayout
 
-- (void)setAllLayout {
+- (void)setDisplyViewLayout {
     
+    [self.photoDisplayView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.announceTextView.mas_bottom).offset(20);
+        make.left.equalTo(self.announceTextView.mas_left);
+        make.right.equalTo(self.announceTextView.mas_right);
+        make.height.equalTo(@100);
+    }];
+    
+}
+
+- (void)layoutSubviews {
+    
+
+    [self.view addSubview:self.announceTextView];
+
+    [self.view addSubview:self.photoDisplayView];
+
+    [self.view addSubview:self.keyboardToolView];
+    
+
     [self.announceTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.view).offset(10);
         make.right.equalTo(self.view.mas_right).offset(-10);
@@ -202,46 +225,26 @@
         make.left.right.bottom.equalTo(self.view);
         make.height.equalTo(@45);
     }];
-    
-    
-    
+
+    [self setDisplyViewLayout];
+
 }
 
-- (void)setLayoutDisplayPhotos {
+- (void)removeDisplayPhotos {
     
     [self.photoDisplayView removeFromSuperview];
     
     self.photoDisplayView = nil;
     
-    _photoDisplayView = [[YWPhotoDisplayView alloc] init];
-    _photoDisplayView.photoWidth = 80;
-    [_photoDisplayView.addMorePhotosBtn addTarget:self
-                                           action:@selector(enterIntoAlbumsSelectPhotos)
-                                 forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.photoDisplayView];
-
-    [self.photoDisplayView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.announceTextView.mas_bottom).offset(20);
-        make.left.equalTo(self.announceTextView.mas_left);
-        make.right.equalTo(self.announceTextView.mas_right);
-        make.height.equalTo(@100);
-    }];
-
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.announceTextView];
-    
-    [self setLayoutDisplayPhotos];
     //特别注意！！
     //这里布局的顺序不能乱了，keyboardToolView 要在photoDisplayView上面，否则键盘弹出时无法点击keyboardToolView
-    [self.view addSubview:self.keyboardToolView];
-
-    [self setAllLayout];
-
 
 }
 
@@ -251,7 +254,7 @@
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     
-    
+    [self layoutSubviews];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -270,10 +273,15 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-    
 }
 
 - (void)backToFarword {
+    
+    [self resignKeyboard];
+    
+    self.announceTextView.contentTextView.text = @"";
+    [self removeDisplayPhotos];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -36,7 +36,7 @@
         _versionLabel.font                  = [UIFont systemFontOfSize:15];
         _versionLabel.textColor             = [UIColor colorWithHexString:@"#505050"];
         _versionLabel.textAlignment         = NSTextAlignmentCenter;
-        _versionLabel.text                  = @"应我校园 V0.8.8";
+        _versionLabel.text                  = @"应我校园 V0.9.1";
 
     }
     return _versionLabel;
