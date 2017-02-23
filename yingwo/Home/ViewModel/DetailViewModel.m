@@ -108,6 +108,10 @@
     cell.topView.label.topic_id                = model.topic_id;
     cell.masterView.floorLabel.text            = @"第1楼";
     cell.contentLabel.text                     = model.content;
+    
+    [cell.contentLabel replaceLinksWithPin];
+    
+    
     cell.masterView.nicnameLabel.text          = model.user_name;
     NSString *dataString                       = [NSString stringWithFormat:@"%d",model.create_time];
     cell.masterView.timeLabel.text             = [NSDate getDateString:dataString];
@@ -155,6 +159,9 @@
     
     //回复内容
     cell.contentLabel.text                     = model.content;
+
+    [cell.contentLabel replaceLinksWithPin];
+
     if (model.user_name.length == 0) {
         cell.masterView.nicnameLabel.text          = @"匿名";
     }

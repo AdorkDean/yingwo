@@ -22,8 +22,8 @@
         self.textColor                = [UIColor colorWithHexString:THEME_COLOR_2];
         
 
-//        self.linkAttributes = @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:YES],
-     //                                 (NSString*)kCTForegroundColorAttributeName : (id)[[UIColor blueColor] CGColor]};
+       self.linkAttributes = @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:NO],
+                               (NSString*)kCTForegroundColorAttributeName : (id)[[UIColor colorWithHexString:THEME_COLOR_1] CGColor]};
     }
     return self;
 }
