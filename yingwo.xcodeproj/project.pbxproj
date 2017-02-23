@@ -22,6 +22,7 @@
 		1838C98D1D3A0E0F000DF843 /* CustomDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1838C98C1D3A0E0F000DF843 /* CustomDismissSegue.m */; };
 		18409F491E45D0050029B49E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18409F481E45D0050029B49E /* AddressBook.framework */; };
 		18409F4B1E45D0100029B49E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18409F4A1E45D0100029B49E /* SystemConfiguration.framework */; };
+		1843D08F1E5DDDD7005977E3 /* TTTAttributedLabel+Link.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843D08E1E5DDDD7005977E3 /* TTTAttributedLabel+Link.m */; };
 		18465DF31E4E044C00E16A4D /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DE61E4E044C00E16A4D /* MainController.m */; };
 		18465DF41E4E044C00E16A4D /* MainNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DE81E4E044C00E16A4D /* MainNavController.m */; };
 		18465DF51E4E044C00E16A4D /* YWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18465DEA1E4E044C00E16A4D /* YWTabBarController.m */; };
@@ -331,6 +332,8 @@
 		18409F481E45D0050029B49E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		18409F4A1E45D0100029B49E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		18409FCD1E45D41B0029B49E /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		1843D08D1E5DDDD7005977E3 /* TTTAttributedLabel+Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTAttributedLabel+Link.h"; sourceTree = "<group>"; };
+		1843D08E1E5DDDD7005977E3 /* TTTAttributedLabel+Link.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTAttributedLabel+Link.m"; sourceTree = "<group>"; };
 		18465DE51E4E044C00E16A4D /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		18465DE61E4E044C00E16A4D /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		18465DE71E4E044C00E16A4D /* MainNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNavController.h; sourceTree = "<group>"; };
@@ -1526,6 +1529,8 @@
 				18F362FA1E1FB19A0077D3CC /* UIViewController+Camera.m */,
 				18F362FB1E1FB19A0077D3CC /* User+CURD.h */,
 				18F362FC1E1FB19A0077D3CC /* User+CURD.m */,
+				1843D08D1E5DDDD7005977E3 /* TTTAttributedLabel+Link.h */,
+				1843D08E1E5DDDD7005977E3 /* TTTAttributedLabel+Link.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -2842,6 +2847,7 @@
 				18F363A21E1FB87A0077D3CC /* SmsMessage.m in Sources */,
 				1870DC701E1FC352008767A5 /* UINavigationBar+HideBottomLine.m in Sources */,
 				18F4C7971E4849DE00BA3F43 /* HYViewController.m in Sources */,
+				1843D08F1E5DDDD7005977E3 /* TTTAttributedLabel+Link.m in Sources */,
 				18F3630A1E1FB19A0077D3CC /* UIImage+blur.m in Sources */,
 				18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */,
 				18F364B91E1FB8940077D3CC /* ResetPasswordController.m in Sources */,

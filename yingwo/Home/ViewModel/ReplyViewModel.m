@@ -67,6 +67,9 @@
     cell.masterView.floorLabel.text            = @"楼主";
     //回复内容
     cell.contentLabel.text                     = model.content;
+    
+    [cell.contentLabel replaceLinksWithPin];
+    
     if (model.user_name.length == 0) {
         cell.masterView.nicnameLabel.text          = @"匿名";
     }
