@@ -28,6 +28,14 @@
     
 }
 
+- (void)setDeleteCommentSuccessBlock:(DeleteCommentSuccessBlock)deleteCommentSuccessBlock
+                             failure:(DeleteCommentSuccessBlock)failure {
+    
+    _deleteCommentSuccessBlock = deleteCommentSuccessBlock;
+    _deleteCommentFailureBlock = failure;
+    
+}
+
 
 - (void)setupRACComand {
     
@@ -59,6 +67,9 @@
     cell.masterView.floorLabel.text            = @"楼主";
     //回复内容
     cell.contentLabel.text                     = model.content;
+    
+    [cell.contentLabel replaceLinksWithPin];
+    
     if (model.user_name.length == 0) {
         cell.masterView.nicnameLabel.text          = @"匿名";
     }
@@ -151,6 +162,19 @@
                                    self.deleteFailureBlock(error);
                                }];
     
+}
+
+- (void)deleteCommentWithRequest:(RequestEntity *)request {
+    
+    [YWRequestTool YWRequestPOSTWithRequest:request
+                               successBlock:^(id content) {
+                                   
+                                   StatusEntity *entity = [StatusEntity mj_objectWithKeyValues:content];
+                                   self.deleteCommentSuccessBlock(entity);
+                                   
+                               } errorBlock:^(id error) {
+                                   self.deleteCommentFailureBlock(error);
+                               }];
 }
 
 @end

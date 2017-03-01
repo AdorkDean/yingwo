@@ -115,6 +115,9 @@
     }
     
     cell.contentText.text                            = model.content;
+    
+    [cell.contentText replaceLinksWithPin];
+
     cell.bottemView.nickname.text                    = model.user_name;
     cell.bottemView.favourLabel.text                 = model.like_cnt;
     cell.bottemView.messageLabel.text                = model.reply_cnt;

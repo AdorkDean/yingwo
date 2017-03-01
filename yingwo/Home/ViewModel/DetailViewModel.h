@@ -126,19 +126,6 @@ typedef void(^CommentListFailureBlock)(id commentListFailureBlock);
                    failure:(void (^)(NSString *error))failure;
 
 
-/**
- *  删除回帖评论
- *
- *  @param url        /Post/comment_del
- *  @param parameter comment_id
- *  @param success    
- *  @param failure    失败
- */
-- (void)deleteCommentWithUrl:(NSString *)url
-                  parameter:(NSDictionary *)parameter
-                     success:(void (^)(StatusEntity *statusEntity))success
-                     failure:(void (^)(NSString *error))failure;
-
 
 /**
  *  点赞请求

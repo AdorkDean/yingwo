@@ -104,6 +104,7 @@
 #import "UIBarButtonItem+Left.h"
 #import "NSDate+Grade.h"
 #import "User+CURD.h"
+#import "TTTAttributedLabel+Link.h"
 
 //自定义控件
 #import "InputTextField.h"

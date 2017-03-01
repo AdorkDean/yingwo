@@ -656,6 +656,35 @@ static NSString *replyCellIdentifier = @"replyCell";
     
 }
 
+- (void)didDeleteRigthContentWithCommentId:(int)postId commentView:(YWCommentView *)comentView {
+    
+    WeakSelf(self);
+    [self.viewModel setDeleteCommentSuccessBlock:^(StatusEntity *statusEntity) {
+        
+        if (statusEntity.status == YES) {
+            
+            [SVProgressHUD showSuccessStatus:@"删除成功" afterDelay:HUD_DELAY];
+
+            [weakself deleteCommentOnReplyTieZi];
+        }
+        else
+        {
+            [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+        }
+        
+    } failure:^(id deleteCommentSuccessBlock) {
+        [SVProgressHUD showSuccessStatus:@"删除失败" afterDelay:HUD_DELAY];
+    }];
+    
+    RequestEntity *request           = [[RequestEntity alloc] init];
+    request.URLString                = TIEZI_COMMENT_DEL_URL;
+    request.parameter                = @{@"comment_id":@(postId)};
+    
+    [self.viewModel deleteCommentWithRequest:request];
+    
+    
+}
+
 #pragma mark - GalleryView Delegate
 
 - (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
@@ -868,14 +897,12 @@ static NSString *replyCellIdentifier = @"replyCell";
         }
         
     } failure:^(id commentReplyFailureBlock) {
-        
+        [SVProgressHUD dismiss];
     }];
-    
-    self.commetparameter[@"content"] = self.commentView.messageTextView.text;
     
     RequestEntity *request           = [[RequestEntity alloc] init];
     request.URLString                = TIEZI_COMMENT_URL;
-    request.parameter                = self.commetparameter;
+    request.parameter                = @{@"post_reply_id":@(self.model.reply_id),@"content":self.commentView.messageTextView.text};
     
     [self.viewModel postCommentWithRequest:request];
     
@@ -888,12 +915,27 @@ static NSString *replyCellIdentifier = @"replyCell";
  */
 - (void)addCommentOnReplyTieZi {
     
-    TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:self.indexPath.row];
-    
-    WeakSelf(self);
 
     [SVProgressHUD showSuccessStatus:@"评论成功" afterDelay:HUD_DELAY];
     
+    [self reloadCommentOnReplyTieZi];
+
+    
+}
+
+- (void)deleteCommentOnReplyTieZi {
+    
+    [self reloadCommentOnReplyTieZi];
+    
+}
+
+
+- (void)reloadCommentOnReplyTieZi {
+    
+    TieZiReply *replyEntity = [self.tieZiReplyArr objectAtIndex:self.indexPath.row];
+
+    WeakSelf(self);
+
     [self.viewModel setCommentListSuccessBlock:^(NSArray *commentArr) {
         
         replyEntity.commentArr = [commentArr mutableCopy];
@@ -912,10 +954,9 @@ static NSString *replyCellIdentifier = @"replyCell";
     request.URLString                = TIEZI_COMMENT_LIST_URL;
     request.parameter                = @{@"post_reply_id":@(self.model.reply_id)};
     
-    [weakself.viewModel requestCommentWithRequest:request];
+    [self.viewModel requestCommentWithRequest:request];
     
 }
-
 
 - (void)jumpToTaPageWithUserId:(int)userId {
     
@@ -931,8 +972,8 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.selectCommentView     = nil;
     self.tableView.frame = self.view.bounds;
     
-    [self.commentView.messageTextView resignFirstResponder];
     [self.replyView.messageField resignFirstResponder];
+    [self.commentView.messageTextView resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
