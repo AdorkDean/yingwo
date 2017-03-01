@@ -91,6 +91,8 @@ static int start_id = 0;
 
     [self layoutSubviews];
     
+    [self showLoadingViewOnFrontView:self.tableView];
+    
     __weak MyCommentController *weakSelf = self;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -115,7 +117,6 @@ static int start_id = 0;
 
     self.navigationItem.leftBarButtonItem = self.leftBarItem;
 }
-
 
 
 /**
@@ -148,6 +149,7 @@ static int start_id = 0;
     [[self.viewModel.fecthCommentEntityCommand execute:requestEntity] subscribeNext:^(NSArray *messages) {
         @strongify(self);
         
+        [self showFrontView:self.tableView];
         //这里是倒序获取前10个
         if (messages.count > 0) {
             

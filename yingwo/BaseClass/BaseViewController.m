@@ -24,6 +24,13 @@
     return _leftBarItem;
 }
 
+- (YWActivityIndicatorViewTools *)indicatorView {
+    if (_indicatorView == nil) {
+        _indicatorView = [[YWActivityIndicatorViewTools alloc] init];
+    }
+    return _indicatorView;
+}
+
 - (void)createSubviews {
     
 }
@@ -62,6 +69,28 @@
 
 - (void)backToFarword {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)showLoadingViewOnFrontView:(UIView *)frontView {
+    
+    [self.indicatorView showActivityLoadingInController:self];
+    frontView.alpha = 0;
+    
+}
+
+- (void)showFrontView:(UIView *)frontView {
+    
+    [UIView animateWithDuration:0.8 animations:^{
+        
+        frontView.alpha = 1;
+        [self.indicatorView stopIndicatorViewAnimation];
+        
+    } completion:^(BOOL finished) {
+        
+        self.indicatorView = nil;
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

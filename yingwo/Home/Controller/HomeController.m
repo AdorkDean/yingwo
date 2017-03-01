@@ -10,12 +10,12 @@
 
 @interface HomeController ()<YWDropDownViewDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem   *rightBarItem;
-@property (nonatomic, strong) UIBarButtonItem   *leftBarButton;
-@property (nonatomic, strong) YWDropDownView    *drorDownView;
-@property (nonatomic, strong) YWPhotoCotentView *contentView;
+@property (nonatomic, strong) UIBarButtonItem              *rightBarItem;
+@property (nonatomic, strong) UIBarButtonItem              *leftBarButton;
+@property (nonatomic, strong) YWDropDownView               *drorDownView;
+@property (nonatomic, strong) YWPhotoCotentView            *contentView;
 
-@property (nonatomic, strong) RequestEntity     *requestEntity;
+@property (nonatomic, strong) RequestEntity                *requestEntity;
 
 @end
 
@@ -106,18 +106,20 @@ static int start_id = 0;
 
 - (void)addRefreshForTableView {
     
-    __weak HomeController *weakSelf = self;
+    [self showLoadingViewOnFrontView:self.tableView];
+    
+    WeakSelf(self);
     self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         //偏移量开始为0
         self.requestEntity.start_id  = start_id;
         
-        [weakSelf loadDataWithRequestEntity:self.requestEntity];
+        [weakself loadDataWithRequestEntity:self.requestEntity];
     }];
     
     self.tableView.mj_footer    = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
-        [weakSelf loadMoreDataWithRequestEntity:self.requestEntity];
+        [weakself loadMoreDataWithRequestEntity:self.requestEntity];
         
     }];
     
@@ -177,6 +179,9 @@ static int start_id = 0;
     @weakify(self);
     [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
+        
+        [self showFrontView:self.tableView];
+        
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             

@@ -30,11 +30,11 @@
 #import "POP.h"
 #import "TTTAttributedLabel.h"
 #import "HPGrowingTextView.h"
+#import "DGActivityIndicatorView.h"
 #import <RSKImageCropper/RSKImageCropper.h>
 #import <HYBNetworking/HYBNetworking.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <SVProgressHUD/SVProgressHUD.h>
-
 #import <UMSocialCore/UMSocialCore.h>
 #import "UMessage.h"
 
@@ -84,6 +84,7 @@
 #import "UMAnalyticsTools.h"
 #import "UMessageTools.h"
 #import "NotificationTools.h"
+#import "YWActivityIndicatorViewTools.h"
 
 //catagory
 #import "UIView+Frame.h"

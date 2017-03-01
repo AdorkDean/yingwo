@@ -175,6 +175,7 @@
         make.left.equalTo(self.view.mas_left).offset(10);
         make.right.equalTo(self.view.mas_right).offset(-10);
     }];
+    
 }
 
 #pragma mark 本地数据加载

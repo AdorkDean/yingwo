@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - DGActivityIndicatorView (2.1.1)
   - FDFullscreenPopGesture (1.1)
   - HappyDNS (0.3.10)
   - HPGrowingTextView (1.1)
@@ -53,6 +54,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
+  - DGActivityIndicatorView (~> 2.1.1)
   - FDFullscreenPopGesture (~> 1.1)
   - HPGrowingTextView (~> 1.1)
   - HYBNetworking (~> 3.3.0)
@@ -77,6 +79,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   HPGrowingTextView: 88a716d97fb853bcb08a4a08e4727da17efc9b19
@@ -97,6 +100,6 @@ SPEC CHECKSUMS:
   UMengAnalytics: ef8d45f94c0e5771dc364cf6a5731d9d3b101da2
   UMengUShare: fc0a98b8d5297632e82874318fd72a10d17da228
 
-PODFILE CHECKSUM: 28e19f07689891ad2e6b9733cc650e472a5e5fd9
+PODFILE CHECKSUM: 07668803e9443afed21920d56b0bb9485dd96a5a
 
 COCOAPODS: 1.2.0

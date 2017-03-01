@@ -98,6 +98,7 @@
 		18B155961E46E76C00E355D0 /* TokenEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1558F1E46E76C00E355D0 /* TokenEntity.m */; };
 		18B155971E46E76C00E355D0 /* ChatViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B155931E46E76C00E355D0 /* ChatViewModel.m */; };
 		18B926C51D38B9E60067FE24 /* CustomPresentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B926C41D38B9E60067FE24 /* CustomPresentSegue.m */; };
+		18CA35F11E66830A00561972 /* YWActivityIndicatorViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA35F01E66830A00561972 /* YWActivityIndicatorViewTools.m */; };
 		18D100DB1D3E153400D75968 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D100DA1D3E153400D75968 /* User.m */; };
 		18D243891D7BF41F00DAC374 /* RequestEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243881D7BF41F00DAC374 /* RequestEntity.m */; };
 		18D243951D7D4F2200DAC374 /* ImageViewEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243941D7D4F2200DAC374 /* ImageViewEntity.m */; };
@@ -485,6 +486,8 @@
 		18B155931E46E76C00E355D0 /* ChatViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewModel.m; sourceTree = "<group>"; };
 		18B926C31D38B9E60067FE24 /* CustomPresentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomPresentSegue.h; path = CustomSegue/CustomPresentSegue.h; sourceTree = "<group>"; };
 		18B926C41D38B9E60067FE24 /* CustomPresentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomPresentSegue.m; path = CustomSegue/CustomPresentSegue.m; sourceTree = "<group>"; };
+		18CA35EF1E66830A00561972 /* YWActivityIndicatorViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWActivityIndicatorViewTools.h; sourceTree = "<group>"; };
+		18CA35F01E66830A00561972 /* YWActivityIndicatorViewTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWActivityIndicatorViewTools.m; sourceTree = "<group>"; };
 		18CEE7131DAF5823004FEDFE /* yingwo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yingwo.entitlements; sourceTree = "<group>"; };
 		18D100D91D3E153400D75968 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = User/entity/User.h; sourceTree = "<group>"; };
 		18D100DA1D3E153400D75968 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = User/entity/User.m; sourceTree = "<group>"; };
@@ -1049,6 +1052,7 @@
 		1870DC541E1FC352008767A5 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				18CA35EE1E6682E600561972 /* ActivityIndicatorViewTools */,
 				18AA83AF1E50217A00D0C548 /* NotificationTools */,
 				182CACF61E49EBAC000CE59F /* UMessageTools */,
 				182CACF21E49E9E6000CE59F /* UMAnalyticsTools */,
@@ -1470,6 +1474,15 @@
 				18D100DA1D3E153400D75968 /* User.m */,
 			);
 			name = Enitiy;
+			sourceTree = "<group>";
+		};
+		18CA35EE1E6682E600561972 /* ActivityIndicatorViewTools */ = {
+			isa = PBXGroup;
+			children = (
+				18CA35EF1E66830A00561972 /* YWActivityIndicatorViewTools.h */,
+				18CA35F01E66830A00561972 /* YWActivityIndicatorViewTools.m */,
+			);
+			path = ActivityIndicatorViewTools;
 			sourceTree = "<group>";
 		};
 		18D100CF1D3E12A100D75968 /* CoreData */ = {
@@ -2890,6 +2903,7 @@
 				18F363051E1FB19A0077D3CC /* NSString+Url.m in Sources */,
 				18F3650D1E1FB8940077D3CC /* YWSearchController.m in Sources */,
 				18A0758A1E3E20B100C4159D /* TopicController.m in Sources */,
+				18CA35F11E66830A00561972 /* YWActivityIndicatorViewTools.m in Sources */,
 				18F4C7AD1E4849DE00BA3F43 /* MXPageControl.m in Sources */,
 				18F365121E1FB8940077D3CC /* YWSearchBar.m in Sources */,
 				CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */,

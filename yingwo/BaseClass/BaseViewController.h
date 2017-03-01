@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class YWActivityIndicatorViewTools;
 /**
  *  这个类是代替ViewController的基础类
  *  所有Controller基本都继承这个类
@@ -15,7 +16,9 @@
  */
 @interface BaseViewController : UIViewController
 
-@property (nonatomic, strong) UIBarButtonItem *leftBarItem;
+@property (nonatomic, strong) UIBarButtonItem              *leftBarItem;
+
+@property (nonatomic, strong) YWActivityIndicatorViewTools *indicatorView;
 
 // three abstact methods, you should implements they  when you need
 - (void)createSubviews;
@@ -27,5 +30,9 @@
 - (void)initDataSourceBlock;
 
 - (void)backToFarword ;
+
+- (void)showLoadingViewOnFrontView:(UIView *)frontView;
+
+- (void)showFrontView:(UIView *)frontView;
 
 @end
