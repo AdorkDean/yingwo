@@ -307,17 +307,24 @@
     
     NSString *share_title               = [NSString stringWithFormat:@"%@", model.topic_title];
     NSString *share_descr               = [NSString stringWithFormat:@"%@", model.content];
-    NSString *share_thumbURL            = @"http://image.zhibaizhi.com/icon/share_img.png";
+    NSString *share_thumbURL            = @"https://image.zhibaizhi.com/icon/share_img.png";
     
     if (model.imageUrlEntityArr > 0) {
         ImageViewEntity *entity         = [model.imageUrlEntityArr firstObject];
         share_thumbURL                  =entity.imageName;
-        
     }
      
     UMShareWebpageObject *shareObject   = [UMShareWebpageObject shareObjectWithTitle:share_title
                                                                                descr:share_descr
                                                                            thumImage:share_thumbURL];
+    
+    //分享到朋友圈修改标题描述
+    if (platformType == UMSocialPlatformType_WechatTimeLine) {
+        shareObject = [UMShareWebpageObject shareObjectWithTitle:share_descr
+                                                           descr:share_descr
+                                                       thumImage:share_thumbURL];
+    }
+    
     //设置网页地址
     shareObject.webpageUrl =  [NSString stringWithFormat:@"https://share.yingwoo.com/share/post/%d",model.tieZi_id];
     

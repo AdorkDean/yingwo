@@ -40,5 +40,7 @@
 
 @property (nonatomic, copy) NSString *like;
 
+@property (nonatomic, copy) NSString *friend_cnt;
+
 
 @end

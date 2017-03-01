@@ -50,10 +50,7 @@
                                                                                         style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(backToLastView)];
-    self.navigationItem.rightBarButtonItem      = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"share"]
-                                                                                   style:UIBarButtonItemStylePlain
-                                                                                  target:self
-                                                                                  action:nil];
+
     
     self.progressProxy                          = [[NJKWebViewProgress alloc] init];
     self.webView.delegate                       = self.progressProxy;

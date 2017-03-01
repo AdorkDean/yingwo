@@ -11,7 +11,6 @@
 		1808BE251E5560A200335459 /* TopicAnnounceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1808BE241E5560A200335459 /* TopicAnnounceController.m */; };
 		181826671E4C406D00779294 /* MyCommentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181826661E4C406D00779294 /* MyCommentViewModel.m */; };
 		181E34211D93E3F800A6283C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 181E341F1D93E3F800A6283C /* Podfile */; };
-		181E34221D93E3F800A6283C /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 181E34201D93E3F800A6283C /* Podfile.lock */; };
 		182CACF11E49E8CA000CE59F /* UMShareTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CACF01E49E8CA000CE59F /* UMShareTools.m */; };
 		182CACF51E49E9F1000CE59F /* UMAnalyticsTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CACF41E49E9F1000CE59F /* UMAnalyticsTools.m */; };
 		182CACF91E49EBBA000CE59F /* UMessageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CACF81E49EBBA000CE59F /* UMessageTools.m */; };
@@ -311,7 +310,6 @@
 		181826651E4C406D00779294 /* MyCommentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommentViewModel.h; sourceTree = "<group>"; };
 		181826661E4C406D00779294 /* MyCommentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommentViewModel.m; sourceTree = "<group>"; };
 		181E341F1D93E3F800A6283C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		181E34201D93E3F800A6283C /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		182CACEF1E49E8CA000CE59F /* UMShareTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMShareTools.h; sourceTree = "<group>"; };
 		182CACF01E49E8CA000CE59F /* UMShareTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMShareTools.m; sourceTree = "<group>"; };
 		182CACF31E49E9F1000CE59F /* UMAnalyticsTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMAnalyticsTools.h; sourceTree = "<group>"; };
@@ -1320,7 +1318,6 @@
 			isa = PBXGroup;
 			children = (
 				181E341F1D93E3F800A6283C /* Podfile */,
-				181E34201D93E3F800A6283C /* Podfile.lock */,
 				18AFE5E61D30B7E1007BEBDE /* yingwo */,
 				CC056BFE1DB0ABA800613F27 /* Assets.xcassets */,
 				18AFE5E51D30B7E1007BEBDE /* Products */,
@@ -2576,7 +2573,6 @@
 				18F4C7521E4849DE00BA3F43 /* UnZan.png in Resources */,
 				18F4C7991E4849DE00BA3F43 /* ISEmojiList.plist in Resources */,
 				CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */,
-				181E34221D93E3F800A6283C /* Podfile.lock in Resources */,
 				18F4C7531E4849DE00BA3F43 /* Zan.png in Resources */,
 				18F4C7B91E4849DE00BA3F43 /* TZImagePickerController.bundle in Resources */,
 				18F4C7D81E4854B200BA3F43 /* UMSocialSDKResources.bundle in Resources */,

@@ -163,6 +163,7 @@
     cell.titleView.title.delegate               = self;
     cell.bottemView.favour.delegate             = self;
     cell.bottemView.more.delegate               = self;
+    cell.contentText.delegate                   = self;
     
     cell.titleView.title.userInteractionEnabled = self.shouldClickTitle;
     
@@ -214,6 +215,15 @@
 - (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
     galleryView = nil;
 }
+
+#pragma mark TTTAttributedLabelDelegate
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    MyWebViewController *webVc = [[MyWebViewController alloc] initWithURL:url];
+    
+    [self.navigationController pushViewController:webVc animated:YES];
+}
+
 
 #pragma YWSpringButtonDelegate
 
