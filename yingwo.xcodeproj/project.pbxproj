@@ -292,6 +292,7 @@
 		B243CD67F346DCA423FA5C69 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */; };
 		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
+		CC3E18DA1E66EF4300E67241 /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = CC3E18D91E66EF4300E67241 /* Podfile.lock */; };
 		CC4CDE461D9D04A0002A80B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE421D9D04A0002A80B0 /* main.m */; };
 		CC4CDE481D9D04A0002A80B0 /* YingwoUserClause.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */; };
 		CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7A1DC095FE009B4B21 /* TAController.m */; };
@@ -871,6 +872,7 @@
 		CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yingwo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC3AD4891DCC522500874834 /* YWTaFollowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTaFollowView.h; sourceTree = "<group>"; };
 		CC3AD48A1DCC522500874834 /* YWTaFollowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTaFollowView.m; sourceTree = "<group>"; };
+		CC3E18D91E66EF4300E67241 /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		CC4CDE421D9D04A0002A80B0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Support/main.m; sourceTree = "<group>"; };
 		CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = YingwoUserClause.txt; path = Support/YingwoUserClause.txt; sourceTree = "<group>"; };
 		CCF64E791DC095FE009B4B21 /* TAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAController.h; sourceTree = "<group>"; };
@@ -1318,6 +1320,7 @@
 			isa = PBXGroup;
 			children = (
 				181E341F1D93E3F800A6283C /* Podfile */,
+				CC3E18D91E66EF4300E67241 /* Podfile.lock */,
 				18AFE5E61D30B7E1007BEBDE /* yingwo */,
 				CC056BFE1DB0ABA800613F27 /* Assets.xcassets */,
 				18AFE5E51D30B7E1007BEBDE /* Products */,
@@ -2569,6 +2572,7 @@
 				18AFE5FA1D30B7E2007BEBDE /* LaunchScreen.storyboard in Resources */,
 				18F4C7511E4849DE00BA3F43 /* EffectImage.png in Resources */,
 				18A075F61E3E27B900C4159D /* Main.storyboard in Resources */,
+				CC3E18DA1E66EF4300E67241 /* Podfile.lock in Resources */,
 				18F4C7AF1E4849DE00BA3F43 /* MXScrollView.bundle in Resources */,
 				18F4C7521E4849DE00BA3F43 /* UnZan.png in Resources */,
 				18F4C7991E4849DE00BA3F43 /* ISEmojiList.plist in Resources */,
