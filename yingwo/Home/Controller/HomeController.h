@@ -8,18 +8,19 @@
 
 #import "BaseViewController.h"
 #import "GalleryController.h"
+#import "AllPostController.h"
 
-@interface HomeController :GalleryController
+@interface HomeController :BaseViewController
 
-@property (nonatomic, strong) YWTabBar        *tabBar;
+@property (nonatomic, strong) YWTabBar              *tabBar;
+@property (nonatomic, strong) AllPostController     *allPostController;
 
-@property (nonatomic, assign) NSUInteger      index;
+@property (nonatomic, assign) ContentCategory       contentCategoryModel;
 
-@property (nonatomic, assign) ContentCategory contentCategoryModel;
-
-@property (nonatomic, assign) BOOL            type_topic;
-@property (nonatomic, assign) BOOL            type_post;
-@property (nonatomic, assign) int             item_id;
+@property (nonatomic, assign) NSUInteger            index;
+@property (nonatomic, assign) BOOL                  type_topic;
+@property (nonatomic, assign) BOOL                  type_post;
+@property (nonatomic, assign) int                   item_id;
 
 
 //- (void)weatherPush;

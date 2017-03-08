@@ -48,8 +48,27 @@
             NSDictionary *parameter = nil;
             
             if (requestEntity.filter == 0) {
-                parameter = @{@"start_id":@(requestEntity.start_id),
-                               @"user_id":@(requestEntity.user_id)};
+                
+                if (requestEntity.subject_id != 0) {
+                    
+                    if (requestEntity.topic_id != 0) {
+                        
+                        parameter = @{@"start_id":@(requestEntity.start_id),
+                                      @"topic_id":@(requestEntity.topic_id)};
+                        
+                    }else {
+                        
+                        parameter = @{@"start_id":@(requestEntity.start_id),
+                                      @"subject_id":@(requestEntity.subject_id)};
+                        
+                    }
+                    
+                    
+                }else {
+                    
+                        parameter = @{@"start_id":@(requestEntity.start_id),
+                                        @"user_id":@(requestEntity.user_id)};
+                }
             }
             else
             {

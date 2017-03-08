@@ -7,36 +7,30 @@
 //
 
 #import "HomeController.h"
+#import "SCNavTabBarController.h"
+#import "SubjectPostController.h"
+
+#import "SubjectPostViewModel.h"
 
 @interface HomeController ()<YWDropDownViewDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem   *rightBarItem;
-@property (nonatomic, strong) UIBarButtonItem   *leftBarButton;
-@property (nonatomic, strong) YWDropDownView    *drorDownView;
-@property (nonatomic, strong) YWPhotoCotentView *contentView;
+@property (nonatomic, strong) UIBarButtonItem           *rightBarItem;
+@property (nonatomic, strong) UIBarButtonItem           *leftBarButton;
+@property (nonatomic, strong) YWDropDownView            *drorDownView;
+@property (nonatomic, strong) YWPhotoCotentView         *contentView;
 
-@property (nonatomic, strong) RequestEntity     *requestEntity;
+@property (nonatomic, strong) RequestEntity             *requestEntity;
+@property (nonatomic, strong) SubjectPostViewModel      *subjectPostViewModel;
+
+@property (nonatomic, strong) NSArray                   *subjectIdArr;
+@property (nonatomic, strong) NSArray                   *subjectNameArr;
+@property (nonatomic, strong) NSArray                   *subjectEntityArr;
 
 @end
 
 @implementation HomeController
 
-//刷新的初始值
-static int start_id = 0;
-
-- (RequestEntity *)requestEntity {
-    if (_requestEntity  == nil) {
-        _requestEntity            = [[RequestEntity alloc] init];
-        //贴子请求url
-        _requestEntity.URLString = HOME_URL;
-        //请求的事新鲜事
-        _requestEntity.filter     = AllThingModel;
-        //偏移量开始为0
-        _requestEntity.start_id   = start_id;
-    }
-    return _requestEntity;
-}
-
+#pragma mark - 懒加载
 - (UIBarButtonItem *)leftBarButton {
     if (_leftBarButton == nil) {
         _leftBarButton = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"screen"]
@@ -73,6 +67,20 @@ static int start_id = 0;
     return _drorDownView;
 }
 
+-(SubjectPostViewModel *)subjectPostViewModel {
+    if (_subjectPostViewModel == nil) {
+        _subjectPostViewModel = [[SubjectPostViewModel alloc] init];
+    }
+    return _subjectPostViewModel;
+}
+
+-(AllPostController *)allPostController {
+    if (_allPostController == nil) {
+        _allPostController = [[AllPostController alloc] init];
+    }
+    return _allPostController;
+}
+
 #pragma mark button action
 
 - (void)showDropDownView:(UIBarButtonItem *)sender {
@@ -98,30 +106,10 @@ static int start_id = 0;
     
     [self.tabBar selectTabAtIndex:self.index];
     
-
-    [self addRefreshForTableView];
-
-   // NSLog(@"home:%@",NSHomeDirectory());
-}
-
-- (void)addRefreshForTableView {
+    [self loadAllRecommendTopicList];
     
-    __weak HomeController *weakSelf = self;
-    self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
-        //偏移量开始为0
-        self.requestEntity.start_id  = start_id;
-        
-        [weakSelf loadDataWithRequestEntity:self.requestEntity];
-    }];
     
-    self.tableView.mj_footer    = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf loadMoreDataWithRequestEntity:self.requestEntity];
-        
-    }];
     
-    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,11 +119,60 @@ static int start_id = 0;
     self.navigationItem.leftBarButtonItem  = self.leftBarButton;
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
-    
     [self stopSystemPopGestureRecognizer];
     
     [self showTabBar:YES animated:YES];
     
+//    [self.view bringSubviewToFront:self.tabBar];
+}
+
+-(void)layoutSubviews {
+    
+//    self.allPostController.tabBar = self.tabBar;
+    
+}
+-(void)initDataSourceBlock {
+    
+    [self loadAllRecommendTopicList];
+    
+    WeakSelf(self);
+    [self.subjectPostViewModel setSuccessBlock:^(NSArray *subjectArr) {
+        weakself.subjectIdArr = [subjectArr firstObject];
+        weakself.subjectNameArr = [subjectArr objectAtIndex:1];
+        weakself.subjectEntityArr = [subjectArr lastObject];
+        
+        [weakself initController];
+
+    } errorBlock:^(id error) {
+        
+    }];
+}
+
+- (void)initController {
+
+    NSMutableArray *controllerArr       = [NSMutableArray array];
+    self.allPostController.title                     = @"全部";
+    
+    [controllerArr addObject:self.allPostController];
+    
+    for (int i = 0; i < self.subjectNameArr.count; i++) {
+        SubjectPostController *subjectPostVc = [[SubjectPostController alloc] init];
+        subjectPostVc.title = self.subjectNameArr[i];
+        subjectPostVc.subject_id = [self.subjectIdArr[i] intValue];
+        subjectPostVc.subjectEntity = self.subjectEntityArr[i];
+
+        [controllerArr addObject:subjectPostVc];
+    }
+    
+    SCNavTabBarController *navTabBarController = [[SCNavTabBarController alloc] initWithSubViewControllers:controllerArr];
+    
+    navTabBarController.navTabBarColor = [UIColor whiteColor];
+    navTabBarController.navTabBarLineColor = [UIColor colorWithHexString:THEME_COLOR_1];
+    navTabBarController.navTabBarFont = [UIFont systemFontOfSize: 15];
+
+    navTabBarController.canPopAllItemMenu = YES;
+    [navTabBarController addParentController: self];
+
 }
 
 
@@ -144,92 +181,6 @@ static int start_id = 0;
     self.fd_interactivePopDisabled = YES;
 }
 
-/**
- *  下拉刷新
- */
-- (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
-    
-    //检测登录状态
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *isExit            = [userDefault objectForKey:@"isUserInfoExit"];
-    
-    if ([isExit intValue] == 0) {
-  //      [self testLoginState];
-    }
-    
- //   [self requestNewTieziCount];
-    
-    [self loadForType:1 RequestEntity:requestEntity];
-    
-    [self.tableView.mj_footer resetNoMoreData];
-}
-
-/**
- *  上拉刷新
- */
-- (void)loadMoreDataWithRequestEntity:(RequestEntity *)requestEntity {
-    
-    [self loadForType:2 RequestEntity:requestEntity];
-}
-
-- (void)loadForType:(int)type RequestEntity:(RequestEntity *)requestEntity {
-    
-    @weakify(self);
-    [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
-        @strongify(self);
-        //这里是倒序获取前10个
-        if (tieZis.count > 0) {
-            
-            if (type == 1) {
-                //   NSLog(@"tiezi:%@",tieZis);
-                self.tieZiList = [tieZis mutableCopy];
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
-                
-                //刷新后清除小红点
-                [self.tabBar.homeBtn clearBadge];
-                //显示新帖子View
-              //  [self showNewTieziCount:self.badgeCount];
-                
-            }else { 
-                
-                [self.tieZiList addObjectsFromArray:tieZis];
-                [self.tableView.mj_footer endRefreshing];
-                [self.tableView reloadData];
-            }
-            
-            
-            //获得最后一个帖子的id,有了这个id才能向前继续获取model
-            TieZi *lastObject           = [tieZis objectAtIndex:tieZis.count-1];
-            self.requestEntity.start_id = lastObject.tieZi_id;
-            
-        }
-        else
-        {
-            //没有任何数据
-            if (tieZis.count == 0 && requestEntity.start_id == 0) {
-                
-                self.tieZiList = nil;
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
-                //显示新帖子View
-                //[self showNewTieziCount:self.badgeCount];
-                
-            }
-            
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            
-        }
-        
-
-    } error:^(NSError *error) {
-        NSLog(@"%@",error.userInfo);
-        //错误的情况下停止刷新（网络错误）
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
-    }];
-    
-}
 
 #pragma mark -- UIScrollViewDelegate
 
@@ -240,32 +191,32 @@ CGFloat lastPosition = -4;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    if (scrollView == self.tableView) {
-        
-        CGFloat currentPosition = scrollView.contentOffset.y;
-        if (currentPosition > -400 && currentPosition < 0) {
-            
-            [self showTabBar:YES animated:YES];
-            
-        }else if ( currentPosition - lastPosition > scrollHiddenSpace ) {
-            
-            lastPosition = currentPosition;
-            [self hidesTabBar:YES animated:YES];
-            
-        }else if(lastPosition - currentPosition > scrollHiddenSpace){
-            
-            lastPosition = currentPosition;
-            [self showTabBar:YES animated:YES];
-            
-        }
-    }
+//    if (scrollView == self.tableView) {
+//        
+//        CGFloat currentPosition = scrollView.contentOffset.y;
+//        if (currentPosition > -400 && currentPosition < 0) {
+//            
+//            [self showTabBar:YES animated:YES];
+//            
+//        }else if ( currentPosition - lastPosition > scrollHiddenSpace ) {
+//            
+//            lastPosition = currentPosition;
+//            [self hidesTabBar:YES animated:YES];
+//            
+//        }else if(lastPosition - currentPosition > scrollHiddenSpace){
+//            
+//            lastPosition = currentPosition;
+//            [self showTabBar:YES animated:YES];
+//            
+//        }
+//    }
     
 }
 
 #pragma mark ---- DropDownViewDelegate
 - (void)seletedDropDownViewAtIndex:(NSInteger)index {
     self.requestEntity.filter = (int)index;
-    [self.tableView.mj_header beginRefreshing];
+//    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)hidesTabBar:(BOOL)yesOrNo animated:(BOOL)animated {
@@ -318,6 +269,16 @@ CGFloat lastPosition = -4;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - private methods
+- (void)loadAllRecommendTopicList {
+    
+    RequestEntity *request = [[RequestEntity alloc] init];
+    request.URLString      = RECOMMEND_ALLTOPIC_URL;
+    request.parameter      = @{};
+    
+    [self.subjectPostViewModel requestAllRecommendTopicListWith:request];
+    
+}
 
 
 @end

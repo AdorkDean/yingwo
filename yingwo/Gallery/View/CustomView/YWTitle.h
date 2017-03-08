@@ -20,6 +20,9 @@
 
 @protocol YWTitleDelegate <NSObject>
 
+@optional
+
 - (void)didSelectLabel:(YWTitle *)label;
+- (void)didSelectLabel:(YWTitle *)label withTopicId:(int)topicId;
 
 @end

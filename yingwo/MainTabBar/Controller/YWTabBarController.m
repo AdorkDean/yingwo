@@ -235,7 +235,7 @@
     
     MainNavController *targetViewController = (MainNavController *)[_viewControllers objectAtIndex:0];
     HomeController *homeVc = (HomeController *)[targetViewController.viewControllers objectAtIndex:0];;
-    [homeVc.tableView.mj_header beginRefreshing];
+    [homeVc.allPostController.tableView.mj_header beginRefreshing];
     
 }
 

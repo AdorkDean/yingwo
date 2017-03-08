@@ -99,6 +99,7 @@
     
     [self.view addSubview:_mainTabBarController.view];
 
+    _homeVC.tabBar = _mainTabBarController.tabBar;
     _messageVC.bubBtn = _mainTabBarController.tabBar.bubBtn;
 }
 
@@ -187,7 +188,8 @@
         
         if (self.isOnHomePage) {
             
-            [self refreshHomeVC];
+//            [self refreshHomeVC];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"刷新" object:nil];
             
         }else {
             self.isOnHomePage = YES;
@@ -282,10 +284,10 @@
 }
 
 - (void)refreshHomeVC {
-    [self.homeVC.tableView.mj_header beginRefreshing];
+    [self.homeVC.allPostController.tableView.mj_header beginRefreshing];
     
     WeakSelf(self);
-    self.homeVC.tableView.mj_header.endRefreshingCompletionBlock = ^ {
+    self.homeVC.allPostController.tableView.mj_header.endRefreshingCompletionBlock = ^ {
         [weakself.mainTabBarController.tabBar.homeBtn clearBadge];
 
     };
@@ -323,6 +325,9 @@
                 weakself.mainTabBarController.tabBar.homeBtn.badgeCenterOffset = CGPointMake(-3, 3);
                 [weakself.mainTabBarController.tabBar.homeBtn showBadge];
 
+//                __block int homebadgeCount = badgeCount;
+//                weakself.homeBadgeBlock(homebadgeCount);
+                
                 NSLog(@"home 里面有推送:%d",badgeCount);
             }
             else if (badgeModel == CommentBadgeModel) {

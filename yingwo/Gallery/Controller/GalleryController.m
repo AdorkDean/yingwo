@@ -57,6 +57,7 @@
         _tableView.backgroundColor     = [UIColor clearColor];
         _tableView.separatorStyle      = UITableViewCellSeparatorStyleNone;
         _tableView.sectionFooterHeight = 50;
+        _tableView.contentInset        = UIEdgeInsetsMake(0, 0, 160, 0);
 
         [_tableView registerClass:[YWGalleryCellOfNone class] forCellReuseIdentifier:@"noImageCell"];
         [_tableView registerClass:[YWGalleryCellOfOne class] forCellReuseIdentifier:@"oneImageCell"];
