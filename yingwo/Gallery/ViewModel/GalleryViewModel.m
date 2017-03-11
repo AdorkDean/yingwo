@@ -179,6 +179,9 @@
         cell.middleView.imageCnt = model.imageURLArr.count;
     }
     
+    
+    [self removeExatraImageViewOnCell:cell ByCount:(int)model.imageURLArr.count];
+    
     [model.imageURLArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
         
 
@@ -319,47 +322,40 @@
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
     
+    [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
 
-    //去除多余的图片
-    switch (count) {
-        
-        case 4:
-            
-            if (imageView.tag == 5||imageView.tag == 6) {
-                imageView.image = nil;
-            }
-            
-            goto showImageView;
-            
-        case 5:
-            
-            if (imageView.tag == 6) {
-                imageView.image = nil;
-            }
-            
-            goto showImageView;
-        case 7:
-            
-            if (imageView.tag == 8 || imageView.tag == 9) {
-                imageView.image = nil;
-            }
-            
-            goto showImageView;
-            
-        case 8:
-            
-            if (imageView.tag == 9) {
-                imageView.image = nil;
-            }
-            break;
-            
-showImageView:default:
-            
-            [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
+}
 
-            break;
-    }
+/*
+ * @prama cell
+ * @count count
+ **/
+- (void)removeExatraImageViewOnCell:(YWGalleryBaseCell *)cell ByCount:(int)count {
     
+    
+    if (count == 5) {
+        
+        UIImageView *imageView_5 = [cell viewWithTag:5];
+        UIImageView *imageView_6 = [cell viewWithTag:6];
+        
+        imageView_5.image = nil;
+        imageView_6.image = nil;
+    }
+    else if (count == 7){
+        
+        UIImageView *imageView_8 = [cell viewWithTag:8];
+        UIImageView *imageView_9 = [cell viewWithTag:9];
+        
+        imageView_8.image = nil;
+        imageView_9.image = nil;
+        
+    }
+    else if (count == 8){
+       
+        UIImageView *imageView_9 = [cell viewWithTag:9];
+        
+        imageView_9.image = nil;
+    }
 }
 
 

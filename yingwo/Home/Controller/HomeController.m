@@ -29,7 +29,6 @@
 
 @property (nonatomic, assign) NSUInteger                currentIndex;
 @property (nonatomic, strong) SCNavTabBar               *navTabBar;
-@property (nonatomic, strong) UIScrollView              *mainView;
 
 @end
 

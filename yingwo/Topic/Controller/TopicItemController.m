@@ -134,7 +134,6 @@ static CGFloat footerHeight = 250;
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"TopicRelaod" object:nil];
                 
-                
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
@@ -176,8 +175,7 @@ static CGFloat footerHeight = 250;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    self.model = [self.tieZiList objectAtIndex:indexPath.row];
-    
+    self.model = [self.tieZiList objectAtIndex:indexPath.row];    
     
     //点击跳转到详情里面
     if ([self.delegate respondsToSelector:@selector(didSelectCellWith:)]) {

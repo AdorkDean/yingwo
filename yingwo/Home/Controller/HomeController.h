@@ -21,6 +21,7 @@
 
 @property (nonatomic, assign) NSUInteger            index;
 
+@property (nonatomic, strong) UIScrollView          *mainView;
 
 @property (nonatomic, assign)   BOOL        canPopAllItemMenu;       
 @property (nonatomic, assign)   BOOL        scrollAnimation;         

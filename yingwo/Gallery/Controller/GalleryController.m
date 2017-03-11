@@ -145,7 +145,6 @@
 //        
 //        self.type_topic = NO;
 //    }
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
