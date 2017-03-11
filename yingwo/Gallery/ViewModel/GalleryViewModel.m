@@ -181,6 +181,7 @@
     
     [model.imageURLArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
         
+
         UIImageView *imageView = [cell viewWithTag:idx+1];
         
         [self showImageView:imageView WithURL:obj cutByCount:(int)model.imageURLArr.count];
@@ -317,7 +318,48 @@
     
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
-    [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
+    
+
+    //去除多余的图片
+    switch (count) {
+        
+        case 4:
+            
+            if (imageView.tag == 5||imageView.tag == 6) {
+                imageView.image = nil;
+            }
+            
+            goto showImageView;
+            
+        case 5:
+            
+            if (imageView.tag == 6) {
+                imageView.image = nil;
+            }
+            
+            goto showImageView;
+        case 7:
+            
+            if (imageView.tag == 8 || imageView.tag == 9) {
+                imageView.image = nil;
+            }
+            
+            goto showImageView;
+            
+        case 8:
+            
+            if (imageView.tag == 9) {
+                imageView.image = nil;
+            }
+            break;
+            
+showImageView:default:
+            
+            [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
+
+            break;
+    }
+    
 }
 
 

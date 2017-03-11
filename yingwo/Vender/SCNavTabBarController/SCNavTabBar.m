@@ -200,7 +200,7 @@
     }
     else
     {
-        [UIView animateWithDuration:0.5f animations:^{
+        [UIView animateWithDuration:0.2f animations:^{
             _popView.hidden = !_popView.hidden;
             _arrowButton.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {

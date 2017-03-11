@@ -111,7 +111,7 @@
     
     [self refreshBadgeState];
     
-    [self requestForBadgeCount];
+//    [self requestForBadgeCount];
 
     self.isOnHomePage = YES;
 }
@@ -159,13 +159,14 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-        self.homeVC.type_topic = YES;
-        self.homeVC.item_id = [item_id intValue];
+        self.homeVC.allPostController.type_topic = YES;
+        self.homeVC.allPostController.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-        self.homeVC.type_post = YES;
-        self.homeVC.item_id = [item_id intValue];
-        [self showHomePage];
+//        self.homeVC.allPostController.type_post = YES;
+//        self.homeVC.allPostController.item_id = [item_id intValue];
+        
+        [self showDiscoveryPage];
     }
     
 }
@@ -259,13 +260,13 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-        self.homeVC.type_topic = YES;
-        self.homeVC.item_id = [item_id intValue];
+        self.homeVC.allPostController.type_topic = YES;
+        self.homeVC.allPostController.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-        self.homeVC.type_post = YES;
-        self.homeVC.item_id = [item_id intValue];
-        [self showHomePage];
+//        self.homeVC.allPostController.type_post = YES;
+//        self.homeVC.allPostController.item_id = [item_id intValue];
+        [self showDiscoveryPage];
     }
 }
 
@@ -276,6 +277,11 @@
     
 }
 
+- (void)showDiscoveryPage {
+    [_mainTabBarController displayViewAtIndex:1];
+    [_mainTabBarController.tabBar showSelectedTabBarAtIndex:1];
+    
+}
 - (void)showMessagePage {
     
     [_mainTabBarController displayViewAtIndex:3];
@@ -322,11 +328,10 @@
             
             if (badgeModel == HomeBadgeModel) {
                 
-                weakself.mainTabBarController.tabBar.homeBtn.badgeCenterOffset = CGPointMake(-3, 3);
-                [weakself.mainTabBarController.tabBar.homeBtn showBadge];
+//                weakself.mainTabBarController.tabBar.homeBtn.badgeCenterOffset = CGPointMake(-3, 3);
+//                [weakself.mainTabBarController.tabBar.homeBtn showBadge];
 
-//                __block int homebadgeCount = badgeCount;
-//                weakself.homeBadgeBlock(homebadgeCount);
+                weakself.homeVC.allPostController.remindLabelBlock(badgeCount);
                 
                 NSLog(@"home 里面有推送:%d",badgeCount);
             }

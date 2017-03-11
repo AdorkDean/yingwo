@@ -81,6 +81,7 @@ static int start_id = 0;
         _topicSrcllView.backgroundColor              = [UIColor clearColor];
         _topicSrcllView.delegate                     = self;
         _topicSrcllView.showsVerticalScrollIndicator = NO;
+        _topicSrcllView.contentInset                 = UIEdgeInsetsMake(0, 0, 100, 0);
     }
     return _topicSrcllView;
 }

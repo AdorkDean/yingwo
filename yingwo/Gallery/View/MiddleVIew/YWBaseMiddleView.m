@@ -139,6 +139,12 @@
         
         //只显示9张图片
         if (idx > 8) {
+            
+            UIImageView *newImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+            newImageView.image         = [UIImage imageNamed:@"ying"];
+            
+            [self.imagesItem.imageViewArr addObject:newImageView];
+
             return ;
         }
         

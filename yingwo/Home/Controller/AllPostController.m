@@ -15,6 +15,7 @@ static int start_id = 0;
 @interface AllPostController ()
 
 @property (nonatomic, strong) RequestEntity     *requestEntity;
+@property (nonatomic, strong) UILabel           *remindLabel;
 
 @end
 
@@ -27,10 +28,16 @@ static int start_id = 0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNotification) name:@"刷新" object:nil];
     
-//    MainController *mainVc = [[MainController alloc] init];
-//    mainVc.homeBadgeBlock = ^(int badgeCount) {
-//        NSLog(@"有新的badge,%d",badgeCount);
-//    };
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
     
 }
 
@@ -49,9 +56,34 @@ static int start_id = 0;
     return _requestEntity;
 }
 
+
+-(UILabel *)remindLabel {
+    if (_remindLabel == nil) {
+        _remindLabel                            = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - self.view.width * 0.6) / 2, 20, self.view.width * 0.6, 35)];
+        _remindLabel.text                       = @"☝︎点我查看新内容哦~";
+        _remindLabel.textAlignment              = NSTextAlignmentCenter;
+        _remindLabel.textColor                  = [UIColor colorWithHexString:THEME_COLOR_1];
+        _remindLabel.font                       = [UIFont systemFontOfSize:14];
+        _remindLabel.backgroundColor            = [UIColor colorWithWhite:1 alpha:0.7];
+        _remindLabel.layer.cornerRadius         = 15;
+        _remindLabel.clipsToBounds              = YES;
+        _remindLabel.hidden                     = YES;
+        
+        [_remindLabel addTapAction:@selector(refreshNotification) target:self];
+        
+        [self.view addSubview:_remindLabel];
+    }
+    return _remindLabel;
+}
+
 - (void)addRefreshForTableView {
     
     WeakSelf(self);
+    
+    self.remindLabelBlock = ^(int badgeCount){
+        weakself.remindLabel.hidden = NO;
+    };
+    
     self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         //偏移量开始为0
@@ -70,7 +102,12 @@ static int start_id = 0;
 }
 
 - (void)refreshNotification {
+    
     [self.tableView.mj_header beginRefreshing];
+    
+    if (self.remindLabel.hidden == NO) {
+        self.remindLabel.hidden = YES;
+    }
 }
 
 /**

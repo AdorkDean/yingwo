@@ -655,10 +655,11 @@
                                                                                    }
                                                                                    
                                                                                } failure:^(NSString *error) {
-                                                                                   
+                                                                                   [SVProgressHUD dismiss];
                                                                                }];
                                } failure:^{
                                    NSLog(@"完善信息失败");
+                                   [SVProgressHUD dismiss];
                                }];
     }
 }

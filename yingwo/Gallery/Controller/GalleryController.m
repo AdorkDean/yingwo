@@ -138,8 +138,15 @@
     
     self.shouldClickTitle = YES;
     
+//    if (self.type_topic == YES) {
+//        
+//        TopicController *topicVc = [[TopicController alloc] initWithTopicId:self.item_id];
+//        [self.navigationController pushViewController:topicVc animated:YES];
+//        
+//        self.type_topic = NO;
+//    }
+    
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     

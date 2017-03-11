@@ -7,12 +7,13 @@
 //
 
 #import "HomeController.h"
-#import "SCNavTabBarController.h"
 #import "SubjectPostController.h"
 
+#import "CommonMacro.h"
+#import "SCNavTabBar.h"
 #import "SubjectPostViewModel.h"
 
-@interface HomeController ()<YWDropDownViewDelegate>
+@interface HomeController ()<YWDropDownViewDelegate,SCNavTabBarDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem           *rightBarItem;
 @property (nonatomic, strong) UIBarButtonItem           *leftBarButton;
@@ -25,6 +26,10 @@
 @property (nonatomic, strong) NSArray                   *subjectIdArr;
 @property (nonatomic, strong) NSArray                   *subjectNameArr;
 @property (nonatomic, strong) NSArray                   *subjectEntityArr;
+
+@property (nonatomic, assign) NSUInteger                currentIndex;
+@property (nonatomic, strong) SCNavTabBar               *navTabBar;
+@property (nonatomic, strong) UIScrollView              *mainView;
 
 @end
 
@@ -108,8 +113,6 @@
     
     [self loadAllRecommendTopicList];
     
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -123,14 +126,8 @@
     
     [self showTabBar:YES animated:YES];
     
-//    [self.view bringSubviewToFront:self.tabBar];
 }
 
--(void)layoutSubviews {
-    
-//    self.allPostController.tabBar = self.tabBar;
-    
-}
 -(void)initDataSourceBlock {
     
     [self loadAllRecommendTopicList];
@@ -151,8 +148,7 @@
 - (void)initController {
 
     NSMutableArray *controllerArr       = [NSMutableArray array];
-    self.allPostController.title                     = @"全部";
-    
+    self.allPostController.title        = @"全部";
     [controllerArr addObject:self.allPostController];
     
     for (int i = 0; i < self.subjectNameArr.count; i++) {
@@ -164,17 +160,63 @@
         [controllerArr addObject:subjectPostVc];
     }
     
-    SCNavTabBarController *navTabBarController = [[SCNavTabBarController alloc] initWithSubViewControllers:controllerArr];
+    self.subViewControllers = controllerArr;
     
-    navTabBarController.navTabBarColor = [UIColor whiteColor];
-    navTabBarController.navTabBarLineColor = [UIColor colorWithHexString:THEME_COLOR_1];
-    navTabBarController.navTabBarFont = [UIFont systemFontOfSize: 15];
-
-    navTabBarController.canPopAllItemMenu = YES;
-    [navTabBarController addParentController: self];
-
+    [self initConfig];
+    [self viewConfig];
+    
+    [self.view bringSubviewToFront:self.tabBar];
 }
 
+- (void)initConfig {
+    self.currentIndex = 1;
+
+    self.navTabBarColor = [UIColor whiteColor];
+    self.navTabBarLineColor = [UIColor colorWithHexString:THEME_COLOR_1];
+    self.navTabBarFont = [UIFont systemFontOfSize:15];
+    self.canPopAllItemMenu = YES;
+    
+    NSMutableArray *tempArr = [[NSMutableArray alloc] initWithCapacity:self.subViewControllers.count];
+    
+    for (UIViewController *vc in self.subViewControllers) {
+        [tempArr addObject:vc.title];
+    }
+    self.subjectNameArr = tempArr;
+}
+
+- (void)viewConfig {
+    [self viewInit];
+    
+    //首先加载第一个视图
+    UIViewController *viewController = (UIViewController *)self.subViewControllers[0];
+    viewController.view.frame = CGRectMake(0 , 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [_mainView addSubview:viewController.view];
+    [self addChildViewController:viewController];
+    
+}
+
+- (void)viewInit {
+    _canPopAllItemMenu = YES;
+    _navTabBar = [[SCNavTabBar alloc] initWithFrame:CGRectMake(DOT_COORDINATE, DOT_COORDINATE, SCREEN_WIDTH, NAV_TAB_BAR_HEIGHT) canPopAllItemMenu:_canPopAllItemMenu];
+    _navTabBar.delegate = self;
+    _navTabBar.backgroundColor = _navTabBarColor;
+    _navTabBar.lineColor = _navTabBarLineColor;
+    _navTabBar.itemTitles = self.subjectNameArr;
+    _navTabBar.arrowImage = _navTabBarArrowImage;
+    _navTabBar.titleFont = _navTabBarFont;
+    [_navTabBar updateData];
+    
+   _mainView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _navTabBar.frame.origin.y + _navTabBar.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - _navTabBar.frame.origin.y - _navTabBar.frame.size.height - STATUS_BAR_HEIGHT - NAVIGATION_BAR_HEIGHT)];
+    _mainView.delegate = self;
+    _mainView.pagingEnabled = YES;
+    _mainView.bounces = _mainViewBounces;
+    _mainView.showsHorizontalScrollIndicator = NO;
+    _mainView.showsVerticalScrollIndicator = NO;
+    _mainView.contentSize = CGSizeMake(SCREEN_WIDTH * self.subViewControllers.count, 0);
+    [self.view addSubview:_mainView];
+    [self.view addSubview:_navTabBar];
+    
+}
 
 #pragma mark 禁止pop手势
 - (void)stopSystemPopGestureRecognizer {
@@ -211,6 +253,38 @@ CGFloat lastPosition = -4;
 //        }
 //    }
     
+    self.currentIndex = scrollView.contentOffset.x / SCREEN_WIDTH;
+    _navTabBar.currentItemIndex = self.currentIndex;
+    
+    /** 当scrollview滚动的时候加载当前视图 */
+    UIViewController *viewController = (UIViewController *)self.subViewControllers[self.currentIndex];
+    viewController.view.frame = CGRectMake(self.currentIndex * SCREEN_WIDTH, 0, SCREEN_WIDTH, _mainView.frame.size.height);
+    [_mainView addSubview:viewController.view];
+    [self addChildViewController:viewController];
+
+}
+
+#pragma mark - SCNavTabBarDelegate Methods
+- (void)itemDidSelectedWithIndex:(NSInteger)index
+{
+    [_mainView setContentOffset:CGPointMake(index * SCREEN_WIDTH, DOT_COORDINATE) animated:_scrollAnimation];
+}
+
+- (void)shouldPopNavgationItemMenu:(BOOL)pop height:(CGFloat)height
+{
+    if (pop)
+    {
+        [UIView animateWithDuration:0.5f animations:^{
+            _navTabBar.frame = CGRectMake(_navTabBar.frame.origin.x, _navTabBar.frame.origin.y, _navTabBar.frame.size.width, SCREEN_HEIGHT - _navTabBar.frame.origin.y);
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.5f animations:^{
+            _navTabBar.frame = CGRectMake(_navTabBar.frame.origin.x, _navTabBar.frame.origin.y, _navTabBar.frame.size.width, NAV_TAB_BAR_HEIGHT);
+        }];
+    }
+    [_navTabBar refresh];
 }
 
 #pragma mark ---- DropDownViewDelegate

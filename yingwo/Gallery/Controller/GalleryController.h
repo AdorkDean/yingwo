@@ -36,6 +36,10 @@ typedef NS_ENUM(NSInteger, ContentCategory){
 @property (nonatomic, strong) GalleryViewModel *viewModel;
 @property (nonatomic, strong) TieZi            *model;
 
+@property (nonatomic, assign) BOOL                  type_topic;
+@property (nonatomic, assign) BOOL                  type_post;
+@property (nonatomic, assign) int                   item_id;
+
 @property (nonatomic, strong) NSMutableArray   *tieZiList;
 
 //能否点击话题标签,默认初始化为可点击

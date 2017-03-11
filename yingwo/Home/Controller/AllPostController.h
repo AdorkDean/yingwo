@@ -8,9 +8,13 @@
 
 #import "GalleryController.h"
 
+
+typedef void(^RemindLabelBlock)(int badgeCount);
+
 @interface AllPostController : GalleryController
 
 @property (nonatomic, strong) YWTabBar        *tabBar;
 
+@property (nonatomic, strong) RemindLabelBlock remindLabelBlock;
 
 @end

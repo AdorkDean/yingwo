@@ -100,6 +100,8 @@ static CGFloat footerHeight = 250;
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
     [self loadForType:1 RequestEntity:requestEntity];
+    
+    [self.tableView.mj_footer resetNoMoreData];
 }
 
 /**

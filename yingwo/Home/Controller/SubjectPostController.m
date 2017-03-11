@@ -16,6 +16,7 @@ static int start_id = 0;
 
 @property (nonatomic, strong) RequestEntity             *requestEntity;
 @property (nonatomic, strong) YWTopicScrView            *topicScrView;
+@property (nonatomic, strong) UILabel                   *noTieziLabel;
 
 @property (nonatomic, strong) SubjectPostViewModel      *subjectPostViewModel;
 @property (nonatomic, strong) NSArray                   *subjectArr;
@@ -89,6 +90,19 @@ static int start_id = 0;
     
 }
 
+-(UILabel *)noTieziLabel {
+    if (_noTieziLabel == nil) {
+        _noTieziLabel                = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 40)];
+        _noTieziLabel.text           = @"这个话题下还没有人发过帖子哦~";
+        _noTieziLabel.textAlignment  = NSTextAlignmentCenter;
+        _noTieziLabel.textColor      = [UIColor colorWithHexString:THEME_COLOR_3];
+        _noTieziLabel.font           = [UIFont systemFontOfSize:14];
+        
+        [self.tableView addSubview:_noTieziLabel];
+    }
+    return _noTieziLabel;
+}
+
 - (void)addRefreshForTableView {
     
     WeakSelf(self);
@@ -146,6 +160,8 @@ static int start_id = 0;
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             
+            self.noTieziLabel.hidden = YES;
+            
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.tieZiList = [tieZis mutableCopy];
@@ -157,7 +173,6 @@ static int start_id = 0;
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
-            
             
             //获得最后一个帖子的id,有了这个id才能向前继续获取model
             TieZi *lastObject           = [tieZis objectAtIndex:tieZis.count-1];
@@ -172,7 +187,7 @@ static int start_id = 0;
                 self.tieZiList = nil;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                
+                self.noTieziLabel.hidden = NO;
             }
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];

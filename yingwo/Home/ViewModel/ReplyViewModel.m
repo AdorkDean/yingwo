@@ -112,8 +112,9 @@
     }else {
         cell.moreBtn.names  = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
     }
+    
     //楼主删除可以所有跟帖
-    if (self.master_id == [customer.userId intValue]) {
+    if (model.user_id == [customer.userId intValue]) {
         cell.moreBtn.names = [NSMutableArray arrayWithObjects:@"复制",@"举报",@"删除",nil];
     }
     
@@ -141,7 +142,7 @@
     //加载评论
     if (model.commentArr.count > 0) {
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.commentArr];
-        [cell addCommentViewByCommentArr:entities withMasterId:self.master_id];
+        [cell addCommentViewByCommentArr:entities withMasterId:model.user_id];
     }
     else
     {
