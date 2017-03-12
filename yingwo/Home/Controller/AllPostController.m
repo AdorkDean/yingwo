@@ -162,8 +162,7 @@ static int start_id = 0;
                 [self.tieZiList addObjectsFromArray:tieZis];
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
-            }
-            
+            }            
             
             //获得最后一个帖子的id,有了这个id才能向前继续获取model
             TieZi *lastObject           = [tieZis objectAtIndex:tieZis.count-1];

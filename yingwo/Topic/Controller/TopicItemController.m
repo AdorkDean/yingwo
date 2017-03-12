@@ -130,6 +130,7 @@ static CGFloat footerHeight = 250;
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.tieZiList = [tieZis mutableCopy];
+                [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"TopicRelaod" object:nil];
@@ -137,6 +138,7 @@ static CGFloat footerHeight = 250;
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
+                [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
                 
             }
@@ -175,7 +177,7 @@ static CGFloat footerHeight = 250;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    self.model = [self.tieZiList objectAtIndex:indexPath.row];    
+    self.model = [self.tieZiList objectAtIndex:indexPath.row];
     
     //点击跳转到详情里面
     if ([self.delegate respondsToSelector:@selector(didSelectCellWith:)]) {

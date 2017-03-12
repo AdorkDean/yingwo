@@ -298,7 +298,6 @@
 		CC3E19351E6A73B900E67241 /* SubjectPostController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E19341E6A73B900E67241 /* SubjectPostController.m */; };
 		CC3E193F1E6A74E700E67241 /* SCNavTabBar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC3E19381E6A74E700E67241 /* SCNavTabBar.bundle */; };
 		CC3E19401E6A74E700E67241 /* SCNavTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E193A1E6A74E700E67241 /* SCNavTabBar.m */; };
-		CC3E19411E6A74E700E67241 /* SCNavTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E193C1E6A74E700E67241 /* SCNavTabBarController.m */; };
 		CC3E19421E6A74E700E67241 /* SCPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E193E1E6A74E700E67241 /* SCPopView.m */; };
 		CC3E19451E6C3A8600E67241 /* YWTopicScrView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E19441E6C3A8600E67241 /* YWTopicScrView.m */; };
 		CC4CDE461D9D04A0002A80B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE421D9D04A0002A80B0 /* main.m */; };
@@ -892,8 +891,6 @@
 		CC3E19381E6A74E700E67241 /* SCNavTabBar.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SCNavTabBar.bundle; sourceTree = "<group>"; };
 		CC3E19391E6A74E700E67241 /* SCNavTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNavTabBar.h; sourceTree = "<group>"; };
 		CC3E193A1E6A74E700E67241 /* SCNavTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNavTabBar.m; sourceTree = "<group>"; };
-		CC3E193B1E6A74E700E67241 /* SCNavTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNavTabBarController.h; sourceTree = "<group>"; };
-		CC3E193C1E6A74E700E67241 /* SCNavTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNavTabBarController.m; sourceTree = "<group>"; };
 		CC3E193D1E6A74E700E67241 /* SCPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopView.h; sourceTree = "<group>"; };
 		CC3E193E1E6A74E700E67241 /* SCPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPopView.m; sourceTree = "<group>"; };
 		CC3E19431E6C3A8600E67241 /* YWTopicScrView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWTopicScrView.h; sourceTree = "<group>"; };
@@ -2475,8 +2472,6 @@
 				CC3E19381E6A74E700E67241 /* SCNavTabBar.bundle */,
 				CC3E19391E6A74E700E67241 /* SCNavTabBar.h */,
 				CC3E193A1E6A74E700E67241 /* SCNavTabBar.m */,
-				CC3E193B1E6A74E700E67241 /* SCNavTabBarController.h */,
-				CC3E193C1E6A74E700E67241 /* SCNavTabBarController.m */,
 				CC3E193D1E6A74E700E67241 /* SCPopView.h */,
 				CC3E193E1E6A74E700E67241 /* SCPopView.m */,
 			);
@@ -2944,7 +2939,6 @@
 				18F363051E1FB19A0077D3CC /* NSString+Url.m in Sources */,
 				18F3650D1E1FB8940077D3CC /* YWSearchController.m in Sources */,
 				18A0758A1E3E20B100C4159D /* TopicController.m in Sources */,
-				CC3E19411E6A74E700E67241 /* SCNavTabBarController.m in Sources */,
 				18F4C7AD1E4849DE00BA3F43 /* MXPageControl.m in Sources */,
 				18F365121E1FB8940077D3CC /* YWSearchBar.m in Sources */,
 				CCFB0EA51DC4896500E19DB6 /* TaEntity.m in Sources */,
