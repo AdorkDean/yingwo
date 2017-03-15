@@ -121,6 +121,11 @@
 
 - (void)functionButtonPressed
 {
+    for (UIButton *button in _popView.buttons) {
+        [button setSelected:NO];
+    }
+    [(UIButton *)[_popView.buttons objectAtIndex:_currentItemIndex] setSelected:YES];
+    
     _popItemMenu = !_popItemMenu;
     [_delegate shouldPopNavgationItemMenu:_popItemMenu height:[self popMenuHeight]];
 }

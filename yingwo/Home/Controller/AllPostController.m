@@ -64,9 +64,11 @@ static int start_id = 0;
         _remindLabel.textAlignment              = NSTextAlignmentCenter;
         _remindLabel.textColor                  = [UIColor colorWithHexString:THEME_COLOR_1];
         _remindLabel.font                       = [UIFont systemFontOfSize:14];
-        _remindLabel.backgroundColor            = [UIColor colorWithWhite:1 alpha:0.7];
+        _remindLabel.backgroundColor            = [UIColor colorWithWhite:1 alpha:0.9];
         _remindLabel.layer.cornerRadius         = 15;
         _remindLabel.clipsToBounds              = YES;
+        _remindLabel.layer.borderColor          = [UIColor colorWithHexString:BACKGROUND_COLOR].CGColor;
+        _remindLabel.layer.borderWidth          = 1;
         _remindLabel.hidden                     = YES;
         
         [_remindLabel addTapAction:@selector(refreshNotification) target:self];
@@ -199,6 +201,36 @@ static int start_id = 0;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -- UIScrollViewDelegate
+
+//滑动100pt后隐藏TabBar
+//tabar隐藏滑动距离设置
+CGFloat scrollHiddenSpace = 5;
+CGFloat lastPosition = -4;
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView == self.tableView) {
+        
+        CGFloat currentPosition = scrollView.contentOffset.y;
+        if (currentPosition > -400 && currentPosition < 0) {
+            
+            [self showTabBar:YES withTabBar:self.tabBar animated:YES];
+            
+        }else if ( currentPosition - lastPosition > scrollHiddenSpace ) {
+            
+            lastPosition = currentPosition;
+            [self hidesTabBar:YES withTabBar:self.tabBar animated:YES];
+            
+        }else if(lastPosition - currentPosition > scrollHiddenSpace){
+            
+            lastPosition = currentPosition;
+            [self showTabBar:YES withTabBar:self.tabBar animated:YES];
+            
+        }
+    }
 }
 
 

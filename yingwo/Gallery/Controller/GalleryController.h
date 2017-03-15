@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, ContentCategory){
     
 };
 
+
 @interface GalleryController : BaseViewController
 
 @property (nonatomic, strong) UITableView      *tableView;
@@ -44,6 +45,9 @@ typedef NS_ENUM(NSInteger, ContentCategory){
 
 //能否点击话题标签,默认初始化为可点击
 @property (nonatomic, assign) BOOL             shouldClickTitle;
+
+- (void)showTabBar:(BOOL)yesOrNo withTabBar:(YWTabBar *)tabBar animated:(BOOL)animated;
+- (void)hidesTabBar:(BOOL)yesOrNo withTabBar:(YWTabBar *)tabBar animated:(BOOL)animated;
 
 @end
 

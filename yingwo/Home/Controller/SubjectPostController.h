@@ -17,7 +17,8 @@ typedef enum : NSInteger {
 
 @interface SubjectPostController : GalleryController
 
-@property (nonatomic, assign) int         subject_id;
+@property (nonatomic, strong) YWTabBar      *tabBar;
+@property (nonatomic, assign) int           subject_id;
 @property (nonatomic, strong) SubjectEntity *subjectEntity;
 
 @end

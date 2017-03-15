@@ -474,7 +474,9 @@
 //年级选择
 - (void)selectGrade {
     
-    self.grade = @"2012";
+    if (!self.grade) {
+        self.grade = @"2012";
+    }
     
     [self.backgroundSrcView addSubview:self.gradePickerView];
 

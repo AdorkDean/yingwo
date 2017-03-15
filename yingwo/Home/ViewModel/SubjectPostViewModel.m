@@ -11,14 +11,6 @@
 @implementation SubjectPostViewModel
 
 
-//- (void)setFieldSuccessBlock:(FieldSuccessBlock)fieldSuccessBlock
-//           fieldFailureBlock:(FieldFailureBlock)fieldFailureBlock {
-//    
-//    _fieldSuccessBlock = fieldSuccessBlock;
-//    _fieldFailureBlock = fieldFailureBlock;
-//    
-//}
-
 - (void)setupModelForFieldTopicOfCell:(YWTopicScrView *)topicScrView
                                 model:(SubjectEntity *)model{
     
@@ -53,10 +45,10 @@
     [YWRequestTool YWRequestCachedPOSTWithRequest:request
                                      successBlock:^(id content) {
                                          
-                                         StatusEntity *entity    = [StatusEntity mj_objectWithKeyValues:content];
-                                         NSArray *subjects = [SubjectEntity mj_objectArrayWithKeyValuesArray:entity.info];
+                                         StatusEntity *entity           = [StatusEntity mj_objectWithKeyValues:content];
+                                         NSArray *subjects              = [SubjectEntity mj_objectArrayWithKeyValuesArray:entity.info];
                                          
-                                         NSMutableArray *subjectIdArr = [NSMutableArray arrayWithCapacity:subjects.count];
+                                         NSMutableArray *subjectIdArr   = [NSMutableArray arrayWithCapacity:subjects.count];
                                          NSMutableArray *subjectNameArr = [NSMutableArray arrayWithCapacity:subjects.count];
                                          
                                          for (SubjectEntity *subject in subjects) {

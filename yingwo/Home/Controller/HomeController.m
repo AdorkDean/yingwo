@@ -81,6 +81,7 @@
 -(AllPostController *)allPostController {
     if (_allPostController == nil) {
         _allPostController = [[AllPostController alloc] init];
+        _allPostController.tabBar = self.tabBar;
     }
     return _allPostController;
 }
@@ -109,21 +110,19 @@
     [self.navigationController.view addSubview:self.drorDownView];
     
     [self.tabBar selectTabAtIndex:self.index];
-    
-    [self loadAllRecommendTopicList];
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.title = @"南京工业大学";
-    self.navigationItem.leftBarButtonItem  = self.leftBarButton;
+//    self.navigationItem.leftBarButtonItem  = self.leftBarButton;
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
     [self stopSystemPopGestureRecognizer];
     
-    [self showTabBar:YES animated:YES];
+    [self.allPostController showTabBar:YES withTabBar:self.tabBar animated:YES];
     
 }
 
@@ -137,25 +136,26 @@
         weakself.subjectNameArr = [subjectArr objectAtIndex:1];
         weakself.subjectEntityArr = [subjectArr lastObject];
         
-        [weakself initController];
+        [weakself initControllers];
 
     } errorBlock:^(id error) {
         
     }];
 }
 
-- (void)initController {
+- (void)initControllers {
 
     NSMutableArray *controllerArr       = [NSMutableArray array];
     self.allPostController.title        = @"全部";
     [controllerArr addObject:self.allPostController];
     
     for (int i = 0; i < self.subjectNameArr.count; i++) {
-        SubjectPostController *subjectPostVc = [[SubjectPostController alloc] init];
-        subjectPostVc.title = self.subjectNameArr[i];
-        subjectPostVc.subject_id = [self.subjectIdArr[i] intValue];
-        subjectPostVc.subjectEntity = self.subjectEntityArr[i];
-
+        SubjectPostController *subjectPostVc    = [[SubjectPostController alloc] init];
+        subjectPostVc.title                     = self.subjectNameArr[i];
+        subjectPostVc.subject_id                = [self.subjectIdArr[i] intValue];
+        subjectPostVc.subjectEntity             = self.subjectEntityArr[i];
+        subjectPostVc.tabBar                    = self.tabBar;
+        
         [controllerArr addObject:subjectPostVc];
     }
     
@@ -170,7 +170,7 @@
 - (void)initConfig {
     self.currentIndex = 1;
 
-    self.navTabBarColor = [UIColor whiteColor];
+    self.navTabBarColor = [UIColor colorWithWhite:1 alpha:0.95];
     self.navTabBarLineColor = [UIColor colorWithHexString:THEME_COLOR_1];
     self.navTabBarFont = [UIFont systemFontOfSize:15];
     self.canPopAllItemMenu = YES;
@@ -196,22 +196,28 @@
 
 - (void)viewInit {
     _canPopAllItemMenu = YES;
-    _navTabBar = [[SCNavTabBar alloc] initWithFrame:CGRectMake(DOT_COORDINATE, DOT_COORDINATE, SCREEN_WIDTH, NAV_TAB_BAR_HEIGHT) canPopAllItemMenu:_canPopAllItemMenu];
-    _navTabBar.delegate = self;
-    _navTabBar.backgroundColor = _navTabBarColor;
-    _navTabBar.lineColor = _navTabBarLineColor;
-    _navTabBar.itemTitles = self.subjectNameArr;
-    _navTabBar.arrowImage = _navTabBarArrowImage;
-    _navTabBar.titleFont = _navTabBarFont;
+    _navTabBar = [[SCNavTabBar alloc] initWithFrame:CGRectMake(DOT_COORDINATE,
+                                                               DOT_COORDINATE,
+                                                               SCREEN_WIDTH,
+                                                               NAV_TAB_BAR_HEIGHT) canPopAllItemMenu:_canPopAllItemMenu];
+    _navTabBar.delegate             = self;
+    _navTabBar.backgroundColor      = _navTabBarColor;
+    _navTabBar.lineColor            = _navTabBarLineColor;
+    _navTabBar.itemTitles           = self.subjectNameArr;
+    _navTabBar.arrowImage           = _navTabBarArrowImage;
+    _navTabBar.titleFont            = _navTabBarFont;
     [_navTabBar updateData];
     
-   _mainView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _navTabBar.frame.origin.y + _navTabBar.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - _navTabBar.frame.origin.y - _navTabBar.frame.size.height - STATUS_BAR_HEIGHT - NAVIGATION_BAR_HEIGHT)];
-    _mainView.delegate = self;
-    _mainView.pagingEnabled = YES;
-    _mainView.bounces = _mainViewBounces;
-    _mainView.showsHorizontalScrollIndicator = NO;
-    _mainView.showsVerticalScrollIndicator = NO;
-    _mainView.contentSize = CGSizeMake(SCREEN_WIDTH * self.subViewControllers.count, 0);
+   _mainView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
+                                                              _navTabBar.frame.origin.y + _navTabBar.frame.size.height,
+                                                              SCREEN_WIDTH,
+                                                              SCREEN_HEIGHT - _navTabBar.frame.origin.y - _navTabBar.frame.size.height - STATUS_BAR_HEIGHT - NAVIGATION_BAR_HEIGHT)];
+    _mainView.delegate                          = self;
+    _mainView.pagingEnabled                     = YES;
+    _mainView.bounces                           = _mainViewBounces;
+    _mainView.showsHorizontalScrollIndicator    = NO;
+    _mainView.showsVerticalScrollIndicator      = NO;
+    _mainView.contentSize                       = CGSizeMake(SCREEN_WIDTH * self.subViewControllers.count, 0);
     [self.view addSubview:_mainView];
     [self.view addSubview:_navTabBar];
     
@@ -224,33 +230,7 @@
 
 
 #pragma mark -- UIScrollViewDelegate
-
-//tabar隐藏滑动距离设置
-//滑动100pt后隐藏TabBar
-CGFloat scrollHiddenSpace = 5;
-CGFloat lastPosition = -4;
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-//    if (scrollView == self.tableView) {
-//        
-//        CGFloat currentPosition = scrollView.contentOffset.y;
-//        if (currentPosition > -400 && currentPosition < 0) {
-//            
-//            [self showTabBar:YES animated:YES];
-//            
-//        }else if ( currentPosition - lastPosition > scrollHiddenSpace ) {
-//            
-//            lastPosition = currentPosition;
-//            [self hidesTabBar:YES animated:YES];
-//            
-//        }else if(lastPosition - currentPosition > scrollHiddenSpace){
-//            
-//            lastPosition = currentPosition;
-//            [self showTabBar:YES animated:YES];
-//            
-//        }
-//    }
     
     self.currentIndex = scrollView.contentOffset.x / SCREEN_WIDTH;
     _navTabBar.currentItemIndex = self.currentIndex;
@@ -291,51 +271,6 @@ CGFloat lastPosition = -4;
     self.requestEntity.filter = (int)index;
 //    [self.tableView.mj_header beginRefreshing];
 }
-
-- (void)hidesTabBar:(BOOL)yesOrNo animated:(BOOL)animated {
-    
-    //动画隐藏
-    if (animated == yesOrNo) {
-        if (yesOrNo == YES) {
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                self.tabBar.center = CGPointMake(self.view.center.x, SCREEN_HEIGHT);
-            }];
-            
-        }
-    }else {
-        if (yesOrNo == YES)
-        {
-            self.tabBar.center = CGPointMake(self.view.center.x, SCREEN_HEIGHT);
-            
-        }
-        
-    }
-}
-
-- (void)showTabBar:(BOOL)yesOrNo animated:(BOOL)animated {
-    
-    //动画隐藏
-    if (animated == yesOrNo) {
-        if (yesOrNo == YES) {
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                self.tabBar.center = CGPointMake(self.view.center.x, SCREEN_HEIGHT-self.tabBar.height*2+4);
-            }];
-            
-        }
-    }else {
-        if (yesOrNo == YES)
-        {
-            self.tabBar.center = CGPointMake(self.view.center.x, SCREEN_HEIGHT-self.tabBar.height*2+4);
-            
-        }
-        
-    }
-    
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
