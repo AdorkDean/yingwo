@@ -1,6 +1,6 @@
 
 # ignore xcworkspace 
-yingwo.xcworkspace
+*.xcworkspace
 
 # ignore DS_Store 
 .DS_Store 
