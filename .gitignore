@@ -3,7 +3,8 @@
 yingwo. xcworkspace
 
 # ignore DS_Store 
-.DS_Store
+.DS_Store 
+*/.DS_Store 
 
 # ignore cocoaPods 
 /Pods
