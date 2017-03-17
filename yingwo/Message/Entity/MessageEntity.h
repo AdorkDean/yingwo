@@ -80,4 +80,6 @@ typedef NS_ENUM(NSInteger, TieZiType) {
 
 @property (nonatomic, copy) NSString *follow_comment_cnt;
 
+@property (nonatomic, assign) int    post_detail_create_time;
+
 @end

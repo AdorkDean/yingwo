@@ -101,7 +101,12 @@
     [super viewDidLoad];
     
     [self.view addSubview:self.discoveryPageView];
-    
+
+//    WeakSelf(self);
+//    self.pushBlock = ^(){        
+//        [weakself.discoveryPageView selectTabWithIndex:0 animate:YES];
+//        [weakself.moduleVc refreshTableView];
+//    };
     
     self.navigationItem.titleView = self.discoveryPageView.tabView;
     
@@ -153,5 +158,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)pushBlock {
+    [self.discoveryPageView selectTabWithIndex:0 animate:YES];
+    [self.hotDisVc refreshTableView];
+}
 @end

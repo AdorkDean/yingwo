@@ -8,6 +8,12 @@
 
 #import "YWTopicScrView.h"
 
+@interface YWTopicScrView()
+
+@property(nonatomic, strong) NSMutableArray *titles;
+
+@end
+
 @implementation YWTopicScrView
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -25,14 +31,19 @@
 
 -(void)addRecommendTopicWith:(NSArray *)entities {
     
+    self.titles = [[NSMutableArray alloc] initWithCapacity:entities.count + 1];
+    
     YWTitle *lastTopiclabel;
     self.contentSize                        = CGSizeMake(entities.count * 100, 0);
     
     YWTitle *firstLabel                     = [[YWTitle alloc] init];
     firstLabel.delegate                     = self;
-    firstLabel.backgroundColor              = [UIColor whiteColor];
+    firstLabel.backgroundColor              = [UIColor colorWithHexString:THEME_COLOR_1];
+    firstLabel.label.textColor              = [UIColor whiteColor];
     firstLabel.label.text                   = @"全部";
     firstLabel.tag                          = 0; //区分全部
+    
+    [self.titles addObject:firstLabel];
     
     [self addSubview:firstLabel];
     [firstLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,6 +65,7 @@
         topicLabel.label.text               = entity.title;
         topicLabel.topic_id                 = [entity.topic_id intValue];
         
+        [self.titles addObject:topicLabel];
         [self addSubview:topicLabel];
         
         if (!lastTopiclabel) {
@@ -84,6 +96,18 @@
 
 
 - (void)didSelectLabel:(YWTitle *)label withTopicId:(int)topicId {
+    
+    YWTitle *title;
+    for (int i = 0; i < self.titles.count; i++) {
+        title = [self.titles objectAtIndex:i];
+        title.backgroundColor = [UIColor whiteColor];
+        title.label.textColor = [UIColor colorWithHexString:THEME_COLOR_1];
+    }
+    
+    title = [self.titles objectAtIndex:label.tag];
+    title.backgroundColor = [UIColor colorWithHexString:THEME_COLOR_1];
+    title.label.textColor = [UIColor whiteColor];
+    
     if ([self.Scrdelegate respondsToSelector:@selector(topicDidSelectLabel:withTopicId:)]) {
         [self.Scrdelegate topicDidSelectLabel:label withTopicId:topicId];
     }

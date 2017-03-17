@@ -267,6 +267,7 @@
 //        self.homeVC.allPostController.type_post = YES;
 //        self.homeVC.allPostController.item_id = [item_id intValue];
         [self showDiscoveryPage];
+        [self.discoveryNavVC pushBlock];
     }
 }
 

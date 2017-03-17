@@ -35,7 +35,13 @@
 
 - (void)setupModelOfImageCell:(YWImageMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.imageBottomView.username.text = @"原贴:";
+    if ([model.source_type isEqualToString:@"POST"]) {
+        cell.imageBottomView.username.text = @"原贴:";
+    }
+    if ([model.source_type isEqualToString:@"REPLY"]) {
+        cell.imageBottomView.username.text = @"跟贴:";
+    }
+
     //原帖内容
     if (model.content.length == 0) {
         cell.imageBottomView.content.text = @"分享图片";
@@ -48,13 +54,18 @@
     [cell.imageBottomView.leftImageView sd_setImageWithURL:[NSURL URLWithString:model.img]
                                           placeholderImage:[UIImage imageNamed:@"yingwo"]];
     
-    
+
     
 }
 
 - (void)setupModelOfNoImageCell:(YWMessageCell *)cell model:(MessageEntity *)model {
     
-    cell.bottomView.username.text = @"原贴:";
+    if ([model.source_type isEqualToString:@"POST"]) {
+        cell.bottomView.username.text = @"原贴:";
+    }
+    if ([model.source_type isEqualToString:@"REPLY"]) {
+        cell.bottomView.username.text = @"跟贴:";
+    }
     //原帖内容
     if (model.content.length == 0) {
         cell.bottomView.content.text = @"分享图片";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="90W-dO-pB3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bXk-wR-ySL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -221,7 +221,6 @@
         <!--Discovery Nav Controller-->
         <scene sceneID="rUY-00-jak">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bmj-Bd-yaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DiscoveryController" id="7W1-mn-AvJ" customClass="DiscoveryNavController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vy2-ty-Udj"/>
@@ -237,13 +236,13 @@
                         <segue destination="vyd-Eb-hsg" kind="show" identifier="topicList" id="Ebf-1q-488"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bmj-Bd-yaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2210" y="3089"/>
         </scene>
         <!--Topic List Controller-->
         <scene sceneID="W4p-tL-dMh">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5AB-pP-jve" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="TopicListController" id="vyd-Eb-hsg" customClass="TopicListController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E9Z-Q0-xIP"/>
@@ -255,13 +254,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5AB-pP-jve" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2209" y="4131"/>
         </scene>
         <!--Home Controller-->
         <scene sceneID="z4F-X4-S7W">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VX9-S6-3wF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="HomeController" id="8Vz-V5-RZx" customClass="HomeController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J7q-2A-OqY"/>
@@ -273,14 +272,14 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VX9-S6-3wF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2970" y="3089"/>
         </scene>
-        <!--View Controller-->
+        <!--Topic Controller-->
         <scene sceneID="JBh-hL-zbH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AEd-Xd-06n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="ViewController" id="Wie-Sp-0Za" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="Wie-Sp-0Za" customClass="TopicController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YsX-UA-zj8"/>
                         <viewControllerLayoutGuide type="bottom" id="Lo1-5W-suQ"/>
@@ -291,8 +290,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AEd-Xd-06n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-114" y="5074"/>
+            <point key="canvasLocation" x="526" y="4773"/>
         </scene>
         <!--Personal Center Controller-->
         <scene sceneID="CiF-iJ-nFV">
@@ -324,7 +324,6 @@
         <!--Message Controller-->
         <scene sceneID="HX1-WO-auM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="X8X-WH-btd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MessageController" id="2ky-bB-eGw" customClass="MessageController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BBO-DF-KCp"/>
@@ -337,13 +336,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="6Jv-2G-YyI"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X8X-WH-btd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6615.1999999999998" y="3047.226386806597"/>
         </scene>
         <!--My Tie Zi Controller-->
         <scene sceneID="tIK-Sg-uab">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JiD-02-nD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MyTieZiController" id="eoW-Yd-MFa" customClass="MyTieZiController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zeN-0U-t2N"/>
@@ -355,13 +354,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JiD-02-nD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3801" y="4129"/>
         </scene>
         <!--My Like Controller-->
         <scene sceneID="d3g-FQ-Y1h">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R3G-Ds-cyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MyLikeController" id="qJU-CD-Qbb" customClass="MyLikeController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="G0G-vR-W3f"/>
@@ -373,13 +372,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R3G-Ds-cyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4732" y="4128"/>
         </scene>
         <!--My Comment Controller-->
         <scene sceneID="XSr-Tf-0BG">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ezw-8J-gT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MyCommentController" id="vHj-UI-hPh" customClass="MyCommentController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vDS-AW-jBv"/>
@@ -391,13 +390,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ezw-8J-gT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5585" y="4130"/>
         </scene>
         <!--My Relationship Base Controller-->
         <scene sceneID="KzI-A6-TbO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OWW-CU-fo3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MyRelationshipBaseController" id="511-WS-2xb" customClass="MyRelationshipBaseController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="puh-ny-c4I"/>
@@ -409,13 +408,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OWW-CU-fo3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6487" y="4131"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jiL-Tc-eUY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XvH-Zg-fez" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="DiscoveryNavController" automaticallyAdjustsScrollViewInsets="NO" id="bXk-wR-ySL" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gj6-FK-1yw">
@@ -427,13 +426,13 @@
                         <segue destination="7W1-mn-AvJ" kind="relationship" relationship="rootViewController" id="3TP-ri-dtv"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XvH-Zg-fez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1418.5" y="3089.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="a3h-RM-31n">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jrE-t2-i5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="MseeageNavController" automaticallyAdjustsScrollViewInsets="NO" id="90W-dO-pB3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dtQ-sv-cwK">
@@ -445,13 +444,14 @@
                         <segue destination="2ky-bB-eGw" kind="relationship" relationship="rootViewController" id="T8o-t0-6BE"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jrE-t2-i5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5778" y="3046"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nE7-UJ-8KA"/>
-        <segue reference="q7d-3y-7Bc"/>
         <segue reference="lkq-hJ-fr4"/>
+        <segue reference="q7d-3y-7Bc"/>
+        <segue reference="XB9-Kd-qqL"/>
     </inferredMetricsTieBreakers>
 </document>

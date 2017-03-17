@@ -218,5 +218,34 @@ static int start_id = 0;
 
 }
 
+#pragma mark -- UIScrollViewDelegate
+
+//滑动100pt后隐藏TabBar
+//tabar隐藏滑动距离设置
+CGFloat scrollHiddenSpace1 = 5;
+CGFloat lastPosition1 = -4;
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView == self.tableView) {
+        
+        CGFloat currentPosition = scrollView.contentOffset.y;
+        if (currentPosition > -400 && currentPosition < 0) {
+            
+                            [self showTabBar:YES withTabBar:self.tabBar animated:YES];
+            
+        }else if ( currentPosition - lastPosition1 > scrollHiddenSpace1 ) {
+            
+            lastPosition1 = currentPosition;
+                            [self hidesTabBar:YES withTabBar:self.tabBar animated:YES];
+            
+        }else if(lastPosition1 - currentPosition > scrollHiddenSpace1){
+            
+            lastPosition1 = currentPosition;
+                            [self showTabBar:YES withTabBar:self.tabBar animated:YES];
+            
+        }
+    }
+}
 
 @end

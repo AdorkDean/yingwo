@@ -10,21 +10,11 @@
 #import "FieldEntity.h"
 #import "YWTopicScrView.h"
 
-//typedef void(^FieldSuccessBlock)(id content);
-//typedef void(^FieldFailureBlock)(id failure);
-
 @interface SubjectPostViewModel : BaseViewModel
 
-//@property (nonatomic, strong) FieldSuccessBlock fieldSuccessBlock;
-//@property (nonatomic, strong) FieldFailureBlock fieldFailureBlock;
-
-//- (void)setFieldSuccessBlock:(FieldSuccessBlock)fieldSuccessBlock
-//           fieldFailureBlock:(FieldFailureBlock)fieldFailureBlock;
 
 - (void)setupModelForFieldTopicOfCell:(YWTopicScrView *)topicScrView
                                 model:(SubjectEntity *)model;
-
-
 
 /**
  获取推荐话题列表

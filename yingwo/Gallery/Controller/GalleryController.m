@@ -456,5 +456,49 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)hidesTabBar:(BOOL)yesOrNo withTabBar:(YWTabBar *)tabBar animated:(BOOL)animated {
+    
+    //动画隐藏
+    if (animated == yesOrNo) {
+        if (yesOrNo == YES) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+            }];
+            
+        }
+    }else {
+        if (yesOrNo == YES)
+        {
+            tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+            
+        }
+        
+    }
+}
+
+- (void)showTabBar:(BOOL)yesOrNo withTabBar:(YWTabBar *)tabBar animated:(BOOL)animated {
+    
+    //动画隐藏
+    if (animated == yesOrNo) {
+        if (yesOrNo == YES) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT-tabBar.height*2+4);
+            }];
+            
+        }
+    }else {
+        if (yesOrNo == YES)
+        {
+            tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT-tabBar.height*2+4);
+            
+        }
+        
+    }
+    
+}
+
 
 @end
