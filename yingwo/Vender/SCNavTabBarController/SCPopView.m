@@ -52,7 +52,7 @@
         [button addTarget:self action:@selector(itemPressed:) forControlEvents:UIControlEventTouchUpInside];
         button.layer.masksToBounds = YES;
         button.layer.cornerRadius = (ITEM_HEIGHT - 5) / 2;
-        button.layer.borderColor = [UIColor colorWithHexString:BACKGROUND_COLOR].CGColor;
+        button.layer.borderColor = [UIColor colorWithHexString:THEME_COLOR_5].CGColor;
         button.layer.borderWidth = 1;
         
         [self addSubview:button];
