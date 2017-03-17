@@ -66,17 +66,23 @@
     [self.commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.view.mas_top).offset(10);
+        make.left.equalTo(self.view.mas_left).offset(10);
+        make.right.equalTo(self.view.mas_right).offset(-10);
         make.centerX.equalTo(self.view);
     }];
     
     [self.favorBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.commentBtn.mas_bottom);
+        make.left.equalTo(self.view.mas_left).offset(10);
+        make.right.equalTo(self.view.mas_right).offset(-10);
         make.centerX.equalTo(self.view);
 
     }];
     
     [self.chatlistBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.favorBtn.mas_bottom);
+        make.left.equalTo(self.view.mas_left).offset(10);
+        make.right.equalTo(self.view.mas_right).offset(-10);
         make.centerX.equalTo(self.view);
 
 

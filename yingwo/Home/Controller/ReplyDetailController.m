@@ -407,8 +407,8 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     //监听键盘frame改变事件
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hadChangeKeyboard:)
-                                                 name:UIKeyboardDidChangeFrameNotification
+                                             selector:@selector(hadShowKeyboard:)
+                                                 name:UIKeyboardDidShowNotification
                                                object:nil];
     //监听键盘消失事件
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -458,6 +458,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     CGFloat originY;
     
     if (bottom == 0) {
+        
         originY = SCREEN_HEIGHT;
     }
     else
@@ -477,9 +478,10 @@ static NSString *replyCellIdentifier = @"replyCell";
     
 }
 
-- (void)hadChangeKeyboard:(NSNotification *) notes {
+- (void)hadShowKeyboard:(NSNotification *) notes {
     
     [self.commentView.messageTextView becomeFirstResponder] ;
+    
 
 }
 
@@ -491,7 +493,7 @@ static NSString *replyCellIdentifier = @"replyCell";
 
 - (void)willHiddKeyboard:(NSNotification *) notes{
     
-    self.tableView.frame = self.view.bounds;
+    self.tableView.frame  = self.view.bounds;
 }
 
 /**
@@ -577,7 +579,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     cell.moreBtn.delegate           = self;
     cell.contentLabel.delegate      = self;
     
-    
+
     return cell;
 }
 
@@ -892,6 +894,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     [self.viewModel setCommentReplySuccessBlock:^(StatusEntity *status) {
         
         if (status.status == YES) {
+            
             [weakself hiddenKeyboard];
             [weakself addCommentOnReplyTieZi];
         }
@@ -971,6 +974,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     self.commetparameter      = nil;
     self.selectCommentView     = nil;
     self.tableView.frame = self.view.bounds;
+    self.commentView.messageTextView.text = @"";
     
     [self.replyView.messageField resignFirstResponder];
     [self.commentView.messageTextView resignFirstResponder];

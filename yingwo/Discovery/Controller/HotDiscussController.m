@@ -69,14 +69,22 @@ static int start_id = 0;
     
     [self showLoadingViewOnFrontView:self.tableView];
     
-    WeakSelf(self);
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    WeakSelf(self);
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
         
-        weakself.requestEntity.start_id = start_id;
+        //偏移量开始为0
+        weakself.requestEntity.start_id  = start_id;
+        
         [weakself loadDataWithRequestEntity:self.requestEntity];
         
-    } ];
+    }];
+    
+    [header setHeaderRefreshWithCustomImages];
+    
+    self.tableView.mj_header = header;
+    
+
     
     self.tableView.mj_footer    = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
@@ -231,6 +239,10 @@ static int start_id = 0;
 
     
     
+}
+
+-(void)refreshTableView {
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {

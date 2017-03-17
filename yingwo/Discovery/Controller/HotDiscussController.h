@@ -11,11 +11,13 @@
 
 @protocol HotDiscussControllerDelegate;
 
-@interface HotDiscussController : BaseViewController
+@interface HotDiscussController : BaseViewController<ZJScrollPageViewChildVcDelegate>
 
 @property (nonatomic, strong) id<HotDiscussControllerDelegate> delegate;
 
 @property (nonatomic, strong) HotDiscussEntity    *model;
+
+- (void)refreshTableView;
 
 @end
 

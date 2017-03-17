@@ -48,8 +48,27 @@
             NSDictionary *parameter = nil;
             
             if (requestEntity.filter == 0) {
-                parameter = @{@"start_id":@(requestEntity.start_id),
-                               @"user_id":@(requestEntity.user_id)};
+                
+                if (requestEntity.subject_id != 0) {
+                    
+                    if (requestEntity.topic_id != 0) {
+                        
+                        parameter = @{@"start_id":@(requestEntity.start_id),
+                                      @"topic_id":@(requestEntity.topic_id)};
+                        
+                    }else {
+                        
+                        parameter = @{@"start_id":@(requestEntity.start_id),
+                                      @"subject_id":@(requestEntity.subject_id)};
+                        
+                    }
+                    
+                    
+                }else {
+                    
+                        parameter = @{@"start_id":@(requestEntity.start_id),
+                                        @"user_id":@(requestEntity.user_id)};
+                }
             }
             else
             {
@@ -113,19 +132,40 @@
         cell.titleView.title.topic_id   = 0;
         cell.titleView.title.label.text = @"新鲜事";
     }
-    
-    cell.contentText.text                            = model.content;
-    
+
+    cell.titleView.visitorNumLabel.visitorNumber = model.visitor_cnt;
+
+    cell.contentText.text                        = model.content;
+
     [cell.contentText replaceLinksWithPin];
 
-    cell.bottemView.nickname.text                    = model.user_name;
-    cell.bottemView.favourLabel.text                 = model.like_cnt;
-    cell.bottemView.messageLabel.text                = model.reply_cnt;
-    NSString *dataString                             = [NSString stringWithFormat:@"%d",model.create_time];
-    cell.bottemView.time.text                        = [NSDate getDateString:dataString];
-    cell.bottemView.favour.post_id                   = model.tieZi_id;
+    cell.bottemView.nickname.text                = model.user_name;
     
-    cell.bottemView.user_id                          = model.user_id;
+    if (model.user_sex == 1) {
+        
+        cell.bottemView.sexImageView.image = [UIImage imageNamed:@"man"];
+
+    }
+    else if (model.user_sex == 2) {
+        
+        cell.bottemView.sexImageView.image = [UIImage imageNamed:@"woman"];
+
+    }
+    cell.bottemView.favourLabel.text             = model.like_cnt;
+    cell.bottemView.messageLabel.text            = model.reply_cnt;
+    NSString *dataString                         = [NSString stringWithFormat:@"%d",model.create_time];
+    cell.bottemView.time.text                    = [NSDate getDateString:dataString];
+
+    if (model.academy_name.length != 0) {
+        cell.bottemView.academy.text  = [NSString stringWithFormat:@"[%@]",model.academy_name];
+    }
+    else
+    {
+        cell.bottemView.academy.text  = @"";
+    }
+    cell.bottemView.favour.post_id               = model.tieZi_id;
+
+    cell.bottemView.user_id                      = model.user_id;
     
     //如果非用户本人，不显示删除选项
     Customer *customer              = [User findCustomer];
@@ -160,8 +200,12 @@
         cell.middleView.imageCnt = model.imageURLArr.count;
     }
     
+    
+    [self removeExatraImageViewOnCell:cell ByCount:(int)model.imageURLArr.count];
+    
     [model.imageURLArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
         
+
         UIImageView *imageView = [cell viewWithTag:idx+1];
         
         [self showImageView:imageView WithURL:obj cutByCount:(int)model.imageURLArr.count];
@@ -298,7 +342,41 @@
     
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
+    
     [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"ying"]];
+
+}
+
+/*
+ * @prama cell
+ * @count count
+ **/
+- (void)removeExatraImageViewOnCell:(YWGalleryBaseCell *)cell ByCount:(int)count {
+    
+    
+    if (count == 5) {
+        
+        UIImageView *imageView_5 = [cell viewWithTag:5];
+        UIImageView *imageView_6 = [cell viewWithTag:6];
+        
+        imageView_5.image = nil;
+        imageView_6.image = nil;
+    }
+    else if (count == 7){
+        
+        UIImageView *imageView_8 = [cell viewWithTag:8];
+        UIImageView *imageView_9 = [cell viewWithTag:9];
+        
+        imageView_8.image = nil;
+        imageView_9.image = nil;
+        
+    }
+    else if (count == 8){
+       
+        UIImageView *imageView_9 = [cell viewWithTag:9];
+        
+        imageView_9.image = nil;
+    }
 }
 
 

@@ -10,12 +10,14 @@
 
 @protocol DiscoveryControllerDelegate ;
 
-@interface DiscoveryController : BaseViewController
+@interface DiscoveryController : BaseViewController<ZJScrollPageViewChildVcDelegate>
 
 @property (nonatomic, strong) RACCommand *fecthTopicEntityCommand;
 @property (nonatomic, assign) BOOL       isStopTableView;
 
 @property (nonatomic, strong) id<DiscoveryControllerDelegate>delegate;
+
+
 @end
 
 @protocol DiscoveryControllerDelegate <NSObject>

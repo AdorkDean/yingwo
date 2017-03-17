@@ -68,7 +68,8 @@
 }
 
 - (void)backToFarword {
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self customPopToForward];
 }
 
 - (void)showLoadingViewOnFrontView:(UIView *)frontView {
@@ -90,6 +91,66 @@
         self.indicatorView = nil;
     }];
     
+    
+}
+
+/*
+ animation.type = kCATransitionFade;
+ 
+ animation.type = kCATransitionPush;
+ 
+ animation.type = kCATransitionReveal;
+ 
+ animation.type = kCATransitionMoveIn;
+ 
+//左右翻转
+ animation.type = @"cube";
+ 
+ animation.type = @"suckEffect";
+ 
+ // 页面旋转
+ animation.type = @"oglFlip";
+
+ //水波纹
+ animation.type = @"rippleEffect";
+ 
+ //翻页
+ animation.type = @"pageCurl";
+ //翻页
+ animation.type = @"pageUnCurl";
+ 
+ //相机打开
+ animation.type = @"cameraIrisHollowOpen";
+ //相机关闭
+ animation.type = @"cameraIrisHollowClose";
+ 
+ */
+- (void)customPushToViewController:(UIViewController *)controller {
+    
+    CATransition *transition  = [CATransition animation];
+    transition.duration       = 1.0f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    transition.type           = @"rippleEffect";
+    transition.subtype        = kCATransitionFromRight;
+
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    
+}
+
+- (void)customPopToForward {
+    
+    CATransition *transition  = [CATransition animation];
+    transition.duration       = 1.0f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    transition.type           = @"rippleEffect";
+    transition.subtype        = kCATransitionFromRight;
+    
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 

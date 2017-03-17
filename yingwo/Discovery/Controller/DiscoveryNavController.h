@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+//typedef void(^pushBlock)(void);
 @interface DiscoveryNavController : BaseViewController
+
+//@property (nonatomic, strong)pushBlock pushBlock;
+- (void)pushBlock;
 
 @end

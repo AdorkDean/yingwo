@@ -35,4 +35,7 @@
 
 - (void)showFrontView:(UIView *)frontView;
 
+- (void)customPushToViewController:(UIViewController *)controller;
+
+- (void)customPopToForward;
 @end

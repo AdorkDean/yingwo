@@ -46,13 +46,31 @@ UIWindow *originWindow;
         self.backgroundColor = [UIColor clearColor];
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = 10;
-
+        
         self.mask_view.layer.shadowColor = [UIColor blackColor].CGColor;
         self.mask_view.layer.shadowOffset = CGSizeMake(0,0);
         self.mask_view.layer.shadowOpacity = 1;
         self.mask_view.layer.shadowRadius = 5;
         self.mask_view.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.mask_view.bounds cornerRadius:10].CGPath;
     }
+}
+
+-(NSString*) extractContentLabel:(NSDictionary*)userInfo{
+    NSObject *alertValue = userInfo[@"aps"][@"alert"];
+    
+    if ([alertValue isKindOfClass:[NSString class]])
+        return alertValue;
+    
+    
+    if ([alertValue isKindOfClass:[NSDictionary class]]){
+        NSString *locKey = ((NSDictionary*)alertValue)[@"loc-key"];
+        if (locKey != nil)
+            return NSLocalizedString(locKey,nil);
+    }
+    
+    @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:@"aps['alert'] field malformed: it is neither a string nor a dictionary with key 'loc-key'"
+                                 userInfo:nil];
 }
 
 -(void)setUserInfo:(NSDictionary *)userInfo{
@@ -74,10 +92,7 @@ UIWindow *originWindow;
         assert(0);
     }
     self.title_label.text   = appName;
-    if (self.userInfo[@"aps"][@"alert"][@"title"]) {
-      //之后有时间再加上
-    }
-    self.content_label.text = self.userInfo[@"aps"][@"alert"][@"body"];
+    self.content_label.text = [self extractContentLabel:userInfo];
     self.time_label.text = EBBannerViewTimeText;
     [originWindow makeKeyAndVisible];
     if (!self.isIos10) {
@@ -98,10 +113,10 @@ UIWindow *originWindow;
     UISwipeGestureRecognizer *swipeUpGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUpGesture:)];
     swipeUpGesture.direction = UISwipeGestureRecognizerDirectionUp;
     [self addGestureRecognizer:swipeUpGesture];
-
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [self addGestureRecognizer:tapGesture];
-
+    
     UISwipeGestureRecognizer *swipeDownGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDownGesture:)];
     swipeDownGesture.direction = UISwipeGestureRecognizerDirectionDown;
     [self addGestureRecognizer:swipeDownGesture];

@@ -81,6 +81,7 @@ static int start_id = 0;
         _topicSrcllView.backgroundColor              = [UIColor clearColor];
         _topicSrcllView.delegate                     = self;
         _topicSrcllView.showsVerticalScrollIndicator = NO;
+        _topicSrcllView.contentInset                 = UIEdgeInsetsMake(0, 0, 100, 0);
     }
     return _topicSrcllView;
 }
@@ -512,7 +513,7 @@ static int start_id = 0;
 - (void)didSelectCellWith:(TieZi *)model {
     
     DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
-    [self.navigationController pushViewController:detailVc animated:YES];
+    [self customPushToViewController:detailVc];
 }
 
 //- (void)didSelectBottomWith:(id)bottomView {

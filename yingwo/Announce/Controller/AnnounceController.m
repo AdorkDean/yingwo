@@ -218,7 +218,7 @@
     [self.announceTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.view).offset(10);
         make.right.equalTo(self.view.mas_right).offset(-10);
-        make.height.equalTo(@(self.view.height * 0.33));
+        make.height.equalTo(@(self.view.height * 0.38));
     }];
     
     [self.keyboardToolView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -296,6 +296,7 @@
 
 //键盘弹出后调用
 - (void)keyboardWillChangeFrame:(NSNotification *)note {
+    
     
     //获取键盘的frame
     CGRect endFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];

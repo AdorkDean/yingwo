@@ -12,7 +12,7 @@
 
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"field_id":@"id",
+    return @{@"subject_id":@"id",
              @"field_description":@"description",
              @"topicArr":@"topic_list"};
 }

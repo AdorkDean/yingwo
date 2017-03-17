@@ -63,12 +63,13 @@
                                  paramaters:(NSDictionary *)paramaters
                                     success:(void (^)(StatusEntity *status))success
                                     failure:(void (^)(NSString *error))failure {
+    
     NSString *fullUrl      = [BASE_URL stringByAppendingString:url];
     
     YWHTTPManager *manager = [YWHTTPManager manager];
     
     [YWNetworkTools loadCookiesWithKey:LOGIN_COOKIE];
-    
+
     [manager POST:fullUrl
        parameters:paramaters
          progress:nil

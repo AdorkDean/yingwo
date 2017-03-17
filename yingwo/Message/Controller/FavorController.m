@@ -101,6 +101,7 @@
     //评论点赞数转化
     messageEntity.reply_cnt = messageEntity.source_reply_cnt;
     messageEntity.like_cnt = messageEntity.source_like_cnt;
+    messageEntity.create_time = messageEntity.post_detail_create_time;
     
     //原贴
     if ([messageEntity.source_type isEqualToString:@"POST"]) {

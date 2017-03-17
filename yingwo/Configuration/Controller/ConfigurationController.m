@@ -13,6 +13,7 @@
 #import "ClauseViewController.h"
 #import "AboutUsController.h"
 #import "MessagePushController.h"
+#import "ChatController.h"
 
 @interface ConfigurationController ()
 
@@ -321,7 +322,10 @@
 }
 
 - (void)jumpToAdvicePage {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/ying-wo-xiao-yuan/id1106325073?mt=8"]];
+    ChatController *chatVc = [[ChatController alloc] initWithConversationType:ConversationType_PRIVATE
+                                                                     targetId:[NSString stringWithFormat:@"%d",453]];
+    chatVc.title = @"意见建议";
+    [self.navigationController pushViewController:chatVc animated:YES];
 }
 
 - (void)jumpToClausePage {

@@ -214,8 +214,7 @@ static int start_id = 0;
     
     WeakSelf(self);
     [self.viewModel setSuccessBlock:^(NSArray *subjectArr) {
-        
-    
+      
         weakself.subjectArr = subjectArr;
         [weakself.tableView reloadData];
         [SVProgressHUD dismiss];
@@ -297,6 +296,10 @@ static int start_id = 0;
             [self loadRecommendTopicListWithFieldId:1];
             [self.viewModel requestForField];
             
+            [_firstFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
+            [_secondFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
+            [_thirdFieldBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_2] forState:UIControlStateNormal];
+
         }
         else
         {
@@ -510,7 +513,6 @@ static int start_id = 0;
         
     }
 }
-
 
 
 - (void)didReceiveMemoryWarning {

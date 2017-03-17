@@ -83,9 +83,9 @@
 
     self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width*index, 0);
 
-    NSInteger imageCount          = self.imagesItem.URLArr.count > 9 ? 9 : self.imagesItem.URLArr.count;
+//    NSInteger imageCount          = self.imagesItem.URLArr.count > 9 ? 9 : self.imagesItem.URLArr.count;
     
-    for (int i = 0; i < imageCount; i++)
+    for (int i = 0; i < self.imagesItem.URLArr.count; i++)
     {
         CGRect rect = CGRectMake(self.scrollView.frame.size.width * i,
                                  0,

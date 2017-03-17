@@ -42,6 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"加载中···";
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18 weight:1]}];
 
@@ -50,10 +51,7 @@
                                                                                         style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(backToLastView)];
-    self.navigationItem.rightBarButtonItem      = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"share"]
-                                                                                   style:UIBarButtonItemStylePlain
-                                                                                  target:self
-                                                                                  action:nil];
+
     
     self.progressProxy                          = [[NJKWebViewProgress alloc] init];
     self.webView.delegate                       = self.progressProxy;
