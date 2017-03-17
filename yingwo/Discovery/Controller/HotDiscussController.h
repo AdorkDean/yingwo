@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) HotDiscussEntity    *model;
 
+- (void)refreshTableView;
+
 @end
 
 @protocol HotDiscussControllerDelegate <NSObject>

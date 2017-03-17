@@ -474,7 +474,9 @@
 //年级选择
 - (void)selectGrade {
     
-    self.grade = @"2012";
+    if (!self.grade) {
+        self.grade = @"2012";
+    }
     
     [self.backgroundSrcView addSubview:self.gradePickerView];
 
@@ -655,10 +657,11 @@
                                                                                    }
                                                                                    
                                                                                } failure:^(NSString *error) {
-                                                                                   
+                                                                                   [SVProgressHUD dismiss];
                                                                                }];
                                } failure:^{
                                    NSLog(@"完善信息失败");
+                                   [SVProgressHUD dismiss];
                                }];
     }
 }

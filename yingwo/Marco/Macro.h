@@ -151,6 +151,7 @@
 #define HOT_TOPIC_URL           @"/Topic/hot_list"
 #define RECOMMENDED_TOPIC_URL   @"/Topic/recommended_list_fixed"
 #define RECOMMEND_TOPIC_URL     @"/Topic/recommended_list"
+#define RECOMMEND_ALLTOPIC_URL  @"/Topic/recommended_list_v2" //获取所有
 
 //用户
 #define TA_INFO_URL             @"/User/info"

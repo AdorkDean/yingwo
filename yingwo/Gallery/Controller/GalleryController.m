@@ -57,6 +57,7 @@
         _tableView.backgroundColor     = [UIColor clearColor];
         _tableView.separatorStyle      = UITableViewCellSeparatorStyleNone;
         _tableView.sectionFooterHeight = 50;
+        _tableView.contentInset        = UIEdgeInsetsMake(0, 0, 160, 0);
 
         [_tableView registerClass:[YWGalleryCellOfNone class] forCellReuseIdentifier:@"noImageCell"];
         [_tableView registerClass:[YWGalleryCellOfOne class] forCellReuseIdentifier:@"oneImageCell"];
@@ -137,8 +138,15 @@
     
     self.shouldClickTitle = YES;
     
+//    if (self.type_topic == YES) {
+//        
+//        TopicController *topicVc = [[TopicController alloc] initWithTopicId:self.item_id];
+//        [self.navigationController pushViewController:topicVc animated:YES];
+//        
+//        self.type_topic = NO;
+//    }
+    
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -163,6 +171,7 @@
     cell.titleView.title.delegate               = self;
     cell.bottemView.favour.delegate             = self;
     cell.bottemView.more.delegate               = self;
+    cell.contentText.delegate                   = self;
     
     cell.titleView.title.userInteractionEnabled = self.shouldClickTitle;
     
@@ -214,6 +223,15 @@
 - (void)galleryView:(YWGalleryView *)galleryView removePageAtIndex:(NSInteger)pageIndex {
     galleryView = nil;
 }
+
+#pragma mark TTTAttributedLabelDelegate
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    MyWebViewController *webVc = [[MyWebViewController alloc] initWithURL:url];
+    
+    [self.navigationController pushViewController:webVc animated:YES];
+}
+
 
 #pragma YWSpringButtonDelegate
 
@@ -436,6 +454,50 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)hidesTabBar:(BOOL)yesOrNo withTabBar:(YWTabBar *)tabBar animated:(BOOL)animated {
+    
+    //动画隐藏
+    if (animated == yesOrNo) {
+        if (yesOrNo == YES) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+            }];
+            
+        }
+    }else {
+        if (yesOrNo == YES)
+        {
+            tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+            
+        }
+        
+    }
+}
+
+- (void)showTabBar:(BOOL)yesOrNo withTabBar:(YWTabBar *)tabBar animated:(BOOL)animated {
+    
+    //动画隐藏
+    if (animated == yesOrNo) {
+        if (yesOrNo == YES) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT-tabBar.height*2+4);
+            }];
+            
+        }
+    }else {
+        if (yesOrNo == YES)
+        {
+            tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT-tabBar.height*2+4);
+            
+        }
+        
+    }
+    
 }
 
 

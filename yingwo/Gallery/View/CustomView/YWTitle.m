@@ -53,6 +53,11 @@
         [self.delegate didSelectLabel:label];
     }
     
+    if([self.delegate respondsToSelector:@selector(didSelectLabel:withTopicId:)]) {
+        [self.delegate didSelectLabel:label withTopicId:self.topic_id];
+    }
+    
+    
 }
 
 @end

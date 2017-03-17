@@ -35,7 +35,6 @@
         _singleTapGreture.numberOfTouchesRequired = 1;
         //只能有一个手势存在
         [_singleTapGreture requireGestureRecognizerToFail:self.doubleTapGesture];
-        
 
     }
     

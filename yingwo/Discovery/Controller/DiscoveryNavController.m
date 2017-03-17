@@ -100,7 +100,6 @@
 - (void)layoutSubviews {
     
     
-    
     [self.view addSubview:self.discoveryPageView];
     
     self.navigationItem.titleView = self.discoveryPageView.tabView;
@@ -160,5 +159,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)pushBlock {
+    [self.discoveryPageView selectTabWithIndex:0 animate:YES];
+    [self.hotDisVc refreshTableView];
+}
 @end

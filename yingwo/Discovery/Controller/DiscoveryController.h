@@ -16,6 +16,8 @@
 @property (nonatomic, assign) BOOL       isStopTableView;
 
 @property (nonatomic, strong) id<DiscoveryControllerDelegate>delegate;
+
+
 @end
 
 @protocol DiscoveryControllerDelegate <NSObject>

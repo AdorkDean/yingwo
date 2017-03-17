@@ -233,6 +233,10 @@ static int start_id = 0;
     
 }
 
+-(void)refreshTableView {
+    [self.tableView.mj_header beginRefreshing];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

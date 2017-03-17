@@ -8,20 +8,30 @@
 
 #import "BaseViewController.h"
 #import "GalleryController.h"
+#import "AllPostController.h"
 
-@interface HomeController :GalleryController
+@class SCNavTabBar;
 
-@property (nonatomic, strong) YWTabBar        *tabBar;
+@interface HomeController :BaseViewController
 
-@property (nonatomic, assign) NSUInteger      index;
+@property (nonatomic, strong) YWTabBar              *tabBar;
+@property (nonatomic, strong) AllPostController     *allPostController;
 
-@property (nonatomic, assign) ContentCategory contentCategoryModel;
+@property (nonatomic, assign) ContentCategory       contentCategoryModel;
 
-@property (nonatomic, assign) BOOL            type_topic;
-@property (nonatomic, assign) BOOL            type_post;
-@property (nonatomic, assign) int             item_id;
+@property (nonatomic, assign) NSUInteger            index;
 
+@property (nonatomic, strong) UIScrollView          *mainView;
 
-//- (void)weatherPush;
+@property (nonatomic, assign)   BOOL        canPopAllItemMenu;       
+@property (nonatomic, assign)   BOOL        scrollAnimation;         
+@property (nonatomic, assign)   BOOL        mainViewBounces;         
+
+@property (nonatomic, strong)   NSArray     *subViewControllers;     
+
+@property (nonatomic, strong)   UIColor     *navTabBarColor;
+@property (nonatomic, strong)   UIFont      *navTabBarFont;
+@property (nonatomic, strong)   UIColor     *navTabBarLineColor;
+@property (nonatomic, strong)   UIImage     *navTabBarArrowImage;
 
 @end

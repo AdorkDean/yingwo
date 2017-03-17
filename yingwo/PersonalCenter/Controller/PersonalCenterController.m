@@ -356,6 +356,7 @@
                                     paramaters:paramters
                                        success:^(TaEntity *ta) {
                                            self.taEntity                = ta;
+                                           self.midView.friends.text    = ta.friend_cnt;
                                            self.midView.attentions.text = ta.like_cnt;
                                            self.midView.fans.text       = ta.liked_cnt;
                                        }

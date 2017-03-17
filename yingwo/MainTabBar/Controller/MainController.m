@@ -99,6 +99,7 @@
     
     [self.view addSubview:_mainTabBarController.view];
 
+    _homeVC.tabBar = _mainTabBarController.tabBar;
     _messageVC.bubBtn = _mainTabBarController.tabBar.bubBtn;
 }
 
@@ -110,7 +111,7 @@
     
     [self refreshBadgeState];
     
-    [self requestForBadgeCount];
+//    [self requestForBadgeCount];
 
     self.isOnHomePage = YES;
 }
@@ -158,13 +159,14 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-        self.homeVC.type_topic = YES;
-        self.homeVC.item_id = [item_id intValue];
+        self.homeVC.allPostController.type_topic = YES;
+        self.homeVC.allPostController.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-        self.homeVC.type_post = YES;
-        self.homeVC.item_id = [item_id intValue];
-        [self showHomePage];
+//        self.homeVC.allPostController.type_post = YES;
+//        self.homeVC.allPostController.item_id = [item_id intValue];
+        
+        [self showDiscoveryPage];
     }
     
 }
@@ -187,7 +189,8 @@
         
         if (self.isOnHomePage) {
             
-            [self refreshHomeVC];
+//            [self refreshHomeVC];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"刷新" object:nil];
             
         }else {
             self.isOnHomePage = YES;
@@ -257,13 +260,14 @@
     {
         [self showHomePage];
     }else if ([type isEqualToString:@"TOPIC"]) {
-        self.homeVC.type_topic = YES;
-        self.homeVC.item_id = [item_id intValue];
+        self.homeVC.allPostController.type_topic = YES;
+        self.homeVC.allPostController.item_id = [item_id intValue];
         [self showHomePage];
     }else if ([type isEqualToString:@"POST"]) {
-        self.homeVC.type_post = YES;
-        self.homeVC.item_id = [item_id intValue];
-        [self showHomePage];
+//        self.homeVC.allPostController.type_post = YES;
+//        self.homeVC.allPostController.item_id = [item_id intValue];
+        [self showDiscoveryPage];
+        [self.discoveryNavVC pushBlock];
     }
 }
 
@@ -274,6 +278,11 @@
     
 }
 
+- (void)showDiscoveryPage {
+    [_mainTabBarController displayViewAtIndex:1];
+    [_mainTabBarController.tabBar showSelectedTabBarAtIndex:1];
+    
+}
 - (void)showMessagePage {
     
     [_mainTabBarController displayViewAtIndex:3];
@@ -282,10 +291,10 @@
 }
 
 - (void)refreshHomeVC {
-    [self.homeVC.tableView.mj_header beginRefreshing];
+    [self.homeVC.allPostController.tableView.mj_header beginRefreshing];
     
     WeakSelf(self);
-    self.homeVC.tableView.mj_header.endRefreshingCompletionBlock = ^ {
+    self.homeVC.allPostController.tableView.mj_header.endRefreshingCompletionBlock = ^ {
         [weakself.mainTabBarController.tabBar.homeBtn clearBadge];
 
     };
@@ -320,9 +329,11 @@
             
             if (badgeModel == HomeBadgeModel) {
                 
-                weakself.mainTabBarController.tabBar.homeBtn.badgeCenterOffset = CGPointMake(-3, 3);
-                [weakself.mainTabBarController.tabBar.homeBtn showBadge];
+//                weakself.mainTabBarController.tabBar.homeBtn.badgeCenterOffset = CGPointMake(-3, 3);
+//                [weakself.mainTabBarController.tabBar.homeBtn showBadge];
 
+                weakself.homeVC.allPostController.remindLabelBlock(badgeCount);
+                
                 NSLog(@"home 里面有推送:%d",badgeCount);
             }
             else if (badgeModel == CommentBadgeModel) {

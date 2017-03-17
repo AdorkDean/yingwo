@@ -577,7 +577,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     cell.moreBtn.delegate           = self;
     cell.contentLabel.delegate      = self;
     
-    
+
     return cell;
 }
 
