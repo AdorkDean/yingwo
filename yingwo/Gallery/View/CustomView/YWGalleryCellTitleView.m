@@ -23,6 +23,7 @@
     
     _labelImage               = [[UIImageView alloc] init];
     _title                    = [[YWTitle alloc] init];
+    _visitorNumLabel          = [[YWVisitorNumLabel alloc] init];
 
     _labelImage.image         = [UIImage imageNamed:@"#_gray"];
     _title.label.text         = @"新鲜事";
@@ -30,6 +31,7 @@
 
     [self addSubview:_labelImage];
     [self addSubview:_title];
+    [self addSubview:_visitorNumLabel];
     
     [_labelImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
@@ -39,6 +41,13 @@
     [_title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_labelImage.mas_right).offset(10);
         make.centerY.equalTo(self);
+    }];
+    
+    [_visitorNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.right.equalTo(self.mas_right).offset(-5);
+        make.centerY.equalTo(_title);
+        
     }];
 
 }

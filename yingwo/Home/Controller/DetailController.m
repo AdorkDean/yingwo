@@ -433,7 +433,8 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
 - (void)jumpToTaPageWithUserId:(int)userId {
     
     TAController *taVc = [[TAController alloc] initWithUserId:userId];
-    [self.navigationController pushViewController:taVc animated:YES];
+    
+    [self customPushToViewController:taVc];
 }
 
 #pragma mark UITextfieldDelegate
@@ -706,7 +707,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         
         ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:[self.tieZiReplyArr objectAtIndex:indexPath.row]
                                                                         shouldShowKeyBoard:NO];
-        [self.navigationController pushViewController:replyVc animated:YES];
+        [self customPushToViewController:replyVc];
     }
 
 
@@ -718,7 +719,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     MyWebViewController *webVc = [[MyWebViewController alloc] initWithURL:url];
     
-    [self.navigationController pushViewController:webVc animated:YES];
+    [self customPushToViewController:webVc];
 }
 
 #pragma mark YWDetailTabeleViewDelegate
@@ -861,7 +862,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
         
     TopicController *topicVc = [[TopicController alloc] initWithTopicId:label.topic_id];
     
-    [self.navigationController pushViewController:topicVc animated:YES];
+    [self customPushToViewController:topicVc];
     
 }
 
@@ -871,7 +872,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
     TAController *taVc = [[TAController alloc] initWithUserId:masterView.user_id];
     
-    [self.navigationController pushViewController:taVc animated:YES];
+    [self customPushToViewController:taVc];
 }
 
 #pragma mark private method
@@ -928,7 +929,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:model
                                                                     shouldShowKeyBoard:self.isMessage];
     
-    [self.navigationController pushViewController:replyVc animated:YES];
+    [self customPushToViewController:replyVc];
 }
 
 - (void)didReceiveMemoryWarning {

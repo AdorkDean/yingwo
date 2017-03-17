@@ -16,22 +16,24 @@
 #import "DiscoveryController.h"
 #import "HotDiscussController.h"
 
-@interface DiscoveryNavController ()<SMPagerTabViewDelegate,HotDiscussControllerDelegate,DiscoveryControllerDelegate>
+@interface DiscoveryNavController ()<HotDiscussControllerDelegate,DiscoveryControllerDelegate,ZJScrollPageViewDelegate>
 
-@property (nonatomic, strong) SMPagerTabView               *discoveryPageView;
-@property (nonatomic, strong) NSMutableArray               *catalogVcArr;
+@property (strong, nonatomic) NSArray                         *titles;
+@property (strong, nonatomic) NSArray<UIViewController<ZJScrollPageViewChildVcDelegate> *> *childVcs;
+@property (weak, nonatomic  ) ZJScrollSegmentView             *segmentView;
+@property (weak, nonatomic  ) ZJContentView                   *contentView;
 
-@property (nonatomic, strong) DiscoveryController          *moduleVc;
-@property (nonatomic, strong) HotDiscussController         *hotDisVc;
+@property (nonatomic, strong) DiscoveryController             *moduleVc;
+@property (nonatomic, strong) HotDiscussController            *hotDisVc;
 
 //发现
-@property (nonatomic, strong) TieZi                        *tieZi;
+@property (nonatomic, strong) TieZi                           *tieZi;
 
 //版块
-@property (nonatomic, assign) int                          topic_id;
+@property (nonatomic, assign) int                             topic_id;
 
 //主题
-@property (nonatomic, copy  ) NSString                     *subject;
+@property (nonatomic, copy  ) NSString                        *subject;
 
 //主题id
 @property (nonatomic, assign) int                          subject_id;
@@ -39,44 +41,6 @@
 @end
 
 @implementation DiscoveryNavController
-
-- (SMPagerTabView *)discoveryPageView {
-    if (_discoveryPageView == nil) {
-        
-        _discoveryPageView          = [[SMPagerTabView alloc] initWithFrame:CGRectMake(0,
-                                                                                     0,
-                                                                                     SCREEN_WIDTH,
-                                                                                     SCREEN_HEIGHT)];
-        _discoveryPageView.delegate = self;
-        
-        
-        [self.catalogVcArr addObject:self.hotDisVc];
-        [self.catalogVcArr addObject:self.moduleVc];
-        
-        _discoveryPageView.tabButtonFontWeight = 3;
-        _discoveryPageView.tabButtonFontSize   = 18;
-        _discoveryPageView.tabButtonTitleColorForSelected = [UIColor whiteColor];
-        _discoveryPageView.tabButtonTitleColorForNormal = [UIColor whiteColor];
-        _discoveryPageView.selectedLineColor = [UIColor whiteColor];
-
-        //开始构建UI
-        [_discoveryPageView buildUI];
-                
-        _discoveryPageView.tabView.backgroundColor = [UIColor clearColor];
-        
-        //起始选择一个tab
-        [_discoveryPageView selectTabWithIndex:0 animate:NO];
-
-    }
-    return _discoveryPageView;
-}
-
-- (NSMutableArray *)catalogVcArr {
-    if (_catalogVcArr == nil) {
-        _catalogVcArr = [[NSMutableArray alloc] init];
-    }
-    return _catalogVcArr;
-}
 
 - (DiscoveryController *)moduleVc {
     
@@ -99,12 +63,12 @@
 
 - (void)layoutSubviews {
     
-    
-    
-    [self.view addSubview:self.discoveryPageView];
-    
-    self.navigationItem.titleView = self.discoveryPageView.tabView;
-    
+    //必要的设置, 如果没有设置可能导致内容显示不正常
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.childVcs = [self setupChildVc];
+    // 初始化
+    [self setupSegmentView];
+    [self setupContentView];
 }
 
 - (void)viewDidLoad {
@@ -114,25 +78,101 @@
 }
 
 
+- (void)setupSegmentView {
+    
+    ZJSegmentStyle *style = [[ZJSegmentStyle alloc] init];
+    style.showCover = YES;
+    // 不要滚动标题, 每个标题将平分宽度
+    style.scrollTitle = NO;
+    
+    // 渐变
+    style.gradualChangeTitleColor = YES;
+    // 遮盖背景颜色
+    style.coverBackgroundColor = [UIColor colorWithHexString:THEME_COLOR_1];
+    
+    //标题一般状态颜色 --- 注意一定要使用RGB空间的颜色值
+    style.normalTitleColor = [UIColor colorWithRed:34/255.0
+                                             green:211/255.0
+                                              blue:168/255.0
+                                             alpha:1.0];
+    
+    //标题选中状态颜色 --- 注意一定要使用RGB空间的颜色值
+    style.selectedTitleColor = [UIColor colorWithRed:255/255.0
+                                               green:255/255.0
+                                                blue:255/255.0
+                                               alpha:1];
+    
+    style.titleFont = [UIFont systemFontOfSize:16 weight:2];
 
-#pragma mark - DBPagerTabView Delegate
-- (NSUInteger)numberOfPagers:(SMPagerTabView *)view {
+    self.titles = @[@"热议", @"版块"];
     
-    return [self.catalogVcArr count];
+    // 注意: 一定要避免循环引用!!
+    __weak typeof(self) weakSelf = self;
+    ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc] initWithFrame:CGRectMake(0, 64, 120.0, 28.0)
+                                                                 segmentStyle:style
+                                                                     delegate:self
+                                                                       titles:self.titles
+                                                                titleDidClick:^(ZJTitleView *titleView,
+                                                                                NSInteger index) {
+                                                                    
+                                                                   
+        [weakSelf.contentView setContentOffSet:CGPointMake(weakSelf.contentView.bounds.size.width * index, 0.0) animated:YES];
+        
+    }];
+    // 自定义标题的样式
+    segment.layer.cornerRadius     = 14.0;
+    segment.backgroundColor        = [UIColor whiteColor];
+    
+    // 当然推荐直接设置背景图片的方式
+    // segment.backgroundImage = [UIImage imageNamed:@"extraBtnBackgroundImage"];
+    
+    self.segmentView = segment;
+    self.navigationItem.titleView = self.segmentView;
+    
 }
-- (UIViewController *)pagerViewOfPagers:(SMPagerTabView *)view indexOfPagers:(NSUInteger)number {
+
+- (void)setupContentView {
     
-    UIViewController *vc = self.catalogVcArr[number];
+    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 0, self.view.bounds.size.width, self.view.bounds.size.height) segmentView:self.segmentView parentViewController:self delegate:self];
+    self.contentView = content;
+    [self.view addSubview:self.contentView];
     
-    return vc;
 }
+
+- (NSArray *)setupChildVc {
+    
+    NSArray *childVcs = [NSArray arrayWithObjects:self.hotDisVc, self.moduleVc, nil];
+    return childVcs;
+}
+
+#pragma mark ZJScrollPageViewDelegate
+
+- (NSInteger)numberOfChildViewControllers {
+    return self.titles.count;
+}
+
+- (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index {
+    UIViewController<ZJScrollPageViewChildVcDelegate> *childVc = reuseViewController;
+    
+    if (!childVc) {
+        childVc = self.childVcs[index];
+    }
+    
+    return childVc;
+}
+
+
+-(CGRect)frameOfChildControllerForContainer:(UIView *)containerView {
+    return  CGRectInset(containerView.bounds, 20, 20);
+}
+
 
 #pragma mark HotDiscussControllerDelegate
 
 - (void)didSelectHotDisTopicWith:(HotDiscussEntity *)model {
     
     DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
-    [self.navigationController pushViewController:detailVc animated:YES];
+    [self customPushToViewController:detailVc];
     
     
 }
@@ -142,7 +182,7 @@
 - (void)didSelectModuleTopicWith:(int)topic_id {
     
     TopicController *topicVc = [[TopicController alloc] initWithTopicId:topic_id];
-    [self.navigationController pushViewController:topicVc animated:YES];
+    [self customPushToViewController:topicVc];
 
 }
 
@@ -151,7 +191,7 @@
     
     TopicListController *topicListVc = [[TopicListController alloc] initWithSubjectId:subjectId
                                                                            subjectName:subject];
-    [self.navigationController pushViewController:topicListVc animated:YES];
+    [self customPushToViewController:topicListVc];
 
 }
 

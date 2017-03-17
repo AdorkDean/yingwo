@@ -282,7 +282,8 @@ static CGFloat HeadViewHeight = 250;
 - (void)didSelectTopicWith:(int)topicId {
    
     TopicController *topicVc = [[TopicController alloc] initWithTopicId:topicId];
-    [self.navigationController pushViewController:topicVc animated:YES];
+    
+    [self customPushToViewController:topicVc];
 }
 
 #pragma mark - action
@@ -551,7 +552,7 @@ static CGFloat HeadViewHeight = 250;
     
     MyTopicController *taTopicVc = [[MyTopicController alloc] initWithUserId:self.ta_id title:@"TA的话题"];
     taTopicVc.isMyTopic = YES;
-    [self.navigationController pushViewController:taTopicVc animated:YES];
+    [self customPushToViewController:taTopicVc];
     
 }
 
@@ -559,7 +560,7 @@ static CGFloat HeadViewHeight = 250;
     
     
     MyTieZiController *userTieZi = [[MyTieZiController alloc] initWithUserId:self.ta_id title:@"TA的贴子"];
-    [self.navigationController pushViewController:userTieZi animated:YES];
+    [self customPushToViewController:userTieZi];
     
 }
 
@@ -570,7 +571,7 @@ static CGFloat HeadViewHeight = 250;
     relationVc.followCnt                     = [self.taEntity.like_cnt intValue];
     relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
 
-    [self.navigationController pushViewController:relationVc animated:YES];
+    [self customPushToViewController:relationVc];
 }
 
 - (void)jumpToTaFansPage {
@@ -580,14 +581,15 @@ static CGFloat HeadViewHeight = 250;
     relationVc.followCnt                     = [self.taEntity.like_cnt intValue];
     relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
 
-    [self.navigationController pushViewController:relationVc animated:YES];}
+    [self customPushToViewController:relationVc];
+}
 
 - (void)jumpToChatWithTa {
     
     ChatController *chatVc = [[ChatController alloc] initWithConversationType:ConversationType_PRIVATE
                                                                      targetId:[NSString stringWithFormat:@"%d",self.ta_id]];
     chatVc.title = self.taHeaderView.userName.text;
-    [self.navigationController pushViewController:chatVc animated:YES];
+    [self customPushToViewController:chatVc];
     
 }
 

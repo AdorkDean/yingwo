@@ -128,6 +128,8 @@
         cell.bottomView.favour.isSpringReply = NO;
     }
     
+    cell.imagesItem.URLArr = model.imageURLArr;
+
     //加载跟帖图片
     if (model.imageUrlEntityArr.count > 0) {
         

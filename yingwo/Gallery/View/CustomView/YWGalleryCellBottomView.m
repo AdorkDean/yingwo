@@ -25,8 +25,10 @@ const int FavourNumLabelTag = 101;
 - (void)createSubViews {
 
     _headImageView                     = [[UIImageView alloc] init];
+    _sexImageView                      = [[UIImageView alloc] init];
     _nickname                          = [[UILabel alloc] init];
     _time                              = [[UILabel alloc] init];
+    _academy                           = [[UILabel alloc] init];
 
     _favour                            = [[YWSpringButton alloc ] initWithSelectedImage:[UIImage imageNamed:@"heart_red"]
                                                                          andCancelImage:[UIImage imageNamed:@"heart_gray"]];
@@ -55,11 +57,13 @@ const int FavourNumLabelTag = 101;
     [_headImageView addTapAction:@selector(selectBottomView:) target:self];
     [_nickname addTapAction:@selector(selectBottomView:) target:self];
     
-    _nickname.font = [UIFont systemFontOfSize:12];
-    _time.font     = [UIFont systemFontOfSize:10];
+    _nickname.font          = [UIFont systemFontOfSize:12];
+    _time.font              = [UIFont systemFontOfSize:10];
+    _academy.font           = [UIFont systemFontOfSize:10];
 
     _nickname.textColor     = [UIColor colorWithHexString:THEME_COLOR_2];
     _time.textColor         = [UIColor colorWithHexString:THEME_COLOR_3];
+    _academy.textColor      = [UIColor colorWithHexString:THEME_COLOR_3];
     _favourLabel.textColor  = [UIColor colorWithHexString:THEME_COLOR_4];
     _messageLabel.textColor = [UIColor colorWithHexString:THEME_COLOR_4];
 
@@ -67,6 +71,8 @@ const int FavourNumLabelTag = 101;
     [self addSubview:_headImageView];
     [self addSubview:_nickname];
     [self addSubview:_time];
+    [self addSubview:_academy];
+    [self addSubview:_sexImageView];
     [self addSubview:_favour];
     [self addSubview:_message];
     [self addSubview:_more];
@@ -86,9 +92,19 @@ const int FavourNumLabelTag = 101;
         make.centerY.equalTo(_headImageView.mas_centerY).offset(-7.5);
     }];
     
+    [_sexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_nickname);
+        make.left.equalTo(_nickname.mas_right).offset(5);
+    }];
+    
     [_time mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_nickname.mas_left);
         make.top.equalTo(_nickname.mas_bottom).offset(7.5);
+    }];
+    
+    [_academy mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_time);
+        make.left.equalTo(_time.mas_right).offset(5);
     }];
     
     [_more mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -113,19 +113,40 @@
         cell.titleView.title.topic_id   = 0;
         cell.titleView.title.label.text = @"新鲜事";
     }
-    
-    cell.contentText.text                            = model.content;
-    
+
+    cell.titleView.visitorNumLabel.visitorNumber = model.visitor_cnt;
+
+    cell.contentText.text                        = model.content;
+
     [cell.contentText replaceLinksWithPin];
 
-    cell.bottemView.nickname.text                    = model.user_name;
-    cell.bottemView.favourLabel.text                 = model.like_cnt;
-    cell.bottemView.messageLabel.text                = model.reply_cnt;
-    NSString *dataString                             = [NSString stringWithFormat:@"%d",model.create_time];
-    cell.bottemView.time.text                        = [NSDate getDateString:dataString];
-    cell.bottemView.favour.post_id                   = model.tieZi_id;
+    cell.bottemView.nickname.text                = model.user_name;
     
-    cell.bottemView.user_id                          = model.user_id;
+    if (model.user_sex == 1) {
+        
+        cell.bottemView.sexImageView.image = [UIImage imageNamed:@"man"];
+
+    }
+    else if (model.user_sex == 2) {
+        
+        cell.bottemView.sexImageView.image = [UIImage imageNamed:@"woman"];
+
+    }
+    cell.bottemView.favourLabel.text             = model.like_cnt;
+    cell.bottemView.messageLabel.text            = model.reply_cnt;
+    NSString *dataString                         = [NSString stringWithFormat:@"%d",model.create_time];
+    cell.bottemView.time.text                    = [NSDate getDateString:dataString];
+
+    if (model.academy_name.length != 0) {
+        cell.bottemView.academy.text  = [NSString stringWithFormat:@"[%@]",model.academy_name];
+    }
+    else
+    {
+        cell.bottemView.academy.text  = @"";
+    }
+    cell.bottemView.favour.post_id               = model.tieZi_id;
+
+    cell.bottemView.user_id                      = model.user_id;
     
     //如果非用户本人，不显示删除选项
     Customer *customer              = [User findCustomer];

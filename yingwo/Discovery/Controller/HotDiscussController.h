@@ -11,7 +11,7 @@
 
 @protocol HotDiscussControllerDelegate;
 
-@interface HotDiscussController : BaseViewController
+@interface HotDiscussController : BaseViewController<ZJScrollPageViewChildVcDelegate>
 
 @property (nonatomic, strong) id<HotDiscussControllerDelegate> delegate;
 

@@ -107,20 +107,33 @@ static int start_id = 0;
 - (void)addRefreshForTableView {
     
     [self showLoadingViewOnFrontView:self.tableView];
-    
+//    
+//    self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        
+//        //偏移量开始为0
+//        self.requestEntity.start_id  = start_id;
+//        
+//        [weakself loadDataWithRequestEntity:self.requestEntity];
+//    }];
+//    
     WeakSelf(self);
-    self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
         
         //偏移量开始为0
-        self.requestEntity.start_id  = start_id;
+        weakself.requestEntity.start_id  = start_id;
         
         [weakself loadDataWithRequestEntity:self.requestEntity];
+
     }];
+    
+    [header setHeaderRefreshWithCustomImages];
+    
+    self.tableView.mj_header = header;
     
     self.tableView.mj_footer    = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
         [weakself loadMoreDataWithRequestEntity:self.requestEntity];
-        
+
     }];
     
     [self.tableView.mj_header beginRefreshing];

@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "YWTitle.h"
+#import "YWVisitorNumLabel.h"
 
 @interface YWGalleryCellTitleView : UIView
 
-@property (nonatomic, strong) UIImageView *labelImage;
-@property (nonatomic, strong) YWTitle     *title;
+@property (nonatomic, strong) UIImageView       *labelImage;
+@property (nonatomic, strong) YWTitle           *title;
+
+@property (nonatomic, strong) YWVisitorNumLabel *visitorNumLabel;
 
 @end

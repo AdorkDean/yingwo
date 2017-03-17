@@ -59,6 +59,7 @@
 		188328701E57DFEA0019CB09 /* YWTaTieziView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883286F1E57DFEA0019CB09 /* YWTaTieziView.m */; };
 		188B349D1E41B44500C9777E /* ReplyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B349C1E41B44500C9777E /* ReplyViewModel.m */; };
 		188B34A01E41DCC700C9777E /* TopicEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B349F1E41DCC700C9777E /* TopicEntity.m */; };
+		188E611D1E713693005A90AB /* MJRefreshGifHeader+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E611C1E713693005A90AB /* MJRefreshGifHeader+GIF.m */; };
 		188F12971D40BF6C0013B0A0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 188F12961D40BF6C0013B0A0 /* README.md */; };
 		189342581E3CD17A00131AFB /* YWNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 189342571E3CD17A00131AFB /* YWNetworkCache.m */; };
 		18A075881E3E20B100C4159D /* HotTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A075761E3E20B100C4159D /* HotTopicController.m */; };
@@ -107,6 +108,15 @@
 		18D243A41D7D61C400DAC374 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243A21D7D61C400DAC374 /* Customer.m */; };
 		18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243B81D7D8CD800DAC374 /* Test+CoreDataProperties.m */; };
 		18D243BC1D7D8CD800DAC374 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D243BA1D7D8CD800DAC374 /* Test.m */; };
+		18D450F61E6C1CAE001757C9 /* YWVisitorNumLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D450F51E6C1CAE001757C9 /* YWVisitorNumLabel.m */; };
+		18D451091E6C27AE001757C9 /* UIView+ZJFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D450F91E6C27AE001757C9 /* UIView+ZJFrame.m */; };
+		18D4510A1E6C27AE001757C9 /* UIViewController+ZJScrollPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D450FB1E6C27AE001757C9 /* UIViewController+ZJScrollPageController.m */; };
+		18D4510B1E6C27AE001757C9 /* ZJCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D450FD1E6C27AE001757C9 /* ZJCollectionView.m */; };
+		18D4510C1E6C27AE001757C9 /* ZJContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D450FF1E6C27AE001757C9 /* ZJContentView.m */; };
+		18D4510D1E6C27AE001757C9 /* ZJScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D451011E6C27AE001757C9 /* ZJScrollPageView.m */; };
+		18D4510E1E6C27AE001757C9 /* ZJScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D451041E6C27AE001757C9 /* ZJScrollSegmentView.m */; };
+		18D4510F1E6C27AE001757C9 /* ZJSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D451061E6C27AE001757C9 /* ZJSegmentStyle.m */; };
+		18D451101E6C27AE001757C9 /* ZJTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D451081E6C27AE001757C9 /* ZJTitleView.m */; };
 		18E6AC961E210BC1008B2DF9 /* MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6AC951E210BC1008B2DF9 /* MD5.m */; };
 		18F362FE1E1FB19A0077D3CC /* NSArray+(String).m in Sources */ = {isa = PBXBuildFile; fileRef = 18F362D81E1FB19A0077D3CC /* NSArray+(String).m */; };
 		18F362FF1E1FB19A0077D3CC /* NSDate+Grade.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F362DA1E1FB19A0077D3CC /* NSDate+Grade.m */; };
@@ -408,6 +418,8 @@
 		188B349C1E41B44500C9777E /* ReplyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyViewModel.m; sourceTree = "<group>"; };
 		188B349E1E41DCC700C9777E /* TopicEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicEntity.h; sourceTree = "<group>"; };
 		188B349F1E41DCC700C9777E /* TopicEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicEntity.m; sourceTree = "<group>"; };
+		188E611B1E713693005A90AB /* MJRefreshGifHeader+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MJRefreshGifHeader+GIF.h"; sourceTree = "<group>"; };
+		188E611C1E713693005A90AB /* MJRefreshGifHeader+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MJRefreshGifHeader+GIF.m"; sourceTree = "<group>"; };
 		188F12961D40BF6C0013B0A0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		189342561E3CD17A00131AFB /* YWNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWNetworkCache.h; sourceTree = "<group>"; };
 		189342571E3CD17A00131AFB /* YWNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWNetworkCache.m; sourceTree = "<group>"; };
@@ -504,6 +516,25 @@
 		18D243B81D7D8CD800DAC374 /* Test+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Test+CoreDataProperties.m"; path = "CoreData/Test+CoreDataProperties.m"; sourceTree = "<group>"; };
 		18D243B91D7D8CD800DAC374 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Test.h; path = CoreData/Test.h; sourceTree = "<group>"; };
 		18D243BA1D7D8CD800DAC374 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Test.m; path = CoreData/Test.m; sourceTree = "<group>"; };
+		18D450F41E6C1CAE001757C9 /* YWVisitorNumLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWVisitorNumLabel.h; sourceTree = "<group>"; };
+		18D450F51E6C1CAE001757C9 /* YWVisitorNumLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWVisitorNumLabel.m; sourceTree = "<group>"; };
+		18D450F81E6C27AE001757C9 /* UIView+ZJFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ZJFrame.h"; sourceTree = "<group>"; };
+		18D450F91E6C27AE001757C9 /* UIView+ZJFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZJFrame.m"; sourceTree = "<group>"; };
+		18D450FA1E6C27AE001757C9 /* UIViewController+ZJScrollPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZJScrollPageController.h"; sourceTree = "<group>"; };
+		18D450FB1E6C27AE001757C9 /* UIViewController+ZJScrollPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZJScrollPageController.m"; sourceTree = "<group>"; };
+		18D450FC1E6C27AE001757C9 /* ZJCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJCollectionView.h; sourceTree = "<group>"; };
+		18D450FD1E6C27AE001757C9 /* ZJCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJCollectionView.m; sourceTree = "<group>"; };
+		18D450FE1E6C27AE001757C9 /* ZJContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJContentView.h; sourceTree = "<group>"; };
+		18D450FF1E6C27AE001757C9 /* ZJContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJContentView.m; sourceTree = "<group>"; };
+		18D451001E6C27AE001757C9 /* ZJScrollPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJScrollPageView.h; sourceTree = "<group>"; };
+		18D451011E6C27AE001757C9 /* ZJScrollPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJScrollPageView.m; sourceTree = "<group>"; };
+		18D451021E6C27AE001757C9 /* ZJScrollPageViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJScrollPageViewDelegate.h; sourceTree = "<group>"; };
+		18D451031E6C27AE001757C9 /* ZJScrollSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJScrollSegmentView.h; sourceTree = "<group>"; };
+		18D451041E6C27AE001757C9 /* ZJScrollSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJScrollSegmentView.m; sourceTree = "<group>"; };
+		18D451051E6C27AE001757C9 /* ZJSegmentStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJSegmentStyle.h; sourceTree = "<group>"; };
+		18D451061E6C27AE001757C9 /* ZJSegmentStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJSegmentStyle.m; sourceTree = "<group>"; };
+		18D451071E6C27AE001757C9 /* ZJTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJTitleView.h; sourceTree = "<group>"; };
+		18D451081E6C27AE001757C9 /* ZJTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJTitleView.m; sourceTree = "<group>"; };
 		18E6AC941E210BC1008B2DF9 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
 		18E6AC951E210BC1008B2DF9 /* MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5.m; sourceTree = "<group>"; };
 		18F362D71E1FB19A0077D3CC /* NSArray+(String).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+(String).h"; sourceTree = "<group>"; };
@@ -1501,6 +1532,30 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
+		18D450F71E6C27AE001757C9 /* ZJScrollPageView */ = {
+			isa = PBXGroup;
+			children = (
+				18D450F81E6C27AE001757C9 /* UIView+ZJFrame.h */,
+				18D450F91E6C27AE001757C9 /* UIView+ZJFrame.m */,
+				18D450FA1E6C27AE001757C9 /* UIViewController+ZJScrollPageController.h */,
+				18D450FB1E6C27AE001757C9 /* UIViewController+ZJScrollPageController.m */,
+				18D450FC1E6C27AE001757C9 /* ZJCollectionView.h */,
+				18D450FD1E6C27AE001757C9 /* ZJCollectionView.m */,
+				18D450FE1E6C27AE001757C9 /* ZJContentView.h */,
+				18D450FF1E6C27AE001757C9 /* ZJContentView.m */,
+				18D451001E6C27AE001757C9 /* ZJScrollPageView.h */,
+				18D451011E6C27AE001757C9 /* ZJScrollPageView.m */,
+				18D451021E6C27AE001757C9 /* ZJScrollPageViewDelegate.h */,
+				18D451031E6C27AE001757C9 /* ZJScrollSegmentView.h */,
+				18D451041E6C27AE001757C9 /* ZJScrollSegmentView.m */,
+				18D451051E6C27AE001757C9 /* ZJSegmentStyle.h */,
+				18D451061E6C27AE001757C9 /* ZJSegmentStyle.m */,
+				18D451071E6C27AE001757C9 /* ZJTitleView.h */,
+				18D451081E6C27AE001757C9 /* ZJTitleView.m */,
+			);
+			path = ZJScrollPageView;
+			sourceTree = "<group>";
+		};
 		18F362D41E1FB19A0077D3CC /* Catagory */ = {
 			isa = PBXGroup;
 			children = (
@@ -1544,6 +1599,8 @@
 				18F362FC1E1FB19A0077D3CC /* User+CURD.m */,
 				1843D08D1E5DDDD7005977E3 /* TTTAttributedLabel+Link.h */,
 				1843D08E1E5DDDD7005977E3 /* TTTAttributedLabel+Link.m */,
+				188E611B1E713693005A90AB /* MJRefreshGifHeader+GIF.h */,
+				188E611C1E713693005A90AB /* MJRefreshGifHeader+GIF.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -1641,6 +1698,8 @@
 				18F3633F1E1FB64E0077D3CC /* YWSpringButton.m */,
 				18F363401E1FB64E0077D3CC /* YWTitle.h */,
 				18F363411E1FB64E0077D3CC /* YWTitle.m */,
+				18D450F41E6C1CAE001757C9 /* YWVisitorNumLabel.h */,
+				18D450F51E6C1CAE001757C9 /* YWVisitorNumLabel.m */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -2140,6 +2199,7 @@
 		18F4C62F1E4849DD00BA3F43 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				18D450F71E6C27AE001757C9 /* ZJScrollPageView */,
 				18F4C7C81E4854B200BA3F43 /* YWShare */,
 				18F4C6301E4849DD00BA3F43 /* CatZanButton */,
 				18F4C6CF1E4849DE00BA3F43 /* EBForeNotification */,
@@ -2682,6 +2742,7 @@
 				18F365101E1FB8940077D3CC /* GradePickerView.m in Sources */,
 				18F3639A1E1FB87A0077D3CC /* LoginController.m in Sources */,
 				18A075881E3E20B100C4159D /* HotTopicController.m in Sources */,
+				18D451091E6C27AE001757C9 /* UIView+ZJFrame.m in Sources */,
 				1870DC791E1FC352008767A5 /* MyWebViewController.m in Sources */,
 				18B155871E46E71100E355D0 /* RongCloudTools.m in Sources */,
 				18F363A01E1FB87A0077D3CC /* VerificationController.m in Sources */,
@@ -2690,6 +2751,7 @@
 				18F364D41E1FB8940077D3CC /* TieZiReply.m in Sources */,
 				CC4CDE461D9D04A0002A80B0 /* main.m in Sources */,
 				18F364BB1E1FB8940077D3CC /* YWConfigurationCell.m in Sources */,
+				188E611D1E713693005A90AB /* MJRefreshGifHeader+GIF.m in Sources */,
 				189342581E3CD17A00131AFB /* YWNetworkCache.m in Sources */,
 				18F4C7BB1E4849DE00BA3F43 /* TZPhotoPickerController.m in Sources */,
 				18F3635F1E1FB64E0077D3CC /* YWGalleryCellOfMoreNine.m in Sources */,
@@ -2704,6 +2766,7 @@
 				1871DD291E41B17E00C6BF30 /* YWDetailCommentView.m in Sources */,
 				18FE9D931E529D3A000E162F /* FollowTieController.m in Sources */,
 				CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */,
+				18D450F61E6C1CAE001757C9 /* YWVisitorNumLabel.m in Sources */,
 				18F364FF1E1FB8940077D3CC /* MessageController.m in Sources */,
 				18A075D31E3E236500C4159D /* YWDiscoveryBaseCell.m in Sources */,
 				18F4C7DD1E4854B200BA3F43 /* YWCustomSharePlatform.m in Sources */,
@@ -2776,10 +2839,12 @@
 				18F4C7A71E4849DE00BA3F43 /* UIImage+CMWebP.m in Sources */,
 				18F3630B1E1FB19A0077D3CC /* UIImage+Orientation.m in Sources */,
 				1870DC921E1FCC89008767A5 /* YWQiNiuUploadHelper.m in Sources */,
+				18D4510B1E6C27AE001757C9 /* ZJCollectionView.m in Sources */,
 				182CACF51E49E9F1000CE59F /* UMAnalyticsTools.m in Sources */,
 				18A075891E3E20B100C4159D /* NewTopicController.m in Sources */,
 				18A0758B1E3E20B100C4159D /* TopicItemController.m in Sources */,
 				18F4C7A11E4849DE00BA3F43 /* CMSDWebImagePrefetcher.m in Sources */,
+				18D4510E1E6C27AE001757C9 /* ZJScrollSegmentView.m in Sources */,
 				18A075D21E3E236500C4159D /* YWBannerTableViewCell.m in Sources */,
 				18F4C7C51E4849DE00BA3F43 /* UIView+WZLBadge.m in Sources */,
 				18F364FA1E1FB8940077D3CC /* DetailViewModel.m in Sources */,
@@ -2828,6 +2893,7 @@
 				18D243A41D7D61C400DAC374 /* Customer.m in Sources */,
 				18F3636F1E1FB64F0077D3CC /* YWMiddleViewOfMoreNine.m in Sources */,
 				18465DF31E4E044C00E16A4D /* MainController.m in Sources */,
+				18D4510A1E6C27AE001757C9 /* UIViewController+ZJScrollPageController.m in Sources */,
 				18D100DB1D3E153400D75968 /* User.m in Sources */,
 				18F4C79D1E4849DE00BA3F43 /* CMSDWebImageDecoder.m in Sources */,
 				18A075CD1E3E236500C4159D /* HotDiscussEntity.m in Sources */,
@@ -2854,12 +2920,14 @@
 				18F365151E1FB8940077D3CC /* BaseInfoController.m in Sources */,
 				18F3635B1E1FB64E0077D3CC /* GalleryController.m in Sources */,
 				18F365041E1FB8940077D3CC /* YWMessageCell.m in Sources */,
+				18D451101E6C27AE001757C9 /* ZJTitleView.m in Sources */,
 				18F4C7A21E4849DE00BA3F43 /* MKAnnotationView+CMWebCache.m in Sources */,
 				18F365141E1FB8940077D3CC /* PerfectViewModel.m in Sources */,
 				CCF64E871DC0E994009B4B21 /* YWTaTopicListView.m in Sources */,
 				18F363A21E1FB87A0077D3CC /* SmsMessage.m in Sources */,
 				1870DC701E1FC352008767A5 /* UINavigationBar+HideBottomLine.m in Sources */,
 				18F4C7971E4849DE00BA3F43 /* HYViewController.m in Sources */,
+				18D4510F1E6C27AE001757C9 /* ZJSegmentStyle.m in Sources */,
 				1843D08F1E5DDDD7005977E3 /* TTTAttributedLabel+Link.m in Sources */,
 				18F3630A1E1FB19A0077D3CC /* UIImage+blur.m in Sources */,
 				18D243BB1D7D8CD800DAC374 /* Test+CoreDataProperties.m in Sources */,
@@ -2922,6 +2990,7 @@
 				182CACF91E49EBBA000CE59F /* UMessageTools.m in Sources */,
 				18F3636E1E1FB64F0077D3CC /* YWMiddleViewOfFour.m in Sources */,
 				1870DC911E1FCC89008767A5 /* YWAvatarBrowserHelper.m in Sources */,
+				18D4510C1E6C27AE001757C9 /* ZJContentView.m in Sources */,
 				18F363641E1FB64F0077D3CC /* YWGalleryCellOfThree.m in Sources */,
 				18F365051E1FB8940077D3CC /* YWMessageImageBottomView.m in Sources */,
 				18F362FF1E1FB19A0077D3CC /* NSDate+Grade.m in Sources */,
@@ -2931,6 +3000,7 @@
 				18F3636C1E1FB64F0077D3CC /* YWTitle.m in Sources */,
 				188B34A01E41DCC700C9777E /* TopicEntity.m in Sources */,
 				18F365161E1FB8940077D3CC /* MyCommentController.m in Sources */,
+				18D4510D1E6C27AE001757C9 /* ZJScrollPageView.m in Sources */,
 				18F363731E1FB64F0077D3CC /* YWMiddleViewOfThree.m in Sources */,
 				18F3B2671D7B01A3001A7F18 /* StatusEntity.m in Sources */,
 				18F3639E1E1FB87A0077D3CC /* ClauseViewController.m in Sources */,
@@ -3059,7 +3129,7 @@
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3172,7 +3242,7 @@
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3289,7 +3359,7 @@
 				CODE_SIGN_ENTITLEMENTS = yingwo/yingwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nanjing Yunzhiyi Network Technology Development Co., Ltd. (8P2DS22MA9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
