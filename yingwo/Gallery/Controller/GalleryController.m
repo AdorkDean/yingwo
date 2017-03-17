@@ -447,6 +447,8 @@
 - (void)jumpToDetailPageWithModel:(TieZi *) model{
     
     DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
+    
+    self
     [self.navigationController pushViewController:detailVc animated:YES];
     
 }

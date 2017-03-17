@@ -155,11 +155,6 @@ static int start_id = 0;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
                 
-//                //刷新后清除小红点
-//                [self.tabBar.homeBtn clearBadge];
-                //显示新帖子View
-//                  [self showNewTieziCount:self.badgeCount];
-                
             }else {
                 
                 [self.tieZiList addObjectsFromArray:tieZis];
