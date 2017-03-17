@@ -297,6 +297,7 @@
 //键盘弹出后调用
 - (void)keyboardWillChangeFrame:(NSNotification *)note {
     
+    
     //获取键盘的frame
     CGRect endFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     

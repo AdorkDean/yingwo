@@ -109,14 +109,17 @@
     //下拉列表
     [self.navigationController.view addSubview:self.drorDownView];
     
-    [self.tabBar selectTabAtIndex:self.index];
+    [self.tabBar selectTabAtIndex:self.index];    
+
+   // NSLog(@"home:%@",NSHomeDirectory());
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.title = @"南京工业大学";
-//    self.navigationItem.leftBarButtonItem  = self.leftBarButton;
+    
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
     [self stopSystemPopGestureRecognizer];

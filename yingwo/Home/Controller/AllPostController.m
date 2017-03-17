@@ -87,14 +87,21 @@ static int start_id = 0;
         weakself.remindLabel.hidden = NO;
     };
     
-    self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    [self showLoadingViewOnFrontView:self.tableView];
+        
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
         
         //偏移量开始为0
-        self.requestEntity.start_id  = start_id;
+        weakself.requestEntity.start_id  = start_id;
         
         [weakself loadDataWithRequestEntity:self.requestEntity];
+        
     }];
     
+    [header setHeaderRefreshWithCustomImages];
+
+    self.tableView.mj_header = header;
+
     self.tableView.mj_footer    = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
         [weakself loadMoreDataWithRequestEntity:self.requestEntity];
@@ -146,6 +153,9 @@ static int start_id = 0;
     @weakify(self);
     [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
+        
+        [self showFrontView:self.tableView];
+
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             

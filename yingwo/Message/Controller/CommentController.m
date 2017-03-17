@@ -336,7 +336,8 @@ static int start_id = 0;
 -(void)didSelectHeadImageWithEntity:(MessageEntity *)messageEntity {
     
     TAController *taVc = [[TAController alloc] initWithUserId:[messageEntity.follow_user_id intValue]];
-    [self.navigationController pushViewController:taVc animated:YES];
+    
+    [self customPushToViewController:taVc];
 
 }
 
@@ -346,13 +347,13 @@ static int start_id = 0;
     
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
                                                                     shouldShowKeyBoard:NO];
-    [self.navigationController pushViewController:replyVc animated:YES];
+    [self customPushToViewController:replyVc];
 }
 
 - (void)jumpToTieZiDetailPageWithModel:(MessageEntity *)message {
     
     DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:message];
-    [self.navigationController pushViewController:detailVc animated:YES];
+    [self customPushToViewController:detailVc];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -20,6 +20,9 @@ extern const int FavourNumLabelTag;
 @property (nonatomic, strong) UIImageView    *headImageView;
 @property (nonatomic, strong) UILabel        *nickname;
 @property (nonatomic, strong) UILabel        *time;
+@property (nonatomic, strong) UILabel        *academy;
+@property (nonatomic, strong) UIImageView    *sexImageView;
+
 @property (nonatomic, strong) YWSpringButton *favour;
 @property (nonatomic, strong) UIButton       *message;
 @property (nonatomic, strong) YWAlertButton  *more;

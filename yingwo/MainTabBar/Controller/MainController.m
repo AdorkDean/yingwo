@@ -101,6 +101,7 @@
 
     _homeVC.tabBar = _mainTabBarController.tabBar;
     _messageVC.bubBtn = _mainTabBarController.tabBar.bubBtn;
+    
 }
 
 #pragma mark action
@@ -310,7 +311,7 @@
     //异步请求
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while (TRUE) {
-            [NSThread sleepForTimeInterval:10]; //请求时间间隔
+            [NSThread sleepForTimeInterval:30]; //请求时间间隔
             [[UIApplication sharedApplication] cancelAllLocalNotifications];
             
             [self requestForBadgeCount];

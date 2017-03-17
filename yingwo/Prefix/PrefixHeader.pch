@@ -48,7 +48,7 @@
 #import "UINavigationBar+Awesome.h"
 #import "TZImagePickerController.h"
 #import "UMMobClick/MobClick.h"
-
+#import "ZJScrollPageView.h"
 //base class
 #import "BaseViewController.h"
 #import "BaseViewModel.h"
@@ -106,6 +106,7 @@
 #import "NSDate+Grade.h"
 #import "User+CURD.h"
 #import "TTTAttributedLabel+Link.h"
+#import "MJRefreshGifHeader+GIF.h"
 
 //自定义控件
 #import "InputTextField.h"

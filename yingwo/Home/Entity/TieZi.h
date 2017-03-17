@@ -19,12 +19,18 @@
 @property (nonatomic, assign) int       topic_id;
 //用户id
 @property (nonatomic, assign) int       user_id;
+
+@property (nonatomic, assign) int       user_sex;
+
 //创建时间戳
 @property (nonatomic, assign) int       create_time;
 //贴子的所属标签
 @property (nonatomic, copy  ) NSString  *topic_title;
 //用户昵称
 @property (nonatomic, copy  ) NSString  *user_name;
+
+@property (nonatomic, copy  ) NSString  *academy_name;
+
 //贴子内容
 @property (nonatomic, copy  ) NSString  *content;
 //图片
@@ -37,6 +43,8 @@
 
 //回复数
 @property (nonatomic, copy  ) NSString  *reply_cnt;
+
+@property (nonatomic, copy  ) NSString  *visitor_cnt;
 
 //用户是否点赞
 @property (nonatomic, assign) int       user_post_like;

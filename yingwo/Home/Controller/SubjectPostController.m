@@ -105,14 +105,23 @@ static int start_id = 0;
 
 - (void)addRefreshForTableView {
     
+    [self showLoadingViewOnFrontView:self.tableView];
+
     WeakSelf(self);
-    self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
         
         //偏移量开始为0
-        self.requestEntity.start_id  = start_id;
+        weakself.requestEntity.start_id  = start_id;
         
         [weakself loadDataWithRequestEntity:self.requestEntity];
+        
     }];
+
+    
+    [header setHeaderRefreshWithCustomImages];
+    
+    self.tableView.mj_header = header;
     
     self.tableView.mj_footer    = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
@@ -157,6 +166,7 @@ static int start_id = 0;
     [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
         
+        [self showFrontView:self.tableView];
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             

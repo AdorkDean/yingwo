@@ -301,7 +301,8 @@
 - (void)didSelectBottomView:(YWGalleryCellBottomView *)bottomView {
     
     TAController *taVc = [[TAController alloc] initWithUserId:bottomView.user_id];
-    [self.navigationController pushViewController:taVc animated:YES];
+    
+    [self customPushToViewController:taVc];
     
 }
 
@@ -331,7 +332,8 @@
 - (void)didSelectLabel:(YWTitle *)label {
     
     TopicController *topicVc = [[TopicController alloc] initWithTopicId:label.topic_id];
-    [self.navigationController pushViewController:topicVc animated:YES];
+    
+    [self customPushToViewController:topicVc];
     
 }
 
@@ -448,9 +450,7 @@
     
     DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
     
-    self
-    [self.navigationController pushViewController:detailVc animated:YES];
-    
+    [self customPushToViewController:detailVc];
 }
 
 - (void)didReceiveMemoryWarning {
