@@ -84,6 +84,8 @@ static int start_id = 0;
     
     [self layoutSubview];
 
+    [self showLoadingView];
+    
     __weak CommentController *weakSelf = self;
     
     self.tableView.mj_header           = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -108,6 +110,28 @@ static int start_id = 0;
     [super viewWillAppear:animated];
     
     self.navigationItem.leftBarButtonItem = self.leftBarItem;
+    
+}
+
+- (void)showLoadingView {
+    
+    [self.indicatorView showActivityLoadingInController:self];
+    self.tableView.alpha = 0;
+    
+}
+
+- (void)showTableView {
+    
+    [UIView animateWithDuration:0.8 animations:^{
+        
+        self.tableView.alpha = 1;
+        [self.indicatorView stopIndicatorViewAnimation];
+        
+    } completion:^(BOOL finished) {
+        
+        self.indicatorView = nil;
+    }];
+    
     
 }
 
@@ -141,6 +165,7 @@ static int start_id = 0;
     [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *messages) {
         @strongify(self);
         
+        [self showTableView];
         //这里是倒序获取前10个
         if (messages.count > 0) {
             

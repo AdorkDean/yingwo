@@ -13,13 +13,13 @@
 
 @interface HotDiscussController ()<UITableViewDelegate,UITableViewDataSource,YWTitleDelegate>
 
-@property (nonatomic, strong) UITableView          *tableView;
+@property (nonatomic, strong) UITableView                  *tableView;
 
-@property (nonatomic, strong) HotDisscussViewModel *viewModel;
+@property (nonatomic, strong) HotDisscussViewModel         *viewModel;
 
-@property (nonatomic, strong) NSMutableArray       *dataSource;
+@property (nonatomic, strong) NSMutableArray               *dataSource;
 
-@property (nonatomic, strong) RequestEntity        *requestEntity;
+@property (nonatomic, strong) RequestEntity                *requestEntity;
 
 @end
 
@@ -64,14 +64,12 @@ static int start_id = 0;
     return _requestEntity;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)addRefreshForTableView {
     
-    [self.view addSubview:self.tableView];
     
-    self.title = @"热议";
+    [self showLoadingViewOnFrontView:self.tableView];
     
-    __weak HotDiscussController *weakself = self;
+    WeakSelf(self);
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
@@ -85,10 +83,20 @@ static int start_id = 0;
         [weakself loadMoreDataWithRequestEntity:self.requestEntity];
         
     }];
-
+    
     
     [self.tableView.mj_header beginRefreshing];
     
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.view addSubview:self.tableView];
+    
+    self.title = @"热议";
+    
+    [self addRefreshForTableView];
+
 }
 
 #pragma mark UITableView Delegate and DataSource
@@ -174,6 +182,9 @@ static int start_id = 0;
     @weakify(self);
     [[self.viewModel.fecthTopicEntityCommand execute:requestEntity] subscribeNext:^(NSArray *items) {
         @strongify(self);
+        
+        [self showFrontView:self.tableView];
+        
         //这里是倒序获取前10个
         if (items.count > 0) {
             

@@ -62,6 +62,8 @@ static int start_id = 0;
 
 - (void)addRefreshForTableView {
     
+    [self showLoadingViewOnFrontView:self.tableView];
+    
     WeakSelf(self);
     self.tableView.mj_header        = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
@@ -122,6 +124,8 @@ static int start_id = 0;
     @weakify(self);
     [[self.viewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
+        
+        [self showFrontView:self.tableView];
         
         //这里是倒序获取前10个
         if (tieZis.count > 0) {

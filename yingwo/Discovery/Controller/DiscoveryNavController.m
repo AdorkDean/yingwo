@@ -18,23 +18,23 @@
 
 @interface DiscoveryNavController ()<SMPagerTabViewDelegate,HotDiscussControllerDelegate,DiscoveryControllerDelegate>
 
-@property (nonatomic, strong) SMPagerTabView       *discoveryPageView;
-@property (nonatomic, strong) NSMutableArray       *catalogVcArr;
+@property (nonatomic, strong) SMPagerTabView               *discoveryPageView;
+@property (nonatomic, strong) NSMutableArray               *catalogVcArr;
 
-@property (nonatomic, strong) DiscoveryController  *moduleVc;
-@property (nonatomic, strong) HotDiscussController *hotDisVc;
+@property (nonatomic, strong) DiscoveryController          *moduleVc;
+@property (nonatomic, strong) HotDiscussController         *hotDisVc;
 
 //发现
-@property (nonatomic, strong) TieZi *tieZi;
+@property (nonatomic, strong) TieZi                        *tieZi;
 
 //版块
-@property (nonatomic, assign) int                 topic_id;
+@property (nonatomic, assign) int                          topic_id;
 
 //主题
-@property (nonatomic, copy  ) NSString            *subject;
+@property (nonatomic, copy  ) NSString                     *subject;
 
 //主题id
-@property (nonatomic, assign) int                 subject_id;
+@property (nonatomic, assign) int                          subject_id;
 
 @end
 
@@ -97,15 +97,22 @@
     return _hotDisVc;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)layoutSubviews {
+    
+    
     
     [self.view addSubview:self.discoveryPageView];
-    
     
     self.navigationItem.titleView = self.discoveryPageView.tabView;
     
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+
+}
+
 
 
 #pragma mark - DBPagerTabView Delegate

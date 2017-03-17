@@ -56,9 +56,8 @@ static CGFloat footerHeight = 250;
     self.tableView.scrollEnabled = NO;
 
     self.shouldClickTitle        = NO;
-    
-    [SVProgressHUD showLoadingWithNoMask];
-    
+        
+    [self showLoadingViewOnFrontView:self.tableView];
     
     [self loadDataWithRequestEntity:self.requestEntity];
     
@@ -122,6 +121,8 @@ static CGFloat footerHeight = 250;
     [[self.topicViewModel.fecthTieZiEntityCommand execute:requestEntity] subscribeNext:^(NSArray *tieZis) {
         @strongify(self);
         
+        [self showFrontView:self.tableView];
+        
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             
@@ -159,8 +160,6 @@ static CGFloat footerHeight = 250;
         
         //初始化为最新的contentSize
         self.topicSrcView.contentSize = self.tableViewSize;
-        
-        [SVProgressHUD dismiss];
         
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
