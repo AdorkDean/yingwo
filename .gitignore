@@ -1,8 +1,6 @@
 
-# ignore xcodeproj 
-yingwo.xcodeproj/project.xcworkspace/xcshareddata
-yingwo.xcodeproj/project.xcworkspace/xcuserdata
-yingwo.xcodeproj/xcuserdata
+# ignore xcworkspace 
+yingwo. xcworkspace
 
 # ignore DS_Store 
 .DS_Store
