@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, ContentCategory){
 };
 
 
-@interface GalleryController : BaseViewController
+@interface GalleryController : BaseViewController<UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) UITableView      *tableView;
 @property (nonatomic, strong) GalleryViewModel *viewModel;

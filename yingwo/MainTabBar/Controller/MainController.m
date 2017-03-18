@@ -8,14 +8,6 @@
 
 #import "MainController.h"
 #import "YWTabBarController.h"
-#import "PersonalCenterController.h"
-#import "HomeController.h"
-#import "AnnounceController.h"
-#import "DiscoveryNavController.h"
-#import "DetailController.h"
-#import "MessageController.h"
-#import "TopicController.h"
-
 #import "MainViewModel.h"
 
 #import "WZLBadgeImport.h"
@@ -23,13 +15,6 @@
 #import "EBForeNotification.h"
 
 @interface MainController ()
-
-@property (nonatomic, strong) HomeController           *homeVC;
-@property (nonatomic, strong) DiscoveryNavController   *discoveryNavVC;
-@property (nonatomic, strong) PersonalCenterController *personCenterVC;
-@property (nonatomic, strong) AnnounceController       *announceVC;
-@property (nonatomic, strong) MessageController        *messageVC;
-@property (nonatomic, strong) MainNavController        *announceVCNav;
 
 @property (nonatomic,strong ) MainViewModel            *viewModel;
 
@@ -115,17 +100,6 @@
 //    [self requestForBadgeCount];
 
     self.isOnHomePage = YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBar.hidden = YES;
-    //去掉导航栏下的下划线
-    [self.navigationController.navigationBar hideNavigationBarBottomLine];
-
-    //防止点击发布新鲜事后，跳转回来后，但前TabBar的颜色不见了
-    [_mainTabBarController.tabBar showSelectedTabBarAtIndex:self.selectedIndex];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -137,6 +111,22 @@
                                              selector:@selector(eBBannerViewDidClick:)
                                                  name:EBBannerViewDidClick
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showAnnounce)
+                                                 name:PREVIEW_ANNOUNCE_NOTIFICATION
+                                               object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = YES;
+    //去掉导航栏下的下划线
+    [self.navigationController.navigationBar hideNavigationBarBottomLine];
+
+    //防止点击发布新鲜事后，跳转回来后，但前TabBar的颜色不见了
+    [_mainTabBarController.tabBar showSelectedTabBarAtIndex:self.selectedIndex];
 
 }
 
@@ -203,8 +193,7 @@
     }
     else if (index == 2) {
 
-        [self presentViewController:self.announceVCNav animated:YES completion:nil];
-      
+        [self showAnnounce];
     }
     else if (index == 3){
         
@@ -232,6 +221,16 @@
 
 #pragma mark private method
 
+- (void)showAnnounce {
+    
+    if ([self.view.window.rootViewController isMemberOfClass:[MainController class]]) {
+        
+        [self presentViewController:self.announceVCNav animated:YES completion:nil];
+
+    }
+    
+
+}
 - (void)clearMessageRedDot {
     
     [self.mainTabBarController.tabBar.bubBtn clearBadge];

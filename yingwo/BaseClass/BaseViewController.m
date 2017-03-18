@@ -70,7 +70,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
-    
+        
     [self createSubviews];
     [self layoutSubviews];
     [self initDataSourceBlock];
@@ -85,6 +85,8 @@
     [YWNetworkTools networkStauts];
 
 }
+
+#pragma mark implement abscat method
 
 - (void)backToFarword {
     
@@ -221,6 +223,8 @@
     [self customPushToViewController:controller];
 
 }
+
+#pragma mark private method
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

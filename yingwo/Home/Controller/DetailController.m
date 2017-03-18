@@ -222,6 +222,27 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     return _compliantAlertView;
 }
 
+- (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
+    
+    return @[
+             [UIPreviewAction actionWithTitle:@"点赞"
+                                        style:UIPreviewActionStyleDefault
+                                      handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                                          NSLog(@"点赞");
+                                      }],
+             [UIPreviewAction actionWithTitle:@"评论"
+                                        style:UIPreviewActionStyleDefault
+                                      handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                                          NSLog(@"评论");
+                                      }],
+             [UIPreviewAction actionWithTitle:@"分享"
+                                        style:UIPreviewActionStyleDefault
+                                      handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                                          NSLog(@"分享");
+                                      }],
+             ];
+}
+
 #pragma mark YWAlertButtonProtocol
 - (void)seletedAlertView:(UIAlertController *)alertView onMoreBtn:(UIButton *)more atIndex:(NSInteger)index{
     if (index == 0) {
