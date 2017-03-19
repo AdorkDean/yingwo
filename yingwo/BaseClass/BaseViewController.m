@@ -8,6 +8,13 @@
 
 #import "BaseViewController.h"
 
+//所有的需要跳转的Controller
+#import "DetailController.h"
+#import "TAController.h"
+#import "ReplyDetailController.h"
+#import "TopicController.h"
+#import "ChatController.h"
+
 @interface BaseViewController ()
 
 @end
@@ -31,6 +38,18 @@
     return _indicatorView;
 }
 
+- (instancetype)initWithParameter:(id)parameter {
+    
+    self = [super init];
+    
+    if (self) {
+        self.parameter = parameter;
+    }
+    
+    return self;
+    
+}
+
 - (void)createSubviews {
     
 }
@@ -51,7 +70,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
-    
+        
     [self createSubviews];
     [self layoutSubviews];
     [self initDataSourceBlock];
@@ -66,6 +85,8 @@
     [YWNetworkTools networkStauts];
 
 }
+
+#pragma mark implement abscat method
 
 - (void)backToFarword {
     
@@ -153,6 +174,57 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+
+- (void)customPushToViewControllerType:(ControllerType)type withParameter:(id)parameter {
+    
+    UIViewController *controller;
+    
+    switch (type) {
+        case TypeOfDetailVC:
+            
+            controller = [[DetailController alloc] initWithTieZiModel:parameter];
+            break;
+            
+        case TypeOfTAVC:
+            
+            controller = [[TAController alloc] initWithUserId:(int)parameter];
+            break;
+            
+        case TypeOfTopicVC:
+            
+            controller = [[TopicController alloc] initWithTopicId:(int)parameter];
+            break;
+            
+        case TypeOfReplyDetailVC:
+            
+            break;
+            
+        case TypeOfMyWebVC:
+            
+            break;
+            
+        case TypeOfChatListVC:
+            
+            controller = [[ChatController alloc] initWithConversationType:ConversationType_PRIVATE
+                                                                             targetId:parameter];
+            break;
+            
+        case TypeOfTopicListVC:
+            
+            break;
+            
+        case TypeOfChatVC:
+            break;
+
+        default:
+            break;
+    }
+    
+    [self customPushToViewController:controller];
+
+}
+
+#pragma mark private method
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

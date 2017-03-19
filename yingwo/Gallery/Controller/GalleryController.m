@@ -114,7 +114,6 @@
     return _compliantAlertView;
 }
 
-
 - (GalleryViewModel *)viewModel {
     if (_viewModel == nil) {
         _viewModel = [[GalleryViewModel alloc] init];
@@ -138,13 +137,6 @@
     
     self.shouldClickTitle = YES;
     
-//    if (self.type_topic == YES) {
-//        
-//        TopicController *topicVc = [[TopicController alloc] initWithTopicId:self.item_id];
-//        [self.navigationController pushViewController:topicVc animated:YES];
-//        
-//        self.type_topic = NO;
-//    }
     
 }
 
@@ -190,7 +182,8 @@
         [self.view.window.rootViewController.view addSubview:galleryView];
     };
     
-    
+    //register for 3D Touch
+    [self registerPreviewForView:cell];
     
     return cell;
 }
@@ -216,6 +209,25 @@
                                                                       model:self.tieZiList[indexPath.row]];
                                        }];
     
+}
+
+#pragma mark UIViewControllerPreviewingDelegate
+
+- (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    
+    NSIndexPath *indexPath     = [self.tableView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
+
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:self.tieZiList[indexPath.row]];
+
+    CGRect rect                = CGRectMake(0, 0, previewingContext.sourceView.width, previewingContext.sourceView.height);
+    previewingContext.sourceRect = rect;
+    
+    return detailVc;
+}
+
+- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit{
+    
+    [self showViewController:viewControllerToCommit sender:self];
 }
 
 #pragma mark YWGalleryViewDelegate
@@ -335,15 +347,6 @@
     
     [self customPushToViewController:topicVc];
     
-}
-
-
-#pragma mark 网络监测
-/**
- *  网路监测
- */
-- (void)judgeNetworkStatus {
-    [YWNetworkTools networkStauts];
 }
 
 #pragma mark private method
@@ -500,6 +503,17 @@
         
     }
     
+}
+
+-(void)registerPreviewForView:(UIView *)view{
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:view];
+    }
+    else
+    {
+        NSLog(@"没有3D Touch");
+    }
 }
 
 

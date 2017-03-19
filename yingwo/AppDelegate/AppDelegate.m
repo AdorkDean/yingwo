@@ -175,6 +175,25 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     
 }
 
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    
+    Customer *user                 = [User findCustomer];
+
+    if ([User haveExistedLoginInformation] && [user.register_status intValue] == 1)  {
+        
+        if ([shortcutItem.type isEqualToString:@"com.yingwoo.yingwoxiaoyuan.First"]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:PREVIEW_ANNOUNCE_NOTIFICATION
+                                                                object:nil];
+        }
+        else {
+            
+        }
+
+        
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -270,10 +289,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     
     UIStoryboard *storyboard       = [UIStoryboard storyboardWithName:@"Main"
                                                                bundle:nil];
-    MainNavController *mainNav ;
-
     Customer *user                 = [User findCustomer];
 
+     MainNavController         *mainNav;
     //如果有帐号，则直接登录
     if ([User haveExistedLoginInformation] && [user.register_status intValue] == 1) {
 
