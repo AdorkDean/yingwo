@@ -42,7 +42,6 @@
     WeakSelf(self);
     [self.viewModel setTokenSuccessBlock:^(TokenEntity *tokenEntity) {
         
-        
         [weakself initConversation];
         
     } tokenFailureBlock:^(id tokenFailureBlock) {
@@ -61,7 +60,10 @@
     [self initDataSource];
 }
 
-
+-(void)didTapCellPortrait:(NSString *)userId {
+    TAController *taVc = [[TAController alloc] initWithUserId:[userId intValue]];
+    [self.navigationController pushViewController:taVc animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

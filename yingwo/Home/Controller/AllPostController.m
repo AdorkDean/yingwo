@@ -115,9 +115,6 @@ static int start_id = 0;
     
     [self.tableView.mj_header beginRefreshing];
     
-    if (self.remindLabel.hidden == NO) {
-        self.remindLabel.hidden = YES;
-    }
 }
 
 /**
@@ -125,6 +122,10 @@ static int start_id = 0;
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
+    if (self.remindLabel.hidden == NO) {
+        self.remindLabel.hidden = YES;
+    }
+
     //检测登录状态
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSString *isExit            = [userDefault objectForKey:@"isUserInfoExit"];

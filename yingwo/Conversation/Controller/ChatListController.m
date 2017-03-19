@@ -9,6 +9,7 @@
 #import "ChatListController.h"
 #import "TokenEntity.h"
 #import "ChatViewModel.h"
+#import "ChatController.h"
 
 @interface ChatListController ()
 
@@ -85,13 +86,21 @@
          conversationModel:(RCConversationModel *)model
                atIndexPath:(NSIndexPath *)indexPath {
     
-    RCConversationViewController *conversationVC = [[RCConversationViewController alloc]init];
+    ChatController *conversationVC = [[ChatController alloc]init];
     conversationVC.conversationType              = model.conversationType;
     conversationVC.targetId                      = model.targetId;
     conversationVC.title                         = model.conversationTitle;
     [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
+-(void)didTapCellPortrait:(RCConversationModel *)model {
+    
+    ChatController *conversationVC = [[ChatController alloc]init];
+    conversationVC.conversationType              = model.conversationType;
+    conversationVC.targetId                      = model.targetId;
+    conversationVC.title                         = model.conversationTitle;
+    [self.navigationController pushViewController:conversationVC animated:YES];
+}
 #pragma mark private
 
 - (void)backToFarword {
