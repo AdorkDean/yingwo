@@ -74,6 +74,7 @@
 #import "YWQiNiuUploadTool.h"
 #import "YWAvatarBrowser.h"
 #import "MyWebViewController.h"
+#import "YWEmptyRemindView.h"
 
 //network tools
 #import "YWRequestTool.h"

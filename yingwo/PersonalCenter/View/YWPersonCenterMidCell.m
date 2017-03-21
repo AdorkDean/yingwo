@@ -58,6 +58,16 @@
         _fansLabel.textColor      = [UIColor colorWithHexString:THEME_COLOR_2];
         _visitorLabel.textColor   = [UIColor colorWithHexString:THEME_COLOR_2];
         
+        _friends.textAlignment          = NSTextAlignmentCenter;
+        _attentions.textAlignment       = NSTextAlignmentCenter;
+        _fans.textAlignment             = NSTextAlignmentCenter;
+        _visitors.textAlignment         = NSTextAlignmentCenter;
+        
+        _friendLabel.textAlignment      = NSTextAlignmentCenter;
+        _attentionLabel.textAlignment   = NSTextAlignmentCenter;
+        _fansLabel.textAlignment        = NSTextAlignmentCenter;
+        _visitorLabel.textAlignment     = NSTextAlignmentCenter;
+
         [self addSubview:_friends];
         [self addSubview:_attentions];
         [self addSubview:_fans];
@@ -68,47 +78,55 @@
         [self addSubview:_fansLabel];
         [self addSubview:_visitorLabel];
         
-        float padding = 30;
-        float margin = (INPUTTEXTFIELD_WIDTH-2*padding-12*2)/3;
+        float margin = 10;
+        float width = (INPUTTEXTFIELD_WIDTH-5*margin)/4;
         
         [_friendLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_friends.mas_bottom).offset(0);
-            make.left.equalTo(self.mas_left).offset(padding);
+            make.left.equalTo(self.mas_left).offset(margin);
+            make.width.mas_equalTo(width);
         }];
         
         [_attentionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_attentions.mas_bottom).offset(0);
-            make.left.equalTo(_friendLabel.mas_left).offset(margin);
+            make.left.equalTo(_friendLabel.mas_right).offset(margin);
+            make.width.mas_equalTo(width);
         }];
         
         [_fansLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_fans.mas_bottom).offset(0);
-            make.left.equalTo(_attentionLabel.mas_left).offset(margin);
+            make.left.equalTo(_attentionLabel.mas_right).offset(margin);
+            make.width.mas_equalTo(width);
         }];
         
         [_visitorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_visitors.mas_bottom).offset(0);
-            make.right.equalTo(self.mas_right).offset(-padding);
+            make.right.equalTo(self.mas_right).offset(-margin);
+            make.width.mas_equalTo(width);
         }];
         
         [_friends mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(10);
             make.centerX.equalTo(_friendLabel);
+            make.width.mas_equalTo(width);
         }];
         
         [_attentions mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(10);
             make.centerX.equalTo(_attentionLabel);
+            make.width.mas_equalTo(width);
         }];
         
         [_fans mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(10);
             make.centerX.equalTo(_fansLabel);
+            make.width.mas_equalTo(width);
         }];
         
         [_visitors mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(10);
             make.centerX.equalTo(_visitorLabel);
+            make.width.mas_equalTo(width);
         }];
     }
     return self;

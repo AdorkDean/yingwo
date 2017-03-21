@@ -10,6 +10,7 @@
 #import "CommentController.h"
 #import "FavorController.h"
 #import "ChatListController.h"
+#import "MyRelationshipBaseController.h"
 
 @interface MessageController ()
 
@@ -29,7 +30,7 @@
 
 - (YWCustomerCell *)commentBtn {
     if (_commentBtn == nil) {
-        _commentBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"pinglun"] labelText:@"评论"];
+        _commentBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"pinglun"] labelText:@"评论我的"];
         [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top"] forState:UIControlStateNormal];
         [_commentBtn setBackgroundImage:[UIImage imageNamed:@"input_top_selected"] forState:UIControlStateHighlighted];
         [_commentBtn addTarget:self action:@selector(jumpToMyCommentPage) forControlEvents:UIControlEventTouchUpInside];
@@ -39,12 +40,22 @@
 
 - (YWCustomerCell *)favorBtn {
     if (_favorBtn == nil) {
-        _favorBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"zan"] labelText:@"点赞"];
+        _favorBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"zan"] labelText:@"赞了我的"];
         [_favorBtn setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
         [_favorBtn setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
         [_favorBtn addTarget:self action:@selector(jumpToMyFavorPage) forControlEvents:UIControlEventTouchUpInside];
     }
     return _favorBtn;
+}
+
+- (YWCustomerCell *)followBtn {
+    if (_followBtn == nil) {
+        _followBtn = [[YWCustomerCell alloc] initWithLeftImage:[UIImage imageNamed:@"guanzhu"] labelText:@"关注我的"];
+        [_followBtn setBackgroundImage:[UIImage imageNamed:@"input_mid"] forState:UIControlStateNormal];
+        [_followBtn setBackgroundImage:[UIImage imageNamed:@"input_mid_selected"] forState:UIControlStateHighlighted];
+        [_followBtn addTarget:self action:@selector(jumpToFollowMePage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _followBtn;
 }
 
 - (YWCustomerCell *)chatlistBtn {
@@ -61,6 +72,7 @@
     
     [self.view addSubview:self.commentBtn];
     [self.view addSubview:self.favorBtn];
+    [self.view addSubview:self.followBtn];
     [self.view addSubview:self.chatlistBtn];
 
     [self.commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -79,8 +91,15 @@
 
     }];
     
-    [self.chatlistBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.favorBtn.mas_bottom);
+        make.left.equalTo(self.view.mas_left).offset(10);
+        make.right.equalTo(self.view.mas_right).offset(-10);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    [self.chatlistBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.followBtn.mas_bottom);
         make.left.equalTo(self.view.mas_left).offset(10);
         make.right.equalTo(self.view.mas_right).offset(-10);
         make.centerX.equalTo(self.view);
@@ -133,6 +152,21 @@
     [self.navigationController pushViewController:favorVc animated:YES];
 }
 
+- (void)jumpToFollowMePage {
+    self.hasFollowBadge = NO;
+    [self.followBtn.badgeLabel clearBadge];
+    
+    [self clearBubRedDot];
+    
+    MyRelationshipBaseController *relationVc = [[MyRelationshipBaseController alloc] initWithRelationType:3];
+    Customer *user = [User findCustomer];
+    relationVc.requestEntity.user_id         = [user.userId intValue];
+//    relationVc.fansCnt                       = [self.taEntity.liked_cnt intValue];
+    relationVc.relationType                  = 3;
+    
+    [self.navigationController pushViewController:relationVc animated:YES];
+}
+
 - (void)jumpToMyChatListPage {
     
     ChatListController *chatList = [[ChatListController alloc] init];
@@ -141,7 +175,7 @@
 }
 
 - (void)clearBubRedDot {
-    if (!self.hasCommentBadge && !self.hasLikeBadge) {
+    if (!self.hasCommentBadge && !self.hasLikeBadge && !self.hasFollowBadge) {
         
         [self.bubBtn clearBadge];
     }

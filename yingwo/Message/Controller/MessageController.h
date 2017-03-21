@@ -23,10 +23,12 @@
 
 @property (nonatomic, strong) YWCustomerCell *commentBtn;
 @property (nonatomic, strong) YWCustomerCell *favorBtn;
+@property (nonatomic, strong) YWCustomerCell *followBtn;
 @property (nonatomic, strong) YWCustomerCell *chatlistBtn;
 
 @property (nonatomic, assign) BOOL           hasCommentBadge;
 @property (nonatomic, assign) BOOL           hasLikeBadge;
+@property (nonatomic, assign) BOOL           hasFollowBadge;
 
 
 

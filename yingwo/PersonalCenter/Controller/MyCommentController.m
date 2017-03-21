@@ -20,7 +20,6 @@
 @interface MyCommentController ()<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
 
 @property (nonatomic, strong) UITableView        *tableView;
-
 @property (nonatomic, strong) MyCommentViewModel *viewModel;
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
@@ -28,6 +27,10 @@
 
 @property (nonatomic, strong) NSMutableArray     *messageArr;
 @property (nonatomic, strong) NSIndexPath        *selectedIndexPath;
+
+@property (nonatomic, strong) UILabel            *noTieziLabel;
+
+@property (nonatomic, strong) YWEmptyRemindView  *emptyRemindView;
 
 @end
 
@@ -75,6 +78,15 @@ static int start_id = 0;
         _messageArr = [[NSMutableArray alloc] init];
     }
     return _messageArr;
+}
+
+-(YWEmptyRemindView *)emptyRemindView {
+    if (_emptyRemindView == nil) {
+        _emptyRemindView                 = [[YWEmptyRemindView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                            andText:@"还没有评论过别人哦~"];
+        [self.tableView addSubview:_emptyRemindView];
+    }
+    return _emptyRemindView;
 }
 
 -(void)layoutSubviews {
@@ -153,6 +165,8 @@ static int start_id = 0;
         //这里是倒序获取前10个
         if (messages.count > 0) {
             
+            self.emptyRemindView.hidden = YES;
+
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.messageArr = [messages mutableCopy];
@@ -178,7 +192,7 @@ static int start_id = 0;
                 self.messageArr = nil;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                
+                self.emptyRemindView.hidden = NO;
             }
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -260,7 +274,6 @@ static int start_id = 0;
 #pragma mark YWMessageCellDelegate
 
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
-    
     
     //原贴
     if ([messageEntity.source_type isEqualToString:@"POST"]) {

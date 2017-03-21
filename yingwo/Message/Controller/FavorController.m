@@ -42,7 +42,7 @@
     [super viewDidLoad];
     
     self.title = @"点赞";
-    
+    self.emptyRemindView.remindLabel.text = @"还没有人给你点赞哦~";
     self.requestEntity.URLString = MY_LIKED_URL;
 }
 

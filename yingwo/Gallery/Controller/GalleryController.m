@@ -129,6 +129,15 @@
     return _model;
 }
 
+-(YWEmptyRemindView *)emptyRemindView {
+    if (_emptyRemindView == nil) {
+        _emptyRemindView = [[YWEmptyRemindView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                            andText:@"这里还没有帖子哦"];
+        [self.tableView addSubview:_emptyRemindView];
+    }
+    return _emptyRemindView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

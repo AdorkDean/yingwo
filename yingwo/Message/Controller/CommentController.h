@@ -26,6 +26,9 @@
 
 @property (nonatomic, strong) NSMutableArray    *messageArr;
 
+@property (nonatomic, strong) YWEmptyRemindView  *emptyRemindView;
+
+
 @end
 
 

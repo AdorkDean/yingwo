@@ -41,6 +41,9 @@
 
 @property (nonatomic, assign) CGFloat             keyboardHeight;
 
+@property (nonatomic, strong) UIBarButtonItem     *rightBarItem;
+
+
 @end
 
 @implementation ReplyDetailController
@@ -184,6 +187,13 @@ static NSString *replyCellIdentifier = @"replyCell";
         
     }
     return _compliantAlertView;
+}
+
+- (UIBarButtonItem *)rightBarItem {
+    if (_rightBarItem == nil) {
+        _rightBarItem = [[UIBarButtonItem alloc ] initWithTitle:@"查看原帖" style:UIBarButtonItemStylePlain target:self action:@selector(jumpToDetailVc)];
+    }
+    return _rightBarItem;
 }
 
 #pragma mark YWAlertButtonProtocol
@@ -394,6 +404,9 @@ static NSString *replyCellIdentifier = @"replyCell";
     }
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     
+    if (self.isFromMessage) {
+        self.navigationItem.rightBarButtonItem = self.rightBarItem;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -971,6 +984,12 @@ static NSString *replyCellIdentifier = @"replyCell";
     [self.navigationController pushViewController:taVc animated:YES];
 }
 
+- (void)jumpToDetailVc {
+  
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:self.tieziModel];
+    
+    [self customPushToViewController:detailVc];
+}
 
 #pragma mark 收起键盘
 - (void)hiddenKeyboard {
