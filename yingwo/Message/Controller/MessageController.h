@@ -10,16 +10,17 @@
 #import "MessageEntity.h"
 #import "SMPagerTabView.h"
 #import "YWCustomerCell.h"
-
+#import <RongIMKit/RongIMKit.h>
 
 @protocol MessageControllerDelegate ;
 
-@interface MessageController : BaseViewController
+@interface MessageController : RCConversationListViewController
 
 @property (nonatomic, strong) SMPagerTabView *messagePgaeView;
 
 // main tabBar上的消息按钮
 @property (nonatomic, strong) UIButton       *bubBtn;
+@property (nonatomic, strong) UIView         *messageHeaderView;
 
 @property (nonatomic, strong) YWCustomerCell *commentBtn;
 @property (nonatomic, strong) YWCustomerCell *favorBtn;
