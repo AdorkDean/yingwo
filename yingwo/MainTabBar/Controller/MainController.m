@@ -142,18 +142,28 @@
     NSString *item_id = [dict valueForKey:@"push_item_id"];
     
     if ([type isEqualToString:@"MESSAGE"]) {
+        
         [self showMessagePage];
+        [self.messageVC jumpToMyCommentPage];
+        
     }else if ([type isEqualToString:@"LIKE"])
     {
         [self showMessagePage];
+        [self.messageVC jumpToMyFavorPage];
+        
     }else if ([type isEqualToString:@"ALERT"])
     {
+        
         [self showHomePage];
+        
     }else if ([type isEqualToString:@"TOPIC"]) {
+        
         self.homeVC.allPostController.type_topic = YES;
         self.homeVC.allPostController.item_id = [item_id intValue];
         [self showHomePage];
+        
     }else if ([type isEqualToString:@"POST"]) {
+        
 //        self.homeVC.allPostController.type_post = YES;
 //        self.homeVC.allPostController.item_id = [item_id intValue];
         
@@ -252,22 +262,34 @@
     NSString *item_id  = [dict valueForKey:@"push_item_id"];
     
     if ([type isEqualToString:@"MESSAGE"]) {
+        
         [self showMessagePage];
+        [self.messageVC jumpToMyCommentPage];
+        
     }else if ([type isEqualToString:@"LIKE"])
     {
+        
         [self showMessagePage];
+        [self.messageVC jumpToMyFavorPage];
+        
     }else if ([type isEqualToString:@"ALERT"])
     {
+        
         [self showHomePage];
+        
     }else if ([type isEqualToString:@"TOPIC"]) {
+        
         self.homeVC.allPostController.type_topic = YES;
         self.homeVC.allPostController.item_id = [item_id intValue];
         [self showHomePage];
+        
     }else if ([type isEqualToString:@"POST"]) {
+        
 //        self.homeVC.allPostController.type_post = YES;
 //        self.homeVC.allPostController.item_id = [item_id intValue];
         [self showDiscoveryPage];
         [self.discoveryNavVC pushBlock];
+        
     }
 }
 

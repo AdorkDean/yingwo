@@ -30,7 +30,8 @@
 @property (nonatomic, assign) BOOL           hasLikeBadge;
 @property (nonatomic, assign) BOOL           hasFollowBadge;
 
-
+-(void)jumpToMyCommentPage;
+-(void)jumpToMyFavorPage;
 
 @end
 

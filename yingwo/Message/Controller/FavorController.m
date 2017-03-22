@@ -130,6 +130,7 @@
     
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
                                                                     shouldShowKeyBoard:NO];
+    replyVc.isFromMessage = YES;
     [self.navigationController pushViewController:replyVc animated:YES];
 }
 

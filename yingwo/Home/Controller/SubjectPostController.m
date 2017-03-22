@@ -68,6 +68,7 @@ static int start_id = 0;
     if (_topicScrView == nil) {
         _topicScrView = [[YWTopicScrView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35)];
         _topicScrView.Scrdelegate = self;
+
     }
     return _topicScrView;
 }
@@ -84,8 +85,7 @@ static int start_id = 0;
     self.tableView.sectionHeaderHeight = 35;
     self.tableView.tableHeaderView = self.topicScrView;
     
-    [self.subjectPostViewModel setupModelForFieldTopicOfCell:self.topicScrView model:self.subjectEntity];
-    
+    [self.subjectPostViewModel setupModelForFieldTopicOfCell:self.topicScrView model:self.subjectEntity];    
 }
 
 - (void)addRefreshForTableView {

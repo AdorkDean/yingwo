@@ -654,7 +654,7 @@ static NSString *replyCellIdentifier = @"replyCell";
                          animations:^{
                              
                              self.tableView.frame = CGRectMake(0,
-                                                                     -(commentViewFrame.origin.y-self.commentView.frame.origin.y),
+                                                                     -(commentViewFrame.origin.y-self.commentView.frame.origin.y-self.navgationBarHeight),
                                                                      SCREEN_WIDTH,
                                                                      SCREEN_HEIGHT);
                              

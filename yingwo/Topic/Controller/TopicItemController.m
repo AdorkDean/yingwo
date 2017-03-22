@@ -128,6 +128,8 @@ static CGFloat footerHeight = 250;
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             
+            self.emptyRemindView.hidden = YES;
+            
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.tieZiList = [tieZis mutableCopy];
@@ -152,6 +154,7 @@ static CGFloat footerHeight = 250;
         }
         else
         {
+            self.emptyRemindView.hidden = NO;
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
         

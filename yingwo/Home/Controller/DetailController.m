@@ -596,6 +596,7 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
                 }
             }
             
+            [self.detailTableView.mj_footer resetNoMoreData];
             [self.detailTableView.mj_header endRefreshing];
             self.footer.stateLabel.text = @"点击或上拉查看更多跟贴";
 
