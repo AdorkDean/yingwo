@@ -119,7 +119,7 @@
         message.comment_cnt    = [messageEntity.source_comment_cnt intValue];
         message.like_cnt       = messageEntity.source_like_cnt;
         
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }
     

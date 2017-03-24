@@ -254,14 +254,14 @@ static int start_id = 0;
     if ([messageEntity.follow_type isEqualToString:@"REPLY"]) {
         
         message.reply_id = messageEntity.follow_id;
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }
     //评论
     else if ([messageEntity.follow_type isEqualToString:@"COMMENT"]) {
         
         message.reply_id = messageEntity.follow_post_reply_id;
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }    
 }
@@ -289,13 +289,13 @@ static int start_id = 0;
         message.reply_id       = messageEntity.post_id;
         message.post_id        = messageEntity.post_detail_id;
         
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }
     //评论
     else if ([messageEntity.source_type isEqualToString:@"COMMENT"]) {
         
-        [self jumpToReplyDetailPageWithModel:messageEntity];
+        [self jumpToReplyDetailPageWithModel:messageEntity andOriginalModel:messageEntity];
         
     }
 }
@@ -399,10 +399,22 @@ static int start_id = 0;
 }
 
 #pragma mark private
+- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message andOriginalModel:(MessageEntity *)messageEntity{
+    
+    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
+                                                                    shouldShowKeyBoard:NO];
+    replyVc.isFromMessage = YES;
+    TieZi *tieziModel = [[TieZi alloc] init];
+    replyVc.tieziModel = [self extractTieZi:tieziModel FromMessageEntity:messageEntity];
+    
+    [self customPushToViewController:replyVc];
+}
+
 - (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message {
     
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
                                                                     shouldShowKeyBoard:NO];
+    replyVc.isFromMessage = YES;
     [self.navigationController pushViewController:replyVc animated:YES];
 }
 
@@ -412,4 +424,26 @@ static int start_id = 0;
     [self.navigationController pushViewController:detailVc animated:YES];
 }
 
+-(TieZi *)extractTieZi:(TieZi *)tieziModel FromMessageEntity:(MessageEntity *)message {
+    
+    TieZi *tiezi = [[TieZi alloc] init];
+    
+    tiezi.tieZi_id              = message.post_detail_id;
+    tiezi.topic_id              = message.post_detail_topic_id;
+    tiezi.user_id               = message.post_detail_user_id;
+    tiezi.create_time           = message.post_detail_create_time;
+    tiezi.topic_title           = message.post_detail_topic_title;
+    tiezi.user_name             = message.post_detail_user_name;
+    tiezi.content               = message.post_detail_content;
+    tiezi.img                   = message.post_detail_img;
+    tiezi.user_face_img         = message.post_detail_user_face_img;
+    tiezi.like_cnt              = message.post_detail_like_cnt;
+    tiezi.reply_cnt             = message.post_detail_reply_cnt;
+    tiezi.user_post_like        = message.post_detail_user_post_like;
+    
+    tiezi.imageURLArr           = [NSString separateImageViewURLString:tiezi.img];
+    tiezi.imageUrlEntityArr     = [NSString separateImageViewURLStringToModel:tiezi.img];
+    
+    return tiezi;
+}
 @end

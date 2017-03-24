@@ -241,5 +241,4 @@
         [self.bubBtn clearBadge];
     }
 }
-
 @end

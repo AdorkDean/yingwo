@@ -358,7 +358,9 @@ static int start_id = 0;
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
                                                                     shouldShowKeyBoard:NO];
     replyVc.isFromMessage = YES;
-    replyVc.tieziModel = messageEntity;
+    TieZi *tieziModel = [[TieZi alloc] init];
+    replyVc.tieziModel = [self extractTieZi:tieziModel FromMessageEntity:messageEntity];
+    
     [self customPushToViewController:replyVc];
 }
 
@@ -373,5 +375,27 @@ static int start_id = 0;
     // Dispose of any resources that can be recreated.
 }
 
+-(TieZi *)extractTieZi:(TieZi *)tieziModel FromMessageEntity:(MessageEntity *)message {
+
+    TieZi *tiezi = [[TieZi alloc] init];
+
+    tiezi.tieZi_id              = message.post_detail_id;
+    tiezi.topic_id              = message.post_detail_topic_id;
+    tiezi.user_id               = message.post_detail_user_id;
+    tiezi.create_time           = message.post_detail_create_time;
+    tiezi.topic_title           = message.post_detail_topic_title;
+    tiezi.user_name             = message.post_detail_user_name;
+    tiezi.content               = message.post_detail_content;
+    tiezi.img                   = message.post_detail_img;
+    tiezi.user_face_img         = message.post_detail_user_face_img;
+    tiezi.like_cnt              = message.post_detail_like_cnt;
+    tiezi.reply_cnt             = message.post_detail_reply_cnt;
+    tiezi.user_post_like        = message.post_detail_user_post_like;
+    
+    tiezi.imageURLArr           = [NSString separateImageViewURLString:tiezi.img];
+    tiezi.imageUrlEntityArr     = [NSString separateImageViewURLStringToModel:tiezi.img];
+    
+    return tiezi;
+}
 
 @end

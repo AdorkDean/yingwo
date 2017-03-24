@@ -126,7 +126,7 @@
     
     btn = [self.buttons objectAtIndex:index];
     [btn setBackgroundImage:btn.selectedImage forState:UIControlStateNormal];
-
+    
     NSLog(@"show Selected index: %ld",(long)btn.tag);
 
 }

@@ -242,5 +242,4 @@ CGFloat lastPosition = -4;
     }
 }
 
-
 @end

@@ -77,9 +77,9 @@
     
     NSString *content                      = [NSString stringWithFormat:@"%@  %@",model.user_name,model.content];
     
-//    cell.bottomView.content.attributedText = [NSMutableAttributedString
-//                                              changeCommentContentWithString:content
-//                                              WithTextIndext:model.user_name.length+1];
+    cell.bottomView.content.attributedText = [NSMutableAttributedString
+                                              changeCommentContentWithString:content
+                                              WithTextIndext:model.user_name.length+1];
     
     cell.bottomView.content.attributedText = [NSMutableAttributedString changeContentWithText:content
                                                                                withTextIndext:model.user_name.length
