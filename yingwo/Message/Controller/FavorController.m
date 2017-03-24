@@ -42,7 +42,7 @@
     [super viewDidLoad];
     
     self.title = @"点赞";
-    
+    self.emptyRemindView.remindLabel.text = @"还没有人给你点赞哦~";
     self.requestEntity.URLString = MY_LIKED_URL;
 }
 
@@ -119,7 +119,7 @@
         message.comment_cnt    = [messageEntity.source_comment_cnt intValue];
         message.like_cnt       = messageEntity.source_like_cnt;
         
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }
     
@@ -130,6 +130,7 @@
     
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
                                                                     shouldShowKeyBoard:NO];
+    replyVc.isFromMessage = YES;
     [self.navigationController pushViewController:replyVc animated:YES];
 }
 

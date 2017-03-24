@@ -14,6 +14,8 @@
     self = [super init];
     if (self) {
         
+        self.height = 52.5;
+        
         UIImageView *leftImageView  = [[UIImageView alloc] init];
         UIImageView *rightImageView = [[UIImageView alloc] init];
         UILabel *textLabel          = [[UILabel alloc] init];

@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,ControllerType) {
+    TypeOfDetailVC,
+    TypeOfTAVC,
+    TypeOfTopicVC,
+    TypeOfReplyDetailVC,
+    TypeOfMyWebVC,
+    TypeOfTopicListVC,
+    TypeOfChatListVC,
+    TypeOfChatVC,
+};
+
 @class YWActivityIndicatorViewTools;
 /**
  *  这个类是代替ViewController的基础类
@@ -19,6 +30,11 @@
 @property (nonatomic, strong) UIBarButtonItem              *leftBarItem;
 
 @property (nonatomic, strong) YWActivityIndicatorViewTools *indicatorView;
+
+//controller需要穿进去的参数
+@property (nonatomic, strong) id                           parameter;
+
+- (instancetype)initWithParameter:(id)parameter;
 
 // three abstact methods, you should implements they  when you need
 - (void)createSubviews;

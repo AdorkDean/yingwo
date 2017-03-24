@@ -70,6 +70,8 @@
 
     _navgationTabBar = [[UIScrollView alloc] initWithFrame:CGRectMake(DOT_COORDINATE, DOT_COORDINATE, functionButtonX, NAV_TAB_BAR_HEIGHT)];
     _navgationTabBar.showsHorizontalScrollIndicator = NO;
+    _navgationTabBar.layer.borderColor = [UIColor colorWithHexString:BACKGROUND_COLOR].CGColor;
+    _navgationTabBar.layer.borderWidth = 0.8f;
     [self addSubview:_navgationTabBar];
     //隐藏navBar底部阴影
 //    [self viewShowShadow:self shadowRadius:4.0f shadowOpacity:10.0f];

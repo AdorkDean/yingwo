@@ -23,10 +23,12 @@
 @interface ReplyDetailController : BaseViewController
 
 @property (nonatomic, strong) TieZiReply  *model;
+@property (nonatomic, strong) TieZi       *tieziModel;
 
 @property (nonatomic, assign) CommentType commentType;
 
 @property (nonatomic, assign) BOOL        shouldShowKeyboard;
+@property (nonatomic, assign) BOOL        isFromMessage;
 
 - (instancetype)initWithReplyModel:(TieZiReply *)model shouldShowKeyBoard:(BOOL)yesOrNo;
 

@@ -16,8 +16,6 @@ static int start_id = 0;
 
 @property (nonatomic, strong) RequestEntity             *requestEntity;
 @property (nonatomic, strong) YWTopicScrView            *topicScrView;
-@property (nonatomic, strong) UILabel                   *noTieziLabel;
-
 @property (nonatomic, strong) SubjectPostViewModel      *subjectPostViewModel;
 @property (nonatomic, strong) NSArray                   *subjectArr;
 
@@ -70,6 +68,7 @@ static int start_id = 0;
     if (_topicScrView == nil) {
         _topicScrView = [[YWTopicScrView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35)];
         _topicScrView.Scrdelegate = self;
+
     }
     return _topicScrView;
 }
@@ -86,21 +85,7 @@ static int start_id = 0;
     self.tableView.sectionHeaderHeight = 35;
     self.tableView.tableHeaderView = self.topicScrView;
     
-    [self.subjectPostViewModel setupModelForFieldTopicOfCell:self.topicScrView model:self.subjectEntity];
-    
-}
-
--(UILabel *)noTieziLabel {
-    if (_noTieziLabel == nil) {
-        _noTieziLabel                = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 40)];
-        _noTieziLabel.text           = @"这个话题下还没有人发过帖子哦~";
-        _noTieziLabel.textAlignment  = NSTextAlignmentCenter;
-        _noTieziLabel.textColor      = [UIColor colorWithHexString:THEME_COLOR_3];
-        _noTieziLabel.font           = [UIFont systemFontOfSize:14];
-        
-        [self.tableView addSubview:_noTieziLabel];
-    }
-    return _noTieziLabel;
+    [self.subjectPostViewModel setupModelForFieldTopicOfCell:self.topicScrView model:self.subjectEntity];    
 }
 
 - (void)addRefreshForTableView {
@@ -170,7 +155,7 @@ static int start_id = 0;
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             
-            self.noTieziLabel.hidden = YES;
+            self.emptyRemindView.hidden = YES;
             
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
@@ -197,7 +182,7 @@ static int start_id = 0;
                 self.tieZiList = nil;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                self.noTieziLabel.hidden = NO;
+                self.emptyRemindView.hidden = NO;
             }
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];

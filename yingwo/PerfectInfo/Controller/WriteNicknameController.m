@@ -23,7 +23,7 @@
 
 - (InputTextField *)inputNameText {
     if (_inputNameText == nil) {
-        _inputNameText = [[InputTextField alloc] initWithLeftLabel:@"请输入你的昵称"];
+        _inputNameText = [[InputTextField alloc] initWithLeftLabel:@"请输入你的昵称(最多8个字符)"];
     }
     return _inputNameText;
 }

@@ -45,6 +45,7 @@
 #define TOKEN_KEY                    @"token"
 #define USERINFO_NOTIFICATION        @"userInfoNotification"
 #define USERINFO_NOTIFICATION_ACTIVE @"userInfoNotificationActive"
+#define PREVIEW_ANNOUNCE_NOTIFICATION @"showAnnounce"
 
 /********************************Notification************************************************/
 

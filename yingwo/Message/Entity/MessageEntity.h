@@ -80,6 +80,31 @@ typedef NS_ENUM(NSInteger, TieZiType) {
 
 @property (nonatomic, copy) NSString *follow_comment_cnt;
 
+/**
+ *  原帖信息
+ */
+@property (nonatomic, assign) int    post_detail_user_id;
+
+@property (nonatomic, assign) int    post_detail_topic_id;
+
+@property (nonatomic, copy) NSString *post_detail_content;
+
+@property (nonatomic, copy) NSString *post_detail_img;
+
 @property (nonatomic, assign) int    post_detail_create_time;
+
+@property (nonatomic, copy) NSString *post_detail_like_cnt;
+
+@property (nonatomic, copy) NSString *post_detail_reply_cnt;
+
+@property (nonatomic, assign) int    post_detail_top;
+
+@property (nonatomic, assign) int    post_detail_user_post_like;
+
+@property (nonatomic, copy) NSString *post_detail_user_name;
+
+@property (nonatomic, copy) NSString *post_detail_topic_title;
+
+@property (nonatomic, copy) NSString *post_detail_user_face_img;
 
 @end

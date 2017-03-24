@@ -37,32 +37,32 @@
 
 - (void)setHeaderRefreshWithCustomImages{
     
-    NSMutableArray *idleRefreshImages = [NSMutableArray arrayWithCapacity:10];
-    NSMutableArray *pullRefreshImages = [NSMutableArray arrayWithCapacity:27];
-    NSMutableArray *refreshImages = [NSMutableArray arrayWithCapacity:27];
-
-    for (int i = 0; i < 10; i ++) {
-        
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"buka_60x60_000%d",i]];
-        [idleRefreshImages addObject:image];
-    }
-    
-    for (int i = 10; i < 20; i ++) {
-        
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"buka_60x60_00%d",i]];
-        [pullRefreshImages addObject:image];
-    }
-    
-    for (int i = 10; i < 27; i ++) {
-        
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"buka_60x60_00%d",i]];
-        [pullRefreshImages addObject:image];
-    }
-    
-    [self setImages:idleRefreshImages forState:MJRefreshStateIdle];
-    [self setImages:pullRefreshImages forState:MJRefreshStatePulling];
-    [self setImages:refreshImages forState:MJRefreshStateWillRefresh];
-
+//    NSMutableArray *idleRefreshImages = [NSMutableArray arrayWithCapacity:10];
+//    NSMutableArray *pullRefreshImages = [NSMutableArray arrayWithCapacity:27];
+//    NSMutableArray *refreshImages = [NSMutableArray arrayWithCapacity:27];
+//
+//    for (int i = 0; i < 10; i ++) {
+//        
+//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"buka_60x60_000%d",i]];
+//        [idleRefreshImages addObject:image];
+//    }
+//    
+//    for (int i = 10; i < 20; i ++) {
+//        
+//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"buka_60x60_00%d",i]];
+//        [pullRefreshImages addObject:image];
+//    }
+//    
+//    for (int i = 10; i < 27; i ++) {
+//        
+//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"buka_60x60_00%d",i]];
+//        [pullRefreshImages addObject:image];
+//    }
+//    
+//    [self setImages:idleRefreshImages forState:MJRefreshStateIdle];
+//    [self setImages:pullRefreshImages forState:MJRefreshStatePulling];
+//    [self setImages:refreshImages forState:MJRefreshStateWillRefresh];
+//
 //    // Hide the time
 //    self.lastUpdatedTimeLabel.hidden = YES;
 //    

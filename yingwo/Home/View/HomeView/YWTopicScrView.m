@@ -19,12 +19,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
-        self.showsVerticalScrollIndicator = NO;
+        self.showsVerticalScrollIndicator   = NO;
         self.showsHorizontalScrollIndicator = NO;
-        self.directionalLockEnabled = YES;
+        self.directionalLockEnabled         = YES;
+        self.alwaysBounceHorizontal         = YES;
         
         self.backgroundColor = [UIColor colorWithHexString:BACKGROUND_COLOR];
-        
     }
     return self;
 }

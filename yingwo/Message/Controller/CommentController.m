@@ -14,7 +14,8 @@
 
 @interface CommentController ()
 
-@property (nonatomic, strong) MessageViewModel  *viewModel;
+@property (nonatomic, strong) MessageViewModel   *viewModel;
+
 
 @end
 
@@ -69,6 +70,15 @@ static int start_id = 0;
         _messageArr = [[NSMutableArray alloc] init];
     }
     return _messageArr;
+}
+
+-(YWEmptyRemindView *)emptyRemindView {
+    if (_emptyRemindView == nil) {
+        _emptyRemindView                 = [[YWEmptyRemindView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                            andText:@"还没有人评论你哦~"];
+        [self.tableView addSubview:_emptyRemindView];
+    }
+    return _emptyRemindView;
 }
 
 - (void)layoutSubview {
@@ -169,6 +179,7 @@ static int start_id = 0;
         //这里是倒序获取前10个
         if (messages.count > 0) {
             
+            self.emptyRemindView.hidden = YES;
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.messageArr = [messages mutableCopy];
@@ -196,7 +207,7 @@ static int start_id = 0;
                 self.messageArr = nil;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                
+                self.emptyRemindView.hidden = NO;
             }
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -271,14 +282,14 @@ static int start_id = 0;
     if ([messageEntity.follow_type isEqualToString:@"REPLY"]) {
         
         message.reply_id = messageEntity.follow_id;
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }
     //评论
     else if ([messageEntity.follow_type isEqualToString:@"COMMENT"]) {
         
         message.reply_id = messageEntity.follow_post_reply_id;
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
 
     }
     
@@ -303,7 +314,6 @@ static int start_id = 0;
     }
     //跟贴
     else if ([messageEntity.source_type isEqualToString:@"REPLY"]) {
-        
 
         //跟贴的source_post_reply_id是空的
 
@@ -313,7 +323,7 @@ static int start_id = 0;
         message.comment_cnt    = [messageEntity.source_comment_cnt intValue];
         message.like_cnt       = messageEntity.source_like_cnt;
         
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
 
     }
     //评论
@@ -322,7 +332,7 @@ static int start_id = 0;
         messageEntity.comment_cnt    = [messageEntity.source_comment_cnt intValue];
         messageEntity.like_cnt       = messageEntity.source_like_cnt;
         
-        [self jumpToReplyDetailPageWithModel:messageEntity];
+        [self jumpToReplyDetailPageWithModel:messageEntity andOriginalModel:messageEntity];
 
     }
 
@@ -343,10 +353,14 @@ static int start_id = 0;
 
 #pragma mark private
 
-- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message {
+- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message andOriginalModel:(MessageEntity *)messageEntity{
     
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
                                                                     shouldShowKeyBoard:NO];
+    replyVc.isFromMessage = YES;
+    TieZi *tieziModel = [[TieZi alloc] init];
+    replyVc.tieziModel = [self extractTieZi:tieziModel FromMessageEntity:messageEntity];
+    
     [self customPushToViewController:replyVc];
 }
 
@@ -361,5 +375,27 @@ static int start_id = 0;
     // Dispose of any resources that can be recreated.
 }
 
+-(TieZi *)extractTieZi:(TieZi *)tieziModel FromMessageEntity:(MessageEntity *)message {
+
+    TieZi *tiezi = [[TieZi alloc] init];
+
+    tiezi.tieZi_id              = message.post_detail_id;
+    tiezi.topic_id              = message.post_detail_topic_id;
+    tiezi.user_id               = message.post_detail_user_id;
+    tiezi.create_time           = message.post_detail_create_time;
+    tiezi.topic_title           = message.post_detail_topic_title;
+    tiezi.user_name             = message.post_detail_user_name;
+    tiezi.content               = message.post_detail_content;
+    tiezi.img                   = message.post_detail_img;
+    tiezi.user_face_img         = message.post_detail_user_face_img;
+    tiezi.like_cnt              = message.post_detail_like_cnt;
+    tiezi.reply_cnt             = message.post_detail_reply_cnt;
+    tiezi.user_post_like        = message.post_detail_user_post_like;
+    
+    tiezi.imageURLArr           = [NSString separateImageViewURLString:tiezi.img];
+    tiezi.imageUrlEntityArr     = [NSString separateImageViewURLStringToModel:tiezi.img];
+    
+    return tiezi;
+}
 
 @end

@@ -64,7 +64,7 @@ static int start_id = 0;
     [super viewDidLoad];
     
     self.title = @"我的点赞";
-    
+    self.emptyRemindView.remindLabel.text = @"还没有点过赞哦~";
     [self addRefreshForTableView];
 }
 
@@ -108,6 +108,7 @@ static int start_id = 0;
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
             
+            self.emptyRemindView.hidden = YES;
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.tieZiList = [tieZis mutableCopy];
@@ -134,7 +135,8 @@ static int start_id = 0;
                 self.tieZiList = nil;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                
+                self.emptyRemindView.hidden = NO;
+
             }
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];

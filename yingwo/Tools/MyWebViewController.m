@@ -36,6 +36,8 @@
                                                                SCREEN_WIDTH,
                                                                SCREEN_HEIGHT - self.navgationBarHeight)];
         _webView.delegate = self;
+        //网页自适应
+        _webView.scalesPageToFit = YES;
     }
     return _webView;
 }

@@ -24,6 +24,7 @@
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
 
+@property (nonatomic, strong) YWEmptyRemindView  *emptyRemindView;
 
 
 @end
@@ -123,6 +124,15 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
     return _topicEntity;
 }
 
+-(YWEmptyRemindView *)emptyRemindView {
+    if (_emptyRemindView == nil) {
+        _emptyRemindView                 = [[YWEmptyRemindView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                            andText:@"还没有关注话题哦~"];
+        [self.topicScrollView addSubview:_emptyRemindView];
+    }
+    return _emptyRemindView;
+}
+
 #pragma mark all action
 
 
@@ -193,6 +203,7 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
         [self.topicScrollView.mj_header endRefreshing];
         [self.topicTableView reloadData];
         [self resetFrameAndContentSize];
+        
     } error:^(NSError *error) {
         NSLog(@"%@",error.userInfo);
     }];
@@ -207,6 +218,11 @@ static NSString *TOPIC_CELL_IDENTIFIER = @"topicIdentifier";
                                                         10,
                                                         SCREEN_WIDTH - 20,
                                                         self.topicArr.count * 82 );
+    
+    if (!self.topicArr.count) {
+        self.emptyRemindView.hidden  = NO;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

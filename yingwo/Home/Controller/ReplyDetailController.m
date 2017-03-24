@@ -41,6 +41,9 @@
 
 @property (nonatomic, assign) CGFloat             keyboardHeight;
 
+@property (nonatomic, strong) UIBarButtonItem     *rightBarItem;
+
+
 @end
 
 @implementation ReplyDetailController
@@ -184,6 +187,13 @@ static NSString *replyCellIdentifier = @"replyCell";
         
     }
     return _compliantAlertView;
+}
+
+- (UIBarButtonItem *)rightBarItem {
+    if (_rightBarItem == nil) {
+        _rightBarItem = [[UIBarButtonItem alloc ] initWithTitle:@"查看原帖" style:UIBarButtonItemStylePlain target:self action:@selector(jumpToDetailVc)];
+    }
+    return _rightBarItem;
 }
 
 #pragma mark YWAlertButtonProtocol
@@ -394,6 +404,9 @@ static NSString *replyCellIdentifier = @"replyCell";
     }
     self.navigationItem.leftBarButtonItem  = self.leftBarItem;
     
+    if (self.isFromMessage) {
+        self.navigationItem.rightBarButtonItem = self.rightBarItem;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -641,7 +654,7 @@ static NSString *replyCellIdentifier = @"replyCell";
                          animations:^{
                              
                              self.tableView.frame = CGRectMake(0,
-                                                                     -(commentViewFrame.origin.y-self.commentView.frame.origin.y),
+                                                                     -(commentViewFrame.origin.y-self.commentView.frame.origin.y-self.navgationBarHeight),
                                                                      SCREEN_WIDTH,
                                                                      SCREEN_HEIGHT);
                              
@@ -893,6 +906,8 @@ static NSString *replyCellIdentifier = @"replyCell";
     WeakSelf(self);
     [self.viewModel setCommentReplySuccessBlock:^(StatusEntity *status) {
         
+        [SVProgressHUD dismiss];
+
         if (status.status == YES) {
             
             [weakself hiddenKeyboard];
@@ -905,7 +920,9 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     RequestEntity *request           = [[RequestEntity alloc] init];
     request.URLString                = TIEZI_COMMENT_URL;
-    request.parameter                = @{@"post_reply_id":@(self.model.reply_id),@"content":self.commentView.messageTextView.text};
+
+    self.commetparameter[@"content"] = self.commentView.messageTextView.text;
+    request.parameter                = self.commetparameter;
     
     [self.viewModel postCommentWithRequest:request];
     
@@ -967,6 +984,12 @@ static NSString *replyCellIdentifier = @"replyCell";
     [self.navigationController pushViewController:taVc animated:YES];
 }
 
+- (void)jumpToDetailVc {
+  
+    DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:self.tieziModel];
+    
+    [self customPushToViewController:detailVc];
+}
 
 #pragma mark 收起键盘
 - (void)hiddenKeyboard {

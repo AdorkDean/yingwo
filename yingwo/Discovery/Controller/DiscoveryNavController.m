@@ -89,21 +89,14 @@
     // 渐变
     style.gradualChangeTitleColor = YES;
     // 遮盖背景颜色
-    style.coverBackgroundColor = [UIColor colorWithHexString:THEME_COLOR_1];
-    
+    style.coverBackgroundColor = [UIColor whiteColor];
     //标题一般状态颜色 --- 注意一定要使用RGB空间的颜色值
-    style.normalTitleColor = [UIColor colorWithRed:34/255.0
-                                             green:211/255.0
-                                              blue:168/255.0
-                                             alpha:1.0];
+    style.normalTitleColor = [UIColor colorWithHexString:THEME_COLOR_3];
     
     //标题选中状态颜色 --- 注意一定要使用RGB空间的颜色值
-    style.selectedTitleColor = [UIColor colorWithRed:255/255.0
-                                               green:255/255.0
-                                                blue:255/255.0
-                                               alpha:1];
+    style.selectedTitleColor = [UIColor colorWithHexString:THEME_COLOR_1];
     
-    style.titleFont = [UIFont systemFontOfSize:16 weight:2];
+    style.titleFont = [UIFont systemFontOfSize:15 weight:1];
 
     self.titles = @[@"热议", @"版块"];
     
@@ -122,7 +115,7 @@
     }];
     // 自定义标题的样式
     segment.layer.cornerRadius     = 14.0;
-    segment.backgroundColor        = [UIColor whiteColor];
+    segment.backgroundColor        = [UIColor colorWithHexString:BACKGROUND_COLOR];
     
     // 当然推荐直接设置背景图片的方式
     // segment.backgroundImage = [UIImage imageNamed:@"extraBtnBackgroundImage"];

@@ -115,9 +115,6 @@ static int start_id = 0;
     
     [self.tableView.mj_header beginRefreshing];
     
-    if (self.remindLabel.hidden == NO) {
-        self.remindLabel.hidden = YES;
-    }
 }
 
 /**
@@ -125,6 +122,10 @@ static int start_id = 0;
  */
 - (void)loadDataWithRequestEntity:(RequestEntity *)requestEntity {
     
+    if (self.remindLabel.hidden == NO) {
+        self.remindLabel.hidden = YES;
+    }
+
     //检测登录状态
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSString *isExit            = [userDefault objectForKey:@"isUserInfoExit"];
@@ -158,7 +159,7 @@ static int start_id = 0;
 
         //这里是倒序获取前10个
         if (tieZis.count > 0) {
-            
+            self.emptyRemindView.hidden = YES;
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.tieZiList = [tieZis mutableCopy];
@@ -185,6 +186,8 @@ static int start_id = 0;
                 self.tieZiList = nil;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
+                self.emptyRemindView.hidden = NO;;
+
                 //显示新帖子View
                 //[self showNewTieziCount:self.badgeCount];
                 
@@ -238,6 +241,5 @@ CGFloat lastPosition = -4;
         }
     }
 }
-
 
 @end

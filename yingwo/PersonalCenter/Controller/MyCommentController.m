@@ -20,7 +20,6 @@
 @interface MyCommentController ()<UITableViewDelegate,UITableViewDataSource,YWMessageCellDelegate>
 
 @property (nonatomic, strong) UITableView        *tableView;
-
 @property (nonatomic, strong) MyCommentViewModel *viewModel;
 
 @property (nonatomic, strong) RequestEntity      *requestEntity;
@@ -28,6 +27,10 @@
 
 @property (nonatomic, strong) NSMutableArray     *messageArr;
 @property (nonatomic, strong) NSIndexPath        *selectedIndexPath;
+
+@property (nonatomic, strong) UILabel            *noTieziLabel;
+
+@property (nonatomic, strong) YWEmptyRemindView  *emptyRemindView;
 
 @end
 
@@ -75,6 +78,15 @@ static int start_id = 0;
         _messageArr = [[NSMutableArray alloc] init];
     }
     return _messageArr;
+}
+
+-(YWEmptyRemindView *)emptyRemindView {
+    if (_emptyRemindView == nil) {
+        _emptyRemindView                 = [[YWEmptyRemindView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                            andText:@"还没有评论过别人哦~"];
+        [self.tableView addSubview:_emptyRemindView];
+    }
+    return _emptyRemindView;
 }
 
 -(void)layoutSubviews {
@@ -153,6 +165,8 @@ static int start_id = 0;
         //这里是倒序获取前10个
         if (messages.count > 0) {
             
+            self.emptyRemindView.hidden = YES;
+
             if (type == 1) {
                 //   NSLog(@"tiezi:%@",tieZis);
                 self.messageArr = [messages mutableCopy];
@@ -178,7 +192,7 @@ static int start_id = 0;
                 self.messageArr = nil;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                
+                self.emptyRemindView.hidden = NO;
             }
             
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -240,14 +254,14 @@ static int start_id = 0;
     if ([messageEntity.follow_type isEqualToString:@"REPLY"]) {
         
         message.reply_id = messageEntity.follow_id;
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }
     //评论
     else if ([messageEntity.follow_type isEqualToString:@"COMMENT"]) {
         
         message.reply_id = messageEntity.follow_post_reply_id;
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }    
 }
@@ -260,7 +274,6 @@ static int start_id = 0;
 #pragma mark YWMessageCellDelegate
 
 - (void)didSelectedTieZi:(MessageEntity *)messageEntity {
-    
     
     //原贴
     if ([messageEntity.source_type isEqualToString:@"POST"]) {
@@ -276,13 +289,13 @@ static int start_id = 0;
         message.reply_id       = messageEntity.post_id;
         message.post_id        = messageEntity.post_detail_id;
         
-        [self jumpToReplyDetailPageWithModel:message];
+        [self jumpToReplyDetailPageWithModel:message andOriginalModel:messageEntity];
         
     }
     //评论
     else if ([messageEntity.source_type isEqualToString:@"COMMENT"]) {
         
-        [self jumpToReplyDetailPageWithModel:messageEntity];
+        [self jumpToReplyDetailPageWithModel:messageEntity andOriginalModel:messageEntity];
         
     }
 }
@@ -386,10 +399,22 @@ static int start_id = 0;
 }
 
 #pragma mark private
+- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message andOriginalModel:(MessageEntity *)messageEntity{
+    
+    ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
+                                                                    shouldShowKeyBoard:NO];
+    replyVc.isFromMessage = YES;
+    TieZi *tieziModel = [[TieZi alloc] init];
+    replyVc.tieziModel = [self extractTieZi:tieziModel FromMessageEntity:messageEntity];
+    
+    [self customPushToViewController:replyVc];
+}
+
 - (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message {
     
     ReplyDetailController *replyVc = [[ReplyDetailController alloc] initWithReplyModel:message
                                                                     shouldShowKeyBoard:NO];
+    replyVc.isFromMessage = YES;
     [self.navigationController pushViewController:replyVc animated:YES];
 }
 
@@ -399,4 +424,26 @@ static int start_id = 0;
     [self.navigationController pushViewController:detailVc animated:YES];
 }
 
+-(TieZi *)extractTieZi:(TieZi *)tieziModel FromMessageEntity:(MessageEntity *)message {
+    
+    TieZi *tiezi = [[TieZi alloc] init];
+    
+    tiezi.tieZi_id              = message.post_detail_id;
+    tiezi.topic_id              = message.post_detail_topic_id;
+    tiezi.user_id               = message.post_detail_user_id;
+    tiezi.create_time           = message.post_detail_create_time;
+    tiezi.topic_title           = message.post_detail_topic_title;
+    tiezi.user_name             = message.post_detail_user_name;
+    tiezi.content               = message.post_detail_content;
+    tiezi.img                   = message.post_detail_img;
+    tiezi.user_face_img         = message.post_detail_user_face_img;
+    tiezi.like_cnt              = message.post_detail_like_cnt;
+    tiezi.reply_cnt             = message.post_detail_reply_cnt;
+    tiezi.user_post_like        = message.post_detail_user_post_like;
+    
+    tiezi.imageURLArr           = [NSString separateImageViewURLString:tiezi.img];
+    tiezi.imageUrlEntityArr     = [NSString separateImageViewURLStringToModel:tiezi.img];
+    
+    return tiezi;
+}
 @end

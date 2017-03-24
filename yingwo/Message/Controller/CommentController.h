@@ -26,6 +26,10 @@
 
 @property (nonatomic, strong) NSMutableArray    *messageArr;
 
+@property (nonatomic, strong) YWEmptyRemindView  *emptyRemindView;
+
+- (void)jumpToReplyDetailPageWithModel:(MessageEntity *)message andOriginalModel:(MessageEntity *)messageEntity;
+
 @end
 
 

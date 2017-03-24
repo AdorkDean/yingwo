@@ -12,11 +12,11 @@
 
 typedef NS_ENUM(NSInteger,RelationType) {
     FriendRelationShip = 1,
-    ConcernRelationShip,
-    FansRelationShip,
-    VisitorRelationShip,
-    HisRelationShip,
-    HisFansRelationShip
+    ConcernRelationShip = 2,
+    FansRelationShip = 3,
+    VisitorRelationShip = 4,
+    HisRelationShip = 5,
+    HisFansRelationShip = 6
 };
 
 @interface MyRelationshipBaseController : BaseViewController
