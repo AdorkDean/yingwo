@@ -71,7 +71,7 @@ const int FavourNumLabelTag = 101;
     [self addSubview:_headImageView];
     [self addSubview:_nickname];
     [self addSubview:_time];
-    [self addSubview:_academy];
+//    [self addSubview:_academy];
     [self addSubview:_sexImageView];
     [self addSubview:_favour];
     [self addSubview:_message];
@@ -102,10 +102,10 @@ const int FavourNumLabelTag = 101;
         make.top.equalTo(_nickname.mas_bottom).offset(7.5);
     }];
     
-    [_academy mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_time);
-        make.left.equalTo(_time.mas_right).offset(5);
-    }];
+//    [_academy mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_time);
+//        make.left.equalTo(_time.mas_right).offset(5);
+//    }];
     
     [_more mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_headImageView);

@@ -149,7 +149,7 @@
 - (void)customPushToViewController:(UIViewController *)controller {
     
     CATransition *transition  = [CATransition animation];
-    transition.duration       = 1.0f;
+    transition.duration       = 0.8f;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     transition.type           = @"rippleEffect";
     transition.subtype        = kCATransitionFromRight;
@@ -164,7 +164,7 @@
 - (void)customPopToForward {
     
     CATransition *transition  = [CATransition animation];
-    transition.duration       = 1.0f;
+    transition.duration       = 0.8f;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     transition.type           = @"rippleEffect";
     transition.subtype        = kCATransitionFromRight;

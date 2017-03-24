@@ -233,11 +233,11 @@
 
 - (void)showAnnounce {
     
-    if ([self.view.window.rootViewController isMemberOfClass:[MainController class]]) {
-        
+//    if ([self.view.window.rootViewController isMemberOfClass:[MainController class]]) {
+    
         [self presentViewController:self.announceVCNav animated:YES completion:nil];
 
-    }
+//    }
     
 
 }

@@ -92,52 +92,8 @@
                               placeholderImage:nil];
         
         //这里注意未关注前user_post_like的初始值为为null，关注后才为1，取消后为0
-        
-//        Customer *user = [User findCustomer];
-//        if ([user.userId intValue] == self.user_id) {
-//            
-//            [cell.rightBtn addTarget:self
-//                              action:@selector(cancelLike:)
-//                    forControlEvents:UIControlEventTouchUpInside];
-//            
-//            [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
-//                                     forState:UIControlStateNormal];
-//        } else {
-//        
-//            if (model.user_topic_like != nil && [model.user_topic_like intValue] == 0) {
-//                
-//                [cell.rightBtn addTarget:self
-//                                  action:@selector(addLike:)
-//                        forControlEvents:UIControlEventTouchUpInside];
-//                
-//                [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
-//                                         forState:UIControlStateNormal];
-//                
-//            } else {
-//            
-//                        [cell.rightBtn addTarget:self
-//                                          action:@selector(cancelLike:)
-//                                forControlEvents:UIControlEventTouchUpInside];
-//            
-//                        [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
-//                                                 forState:UIControlStateNormal];
-//            
-//            
-//                    }
-//        }
-        
-        if ([model.status intValue] == 0) {
-
-            [cell.rightBtn addTarget:self
-                              action:@selector(addLike:)
-                    forControlEvents:UIControlEventTouchUpInside];
-            
-            [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
-                                     forState:UIControlStateNormal];
-
-        }
-        else
-        {
+        Customer *user = [User findCustomer];
+        if ([user.userId intValue] == self.user_id) {
             
             [cell.rightBtn addTarget:self
                               action:@selector(cancelLike:)
@@ -145,9 +101,52 @@
             
             [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
                                      forState:UIControlStateNormal];
-
-
+        } else {
+        
+            if (model.user_topic_like != nil && [model.user_topic_like intValue] == 0) {
+                
+                [cell.rightBtn addTarget:self
+                                  action:@selector(addLike:)
+                        forControlEvents:UIControlEventTouchUpInside];
+                
+                [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
+                                         forState:UIControlStateNormal];
+                
+            } else {
+            
+                        [cell.rightBtn addTarget:self
+                                          action:@selector(cancelLike:)
+                                forControlEvents:UIControlEventTouchUpInside];
+            
+                        [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
+                                                 forState:UIControlStateNormal];
+            
+            
+                    }
         }
+        
+//        if ([model.user_topic_like intValue] == 0) {
+//
+//            [cell.rightBtn addTarget:self
+//                              action:@selector(addLike:)
+//                    forControlEvents:UIControlEventTouchUpInside];
+//            
+//            [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"weiguanzhu"]
+//                                     forState:UIControlStateNormal];
+//
+//        }
+//        else
+//        {
+//            
+//            [cell.rightBtn addTarget:self
+//                              action:@selector(cancelLike:)
+//                    forControlEvents:UIControlEventTouchUpInside];
+//            
+//            [cell.rightBtn setBackgroundImage:[UIImage imageNamed:@"yiguanzhu"]
+//                                     forState:UIControlStateNormal];
+//
+//
+//        }
 }
     
 }
