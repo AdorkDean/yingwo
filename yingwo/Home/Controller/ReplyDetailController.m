@@ -891,7 +891,7 @@ static NSString *replyCellIdentifier = @"replyCell";
     
     self.commentType                        = TieZiCommentModel;
     
-    self.commetparameter[@"post_reply_id"] = @(self.model.post_id);
+    self.commetparameter[@"post_reply_id"] = @(self.model.reply_id);
     
     [self.commentView.messageTextView becomeFirstResponder];
 }
