@@ -58,9 +58,9 @@ UIWindow *originWindow;
 -(NSString*) extractContentLabel:(NSDictionary*)userInfo{
     NSObject *alertValue = userInfo[@"aps"][@"alert"];
     
-    if ([alertValue isKindOfClass:[NSString class]])
-        return alertValue;
-    
+    if ([alertValue isKindOfClass:[NSString class]]){
+        return (NSString *)alertValue;
+    }
     
     if ([alertValue isKindOfClass:[NSDictionary class]]){
         NSString *locKey = ((NSDictionary*)alertValue)[@"loc-key"];

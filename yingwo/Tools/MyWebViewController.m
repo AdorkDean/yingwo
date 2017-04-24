@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NJKWebViewProgress            *progressProxy;
 @property (nonatomic, assign) CGFloat                       navgationBarHeight;
 
+@property (nonatomic, strong) UIBarButtonItem               *backItem;
+@property (nonatomic, strong) UIBarButtonItem               *closeItem;
 
 @end
 
@@ -48,12 +50,18 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18 weight:1]}];
 
+    //初始化返回和关闭按钮
+    self.backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nva_con"]
+                                                     style:UIBarButtonItemStylePlain
+                                                    target:self
+                                                    action:@selector(backToLastView)];
     
-    self.navigationItem.leftBarButtonItem       = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"nva_con"]
-                                                                                        style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(backToLastView)];
-
+    self.closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭"
+                                                      style:UIBarButtonItemStylePlain
+                                                     target:self
+                                                     action:@selector(CloseTheView)];
+    
+    [self setLeftBarItems];
     
     self.progressProxy                          = [[NJKWebViewProgress alloc] init];
     self.webView.delegate                       = self.progressProxy;
@@ -71,8 +79,17 @@
     
     [self loadPage];
 }
-
+//返回上一个页面
 - (void)backToLastView {
+    
+    if ([self.webView canGoBack]) {
+        [self.webView goBack];
+    }else{
+        [self CloseTheView];
+    }
+}
+//关闭
+- (void)CloseTheView {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -80,6 +97,15 @@
 
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:_url];
     [self.webView loadRequest:req];
+}
+
+//设置左上角item
+- (void)setLeftBarItems {
+    if ([self.webView canGoBack]) {
+        self.navigationItem.leftBarButtonItems = @[self.backItem,self.closeItem];
+    }else {
+        self.navigationItem.leftBarButtonItems = @[self.backItem];
+    }
 }
 
 - (CGFloat)navgationBarHeight {
@@ -108,6 +134,13 @@
     return YES;
 }
 
+-(void)webViewDidStartLoad:(UIWebView *)webView {
+    [self setLeftBarItems];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self setLeftBarItems];
+}
 
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress {

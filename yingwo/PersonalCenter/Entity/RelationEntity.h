@@ -19,5 +19,4 @@
 @property (nonatomic, copy) NSString *user_face_img;
 
 
-
 @end

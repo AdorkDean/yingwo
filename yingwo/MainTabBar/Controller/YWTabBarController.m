@@ -78,44 +78,6 @@
     
 }
 
-- (void)hidesTabBar:(BOOL)yesOrNo animated:(BOOL)animated {
-    
-    //动画隐藏
-    if (animated == yesOrNo) {
-        if (yesOrNo == YES) {
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                [self.tabBar mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view);
-                    make.top.equalTo(self.view.mas_bottom).offset(TAB_BAR_MARGIN_TOP);
-                }];
-                [self.tabBar layoutIfNeeded];
-            }];
-            
-        }else {
-                [self.tabBar mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view);
-                    make.bottom.equalTo(self.view.mas_bottom).offset(TAB_BAR_MARGIN_TOP);
-                }];
-                [self.tabBar layoutIfNeeded];
-        }
- 
-    }else {
-        if (yesOrNo == YES)
-        {
-            [self.tabBar mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.view);
-                make.top.equalTo(self.view.mas_bottom).offset(TAB_BAR_MARGIN_TOP);
-            }];
-            [self.tabBar layoutIfNeeded];
-        }
-        else
-        {
-
-        }
-    }
-}
-
 - (void)insertViewController:(UIViewController *)vc withImageDic:(NSDictionary *)dict atIndex:(NSUInteger)index {
     //[_viewControllers insertObject:vc atIndex:index];
     //_tabBar inse
@@ -210,7 +172,6 @@
         
         make.centerX.equalTo(viewController.view);
         make.bottom.equalTo(viewController.view.mas_bottom).offset(-8).priorityLow();
-
     }];
 }
 

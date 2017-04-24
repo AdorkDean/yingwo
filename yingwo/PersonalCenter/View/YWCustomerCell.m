@@ -50,7 +50,7 @@
         }];
         
         [_badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(rightImageView.mas_left);
+            make.right.equalTo(rightImageView.mas_left).offset(-15);
             make.centerY.equalTo(self);
         }];
         

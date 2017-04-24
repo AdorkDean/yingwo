@@ -168,7 +168,6 @@
     DetailController *detailVc = [[DetailController alloc] initWithTieZiModel:model];
     [self customPushToViewController:detailVc];
     
-    
 }
 
 #pragma mark DiscoveryControllerDelegate

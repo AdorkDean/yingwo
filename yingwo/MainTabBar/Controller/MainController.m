@@ -168,6 +168,7 @@
 //        self.homeVC.allPostController.item_id = [item_id intValue];
         
         [self showDiscoveryPage];
+        [self.discoveryNavVC pushBlock];
     }
     
 }
@@ -190,7 +191,6 @@
         
         if (self.isOnHomePage) {
             
-//            [self refreshHomeVC];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"刷新" object:nil];
             
         }else {

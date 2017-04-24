@@ -47,6 +47,12 @@
 
 - (UIBarButtonItem *)rightBarItem {
     if (_rightBarItem == nil) {
+//        UIView *rightBarItemContainer       = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+//        UIButton *rightBarBtn           = [[UIButton alloc] initWithFrame:rightBarItemContainer.bounds];
+//        [rightBarBtn setBackgroundImage:[UIImage imageNamed:@"magni"] forState:UIControlStateNormal];
+////        [rightBarBtn addTarget:self action:@selector(nil) forControlEvents:UIControlEventTouchUpInside];
+//        [rightBarItemContainer addSubview:rightBarBtn];
+//        _rightBarItem = [[UIBarButtonItem alloc ] initWithCustomView:rightBarItemContainer];
         _rightBarItem = [[UIBarButtonItem alloc ]initWithImage:[UIImage imageNamed:@"magni"]
                                                          style:UIBarButtonItemStylePlain
                                                         target:self
