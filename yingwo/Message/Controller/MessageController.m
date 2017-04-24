@@ -81,13 +81,19 @@
     [self layoutSubviews];
     
     [self initDataSource];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];    
+    [super viewWillAppear:animated];
     self.title = @"我的消息";
 
     [self clearBubRedDot];
+}
+
+-(void)viewDidLayoutSubviews{
+    
+    self.view.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
 }
 
 - (void)creatSubviews {
@@ -96,7 +102,7 @@
     
     //设置tableView样式
     self.conversationListTableView.backgroundColor              = [UIColor colorWithHexString:BACKGROUND_COLOR];
-    self.conversationListTableView.frame                        = CGRectMake(10, 0,
+    self.conversationListTableView.frame                        = CGRectMake(10, -64,
                                                                              SCREEN_WIDTH - 20,
                                                                              SCREEN_HEIGHT);
     self.conversationListTableView.tableHeaderView              = self.messageHeaderView;
@@ -106,6 +112,8 @@
     
     // 设置在NavigatorBar中显示连接中的提示
     self.showConnectingStatusOnNavigatorBar = YES;
+    //聊天列表为空时显示的view
+    self.emptyConversationView = [[YWEmptyRemindView alloc] initWithFrame:CGRectMake(0, 180, SCREEN_WIDTH, SCREEN_HEIGHT-180) andText:@"这里还没有聊天哦~"];
     //设置头像圆角
     [self setConversationAvatarStyle:RC_USER_AVATAR_CYCLE];
     
@@ -204,7 +212,6 @@
     [self clearBubRedDot];
     
     CommentController *commentVc = [[CommentController alloc] init];
-    
     [self.navigationController pushViewController:commentVc animated:YES];
 
 }

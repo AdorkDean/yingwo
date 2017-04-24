@@ -340,8 +340,6 @@ static int start_id = 0;
 
 - (void)deleteReplyOrComment {
     
-    RequestEntity *request = [[RequestEntity alloc] init];
-
     WeakSelf(self);
     [self.viewModel setDeleteReplySuccessBlock:^(StatusEntity *statusEntity) {
         
@@ -379,18 +377,19 @@ static int start_id = 0;
         
     }];
     
+    RequestEntity *request = [[RequestEntity alloc] init];
     //网络请求
     if ([self.messageEntity.follow_type isEqualToString:@"REPLY"]) {
         
         request.URLString = TIEZI_REPLY_DEL_URL;
-        request.parameter = @{@"reply_id":@(self.messageEntity.reply_id)};
+        request.parameter = @{@"reply_id":@(self.messageEntity.follow_id)};
         
         [self.viewModel deleteReplyWithRequest:request];
         
     }else if([self.messageEntity.follow_type isEqualToString:@"COMMENT"]) {
         
         request.URLString = TIEZI_COMMENT_DEL_URL;
-        request.parameter = @{@"comment_id":@(self.messageEntity.reply_id)};
+        request.parameter = @{@"comment_id":@(self.messageEntity.follow_id)};
         
         [self.viewModel deleteCommentWithRequest:request];
     }

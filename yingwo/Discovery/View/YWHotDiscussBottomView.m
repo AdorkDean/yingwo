@@ -109,10 +109,10 @@
 
         if (i < imageURLArr.count) {
             
-            
-            [imageView sd_setImageWithURL:[NSURL URLWithString:[imageURLArr objectAtIndex:i]]
-                         placeholderImage:[UIImage imageNamed:@"ying"]];
-            
+            if ([imageURLArr objectAtIndex:i] != nil) {
+                [imageView sd_setImageWithURL:[NSURL URLWithString:[imageURLArr objectAtIndex:i]]
+                             placeholderImage:[UIImage imageNamed:@"ying"]];
+            }
 
         }
         else {

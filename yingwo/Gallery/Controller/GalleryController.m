@@ -485,7 +485,6 @@
         if (yesOrNo == YES)
         {
             tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT);
-            
         }
         
     }
@@ -500,6 +499,7 @@
             [UIView animateWithDuration:0.3 animations:^{
                 
                 tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT-tabBar.height*2+4);
+
             }];
             
         }
@@ -507,7 +507,6 @@
         if (yesOrNo == YES)
         {
             tabBar.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT-tabBar.height*2+4);
-            
         }
         
     }

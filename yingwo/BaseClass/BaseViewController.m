@@ -148,13 +148,13 @@
  */
 - (void)customPushToViewController:(UIViewController *)controller {
     
-    CATransition *transition  = [CATransition animation];
-    transition.duration       = 0.8f;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    transition.type           = @"rippleEffect";
-    transition.subtype        = kCATransitionFromRight;
-
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+//    CATransition *transition  = [CATransition animation];
+//    transition.duration       = 0.8f;
+//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+//    transition.type           = @"rippleEffect";
+//    transition.subtype        = kCATransitionFromRight;
+//
+//    [self.navigationController.view.layer addAnimation:transition forKey:nil];
     
     [self.navigationController pushViewController:controller animated:YES];
     
@@ -163,13 +163,13 @@
 
 - (void)customPopToForward {
     
-    CATransition *transition  = [CATransition animation];
-    transition.duration       = 0.8f;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    transition.type           = @"rippleEffect";
-    transition.subtype        = kCATransitionFromRight;
-    
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+//    CATransition *transition  = [CATransition animation];
+//    transition.duration       = 0.8f;
+//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+//    transition.type           = @"rippleEffect";
+//    transition.subtype        = kCATransitionFromRight;
+//    
+//    [self.navigationController.view.layer addAnimation:transition forKey:nil];
     
     [self.navigationController popViewControllerAnimated:YES];
     

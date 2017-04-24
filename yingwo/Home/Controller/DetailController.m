@@ -759,9 +759,9 @@ static NSString *detailReplyCellIdentifier = @"replyCell";
     
 }
 
-- (void)didSelectMoreCommentBtnWith:(UIButton *)btn {
+- (void)didSelectMoreCommentLabelWith:(UIView *)tapView {
     
-    YWDetailReplyCell *cell  = (YWDetailReplyCell *)btn.superview.superview.superview.superview;
+    YWDetailReplyCell *cell  = (YWDetailReplyCell *)tapView.superview.superview.superview.superview;
     self.isMessage = NO;
     [self didSelectReplyCell:cell];
 

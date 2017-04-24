@@ -302,7 +302,6 @@
 		18F4C7DE1E4854B200BA3F43 /* YWShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F4C7D71E4854B200BA3F43 /* YWShareView.m */; };
 		18FE9D931E529D3A000E162F /* FollowTieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9D921E529D3A000E162F /* FollowTieController.m */; };
 		B243CD67F346DCA423FA5C69 /* Pods_yingwo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */; };
-		CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC056BFE1DB0ABA800613F27 /* Assets.xcassets */; };
 		CC1451E11E7FBE6100EF26B9 /* YWEmptyRemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1451E01E7FBE6100EF26B9 /* YWEmptyRemindView.m */; };
 		CC3AD48B1DCC522500874834 /* YWTaFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3AD48A1DCC522500874834 /* YWTaFollowView.m */; };
 		CC3E18DA1E66EF4300E67241 /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = CC3E18D91E66EF4300E67241 /* Podfile.lock */; };
@@ -314,6 +313,8 @@
 		CC3E19451E6C3A8600E67241 /* YWTopicScrView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E19441E6C3A8600E67241 /* YWTopicScrView.m */; };
 		CC4CDE461D9D04A0002A80B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4CDE421D9D04A0002A80B0 /* main.m */; };
 		CC4CDE481D9D04A0002A80B0 /* YingwoUserClause.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */; };
+		CC6DC0BA1E8A2B65007AC39B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6DC0B91E8A2B65007AC39B /* StoreKit.framework */; };
+		CC6DC0BC1E8BEE74007AC39B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC6DC0BB1E8BEE74007AC39B /* Assets.xcassets */; };
 		CCF17ED61E6D7BDD0063E1E5 /* SubjectPostViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF17ED51E6D7BDD0063E1E5 /* SubjectPostViewModel.m */; };
 		CCF64E7B1DC095FE009B4B21 /* TAController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7A1DC095FE009B4B21 /* TAController.m */; };
 		CCF64E7E1DC0A5FF009B4B21 /* YWTaHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF64E7D1DC0A5FF009B4B21 /* YWTaHeaderView.m */; };
@@ -913,7 +914,6 @@
 		36F7A65220E9B448DF920CAE /* Pods-yingwo.release copy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release copy.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release copy.xcconfig"; sourceTree = "<group>"; };
 		69C6E85D3726B6406D9D24EA /* Pods-yingwo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.release.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.release.xcconfig"; sourceTree = "<group>"; };
 		895FD10AFDF01E976E08D2E4 /* Pods-yingwo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingwo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yingwo/Pods-yingwo.debug.xcconfig"; sourceTree = "<group>"; };
-		CC056BFE1DB0ABA800613F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = yingwo/Assets.xcassets; sourceTree = "<group>"; };
 		CC1451DF1E7FBE6100EF26B9 /* YWEmptyRemindView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWEmptyRemindView.h; sourceTree = "<group>"; };
 		CC1451E01E7FBE6100EF26B9 /* YWEmptyRemindView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWEmptyRemindView.m; sourceTree = "<group>"; };
 		CC39DC9DC8199F55CEE6F210 /* Pods_yingwo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yingwo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -934,6 +934,8 @@
 		CC3E19441E6C3A8600E67241 /* YWTopicScrView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWTopicScrView.m; sourceTree = "<group>"; };
 		CC4CDE421D9D04A0002A80B0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Support/main.m; sourceTree = "<group>"; };
 		CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = YingwoUserClause.txt; path = Support/YingwoUserClause.txt; sourceTree = "<group>"; };
+		CC6DC0B91E8A2B65007AC39B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		CC6DC0BB1E8BEE74007AC39B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCF17ED41E6D7BDD0063E1E5 /* SubjectPostViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPostViewModel.h; sourceTree = "<group>"; };
 		CCF17ED51E6D7BDD0063E1E5 /* SubjectPostViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPostViewModel.m; sourceTree = "<group>"; };
 		CCF64E791DC095FE009B4B21 /* TAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAController.h; sourceTree = "<group>"; };
@@ -957,6 +959,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC6DC0BA1E8A2B65007AC39B /* StoreKit.framework in Frameworks */,
 				18409F4B1E45D0100029B49E /* SystemConfiguration.framework in Frameworks */,
 				18409F491E45D0050029B49E /* AddressBook.framework in Frameworks */,
 				1803C1211D541F350078EF0F /* AssetsLibrary.framework in Frameworks */,
@@ -1386,7 +1389,6 @@
 				181E341F1D93E3F800A6283C /* Podfile */,
 				CC3E18D91E66EF4300E67241 /* Podfile.lock */,
 				18AFE5E61D30B7E1007BEBDE /* yingwo */,
-				CC056BFE1DB0ABA800613F27 /* Assets.xcassets */,
 				18AFE5E51D30B7E1007BEBDE /* Products */,
 				DBBC918793434E4B01B8CAB1 /* Frameworks */,
 				8DC42DE2E99935E3190B4E74 /* Pods */,
@@ -1445,6 +1447,7 @@
 				18AFE5FB1D30B7E2007BEBDE /* Info.plist */,
 				CC4CDE421D9D04A0002A80B0 /* main.m */,
 				CC4CDE451D9D04A0002A80B0 /* YingwoUserClause.txt */,
+				CC6DC0BB1E8BEE74007AC39B /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2625,6 +2628,7 @@
 		DBBC918793434E4B01B8CAB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC6DC0B91E8A2B65007AC39B /* StoreKit.framework */,
 				18409FCD1E45D41B0029B49E /* libresolv.tbd */,
 				18409F4A1E45D0100029B49E /* SystemConfiguration.framework */,
 				18409F481E45D0050029B49E /* AddressBook.framework */,
@@ -2707,12 +2711,12 @@
 				18AFE5FA1D30B7E2007BEBDE /* LaunchScreen.storyboard in Resources */,
 				18F4C7511E4849DE00BA3F43 /* EffectImage.png in Resources */,
 				18A075F61E3E27B900C4159D /* Main.storyboard in Resources */,
+				CC6DC0BC1E8BEE74007AC39B /* Assets.xcassets in Resources */,
 				CC3E18DA1E66EF4300E67241 /* Podfile.lock in Resources */,
 				CC3E193F1E6A74E700E67241 /* SCNavTabBar.bundle in Resources */,
 				18F4C7AF1E4849DE00BA3F43 /* MXScrollView.bundle in Resources */,
 				18F4C7521E4849DE00BA3F43 /* UnZan.png in Resources */,
 				18F4C7991E4849DE00BA3F43 /* ISEmojiList.plist in Resources */,
-				CC056BFF1DB0ABA800613F27 /* Assets.xcassets in Resources */,
 				18F4C7531E4849DE00BA3F43 /* Zan.png in Resources */,
 				18F4C7B91E4849DE00BA3F43 /* TZImagePickerController.bundle in Resources */,
 				18F4C7D81E4854B200BA3F43 /* UMSocialSDKResources.bundle in Resources */,
@@ -3196,7 +3200,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3309,7 +3313,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3426,7 +3430,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8P2DS22MA9;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

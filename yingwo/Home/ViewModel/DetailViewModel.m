@@ -230,8 +230,7 @@
         self.imageUrlEntity      = entities;
         
         [cell addImageViewByImageArr:entities];
-    }
-    
+    }    
     //加载评论
     if (model.commentArr.count > 0) {
         NSMutableArray *entities = [NSMutableArray arrayWithArray:model.commentArr];

@@ -9,6 +9,8 @@
 #define YWCacheFile [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"default"]
 
 #import "ConfigurationController.h"
+#import <StoreKit/StoreKit.h>
+
 #import "YWConfigurationCell.h"
 #import "ClauseViewController.h"
 #import "AboutUsController.h"
@@ -316,9 +318,10 @@
 }
 
 - (void)jumpToPointPage {
-    NSString * url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",@"1106325073"];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+//    NSString * url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",@"1106325073"];
+//    
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [SKStoreReviewController requestReview];
 }
 
 - (void)jumpToAdvicePage {

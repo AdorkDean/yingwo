@@ -165,27 +165,6 @@
     
     NSInteger count = commentArr.count > 3 ? 3 : commentArr.count;
     
-    UIButton *moreBtn;
-    if (commentArr.count > 3) {
-        
-        moreBtn                 = [UIButton buttonWithType:UIButtonTypeCustom];
-        moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-
-        // 获取replyId
-        TieZiComment *entity    = [commentArr objectAtIndex:0];
-
-        moreBtn.tag             = [entity.post_reply_id integerValue];
-        
-        [moreBtn setTitleColor:[UIColor colorWithHexString:THEME_COLOR_1] forState:UIControlStateNormal];
-        [moreBtn setTitle:@"查看更多评论" forState:UIControlStateNormal];
-
-        [moreBtn addTarget:self
-                    action:@selector(selectMoreCommetBtn:)
-          forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.bgCommentView addSubview:moreBtn];
-    }
-    
     for (int i = 0; i < count; i ++) {
         
         TieZiComment *entity            = [commentArr objectAtIndex:i];
@@ -285,25 +264,37 @@
         lastView = commentView;
     }
     
-    if (moreBtn != nil) {
+    UILabel *moreReplyBtn;
+    if (commentArr.count > 3) {
+        
+        moreReplyBtn                    = [[UILabel alloc] init];
+        moreReplyBtn.font               = [UIFont systemFontOfSize:13];
+        moreReplyBtn.textColor          =[UIColor colorWithHexString:THEME_COLOR_1];
+        // 获取replyId
+        TieZiComment *entity            = [commentArr objectAtIndex:0];
+        
+        moreReplyBtn.tag                = [entity.post_reply_id integerValue];
+        
+        moreReplyBtn.text               = @"查看更多评论";
+        
+        [moreReplyBtn addTapAction:@selector(selectMoreCommetLabel:) target:self];
+
+        [self.bgCommentView addSubview:moreReplyBtn];
         
         [lastView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(moreBtn.mas_top).offset(-10).priorityLow();
+            make.bottom.equalTo(moreReplyBtn.mas_top).offset(-10).priorityLow();
         }];
         
-        [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [moreReplyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.bgCommentView);
             make.bottom.equalTo(self.bgCommentView.mas_bottom).offset(-10).priorityLow();
         }];
-    }
-    else
-    {
+
+    }else {
         [lastView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.bgCommentView.mas_bottom).offset(-10).priorityLow();
         }];
     }
-
-
 }
 
 #pragma mark YWCommentViewDelegate
@@ -343,10 +334,12 @@
 }
 
 
-- (void)selectMoreCommetBtn:(UIButton *)btn {
+- (void)selectMoreCommetLabel:(UITapGestureRecognizer *)sender {
     
-    if ([self.delegate respondsToSelector:@selector(didSelectMoreCommentBtnWith:)]) {
-        [self.delegate didSelectMoreCommentBtnWith:btn];
+    UIView *tapView = (UIView *)[sender view];
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectMoreCommentLabelWith:)]) {
+        [self.delegate didSelectMoreCommentLabelWith:tapView];
     }
     
 }
