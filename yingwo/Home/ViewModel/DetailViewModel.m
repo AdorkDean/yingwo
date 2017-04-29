@@ -324,7 +324,7 @@
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType
                                         messageObject:messageObject
-                                currentViewController:self completion:^(id data, NSError *error) {
+                                currentViewController:nil completion:^(id data, NSError *error) {
                                     
                                     if (error) {
                                         UMSocialLogInfo(@"************Share fail with error %@*********",error);
@@ -357,7 +357,7 @@
     messageObject.text = [NSString stringWithFormat:@"%@···(%@的贴子,分享自@应我校园) https://share.yingwoo.com/share/post/%d #校内事，一起聊#",share_descr, model.user_name,model.tieZi_id];
     
     //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
         if (error) {
             NSLog(@"************Share fail with error %@*********",error);
         }else{
